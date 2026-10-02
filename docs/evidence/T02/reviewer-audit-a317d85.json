@@ -1,0 +1,298 @@
+{
+  "sha": "a317d856f51648a39fbcac33010c03bb8c7723b5",
+  "checkedAt": "2026-10-02T17:22:56.693Z",
+  "files": [
+    {
+      "path": "dist\\404.html",
+      "bytes": 8877,
+      "sha256": "b695525dd529442c5a7d73592152c0a1b2cfb673b123a12405de1cbd80337bef"
+    },
+    {
+      "path": "dist\\dong-hanh\\index.html",
+      "bytes": 9319,
+      "sha256": "4d94672e65c0812fdeb643b943e781ac337dd659f00770f6e6fb94f23093a670"
+    },
+    {
+      "path": "dist\\du-an\\mang-theo-mot-net-ve\\index.html",
+      "bytes": 31891,
+      "sha256": "ae65a8c646b0bc23a11f55498874fb656215fc52dc4ff620dcf075eecfe7b8f0"
+    },
+    {
+      "path": "dist\\favicon.svg",
+      "bytes": 703,
+      "sha256": "cf5a6109d12aead474ccee95fd51643e1988adc2364bb1349e3c3e4e6d564051"
+    },
+    {
+      "path": "dist\\index.html",
+      "bytes": 41760,
+      "sha256": "64360ec4da1523873a4e95f087576dac01b15d8e62e0a87b589066e78fcd3c36"
+    },
+    {
+      "path": "dist\\minh-bach\\index.html",
+      "bytes": 9284,
+      "sha256": "175085e260e19bf9da480e176fc07135f75fdbbb0710edde098c3f42c410a392"
+    },
+    {
+      "path": "dist\\san-pham\\index.html",
+      "bytes": 30029,
+      "sha256": "cb7abe9a72d02669848efd4e2e9eb7c2c9787510d8bf74b8755e4473f525fe01"
+    },
+    {
+      "path": "dist\\ve-nhom\\index.html",
+      "bytes": 17299,
+      "sha256": "e703d8fcb3cfaac6092ee6cbbdf513fa153ce9d5f818ee5552018b868c95a935"
+    },
+    {
+      "path": "dist\\_astro\\index.BA-eB4wT.css",
+      "bytes": 6741,
+      "sha256": "db771e1b51e390dcd2126fd7f259def9fe7f9df202301bf1ebe93af02f3e5590"
+    },
+    {
+      "path": "dist\\_astro\\Layout.FhlXODiz.css",
+      "bytes": 12670,
+      "sha256": "9a9109e7436ddeca3d06969508e58a5f08b1c384effc2e94bf7b94c4b2a1ccf3"
+    },
+    {
+      "path": "dist\\_astro\\mang-theo-mot-net-ve.BWRcd6ON.css",
+      "bytes": 5855,
+      "sha256": "c501d34a1049239d17a9b40bd710f20d6fee8c3c661df16205e994ce534e0e58"
+    },
+    {
+      "path": "dist\\_astro\\san-pham.egkKD4MR.css",
+      "bytes": 6425,
+      "sha256": "79de34f8531b5d28228c7cc6011d391f100e4a62e5428d7645af06f9722e18d0"
+    },
+    {
+      "path": "dist\\_astro\\ve-nhom.OlKF1whp.css",
+      "bytes": 5757,
+      "sha256": "ce77d44fa50d0fc0d953fe1263fe8ae12f42b98b8556300bdc2c9cc8cef90176"
+    }
+  ],
+  "matches": [],
+  "rawSourceHash": "83c038c04ad7cff87f616c98529a1df788a2467451b83d95e890bfba0f4307d5",
+  "rawSourceTracked": "",
+  "appWorkingDiff": "",
+  "diffNames": [
+    "src/data/campaign.ts",
+    "src/pages/du-an/mang-theo-mot-net-ve.astro",
+    "src/pages/san-pham.astro",
+    "src/pages/ve-nhom.astro"
+  ],
+  "packageHash": "d973d845f877c0f515cb8ccc33cb971f0eb003ba17dc2157d7ff189d91f742c9",
+  "lockfileHash": "ff3aa78d6644ec76e50748e34a2f502b578be8b80ed52391a7d7b9f03d487058",
+  "claudeReportHash": "9a7a438e4b53204b1b71ea1ca1bb774c14cc36f208d0f706a9461823cb344b6b",
+  "screenshots": [
+    {
+      "path": "docs\\evidence\\T02\\reviewer-a317d85-products-1440-full.png",
+      "bytes": 302176,
+      "width": 1440,
+      "height": 3708,
+      "sha256": "9fb813accdb521a9e132f40ca8f7175e86dd6745b31ac2c551bac87221cc78a5"
+    },
+    {
+      "path": "docs\\evidence\\T02\\reviewer-a317d85-products-1440-viewport.png",
+      "bytes": 74933,
+      "width": 1440,
+      "height": 900,
+      "sha256": "8fd8711d31e1d4219159deca290ac99ef71faa01010b711fcb166336fa8830a3"
+    },
+    {
+      "path": "docs\\evidence\\T02\\reviewer-a317d85-products-375-full.png",
+      "bytes": 278771,
+      "width": 375,
+      "height": 5782,
+      "sha256": "e1e8a723cacd3932cbd93aefa363dda47b1ea54193a1d100d1b22b21b814982d"
+    },
+    {
+      "path": "docs\\evidence\\T02\\reviewer-a317d85-products-375-viewport.png",
+      "bytes": 43460,
+      "width": 375,
+      "height": 812,
+      "sha256": "ce570fd3a0be329e58c914d2b891dbc26dcda69d7a69014cf908c1bb4b3e38d4"
+    },
+    {
+      "path": "docs\\evidence\\T02\\reviewer-a317d85-products-768-full.png",
+      "bytes": 281329,
+      "width": 768,
+      "height": 4381,
+      "sha256": "0f54e1238ff5e4b4dfabb872a5c4e9c61685a6486a2fce093024081dae276e04"
+    },
+    {
+      "path": "docs\\evidence\\T02\\reviewer-a317d85-products-768-viewport.png",
+      "bytes": 66664,
+      "width": 768,
+      "height": 1024,
+      "sha256": "7d759be620be15bc3115ff3d6f04a2ecf3dfcac6922de9ffd0e6a9d9db1d1e3d"
+    },
+    {
+      "path": "docs\\evidence\\T02\\reviewer-a317d85-project-1440-full.png",
+      "bytes": 386671,
+      "width": 1440,
+      "height": 4267,
+      "sha256": "0fd843a5db06ac5b399f9f4359b0aff72aa0cf23ca802b9e425d85c11f528aa1"
+    },
+    {
+      "path": "docs\\evidence\\T02\\reviewer-a317d85-project-1440-viewport.png",
+      "bytes": 112377,
+      "width": 1440,
+      "height": 900,
+      "sha256": "4ad59ce5b4e4daaa8e4cad3e64704558ea23d8444efecd0b080e7b3a9b8f275b"
+    },
+    {
+      "path": "docs\\evidence\\T02\\reviewer-a317d85-project-375-full.png",
+      "bytes": 314859,
+      "width": 375,
+      "height": 6432,
+      "sha256": "baafca83280b34d7ffb6972315838144a26d06ba139f72f230342b74faed2634"
+    },
+    {
+      "path": "docs\\evidence\\T02\\reviewer-a317d85-project-375-menu-open.png",
+      "bytes": 33949,
+      "width": 375,
+      "height": 812,
+      "sha256": "11e23460b74bd43b09785fa535bfb7436ede8a6a8612f58768ac24e50f224f1d"
+    },
+    {
+      "path": "docs\\evidence\\T02\\reviewer-a317d85-project-375-viewport.png",
+      "bytes": 50791,
+      "width": 375,
+      "height": 812,
+      "sha256": "cda2106a56199b0c59d07c0fbfd8adae200235291a47cdfe446b97c59258682f"
+    },
+    {
+      "path": "docs\\evidence\\T02\\reviewer-a317d85-project-768-full.png",
+      "bytes": 368085,
+      "width": 768,
+      "height": 5252,
+      "sha256": "ebc8d85063650112ee756acc7436be16cc6c8e993a53065029345561f3e9c5cf"
+    },
+    {
+      "path": "docs\\evidence\\T02\\reviewer-a317d85-project-768-viewport.png",
+      "bytes": 84103,
+      "width": 768,
+      "height": 1024,
+      "sha256": "803718b43f34820d0ffac2a0f2fcbb0dfa53e412b4ab4d3d77c9e3db06c79866"
+    },
+    {
+      "path": "docs\\evidence\\T02\\reviewer-a317d85-team-1440-full.png",
+      "bytes": 276265,
+      "width": 1440,
+      "height": 3298,
+      "sha256": "c868fe17dcb406bf358c627591081d64347fe2f1629f9f0355a73dba63820dec"
+    },
+    {
+      "path": "docs\\evidence\\T02\\reviewer-a317d85-team-1440-viewport.png",
+      "bytes": 84659,
+      "width": 1440,
+      "height": 900,
+      "sha256": "4360cf7c5093b0713e7457a7fa958f9e0d7aab26287d163984ad9656d99fc2c1"
+    },
+    {
+      "path": "docs\\evidence\\T02\\reviewer-a317d85-team-375-full.png",
+      "bytes": 246912,
+      "width": 375,
+      "height": 4746,
+      "sha256": "4f42146966ae6c82118c9baaeab4112b84836ed2551dfb869e9623279c410198"
+    },
+    {
+      "path": "docs\\evidence\\T02\\reviewer-a317d85-team-375-viewport.png",
+      "bytes": 54861,
+      "width": 375,
+      "height": 812,
+      "sha256": "9e1b18a00eef6812ad5d35b50baa90596bddc8e208d77e2c13ca8c3ff98be011"
+    },
+    {
+      "path": "docs\\evidence\\T02\\reviewer-a317d85-team-768-full.png",
+      "bytes": 267129,
+      "width": 768,
+      "height": 3750,
+      "sha256": "50c34cd4bf74efa8922b62c078e18ef5ef5bdce8cb1a5792d2ff85a205c5a3e5"
+    },
+    {
+      "path": "docs\\evidence\\T02\\reviewer-a317d85-team-768-viewport.png",
+      "bytes": 88192,
+      "width": 768,
+      "height": 1024,
+      "sha256": "45e16d9d213fb882d2b20c56f38445b184c62e1548d56909e30cdf1b316aed05"
+    }
+  ],
+  "products": [
+    {
+      "name": "Chuồn chuồn tre 12 cm kèm đế",
+      "referencePrice": {
+        "value": 40000,
+        "unit": "đ/bộ",
+        "kind": "planned",
+        "verification": "unverified",
+        "sourceRef": "proposal:budget-scenario",
+        "updatedAt": null,
+        "publicApproval": "pending"
+      },
+      "plannedQuantity": {
+        "value": 30,
+        "unit": "bộ bán dự kiến",
+        "kind": "planned",
+        "verification": "unverified",
+        "sourceRef": "proposal:inventory-plan",
+        "updatedAt": null,
+        "publicApproval": "pending"
+      },
+      "actualStock": null,
+      "saleStatus": "unconfirmed",
+      "assetId": null,
+      "originVerification": "unverified"
+    },
+    {
+      "name": "Túi bút",
+      "referencePrice": {
+        "value": 55000,
+        "unit": "đ/chiếc",
+        "kind": "planned",
+        "verification": "unverified",
+        "sourceRef": "proposal:budget-scenario",
+        "updatedAt": null,
+        "publicApproval": "pending"
+      },
+      "plannedQuantity": {
+        "value": 20,
+        "unit": "chiếc dự kiến",
+        "kind": "planned",
+        "verification": "unverified",
+        "sourceRef": "proposal:inventory-plan",
+        "updatedAt": null,
+        "publicApproval": "pending"
+      },
+      "actualStock": null,
+      "saleStatus": "unconfirmed",
+      "assetId": null,
+      "originVerification": "confirmed"
+    },
+    {
+      "name": "Túi vải",
+      "referencePrice": {
+        "value": 75000,
+        "unit": "đ/chiếc",
+        "kind": "planned",
+        "verification": "unverified",
+        "sourceRef": "proposal:budget-scenario",
+        "updatedAt": null,
+        "publicApproval": "pending"
+      },
+      "plannedQuantity": {
+        "value": 8,
+        "unit": "chiếc dự kiến",
+        "kind": "planned",
+        "verification": "unverified",
+        "sourceRef": "proposal:inventory-plan",
+        "updatedAt": null,
+        "publicApproval": "pending"
+      },
+      "actualStock": null,
+      "saleStatus": "unconfirmed",
+      "assetId": null,
+      "originVerification": "unverified"
+    }
+  ],
+  "unknownActualPreserved": true,
+  "ciInputsMatchT01": true
+}

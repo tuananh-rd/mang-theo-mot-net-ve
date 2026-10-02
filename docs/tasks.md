@@ -1,5 +1,21 @@
 # Backlog
 
+## Trạng thái hiện tại — 03/10/2026
+
+**T02 DONE; R02 PASS** tại app `a317d856f51648a39fbcac33010c03bb8c7723b5`, nhánh `task/t02-content-pages`, base `fff88b2209e3c2836c06125bad1a7084bdc50590`. [Review cuối](reviews/R02-a317d85.md); [review yêu cầu sửa 311dc33](reviews/R02-311dc33.md) giữ nguyên. 279 assertions trình duyệt đạt, check/build độc lập exit 0, visual 9 ảnh full-page và audit dist đạt. Ba trang nội dung hoàn thành; hai route Minh bạch/Đồng hành còn shell. T03 READY cho bước đặc tả tiếp theo, **chưa giao hoặc triển khai**; worker hiện có HOLD sau T02. Chưa public website. Các mục resume/pause/IN_PROGRESS dưới đây là lịch sử.
+
+## Tiếp tục R02 — 03/10/2026
+
+Chủ dự án nói “tiếp tục đi”, kết thúc yêu cầu tạm dừng trước. **T02 bàn giao app311dc33; R02 IN_PROGRESS** trên `task/t02-content-pages`, basefff88b2. Codex đọc diff/bằng chứng, cùngworker Antigravity mở lại production preview để nghiệm thu; không triển khai lại từ đầu hoặc mở T03 trước PASS. [Tiếp nhận](evidence/T02/resume-2026-10-03.json). Giữ toàn bộ thay đổi hiện có.
+
+## Tạm dừng theo yêu cầu chủ dự án
+
+Chủ dự án yêu cầu “ok dừng đi”. **T02 PAUSED, R02 chưa thực hiện**. Worker đã tạo app commit `311dc33f472b8969de99872927822b0f7f566679` trên `task/t02-content-pages`; chưa được Codex nghiệm thu hoặc push trong vòng T02. Giữ mọi thay đổi đang có. Đã gửi lệnh HOLD đến worker hiện có và quan sát worker tiếp nhận; chỉ tiếp tục khi có yêu cầu mới. Các trạng thái IN_PROGRESS bên dưới là lịch sử trước khi dừng.
+
+## T02 — đã duyệt UI, tiếp tục triển khai
+
+Chủ dự án nói “ok đó bạn làm tiếp đi” sau R01 PASS; **hướng UI mới đã được duyệt, T02 IN_PROGRESS** tại base `fff88b2209e3c2836c06125bad1a7084bdc50590`, nhánh `task/t02-content-pages`. [Đặc tả T02](task-specs/T02.md): trang dự án/nhóm/sản phẩm; vẫn mộtworker Antigravity hiện có, Codex spec/review. [Continuity](evidence/T02/continuity.json), [ACK thực và Brain cho triển khai](evidence/T02/ack.json). Tên/ảnh/liên hệ/actual chưa xác nhận không tự public. T03 chưa mở; đây chưa phải duyệt phát hành.
+
 ## Vòng sửa UI theo Claude — 02/10/2026
 
 Theo yêu cầu sửa UI Claude của chủ dự án: **T01 DONE; R01 PASS** tại app SHA `285f695e6c385ee0de6dff30d89c06aa92f46639`, base vòng sửa `e6aa96505c4368eca3e0d32a3cf41b1a7910a1db`. [Review cuối](reviews/R01-ui-285f695.md), [review Claude nguyên vẹn](../reports/ui-review-claude.md), [addendum T01](task-specs/T01-ui-claude.md), [kênh continuity](evidence/T01/ui-claude/continuity.json). Worker Antigravity hiện có triển khai2commit e30f939/285f695; Codex đọc diff, kiểm bằng chứng và visual5viewport. Ci sạch ngoài repo/check/build exit0,92assertions đạt; mobile375 từ10.496→8.723px, giảm16,89%. Repository GitHub private hiện có lưu code, chưa public website. **T02 WAITING_UI_APPROVAL**, cần chủ dự án duyệt hướng UI mới. R01 c27fea2 và handle cũ phía dưới là lịch sử, không dùng lại handle khi runtime đã đổi.
@@ -25,9 +41,9 @@ Kiểm tra trước gửi 02/10: Antigravity MCP phản hồi model catalog và 
 | T00 | Codex | Không | DONE_WITH_LIMITATIONS: đọc nguồn, khảo sát repo; architecture + UI đề xuất + T01; chưa xác minh UI nguồn hoặc kênh Orca, xem evidence/T00/survey.md |
 | T01 | Antigravity | T00 | DONE: app final285f695 sau sửa Claude, B0 ef102c8; trang chủ mẫu + 5 shell +404, preview/evidence thật |
 | R01 | Codex | T01 | PASS tại285f695; các review c27fea2/a625421/e30f939 được giữ để truy vết |
-| T02 | Antigravity | R01 PASS + chủ dự án duyệt hướng UI | WAITING_UI_APPROVAL, chưa giao: trang dự án, nhóm và sản phẩm; dữ liệu có nguồn, giá tham khảo, không giả tồn kho hay thành tích |
-| R02 | Codex | T02 | Review routing, dữ liệu, nội dung, responsive |
-| T03 | Antigravity | R02 đạt | Minh bạch và đồng hành; phép tính đúng; trường hợp thiếu dữ liệu rõ; chỉ dùng liên hệ thật |
+| T02 | Antigravity | R01 PASS + chủ dự án duyệt hướng UI | DONE tại a317d85: dự án/nhóm/sản phẩm; basefff88b2, task/t02-content-pages |
+| R02 | Codex | T02 | PASS tại a317d85: diff, nội dung, 279 assertions, visual, check/build và audit |
+| T03 | Antigravity | R02 đạt | READY, chưa giao: Minh bạch và đồng hành; phép tính đúng; thiếu dữ liệu rõ; chỉ dùng liên hệ thật |
 | R03 | Codex | T03 | Review tách tiền/hiện vật, kế hoạch/thực tế, hành động và quyền công bố |
 | T04 | Antigravity | R03 | Sửa lỗi, metadata, 404, accessibility cơ bản, tối ưu ảnh, hướng dẫn vận hành |
 | R04 | Codex | T04 | Nghiệm thu preview hoàn chỉnh, báo giới hạn và các thông tin còn thiếu |
@@ -49,5 +65,7 @@ Bàn giao cần có:
 Không gộp toàn bộ website thành một task. Khi review yêu cầu sửa, tiếp tục task hiện tại cho tới nghiệm thu, không bỏ lỗi sang bước sau.
 
 ## Review kế tiếp
+
+R02 PASS tại `a317d85`; bước tiếp theo là đặc tả T03. Giữ riêng planned/actual, tiền/hiện vật và contact chưa xác nhận. Không mở task trùng hoặc yêu cầu duyệt public trước preview toàn site/R04. Đoạn R01 bên dưới là lịch sử.
 
 R01 vòng đầu **CHANGES_REQUIRED** tại `a62542196676b61fd83618f18ccf6891821f9788`; [review vòng đầu](reviews/R01-a625421.md) được giữ nguyên. Antigravity sửa qua `191adc8` và bàn giao `c27fea2`; [R01 cuối PASS](reviews/R01-c27fea2.md). Chờ chủ dự án duyệt hướng UI trước T02. Không chứng nhận UI giống hệt ShareTheMeal; khảo sát nguồn có redirect và giới hạn đã ghi. R01 PASS chỉ nghiệm thu mẫu T01, không phải duyệt public hoặc xác nhận dữ liệu thực tế.

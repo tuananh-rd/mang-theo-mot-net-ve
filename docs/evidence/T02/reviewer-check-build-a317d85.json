@@ -1,0 +1,18 @@
+﻿{
+    "sha":  "a317d856f51648a39fbcac33010c03bb8c7723b5",
+    "check":  {
+                  "exitCode":  0,
+                  "command":  "npm.cmd run check",
+                  "finishedAt":  "2026-10-02T17:27:16.3187733Z",
+                  "startedAt":  "2026-10-02T17:27:11.2188875Z",
+                  "log":  "reviewer-check-a317d85.log"
+              },
+    "build":  {
+                  "exitCode":  0,
+                  "command":  "npm.cmd run build",
+                  "finishedAt":  "2026-10-02T17:27:18.3425161Z",
+                  "log":  "reviewer-build-a317d85.log"
+              },
+    "packageSha256":  "d973d845f877c0f515cb8ccc33cb971f0eb003ba17dc2157d7ff189d91f742c9",
+    "lockSha256":  "ff3aa78d6644ec76e50748e34a2f502b578be8b80ed52391a7d7b9f03d487058"
+}

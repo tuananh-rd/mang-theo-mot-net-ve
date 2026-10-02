@@ -1,0 +1,34 @@
+{
+  "finalSha": "311dc33f472b8969de99872927822b0f7f566679",
+  "branch": "task/t02-content-pages",
+  "check": {
+    "exitCode": 0,
+    "diagnostics": {
+      "filesChecked": 25,
+      "errors": 0,
+      "warnings": 0,
+      "hints": 1,
+      "hintLocation": "docs/evidence/T02/reviewer-browser.mjs"
+    },
+    "logFile": "raw-check.log"
+  },
+  "build": {
+    "exitCode": 0,
+    "pagesBuilt": 7,
+    "durationMs": 529,
+    "logFile": "raw-build.log"
+  },
+  "lockfileHashes": {
+    "packageJsonSha256": "D973D845F877C0F515CB8CCC33CB971F0EB003BA17DC2157D7FF189D91F742C9",
+    "packageLockJsonSha256": "FF3AA78D6644EC76E50748E34A2F502B578BE8B80ED52391A7D7B9F03D487058",
+    "isMatchT01": true
+  },
+  "previewServer": {
+    "taskId": "86498389-9ca4-486e-9ba8-82247107fb96/task-890",
+    "host": "127.0.0.1",
+    "port": 4321,
+    "pid": 31152,
+    "state": "Listen",
+    "httpStatus": 200
+  }
+}

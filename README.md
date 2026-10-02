@@ -2,7 +2,7 @@
 
 Mã nguồn: [tuananh-rd/mang-theo-mot-net-ve](https://github.com/tuananh-rd/mang-theo-mot-net-ve) — repository private. Lưu code trên GitHub không thay mốc duyệt hướng UI hoặc duyệt phát hành website.
 
-**T01 DONE; R01 PASS** sau sửa [UI Claude](reports/ui-review-claude.md), app SHA `285f695`. [Review](docs/reviews/R01-ui-285f695.md), [bàn giao](reports/resume-brain.md). **T02 chờ duyệt hướng UI; chưa public website.**
+**T02 DONE; R02 PASS** tại app SHA `a317d85`, sau khi chủ dự án duyệt hướng UI đã sửa theo [Claude](reports/ui-review-claude.md). Ba trang Dự án, Về nhóm và Sản phẩm đã hoàn chỉnh trong phạm vi preview. [Review T02](docs/reviews/R02-a317d85.md), [đặc tả](docs/task-specs/T02.md), [bàn giao hiện tại](reports/resume-brain.md). Minh bạch và Đồng hành còn là shell cho T03; chưa public website.
 
 Bộ tài liệu khởi động website của **nhóm Lăng Kính – AI2015, SSG105, Đại học FPT Hà Nội**. Website giới thiệu nhóm và một dự án trọng tâm tại Mái ấm Thánh Tâm Xuy Xá, với UI tham khảo https://sharethemeal.org/fr.
 
@@ -17,9 +17,11 @@ npm.cmd run build
 npm.cmd run preview -- --host 127.0.0.1 --port 4321
 ```
 
-Mở `http://127.0.0.1:4321/`. Preview chỉ bind loopback, mọi trang có noindex/nofollow. Đây là mẫu trang chủ T01; năm route phụ là shell. Dừng server bằng Ctrl+C ở terminal giữ server. `npm.cmd run dev -- --host 127.0.0.1` dùng khi worker phát triển; review dùng bản build. Không serve gốc repository hoặc share public từ bước này.
+Mở `http://127.0.0.1:4321/`. Preview chỉ bind loopback, mọi trang có noindex/nofollow. Trang chủ, Dự án, Về nhóm và Sản phẩm đã có nội dung; Minh bạch và Đồng hành còn là shell. Dừng server bằng Ctrl+C ở terminal giữ server. `npm.cmd run dev -- --host 127.0.0.1` dùng khi worker phát triển; review dùng bản build. Không serve gốc repository hoặc share public từ bước này.
 
 Ứng dụng dùng Astro static, TypeScript strict và CSS thuần. Nội dung chọn lọc nằm ở `src/data/campaign.ts`; cập nhật theo task của Antigravity, giữ giá tham khảo/planned tách actual và unknown=null. Chỉ thêm ảnh public sau khi xác nhận quyền; giữ hồ sơ gốc, chứng từ thô và evidence review ngoài public/dist. Hosting/deploy chưa được chọn hoặc thực hiện.
+
+Bảng số lượng sản phẩm hiện là bản kế hoạch tĩnh: khi đổi giá hoặc số lượng đề xuất, Antigravity cần giữ dữ liệu typed, bảng desktop/tablet và thẻ mobile trong `src/pages/san-pham.astro` nhất quán. Chưa có tồn kho hoặc trạng thái mở bán được xác nhận.
 
 ## Tài liệu
 

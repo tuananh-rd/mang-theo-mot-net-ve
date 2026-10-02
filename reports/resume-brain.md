@@ -1,5 +1,17 @@
 # Bàn giao tiếp nối Brain — 02/10/2026
 
+## Hiện tại sau T02/R02 — 03/10/2026
+
+Workspace giữ nguyên `C:\Users\tuana\Documents\Codex\2026-10-02\t\outputs\mang-theo-mot-net-ve`; branch `task/t02-content-pages`. **T02 DONE; R02 PASS** tại app `a317d856f51648a39fbcac33010c03bb8c7723b5`, base `fff88b2209e3c2836c06125bad1a7084bdc50590`. [Review final](../docs/reviews/R02-a317d85.md), [đặc tả](../docs/task-specs/T02.md), [bàn giao worker](../docs/evidence/T02/worker-handoff-a317d85.md). R02 candidate311dc33 CHANGES_REQUIRED giữ nguyên; worker sửa đúng4appfiles bằng final a317d85. Codex chỉ docs/evidence/review. T03 READY nhưng chưa giao trong vòng R02; không worker mới.
+
+Chủ dự án đã duyệt UI qua “ok đó bạn làm tiếp đi”; T02 được giao cho worker hiện có. Sau app311dc33, chủ dự án yêu cầu dừng: worker HOLD và preview cũ dừng an toàn, chưa review/push. Yêu cầu “tiếp tục đi” kết thúc pause; Codex tiếp nối diff/candidate hiện có, không làm lại. Review tìm lỗi trạng thái tồn kho, khẳng định may/an toàn/đối soát thiếu nguồn, checklist nội bộ và bảng mobile; final đã khắc phục. Ba trang Dự án/Về nhóm/Sản phẩm hoàn chỉnh; Minh bạch/Đồng hành còn shell. Không xin duyệt public hoặc coi actual đã xác nhận.
+
+Runtime hiện tại `6e6114a7-3148-4dbe-b563-c2a58c95ba4d`; worker đã re-list ở `term_4d29ba8e-7d0b-4a74-858f-d45e9a6fb9b9`, incarnation `2ea6694a-36ff-4841-8433-a795aeb9a8b8`, conversation `86498389-9ca4-486e-9ba8-82247107fb96`, model Gemini3.8FlashHigh. Receipt là input_accepted/providerunsupported; ACK và thực thi Read/Edit/Bash được kiểm từ trace/bằng chứng, không coi receipt là ACK. Không MCP dispatch/worker trùng; các handle và PID bên dưới là lịch sử. Kiểm lại runtime/worker/listener trước sử dụng.
+
+Preview production `http://127.0.0.1:4321/` bind127.0.0.1, worker background task957, PID2888 tại kiểm00:27 UTC+7. Browser Chrome154.0.8037.93, DPR1, zoom mặc định; 279 assertions độc lập đạt, 15 phép đo3trang×5width, 9 full-page đã xem và menu375. Không claim thiết bị cảm ứng thật hoặc full WCAG audit. Codexcheck/build exit0,26file0diagnostics/7pages;13filedist hash sau build độc lập không đổi. CI T01 sạch được tái sử dụng vì package/lock hashes không đổi; không npmci lặp trongrepo. DOCX/reportClaude hash không đổi, nguồn gốc vẫn ignored/untracked; actualsnull, không contact/form/QR/private member names trongbundle theoaudit+diff.
+
+Private GitHub [tuananh-rd/mang-theo-mot-net-ve](https://github.com/tuananh-rd/mang-theo-mot-net-ve) đã được cấp quyền push; Brain lưu docs/review vào commit riêng rồi cập nhật main/task-t02 thông thường, không forcepush. SHA remote/commit tài liệu phải đọc Git thực tế khi tiếp nhận, không dùng app SHA thay SHA chứa tài liệu. Local main vẫn B0 chủ ý, không move/reset. Chưa public website. Phần dưới là bàn giao lịch sử T01.
+
 ## Cập nhật cuối sau yêu cầu sửa UI Claude
 
 Workspace vẫn là `C:\Users\tuana\Documents\Codex\2026-10-02\t\outputs\mang-theo-mot-net-ve`, branch `task/t01-home-shell`. **T01 DONE; R01 PASS** tại app SHA `285f695e6c385ee0de6dff30d89c06aa92f46639`. [Review final](../docs/reviews/R01-ui-285f695.md), [report Claude nguyên vẹn](ui-review-claude.md), [addendum](../docs/task-specs/T01-ui-claude.md). Base vòng sửa e6aa965, app commits e30f939+285f695; B0 ef102c8 vẫn giữ. Codex chỉ sửa tài liệu/evidence/review, Antigravity sửa15appfile. Không reset/xóa nguồn hoặc tạo worker/task khác.

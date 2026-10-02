@@ -1,0 +1,445 @@
+{
+  "sha": "a317d856f51648a39fbcac33010c03bb8c7723b5",
+  "startedAt": "2026-10-02T17:21:57.887Z",
+  "browserVersion": "Chrome/154.0.8037.93",
+  "devicePixelRatio": 1,
+  "zoom": 1,
+  "routes": [
+    {
+      "path": "/",
+      "statusCode": 200,
+      "title": "Trang chủ | Mang Theo Một Nét Vẽ - Lăng Kính",
+      "ariaCurrentElements": [
+        {
+          "tag": "A",
+          "href": "/",
+          "text": "Trang chủ",
+          "className": "nav-link is-active"
+        },
+        {
+          "tag": "A",
+          "href": "/",
+          "text": "Trang chủ",
+          "className": "mobile-nav-link is-active"
+        }
+      ]
+    },
+    {
+      "path": "/du-an/mang-theo-mot-net-ve",
+      "statusCode": 200,
+      "title": "Dự án Mang Theo Một Nét Vẽ — Lăng Kính | Mang Theo Một Nét Vẽ - Lăng Kính",
+      "ariaCurrentElements": [
+        {
+          "tag": "A",
+          "href": "/du-an/mang-theo-mot-net-ve",
+          "text": "Dự án",
+          "className": "nav-link is-active"
+        },
+        {
+          "tag": "A",
+          "href": "/du-an/mang-theo-mot-net-ve",
+          "text": "Dự án",
+          "className": "mobile-nav-link is-active"
+        },
+        {
+          "tag": "SPAN",
+          "href": null,
+          "text": "Dự án",
+          "className": "breadcrumb-current"
+        }
+      ]
+    },
+    {
+      "path": "/san-pham",
+      "statusCode": 200,
+      "title": "Sản phẩm gây quỹ dự kiến — Mang Theo Một Nét Vẽ | Mang Theo Một Nét Vẽ - Lăng Kính",
+      "ariaCurrentElements": [
+        {
+          "tag": "A",
+          "href": "/san-pham",
+          "text": "Sản phẩm",
+          "className": "nav-link is-active"
+        },
+        {
+          "tag": "A",
+          "href": "/san-pham",
+          "text": "Sản phẩm",
+          "className": "mobile-nav-link is-active"
+        },
+        {
+          "tag": "SPAN",
+          "href": null,
+          "text": "Sản phẩm",
+          "className": "breadcrumb-current"
+        }
+      ]
+    },
+    {
+      "path": "/minh-bach",
+      "statusCode": 200,
+      "title": "Minh bạch thu chi | Mang Theo Một Nét Vẽ - Lăng Kính",
+      "ariaCurrentElements": [
+        {
+          "tag": "A",
+          "href": "/minh-bach",
+          "text": "Minh bạch",
+          "className": "nav-link is-active"
+        },
+        {
+          "tag": "A",
+          "href": "/minh-bach",
+          "text": "Minh bạch",
+          "className": "mobile-nav-link is-active"
+        }
+      ]
+    },
+    {
+      "path": "/ve-nhom",
+      "statusCode": 200,
+      "title": "Về nhóm Lăng Kính — Mang Theo Một Nét Vẽ | Mang Theo Một Nét Vẽ - Lăng Kính",
+      "ariaCurrentElements": [
+        {
+          "tag": "A",
+          "href": "/ve-nhom",
+          "text": "Về nhóm",
+          "className": "nav-link is-active"
+        },
+        {
+          "tag": "A",
+          "href": "/ve-nhom",
+          "text": "Về nhóm",
+          "className": "mobile-nav-link is-active"
+        },
+        {
+          "tag": "SPAN",
+          "href": null,
+          "text": "Về nhóm",
+          "className": "breadcrumb-current"
+        }
+      ]
+    },
+    {
+      "path": "/dong-hanh",
+      "statusCode": 200,
+      "title": "Đồng hành cùng dự án | Mang Theo Một Nét Vẽ - Lăng Kính",
+      "ariaCurrentElements": [
+        {
+          "tag": "A",
+          "href": "/dong-hanh",
+          "text": "Đồng hành",
+          "className": "btn btn-primary cta-btn is-active"
+        },
+        {
+          "tag": "A",
+          "href": "/dong-hanh",
+          "text": "Đồng hành cùng dự án",
+          "className": "btn btn-primary btn-block is-active"
+        }
+      ]
+    },
+    {
+      "path": "/trang-khong-ton-tai-404",
+      "statusCode": 404,
+      "title": "Không tìm thấy trang (404) | Mang Theo Một Nét Vẽ - Lăng Kính",
+      "ariaCurrentElements": []
+    }
+  ],
+  "pagesData": {
+    "du-an": {
+      "url": "/du-an/mang-theo-mot-net-ve",
+      "viewports": [
+        {
+          "name": "mobile-375",
+          "width": 375,
+          "height": 812,
+          "scrollWidth": 375,
+          "scrollHeight": 6432,
+          "hasHorizontalOverflow": false,
+          "h1Count": 1,
+          "h1Texts": [
+            "Mang Theo Một Nét Vẽ"
+          ],
+          "smallFontsCount": 0,
+          "smallFonts": [],
+          "contrastFailuresCount": 0,
+          "contrastFailures": [],
+          "screenshot": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t02-final\\project-mobile-375-full.png"
+        },
+        {
+          "name": "tablet-768",
+          "width": 768,
+          "height": 1024,
+          "scrollWidth": 768,
+          "scrollHeight": 5252,
+          "hasHorizontalOverflow": false,
+          "h1Count": 1,
+          "h1Texts": [
+            "Mang Theo Một Nét Vẽ"
+          ],
+          "smallFontsCount": 0,
+          "smallFonts": [],
+          "contrastFailuresCount": 0,
+          "contrastFailures": [],
+          "screenshot": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t02-final\\project-tablet-768-full.png"
+        },
+        {
+          "name": "desktop-1440",
+          "width": 1440,
+          "height": 900,
+          "scrollWidth": 1440,
+          "scrollHeight": 4267,
+          "hasHorizontalOverflow": false,
+          "h1Count": 1,
+          "h1Texts": [
+            "Mang Theo Một Nét Vẽ"
+          ],
+          "smallFontsCount": 0,
+          "smallFonts": [],
+          "contrastFailuresCount": 0,
+          "contrastFailures": [],
+          "screenshot": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t02-final\\project-desktop-1440-full.png"
+        }
+      ]
+    },
+    "ve-nhom": {
+      "url": "/ve-nhom",
+      "viewports": [
+        {
+          "name": "mobile-375",
+          "width": 375,
+          "height": 812,
+          "scrollWidth": 375,
+          "scrollHeight": 4746,
+          "hasHorizontalOverflow": false,
+          "h1Count": 1,
+          "h1Texts": [
+            "Về nhóm Lăng Kính"
+          ],
+          "smallFontsCount": 0,
+          "smallFonts": [],
+          "contrastFailuresCount": 0,
+          "contrastFailures": [],
+          "screenshot": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t02-final\\team-mobile-375-full.png"
+        },
+        {
+          "name": "tablet-768",
+          "width": 768,
+          "height": 1024,
+          "scrollWidth": 768,
+          "scrollHeight": 3750,
+          "hasHorizontalOverflow": false,
+          "h1Count": 1,
+          "h1Texts": [
+            "Về nhóm Lăng Kính"
+          ],
+          "smallFontsCount": 0,
+          "smallFonts": [],
+          "contrastFailuresCount": 0,
+          "contrastFailures": [],
+          "screenshot": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t02-final\\team-tablet-768-full.png"
+        },
+        {
+          "name": "desktop-1440",
+          "width": 1440,
+          "height": 900,
+          "scrollWidth": 1440,
+          "scrollHeight": 3298,
+          "hasHorizontalOverflow": false,
+          "h1Count": 1,
+          "h1Texts": [
+            "Về nhóm Lăng Kính"
+          ],
+          "smallFontsCount": 0,
+          "smallFonts": [],
+          "contrastFailuresCount": 0,
+          "contrastFailures": [],
+          "screenshot": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t02-final\\team-desktop-1440-full.png"
+        }
+      ]
+    },
+    "san-pham": {
+      "url": "/san-pham",
+      "viewports": [
+        {
+          "name": "mobile-375",
+          "width": 375,
+          "height": 812,
+          "scrollWidth": 375,
+          "scrollHeight": 5782,
+          "hasHorizontalOverflow": false,
+          "h1Count": 1,
+          "h1Texts": [
+            "Sản phẩm gây quỹ dự kiến"
+          ],
+          "smallFontsCount": 0,
+          "smallFonts": [],
+          "contrastFailuresCount": 0,
+          "contrastFailures": [],
+          "screenshot": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t02-final\\products-mobile-375-full.png"
+        },
+        {
+          "name": "tablet-768",
+          "width": 768,
+          "height": 1024,
+          "scrollWidth": 768,
+          "scrollHeight": 4381,
+          "hasHorizontalOverflow": false,
+          "h1Count": 1,
+          "h1Texts": [
+            "Sản phẩm gây quỹ dự kiến"
+          ],
+          "smallFontsCount": 0,
+          "smallFonts": [],
+          "contrastFailuresCount": 0,
+          "contrastFailures": [],
+          "screenshot": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t02-final\\products-tablet-768-full.png"
+        },
+        {
+          "name": "desktop-1440",
+          "width": 1440,
+          "height": 900,
+          "scrollWidth": 1440,
+          "scrollHeight": 3708,
+          "hasHorizontalOverflow": false,
+          "h1Count": 1,
+          "h1Texts": [
+            "Sản phẩm gây quỹ dự kiến"
+          ],
+          "smallFontsCount": 0,
+          "smallFonts": [],
+          "contrastFailuresCount": 0,
+          "contrastFailures": [],
+          "screenshot": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t02-final\\products-desktop-1440-full.png"
+        }
+      ]
+    }
+  },
+  "menuBehavior": {
+    "openState": {
+      "expanded": "true",
+      "isOpenClass": true,
+      "panelHidden": false,
+      "panelDisplay": "block"
+    },
+    "escapeState": {
+      "expanded": "false",
+      "panelHidden": true,
+      "activeElementId": "mobile-nav-toggle"
+    }
+  },
+  "screenshots": [
+    {
+      "name": "project-mobile-375-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t02-final\\project-mobile-375-full.png"
+    },
+    {
+      "name": "project-tablet-768-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t02-final\\project-tablet-768-full.png"
+    },
+    {
+      "name": "project-desktop-1440-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t02-final\\project-desktop-1440-full.png"
+    },
+    {
+      "name": "team-mobile-375-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t02-final\\team-mobile-375-full.png"
+    },
+    {
+      "name": "team-tablet-768-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t02-final\\team-tablet-768-full.png"
+    },
+    {
+      "name": "team-desktop-1440-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t02-final\\team-desktop-1440-full.png"
+    },
+    {
+      "name": "products-mobile-375-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t02-final\\products-mobile-375-full.png"
+    },
+    {
+      "name": "products-tablet-768-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t02-final\\products-tablet-768-full.png"
+    },
+    {
+      "name": "products-desktop-1440-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t02-final\\products-desktop-1440-full.png"
+    },
+    {
+      "name": "project-mobile-375-menu-open.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t02-final\\project-mobile-375-menu-open.png"
+    }
+  ],
+  "endedAt": "2026-10-02T17:22:23.420Z",
+  "imageFiles": [
+    {
+      "filename": "products-desktop-1440-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t02-final\\products-desktop-1440-full.png",
+      "width": 1440,
+      "height": 3708,
+      "bytes": 302176
+    },
+    {
+      "filename": "products-mobile-375-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t02-final\\products-mobile-375-full.png",
+      "width": 375,
+      "height": 5782,
+      "bytes": 278771
+    },
+    {
+      "filename": "products-tablet-768-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t02-final\\products-tablet-768-full.png",
+      "width": 768,
+      "height": 4381,
+      "bytes": 281329
+    },
+    {
+      "filename": "project-desktop-1440-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t02-final\\project-desktop-1440-full.png",
+      "width": 1440,
+      "height": 4267,
+      "bytes": 386671
+    },
+    {
+      "filename": "project-mobile-375-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t02-final\\project-mobile-375-full.png",
+      "width": 375,
+      "height": 6432,
+      "bytes": 314859
+    },
+    {
+      "filename": "project-mobile-375-menu-open.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t02-final\\project-mobile-375-menu-open.png",
+      "width": 375,
+      "height": 812,
+      "bytes": 33956
+    },
+    {
+      "filename": "project-tablet-768-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t02-final\\project-tablet-768-full.png",
+      "width": 768,
+      "height": 5252,
+      "bytes": 368085
+    },
+    {
+      "filename": "team-desktop-1440-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t02-final\\team-desktop-1440-full.png",
+      "width": 1440,
+      "height": 3298,
+      "bytes": 276265
+    },
+    {
+      "filename": "team-mobile-375-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t02-final\\team-mobile-375-full.png",
+      "width": 375,
+      "height": 4746,
+      "bytes": 246912
+    },
+    {
+      "filename": "team-tablet-768-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t02-final\\team-tablet-768-full.png",
+      "width": 768,
+      "height": 3750,
+      "bytes": 267129
+    }
+  ]
+}

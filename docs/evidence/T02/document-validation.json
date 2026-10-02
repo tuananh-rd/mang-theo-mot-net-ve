@@ -1,0 +1,18 @@
+﻿{
+    "checkedAt":  "2026-10-02T17:33:09.3229269Z",
+    "jsonFilesParsed":  15,
+    "markdownFilesChecked":  [
+                                 "README.md",
+                                 "docs/tasks.md",
+                                 "docs/architecture.md",
+                                 "docs/task-specs/T02.md",
+                                 "docs/reviews/R02-311dc33.md",
+                                 "docs/reviews/R02-a317d85.md",
+                                 "reports/resume-brain.md"
+                             ],
+    "missingRelativeLinks":  [
+
+                             ],
+    "sourceHash":  "83c038c04ad7cff87f616c98529a1df788a2467451b83d95e890bfba0f4307d5",
+    "claudeHash":  "9a7a438e4b53204b1b71ea1ca1bb774c14cc36f208d0f706a9461823cb344b6b"
+}

@@ -1,5 +1,9 @@
 # Kiến trúc — quyết định T00
 
+## Cập nhật T02 — 03/10/2026
+
+T02 DONE, [R02 PASS](reviews/R02-a317d85.md) tại app `a317d856f51648a39fbcac33010c03bb8c7723b5`, nhánh `task/t02-content-pages`, basefff88b2. Giữ Astro static/TypeScript strict/CSS thuần/npm lockfile. Ba shell Dự án/Về nhóm/Sản phẩm đã thành trang nội dung; Minh bạch/Đồng hành còn shell cho T03. Diff chỉ ba page và `src/data/campaign.ts`, không dependency/shared/config change. Typed data actual/null chưa xác nhận giữ nguyên. Bảng kế hoạch sản phẩm có table desktop/tablet và thẻ mobile; cần cập nhật cả hai khi đổi đề xuất. Build có7HTML/5CSS/favicon, không bundle tài liệu/evidence/nguồn gốc. GitHub private được cập nhật theo yêu cầu; chưa hosting/public deploy. Các trạng thái T01/T00 dưới đây là lịch sử.
+
 ## Tiếp nhận workspace Orca — 02/10/2026
 
 Vòng sửa Claude đã hoàn thành: app final `285f695e6c385ee0de6dff30d89c06aa92f46639`, [R01 mới PASS](reviews/R01-ui-285f695.md). Giữ Astro/TypeScript strict/CSS thuần/lockfile, sáu route+404, nămroute phụshell. Remote GitHub private [tuananh-rd/mang-theo-mot-net-ve](https://github.com/tuananh-rd/mang-theo-mot-net-ve) đã tạo theo yêu cầu chủ dự án; chưa hosting/deploy. Favicon SVG tự tạo là asset public mới duy nhất của vòng này. Các finalc27 và trạng thái chưaremote bên dưới là lịch sử vòng trước.
