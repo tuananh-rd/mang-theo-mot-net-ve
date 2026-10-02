@@ -360,3 +360,337 @@ export const PRODUCT_FAQS: ProductFaq[] = [
       'Doanh thu dự kiến khác số dư sau chi phí. Theo kế hoạch, nguồn thu góp phần trang trải chi phí vật tư và vận hành; tiền và hiện vật được ghi nhận riêng biệt. Số dư tiền (nếu có sau đối soát) dự kiến dùng hỗ trợ hiện vật đúng nhu cầu của Mái ấm.',
   },
 ];
+
+export interface PlannedExpenseItem {
+  id: string;
+  category: string;
+  title: string;
+  calculationText: string;
+  amount: QuantitativeFact;
+  note: string;
+  isEstimated: boolean;
+}
+
+export const PLANNED_EXPENSES: PlannedExpenseItem[] = [
+  {
+    id: 'chuon-chuon',
+    category: 'Vật tư góc chơi',
+    title: '40 phôi chuồn chuồn tre',
+    calculationText: '40 chuồn chuồn × 13.500đ',
+    amount: {
+      value: 540000,
+      unit: 'đ',
+      kind: 'planned',
+      verification: 'unverified',
+      sourceRef: 'proposal:budget-scenario',
+      updatedAt: null,
+      publicApproval: 'pending',
+    },
+    note: 'Phôi theo dự toán, không tồn kho thực tế',
+    isEstimated: false,
+  },
+  {
+    id: 'chan-de',
+    category: 'Vật tư góc chơi',
+    title: '30 chân đế chuồn chuồn',
+    calculationText: '30 chân đế × 18.000đ',
+    amount: {
+      value: 540000,
+      unit: 'đ',
+      kind: 'planned',
+      verification: 'unverified',
+      sourceRef: 'proposal:budget-scenario',
+      updatedAt: null,
+      publicApproval: 'pending',
+    },
+    note: 'Theo dự toán',
+    isEstimated: false,
+  },
+  {
+    id: 'to-tuong',
+    category: 'Vật tư góc chơi',
+    title: '20 tượng thạch cao',
+    calculationText: '20 tượng × 14.000đ',
+    amount: {
+      value: 280000,
+      unit: 'đ',
+      kind: 'planned',
+      verification: 'unverified',
+      sourceRef: 'proposal:budget-scenario',
+      updatedAt: null,
+      publicApproval: 'pending',
+    },
+    note: 'Giá giả định; hoạt động chơi, không hàng bán',
+    isEstimated: true,
+  },
+  {
+    id: 'hoa-cu',
+    category: 'Vật tư góc chơi',
+    title: 'Màu vẽ, cọ, mút xốp, bóng, chốt',
+    calculationText: 'Màu, cọ/mút, bóng/chốt',
+    amount: {
+      value: 300000,
+      unit: 'đ',
+      kind: 'planned',
+      verification: 'unverified',
+      sourceRef: 'proposal:budget-scenario',
+      updatedAt: null,
+      publicApproval: 'pending',
+    },
+    note: 'Chi phí giả định',
+    isEstimated: true,
+  },
+  {
+    id: 'tui-but-vai',
+    category: 'Sản phẩm gây quỹ',
+    title: 'Phôi túi bút và túi vải',
+    calculationText: '20 túi bút × 20.000đ + 8 túi vải × 35.000đ',
+    amount: {
+      value: 680000,
+      unit: 'đ',
+      kind: 'planned',
+      verification: 'unverified',
+      sourceRef: 'proposal:budget-scenario',
+      updatedAt: null,
+      publicApproval: 'pending',
+    },
+    note: 'Kế hoạch chuẩn bị, không số đã sản xuất',
+    isEstimated: false,
+  },
+  {
+    id: 'van-hanh',
+    category: 'Hậu cần & Vận hành',
+    title: 'Gói hàng, mẫu và di chuyển',
+    calculationText: 'Gói hàng 80.000đ + mẫu 100.000đ + di chuyển 600.000đ',
+    amount: {
+      value: 780000,
+      unit: 'đ',
+      kind: 'planned',
+      verification: 'unverified',
+      sourceRef: 'proposal:budget-scenario',
+      updatedAt: null,
+      publicApproval: 'pending',
+    },
+    note: 'Theo dự toán',
+    isEstimated: false,
+  },
+];
+
+export interface FinanceScenario {
+  id: string;
+  title: string;
+  description: string;
+  inKindReplacement: QuantitativeFact;
+  note: string;
+}
+
+export const FINANCE_SCENARIOS: FinanceScenario[] = [
+  {
+    id: 'chua-tinh-tai-tro',
+    title: 'Chưa tính tài trợ',
+    description: 'Toàn bộ chi phí dự toán thanh toán bằng tiền mặt từ nguồn thu sản phẩm.',
+    inKindReplacement: {
+      value: 0,
+      unit: 'đ',
+      kind: 'planned',
+      verification: 'unverified',
+      sourceRef: 'proposal:scenario-1',
+      updatedAt: null,
+      publicApproval: 'pending',
+    },
+    note: '0đ (chỉ tham số kịch bản cơ sở)',
+  },
+  {
+    id: 'thay-mot-phan',
+    title: 'Hiện vật thay một phần chi',
+    description: 'Tiếp nhận tài trợ hiện vật thay thế cho một phần chi phí vật tư.',
+    inKindReplacement: {
+      value: 500000,
+      unit: 'đ',
+      kind: 'planned',
+      verification: 'unverified',
+      sourceRef: 'proposal:scenario-2',
+      updatedAt: null,
+      publicApproval: 'pending',
+    },
+    note: 'Hiện vật thay đúng khoản chi phí tương đương trong dự toán',
+  },
+  {
+    id: 'thay-chi-workshop',
+    title: 'Hiện vật thay chi workshop',
+    description: 'Tiếp nhận tài trợ hiện vật thay thế toàn bộ chi phí vật tư góc chơi.',
+    inKindReplacement: {
+      value: 1120000,
+      unit: 'đ',
+      kind: 'planned',
+      verification: 'unverified',
+      sourceRef: 'proposal:scenario-3',
+      updatedAt: null,
+      publicApproval: 'pending',
+    },
+    note: 'Hiện vật thay toàn bộ chi phí 4 khoản vật tư góc chơi (540k + 280k + 300k)',
+  },
+];
+
+export interface ActualFinanceReport {
+  actualCashReceived: QuantitativeFact;
+  actualCashSpent: QuantitativeFact;
+  actualCashBalance: QuantitativeFact;
+  actualInKindReceived: QuantitativeFact;
+  actualInKindDelivered: QuantitativeFact;
+  vouchersCount: number | null;
+  statusNotice: string;
+  disclaimer: string;
+}
+
+export const ACTUAL_FINANCE: ActualFinanceReport = {
+  actualCashReceived: {
+    value: null,
+    unit: 'đ',
+    kind: 'actual',
+    verification: 'unverified',
+    sourceRef: null,
+    updatedAt: null,
+    publicApproval: 'pending',
+  },
+  actualCashSpent: {
+    value: null,
+    unit: 'đ',
+    kind: 'actual',
+    verification: 'unverified',
+    sourceRef: null,
+    updatedAt: null,
+    publicApproval: 'pending',
+  },
+  actualCashBalance: {
+    value: null,
+    unit: 'đ',
+    kind: 'actual',
+    verification: 'unverified',
+    sourceRef: null,
+    updatedAt: null,
+    publicApproval: 'pending',
+  },
+  actualInKindReceived: {
+    value: null,
+    unit: 'món',
+    kind: 'actual',
+    verification: 'unverified',
+    sourceRef: null,
+    updatedAt: null,
+    publicApproval: 'pending',
+  },
+  actualInKindDelivered: {
+    value: null,
+    unit: 'món',
+    kind: 'actual',
+    verification: 'unverified',
+    sourceRef: null,
+    updatedAt: null,
+    publicApproval: 'pending',
+  },
+  vouchersCount: null,
+  statusNotice: 'Chưa có số liệu thực tế được xác nhận.',
+  disclaimer:
+    'Mọi giao dịch thực tế sẽ được cập nhật công khai sau khi chiến dịch kết thúc, đối soát chéo độc lập và biên tập bảo mật theo quy định.',
+};
+
+export interface OfficialContact {
+  email: string | null;
+  phone: string | null;
+  representative: string | null;
+  status: 'unconfirmed' | 'confirmed';
+  notice: string;
+}
+
+export const OFFICIAL_CONTACT: OfficialContact = {
+  email: null,
+  phone: null,
+  representative: null,
+  status: 'unconfirmed',
+  notice: 'Kênh liên hệ chính thức chưa được xác nhận. Thông tin sẽ được cập nhật sau khi được phép công bố.',
+};
+
+export interface SupportWorkflowStep {
+  step: string;
+  title: string;
+  description: string;
+}
+
+export const SUPPORT_WORKFLOW: SupportWorkflowStep[] = [
+  {
+    step: '01',
+    title: 'Làm rõ nhu cầu thực tế',
+    description:
+      'Trao đổi trực tiếp cùng đại diện Mái ấm Thánh Tâm Xuy Xá để xác định chính xác danh mục vật phẩm, đồ dùng học tập hoặc đồ chơi còn thiếu.',
+  },
+  {
+    step: '02',
+    title: 'Thống nhất phương thức & Bàn giao',
+    description:
+      'Thống nhất số lượng, quy cách, thời gian và địa điểm tiếp nhận vật phẩm đảm bảo thuận tiện và an toàn cho các bên.',
+  },
+  {
+    step: '03',
+    title: 'Đối soát & Cập nhật công khai',
+    description:
+      'Ghi chép độc lập vào sổ theo dõi hiện vật; công bố thông tin minh bạch trong báo cáo tổng kết sau khi được sự đồng ý của nhà đồng hành.',
+  },
+];
+
+export interface SupportFaq {
+  question: string;
+  answer: string;
+}
+
+export const SUPPORT_FAQS: SupportFaq[] = [
+  {
+    question: 'Khi nào dự án bắt đầu tiếp nhận hiện vật hỗ trợ?',
+    answer:
+      'Nhóm chỉ tiếp nhận vật phẩm sau khi danh mục nhu cầu thực tế được đại diện Mái ấm xác nhận và kênh liên hệ chính thức được công bố. Điều này giúp tránh lãng phí và đảm bảo mọi sự đóng góp đều đúng nhu cầu thiết yếu.',
+  },
+  {
+    question: 'Cá nhân hoặc nhóm ngoài có thể cùng đến Mái ấm tham gia buổi chơi không?',
+    answer:
+      'Việc đến thăm và tham gia buổi chơi tại Mái ấm chỉ được thực hiện khi có sự đồng ý của ban quản lý cơ sở và sự điều phối thống nhất từ trước. Nhóm không tuyển người tham gia tự do đến Mái ấm.',
+  },
+  {
+    question: 'Các em nhỏ tại Mái ấm có bắt buộc phải tham gia tất cả các góc hoạt động không?',
+    answer:
+      'Không. Nguyên tắc hàng đầu của buổi chơi là tôn trọng quyền lựa chọn của từng em. Các em có thể tự do tham gia góc vẽ, góc tô tượng, hát cùng nhau, chơi trò chơi nhẹ, hoặc chỉ ngồi quan sát và nghỉ ngơi.',
+  },
+  {
+    question: 'Các khoản đóng góp tiền mặt và hiện vật được quản lý như thế nào?',
+    answer:
+      'Tiền mặt và hiện vật luôn được ghi nhận trong hai sổ theo dõi riêng biệt, tuyệt đối không gộp chung. Mọi khoản thu chi bằng tiền đều được hai thành viên đối soát chéo độc lập và có chứng từ lưu trữ.',
+  },
+];
+
+export interface TransparencyFaq {
+  question: string;
+  answer: string;
+}
+
+export const TRANSPARENCY_FAQS: TransparencyFaq[] = [
+  {
+    question: 'Tại sao dự toán chi (3.120.000đ) lại lớn hơn doanh thu kịch bản bán đủ hàng (2.900.000đ)?',
+    answer:
+      'Dự toán 3.120.000đ bao gồm toàn bộ vật tư góc chơi, sản phẩm gây quỹ và chi phí vận hành. Kịch bản bán đủ hàng mang lại 2.900.000đ, dẫn đến chênh lệch thiếu 220.000đ nếu không có tài trợ. Đây là lý do nhóm xây dựng các kịch bản tiếp nhận tài trợ hiện vật để bù đắp chi phí vật tư.',
+  },
+  {
+    question: 'Doanh thu từ sản phẩm có phải 100% dành mua quà cho các em không?',
+    answer:
+      'Không. Nguồn thu bán sản phẩm trước hết nhằm trang trải chi phí nguyên vật liệu và tổ chức buổi chơi. Số dư tiền thực tế (nếu có sau khi đối soát tất cả các khoản chi) dự kiến sẽ được dùng để hỗ trợ hiện vật đúng theo danh mục nhu cầu của Mái ấm.',
+  },
+  {
+    question: 'Số dư tiền thực tế được tính toán theo nguyên tắc nào?',
+    answer:
+      'Số dư tiền thực tế = Số dư đầu kỳ + Doanh thu thực nhận + Tài trợ tiền thực nhận − Chi tiền thực trả. Hàng tồn kho và hiện vật tài trợ được theo dõi trong sổ riêng biệt, không coi hàng tồn hay đơn chưa thanh toán là tiền thực nhận.',
+  },
+  {
+    question: 'Khi nào báo cáo tài chính và chứng từ thực tế được công bố?',
+    answer:
+      'Sau khi chiến dịch kết thúc, hai thành viên tài chính sẽ đối soát độc lập toàn bộ hóa đơn, chứng từ. Nhóm sẽ biên tập che thông tin cá nhân nhạy cảm và công bố báo cáo công khai tại trang này sau khi được phê duyệt.',
+  },
+];
+

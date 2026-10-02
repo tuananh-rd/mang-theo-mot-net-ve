@@ -1,80 +1,1179 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { FINANCE_OVERVIEW } from '../data/campaign';
+import {
+  PLANNED_EXPENSES,
+  PRODUCTS,
+  FINANCE_SCENARIOS,
+  TRANSPARENCY_FAQS,
+  ACTUAL_FINANCE,
+} from '../data/campaign';
+import {
+  sumPlannedExpenses,
+  calculateTotalRevenueScenario,
+  calculateScenario,
+  formatVND,
+} from '../lib/finance';
+
+const totalPlannedExpense = sumPlannedExpenses(PLANNED_EXPENSES);
+const totalPlannedRevenue = calculateTotalRevenueScenario(PRODUCTS);
+
+const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
+  const result = calculateScenario(scenario, totalPlannedRevenue, totalPlannedExpense);
+  return {
+    scenario,
+    result,
+  };
+});
 ---
 
 <Layout
-  title="Minh bạch thu chi"
-  description="Báo cáo dự toán, nguồn tài trợ và nguyên tắc thu chi chiến dịch Mang Theo Một Nét Vẽ."
+  title="Minh bạch thu chi — Mang Theo Một Nét Vẽ"
+  description="Báo cáo dự toán chi phí, doanh thu kịch bản và nguyên tắc minh bạch tài chính của chiến dịch Mang Theo Một Nét Vẽ."
   currentPath="/minh-bach"
 >
-  <div class="shell-container container section">
-    <div class="shell-card card">
-      <div class="badge-wrap">
-        <span class="status-badge">Bản xem trước</span>
-      </div>
-
-      <h1 class="shell-title">Minh bạch thu chi</h1>
-      <p class="shell-subtitle">Dự toán kế hoạch và nguyên tắc công khai tài chính</p>
-
-      <div class="shell-notice">
-        <p>
-          <strong>{FINANCE_OVERVIEW.actualStatusNotice}</strong>
-        </p>
-        <p>
-          Trang đang được hoàn thiện trong bản xem trước. Bảng dự toán chi tiết cùng các báo cáo sau đối soát, biên tập và được phép công bố sẽ được cập nhật tại đây sau khi hoàn thành dự án.
-        </p>
-      </div>
-
-      <div class="shell-actions">
-        <a href="/" class="btn btn-primary">
-          &larr; Quay lại trang chủ
-        </a>
-      </div>
+  <!-- Breadcrumb -->
+  <div class="breadcrumb-bar">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Đường dẫn trang">
+        <ol class="breadcrumb-list">
+          <li class="breadcrumb-item">
+            <a href="/" class="breadcrumb-link">Trang chủ</a>
+          </li>
+          <li class="breadcrumb-separator" aria-hidden="true">&rsaquo;</li>
+          <li class="breadcrumb-item">
+            <span class="breadcrumb-current" aria-current="page">Minh bạch</span>
+          </li>
+        </ol>
+      </nav>
     </div>
   </div>
+
+  <!-- Hero Section -->
+  <section class="transparency-hero" aria-labelledby="transparency-heading">
+    <div class="container">
+      <div class="transparency-hero-card">
+        <div class="badge-row">
+          <span class="status-badge">Dự toán trong đề xuất</span>
+          <span class="status-badge status-badge-neutral">Chưa có số liệu thực tế được xác nhận</span>
+        </div>
+
+        <h1 id="transparency-heading" class="transparency-title">
+          Minh bạch thu chi
+        </h1>
+
+        <p class="transparency-lead">
+          Kế hoạch dự toán ngân sách, doanh thu kịch bản bán đủ hàng và các nguyên tắc quản trị tài chính minh bạch cho chiến dịch tại Mái ấm Thánh Tâm Xuy Xá.
+        </p>
+
+        <!-- Highlights Grid -->
+        <div class="highlights-grid" role="region" aria-label="Các chỉ số kế hoạch nổi bật">
+          <div class="highlight-card">
+            <span class="highlight-label">Chi dự kiến</span>
+            <span class="highlight-value">{formatVND(totalPlannedExpense)}</span>
+            <p class="highlight-condition">
+              Dự toán 6 nhóm chi phí vật tư và vận hành trong đề xuất ban đầu.
+            </p>
+          </div>
+
+          <div class="highlight-card">
+            <span class="highlight-label">Doanh thu kịch bản</span>
+            <span class="highlight-value">{formatVND(totalPlannedRevenue)}</span>
+            <p class="highlight-condition">
+              Nếu bán đủ số lượng kế hoạch theo giá tham khảo (chưa mở bán chính thức).
+            </p>
+          </div>
+        </div>
+
+        <!-- Section Notice -->
+        <div class="transparency-notice">
+          <p>
+            <strong>Nguyên tắc trình bày:</strong> Bản xem trước tách bạch hoàn toàn giữa kế hoạch đề xuất và kết quả thực tế. Doanh thu dự kiến không phải là tiền đã nhận hay mục tiêu gây quỹ đã duyệt. Không sử dụng thanh tiến độ khi chưa có số liệu thực tế.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 1: Dự toán chi -->
+  <section class="section section-soft" aria-labelledby="expenses-heading">
+    <div class="container">
+      <div class="section-header">
+        <div class="badge-wrap">
+          <span class="status-badge">Ngân sách dự kiến</span>
+        </div>
+        <h2 id="expenses-heading" class="section-title">
+          Dự toán chi phí kế hoạch
+        </h2>
+        <p class="section-subtitle">
+          Tổng hợp 6 khoản mục dự toán chi phí chuẩn bị vật tư các góc chơi và sản phẩm gây quỹ theo đề xuất.
+        </p>
+      </div>
+
+      <!-- Desktop & Tablet Table View -->
+      <div class="table-wrap desktop-only">
+        <table class="data-table">
+          <caption class="sr-only">Bảng chi tiết các khoản dự toán chi phí kế hoạch</caption>
+          <thead>
+            <tr>
+              <th scope="col">Khoản dự toán</th>
+              <th scope="col">Phân loại</th>
+              <th scope="col" class="text-right">Thành tiền</th>
+              <th scope="col">Ghi chú kế hoạch</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              PLANNED_EXPENSES.map((item) => (
+                <tr>
+                  <td>
+                    <strong>{item.calculationText}</strong>
+                  </td>
+                  <td>
+                    <span class="category-tag">{item.category}</span>
+                  </td>
+                  <td class="text-right font-medium">
+                    {formatVND(item.amount.value)}
+                  </td>
+                  <td class="text-muted">
+                    {item.note}
+                    {item.isEstimated && (
+                      <span class="estimated-tag">Chi phí giả định</span>
+                    )}
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+          <tfoot>
+            <tr class="total-row">
+              <th scope="row" colspan="2">Tổng dự toán chi</th>
+              <td class="text-right font-bold text-accent">
+                {formatVND(totalPlannedExpense)}
+              </td>
+              <td class="text-muted">Dẫn xuất từ 6 khoản mục dự toán, không phải chi phí thực tế</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <!-- Mobile List View (Không cuộn ngang) -->
+      <div class="mobile-only mobile-expense-list" aria-label="Danh sách khoản dự toán chi trên di động">
+        {
+          PLANNED_EXPENSES.map((item) => (
+            <div class="mobile-expense-card card">
+              <div class="mobile-card-header">
+                <span class="category-tag">{item.category}</span>
+                {item.isEstimated && (
+                  <span class="estimated-tag">Chi phí giả định</span>
+                )}
+              </div>
+              <h3 class="mobile-expense-title">{item.calculationText}</h3>
+              <div class="mobile-card-row">
+                <span class="mobile-row-label">Thành tiền dự kiến:</span>
+                <span class="mobile-row-value font-bold text-accent">
+                  {formatVND(item.amount.value)}
+                </span>
+              </div>
+              <p class="mobile-expense-note">{item.note}</p>
+            </div>
+          ))
+        }
+
+        <div class="mobile-total-card card">
+          <div class="mobile-total-header">Tổng dự toán chi kế hoạch</div>
+          <div class="mobile-total-amount">{formatVND(totalPlannedExpense)}</div>
+          <p class="mobile-total-note">
+            Dẫn xuất từ tổng 6 khoản mục chi theo đề xuất ban đầu; không phải chi phí thực tế đã thanh toán.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: Doanh thu giả định và 3 kịch bản -->
+  <section class="section" aria-labelledby="scenarios-heading">
+    <div class="container">
+      <div class="section-header">
+        <div class="badge-wrap">
+          <span class="status-badge">Kịch bản tài chính</span>
+        </div>
+        <h2 id="scenarios-heading" class="section-title">
+          Doanh thu kịch bản và phân tích số dư
+        </h2>
+        <p class="section-subtitle">
+          Tính toán doanh thu giả định khi bán đủ số lượng kế hoạch và đối sánh 3 kịch bản tài trợ hiện vật bù đắp chi phí.
+        </p>
+      </div>
+
+      <!-- Calculation Breakdown Card -->
+      <div class="formula-card card">
+        <h3 class="formula-title">Phép tính doanh thu kịch bản bán đủ hàng</h3>
+        <p class="formula-expression">
+          30 chuồn chuồn × 40.000đ + 20 túi bút × 55.000đ + 8 túi vải × 75.000đ = <strong>{formatVND(totalPlannedRevenue)}</strong>
+        </p>
+        <p class="formula-note">
+          Doanh thu giả định tính trên giả thiết phát hành đủ số lượng và bán theo mức giá tham khảo trong đề xuất. Trạng thái mở bán hiện chưa được xác nhận; hàng tồn kho và đơn hàng chưa thanh toán không được coi là tiền thực nhận.
+        </p>
+      </div>
+
+      <!-- Desktop & Tablet Scenarios Table -->
+      <div class="table-wrap desktop-only">
+        <table class="data-table">
+          <caption class="sr-only">Bảng so sánh 3 kịch bản tài chính kế hoạch</caption>
+          <thead>
+            <tr>
+              <th scope="col">Kịch bản kế hoạch</th>
+              <th scope="col" class="text-right">Hiện vật thay chi tiền</th>
+              <th scope="col" class="text-right">Chi tiền còn lại</th>
+              <th scope="col" class="text-right">Số dư giả định</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              scenarioResults.map(({ scenario, result }) => (
+                <tr>
+                  <td>
+                    <strong>{scenario.title}</strong>
+                    <div class="text-sm text-muted">{scenario.description}</div>
+                  </td>
+                  <td class="text-right">
+                    {formatVND(scenario.inKindReplacement.value)}
+                    <div class="text-xs text-muted">{scenario.note}</div>
+                  </td>
+                  <td class="text-right font-medium">
+                    {result ? formatVND(result.remainingCashExpense) : 'Chưa rõ'}
+                  </td>
+                  <td class="text-right font-bold">
+                    <span class={result?.isDeficit ? 'badge-deficit' : 'badge-surplus'}>
+                      {result?.balanceText ?? 'Chưa rõ'}
+                    </span>
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Mobile Scenarios List (Không cuộn ngang) -->
+      <div class="mobile-only mobile-scenario-list" aria-label="Danh sách 3 kịch bản tài chính trên di động">
+        {
+          scenarioResults.map(({ scenario, result }) => (
+            <div class="mobile-scenario-card card">
+              <h3 class="mobile-scenario-title">{scenario.title}</h3>
+              <p class="mobile-scenario-desc">{scenario.description}</p>
+              
+              <div class="mobile-scenario-details">
+                <div class="mobile-card-row">
+                  <span class="mobile-row-label">Hiện vật thay chi:</span>
+                  <span class="mobile-row-value">{formatVND(scenario.inKindReplacement.value)}</span>
+                </div>
+                <div class="mobile-card-row">
+                  <span class="mobile-row-label">Chi tiền còn lại:</span>
+                  <span class="mobile-row-value font-medium">
+                    {result ? formatVND(result.remainingCashExpense) : 'Chưa rõ'}
+                  </span>
+                </div>
+                <div class="mobile-card-row mobile-card-highlight">
+                  <span class="mobile-row-label font-bold">Số dư giả định:</span>
+                  <span class={result?.isDeficit ? 'badge-deficit' : 'badge-surplus'}>
+                    {result?.balanceText ?? 'Chưa rõ'}
+                  </span>
+                </div>
+              </div>
+              <p class="mobile-scenario-note">{scenario.note}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <!-- Policy Clarification Box -->
+      <div class="clarification-box card">
+        <h3 class="clarification-title">Lưu ý quan trọng về các kịch bản tài chính</h3>
+        <ul class="clarification-list">
+          <li>
+            <strong>Nguyên tắc thay thế chi phí:</strong> “Hiện vật thay chi tiền” chỉ phát huy tác dụng khi hiện vật tiếp nhận đúng danh mục và thay thế trực tiếp khoản dự toán chi tương đương, tuyệt đối không cộng giá trị hiện vật vào doanh thu tiền rồi trừ lại hai lần.
+          </li>
+          <li>
+            <strong>Mục đích sử dụng nguồn thu:</strong> Dự án không đưa ra cam kết “100% doanh thu mua quà”. Doanh thu bán sản phẩm dự kiến dùng để trang trải chi phí nguyên vật liệu và tổ chức. Số dư tiền thực tế (nếu có sau khi đối soát tất cả các khoản chi) dự kiến sẽ được dùng để hỗ trợ hiện vật đúng nhu cầu của Mái ấm.
+          </li>
+          <li>
+            <strong>Bản chất giả định:</strong> Tất cả các kịch bản trên đều là mô phỏng kế hoạch trong đề xuất, không cấu thành cam kết tài trợ hay doanh thu tiền mặt thực tế đã phát sinh.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: Báo cáo thực tế và nguyên tắc quản trị -->
+  <section class="section section-soft" aria-labelledby="actual-governance-heading">
+    <div class="container">
+      <div class="section-header">
+        <div class="badge-wrap">
+          <span class="status-badge status-badge-neutral">Theo dõi thực tế</span>
+        </div>
+        <h2 id="actual-governance-heading" class="section-title">
+          Báo cáo thực tế và nguyên tắc quản trị
+        </h2>
+        <p class="section-subtitle">
+          Khung theo dõi dòng tiền thực tế và 4 nguyên tắc quản trị tài chính minh bạch của nhóm Lăng Kính.
+        </p>
+      </div>
+
+      <!-- Actual Ledger Grid (Tất cả hiển thị chưa xác nhận rõ ràng, không in null) -->
+      <div class="actual-ledger-grid" role="region" aria-label="Khung theo dõi số liệu thực tế">
+        <div class="actual-card card">
+          <div class="actual-card-header">
+            <span class="actual-label">Tiền thực nhận</span>
+            <span class="actual-tag">Chờ đối soát</span>
+          </div>
+          <div class="actual-value">{formatVND(ACTUAL_FINANCE.actualCashReceived.value)}</div>
+          <p class="actual-desc">Gồm doanh thu bán hàng thực tế và tài trợ tiền mặt thực nhận.</p>
+        </div>
+
+        <div class="actual-card card">
+          <div class="actual-card-header">
+            <span class="actual-label">Chi tiền thực trả</span>
+            <span class="actual-tag">Chờ đối soát</span>
+          </div>
+          <div class="actual-value">{formatVND(ACTUAL_FINANCE.actualCashSpent.value)}</div>
+          <p class="actual-desc">Các khoản chi vật tư và vận hành thực tế có đầy đủ hóa đơn, chứng từ.</p>
+        </div>
+
+        <div class="actual-card card">
+          <div class="actual-card-header">
+            <span class="actual-label">Số dư tiền thực tế</span>
+            <span class="actual-tag">Chờ đối soát</span>
+          </div>
+          <div class="actual-value">{formatVND(ACTUAL_FINANCE.actualCashBalance.value)}</div>
+          <p class="actual-desc">Chênh lệch giữa tổng tiền thực nhận và tổng chi tiền thực trả.</p>
+        </div>
+
+        <div class="actual-card card">
+          <div class="actual-card-header">
+            <span class="actual-label">Hiện vật tiếp nhận & bàn giao</span>
+            <span class="actual-tag">Sổ riêng</span>
+          </div>
+          <div class="actual-value">Chưa xác nhận</div>
+          <p class="actual-desc">Theo dõi riêng trong sổ hiện vật, không quy đổi gộp vào tiền mặt.</p>
+        </div>
+
+        <div class="actual-card card">
+          <div class="actual-card-header">
+            <span class="actual-label">Chứng từ & Hóa đơn</span>
+            <span class="actual-tag">Lưu trữ nội bộ</span>
+          </div>
+          <div class="actual-value">Chưa xác nhận</div>
+          <p class="actual-desc">Được lưu trữ để phục vụ đối soát; công bố bản biên tập sau duyệt.</p>
+        </div>
+      </div>
+
+      <!-- Empty State Notice Box -->
+      <div class="ledger-empty-notice card">
+        <p>
+          <strong>Trạng thái thực tế:</strong> {ACTUAL_FINANCE.statusNotice}
+        </p>
+        <p class="text-sm text-muted">
+          {ACTUAL_FINANCE.disclaimer} Để đảm bảo tính trung thực, bản xem trước không tạo giao dịch giả định, không bịa tên nhà tài trợ hay danh sách người nhận khi chưa diễn ra đối soát chính thức.
+        </p>
+      </div>
+
+      <!-- 4 Governance Principles -->
+      <div class="principles-grid">
+        <div class="principle-card card">
+          <div class="principle-number">01</div>
+          <h3 class="principle-title">Công thức dòng tiền chuẩn xác</h3>
+          <p class="principle-desc">
+            Số dư tiền = Số dư đầu kỳ + Doanh thu thực nhận + Tài trợ tiền thực nhận − Chi tiền thực trả. Hàng tồn kho và đơn chưa thanh toán không được ghi nhận là doanh thu đã thu.
+          </p>
+        </div>
+
+        <div class="principle-card card">
+          <div class="principle-number">02</div>
+          <h3 class="principle-title">Tách bạch tiền mặt và hiện vật</h3>
+          <p class="principle-desc">
+            Tiền mặt và hiện vật được quản lý trong hai hệ thống sổ sách độc lập. Tuyệt đối không gộp giá trị ước tính của hiện vật vào số dư tiền mặt của chiến dịch.
+          </p>
+        </div>
+
+        <div class="principle-card card">
+          <div class="principle-number">03</div>
+          <h3 class="principle-title">Đối soát chéo hai thành viên</h3>
+          <p class="principle-desc">
+            Theo đề xuất, mọi khoản thu chi phát sinh đều được đối soát độc lập bởi hai thành viên phụ trách tài chính nhằm đảm bảo tính chính xác và khách quan.
+          </p>
+        </div>
+
+        <div class="principle-card card">
+          <div class="principle-number">04</div>
+          <h3 class="principle-title">Biên tập chứng từ bảo vệ riêng tư</h3>
+          <p class="principle-desc">
+            Báo cáo tài chính và chứng từ gốc sau đối soát sẽ được biên tập che các thông tin cá nhân nhạy cảm trước khi công bố công khai theo quyền hạn được duyệt.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: FAQs -->
+  <section class="section" aria-labelledby="transparency-faq-heading">
+    <div class="container">
+      <div class="section-header">
+        <div class="badge-wrap">
+          <span class="status-badge">Giải đáp thắc mắc</span>
+        </div>
+        <h2 id="transparency-faq-heading" class="section-title">
+          Câu hỏi thường gặp về tài chính
+        </h2>
+        <p class="section-subtitle">
+          Giải thích rõ ràng các băn khoăn về dự toán chi, phân bổ doanh thu và kế hoạch công khai báo cáo.
+        </p>
+      </div>
+
+      <div class="faq-list">
+        {
+          TRANSPARENCY_FAQS.map((faq) => (
+            <details class="faq-item card">
+              <summary class="faq-question">
+                <span>{faq.question}</span>
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </summary>
+              <div class="faq-answer">
+                <p>{faq.answer}</p>
+              </div>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Navigation CTA Section -->
+  <section class="section section-soft navigation-cta-section" aria-labelledby="nav-cta-heading">
+    <div class="container">
+      <div class="navigation-cta-card card">
+        <h2 id="nav-cta-heading" class="navigation-cta-title">
+          Tìm hiểu thêm về chiến dịch
+        </h2>
+        <p class="navigation-cta-desc">
+          Khám phá các phương thức tiếp nhận đồng hành cùng dự án hoặc xem chi tiết câu chuyện và 4 góc chơi tại Mái ấm.
+        </p>
+        <div class="navigation-cta-actions">
+          <a href="/dong-hanh" class="btn btn-primary">
+            Đồng hành cùng dự án &rarr;
+          </a>
+          <a href="/du-an/mang-theo-mot-net-ve" class="btn btn-secondary">
+            Xem chi tiết câu chuyện dự án
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
 </Layout>
 
 <style>
-  .shell-container {
-    max-width: 800px;
-    margin: 0 auto;
+  /* Breadcrumb Bar */
+  .breadcrumb-bar {
+    background-color: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    padding: var(--space-3) 0;
   }
 
-  .shell-card {
+  .breadcrumb-list {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.9375rem;
+    flex-wrap: wrap;
+  }
+
+  .breadcrumb-link {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+  }
+
+  .breadcrumb-link:hover {
+    color: var(--color-text-accent);
+    text-decoration: underline;
+  }
+
+  .breadcrumb-separator {
+    color: var(--color-text-muted);
+    user-select: none;
+  }
+
+  .breadcrumb-current {
+    color: var(--color-text-primary);
+    font-weight: 600;
+  }
+
+  /* Hero Section */
+  .transparency-hero {
+    padding: var(--space-8) 0 var(--space-6);
+  }
+
+  .transparency-hero-card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
     padding: var(--space-8);
     display: flex;
     flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  .badge-row {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+
+  .status-badge-neutral {
+    background-color: var(--color-surface-soft);
+    color: var(--color-text-secondary);
+    border: 1px solid var(--color-border);
+  }
+
+  .transparency-title {
+    font-size: var(--font-size-h1);
+    color: var(--color-text-primary);
+    line-height: 1.25;
+    margin: 0;
+  }
+
+  .transparency-lead {
+    font-size: 1.125rem;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin: 0;
+    max-width: 720px;
+  }
+
+  /* Highlights Grid */
+  .highlights-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--space-4);
   }
 
-  .shell-title {
-    font-size: var(--font-size-h2);
-    color: var(--color-text-primary);
-  }
-
-  .shell-subtitle {
-    font-size: 1.125rem;
-    color: var(--color-text-secondary);
-  }
-
-  .shell-notice {
-    background-color: var(--color-canvas-soft);
-    border-left: 4px solid var(--color-accent);
-    padding: var(--space-4);
-    border-radius: var(--radius-sm);
+  .highlight-card {
+    background-color: var(--color-surface-soft);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
     display: flex;
     flex-direction: column;
     gap: var(--space-2);
   }
 
-  .shell-actions {
-    margin-top: var(--space-4);
+  .highlight-label {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .highlight-value {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--color-text-accent);
+    line-height: 1.15;
+  }
+
+  .highlight-condition {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .transparency-notice {
+    background-color: var(--color-canvas-soft);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-text-accent);
+    border-radius: var(--radius-sm);
+    padding: var(--space-4);
+    font-size: 0.9375rem;
+    color: var(--color-text-primary);
+    line-height: 1.5;
+  }
+
+  .transparency-notice p {
+    margin: 0;
+  }
+
+  /* Section Headers */
+  .section-header {
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto var(--space-8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .section-title {
+    font-size: var(--font-size-h2);
+    color: var(--color-text-primary);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .section-subtitle {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* Tables */
+  .table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-surface);
+  }
+
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+    text-align: left;
+  }
+
+  .data-table th,
+  .data-table td {
+    padding: var(--space-4) var(--space-5);
+    border-bottom: 1px solid var(--color-border);
+    vertical-align: top;
+  }
+
+  .data-table thead th {
+    background-color: var(--color-surface-soft);
+    color: var(--color-text-primary);
+    font-weight: 700;
+  }
+
+  .data-table tbody tr:hover {
+    background-color: rgba(200, 90, 50, 0.02);
+  }
+
+  .data-table tfoot th,
+  .data-table tfoot td {
+    border-bottom: none;
+    background-color: var(--color-surface-soft);
+  }
+
+  .total-row {
+    font-size: 1.0625rem;
+  }
+
+  .text-right {
+    text-align: right;
+  }
+
+  .font-medium {
+    font-weight: 600;
+  }
+
+  .font-bold {
+    font-weight: 700;
+  }
+
+  .text-accent {
+    color: var(--color-text-accent);
+  }
+
+  .text-muted {
+    color: var(--color-text-muted);
+  }
+
+  .text-sm {
+    font-size: 0.875rem;
+  }
+
+  .text-xs {
+    font-size: 0.875rem;
+  }
+
+  .category-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    background-color: var(--color-surface-soft);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+  }
+
+  .estimated-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    background-color: #FEF3C7;
+    color: #92400E;
+    border-radius: var(--radius-full);
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-left: 6px;
+  }
+
+  /* Deficit / Surplus Badges */
+  .badge-deficit {
+    display: inline-block;
+    padding: 4px 10px;
+    background-color: #FEE2E2;
+    color: #B91C1C;
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+    font-weight: 700;
+  }
+
+  .badge-surplus {
+    display: inline-block;
+    padding: 4px 10px;
+    background-color: #DCFCE7;
+    color: #15803D;
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+    font-weight: 700;
+  }
+
+  /* Formula Card */
+  .formula-card {
+    padding: var(--space-6);
+    margin-bottom: var(--space-6);
+    background-color: var(--color-surface-soft);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .formula-title {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .formula-expression {
+    font-size: 1.125rem;
+    color: var(--color-text-accent);
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .formula-note {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* Clarification Policy Box */
+  .clarification-box {
+    margin-top: var(--space-6);
+    padding: var(--space-6);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .clarification-title {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .clarification-list {
+    margin: 0;
+    padding-left: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    font-size: 0.9375rem;
+    color: var(--color-text-secondary);
+    line-height: 1.55;
+  }
+
+  /* Actual Ledger Grid */
+  .actual-ledger-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+    margin-bottom: var(--space-6);
+  }
+
+  .actual-card {
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .actual-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .actual-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+  }
+
+  .actual-tag {
+    font-size: 0.875rem;
+    padding: 2px 6px;
+    background-color: var(--color-surface-soft);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-muted);
+  }
+
+  .actual-value {
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+  }
+
+  .actual-desc {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    line-height: 1.45;
+    margin: 0;
+  }
+
+  .ledger-empty-notice {
+    padding: var(--space-5);
+    margin-bottom: var(--space-8);
+    background-color: var(--color-surface);
+    border-left: 4px solid var(--color-text-muted);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .ledger-empty-notice p {
+    margin: 0;
+  }
+
+  /* Principles Grid */
+  .principles-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+  }
+
+  .principle-card {
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .principle-number {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--color-text-accent);
+  }
+
+  .principle-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .principle-desc {
+    font-size: 0.9375rem;
+    color: var(--color-text-secondary);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* FAQs */
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .faq-item {
+    padding: var(--space-5);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-surface);
+  }
+
+  .faq-question {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-icon {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: var(--color-text-accent);
+    transition: transform var(--transition-fast);
+  }
+
+  details[open] .faq-icon {
+    transform: rotate(45deg);
+  }
+
+  .faq-answer {
+    margin-top: var(--space-3);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--color-border);
+    font-size: 0.9375rem;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+  }
+
+  .faq-answer p {
+    margin: 0;
+  }
+
+  /* Navigation CTA */
+  .navigation-cta-section {
+    padding: var(--space-8) 0;
+  }
+
+  .navigation-cta-card {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .navigation-cta-title {
+    font-size: var(--font-size-h2);
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .navigation-cta-desc {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .navigation-cta-actions {
+    display: flex;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* Screen Reader Only Utility */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  /* Responsive Display Rules */
+  .desktop-only {
+    display: block;
+  }
+
+  .mobile-only {
+    display: none;
   }
 
   @media (max-width: 767px) {
-    .shell-card {
+    .desktop-only {
+      display: none !important;
+    }
+
+    .mobile-only {
+      display: flex !important;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+
+    .highlights-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .actual-ledger-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .principles-grid {
+      grid-template-columns: 1fr;
+    }
+
+    /* Mobile Expense Cards */
+    .mobile-expense-card {
+      padding: var(--space-4);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .mobile-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .mobile-expense-title {
+      font-size: 1.0625rem;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      margin: 0;
+    }
+
+    .mobile-card-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: var(--space-1) 0;
+    }
+
+    .mobile-row-label {
+      font-size: 0.875rem;
+      color: var(--color-text-secondary);
+    }
+
+    .mobile-row-value {
+      font-size: 0.9375rem;
+      color: var(--color-text-primary);
+    }
+
+    .mobile-expense-note {
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+      margin: 0;
+      line-height: 1.4;
+      border-top: 1px solid var(--color-border);
+      padding-top: var(--space-2);
+    }
+
+    .mobile-total-card {
       padding: var(--space-5);
+      background-color: var(--color-surface-soft);
+      border: 2px solid var(--color-text-accent);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      text-align: center;
+    }
+
+    .mobile-total-header {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: var(--color-text-secondary);
+      text-transform: uppercase;
+    }
+
+    .mobile-total-amount {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--color-text-accent);
+    }
+
+    .mobile-total-note {
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    /* Mobile Scenario Cards */
+    .mobile-scenario-card {
+      padding: var(--space-4);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .mobile-scenario-title {
+      font-size: 1.0625rem;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      margin: 0;
+    }
+
+    .mobile-scenario-desc {
+      font-size: 0.875rem;
+      color: var(--color-text-secondary);
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    .mobile-scenario-details {
+      background-color: var(--color-surface-soft);
+      border-radius: var(--radius-sm);
+      padding: var(--space-3);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .mobile-card-highlight {
+      border-top: 1px solid var(--color-border);
+      padding-top: var(--space-2);
+    }
+
+    .mobile-scenario-note {
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+      margin: 0;
+      line-height: 1.4;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .transparency-hero-card {
+      padding: var(--space-5);
+    }
+
+    .navigation-cta-actions {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .navigation-cta-actions .btn {
+      width: 100%;
     }
   }
 </style>
