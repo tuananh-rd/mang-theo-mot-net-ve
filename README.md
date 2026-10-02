@@ -25,14 +25,6 @@ Mở `http://127.0.0.1:4321/`. Preview chỉ bind loopback, mọi trang có noin
 
 Ứng dụng dùng Astro static, TypeScript strict và CSS thuần. Nội dung chọn lọc nằm ở `src/data/campaign.ts`; cập nhật theo task của Antigravity, giữ giá tham khảo/planned tách actual và unknown=null. Chỉ thêm ảnh public sau khi xác nhận quyền; giữ hồ sơ gốc, chứng từ thô và evidence review ngoài public/dist. Hosting/deploy chưa được chọn hoặc thực hiện.
 
-## Bắt đầu trên Orca — hướng dẫn ban đầu, lịch sử trước T01
-
-1. Mở folder này làm folder dự án. Chưa có code ứng dụng hoặc Git repository được khởi tạo.
-2. Mở Codex tại folder này; gửi nội dung `docs/prompts/codex.md`.
-3. Mở Antigravity cho cùng dự án; gửi `docs/prompts/antigravity.md`.
-4. Codex lập task T00/T01. Nếu hai agent chưa có kênh liên lạc đã xác minh, chủ dự án chuyển task và báo cáo giữa hai agent.
-5. Sau khi khởi tạo Git, Codex làm việc với tài liệu; Antigravity triển khai code trên nhánh riêng. Review theo commit, không cùng sửa một file.
-
 ## Tài liệu
 
 - `docs/brief.md`: phạm vi và nội dung dự án.
