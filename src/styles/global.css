@@ -88,6 +88,13 @@ p.lead {
   color: var(--color-text-primary);
 }
 
+small,
+caption,
+figcaption {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-sm);
+}
+
 /* Focus States */
 a:focus-visible,
 button:focus-visible {

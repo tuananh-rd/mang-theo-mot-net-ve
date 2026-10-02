@@ -143,6 +143,17 @@ const navItems = [
         closeMenu();
       });
     });
+
+    // Close mobile menu and reset aria-expanded whenever resizing to desktop viewport (>= 1024px)
+    const mediaQuery = window.matchMedia('(min-width: 1024px)');
+    const handleBreakpointChange = (e: MediaQueryListEvent | MediaQueryList) => {
+      if (e.matches) {
+        closeMenu();
+      }
+    };
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener('change', handleBreakpointChange);
+    }
   }
 
   // Run on initial load and client-side transitions
@@ -220,8 +231,13 @@ const navItems = [
   }
 
   .cta-btn {
-    padding: var(--space-3) var(--space-6);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 var(--space-6);
     min-height: 48px;
+    height: 48px;
+    box-sizing: border-box;
   }
 
   /* Mobile Toggle */
@@ -230,12 +246,14 @@ const navItems = [
     align-items: center;
     justify-content: center;
     min-height: 48px;
+    height: 48px;
     min-width: 48px;
+    box-sizing: border-box;
     gap: var(--space-2);
     background: transparent;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-sm);
-    padding: var(--space-2) var(--space-3);
+    padding: 0 var(--space-3);
     font-size: 0.875rem;
     font-weight: 600;
     color: var(--color-text-primary);
@@ -309,6 +327,20 @@ const navItems = [
   .btn-block {
     display: flex;
     width: 100%;
+  }
+
+  @media (min-width: 1024px) {
+    .desktop-nav {
+      display: flex;
+    }
+
+    .mobile-toggle {
+      display: none !important;
+    }
+
+    .mobile-panel {
+      display: none !important;
+    }
   }
 
   @media (max-width: 1023px) {

@@ -46,7 +46,7 @@ function formatPrice(val: number | null): string {
         <strong>Nguồn gốc:</strong> {product.originText}
       </p>
       <p class="notes-info">
-        <small>{product.notes}</small>
+        {product.notes}
       </p>
     </div>
   </div>
@@ -133,12 +133,14 @@ function formatPrice(val: number | null): string {
   }
 
   .origin-info {
-    font-size: 0.8125rem;
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-sm);
     color: var(--color-text-secondary);
   }
 
   .notes-info {
-    font-size: 0.8125rem;
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-sm);
     color: var(--color-text-muted);
     font-style: italic;
   }

@@ -30,7 +30,7 @@ const { activity, illustrationType } = Astro.props;
 
     {activity.note && (
       <p class="card-note">
-        <small>{activity.note}</small>
+        {activity.note}
       </p>
     )}
   </div>
@@ -84,7 +84,8 @@ const { activity, illustrationType } = Astro.props;
   }
 
   .card-note {
-    font-size: 0.8125rem;
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-sm);
     color: var(--color-text-muted);
     font-style: italic;
     border-top: 1px solid var(--color-border-subtle);

@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { SUPPORT_METHODS } from '../data/campaign';
 ---
 
 <Layout
@@ -15,26 +14,14 @@ import { SUPPORT_METHODS } from '../data/campaign';
       </div>
 
       <h1 class="shell-title">Đồng hành cùng dự án</h1>
-      <p class="shell-subtitle">Các cách tiếp nhận hỗ trợ đúng nhu cầu thực tế</p>
-
-      <div class="support-list">
-        {
-          SUPPORT_METHODS.map((method) => (
-            <div class="support-item">
-              <h2 class="method-title">{method.title}</h2>
-              <p class="method-desc">{method.description}</p>
-              <span class="method-status">{method.statusText}</span>
-            </div>
-          ))
-        }
-      </div>
+      <p class="shell-subtitle">Các phương thức tiếp nhận hỗ trợ đúng nhu cầu thực tế</p>
 
       <div class="shell-notice">
         <p>
-          <strong>Kênh liên hệ chính thức đang được cập nhật.</strong>
+          <strong>Trang đang được hoàn thiện trong bản xem trước.</strong>
         </p>
         <p>
-          Để đảm bảo tính xác thực và an toàn, nhóm không cung cấp số tài khoản, mã QR hoặc form thu thập thông tin khi chưa có sự xác nhận chính thức từ nhà trường và Mái ấm.
+          Kênh tiếp nhận hỗ trợ vật tư và thông tin liên hệ chính thức đang được cập nhật và đối soát cùng Mái ấm. Để đảm bảo an toàn, bản xem trước chưa tiếp nhận đăng ký trực tuyến hay đóng góp tài chính.
         </p>
       </div>
 
@@ -68,36 +55,6 @@ import { SUPPORT_METHODS } from '../data/campaign';
   .shell-subtitle {
     font-size: 1.125rem;
     color: var(--color-text-secondary);
-  }
-
-  .support-list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-    margin: var(--space-2) 0;
-  }
-
-  .support-item {
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    padding: var(--space-4);
-    background-color: var(--color-canvas-subtle);
-  }
-
-  .method-title {
-    font-size: 1.125rem;
-    margin-bottom: var(--space-2);
-  }
-
-  .method-desc {
-    font-size: 0.9375rem;
-    margin-bottom: var(--space-2);
-  }
-
-  .method-status {
-    font-size: 0.8125rem;
-    color: var(--color-text-accent);
-    font-weight: 500;
   }
 
   .shell-notice {
