@@ -1,0 +1,38 @@
+﻿{
+    "taskId":  "T03",
+    "phase":  "Preliminary finance content review before final commit",
+    "feedback":  "Một điểm tài chính cần sửa cùng các feedback đang chờ: src/pages/minh-bach.astro actual-card Số dư tiền thực tế đang ghi Chênh lệch giữa tổng tiền thực nhận và tổng chi tiền thực trả, thiếu số dư đầu kỳ. Thống nhất với công thức đúng ở section nguyên tắc: số dư đầu kỳ + tiền thực nhận - chi tiền thực trả; không mặc định đầu kỳ bằng0 khi chưa xác nhận. Các mô tả chứng từ/ghi sổ cũng phải thể hiện kế hoạch khi actual chưa xác nhận; bỏ câu không tạo giao dịch giả/không bịa nhà tài trợ khỏi empty state. Đây là các điều kiện R03 nội dung tài chính, sửa trong cùngT03 trước final handoff.",
+    "receipt":  {
+                    "id":  "e13d460f-3622-4394-9e56-e0e7833b1a1a",
+                    "ok":  true,
+                    "result":  {
+                                   "send":  {
+                                                "handle":  "term_4d29ba8e-7d0b-4a74-858f-d45e9a6fb9b9",
+                                                "accepted":  true,
+                                                "bytesWritten":  763,
+                                                "prompt":  {
+                                                               "requestId":  "7bc949ef-d1df-441e-962b-3cec7a9e9d22",
+                                                               "stages":  [
+                                                                              "input_accepted"
+                                                                          ],
+                                                               "provider":  "unsupported",
+                                                               "observation":  "unsupported",
+                                                               "processIncarnation":  "2ea6694a-36ff-4841-8433-a795aeb9a8b8",
+                                                               "generation":  6,
+                                                               "baselineWorkingSequence":  0
+                                                           }
+                                            },
+                                   "mutation":  {
+                                                    "requestId":  "7bc949ef-d1df-441e-962b-3cec7a9e9d22",
+                                                    "replayed":  false
+                                                },
+                                   "warnings":  [
+                                                    "input was accepted, but this provider cannot report delivery. Inspect the terminal before retrying."
+                                                ]
+                               },
+                    "_meta":  {
+                                  "runtimeId":  "6e6114a7-3148-4dbe-b563-c2a58c95ba4d"
+                              }
+                },
+    "sentAt":  "2026-10-02T18:21:24.8412025Z"
+}

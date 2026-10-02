@@ -1,0 +1,106 @@
+{
+  "taskId": "T03-finance-support",
+  "finalSha": "e563de405acd8b9b71091b12a5953ba85342aed2",
+  "baseSha": "da890a212e029249e29545aa1606e71027034674",
+  "branch": "task/t03-finance-support",
+  "timestamp": "2026-10-03T01:26:00+07:00",
+  "check": {
+    "command": "npm.cmd run check",
+    "exitCode": 0,
+    "filesChecked": 31,
+    "errors": 0,
+    "warnings": 0,
+    "hints": 0
+  },
+  "test": {
+    "command": "node --test tests/finance.test.mjs",
+    "exitCode": 0,
+    "testsCount": 13,
+    "suitesCount": 2,
+    "passed": 13,
+    "failed": 0
+  },
+  "build": {
+    "command": "npm.cmd run build",
+    "exitCode": 0,
+    "pagesBuilt": 7,
+    "distFilesCount": 15
+  },
+  "distFiles": [
+    {
+      "path": "dist\\404.html",
+      "bytes": 8877,
+      "sha256": "b695525dd529442c5a7d73592152c0a1b2cfb673b123a12405de1cbd80337bef"
+    },
+    {
+      "path": "dist\\dong-hanh\\index.html",
+      "bytes": 22151,
+      "sha256": "e2c9fad0c5741606cd8f3ca732cb83570ceec08462993f7d12a9e5b3232aa580"
+    },
+    {
+      "path": "dist\\du-an\\mang-theo-mot-net-ve\\index.html",
+      "bytes": 31891,
+      "sha256": "ae65a8c646b0bc23a11f55498874fb656215fc52dc4ff620dcf075eecfe7b8f0"
+    },
+    {
+      "path": "dist\\favicon.svg",
+      "bytes": 703,
+      "sha256": "cf5a6109d12aead474ccee95fd51643e1988adc2364bb1349e3c3e4e6d564051"
+    },
+    {
+      "path": "dist\\index.html",
+      "bytes": 41760,
+      "sha256": "64360ec4da1523873a4e95f087576dac01b15d8e62e0a87b589066e78fcd3c36"
+    },
+    {
+      "path": "dist\\minh-bach\\index.html",
+      "bytes": 39444,
+      "sha256": "29e3fd91e33a98fbf5049430d4ecf3937709d2dc5bf99cec38f83c24c9c56b15"
+    },
+    {
+      "path": "dist\\san-pham\\index.html",
+      "bytes": 30029,
+      "sha256": "cb7abe9a72d02669848efd4e2e9eb7c2c9787510d8bf74b8755e4473f525fe01"
+    },
+    {
+      "path": "dist\\ve-nhom\\index.html",
+      "bytes": 17299,
+      "sha256": "e703d8fcb3cfaac6092ee6cbbdf513fa153ce9d5f818ee5552018b868c95a935"
+    },
+    {
+      "path": "dist\\_astro\\dong-hanh.7XVzUC-8.css",
+      "bytes": 8138,
+      "sha256": "64218b20144d802f6179fad0de9ada7e72ee786477900746372b85499c3b7705"
+    },
+    {
+      "path": "dist\\_astro\\index.BA-eB4wT.css",
+      "bytes": 6741,
+      "sha256": "db771e1b51e390dcd2126fd7f259def9fe7f9df202301bf1ebe93af02f3e5590"
+    },
+    {
+      "path": "dist\\_astro\\Layout.FhlXODiz.css",
+      "bytes": 12670,
+      "sha256": "9a9109e7436ddeca3d06969508e58a5f08b1c384effc2e94bf7b94c4b2a1ccf3"
+    },
+    {
+      "path": "dist\\_astro\\mang-theo-mot-net-ve.BWRcd6ON.css",
+      "bytes": 5855,
+      "sha256": "c501d34a1049239d17a9b40bd710f20d6fee8c3c661df16205e994ce534e0e58"
+    },
+    {
+      "path": "dist\\_astro\\minh-bach.ItqFpkDy.css",
+      "bytes": 13236,
+      "sha256": "e2b59cc509e68202fc2394c0159ecee017db822840146fc1ad074ae69e7240ea"
+    },
+    {
+      "path": "dist\\_astro\\san-pham.egkKD4MR.css",
+      "bytes": 6425,
+      "sha256": "79de34f8531b5d28228c7cc6011d391f100e4a62e5428d7645af06f9722e18d0"
+    },
+    {
+      "path": "dist\\_astro\\ve-nhom.OlKF1whp.css",
+      "bytes": 5757,
+      "sha256": "ce77d44fa50d0fc0d953fe1263fe8ae12f42b98b8556300bdc2c9cc8cef90176"
+    }
+  ]
+}

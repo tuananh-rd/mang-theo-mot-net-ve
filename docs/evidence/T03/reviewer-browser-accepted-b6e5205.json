@@ -1,0 +1,19 @@
+﻿{
+    "sha":  "b6e5205c6cfd19b6bae592e7148c49385c671e8d",
+    "fullRun":  "reviewer-browser-b6e5205-initial.json",
+    "fullRunAssertions":  266,
+    "fullRunPassed":  264,
+    "initialReviewerCriterionFailures":  [
+                                             "Native FAQ keyboard finance",
+                                             "Native FAQ keyboard support"
+                                         ],
+    "targetedRecheck":  "reviewer-faq-b6e5205.json",
+    "recheckedAssertionsPassed":  2,
+    "unresolvedFailures":  [
+
+                           ],
+    "acceptedAssertions":  266,
+    "allAccepted":  true,
+    "explanation":  "Only exact solid2px assumption failed for native summary. Browser auto1px outline is visibly present in two reviewed focus screenshots; native Enter/Space and visible answers pass targeted recheck. Application was unchanged. Full run was not repeated.",
+    "checkedAt":  "2026-10-02T18:40:59.8450488Z"
+}

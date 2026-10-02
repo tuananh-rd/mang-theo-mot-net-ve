@@ -1,5 +1,17 @@
 # Bàn giao tiếp nối Brain — 02/10/2026
 
+## Hiện tại sau T03/R03 — 03/10/2026
+
+Workspace giữ nguyên, nhánh `task/t03-finance-support`. **T03 DONE; R03 PASS**, base `da890a212e029249e29545aa1606e71027034674`, app final `b6e5205c6cfd19b6bae592e7148c49385c671e8d`. [Review cuối](../docs/reviews/R03-b6e5205.md), [candidate CHANGES_REQUIRED e563de4](../docs/reviews/R03-e563de4.md), [spec](../docs/task-specs/T03.md), [worker handoff](../docs/evidence/T03/worker-handoff-b6e5205.md). Cả6route đã có nội dung preview; actual/contact/ảnh/tên/lịch vẫn chưa xác nhận. T04 READY, chưa giao trong vòng này; chưa public.
+
+Chủ dự án nói “ok tiếp tục đi” sau T02/R02 PASS, Codex giao T03 cho worker cũ. Candidate e563de4 cần sửa ngữ nghĩa số dư đầu kỳ/kịch bản hiện vật/mở bán, checklist UI và CSS variables thiếu; worker đọc R03 và sửa b6e5205. Một worker, Codex không sửa app. Giữ source/candidate evidence, không reset/xóa/ghi đè handoff. Package/lock giữ hash; CI T01 sạch tái sử dụng. Worker13tests/check/build0; Codex13tests/check/build0,33file0diagnostics/7pages. Fifteen dist hashes sau ownbuild trùng worker và bản chụp ảnh;11outputT02 không thuộc2shell không đổi.
+
+Chrome154.0.8037.93 headlessproduction,2page×5width;6full-page đã xem, menu và2FAQfocus. Fullrun266assertions có264PASS+2falsefail do reviewer đòi exact solid2px trên summary native; giữ log đó, sửa script và kiểm targeted2FAQ: auto1px viền đen rõ/EnterSpace hoạt động. Tổng266accepted, không giả fullrun chưa từng fail. Viewport DPR1/defaultzoom, chưa thử touchdevice/fullWCAG. Bundle15file không private/rawsource/contacts/credential/form theo scan+diff. DOCX/reportClaude hash không đổi.
+
+Runtime/worker vẫn `6e6114a7-3148-4dbe-b563-c2a58c95ba4d` / `term_4d29ba8e-7d0b-4a74-858f-d45e9a6fb9b9`, incarnation `2ea6694a-36ff-4841-8433-a795aeb9a8b8`, Gemini3.8FlashHigh, conversation `86498389-9ca4-486e-9ba8-82247107fb96`. Phải re-list đúng folder workspaceID có suffix workspace:a975a56e-0b5d-4351-b7c3-1e22cf16c0fc; selector path đơn trỏ contextrepo lịch sử khác. Show/read/list đã xác minh đúng worker T02/T03, không gửi cho Antigravity ở contextrepo cũ. Receipt input_accepted không làACK; Read/Edit/Bash/commit/report thật chứng minh tiếp nhận và bàn giao, ACKHOLD T02 không thayACKT03.
+
+Preview task957/PID2888 bind127.0.0.1:4321 tại lần kiểm, worker HOLD giữ finaldist. Không dùng PID/handle lịch sử đểkill, không kill mọi node. GitHubprivate được Brain cập nhật main/task-t03 sau commit docs meaningful theo quyền trước; SHA chứa docs/remote đọc Git thực tế khi tiếp nhận, không dùng appSHA thay. Localmain giữB0, không move/reset/forcepush. Bàn giao T02/T01 phía dưới là lịch sử.
+
 ## Hiện tại sau T02/R02 — 03/10/2026
 
 Workspace giữ nguyên `C:\Users\tuana\Documents\Codex\2026-10-02\t\outputs\mang-theo-mot-net-ve`; branch `task/t02-content-pages`. **T02 DONE; R02 PASS** tại app `a317d856f51648a39fbcac33010c03bb8c7723b5`, base `fff88b2209e3c2836c06125bad1a7084bdc50590`. [Review final](../docs/reviews/R02-a317d85.md), [đặc tả](../docs/task-specs/T02.md), [bàn giao worker](../docs/evidence/T02/worker-handoff-a317d85.md). R02 candidate311dc33 CHANGES_REQUIRED giữ nguyên; worker sửa đúng4appfiles bằng final a317d85. Codex chỉ docs/evidence/review. T03 READY nhưng chưa giao trong vòng R02; không worker mới.

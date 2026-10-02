@@ -1,0 +1,28 @@
+﻿{
+    "taskId":  "T03",
+    "source":  "docs/data-and-finance.md; proposal plan only",
+    "plannedExpense":  3120000,
+    "hypotheticalSoldOutRevenue":  2900000,
+    "scenarios":  [
+                      {
+                          "remainingCashExpense":  3120000,
+                          "hypotheticalCashBalance":  -220000,
+                          "inKindReplacingCashExpense":  0
+                      },
+                      {
+                          "remainingCashExpense":  2620000,
+                          "hypotheticalCashBalance":  280000,
+                          "inKindReplacingCashExpense":  500000
+                      },
+                      {
+                          "remainingCashExpense":  2000000,
+                          "hypotheticalCashBalance":  900000,
+                          "inKindReplacingCashExpense":  1120000
+                      }
+                  ],
+    "actualCash":  null,
+    "actualInKind":  null,
+    "contact":  null,
+    "checkedAt":  "2026-10-02T18:10:11.3794770Z",
+    "sponsorshipCommitment":  null
+}

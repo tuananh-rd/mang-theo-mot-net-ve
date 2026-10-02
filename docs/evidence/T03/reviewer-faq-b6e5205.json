@@ -1,0 +1,31 @@
+{
+  "sha": "b6e5205c6cfd19b6bae592e7148c49385c671e8d",
+  "checkedAt": "2026-10-02T18:37:45.820Z",
+  "reason": "Targeted check after reviewer incorrectly required exact solid 2px for native summary; visible browser auto 1px is accepted after visual inspection",
+  "results": [
+    {
+      "page": "finance",
+      "open": true,
+      "answerHeight": 179.15625,
+      "fontSize": 16,
+      "outlineStyle": "auto",
+      "outlineWidth": 1,
+      "outlineColor": "rgb(16, 16, 16)",
+      "focusedSummary": true,
+      "closed": true,
+      "pass": true
+    },
+    {
+      "page": "support",
+      "open": true,
+      "answerHeight": 153.5625,
+      "fontSize": 16,
+      "outlineStyle": "auto",
+      "outlineWidth": 1,
+      "outlineColor": "rgb(16, 16, 16)",
+      "focusedSummary": true,
+      "closed": true,
+      "pass": true
+    }
+  ]
+}

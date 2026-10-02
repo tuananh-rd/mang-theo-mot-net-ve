@@ -2,7 +2,7 @@
 
 Mã nguồn: [tuananh-rd/mang-theo-mot-net-ve](https://github.com/tuananh-rd/mang-theo-mot-net-ve) — repository private. Lưu code trên GitHub không thay mốc duyệt hướng UI hoặc duyệt phát hành website.
 
-**T02 DONE; R02 PASS** tại app SHA `a317d85`, sau khi chủ dự án duyệt hướng UI đã sửa theo [Claude](reports/ui-review-claude.md). Ba trang Dự án, Về nhóm và Sản phẩm đã hoàn chỉnh trong phạm vi preview. [Review T02](docs/reviews/R02-a317d85.md), [đặc tả](docs/task-specs/T02.md), [bàn giao hiện tại](reports/resume-brain.md). Minh bạch và Đồng hành còn là shell cho T03; chưa public website.
+**T03 DONE; R03 PASS** tại app SHA `b6e5205`. Cả sáu trang đã có nội dung preview, gồm Minh bạch và Đồng hành; hướng UI đã được duyệt sau sửa theo [Claude](reports/ui-review-claude.md). [Review T03](docs/reviews/R03-b6e5205.md), [đặc tả](docs/task-specs/T03.md), [bàn giao hiện tại](reports/resume-brain.md). T04 kiểm tổng thể/hoàn thiện vận hành chưa giao; chưa public website.
 
 Bộ tài liệu khởi động website của **nhóm Lăng Kính – AI2015, SSG105, Đại học FPT Hà Nội**. Website giới thiệu nhóm và một dự án trọng tâm tại Mái ấm Thánh Tâm Xuy Xá, với UI tham khảo https://sharethemeal.org/fr.
 
@@ -17,11 +17,13 @@ npm.cmd run build
 npm.cmd run preview -- --host 127.0.0.1 --port 4321
 ```
 
-Mở `http://127.0.0.1:4321/`. Preview chỉ bind loopback, mọi trang có noindex/nofollow. Trang chủ, Dự án, Về nhóm và Sản phẩm đã có nội dung; Minh bạch và Đồng hành còn là shell. Dừng server bằng Ctrl+C ở terminal giữ server. `npm.cmd run dev -- --host 127.0.0.1` dùng khi worker phát triển; review dùng bản build. Không serve gốc repository hoặc share public từ bước này.
+Mở `http://127.0.0.1:4321/`. Preview chỉ bind loopback, mọi trang có noindex/nofollow. Sáu route và 404 hoạt động; thông tin liên hệ, nhu cầu và actual chưa xác nhận nên chưa bật nhận đơn/tiền. Dừng server bằng Ctrl+C ở terminal giữ server. `npm.cmd run dev -- --host 127.0.0.1` dùng khi worker phát triển; review dùng bản build. Không serve gốc repository hoặc share public từ bước này.
 
 Ứng dụng dùng Astro static, TypeScript strict và CSS thuần. Nội dung chọn lọc nằm ở `src/data/campaign.ts`; cập nhật theo task của Antigravity, giữ giá tham khảo/planned tách actual và unknown=null. Chỉ thêm ảnh public sau khi xác nhận quyền; giữ hồ sơ gốc, chứng từ thô và evidence review ngoài public/dist. Hosting/deploy chưa được chọn hoặc thực hiện.
 
 Bảng số lượng sản phẩm hiện là bản kế hoạch tĩnh: khi đổi giá hoặc số lượng đề xuất, Antigravity cần giữ dữ liệu typed, bảng desktop/tablet và thẻ mobile trong `src/pages/san-pham.astro` nhất quán. Chưa có tồn kho hoặc trạng thái mở bán được xác nhận.
+
+Minh bạch dùng `PLANNED_EXPENSES`, `FINANCE_SCENARIOS` và helper `src/lib/finance.ts`, render table/mobile từ cùng data; doanh thu lấy giá×số lượng PRODUCTS. `ACTUAL_FINANCE` tách khỏi kế hoạch, `OFFICIAL_CONTACT` hiện null/unconfirmed. Cập nhật dữ liệu đã được phép theo task worker, đồng bộ overview trang chủ nếu bổ sung actual; chưa tự bật kênh tiếp nhận. Kiểm logic tài chính bằng `node --test tests/finance.test.mjs`.
 
 ## Tài liệu
 

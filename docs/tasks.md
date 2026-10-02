@@ -1,5 +1,13 @@
 # Backlog
 
+## Trạng thái hiện tại sau R03 — 03/10/2026
+
+**T03 DONE; R03 PASS** tại app `b6e5205c6cfd19b6bae592e7148c49385c671e8d`, base `da890a212e029249e29545aa1606e71027034674`, nhánh `task/t03-finance-support`. [Review cuối](reviews/R03-b6e5205.md), [candidate yêu cầu sửa](reviews/R03-e563de4.md). Check/tests/build độc lập exit0,13tests tài chính đạt,266browser assertions được chấp nhận (264fullrun+2targetedFAQ, nguyên nhân script ghi rõ),6full-page đã xem. Cả6route nội dung preview; actual/contact vẫn chưa xác nhận. **T04 READY, chưa giao**, worker HOLD giữ preview; chưa public. Các trạng thái IN_PROGRESS/CHANGES_REQUIRED bên dưới là lịch sử.
+
+## T03 tiếp tục — 03/10/2026
+
+Chủ dự án nói “ok tiếp tục đi” sau T02/R02 PASS. **T03 IN_PROGRESS; R03 CHANGES_REQUIRED tại e563de4**, base `da890a212e029249e29545aa1606e71027034674`, nhánh `task/t03-finance-support`. [Đặc tả T03](task-specs/T03.md) hoàn thiện Minh bạch/Đồng hành, tách dự toán/thực tế, tiền/hiện vật và contact chưa xác nhận. [Review candidate](reviews/R03-e563de4.md); worker hiện có đã đọc review và đang sửa cùng task. [Continuity/receipt](evidence/T03/continuity.json), [trace tiếp nhận](evidence/T03/worker-ack.json); không coi input_accepted hoặc ACK HOLD của T02 là ACK T03. Không T04 hoặc public. Giữ hiện trạng T02 bên dưới để truy vết.
+
 ## Trạng thái hiện tại — 03/10/2026
 
 **T02 DONE; R02 PASS** tại app `a317d856f51648a39fbcac33010c03bb8c7723b5`, nhánh `task/t02-content-pages`, base `fff88b2209e3c2836c06125bad1a7084bdc50590`. [Review cuối](reviews/R02-a317d85.md); [review yêu cầu sửa 311dc33](reviews/R02-311dc33.md) giữ nguyên. 279 assertions trình duyệt đạt, check/build độc lập exit 0, visual 9 ảnh full-page và audit dist đạt. Ba trang nội dung hoàn thành; hai route Minh bạch/Đồng hành còn shell. T03 READY cho bước đặc tả tiếp theo, **chưa giao hoặc triển khai**; worker hiện có HOLD sau T02. Chưa public website. Các mục resume/pause/IN_PROGRESS dưới đây là lịch sử.
@@ -43,9 +51,9 @@ Kiểm tra trước gửi 02/10: Antigravity MCP phản hồi model catalog và 
 | R01 | Codex | T01 | PASS tại285f695; các review c27fea2/a625421/e30f939 được giữ để truy vết |
 | T02 | Antigravity | R01 PASS + chủ dự án duyệt hướng UI | DONE tại a317d85: dự án/nhóm/sản phẩm; basefff88b2, task/t02-content-pages |
 | R02 | Codex | T02 | PASS tại a317d85: diff, nội dung, 279 assertions, visual, check/build và audit |
-| T03 | Antigravity | R02 đạt | READY, chưa giao: Minh bạch và đồng hành; phép tính đúng; thiếu dữ liệu rõ; chỉ dùng liên hệ thật |
-| R03 | Codex | T03 | Review tách tiền/hiện vật, kế hoạch/thực tế, hành động và quyền công bố |
-| T04 | Antigravity | R03 | Sửa lỗi, metadata, 404, accessibility cơ bản, tối ưu ảnh, hướng dẫn vận hành |
+| T03 | Antigravity | R02 đạt | DONE b6e5205: Minh bạch/Đồng hành, planned/actual/contact data, helper và tests |
+| R03 | Codex | T03 | PASS b6e5205 sau sửa e563de4, review source/visual/browser/finance/build/audit |
+| T04 | Antigravity | R03 | READY, chưa giao: kiểm tổng thể, metadata/404/a11y/ảnh và hướng dẫn vận hành |
 | R04 | Codex | T04 | Nghiệm thu preview hoàn chỉnh, báo giới hạn và các thông tin còn thiếu |
 | T05 | Antigravity | R04 + chủ dự án duyệt public | Phát hành lên môi trường được chọn, kiểm URL public và hành vi |
 
@@ -65,6 +73,8 @@ Bàn giao cần có:
 Không gộp toàn bộ website thành một task. Khi review yêu cầu sửa, tiếp tục task hiện tại cho tới nghiệm thu, không bỏ lỗi sang bước sau.
 
 ## Review kế tiếp
+
+R03 PASS tại b6e5205; bước tiếp theo là đặc tả T04 và R04 preview toàn site. Chưa public; dữ liệu/ảnh/liên hệ thật chưa đủ thì tiếp tục ẩn hành động phụ thuộc. Đoạn T03/R02 bên dưới là lịch sử.
 
 R02 PASS tại `a317d85`; bước tiếp theo là đặc tả T03. Giữ riêng planned/actual, tiền/hiện vật và contact chưa xác nhận. Không mở task trùng hoặc yêu cầu duyệt public trước preview toàn site/R04. Đoạn R01 bên dưới là lịch sử.
 

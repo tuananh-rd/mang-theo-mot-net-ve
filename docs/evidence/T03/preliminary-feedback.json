@@ -1,0 +1,39 @@
+﻿{
+    "taskId":  "T03",
+    "phase":  "Preliminary read while implementation in progress; not final R03",
+    "appCommittedFinal":  null,
+    "feedback":  "Lưu ý review sớm T03 trong src/data/campaign.ts, chưa phải kết luận R03 cuối: kịch bản 1.120.000đ đang mô tả thay toàn bộ4 khoản vật tư góc chơi nhưng note chỉ cộng540k+280k+300k (3 khoản); 4 khoản đầu gồm cả540k chân đế nên tổng là1.660.000đ. Giữ số1.120.000đ theo nguồn, sửa mô tả/note chỉ giả định thay3 khoản phôi chuồn chuồn/tượng/họa cụ, không gọi toàn bộ4 khoản. Kịch bản không tài trợ đang nói toàn bộ chi thanh toán từ nguồn thu sản phẩm dù doanh thu thiếu220k: sửa thành không có hiện vật thay chi, chi tiền theo toàn bộ dự toán, doanh thu giả định còn thiếu; không tự bù bằng nguồn chưa xác nhận. Empty state actual/báo cáo dùng điều kiện sau đối soát, biên tập và được phép công bố, không hứa công khai mọi giao dịch thô. Tiếp tục T03 theo spec và nhớ ACK T03/base/model/tools trong báo cáo (ACK HOLD T02 không phải ACK T03).",
+    "receipt":  {
+                    "id":  "45c42a22-2436-406c-a3b7-0e703beba5fb",
+                    "ok":  true,
+                    "result":  {
+                                   "send":  {
+                                                "handle":  "term_4d29ba8e-7d0b-4a74-858f-d45e9a6fb9b9",
+                                                "accepted":  true,
+                                                "bytesWritten":  1043,
+                                                "prompt":  {
+                                                               "requestId":  "1301aad4-7642-4fbc-9948-87917cfe0f69",
+                                                               "stages":  [
+                                                                              "input_accepted"
+                                                                          ],
+                                                               "provider":  "unsupported",
+                                                               "observation":  "unsupported",
+                                                               "processIncarnation":  "2ea6694a-36ff-4841-8433-a795aeb9a8b8",
+                                                               "generation":  6,
+                                                               "baselineWorkingSequence":  0
+                                                           }
+                                            },
+                                   "mutation":  {
+                                                    "requestId":  "1301aad4-7642-4fbc-9948-87917cfe0f69",
+                                                    "replayed":  false
+                                                },
+                                   "warnings":  [
+                                                    "input was accepted, but this provider cannot report delivery. Inspect the terminal before retrying."
+                                                ]
+                               },
+                    "_meta":  {
+                                  "runtimeId":  "6e6114a7-3148-4dbe-b563-c2a58c95ba4d"
+                              }
+                },
+    "sentAt":  "2026-10-02T18:14:39.2825596Z"
+}

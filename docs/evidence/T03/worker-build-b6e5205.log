@@ -1,0 +1,28 @@
+
+> mang-theo-mot-net-ve@0.0.1 build
+> astro build
+
+[2m01:34:40[22m [34m[types][39m Generated [2m76ms[22m
+[2m01:34:40[22m [34m[build][39m output: [34m"static"[39m
+[2m01:34:40[22m [34m[build][39m mode: [34m"static"[39m
+[2m01:34:40[22m [34m[build][39m directory: [34mC:\Users\tuana\Documents\Codex\2026-10-02\t\outputs\mang-theo-mot-net-ve\dist\[39m
+[2m01:34:40[22m [34m[build][39m Collecting build info...
+[2m01:34:40[22m [34m[build][39m [32m✓ Completed in 108ms.[39m
+[2m01:34:40[22m [34m[build][39m Building static entrypoints...
+[2m01:34:40[22m [34m[vite][39m [32m✓ built in 192ms[39m
+[2m01:34:40[22m [34m[vite][39m [32m✓ built in 15ms[39m
+[2m01:34:40[22m [34m[build][39m Rearranging server assets...
+
+[42m[30m generating static routes [39m[49m
+[2m01:34:40[22m   [34m├─[39m [2m/404.html[22m [2m(+9ms)[22m 
+[2m01:34:40[22m   [34m├─[39m [2m/dong-hanh/index.html[22m [2m(+4ms)[22m 
+[2m01:34:40[22m   [34m├─[39m [2m/du-an/mang-theo-mot-net-ve/index.html[22m [2m(+5ms)[22m 
+[2m01:34:40[22m   [34m├─[39m [2m/minh-bach/index.html[22m [2m(+7ms)[22m 
+[2m01:34:40[22m   [34m├─[39m [2m/san-pham/index.html[22m [2m(+4ms)[22m 
+[2m01:34:40[22m   [34m├─[39m [2m/ve-nhom/index.html[22m [2m(+3ms)[22m 
+[2m01:34:40[22m   [34m├─[39m [2m/index.html[22m [2m(+4ms)[22m 
+[2m01:34:40[22m [32m✓ Completed in 47ms.
+[39m
+[2m01:34:40[22m [34m[build][39m [32m✓ Completed in 333ms.[39m
+[2m01:34:40[22m [34m[build][39m 7 page(s) built in [1m446ms[22m
+[2m01:34:40[22m [34m[build][39m [1mComplete![22m

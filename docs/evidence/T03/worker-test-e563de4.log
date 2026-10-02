@@ -1,0 +1,25 @@
+﻿▶ Kiểm thử logic tài chính và tính toán (Task T03)
+  ✔ Tổng dự toán chi của 6 khoản mục đúng bằng 3.120.000đ (0.6103ms)
+  ✔ sumPlannedExpenses ném lỗi khi có khoản mục null (không tự coi là 0) (0.3228ms)
+  ✔ Doanh thu kịch bản từng sản phẩm tính đúng theo giá tham khảo × số lượng kế hoạch (0.1639ms)
+  ✔ Tổng doanh thu kịch bản bán đủ hàng đúng bằng 2.900.000đ (0.0855ms)
+  ✔ Kịch bản 1 — Chưa tính tài trợ: Chi 3.120.000đ, Thu 2.900.000đ => Thiếu 220.000đ (11.5215ms)
+  ✔ Kịch bản 2 — Hiện vật thay một phần (500.000đ): Chi tiền còn 2.620.000đ => Dư 280.000đ (0.2941ms)
+  ✔ Kịch bản 3 — Hiện vật thay chi workshop (1.120.000đ): Chi tiền còn 2.000.000đ => Dư 900.000đ (0.208ms)
+  ✔ calculateScenario trả về null khi dữ liệu doanh thu hoặc chi phí chưa biết (null) (0.1345ms)
+  ✔ calculateScenario ném lỗi khi hiện vật vượt quá tổng chi hoặc là số âm (0.1825ms)
+  ✔ Định dạng formatVND xử lý chuẩn xác số dương, 0 và null (0.2267ms)
+✔ Kiểm thử logic tài chính và tính toán (Task T03) (14.7641ms)
+▶ Kiểm tra tính toàn vẹn dữ liệu và an toàn thông tin (Task T03)
+  ✔ Toàn bộ số liệu thực tế được khởi tạo ở trạng thái null / chưa xác nhận (0.1133ms)
+  ✔ Kênh liên hệ chính thức có giá trị null và trạng thái unconfirmed (0.0508ms)
+  ✔ Sản phẩm gây quỹ giữ nguyên trạng thái actualStock null và saleStatus unconfirmed (0.0542ms)
+✔ Kiểm tra tính toàn vẹn dữ liệu và an toàn thông tin (Task T03) (0.3486ms)
+ℹ tests 13
+ℹ suites 2
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 138.7097

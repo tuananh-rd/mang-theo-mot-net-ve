@@ -1,0 +1,101 @@
+{
+  "sha": "b6e5205c6cfd19b6bae592e7148c49385c671e8d",
+  "checkedAt": "2026-10-02T18:34:21.780Z",
+  "source": "source-calculations.json; independent arithmetic from docs/data-and-finance.md",
+  "expense": 3120000,
+  "revenue": 2900000,
+  "scenarios": [
+    {
+      "id": "chua-tinh-tai-tro",
+      "scenarioId": "chua-tinh-tai-tro",
+      "title": "Chưa tính tài trợ",
+      "inKindReplacement": 0,
+      "remainingCashExpense": 3120000,
+      "projectedRevenue": 2900000,
+      "projectedBalance": -220000,
+      "isDeficit": true,
+      "balanceText": "Thiếu 220.000đ"
+    },
+    {
+      "id": "thay-mot-phan",
+      "scenarioId": "thay-mot-phan",
+      "title": "Hiện vật thay một phần chi",
+      "inKindReplacement": 500000,
+      "remainingCashExpense": 2620000,
+      "projectedRevenue": 2900000,
+      "projectedBalance": 280000,
+      "isDeficit": false,
+      "balanceText": "Dư 280.000đ"
+    },
+    {
+      "id": "thay-chi-workshop",
+      "scenarioId": "thay-chi-workshop",
+      "title": "Hiện vật thay chi workshop",
+      "inKindReplacement": 1120000,
+      "remainingCashExpense": 2000000,
+      "projectedRevenue": 2900000,
+      "projectedBalance": 900000,
+      "isDeficit": false,
+      "balanceText": "Dư 900.000đ"
+    }
+  ],
+  "unknownReplacementResult": null,
+  "actualFinance": {
+    "actualCashReceived": {
+      "value": null,
+      "unit": "đ",
+      "kind": "actual",
+      "verification": "unverified",
+      "sourceRef": null,
+      "updatedAt": null,
+      "publicApproval": "pending"
+    },
+    "actualCashSpent": {
+      "value": null,
+      "unit": "đ",
+      "kind": "actual",
+      "verification": "unverified",
+      "sourceRef": null,
+      "updatedAt": null,
+      "publicApproval": "pending"
+    },
+    "actualCashBalance": {
+      "value": null,
+      "unit": "đ",
+      "kind": "actual",
+      "verification": "unverified",
+      "sourceRef": null,
+      "updatedAt": null,
+      "publicApproval": "pending"
+    },
+    "actualInKindReceived": {
+      "value": null,
+      "unit": "món",
+      "kind": "actual",
+      "verification": "unverified",
+      "sourceRef": null,
+      "updatedAt": null,
+      "publicApproval": "pending"
+    },
+    "actualInKindDelivered": {
+      "value": null,
+      "unit": "món",
+      "kind": "actual",
+      "verification": "unverified",
+      "sourceRef": null,
+      "updatedAt": null,
+      "publicApproval": "pending"
+    },
+    "vouchersCount": null,
+    "statusNotice": "Chưa có số liệu thực tế được xác nhận.",
+    "disclaimer": "Số liệu thực tế sẽ được cập nhật sau khi hoàn tất đối soát chéo độc lập, biên tập bảo vệ riêng tư và được cấp quyền công bố."
+  },
+  "contact": {
+    "email": null,
+    "phone": null,
+    "representative": null,
+    "status": "unconfirmed",
+    "notice": "Kênh liên hệ chính thức chưa được xác nhận. Thông tin sẽ được cập nhật sau khi được phép công bố."
+  },
+  "actualAndContactUnchanged": true
+}

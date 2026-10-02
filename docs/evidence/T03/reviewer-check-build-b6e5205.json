@@ -1,0 +1,22 @@
+﻿{
+    "sha":  "b6e5205c6cfd19b6bae592e7148c49385c671e8d",
+    "startedAt":  "2026-10-02T18:39:12.1969630Z",
+    "endedAt":  "2026-10-02T18:39:18.4905172Z",
+    "check":  {
+                  "exitCode":  0,
+                  "command":  "npm.cmd run check",
+                  "log":  "reviewer-check-b6e5205.log"
+              },
+    "test":  {
+                 "exitCode":  0,
+                 "command":  "node --test tests/finance.test.mjs",
+                 "log":  "reviewer-test-b6e5205.log"
+             },
+    "build":  {
+                  "exitCode":  0,
+                  "command":  "npm.cmd run build",
+                  "log":  "reviewer-build-b6e5205.log"
+              },
+    "packageSha256":  "d973d845f877c0f515cb8ccc33cb971f0eb003ba17dc2157d7ff189d91f742c9",
+    "lockSha256":  "ff3aa78d6644ec76e50748e34a2f502b578be8b80ed52391a7d7b9f03d487058"
+}

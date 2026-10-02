@@ -1,5 +1,9 @@
 # Kiến trúc — quyết định T00
 
+## Cập nhật T03 — 03/10/2026
+
+T03 DONE, [R03 PASS](reviews/R03-b6e5205.md) tại app b6e5205, base da890a2, nhánh task/t03-finance-support. Minh bạch/Đồng hành thay shell bằng nội dung;6route+404 đủ preview. Thêm typed PLANNED_EXPENSES/FINANCE_SCENARIOS/ACTUAL_FINANCE/OFFICIAL_CONTACT trong campaign data và pure finance helper/tests Node native. Table/mobile lấy cùng data; kế hoạch không điền actual/contact. Giữ Astro static/TS strict/CSS thuần/package/lock/shared/T02. Output15file7HTML/7CSS/favicon;11outputT02 không thuộc hai shell giữ hash. Preview loopback/noindex, GitHubprivate, chưa hosting/public. T04 chưa giao. Phần dưới lưu lịch sử.
+
 ## Cập nhật T02 — 03/10/2026
 
 T02 DONE, [R02 PASS](reviews/R02-a317d85.md) tại app `a317d856f51648a39fbcac33010c03bb8c7723b5`, nhánh `task/t02-content-pages`, basefff88b2. Giữ Astro static/TypeScript strict/CSS thuần/npm lockfile. Ba shell Dự án/Về nhóm/Sản phẩm đã thành trang nội dung; Minh bạch/Đồng hành còn shell cho T03. Diff chỉ ba page và `src/data/campaign.ts`, không dependency/shared/config change. Typed data actual/null chưa xác nhận giữ nguyên. Bảng kế hoạch sản phẩm có table desktop/tablet và thẻ mobile; cần cập nhật cả hai khi đổi đề xuất. Build có7HTML/5CSS/favicon, không bundle tài liệu/evidence/nguồn gốc. GitHub private được cập nhật theo yêu cầu; chưa hosting/public deploy. Các trạng thái T01/T00 dưới đây là lịch sử.

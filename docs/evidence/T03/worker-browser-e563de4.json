@@ -1,0 +1,963 @@
+{
+  "startedAt": "2026-10-02T18:23:32.947Z",
+  "base": "http://127.0.0.1:4321",
+  "routes": [
+    {
+      "route": "/",
+      "status": 200,
+      "reloadStatus": 304,
+      "title": "Trang chủ | Mang Theo Một Nét Vẽ - Lăng Kính",
+      "lang": "vi",
+      "robots": "noindex, nofollow",
+      "h1Count": 1,
+      "h1Text": "Mang Theo Một Nét Vẽ",
+      "mainCount": 1,
+      "headerExists": true,
+      "footerExists": true,
+      "formCount": 0,
+      "currentNavHrefs": [
+        "/",
+        "/"
+      ]
+    },
+    {
+      "route": "/du-an/mang-theo-mot-net-ve",
+      "status": 200,
+      "reloadStatus": 304,
+      "title": "Dự án Mang Theo Một Nét Vẽ — Lăng Kính | Mang Theo Một Nét Vẽ - Lăng Kính",
+      "lang": "vi",
+      "robots": "noindex, nofollow",
+      "h1Count": 1,
+      "h1Text": "Mang Theo Một Nét Vẽ",
+      "mainCount": 1,
+      "headerExists": true,
+      "footerExists": true,
+      "formCount": 0,
+      "currentNavHrefs": [
+        "/du-an/mang-theo-mot-net-ve",
+        "/du-an/mang-theo-mot-net-ve"
+      ]
+    },
+    {
+      "route": "/ve-nhom",
+      "status": 200,
+      "reloadStatus": 304,
+      "title": "Về nhóm Lăng Kính — Mang Theo Một Nét Vẽ | Mang Theo Một Nét Vẽ - Lăng Kính",
+      "lang": "vi",
+      "robots": "noindex, nofollow",
+      "h1Count": 1,
+      "h1Text": "Về nhóm Lăng Kính",
+      "mainCount": 1,
+      "headerExists": true,
+      "footerExists": true,
+      "formCount": 0,
+      "currentNavHrefs": [
+        "/ve-nhom",
+        "/ve-nhom"
+      ]
+    },
+    {
+      "route": "/san-pham",
+      "status": 200,
+      "reloadStatus": 304,
+      "title": "Sản phẩm gây quỹ dự kiến — Mang Theo Một Nét Vẽ | Mang Theo Một Nét Vẽ - Lăng Kính",
+      "lang": "vi",
+      "robots": "noindex, nofollow",
+      "h1Count": 1,
+      "h1Text": "Sản phẩm gây quỹ dự kiến",
+      "mainCount": 1,
+      "headerExists": true,
+      "footerExists": true,
+      "formCount": 0,
+      "currentNavHrefs": [
+        "/san-pham",
+        "/san-pham"
+      ]
+    },
+    {
+      "route": "/minh-bach",
+      "status": 200,
+      "reloadStatus": 304,
+      "title": "Minh bạch thu chi — Mang Theo Một Nét Vẽ | Mang Theo Một Nét Vẽ - Lăng Kính",
+      "lang": "vi",
+      "robots": "noindex, nofollow",
+      "h1Count": 1,
+      "h1Text": "Minh bạch thu chi",
+      "mainCount": 1,
+      "headerExists": true,
+      "footerExists": true,
+      "formCount": 0,
+      "currentNavHrefs": [
+        "/minh-bach",
+        "/minh-bach"
+      ]
+    },
+    {
+      "route": "/dong-hanh",
+      "status": 200,
+      "reloadStatus": 304,
+      "title": "Đồng hành cùng dự án — Mang Theo Một Nét Vẽ | Mang Theo Một Nét Vẽ - Lăng Kính",
+      "lang": "vi",
+      "robots": "noindex, nofollow",
+      "h1Count": 1,
+      "h1Text": "Đồng hành cùng dự án",
+      "mainCount": 1,
+      "headerExists": true,
+      "footerExists": true,
+      "formCount": 0,
+      "currentNavHrefs": [
+        "/dong-hanh",
+        "/dong-hanh"
+      ]
+    },
+    {
+      "route": "/route-khong-ton-tai-404-test",
+      "status": 404,
+      "reloadStatus": 404,
+      "title": "Không tìm thấy trang (404) | Mang Theo Một Nét Vẽ - Lăng Kính",
+      "lang": "vi",
+      "robots": "noindex, nofollow",
+      "h1Count": 1,
+      "h1Text": "Không tìm thấy trang",
+      "mainCount": 1,
+      "headerExists": true,
+      "footerExists": true,
+      "formCount": 0,
+      "currentNavHrefs": []
+    }
+  ],
+  "screenshots": [
+    {
+      "name": "minh-bach-mobile-375-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t03\\minh-bach-mobile-375-full.png",
+      "target": "minh-bach",
+      "viewport": "mobile-375",
+      "width": 375,
+      "height": 8929,
+      "bytes": 431515,
+      "sha256": "78eb9069b5d09a3301c996e78b3b76567897b596e70158dd82af462133d95200"
+    },
+    {
+      "name": "minh-bach-tablet-768-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t03\\minh-bach-tablet-768-full.png",
+      "target": "minh-bach",
+      "viewport": "tablet-768",
+      "width": 768,
+      "height": 6064,
+      "bytes": 429462,
+      "sha256": "e6a75370d98dc049d2548bf6d931f90fe3eae8f8df36398600381831eee4995d"
+    },
+    {
+      "name": "minh-bach-desktop-1440-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t03\\minh-bach-desktop-1440-full.png",
+      "target": "minh-bach",
+      "viewport": "desktop-1440",
+      "width": 1440,
+      "height": 5505,
+      "bytes": 439527,
+      "sha256": "e96b7e66e97cf2e2862d16160bdcb5c5a2e4ce52a91cbc25ca2f5d5418bc6f55"
+    },
+    {
+      "name": "dong-hanh-mobile-375-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t03\\dong-hanh-mobile-375-full.png",
+      "target": "dong-hanh",
+      "viewport": "mobile-375",
+      "width": 375,
+      "height": 6108,
+      "bytes": 295411,
+      "sha256": "13912710d5fd469063164ed6756e949118c0b264526880a0bfbc1fd9fff5182d"
+    },
+    {
+      "name": "dong-hanh-tablet-768-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t03\\dong-hanh-tablet-768-full.png",
+      "target": "dong-hanh",
+      "viewport": "tablet-768",
+      "width": 768,
+      "height": 5133,
+      "bytes": 313995,
+      "sha256": "db7ca61c8a79d958db8f02eb211c678682a0ae7d6cb5be3eefc9acb72578146b"
+    },
+    {
+      "name": "dong-hanh-desktop-1440-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t03\\dong-hanh-desktop-1440-full.png",
+      "target": "dong-hanh",
+      "viewport": "desktop-1440",
+      "width": 1440,
+      "height": 4181,
+      "bytes": 324296,
+      "sha256": "557222f2f04b7b5c5067eeb1a944a57787c187858c16d66a4f2a0080f9cc48fe"
+    },
+    {
+      "name": "minh-bach-mobile-375-menu-open.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t03\\minh-bach-mobile-375-menu-open.png",
+      "target": "minh-bach",
+      "viewport": "mobile-375-menu-open",
+      "width": 375,
+      "height": 812,
+      "bytes": 33124,
+      "sha256": "18b98eba3e5bbf6eff9865562f1c9fe596234ad7cd6e8224e314a15f2cf1f1f9"
+    }
+  ],
+  "assertions": [
+    {
+      "name": "HTTP 200/304 cho route: /",
+      "pass": true,
+      "observed": {
+        "status": 200,
+        "reloadStatus": 304
+      }
+    },
+    {
+      "name": "Landmarks chuẩn trên route: /",
+      "pass": true,
+      "observed": {
+        "title": "Trang chủ | Mang Theo Một Nét Vẽ - Lăng Kính",
+        "lang": "vi",
+        "robots": "noindex, nofollow",
+        "h1Count": 1,
+        "h1Text": "Mang Theo Một Nét Vẽ",
+        "mainCount": 1,
+        "headerExists": true,
+        "footerExists": true,
+        "formCount": 0,
+        "currentNavHrefs": [
+          "/",
+          "/"
+        ]
+      }
+    },
+    {
+      "name": "Lang='vi' và robots='noindex, nofollow' trên: /",
+      "pass": true,
+      "observed": {
+        "title": "Trang chủ | Mang Theo Một Nét Vẽ - Lăng Kính",
+        "lang": "vi",
+        "robots": "noindex, nofollow",
+        "h1Count": 1,
+        "h1Text": "Mang Theo Một Nét Vẽ",
+        "mainCount": 1,
+        "headerExists": true,
+        "footerExists": true,
+        "formCount": 0,
+        "currentNavHrefs": [
+          "/",
+          "/"
+        ]
+      }
+    },
+    {
+      "name": "Không có biểu mẫu form thu thập dữ liệu trên: /",
+      "pass": true,
+      "observed": {
+        "forms": 0
+      }
+    },
+    {
+      "name": "Menu active link chính xác trên: /",
+      "pass": true,
+      "observed": [
+        "/",
+        "/"
+      ]
+    },
+    {
+      "name": "HTTP 200/304 cho route: /du-an/mang-theo-mot-net-ve",
+      "pass": true,
+      "observed": {
+        "status": 200,
+        "reloadStatus": 304
+      }
+    },
+    {
+      "name": "Landmarks chuẩn trên route: /du-an/mang-theo-mot-net-ve",
+      "pass": true,
+      "observed": {
+        "title": "Dự án Mang Theo Một Nét Vẽ — Lăng Kính | Mang Theo Một Nét Vẽ - Lăng Kính",
+        "lang": "vi",
+        "robots": "noindex, nofollow",
+        "h1Count": 1,
+        "h1Text": "Mang Theo Một Nét Vẽ",
+        "mainCount": 1,
+        "headerExists": true,
+        "footerExists": true,
+        "formCount": 0,
+        "currentNavHrefs": [
+          "/du-an/mang-theo-mot-net-ve",
+          "/du-an/mang-theo-mot-net-ve"
+        ]
+      }
+    },
+    {
+      "name": "Lang='vi' và robots='noindex, nofollow' trên: /du-an/mang-theo-mot-net-ve",
+      "pass": true,
+      "observed": {
+        "title": "Dự án Mang Theo Một Nét Vẽ — Lăng Kính | Mang Theo Một Nét Vẽ - Lăng Kính",
+        "lang": "vi",
+        "robots": "noindex, nofollow",
+        "h1Count": 1,
+        "h1Text": "Mang Theo Một Nét Vẽ",
+        "mainCount": 1,
+        "headerExists": true,
+        "footerExists": true,
+        "formCount": 0,
+        "currentNavHrefs": [
+          "/du-an/mang-theo-mot-net-ve",
+          "/du-an/mang-theo-mot-net-ve"
+        ]
+      }
+    },
+    {
+      "name": "Không có biểu mẫu form thu thập dữ liệu trên: /du-an/mang-theo-mot-net-ve",
+      "pass": true,
+      "observed": {
+        "forms": 0
+      }
+    },
+    {
+      "name": "Menu active link chính xác trên: /du-an/mang-theo-mot-net-ve",
+      "pass": true,
+      "observed": [
+        "/du-an/mang-theo-mot-net-ve",
+        "/du-an/mang-theo-mot-net-ve"
+      ]
+    },
+    {
+      "name": "HTTP 200/304 cho route: /ve-nhom",
+      "pass": true,
+      "observed": {
+        "status": 200,
+        "reloadStatus": 304
+      }
+    },
+    {
+      "name": "Landmarks chuẩn trên route: /ve-nhom",
+      "pass": true,
+      "observed": {
+        "title": "Về nhóm Lăng Kính — Mang Theo Một Nét Vẽ | Mang Theo Một Nét Vẽ - Lăng Kính",
+        "lang": "vi",
+        "robots": "noindex, nofollow",
+        "h1Count": 1,
+        "h1Text": "Về nhóm Lăng Kính",
+        "mainCount": 1,
+        "headerExists": true,
+        "footerExists": true,
+        "formCount": 0,
+        "currentNavHrefs": [
+          "/ve-nhom",
+          "/ve-nhom"
+        ]
+      }
+    },
+    {
+      "name": "Lang='vi' và robots='noindex, nofollow' trên: /ve-nhom",
+      "pass": true,
+      "observed": {
+        "title": "Về nhóm Lăng Kính — Mang Theo Một Nét Vẽ | Mang Theo Một Nét Vẽ - Lăng Kính",
+        "lang": "vi",
+        "robots": "noindex, nofollow",
+        "h1Count": 1,
+        "h1Text": "Về nhóm Lăng Kính",
+        "mainCount": 1,
+        "headerExists": true,
+        "footerExists": true,
+        "formCount": 0,
+        "currentNavHrefs": [
+          "/ve-nhom",
+          "/ve-nhom"
+        ]
+      }
+    },
+    {
+      "name": "Không có biểu mẫu form thu thập dữ liệu trên: /ve-nhom",
+      "pass": true,
+      "observed": {
+        "forms": 0
+      }
+    },
+    {
+      "name": "Menu active link chính xác trên: /ve-nhom",
+      "pass": true,
+      "observed": [
+        "/ve-nhom",
+        "/ve-nhom"
+      ]
+    },
+    {
+      "name": "HTTP 200/304 cho route: /san-pham",
+      "pass": true,
+      "observed": {
+        "status": 200,
+        "reloadStatus": 304
+      }
+    },
+    {
+      "name": "Landmarks chuẩn trên route: /san-pham",
+      "pass": true,
+      "observed": {
+        "title": "Sản phẩm gây quỹ dự kiến — Mang Theo Một Nét Vẽ | Mang Theo Một Nét Vẽ - Lăng Kính",
+        "lang": "vi",
+        "robots": "noindex, nofollow",
+        "h1Count": 1,
+        "h1Text": "Sản phẩm gây quỹ dự kiến",
+        "mainCount": 1,
+        "headerExists": true,
+        "footerExists": true,
+        "formCount": 0,
+        "currentNavHrefs": [
+          "/san-pham",
+          "/san-pham"
+        ]
+      }
+    },
+    {
+      "name": "Lang='vi' và robots='noindex, nofollow' trên: /san-pham",
+      "pass": true,
+      "observed": {
+        "title": "Sản phẩm gây quỹ dự kiến — Mang Theo Một Nét Vẽ | Mang Theo Một Nét Vẽ - Lăng Kính",
+        "lang": "vi",
+        "robots": "noindex, nofollow",
+        "h1Count": 1,
+        "h1Text": "Sản phẩm gây quỹ dự kiến",
+        "mainCount": 1,
+        "headerExists": true,
+        "footerExists": true,
+        "formCount": 0,
+        "currentNavHrefs": [
+          "/san-pham",
+          "/san-pham"
+        ]
+      }
+    },
+    {
+      "name": "Không có biểu mẫu form thu thập dữ liệu trên: /san-pham",
+      "pass": true,
+      "observed": {
+        "forms": 0
+      }
+    },
+    {
+      "name": "Menu active link chính xác trên: /san-pham",
+      "pass": true,
+      "observed": [
+        "/san-pham",
+        "/san-pham"
+      ]
+    },
+    {
+      "name": "HTTP 200/304 cho route: /minh-bach",
+      "pass": true,
+      "observed": {
+        "status": 200,
+        "reloadStatus": 304
+      }
+    },
+    {
+      "name": "Landmarks chuẩn trên route: /minh-bach",
+      "pass": true,
+      "observed": {
+        "title": "Minh bạch thu chi — Mang Theo Một Nét Vẽ | Mang Theo Một Nét Vẽ - Lăng Kính",
+        "lang": "vi",
+        "robots": "noindex, nofollow",
+        "h1Count": 1,
+        "h1Text": "Minh bạch thu chi",
+        "mainCount": 1,
+        "headerExists": true,
+        "footerExists": true,
+        "formCount": 0,
+        "currentNavHrefs": [
+          "/minh-bach",
+          "/minh-bach"
+        ]
+      }
+    },
+    {
+      "name": "Lang='vi' và robots='noindex, nofollow' trên: /minh-bach",
+      "pass": true,
+      "observed": {
+        "title": "Minh bạch thu chi — Mang Theo Một Nét Vẽ | Mang Theo Một Nét Vẽ - Lăng Kính",
+        "lang": "vi",
+        "robots": "noindex, nofollow",
+        "h1Count": 1,
+        "h1Text": "Minh bạch thu chi",
+        "mainCount": 1,
+        "headerExists": true,
+        "footerExists": true,
+        "formCount": 0,
+        "currentNavHrefs": [
+          "/minh-bach",
+          "/minh-bach"
+        ]
+      }
+    },
+    {
+      "name": "Không có biểu mẫu form thu thập dữ liệu trên: /minh-bach",
+      "pass": true,
+      "observed": {
+        "forms": 0
+      }
+    },
+    {
+      "name": "Menu active link chính xác trên: /minh-bach",
+      "pass": true,
+      "observed": [
+        "/minh-bach",
+        "/minh-bach"
+      ]
+    },
+    {
+      "name": "HTTP 200/304 cho route: /dong-hanh",
+      "pass": true,
+      "observed": {
+        "status": 200,
+        "reloadStatus": 304
+      }
+    },
+    {
+      "name": "Landmarks chuẩn trên route: /dong-hanh",
+      "pass": true,
+      "observed": {
+        "title": "Đồng hành cùng dự án — Mang Theo Một Nét Vẽ | Mang Theo Một Nét Vẽ - Lăng Kính",
+        "lang": "vi",
+        "robots": "noindex, nofollow",
+        "h1Count": 1,
+        "h1Text": "Đồng hành cùng dự án",
+        "mainCount": 1,
+        "headerExists": true,
+        "footerExists": true,
+        "formCount": 0,
+        "currentNavHrefs": [
+          "/dong-hanh",
+          "/dong-hanh"
+        ]
+      }
+    },
+    {
+      "name": "Lang='vi' và robots='noindex, nofollow' trên: /dong-hanh",
+      "pass": true,
+      "observed": {
+        "title": "Đồng hành cùng dự án — Mang Theo Một Nét Vẽ | Mang Theo Một Nét Vẽ - Lăng Kính",
+        "lang": "vi",
+        "robots": "noindex, nofollow",
+        "h1Count": 1,
+        "h1Text": "Đồng hành cùng dự án",
+        "mainCount": 1,
+        "headerExists": true,
+        "footerExists": true,
+        "formCount": 0,
+        "currentNavHrefs": [
+          "/dong-hanh",
+          "/dong-hanh"
+        ]
+      }
+    },
+    {
+      "name": "Không có biểu mẫu form thu thập dữ liệu trên: /dong-hanh",
+      "pass": true,
+      "observed": {
+        "forms": 0
+      }
+    },
+    {
+      "name": "Menu active link chính xác trên: /dong-hanh",
+      "pass": true,
+      "observed": [
+        "/dong-hanh",
+        "/dong-hanh"
+      ]
+    },
+    {
+      "name": "HTTP 404 cho đường dẫn không tồn tại: /route-khong-ton-tai-404-test",
+      "pass": true,
+      "observed": {
+        "status": 404,
+        "reloadStatus": 404
+      }
+    },
+    {
+      "name": "Không tràn ngang trên minh-bach tại 320px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 320,
+        "clientWidth": 320,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên minh-bach tại 320px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 320,
+        "clientWidth": 320,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Không tràn ngang trên minh-bach tại 375px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 375,
+        "clientWidth": 375,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên minh-bach tại 375px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 375,
+        "clientWidth": 375,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Không tràn ngang trên minh-bach tại 768px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên minh-bach tại 768px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Không tràn ngang trên minh-bach tại 1024px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 1024,
+        "clientWidth": 1024,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên minh-bach tại 1024px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 1024,
+        "clientWidth": 1024,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Không tràn ngang trên minh-bach tại 1440px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên minh-bach tại 1440px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Không tràn ngang trên dong-hanh tại 320px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 320,
+        "clientWidth": 320,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên dong-hanh tại 320px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 320,
+        "clientWidth": 320,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Không tràn ngang trên dong-hanh tại 375px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 375,
+        "clientWidth": 375,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên dong-hanh tại 375px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 375,
+        "clientWidth": 375,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Không tràn ngang trên dong-hanh tại 768px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên dong-hanh tại 768px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Không tràn ngang trên dong-hanh tại 1024px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 1024,
+        "clientWidth": 1024,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên dong-hanh tại 1024px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 1024,
+        "clientWidth": 1024,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Không tràn ngang trên dong-hanh tại 1440px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên dong-hanh tại 1440px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Phím Escape đóng mobile menu và trả focus về toggle",
+      "pass": true,
+      "observed": {
+        "expanded": "false",
+        "isFocused": true
+      }
+    },
+    {
+      "name": "Resize sang Desktop hiển thị desktop-nav và ẩn mobile-nav-panel",
+      "pass": true,
+      "observed": {
+        "resize": true
+      }
+    },
+    {
+      "name": "Khi tắt JS: toggle button bị ẩn",
+      "pass": true,
+      "observed": {
+        "toggleVisible": false,
+        "footerLinksCount": 6,
+        "footerLinks": [
+          "/",
+          "/du-an/mang-theo-mot-net-ve",
+          "/san-pham",
+          "/minh-bach",
+          "/ve-nhom",
+          "/dong-hanh"
+        ]
+      }
+    },
+    {
+      "name": "Khi tắt JS: footer navigation cung cấp đầy đủ liên kết điều hướng",
+      "pass": true,
+      "observed": {
+        "toggleVisible": false,
+        "footerLinksCount": 6,
+        "footerLinks": [
+          "/",
+          "/du-an/mang-theo-mot-net-ve",
+          "/san-pham",
+          "/minh-bach",
+          "/ve-nhom",
+          "/dong-hanh"
+        ]
+      }
+    }
+  ],
+  "responsiveChecks": [
+    {
+      "page": "minh-bach",
+      "width": 320,
+      "scrollWidth": 320,
+      "clientWidth": 320,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    },
+    {
+      "page": "minh-bach",
+      "width": 375,
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    },
+    {
+      "page": "minh-bach",
+      "width": 768,
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    },
+    {
+      "page": "minh-bach",
+      "width": 1024,
+      "scrollWidth": 1024,
+      "clientWidth": 1024,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    },
+    {
+      "page": "minh-bach",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    },
+    {
+      "page": "dong-hanh",
+      "width": 320,
+      "scrollWidth": 320,
+      "clientWidth": 320,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    },
+    {
+      "page": "dong-hanh",
+      "width": 375,
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    },
+    {
+      "page": "dong-hanh",
+      "width": 768,
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    },
+    {
+      "page": "dong-hanh",
+      "width": 1024,
+      "scrollWidth": 1024,
+      "clientWidth": 1024,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    },
+    {
+      "page": "dong-hanh",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    }
+  ],
+  "keyboardMenuChecks": {
+    "escape": {
+      "expanded": "false",
+      "isFocused": true
+    },
+    "resize": true
+  },
+  "noJsChecks": {
+    "toggleVisible": false,
+    "footerLinksCount": 6,
+    "footerLinks": [
+      "/",
+      "/du-an/mang-theo-mot-net-ve",
+      "/san-pham",
+      "/minh-bach",
+      "/ve-nhom",
+      "/dong-hanh"
+    ]
+  },
+  "errors": [],
+  "browser": "Chrome/154.0.8037.93",
+  "deviceScaleFactor": 1,
+  "zoom": "default 1, viewport simulated sizing (not physical touch hardware)",
+  "endedAt": "2026-10-02T18:24:10.619Z",
+  "totalAssertions": 55,
+  "passedAssertions": 55,
+  "failedAssertions": []
+}

@@ -1,0 +1,207 @@
+﻿{
+    "taskId":  "T03",
+    "review":  "R03",
+    "conclusion":  "PASS",
+    "baseSha":  "da890a212e029249e29545aa1606e71027034674",
+    "appSha":  "b6e5205c6cfd19b6bae592e7148c49385c671e8d",
+    "worker":  {
+                   "jobId":  null,
+                   "channel":  "existing verified Orca terminal continuity; not MCP/orchestration dispatch",
+                   "incarnation":  "2ea6694a-36ff-4841-8433-a795aeb9a8b8",
+                   "model":  "Gemini 3.8 Flash (High)",
+                   "runtime":  "6e6114a7-3148-4dbe-b563-c2a58c95ba4d",
+                   "terminal":  "term_4d29ba8e-7d0b-4a74-858f-d45e9a6fb9b9"
+               },
+    "browser":  {
+                    "viewportMeasurements":  10,
+                    "acceptedResults":  "reviewer-browser-accepted-b6e5205.json",
+                    "startedAt":  "2026-10-02T18:35:45.110Z",
+                    "dpr":  1,
+                    "name":  "Chrome/154.0.8037.93",
+                    "fullPageImagesActuallyViewed":  6,
+                    "focusImagesActuallyViewed":  2,
+                    "endedAt":  "2026-10-02T18:36:29.952Z",
+                    "rawRun":  "reviewer-browser-b6e5205-initial.json",
+                    "touchHardwareTested":  false,
+                    "appDiffAtEnd":  "",
+                    "zoom":  "default",
+                    "appDiffAtStart":  "",
+                    "shaAtEnd":  "b6e5205c6cfd19b6bae592e7148c49385c671e8d",
+                    "menuImageActuallyViewed":  true
+                },
+    "buildProof":  "reviewer-check-build-b6e5205.json",
+    "financeProof":  "reviewer-finance-b6e5205.json",
+    "cssProof":  "reviewer-css-b6e5205.json",
+    "distAudit":  "reviewer-audit-b6e5205.json",
+    "hashComparison":  "rebuild-dist-verification-b6e5205.json",
+    "preview":  {
+                    "bind":  "127.0.0.1",
+                    "url":  "http://127.0.0.1:4321/",
+                    "task":  "86498389-9ca4-486e-9ba8-82247107fb96/task-957",
+                    "observedPid":  2888
+                },
+    "screenshots":  [
+                        {
+                            "name":  "reviewer-b6e5205-finance-1440-full.png",
+                            "bytes":  458485,
+                            "sha256":  "3388554e338e5fe1924085c439e494a62e529b5e072bfdff44db9a314f07ba22",
+                            "width":  1440,
+                            "height":  5573
+                        },
+                        {
+                            "name":  "reviewer-b6e5205-finance-1440-viewport.png",
+                            "bytes":  73977,
+                            "sha256":  "3e80c9d44b5dde53f74884f7e0c2b31a6ab509073a8ef2c91a82914e2ef6250f",
+                            "width":  1440,
+                            "height":  900
+                        },
+                        {
+                            "name":  "reviewer-b6e5205-finance-375-faq-focus.png",
+                            "bytes":  46895,
+                            "sha256":  "81af11ce8b5d1636674c10c4005ec8618a170f4a4453407a68799114fb7f7186",
+                            "width":  375,
+                            "height":  812
+                        },
+                        {
+                            "name":  "reviewer-b6e5205-finance-375-full.png",
+                            "bytes":  449062,
+                            "sha256":  "df3dd6422d21a4174466d74590387ba4f158abcc0d603a64dcc3105787c742eb",
+                            "width":  375,
+                            "height":  9048
+                        },
+                        {
+                            "name":  "reviewer-b6e5205-finance-375-menu-open.png",
+                            "bytes":  33223,
+                            "sha256":  "b155cace92ff884ccd22c7fddbfcd26dba97e58bb61fcdf0d22bee84a019d994",
+                            "width":  375,
+                            "height":  812
+                        },
+                        {
+                            "name":  "reviewer-b6e5205-finance-375-viewport.png",
+                            "bytes":  42593,
+                            "sha256":  "8593d7bc87cfbd5270562512fd660d84948f12896fc88b5b191b21c98711e03b",
+                            "width":  375,
+                            "height":  812
+                        },
+                        {
+                            "name":  "reviewer-b6e5205-finance-768-full.png",
+                            "bytes":  452374,
+                            "sha256":  "b885bf34b1a904e00958d83ed260e6322a0c0cf99c743a8d8cb69f012999fea0",
+                            "width":  768,
+                            "height":  6165
+                        },
+                        {
+                            "name":  "reviewer-b6e5205-finance-768-viewport.png",
+                            "bytes":  75462,
+                            "sha256":  "c6207d81756eb26aca9d5e795e6527a1bbddbe7b37168b9a5342c65f265f319b",
+                            "width":  768,
+                            "height":  1024
+                        },
+                        {
+                            "name":  "reviewer-b6e5205-support-1440-full.png",
+                            "bytes":  324345,
+                            "sha256":  "a4d7f8aa950af05072006a81515564c9eb981e72f6bb6e9f5c20f429570261bd",
+                            "width":  1440,
+                            "height":  4157
+                        },
+                        {
+                            "name":  "reviewer-b6e5205-support-1440-viewport.png",
+                            "bytes":  77854,
+                            "sha256":  "2c0dabed0067ed48738d5438fc6d653d31c235a68975d42a1c28fecaa64998e2",
+                            "width":  1440,
+                            "height":  900
+                        },
+                        {
+                            "name":  "reviewer-b6e5205-support-375-faq-focus.png",
+                            "bytes":  45865,
+                            "sha256":  "71c4869f07582aea33b853b45714dad3ea596aa7bf66af716514e8c60d998a1e",
+                            "width":  375,
+                            "height":  812
+                        },
+                        {
+                            "name":  "reviewer-b6e5205-support-375-full.png",
+                            "bytes":  298969,
+                            "sha256":  "b8663873a8b248593bc95930d4637390a1010d0b5d21da5eab207ca6ba3706ea",
+                            "width":  375,
+                            "height":  6105
+                        },
+                        {
+                            "name":  "reviewer-b6e5205-support-375-viewport.png",
+                            "bytes":  44391,
+                            "sha256":  "163498a61f6a25a419400222038d9b3a62db982d5bc765de40aca13324a4749a",
+                            "width":  375,
+                            "height":  812
+                        },
+                        {
+                            "name":  "reviewer-b6e5205-support-768-full.png",
+                            "bytes":  318102,
+                            "sha256":  "f44541660ac06b1543feb211c44d174120d2abf004c371a57120bf47641a6fe6",
+                            "width":  768,
+                            "height":  5133
+                        },
+                        {
+                            "name":  "reviewer-b6e5205-support-768-viewport.png",
+                            "bytes":  74189,
+                            "sha256":  "6ba6aa7159b4bf8c15e1a865e33cbd806dd061aea34650024005be0d06848a71",
+                            "width":  768,
+                            "height":  1024
+                        },
+                        {
+                            "name":  "worker-b6e5205-dong-hanh-desktop-1440-full.png",
+                            "bytes":  324345,
+                            "sha256":  "a4d7f8aa950af05072006a81515564c9eb981e72f6bb6e9f5c20f429570261bd",
+                            "width":  1440,
+                            "height":  4157
+                        },
+                        {
+                            "name":  "worker-b6e5205-dong-hanh-mobile-375-full.png",
+                            "bytes":  298969,
+                            "sha256":  "b8663873a8b248593bc95930d4637390a1010d0b5d21da5eab207ca6ba3706ea",
+                            "width":  375,
+                            "height":  6105
+                        },
+                        {
+                            "name":  "worker-b6e5205-dong-hanh-tablet-768-full.png",
+                            "bytes":  318102,
+                            "sha256":  "f44541660ac06b1543feb211c44d174120d2abf004c371a57120bf47641a6fe6",
+                            "width":  768,
+                            "height":  5133
+                        },
+                        {
+                            "name":  "worker-b6e5205-minh-bach-desktop-1440-full.png",
+                            "bytes":  458485,
+                            "sha256":  "3388554e338e5fe1924085c439e494a62e529b5e072bfdff44db9a314f07ba22",
+                            "width":  1440,
+                            "height":  5573
+                        },
+                        {
+                            "name":  "worker-b6e5205-minh-bach-mobile-375-full.png",
+                            "bytes":  449062,
+                            "sha256":  "df3dd6422d21a4174466d74590387ba4f158abcc0d603a64dcc3105787c742eb",
+                            "width":  375,
+                            "height":  9048
+                        },
+                        {
+                            "name":  "worker-b6e5205-minh-bach-mobile-375-menu-open.png",
+                            "bytes":  33217,
+                            "sha256":  "c4646ae115f1eec20884e6d25ab5ff931a3da6f77c8d25b4c06edc75aa3519ee",
+                            "width":  375,
+                            "height":  812
+                        },
+                        {
+                            "name":  "worker-b6e5205-minh-bach-tablet-768-full.png",
+                            "bytes":  452374,
+                            "sha256":  "b885bf34b1a904e00958d83ed260e6322a0c0cf99c743a8d8cb69f012999fea0",
+                            "width":  768,
+                            "height":  6165
+                        }
+                    ],
+    "checkedAt":  "2026-10-02T18:44:55.2648031Z",
+    "limitations":  [
+                        "viewport simulation, not touch hardware/fullWCAG audit",
+                        "pattern scan plus diff is not full security certification",
+                        "contact/actuals/approved images/schedule remain unconfirmed; no forms/orders/payments",
+                        "T04 not assigned; no public deployment"
+                    ],
+    "finalExplicitAck":  "final-coordination.json"
+}

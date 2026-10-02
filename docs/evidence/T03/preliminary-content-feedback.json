@@ -1,0 +1,39 @@
+﻿{
+    "taskId":  "T03",
+    "phase":  "Preliminary content review while worker implementation is in progress",
+    "finalSha":  null,
+    "feedback":  "Bổ sung review sớm trên hai page T03 vừa viết: cụm chưa mở bán chính thức (hero Minh bạch, card sản phẩm Đồng hành) đang khẳng định trạng thái chưa được xác nhận. Đổi đúng thành trạng thái mở bán chưa được xác nhận; preview chưa nhận đơn/tiền là hành vi có thật. Bỏ câu checklist kỹ thuật khỏi UI như Không sử dụng thanh tiến độ và Nhóm không tuyên bố đã hoàn tất..., thay diễn đạt tự nhiên về kế hoạch/nhu cầu chờ xác nhận. Contact box không hứa đăng tên/liên hệ đại diện Mái ấm hoặc tự thêm thủ tục nội bộ; giữ thông báo chờ xác nhận và quyền công bố, không QR/form/actions khi thiếu dữ liệu. Phép tính doanh thu trên UI nên render operands từ PRODUCTS (giá×số lượng planned) cùng tổng helper, tránh nhãn vẫn30/20/8 cũ khi data đổi. Các tiêu chí này đã có trong spec; giữ nguyên UI/theme/phạm vi. Đây là feedback bổ sung trên code đang viết, chưa review final commit.",
+    "receipt":  {
+                    "id":  "418d2b25-cad1-471d-8c11-d9417ebf10e0",
+                    "ok":  true,
+                    "result":  {
+                                   "send":  {
+                                                "handle":  "term_4d29ba8e-7d0b-4a74-858f-d45e9a6fb9b9",
+                                                "accepted":  true,
+                                                "bytesWritten":  1097,
+                                                "prompt":  {
+                                                               "requestId":  "e1fd1072-4b71-4f2c-9026-d19dc58de239",
+                                                               "stages":  [
+                                                                              "input_accepted"
+                                                                          ],
+                                                               "provider":  "unsupported",
+                                                               "observation":  "unsupported",
+                                                               "processIncarnation":  "2ea6694a-36ff-4841-8433-a795aeb9a8b8",
+                                                               "generation":  6,
+                                                               "baselineWorkingSequence":  0
+                                                           }
+                                            },
+                                   "mutation":  {
+                                                    "requestId":  "e1fd1072-4b71-4f2c-9026-d19dc58de239",
+                                                    "replayed":  false
+                                                },
+                                   "warnings":  [
+                                                    "input was accepted, but this provider cannot report delivery. Inspect the terminal before retrying."
+                                                ]
+                               },
+                    "_meta":  {
+                                  "runtimeId":  "6e6114a7-3148-4dbe-b563-c2a58c95ba4d"
+                              }
+                },
+    "sentAt":  "2026-10-02T18:16:50.3422603Z"
+}
