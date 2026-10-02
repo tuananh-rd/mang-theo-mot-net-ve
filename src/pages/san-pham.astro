@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import ProductCard from '../components/ProductCard.astro';
 import { PRODUCTS, PRODUCT_FAQS } from '../data/campaign';
-import { formatVND } from '../lib/finance';
+import { formatProductPrice, formatProductQuantity } from '../lib/finance';
 
 const productIllustrationTypes = ['chuon-chuon', 'tui-but', 'tui-vai'] as const;
 ---
@@ -111,10 +111,10 @@ const productIllustrationTypes = ['chuon-chuon', 'tui-but', 'tui-vai'] as const;
                       <strong>{p.name}</strong>
                     </td>
                     <td class="col-price">
-                      {formatVND(p.referencePrice.value)}/{p.referencePrice.unit.split('/')[1] || 'món'}
+                      {formatProductPrice(p)}
                     </td>
                     <td class="col-qty">
-                      {p.planQuantityText || `${p.plannedQuantity.value} ${p.plannedQuantity.unit}`}
+                      {formatProductQuantity(p)}
                     </td>
                     <td class="col-notes">
                       {p.planNotes || p.notes}
@@ -153,13 +153,13 @@ const productIllustrationTypes = ['chuon-chuon', 'tui-but', 'tui-vai'] as const;
                 <div class="plan-mobile-row">
                   <span class="row-label">Số lượng kế hoạch:</span>
                   <strong class="row-val row-val-accent">
-                    {p.planQuantityText || `${p.plannedQuantity.value} ${p.plannedQuantity.unit}`}
+                    {formatProductQuantity(p)}
                   </strong>
                 </div>
                 <div class="plan-mobile-row">
                   <span class="row-label">Giá tham khảo trong đề xuất:</span>
                   <span class="row-val">
-                    {formatVND(p.referencePrice.value)}/{p.referencePrice.unit.split('/')[1] || 'món'}
+                    {formatProductPrice(p)}
                   </span>
                 </div>
                 <div class="plan-mobile-row">

@@ -1,6 +1,7 @@
 ---
 import PlaceholderIllustration from './PlaceholderIllustration.astro';
 import type { Product } from '../data/campaign';
+import { formatProductPrice } from '../lib/finance';
 
 interface Props {
   product: Product;
@@ -8,11 +9,6 @@ interface Props {
 }
 
 const { product, illustrationType } = Astro.props;
-
-function formatPrice(val: number | null): string {
-  if (val === null) return 'Đang cập nhật';
-  return new Intl.NumberFormat('vi-VN').format(val) + 'đ';
-}
 ---
 
 <article class="product-card card">
@@ -30,8 +26,7 @@ function formatPrice(val: number | null): string {
     <div class="price-box">
       <span class="price-label">Giá tham khảo trong đề xuất:</span>
       <strong class="price-val">
-        {formatPrice(product.referencePrice.value)}
-        <span class="price-unit">/{product.referencePrice.unit.split('/')[1] || 'món'}</span>
+        {formatProductPrice(product)}
       </strong>
     </div>
 

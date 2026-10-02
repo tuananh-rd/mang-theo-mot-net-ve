@@ -34,7 +34,7 @@ export interface Product {
   description: string;
   referencePrice: QuantitativeFact;
   plannedQuantity: QuantitativeFact;
-  planQuantityText?: string;
+  quantityPrefix?: string;
   planNotes?: string;
   actualStock: number | null;
   saleStatus: 'unconfirmed' | 'open' | 'closed';
@@ -155,7 +155,6 @@ export const PRODUCTS: Product[] = [
       updatedAt: null,
       publicApproval: 'pending',
     },
-    planQuantityText: '30 bộ bán dự kiến',
     planNotes:
       'Phôi tre mộc; nguồn gốc trang trí chưa xác nhận. Dự kiến trong 40 phôi chuẩn bị, 10 chiếc để lại Mái ấm làm quà.',
     actualStock: null,
@@ -187,7 +186,6 @@ export const PRODUCTS: Product[] = [
       updatedAt: null,
       publicApproval: 'pending',
     },
-    planQuantityText: '20 chiếc dự kiến',
     planNotes: 'Nhóm sinh viên Lăng Kính chuẩn bị và hoàn thiện mẫu; phục vụ học tập và ghi chép.',
     actualStock: null,
     saleStatus: 'unconfirmed',
@@ -211,14 +209,14 @@ export const PRODUCTS: Product[] = [
     },
     plannedQuantity: {
       value: 8,
-      unit: 'chiếc dự kiến',
+      unit: 'chiếc',
       kind: 'planned',
       verification: 'unverified',
       sourceRef: 'proposal:inventory-plan',
       updatedAt: null,
       publicApproval: 'pending',
     },
-    planQuantityText: 'Tối đa 8 chiếc',
+    quantityPrefix: 'Tối đa ',
     planNotes: 'Sản xuất số lượng nhỏ theo đơn đặt trước trong kế hoạch; mẫu và mức giá cuối chưa chốt.',
     actualStock: null,
     saleStatus: 'unconfirmed',

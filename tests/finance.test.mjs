@@ -21,6 +21,9 @@ import {
   calculateTotalRevenueScenario,
   calculateScenario,
   formatVND,
+  formatProductQuantity,
+  formatProductPrice,
+  formatScenarioBalance,
 } from '../src/lib/finance.ts';
 
 describe('Kiểm thử logic tài chính và tính toán (Task T03)', () => {
@@ -216,3 +219,85 @@ describe('Kiểm tra tính toàn vẹn dữ liệu và an toàn thông tin (Task
     }
   });
 });
+
+describe('Kiểm thử helpers hiển thị và quy tắc định dạng (Task T04 / R04)', () => {
+  test('formatProductQuantity dẫn xuất đúng số lượng, tiền tố và đơn vị', () => {
+    const chuonChuon = PRODUCTS.find((p) => p.id === 'chuon-chuon-tre-kem-de');
+    const tuiBut = PRODUCTS.find((p) => p.id === 'tui-but');
+    const tuiVai = PRODUCTS.find((p) => p.id === 'tui-vai');
+
+    assert.equal(formatProductQuantity(chuonChuon), '30 bộ bán dự kiến');
+    assert.equal(formatProductQuantity(tuiBut), '20 chiếc dự kiến');
+    assert.equal(formatProductQuantity(tuiVai), 'Tối đa 8 chiếc');
+
+    const dummyUnknownQty = {
+      ...chuonChuon,
+      plannedQuantity: {
+        ...chuonChuon.plannedQuantity,
+        value: null,
+      },
+    };
+    assert.equal(
+      formatProductQuantity(dummyUnknownQty),
+      'Chưa xác nhận',
+      'Khi số lượng null, chỉ hiển thị "Chưa xác nhận", không tự suy diễn số cũ.'
+    );
+  });
+
+  test('formatProductPrice định dạng chuẩn và không ghép đơn vị khi giá null', () => {
+    const chuonChuon = PRODUCTS.find((p) => p.id === 'chuon-chuon-tre-kem-de');
+    const tuiBut = PRODUCTS.find((p) => p.id === 'tui-but');
+
+    assert.equal(formatProductPrice(chuonChuon), '40.000đ/bộ');
+    assert.equal(formatProductPrice(tuiBut), '55.000đ/chiếc');
+
+    const dummyUnknownPrice = {
+      ...chuonChuon,
+      referencePrice: {
+        ...chuonChuon.referencePrice,
+        value: null,
+      },
+    };
+    assert.equal(
+      formatProductPrice(dummyUnknownPrice),
+      'Chưa xác nhận',
+      'Khi giá null, chỉ hiển thị "Chưa xác nhận", không ghép thành "Chưa xác nhận/bộ".'
+    );
+  });
+
+  test('formatScenarioBalance phân biệt chính xác 4 trạng thái: âm, 0, dương, và unknown', () => {
+    // 1. Âm
+    const negativeRes = { projectedBalance: -220000 };
+    const negDisplay = formatScenarioBalance(negativeRes);
+    assert.equal(negDisplay.text, '-220.000đ');
+    assert.equal(negDisplay.diffClass, 'diff-negative');
+    assert.equal(negDisplay.isUnknown, false);
+
+    // 2. Không (0)
+    const zeroRes = { projectedBalance: 0 };
+    const zeroDisplay = formatScenarioBalance(zeroRes);
+    assert.equal(zeroDisplay.text, '0đ');
+    assert.equal(zeroDisplay.diffClass, 'diff-neutral');
+    assert.equal(zeroDisplay.isUnknown, false);
+
+    // 3. Dương
+    const posRes = { projectedBalance: 280000 };
+    const posDisplay = formatScenarioBalance(posRes);
+    assert.equal(posDisplay.text, '+280.000đ');
+    assert.equal(posDisplay.diffClass, 'diff-positive');
+    assert.equal(posDisplay.isUnknown, false);
+
+    // 4. Null / Unknown
+    const nullDisplay = formatScenarioBalance(null);
+    assert.equal(nullDisplay.text, 'Chưa xác nhận');
+    assert.equal(nullDisplay.diffClass, 'diff-neutral');
+    assert.equal(nullDisplay.isUnknown, true);
+
+    const unknownRes = { projectedBalance: null };
+    const unknownDisplay = formatScenarioBalance(unknownRes);
+    assert.equal(unknownDisplay.text, 'Chưa xác nhận');
+    assert.equal(unknownDisplay.diffClass, 'diff-neutral');
+    assert.equal(unknownDisplay.isUnknown, true);
+  });
+});
+

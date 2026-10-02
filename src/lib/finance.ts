@@ -120,3 +120,78 @@ export function formatVND(value: number | null | undefined): string {
   }
   return new Intl.NumberFormat('vi-VN').format(value) + 'đ';
 }
+
+/**
+ * Định dạng số lượng kế hoạch của sản phẩm:
+ * - Dẫn xuất trực tiếp từ plannedQuantity.value và plannedQuantity.unit.
+ * - Giữ nguyên qualifier/prefix (ví dụ: 'Tối đa ') nếu có.
+ * - Trả về 'Chưa xác nhận' nếu plannedQuantity.value là null, không mặc định số cũ hoặc '0'.
+ */
+export function formatProductQuantity(product: Product): string {
+  if (product.plannedQuantity.value === null || product.plannedQuantity.value === undefined) {
+    return 'Chưa xác nhận';
+  }
+  const prefix = product.quantityPrefix || '';
+  return `${prefix}${product.plannedQuantity.value} ${product.plannedQuantity.unit}`;
+}
+
+/**
+ * Định dạng giá tham khảo của sản phẩm kèm đơn vị tính:
+ * - Trả về 'Chưa xác nhận' nếu referencePrice.value là null, KHÔNG tự ý ghép thêm '/bộ' hay '/chiếc'.
+ * - Trả về định dạng chuẩn (ví dụ: '40.000đ/bộ', '55.000đ/chiếc') khi có giá trị số.
+ */
+export function formatProductPrice(product: Product): string {
+  if (product.referencePrice.value === null || product.referencePrice.value === undefined) {
+    return 'Chưa xác nhận';
+  }
+  const formattedVal = formatVND(product.referencePrice.value);
+  const unitSuffix = product.referencePrice.unit.split('/')[1] || 'món';
+  return `${formattedVal}/${unitSuffix}`;
+}
+
+export interface BalanceDisplay {
+  text: string;
+  diffClass: 'diff-negative' | 'diff-positive' | 'diff-neutral';
+  isUnknown: boolean;
+}
+
+/**
+ * Định dạng chênh lệch số dư kịch bản trên trang chủ:
+ * - Âm: '-220.000đ', class 'diff-negative'
+ * - 0: '0đ', class 'diff-neutral'
+ * - Dương: '+280.000đ', class 'diff-positive'
+ * - Null / Unknown: 'Chưa xác nhận', class 'diff-neutral' (KHÔNG tự ép về '0đ')
+ */
+export function formatScenarioBalance(
+  result: ScenarioCalculationResult | null
+): BalanceDisplay {
+  if (!result || result.projectedBalance === null || result.projectedBalance === undefined) {
+    return {
+      text: 'Chưa xác nhận',
+      diffClass: 'diff-neutral',
+      isUnknown: true,
+    };
+  }
+
+  if (result.projectedBalance < 0) {
+    return {
+      text: `-${formatVND(Math.abs(result.projectedBalance))}`,
+      diffClass: 'diff-negative',
+      isUnknown: false,
+    };
+  }
+
+  if (result.projectedBalance === 0) {
+    return {
+      text: '0đ',
+      diffClass: 'diff-neutral',
+      isUnknown: false,
+    };
+  }
+
+  return {
+    text: `+${formatVND(result.projectedBalance)}`,
+    diffClass: 'diff-positive',
+    isUnknown: false,
+  };
+}

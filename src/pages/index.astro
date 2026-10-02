@@ -18,21 +18,16 @@ import {
   calculateTotalRevenueScenario,
   calculateScenario,
   formatVND,
+  formatScenarioBalance,
 } from '../lib/finance';
 
 const totalPlannedExpense = sumPlannedExpenses(PLANNED_EXPENSES);
 const totalPlannedRevenue = calculateTotalRevenueScenario(PRODUCTS);
-const baseScenario =
-  FINANCE_SCENARIOS.find((s) => s.id === 'chua-tinh-tai-tro') || FINANCE_SCENARIOS[0];
-const baseScenarioResult = calculateScenario(
-  baseScenario,
-  totalPlannedRevenue,
-  totalPlannedExpense
-);
-const deficitAmountText =
-  baseScenarioResult && baseScenarioResult.projectedBalance < 0
-    ? `-${formatVND(Math.abs(baseScenarioResult.projectedBalance))}`
-    : '0đ';
+const baseScenario = FINANCE_SCENARIOS.find((s) => s.id === 'chua-tinh-tai-tro');
+const baseScenarioResult = baseScenario
+  ? calculateScenario(baseScenario, totalPlannedRevenue, totalPlannedExpense)
+  : null;
+const balanceDisplay = formatScenarioBalance(baseScenarioResult);
 
 const activityIllustrationTypes = [
   'chuon-chuon',
@@ -175,7 +170,7 @@ const productIllustrationTypes = [
               </li>
               <li>
                 <span>Chênh lệch giả định (khi chưa có tài trợ):</span>
-                <span class="diff-negative">{deficitAmountText}</span>
+                <span class={balanceDisplay.diffClass}>{balanceDisplay.text}</span>
               </li>
             </ul>
           </div>
@@ -356,7 +351,9 @@ const productIllustrationTypes = [
     font-size: 0.9375rem;
   }
 
-  .diff-negative {
+  .diff-negative,
+  .diff-positive,
+  .diff-neutral {
     color: var(--color-text-primary);
     font-weight: 700;
   }
