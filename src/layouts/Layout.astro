@@ -12,7 +12,7 @@ interface Props {
 const {
   title,
   description = 'Dự án “Mang Theo Một Nét Vẽ” của nhóm Lăng Kính (7 sinh viên lớp AI2015, học phần SSG105, Đại học FPT Hà Nội).',
-  currentPath = '/',
+  currentPath = undefined,
 } = Astro.props;
 
 const pageTitle = `${title} | Mang Theo Một Nét Vẽ - Lăng Kính`;
@@ -25,14 +25,20 @@ const pageTitle = `${title} | Mang Theo Một Nét Vẽ - Lăng Kính`;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex, nofollow" />
     <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{pageTitle}</title>
   </head>
   <body>
     <a href="#main-content" class="skip-link">Chuyển đến nội dung chính</a>
 
     <!-- Top Preview Banner -->
-    <aside class="preview-banner" role="status" aria-label="Thông báo bản xem trước">
-      <strong>Bản xem trước</strong> — Nội dung theo đề xuất dự án, chờ xác nhận chính thức từ nhóm và Mái ấm.
+    <aside class="preview-banner" aria-label="Thông báo bản xem trước">
+      <span class="banner-text-desktop">
+        <strong>Bản xem trước</strong> — Nội dung theo đề xuất dự án, chờ xác nhận chính thức từ nhóm và Mái ấm.
+      </span>
+      <span class="banner-text-mobile">
+        <strong>Bản xem trước</strong> — chờ xác nhận
+      </span>
     </aside>
 
     <Header currentPath={currentPath} />

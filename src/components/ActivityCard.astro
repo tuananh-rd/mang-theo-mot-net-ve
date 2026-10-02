@@ -87,9 +87,15 @@ const { activity, illustrationType } = Astro.props;
     font-size: var(--font-size-sm);
     line-height: var(--line-height-sm);
     color: var(--color-text-muted);
-    font-style: italic;
+    font-style: normal;
     border-top: 1px solid var(--color-border-subtle);
     padding-top: var(--space-2);
     margin-top: var(--space-2);
+  }
+
+  @media (max-width: 767px) {
+    .card-visual :global(.illustration-wrapper .svg-container) {
+      aspect-ratio: 16 / 9 !important;
+    }
   }
 </style>

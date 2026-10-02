@@ -162,7 +162,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'tui-but',
-    name: 'Túi bút vải',
+    name: 'Túi bút',
     description: 'Túi đựng bút nhỏ gọn, tiện dụng phục vụ học tập và ghi chép hàng ngày.',
     referencePrice: {
       value: 55000,
@@ -191,8 +191,8 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'tui-vai',
-    name: 'Túi vải canvas',
-    description: 'Túi vải canvas diện tích chứa rộng rãi cho sách vở và đồ dùng.',
+    name: 'Túi vải',
+    description: 'Túi vải diện tích chứa rộng rãi cho sách vở và đồ dùng.',
     referencePrice: {
       value: 75000,
       unit: 'đ/chiếc',
@@ -230,8 +230,8 @@ export const SUPPORT_METHODS: SupportMethod[] = [
   {
     id: 'san-pham',
     title: 'Quan tâm sản phẩm gây quỹ',
-    description: 'Đăng ký quan tâm các sản phẩm thủ công gây quỹ khi mẫu, giá và lịch giao được công bố chính thức.',
-    statusText: 'Trạng thái mở bán chưa được xác nhận; bản xem trước chưa nhận đơn/tiền',
+    description: 'Khi mở bán, nhóm sẽ công bố kênh tiếp nhận đăng ký các sản phẩm thủ công gây quỹ.',
+    statusText: 'Kênh tiếp nhận sẽ được thông báo khi mở bán',
   },
   {
     id: 'truyen-thong',

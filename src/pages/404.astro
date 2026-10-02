@@ -5,6 +5,7 @@ import Layout from '../layouts/Layout.astro';
 <Layout
   title="Không tìm thấy trang (404)"
   description="Trang bạn tìm kiếm không tồn tại trên hệ thống xem trước của dự án Mang Theo Một Nét Vẽ."
+  currentPath=""
 >
   <div class="error-container container section">
     <div class="error-card card">
@@ -17,6 +18,12 @@ import Layout from '../layouts/Layout.astro';
         <a href="/" class="btn btn-primary">
           &larr; Về trang chủ
         </a>
+        <a href="/du-an/mang-theo-mot-net-ve" class="btn btn-secondary">
+          Khám phá dự án
+        </a>
+        <a href="/san-pham" class="btn btn-secondary">
+          Xem sản phẩm
+        </a>
       </div>
     </div>
   </div>
@@ -24,7 +31,7 @@ import Layout from '../layouts/Layout.astro';
 
 <style>
   .error-container {
-    max-width: 600px;
+    max-width: 640px;
     margin: 0 auto;
     text-align: center;
   }
@@ -36,8 +43,8 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .error-code {
-    font-size: 5rem;
-    font-weight: 900;
+    font-size: 3.5rem;
+    font-weight: 700;
     line-height: 1;
     color: var(--color-accent-text);
   }
@@ -50,10 +57,14 @@ import Layout from '../layouts/Layout.astro';
   .error-desc {
     font-size: var(--font-size-body);
     color: var(--color-text-secondary);
-    max-width: 40ch;
+    max-width: 44ch;
   }
 
   .error-actions {
     margin-top: var(--space-4);
+    display: flex;
+    gap: var(--space-3);
+    justify-content: center;
+    flex-wrap: wrap;
   }
 </style>

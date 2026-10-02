@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <!-- Warm background circle -->
+  <circle cx="16" cy="16" r="15" fill="#FFF9E6" stroke="#F7C948" stroke-width="2"/>
+  
+  <!-- Bamboo Dragonfly Motif -->
+  <!-- Left wing -->
+  <ellipse cx="9" cy="12" rx="7" ry="2.2" transform="rotate(-20 9 12)" fill="#38BDF8" opacity="0.9"/>
+  <!-- Right wing -->
+  <ellipse cx="23" cy="12" rx="7" ry="2.2" transform="rotate(20 23 12)" fill="#38BDF8" opacity="0.9"/>
+  
+  <!-- Body & Head -->
+  <ellipse cx="16" cy="17" rx="1.6" ry="8" fill="#D97706"/>
+  <circle cx="16" cy="8" r="2.2" fill="#B45309"/>
+  <!-- Balancing tip -->
+  <polygon points="16,26 14.5,24 17.5,24" fill="#92400E"/>
+</svg>

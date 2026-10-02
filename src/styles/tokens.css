@@ -10,7 +10,7 @@
   
   --color-text-primary: #1f2933;
   --color-text-secondary: #52606d;
-  --color-text-muted: #48535e; /* Đạt tương phản >= 7:1 trên nền trắng và nền #FFF8E8 */
+  --color-text-muted: #5d6b79; /* Nhạt hơn secondary, đạt tương phản > 5:1 trên trắng và nền #FFF8E8 */
   --color-text-accent: #b45309; /* Đảm bảo tương phản >= 4.5:1 trên nền sáng */
   
   --color-accent: #f7c948;

@@ -3,7 +3,8 @@ interface Props {
   currentPath?: string;
 }
 
-const { currentPath = '/' } = Astro.props;
+const { currentPath = '' } = Astro.props;
+const isDongHanh = currentPath === '/dong-hanh';
 
 const navItems = [
   { href: '/', label: 'Trang chủ' },
@@ -41,7 +42,13 @@ const navItems = [
           })
         }
       </ul>
-      <a href="/dong-hanh" class="btn btn-primary cta-btn">Đồng hành</a>
+      <a
+        href="/dong-hanh"
+        class:list={['btn', 'btn-primary', 'cta-btn', { 'is-active': isDongHanh }]}
+        aria-current={isDongHanh ? 'page' : undefined}
+      >
+        Đồng hành
+      </a>
     </nav>
 
     <!-- Mobile Menu Toggle Button -->
@@ -85,7 +92,13 @@ const navItems = [
           }
         </ul>
         <div class="mobile-cta-wrap">
-          <a href="/dong-hanh" class="btn btn-primary btn-block">Đồng hành cùng dự án</a>
+          <a
+            href="/dong-hanh"
+            class:list={['btn', 'btn-primary', 'btn-block', { 'is-active': isDongHanh }]}
+            aria-current={isDongHanh ? 'page' : undefined}
+          >
+            Đồng hành cùng dự án
+          </a>
         </div>
       </nav>
     </div>
@@ -191,7 +204,7 @@ const navItems = [
   }
 
   .brand-sub {
-    font-size: 0.8125rem;
+    font-size: var(--font-size-sm);
     color: var(--color-text-secondary);
     font-weight: 500;
   }
@@ -238,6 +251,12 @@ const navItems = [
     min-height: 48px;
     height: 48px;
     box-sizing: border-box;
+    transition: box-shadow var(--transition-fast), background-color var(--transition-fast);
+  }
+
+  .cta-btn.is-active,
+  .btn-block.is-active {
+    box-shadow: 0 0 0 2px var(--color-canvas), 0 0 0 4px var(--color-accent);
   }
 
   /* Mobile Toggle */
@@ -276,6 +295,24 @@ const navItems = [
     background-color: var(--color-text-primary);
     border-radius: 2px;
     transition: transform var(--transition-fast), opacity var(--transition-fast);
+  }
+
+  .mobile-toggle.is-open .icon-bar:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+
+  .mobile-toggle.is-open .icon-bar:nth-child(2) {
+    opacity: 0;
+  }
+
+  .mobile-toggle.is-open .icon-bar:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  @media (scripting: none) {
+    .mobile-toggle {
+      display: none !important;
+    }
   }
 
   /* Mobile Panel */

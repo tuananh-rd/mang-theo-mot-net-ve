@@ -40,17 +40,14 @@ const navLinks = [
       <div class="footer-notes">
         <h3 class="footer-nav-title">Lưu ý bản xem trước</h3>
         <p class="footer-preview-text">
-          Đây là bản xem trước kỹ thuật (Preview) cho giao diện và cấu trúc thông tin đề xuất. Mọi số liệu thực tế, hình ảnh chính thức và kênh giao dịch sẽ được cập nhật sau khi chủ dự án xác nhận và đối soát.
-        </p>
-        <p class="footer-preview-sub">
-          Không thực hiện các giao dịch nhận tiền, thanh toán hay thu thập thông tin cá nhân trên trang này.
+          Bản xem trước phục vụ lấy ý kiến đóng góp cho đề xuất dự án. Kế hoạch, hình ảnh minh họa và kênh liên hệ chính thức đang chờ xác nhận; website chưa nhận giao dịch, đơn hàng hay tiền đóng góp.
         </p>
       </div>
     </div>
 
     <div class="footer-bottom">
       <p class="footer-status">
-        Bản xem trước phục vụ lấy ý kiến đóng góp cho dự án Mang Theo Một Nét Vẽ — Nhóm Lăng Kính (Đại học FPT Hà Nội).
+        Mang Theo Một Nét Vẽ — Nhóm Lăng Kính (lớp AI2015, học phần SSG105, Đại học FPT Hà Nội).
       </p>
     </div>
   </div>
@@ -104,12 +101,16 @@ const navLinks = [
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: var(--space-2);
+    gap: var(--space-1);
     margin: 0;
     padding: 0;
   }
 
   .footer-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: var(--space-1) 0;
     text-decoration: none;
     font-size: 0.9375rem;
     color: var(--color-text-secondary);
@@ -121,11 +122,10 @@ const navLinks = [
     text-decoration: underline;
   }
 
-  .footer-preview-text,
-  .footer-preview-sub {
-    font-size: 0.875rem;
-    line-height: 1.5;
-    margin-bottom: var(--space-2);
+  .footer-preview-text {
+    font-size: var(--font-size-sm);
+    line-height: 1.6;
+    color: var(--color-text-secondary);
   }
 
   .footer-bottom {
@@ -135,7 +135,7 @@ const navLinks = [
   }
 
   .footer-status {
-    font-size: 0.8125rem;
+    font-size: var(--font-size-sm);
     color: var(--color-text-muted);
   }
 

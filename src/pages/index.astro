@@ -57,7 +57,7 @@ const productIllustrationTypes = [
 
       <div class="section-footer-note">
         <p>
-          <em>* Ghi chú bản xem trước:</em> Hoạt động hướng đến sự gần gũi, kết nối tinh thần; không tuyên bố tác động trị liệu và không đặt chỉ tiêu sản xuất cho các em nhỏ.
+          * Ghi chú bản xem trước: Hoạt động hướng đến sự gần gũi, kết nối tinh thần; không tuyên bố tác động trị liệu và không đặt chỉ tiêu sản xuất cho các em nhỏ.
         </p>
       </div>
     </div>
@@ -71,6 +71,10 @@ const productIllustrationTypes = [
         <p>
           Các sản phẩm lưu niệm thủ công được nhóm lên kế hoạch chuẩn bị nhằm gây quỹ mua quà tặng và vật phẩm thiết yếu theo danh mục xác nhận của Mái ấm.
         </p>
+      </div>
+
+      <div class="product-section-notice" role="note">
+        <p><strong>Lưu ý:</strong> Trạng thái mở bán chưa được xác nhận. Bản xem trước chưa nhận đơn/tiền.</p>
       </div>
 
       <div class="products-grid">
@@ -89,7 +93,7 @@ const productIllustrationTypes = [
           Xem chi tiết thông tin sản phẩm
         </a>
         <p class="action-note">
-          Trạng thái mở bán chưa được xác nhận; bản xem trước chưa nhận đơn/tiền. Mọi thông tin giá là số liệu tham khảo trong hồ sơ đề xuất.
+          Mọi thông tin giá là số liệu tham khảo trong hồ sơ đề xuất dự án.
         </p>
       </div>
     </div>
@@ -115,7 +119,7 @@ const productIllustrationTypes = [
 
       <div class="section-footer-note">
         <p>
-          <em>* Ghi chú:</em> Các giai đoạn dự kiến, lịch thực hiện chờ xác nhận.
+          * Ghi chú: Các giai đoạn dự kiến, lịch thực hiện chờ xác nhận.
         </p>
       </div>
     </div>
@@ -167,7 +171,7 @@ const productIllustrationTypes = [
 
         <div class="transparency-actions">
           <a href="/minh-bach" class="btn btn-secondary">
-            Xem dự toán và nguyên tắc thu chi chi tiết
+            Xem dự toán chi tiết
           </a>
         </div>
       </div>
@@ -183,11 +187,9 @@ const productIllustrationTypes = [
           <p class="lead">
             {TEAM_INFO.description}
           </p>
-          <div class="team-meta">
-            <span class="team-meta-pill">Lớp: {TEAM_INFO.classId}</span>
-            <span class="team-meta-pill">{TEAM_INFO.course}</span>
-            <span class="team-meta-pill">Thành viên: {TEAM_INFO.size} sinh viên</span>
-          </div>
+          <p class="team-meta-text">
+            Lớp {TEAM_INFO.classId} &bull; {TEAM_INFO.course} &bull; {TEAM_INFO.size} sinh viên
+          </p>
           <div class="team-actions">
             <a href="/ve-nhom" class="btn btn-secondary">
               Tìm hiểu thêm về nhóm
@@ -215,7 +217,7 @@ const productIllustrationTypes = [
               <h3 class="support-title">{method.title}</h3>
               <p class="support-desc">{method.description}</p>
               <div class="support-status">
-                <small>{method.statusText}</small>
+                <span>{method.statusText}</span>
               </div>
             </div>
           ))
@@ -227,7 +229,7 @@ const productIllustrationTypes = [
           Tìm hiểu cách đồng hành
         </a>
         <p class="action-note">
-          <em>Lưu ý:</em> Kênh tiếp nhận và thông tin liên hệ chính thức đang được nhóm cập nhật và đối soát.
+          Kênh tiếp nhận và thông tin liên hệ chính thức đang được nhóm cập nhật và đối soát.
         </p>
       </div>
     </div>
@@ -243,8 +245,8 @@ const productIllustrationTypes = [
   }
 
   .section-footer-note {
-    margin-top: var(--space-6);
-    font-size: 0.875rem;
+    margin-top: var(--space-8);
+    font-size: var(--font-size-sm);
     color: var(--color-text-muted);
   }
 
@@ -260,12 +262,12 @@ const productIllustrationTypes = [
     flex-direction: column;
     align-items: center;
     gap: var(--space-3);
-    margin-top: var(--space-10);
+    margin-top: var(--space-8);
     text-align: center;
   }
 
   .action-note {
-    font-size: 0.875rem;
+    font-size: var(--font-size-sm);
     color: var(--color-text-muted);
     max-width: 500px;
   }
@@ -287,6 +289,10 @@ const productIllustrationTypes = [
 
   .transparency-header {
     margin-bottom: var(--space-6);
+  }
+
+  .transparency-header .badge-row {
+    margin-bottom: var(--space-3);
   }
 
   .transparency-status {
@@ -329,7 +335,7 @@ const productIllustrationTypes = [
   }
 
   .diff-negative {
-    color: #b91c1c;
+    color: var(--color-text-primary);
     font-weight: 700;
   }
 
@@ -346,33 +352,28 @@ const productIllustrationTypes = [
   /* Team Layout */
   .team-layout {
     max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
   }
 
   .team-info {
     display: flex;
     flex-direction: column;
-    gap: var(--space-4);
+    align-items: center;
+    gap: var(--space-3);
   }
 
-  .team-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2);
-    margin-top: var(--space-2);
-  }
-
-  .team-meta-pill {
-    background-color: var(--color-canvas-soft);
-    border: 1px solid var(--color-border);
-    padding: var(--space-1) var(--space-3);
-    border-radius: var(--radius-pill);
-    font-size: 0.875rem;
-    font-weight: 600;
+  .team-meta-text {
+    font-size: var(--font-size-sm);
     color: var(--color-text-secondary);
+    margin-top: var(--space-1);
+    font-weight: 500;
   }
 
   .team-actions {
-    margin-top: var(--space-4);
+    margin-top: var(--space-3);
+    display: flex;
+    justify-content: center;
   }
 
   /* Support Grid */
@@ -405,9 +406,9 @@ const productIllustrationTypes = [
   .support-status {
     border-top: 1px solid var(--color-border-subtle);
     padding-top: var(--space-2);
-    font-size: 0.8125rem;
+    font-size: var(--font-size-sm);
     color: var(--color-text-muted);
-    font-style: italic;
+    font-style: normal;
   }
 
   /* Responsive Adjustments */
@@ -430,7 +431,7 @@ const productIllustrationTypes = [
     }
 
     .support-grid {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 

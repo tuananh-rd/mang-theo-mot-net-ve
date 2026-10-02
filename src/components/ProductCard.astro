@@ -25,10 +25,6 @@ function formatPrice(val: number | null): string {
   </div>
 
   <div class="card-body">
-    <div class="status-row">
-      <span class="product-status-tag">Trạng thái mở bán chưa được xác nhận; bản xem trước chưa nhận đơn/tiền</span>
-    </div>
-
     <h3 class="product-name">{product.name}</h3>
 
     <div class="price-box">
@@ -72,20 +68,6 @@ function formatPrice(val: number | null): string {
     gap: var(--space-3);
   }
 
-  .status-row {
-    margin-bottom: var(--space-1);
-  }
-
-  .product-status-tag {
-    font-size: 0.8125rem;
-    font-weight: 600;
-    color: var(--color-text-secondary);
-    background-color: var(--color-canvas-soft);
-    border: 1px solid var(--color-border);
-    padding: 2px 8px;
-    border-radius: var(--radius-sm);
-  }
-
   .product-name {
     font-size: 1.25rem;
     color: var(--color-text-primary);
@@ -101,7 +83,7 @@ function formatPrice(val: number | null): string {
   }
 
   .price-label {
-    font-size: 0.8125rem;
+    font-size: var(--font-size-sm);
     color: var(--color-text-muted);
   }
 
@@ -142,6 +124,12 @@ function formatPrice(val: number | null): string {
     font-size: var(--font-size-sm);
     line-height: var(--line-height-sm);
     color: var(--color-text-muted);
-    font-style: italic;
+    font-style: normal;
+  }
+
+  @media (max-width: 767px) {
+    .card-visual :global(.illustration-wrapper .svg-container) {
+      aspect-ratio: 16 / 9 !important;
+    }
   }
 </style>
