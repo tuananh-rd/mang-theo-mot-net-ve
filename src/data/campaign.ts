@@ -260,3 +260,103 @@ export const FINANCE_OVERVIEW = {
   disclaimer:
     'Các con số trên thuộc dự toán ban đầu trong đề xuất dự án. Báo cáo sau đối soát, biên tập và được phép công bố sẽ được cập nhật sau khi hoàn thành.',
 };
+
+export interface TeamPrinciple {
+  title: string;
+  description: string;
+}
+
+export interface CoordinationArea {
+  role: string;
+  scope: string;
+  note: string;
+}
+
+export interface ProductFaq {
+  question: string;
+  answer: string;
+}
+
+export const TEAM_PRINCIPLES: TeamPrinciple[] = [
+  {
+    title: 'Tôn trọng quyền lựa chọn',
+    description:
+      'Người tham gia tại Mái ấm hoàn toàn tự do chọn góc hoạt động phù hợp, ngồi quan sát hoặc nghỉ ngơi; không tạo áp lực hay bắt buộc tham gia.',
+  },
+  {
+    title: 'Chuẩn bị an toàn và chu đáo',
+    description:
+      'Tất cả phôi chuồn chuồn, tượng thạch cao, họa cụ và vật liệu màu nước đều được nhóm kiểm tra tính an toàn trước khi mang tới buổi trải nghiệm.',
+  },
+  {
+    title: 'Sản phẩm do nhóm hoàn thiện',
+    description:
+      'Nhóm sinh viên trực tiếp chuẩn bị và hoàn thiện các sản phẩm lưu niệm gây quỹ; tuyệt đối không giao chỉ tiêu sản xuất cho các em nhỏ.',
+  },
+  {
+    title: 'Đối soát rõ ràng và độc lập',
+    description:
+      'Mọi khoản dự toán thu chi, tài trợ hiện vật và chi phí vật tư đều được ghi chép độc lập bởi hai thành viên đối soát theo đề xuất.',
+  },
+  {
+    title: 'Bảo vệ quyền riêng tư',
+    description:
+      'Giữ kín thông tin cá nhân, tình trạng sức khỏe và hình ảnh riêng tư của các em nhỏ; chỉ công bố hình ảnh sau khi có sự đồng ý hợp lệ.',
+  },
+];
+
+export const TEAM_COORDINATION: CoordinationArea[] = [
+  {
+    role: 'Điều phối và Đối ngoại',
+    scope:
+      'Trao đổi với đại diện Mái ấm để làm rõ nhu cầu vật tư thiết yếu, thống nhất kế hoạch tổ chức và điều phối chung.',
+    note: 'Mô tả nhiệm vụ trong đề xuất, không phải chức danh nhân sự công khai.',
+  },
+  {
+    role: 'Nội dung và Chuẩn bị góc chơi',
+    scope:
+      'Lên kịch bản chi tiết cho 4 góc hoạt động (tô tượng, âm nhạc, trò chơi tương tác), chuẩn bị đạo cụ và hỗ trợ các em.',
+    note: 'Hướng đến không gian vui chơi thoải mái, không áp lực biểu diễn.',
+  },
+  {
+    role: 'Chuẩn bị và Hoàn thiện sản phẩm',
+    scope:
+      'Tìm nguồn phôi chuồn chuồn tre mộc mạc và trực tiếp may, hoàn thiện các mẫu túi bút lưu niệm gây quỹ.',
+    note: 'Nhóm sinh viên tự tay thực hiện việc hoàn thiện sản phẩm.',
+  },
+  {
+    role: 'Hậu cần và Quản lý vật tư',
+    scope:
+      'Đóng gói, kiểm đếm số lượng quà tặng, bảo quản dụng cụ workshop và hỗ trợ di chuyển an toàn giữa các địa điểm.',
+    note: 'Đảm bảo đầy đủ vật phẩm theo danh mục cần thiết.',
+  },
+  {
+    role: 'Tài chính và Đối soát độc lập',
+    scope:
+      'Quản lý ghi chép thu chi theo dự toán, đối soát chéo giữa hai thành viên phụ trách và tổng hợp báo cáo sau chiến dịch.',
+    note: 'Thực hiện cơ chế hai người đối soát theo đề xuất.',
+  },
+];
+
+export const PRODUCT_FAQS: ProductFaq[] = [
+  {
+    question: 'Giá ghi trên website có phải là giá bán chính thức không?',
+    answer:
+      'Các mức giá (40.000đ/bộ chuồn chuồn, 55.000đ/túi bút, 75.000đ/túi vải) chỉ là giá tham khảo trong dự toán ban đầu của đề xuất. Giá bán và số lượng phát hành chính thức sẽ được công bố khi kế hoạch được phê duyệt.',
+  },
+  {
+    question: 'Sản phẩm gây quỹ do ai làm và hoàn thiện?',
+    answer:
+      'Túi bút do chính các bạn sinh viên trong nhóm tự tay chuẩn bị và hoàn thiện. Chuồn chuồn tre có nguồn gốc phôi tre mộc; trong 40 phôi chuẩn bị có 10 chiếc dự kiến để lại Mái ấm làm quà. Hoạt động tô tượng tại Mái ấm là góc chơi giải trí tại chỗ cho các em, không phải hàng hoá mang đi bán.',
+  },
+  {
+    question: 'Khi nào mở bán và có thể đặt mua qua kênh nào?',
+    answer:
+      'Hiện tại trạng thái mở bán chưa được xác nhận. Bản xem trước này nhằm mục đích lấy ý kiến đóng góp cho đề xuất dự án. Kênh tiếp nhận đăng ký chính thức sẽ được thông báo cụ thể sau khi hoàn tất đối soát và được cơ sở đồng ý.',
+  },
+  {
+    question: 'Doanh thu từ các sản phẩm được sử dụng như thế nào?',
+    answer:
+      'Doanh thu dự kiến khác với số dư sau chi phí. Trong dự toán, doanh thu sẽ ưu tiên bù đắp chi phí vật tư và vận hành thực tế. Phần số dư (nếu có sau khi đối soát hoặc nhận thêm tài trợ hiện vật) sẽ được chuyển toàn bộ thành các phần quà thiết yếu gửi tặng Mái ấm theo đúng danh mục nhu cầu thực tế.',
+  },
+];
