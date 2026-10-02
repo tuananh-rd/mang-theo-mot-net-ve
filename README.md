@@ -2,11 +2,7 @@
 
 Mã nguồn: [tuananh-rd/mang-theo-mot-net-ve](https://github.com/tuananh-rd/mang-theo-mot-net-ve) — repository private. Lưu code trên GitHub không thay mốc duyệt hướng UI hoặc duyệt phát hành website.
 
-## Trạng thái tiếp nhận Orca — 02/10/2026
-
-**T01 DONE; R01 PASS** tại `c27fea2f8d377523b2200a1630756acfe46f54a2`, nhánh `task/t01-home-shell`, baseline B0 `ef102c8c1908f1dcd843d8d9f6741848dcb43d63`. Antigravity hiện có tại `net-ve-worker` triển khai và sửa theo review; Codex tại `net-ve-brain` kiểm diff, preview và bằng chứng. Không tạo worker mới. [Biên bản R01](docs/reviews/R01-c27fea2.md), [trạng thái task](docs/tasks.md), [bàn giao tiếp nối Brain](reports/resume-brain.md).
-
-Preview mẫu trang chủ: http://127.0.0.1:4321/. Năm route phụ là shell; chưa phải website hoàn chỉnh. **T02 chờ chủ dự án duyệt hướng UI; chưa phát hành public.** Các đoạn chưa có Git/MCP BLOCKED phía dưới được giữ như lịch sử T00.
+**T01 DONE; R01 PASS** sau sửa [UI Claude](reports/ui-review-claude.md), app SHA `285f695`. [Review](docs/reviews/R01-ui-285f695.md), [bàn giao](reports/resume-brain.md). **T02 chờ duyệt hướng UI; chưa public website.**
 
 Bộ tài liệu khởi động website của **nhóm Lăng Kính – AI2015, SSG105, Đại học FPT Hà Nội**. Website giới thiệu nhóm và một dự án trọng tâm tại Mái ấm Thánh Tâm Xuy Xá, với UI tham khảo https://sharethemeal.org/fr.
 
@@ -24,14 +20,6 @@ npm.cmd run preview -- --host 127.0.0.1 --port 4321
 Mở `http://127.0.0.1:4321/`. Preview chỉ bind loopback, mọi trang có noindex/nofollow. Đây là mẫu trang chủ T01; năm route phụ là shell. Dừng server bằng Ctrl+C ở terminal giữ server. `npm.cmd run dev -- --host 127.0.0.1` dùng khi worker phát triển; review dùng bản build. Không serve gốc repository hoặc share public từ bước này.
 
 Ứng dụng dùng Astro static, TypeScript strict và CSS thuần. Nội dung chọn lọc nằm ở `src/data/campaign.ts`; cập nhật theo task của Antigravity, giữ giá tham khảo/planned tách actual và unknown=null. Chỉ thêm ảnh public sau khi xác nhận quyền; giữ hồ sơ gốc, chứng từ thô và evidence review ngoài public/dist. Hosting/deploy chưa được chọn hoặc thực hiện.
-
-## Bắt đầu trên Orca — hướng dẫn ban đầu, lịch sử trước T01
-
-1. Mở folder này làm folder dự án. Chưa có code ứng dụng hoặc Git repository được khởi tạo.
-2. Mở Codex tại folder này; gửi nội dung `docs/prompts/codex.md`.
-3. Mở Antigravity cho cùng dự án; gửi `docs/prompts/antigravity.md`.
-4. Codex lập task T00/T01. Nếu hai agent chưa có kênh liên lạc đã xác minh, chủ dự án chuyển task và báo cáo giữa hai agent.
-5. Sau khi khởi tạo Git, Codex làm việc với tài liệu; Antigravity triển khai code trên nhánh riêng. Review theo commit, không cùng sửa một file.
 
 ## Tài liệu
 

@@ -1,0 +1,14 @@
+Target clean ci directory: C:\Users\tuana\AppData\Local\Temp\mang-theo-mot-net-ve-clean-ci-final
+Files copied. Running npm ci in C:\Users\tuana\AppData\Local\Temp\mang-theo-mot-net-ve-clean-ci-final...
+
+added 269 packages, and audited 270 packages in 27s
+
+85 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+npm warn allow-scripts 1 package has install scripts not yet covered by allowScripts:
+npm warn allow-scripts   esbuild@0.28.2 (postinstall: node install.js)
+npm warn allow-scripts
+npm warn allow-scripts Run `npm approve-scripts --allow-scripts-pending` to review, or `npm approve-scripts <pkg>` to allow.
+npm ci finished with exit code: 0

@@ -1,0 +1,11 @@
+{
+  "reviewedApp": "285f695e6c385ee0de6dff30d89c06aa92f46639",
+  "remoteRepo": "https://github.com/tuananh-rd/mang-theo-mot-net-ve",
+  "visibilityChecked": "PRIVATE",
+  "remoteMainBeforePush": "28e4348dc48dc65d716ed646ef1ff77deec01c8c",
+  "remoteTaskBeforePush": "e6aa96505c4368eca3e0d32a3cf41b1a7910a1db",
+  "remoteChanges": "e460928 and28e4348 only update README, removing14lines of outdated Orca startup/historical status; app unchanged",
+  "resolution": "Keep those README removals, commit Brain review/evidence only, merge origin/main normally, then fast-forward both remote branches under persistent user authorization to push code",
+  "forcePush": false,
+  "websiteDeployment": false
+}

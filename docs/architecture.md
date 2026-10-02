@@ -2,6 +2,8 @@
 
 ## Tiếp nhận workspace Orca — 02/10/2026
 
+Vòng sửa Claude đã hoàn thành: app final `285f695e6c385ee0de6dff30d89c06aa92f46639`, [R01 mới PASS](reviews/R01-ui-285f695.md). Giữ Astro/TypeScript strict/CSS thuần/lockfile, sáu route+404, nămroute phụshell. Remote GitHub private [tuananh-rd/mang-theo-mot-net-ve](https://github.com/tuananh-rd/mang-theo-mot-net-ve) đã tạo theo yêu cầu chủ dự án; chưa hosting/deploy. Favicon SVG tự tạo là asset public mới duy nhất của vòng này. Các finalc27 và trạng thái chưaremote bên dưới là lịch sử vòng trước.
+
 Kiến trúc bên dưới giữ nguyên. Git và ứng dụng do Antigravity hiện có tạo; B0 `ef102c8c1908f1dcd843d8d9f6741848dcb43d63`, nhánh `task/t01-home-shell`, final `c27fea2f8d377523b2200a1630756acfe46f54a2`. [R01 PASS](reviews/R01-c27fea2.md) cho mẫu T01. Lockfile thực tế: Astro 7.3.5, @astrojs/check 0.9.10, TypeScript 5.8.3; ci/check/build đã kiểm. Các mục khảo sát repo chưa có Git và phương án khởi tạo phía dưới là lịch sử T00; không khởi tạo lại. T02 chờ duyệt hướng UI; chưa thêm remote/hosting/deploy.
 
 Ngày khảo sát: 02/10/2026. Chủ tài liệu: Codex. Người triển khai: Antigravity.

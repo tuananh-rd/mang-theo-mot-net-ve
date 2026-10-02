@@ -1,0 +1,17 @@
+﻿{
+    "sha":  "285f695e6c385ee0de6dff30d89c06aa92f46639",
+    "checkedAt":  "2026-10-02T11:20:07.0572279Z",
+    "check":  {
+                  "command":  "npm.cmd run check",
+                  "exitCode":  0
+              },
+    "build":  {
+                  "command":  "npm.cmd run build",
+                  "exitCode":  0
+              },
+    "preview":  {
+                    "url":  "http://127.0.0.1:4321/",
+                    "pid":  32724,
+                    "listener":  "127.0.0.1"
+                }
+}

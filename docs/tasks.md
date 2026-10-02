@@ -1,5 +1,9 @@
 # Backlog
 
+## Vòng sửa UI theo Claude — 02/10/2026
+
+Theo yêu cầu sửa UI Claude của chủ dự án: **T01 DONE; R01 PASS** tại app SHA `285f695e6c385ee0de6dff30d89c06aa92f46639`, base vòng sửa `e6aa96505c4368eca3e0d32a3cf41b1a7910a1db`. [Review cuối](reviews/R01-ui-285f695.md), [review Claude nguyên vẹn](../reports/ui-review-claude.md), [addendum T01](task-specs/T01-ui-claude.md), [kênh continuity](evidence/T01/ui-claude/continuity.json). Worker Antigravity hiện có triển khai2commit e30f939/285f695; Codex đọc diff, kiểm bằng chứng và visual5viewport. Ci sạch ngoài repo/check/build exit0,92assertions đạt; mobile375 từ10.496→8.723px, giảm16,89%. Repository GitHub private hiện có lưu code, chưa public website. **T02 WAITING_UI_APPROVAL**, cần chủ dự án duyệt hướng UI mới. R01 c27fea2 và handle cũ phía dưới là lịch sử, không dùng lại handle khi runtime đã đổi.
+
 ## Tiếp nhận phiên Orca — 02/10/2026
 
 Trạng thái hiện tại thay phần lịch sử dưới đây: **T01 DONE; R01 PASS** tại final SHA **c27fea2f8d377523b2200a1630756acfe46f54a2**. Baseline **B0 = ef102c8c1908f1dcd843d8d9f6741848dcb43d63**, nhánh `task/t01-home-shell`. Antigravity hiện có ở `net-ve-worker`, handle đã kiểm `term_b8d3b82d-bec3-4a22-b23d-b95f9e9785d9`, đã triển khai và sửa cùng T01; không tạo worker/job/dispatch mới. Codex kiểm diff, source hash, build, routing/menu/responsive/contrast và visual preview thực tế. [R01 cuối](reviews/R01-c27fea2.md), [bàn giao worker](evidence/T01/worker-handoff-c27fea2.md).
@@ -19,8 +23,8 @@ Kiểm tra trước gửi 02/10: Antigravity MCP phản hồi model catalog và 
 | ID | Chủ trách nhiệm | Phụ thuộc | Đầu ra và nghiệm thu |
 | --- | --- | --- | --- |
 | T00 | Codex | Không | DONE_WITH_LIMITATIONS: đọc nguồn, khảo sát repo; architecture + UI đề xuất + T01; chưa xác minh UI nguồn hoặc kênh Orca, xem evidence/T00/survey.md |
-| T01 | Antigravity | T00 | DONE: final c27fea2, B0 ef102c8; trang chủ mẫu + 5 shell + 404, preview và evidence thật |
-| R01 | Codex | T01 | PASS tại c27fea2; vòng a625421 CHANGES_REQUIRED được giữ để truy vết |
+| T01 | Antigravity | T00 | DONE: app final285f695 sau sửa Claude, B0 ef102c8; trang chủ mẫu + 5 shell +404, preview/evidence thật |
+| R01 | Codex | T01 | PASS tại285f695; các review c27fea2/a625421/e30f939 được giữ để truy vết |
 | T02 | Antigravity | R01 PASS + chủ dự án duyệt hướng UI | WAITING_UI_APPROVAL, chưa giao: trang dự án, nhóm và sản phẩm; dữ liệu có nguồn, giá tham khảo, không giả tồn kho hay thành tích |
 | R02 | Codex | T02 | Review routing, dữ liệu, nội dung, responsive |
 | T03 | Antigravity | R02 đạt | Minh bạch và đồng hành; phép tính đúng; trường hợp thiếu dữ liệu rõ; chỉ dùng liên hệ thật |

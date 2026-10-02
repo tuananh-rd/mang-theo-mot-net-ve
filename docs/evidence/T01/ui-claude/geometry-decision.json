@@ -1,0 +1,11 @@
+{
+  "candidate": "285f695e6c385ee0de6dff30d89c06aa92f46639",
+  "reviewer": "Codex",
+  "initialAssertion": "Exact mobile visual box 16:9 failed only at 375px: observed 307x165 due to intentional 165px height cap",
+  "decision": "Accept preferred 16:9 with max-height 165px; SVG contain complete artwork, no distortion/crop confirmed on actual screenshots. Compact page goal achieved. Do not claim exact 16:9 at 375.",
+  "revisedCriterion": "Seven positive visual boxes, height <=165.5px, ratio >=16/9-0.03 and <2; independent visual review mandatory",
+  "unchangedApplication": true,
+  "workerFeedbackRequestId": "669388bd-f5fd-409c-850f-226976e3f8ea",
+  "receipt": "input_accepted; unsupported provider cannot prove delivery",
+  "actualDelivery": "Subsequent terminal screen quoted full Brain feedback and worker inspected/killed task-730 then wrote external clean_ci.ps1"
+}

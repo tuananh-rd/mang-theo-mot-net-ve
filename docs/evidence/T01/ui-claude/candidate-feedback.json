@@ -1,0 +1,12 @@
+{
+  "taskId": "T01",
+  "candidate": "e30f939fca66eb722a88c7d61a250c5642ecee1d",
+  "request": "Brain review sớm e30f939 trên production4321 đã đo đủ5viewport: các fonts/contrast/routes/menu/noJS/heroCTA/semantics đạt. CHANGES_REQUIRED tại docs/reviews/R01-ui-e30f939.md: support mobile320/375 vẫn2cột; height375=10045px chỉ giảm4.30%, chưa<=8920; svg-container card375 thực291x218.25 vẫn4:3 dù CSS đặt16:9, cần sửa intrinsic/flex sizing và đo geometry thật/thu gọn thêm spacing hoặc visual nếu cần. Bảo toàn nội dung/font>=14. Favicon304 là cache hợp lệ, không bug; script Brain sẽ requestcacheoff cho vòngsau. Đọc report, sửa cùngT01 và bàn giao final. Đây là feedback thêm cho turn hiện tại, không worker/task mới.",
+  "receipt": {
+    "chunk_id": "5c53ed",
+    "wall_time_seconds": 1.7276814,
+    "exit_code": 0,
+    "original_token_count": 221,
+    "output": "{\n  \"id\": \"15e8201f-f07c-465f-9981-14369b86b9ff\",\n  \"ok\": true,\n  \"result\": {\n    \"send\": {\n      \"handle\": \"term_7a3ca8f1-9b58-49a2-81df-a43775084579\",\n      \"accepted\": true,\n      \"bytesWritten\": 704,\n      \"prompt\": {\n        \"requestId\": \"0b3bb58e-af5f-4c30-97e0-8fe22ef1bbf7\",\n        \"stages\": [\n          \"input_accepted\"\n        ],\n        \"provider\": \"unsupported\",\n        \"observation\": \"unsupported\",\n        \"processIncarnation\": \"8f703085-79ff-419e-8c38-48231dc25eae\",\n        \"generation\": 6,\n        \"baselineWorkingSequence\": 0\n      }\n    },\n    \"mutation\": {\n      \"requestId\": \"0b3bb58e-af5f-4c30-97e0-8fe22ef1bbf7\",\n      \"replayed\": false\n    },\n    \"warnings\": [\n      \"input was accepted, but this provider cannot report delivery. Inspect the terminal before retrying.\"\n    ]\n  },\n  \"_meta\": {\n    \"runtimeId\": \"1bd6b1f6-fa95-48a2-bc22-13a4fbadaee4\"\n  }\n}\n"
+  }
+}

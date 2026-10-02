@@ -1,0 +1,17 @@
+import fs from 'node:fs';
+import crypto from 'node:crypto';
+import {execFileSync} from 'node:child_process';
+const dir='docs/evidence/T01/ui-claude';
+const sha=execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();
+const short=sha.slice(0,7);
+const external='C:/Users/tuana/.gemini/antigravity-cli/brain/86498389-9ca4-486e-9ba8-82247107fb96/handoff-t01-claude';
+const temp='C:/Users/tuana/AppData/Local/Temp/mang-theo-mot-net-ve-clean-ci-final';
+const hash=f=>crypto.createHash('sha256').update(fs.readFileSync(f)).digest('hex');
+const audit=JSON.parse(fs.readFileSync(dir+'/reviewer-audit-'+short+'.json','utf8'));
+const worker=JSON.parse(fs.readFileSync(dir+'/worker-browser-'+short+'.json','utf8'));
+const own=JSON.parse(fs.readFileSync(dir+'/reviewer-browser-'+short+'.json','utf8'));
+const files=fs.readdirSync(external).filter(f=>f.endsWith('.png')).map(f=>{const p=external+'/'+f,b=fs.readFileSync(p);return {path:p,width:b.readUInt32BE(16),height:b.readUInt32BE(20),bytes:b.length,sha256:hash(p),modifiedAt:fs.statSync(p).mtime.toISOString()}});
+const result={sha,checkedAt:new Date().toISOString(),postBuildFiles:audit.files.map(f=>({path:f.path,screenshotBuildHash:f.sha256,postBuildHash:hash(f.path),unchanged:hash(f.path)===f.sha256})),cleanCiInputs:['package.json','package-lock.json'].map(f=>({file:f,repoHash:hash(f),cleanCopyHash:hash(temp+'/'+f),equal:hash(f)===hash(temp+'/'+f)})),workerBrowser:{version:worker.browserVersion,startedAt:worker.startedAt,devicePixelRatio:worker.devicePixelRatio,zoom:worker.zoom,sha:worker.sha},reviewerBrowser:{version:own.browser,startedAt:own.startedAt,endedAt:own.endedAt,deviceScaleFactorConfigured:1,zoom:'default 1; no zoom change or mobile touch emulation',sha:own.sha},workerScreenshots:files,workerReportHash:hash(external+'/handoff-report.md'),copiedReportHash:hash(dir+'/worker-handoff-'+short+'.md'),handoffNotes:['Worker report says22check files; independent actual npm check log says23files, zero diagnostics. Independent log authoritative for reviewer result.','Worker mobile320 reduction compared against375baseline is not a valid same-viewport comparison. Correct320before11102 after9297=16.26%;375before10496 after8723=16.89%. Desktop/tablet reduction vs375baseline should not be treated as before/after.','Worker report mentions7routes plus404; actual preview has six normal routes pluscustom404, confirmed independently.','Geometry307x165 at375 is height-capped, not exact16:9; explicit Brain acceptance recorded.']};
+fs.writeFileSync(dir+'/handoff-verification-'+short+'.json',JSON.stringify(result,null,2));
+console.log(JSON.stringify({sha,unchangedDist:result.postBuildFiles.every(f=>f.unchanged),cleanCiInputs:result.cleanCiInputs,workerScreenshots:files.length,workerBrowser:result.workerBrowser,reviewerBrowser:result.reviewerBrowser},null,2));
+if(result.postBuildFiles.some(f=>!f.unchanged)||result.cleanCiInputs.some(f=>!f.equal)||worker.sha!==sha||own.sha!==sha||result.workerReportHash!==result.copiedReportHash)process.exitCode=1;

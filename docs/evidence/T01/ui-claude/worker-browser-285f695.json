@@ -1,0 +1,349 @@
+{
+  "sha": "285f695e6c385ee0de6dff30d89c06aa92f46639",
+  "startedAt": "2026-10-02T11:18:52.220Z",
+  "browserVersion": "Chrome/154.0.8037.93",
+  "devicePixelRatio": 1,
+  "zoom": 1,
+  "viewports": [
+    {
+      "name": "mobile-320",
+      "width": 320,
+      "height": 640,
+      "innerWidth": 320,
+      "innerHeight": 640,
+      "scrollWidth": 320,
+      "scrollHeight": 9297,
+      "hasHorizontalOverflow": false,
+      "h1Count": 1,
+      "formCount": 0,
+      "statusBadgesCount": 1,
+      "figuresCount": 8,
+      "figcaptionsCount": 8,
+      "productNoticeCount": 1,
+      "viewportScreenshot": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t01-claude\\mobile-320-viewport.png",
+      "fullScreenshot": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t01-claude\\mobile-320-full.png"
+    },
+    {
+      "name": "mobile-375",
+      "width": 375,
+      "height": 812,
+      "innerWidth": 375,
+      "innerHeight": 812,
+      "scrollWidth": 375,
+      "scrollHeight": 8723,
+      "hasHorizontalOverflow": false,
+      "h1Count": 1,
+      "formCount": 0,
+      "statusBadgesCount": 1,
+      "figuresCount": 8,
+      "figcaptionsCount": 8,
+      "productNoticeCount": 1,
+      "viewportScreenshot": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t01-claude\\mobile-375-viewport.png",
+      "fullScreenshot": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t01-claude\\mobile-375-full.png"
+    },
+    {
+      "name": "tablet-768",
+      "width": 768,
+      "height": 1024,
+      "innerWidth": 768,
+      "innerHeight": 1024,
+      "scrollWidth": 768,
+      "scrollHeight": 7323,
+      "hasHorizontalOverflow": false,
+      "h1Count": 1,
+      "formCount": 0,
+      "statusBadgesCount": 1,
+      "figuresCount": 8,
+      "figcaptionsCount": 8,
+      "productNoticeCount": 1,
+      "viewportScreenshot": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t01-claude\\tablet-768-viewport.png",
+      "fullScreenshot": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t01-claude\\tablet-768-full.png"
+    },
+    {
+      "name": "desktop-1024",
+      "width": 1024,
+      "height": 768,
+      "innerWidth": 1024,
+      "innerHeight": 768,
+      "scrollWidth": 1024,
+      "scrollHeight": 5554,
+      "hasHorizontalOverflow": false,
+      "h1Count": 1,
+      "formCount": 0,
+      "statusBadgesCount": 1,
+      "figuresCount": 8,
+      "figcaptionsCount": 8,
+      "productNoticeCount": 1,
+      "viewportScreenshot": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t01-claude\\desktop-1024-viewport.png",
+      "fullScreenshot": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t01-claude\\desktop-1024-full.png"
+    },
+    {
+      "name": "desktop-1440",
+      "width": 1440,
+      "height": 900,
+      "innerWidth": 1440,
+      "innerHeight": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 5451,
+      "hasHorizontalOverflow": false,
+      "h1Count": 1,
+      "formCount": 0,
+      "statusBadgesCount": 1,
+      "figuresCount": 8,
+      "figcaptionsCount": 8,
+      "productNoticeCount": 1,
+      "viewportScreenshot": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t01-claude\\desktop-1440-viewport.png",
+      "fullScreenshot": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t01-claude\\desktop-1440-full.png"
+    }
+  ],
+  "routes": [
+    {
+      "path": "/",
+      "statusCode": 200,
+      "title": "Trang chủ | Mang Theo Một Nét Vẽ - Lăng Kính",
+      "ariaCurrentElements": [
+        {
+          "tag": "A",
+          "href": "/",
+          "text": "Trang chủ",
+          "className": "nav-link is-active"
+        },
+        {
+          "tag": "A",
+          "href": "/",
+          "text": "Trang chủ",
+          "className": "mobile-nav-link is-active"
+        }
+      ]
+    },
+    {
+      "path": "/du-an/mang-theo-mot-net-ve",
+      "statusCode": 200,
+      "title": "Dự án Mang Theo Một Nét Vẽ | Mang Theo Một Nét Vẽ - Lăng Kính",
+      "ariaCurrentElements": [
+        {
+          "tag": "A",
+          "href": "/du-an/mang-theo-mot-net-ve",
+          "text": "Dự án",
+          "className": "nav-link is-active"
+        },
+        {
+          "tag": "A",
+          "href": "/du-an/mang-theo-mot-net-ve",
+          "text": "Dự án",
+          "className": "mobile-nav-link is-active"
+        }
+      ]
+    },
+    {
+      "path": "/san-pham",
+      "statusCode": 200,
+      "title": "Sản phẩm gây quỹ | Mang Theo Một Nét Vẽ - Lăng Kính",
+      "ariaCurrentElements": [
+        {
+          "tag": "A",
+          "href": "/san-pham",
+          "text": "Sản phẩm",
+          "className": "nav-link is-active"
+        },
+        {
+          "tag": "A",
+          "href": "/san-pham",
+          "text": "Sản phẩm",
+          "className": "mobile-nav-link is-active"
+        }
+      ]
+    },
+    {
+      "path": "/minh-bach",
+      "statusCode": 200,
+      "title": "Minh bạch thu chi | Mang Theo Một Nét Vẽ - Lăng Kính",
+      "ariaCurrentElements": [
+        {
+          "tag": "A",
+          "href": "/minh-bach",
+          "text": "Minh bạch",
+          "className": "nav-link is-active"
+        },
+        {
+          "tag": "A",
+          "href": "/minh-bach",
+          "text": "Minh bạch",
+          "className": "mobile-nav-link is-active"
+        }
+      ]
+    },
+    {
+      "path": "/ve-nhom",
+      "statusCode": 200,
+      "title": "Về nhóm Lăng Kính | Mang Theo Một Nét Vẽ - Lăng Kính",
+      "ariaCurrentElements": [
+        {
+          "tag": "A",
+          "href": "/ve-nhom",
+          "text": "Về nhóm",
+          "className": "nav-link is-active"
+        },
+        {
+          "tag": "A",
+          "href": "/ve-nhom",
+          "text": "Về nhóm",
+          "className": "mobile-nav-link is-active"
+        }
+      ]
+    },
+    {
+      "path": "/dong-hanh",
+      "statusCode": 200,
+      "title": "Đồng hành cùng dự án | Mang Theo Một Nét Vẽ - Lăng Kính",
+      "ariaCurrentElements": [
+        {
+          "tag": "A",
+          "href": "/dong-hanh",
+          "text": "Đồng hành",
+          "className": "btn btn-primary cta-btn is-active"
+        },
+        {
+          "tag": "A",
+          "href": "/dong-hanh",
+          "text": "Đồng hành cùng dự án",
+          "className": "btn btn-primary btn-block is-active"
+        }
+      ]
+    },
+    {
+      "path": "/trang-khong-ton-tai-404",
+      "statusCode": 404,
+      "title": "Không tìm thấy trang (404) | Mang Theo Một Nét Vẽ - Lăng Kính",
+      "ariaCurrentElements": []
+    }
+  ],
+  "menuBehavior": {
+    "openState": {
+      "expanded": "true",
+      "isOpenClass": true,
+      "panelHidden": false,
+      "panelDisplay": "block"
+    },
+    "escapeState": {
+      "expanded": "false",
+      "panelHidden": true,
+      "activeElementId": "mobile-nav-toggle"
+    }
+  },
+  "measurements": {
+    "firstFold375": {
+      "viewportHeight": 812,
+      "bannerBottom": 36.59375,
+      "headerBottom": 101.59375,
+      "visualTop": 117.59375,
+      "visualBottom": 320.59375,
+      "titleTop": 336.59375,
+      "sloganBottom": 466.78125,
+      "primaryCtaBottom": 629.375,
+      "secondaryCtaBottom": 688.96875,
+      "fitsInFirstFold": true
+    }
+  },
+  "screenshots": [
+    {
+      "name": "mobile-375-menu-open",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t01-claude\\mobile-375-menu-open.png"
+    }
+  ],
+  "audit": {
+    "contrastFailures": [],
+    "keyFontSizes": {
+      "sectionFooterNoteP": "14px",
+      "priceLabel": "14px",
+      "notesInfo": "14px",
+      "notesInfoStyle": "normal",
+      "cardNoteStyle": "normal",
+      "footerStatus": "14px",
+      "footerLinkMinHeight": "44px",
+      "brandSub": "14px",
+      "transparencyBadgeMarginBottom": "12px",
+      "diffNegativeColor": "rgb(31, 41, 51)"
+    }
+  },
+  "endedAt": "2026-10-02T11:19:17.643Z",
+  "imageFiles": [
+    {
+      "filename": "desktop-1024-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t01-claude\\desktop-1024-full.png",
+      "width": 1024,
+      "height": 5554,
+      "bytes": 474049
+    },
+    {
+      "filename": "desktop-1024-viewport.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t01-claude\\desktop-1024-viewport.png",
+      "width": 1024,
+      "height": 768,
+      "bytes": 96544
+    },
+    {
+      "filename": "desktop-1440-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t01-claude\\desktop-1440-full.png",
+      "width": 1440,
+      "height": 5451,
+      "bytes": 472412
+    },
+    {
+      "filename": "desktop-1440-viewport.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t01-claude\\desktop-1440-viewport.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 110523
+    },
+    {
+      "filename": "mobile-320-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t01-claude\\mobile-320-full.png",
+      "width": 320,
+      "height": 9297,
+      "bytes": 421100
+    },
+    {
+      "filename": "mobile-320-viewport.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t01-claude\\mobile-320-viewport.png",
+      "width": 320,
+      "height": 640,
+      "bytes": 40887
+    },
+    {
+      "filename": "mobile-375-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t01-claude\\mobile-375-full.png",
+      "width": 375,
+      "height": 8723,
+      "bytes": 421433
+    },
+    {
+      "filename": "mobile-375-menu-open.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t01-claude\\mobile-375-menu-open.png",
+      "width": 375,
+      "height": 812,
+      "bytes": 35388
+    },
+    {
+      "filename": "mobile-375-viewport.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t01-claude\\mobile-375-viewport.png",
+      "width": 375,
+      "height": 812,
+      "bytes": 51528
+    },
+    {
+      "filename": "tablet-768-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t01-claude\\tablet-768-full.png",
+      "width": 768,
+      "height": 7323,
+      "bytes": 474692
+    },
+    {
+      "filename": "tablet-768-viewport.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t01-claude\\tablet-768-viewport.png",
+      "width": 768,
+      "height": 1024,
+      "bytes": 80970
+    }
+  ]
+}

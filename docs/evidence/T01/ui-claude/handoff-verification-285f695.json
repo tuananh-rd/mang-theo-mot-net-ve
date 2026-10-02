@@ -1,0 +1,193 @@
+{
+  "sha": "285f695e6c385ee0de6dff30d89c06aa92f46639",
+  "checkedAt": "2026-10-02T11:23:03.100Z",
+  "postBuildFiles": [
+    {
+      "path": "dist\\404.html",
+      "screenshotBuildHash": "b695525dd529442c5a7d73592152c0a1b2cfb673b123a12405de1cbd80337bef",
+      "postBuildHash": "b695525dd529442c5a7d73592152c0a1b2cfb673b123a12405de1cbd80337bef",
+      "unchanged": true
+    },
+    {
+      "path": "dist\\dong-hanh\\index.html",
+      "screenshotBuildHash": "4d94672e65c0812fdeb643b943e781ac337dd659f00770f6e6fb94f23093a670",
+      "postBuildHash": "4d94672e65c0812fdeb643b943e781ac337dd659f00770f6e6fb94f23093a670",
+      "unchanged": true
+    },
+    {
+      "path": "dist\\du-an\\mang-theo-mot-net-ve\\index.html",
+      "screenshotBuildHash": "9834c2039301fc497464a8193b480d78d4ff124567a520f60005cf4307de7d21",
+      "postBuildHash": "9834c2039301fc497464a8193b480d78d4ff124567a520f60005cf4307de7d21",
+      "unchanged": true
+    },
+    {
+      "path": "dist\\favicon.svg",
+      "screenshotBuildHash": "cf5a6109d12aead474ccee95fd51643e1988adc2364bb1349e3c3e4e6d564051",
+      "postBuildHash": "cf5a6109d12aead474ccee95fd51643e1988adc2364bb1349e3c3e4e6d564051",
+      "unchanged": true
+    },
+    {
+      "path": "dist\\index.html",
+      "screenshotBuildHash": "50d1a65adc1361a8d5da2655ac66a6ed92148241bd6e637c9717f16f5eca84f5",
+      "postBuildHash": "50d1a65adc1361a8d5da2655ac66a6ed92148241bd6e637c9717f16f5eca84f5",
+      "unchanged": true
+    },
+    {
+      "path": "dist\\minh-bach\\index.html",
+      "screenshotBuildHash": "175085e260e19bf9da480e176fc07135f75fdbbb0710edde098c3f42c410a392",
+      "postBuildHash": "175085e260e19bf9da480e176fc07135f75fdbbb0710edde098c3f42c410a392",
+      "unchanged": true
+    },
+    {
+      "path": "dist\\san-pham\\index.html",
+      "screenshotBuildHash": "271b0ebe370a3db96a69abaaecbf3e1452c41de7ee8d554524f7d817338d726b",
+      "postBuildHash": "271b0ebe370a3db96a69abaaecbf3e1452c41de7ee8d554524f7d817338d726b",
+      "unchanged": true
+    },
+    {
+      "path": "dist\\ve-nhom\\index.html",
+      "screenshotBuildHash": "df45840628e17e6a4de27e4890691e4b4de5c73126d009524e0727fcdc5f2a2b",
+      "postBuildHash": "df45840628e17e6a4de27e4890691e4b4de5c73126d009524e0727fcdc5f2a2b",
+      "unchanged": true
+    },
+    {
+      "path": "dist\\_astro\\index.fLi5VbsV.css",
+      "screenshotBuildHash": "dbe4f907f8aef6aa06231240bed4b40b58249f352a09a5d7270f415d73d30aca",
+      "postBuildHash": "dbe4f907f8aef6aa06231240bed4b40b58249f352a09a5d7270f415d73d30aca",
+      "unchanged": true
+    },
+    {
+      "path": "dist\\_astro\\Layout.FhlXODiz.css",
+      "screenshotBuildHash": "9a9109e7436ddeca3d06969508e58a5f08b1c384effc2e94bf7b94c4b2a1ccf3",
+      "postBuildHash": "9a9109e7436ddeca3d06969508e58a5f08b1c384effc2e94bf7b94c4b2a1ccf3",
+      "unchanged": true
+    }
+  ],
+  "cleanCiInputs": [
+    {
+      "file": "package.json",
+      "repoHash": "d973d845f877c0f515cb8ccc33cb971f0eb003ba17dc2157d7ff189d91f742c9",
+      "cleanCopyHash": "d973d845f877c0f515cb8ccc33cb971f0eb003ba17dc2157d7ff189d91f742c9",
+      "equal": true
+    },
+    {
+      "file": "package-lock.json",
+      "repoHash": "ff3aa78d6644ec76e50748e34a2f502b578be8b80ed52391a7d7b9f03d487058",
+      "cleanCopyHash": "ff3aa78d6644ec76e50748e34a2f502b578be8b80ed52391a7d7b9f03d487058",
+      "equal": true
+    }
+  ],
+  "workerBrowser": {
+    "version": "Chrome/154.0.8037.93",
+    "startedAt": "2026-10-02T11:18:52.220Z",
+    "devicePixelRatio": 1,
+    "zoom": 1,
+    "sha": "285f695e6c385ee0de6dff30d89c06aa92f46639"
+  },
+  "reviewerBrowser": {
+    "version": "Chrome/154.0.8037.93",
+    "startedAt": "2026-10-02T11:10:39.335Z",
+    "endedAt": "2026-10-02T11:11:13.082Z",
+    "deviceScaleFactorConfigured": 1,
+    "zoom": "default 1; no zoom change or mobile touch emulation",
+    "sha": "285f695e6c385ee0de6dff30d89c06aa92f46639"
+  },
+  "workerScreenshots": [
+    {
+      "path": "C:/Users/tuana/.gemini/antigravity-cli/brain/86498389-9ca4-486e-9ba8-82247107fb96/handoff-t01-claude/desktop-1024-full.png",
+      "width": 1024,
+      "height": 5554,
+      "bytes": 474049,
+      "sha256": "b00fb4f86f6b123265b60eb79bdab791ed6651da84c94c845e07a499f347b8d2",
+      "modifiedAt": "2026-10-02T11:19:12.356Z"
+    },
+    {
+      "path": "C:/Users/tuana/.gemini/antigravity-cli/brain/86498389-9ca4-486e-9ba8-82247107fb96/handoff-t01-claude/desktop-1024-viewport.png",
+      "width": 1024,
+      "height": 768,
+      "bytes": 96544,
+      "sha256": "344ac66251d4430fea100eff548ed0bd6ff20d777dca654374ed5bfc92a72390",
+      "modifiedAt": "2026-10-02T11:19:11.630Z"
+    },
+    {
+      "path": "C:/Users/tuana/.gemini/antigravity-cli/brain/86498389-9ca4-486e-9ba8-82247107fb96/handoff-t01-claude/desktop-1440-full.png",
+      "width": 1440,
+      "height": 5451,
+      "bytes": 472412,
+      "sha256": "d23a654c765dfd49aaeb79847bb76f07b55d8b069706d53bc128445293ace2c2",
+      "modifiedAt": "2026-10-02T11:19:14.466Z"
+    },
+    {
+      "path": "C:/Users/tuana/.gemini/antigravity-cli/brain/86498389-9ca4-486e-9ba8-82247107fb96/handoff-t01-claude/desktop-1440-viewport.png",
+      "width": 1440,
+      "height": 900,
+      "bytes": 110523,
+      "sha256": "c971253273b2cdb856f269de01660bc35614e6e949c7932920bfece3a56a5f49",
+      "modifiedAt": "2026-10-02T11:19:13.589Z"
+    },
+    {
+      "path": "C:/Users/tuana/.gemini/antigravity-cli/brain/86498389-9ca4-486e-9ba8-82247107fb96/handoff-t01-claude/mobile-320-full.png",
+      "width": 320,
+      "height": 9297,
+      "bytes": 421100,
+      "sha256": "c82e67086fb9366822a85c510744251791366934a799c312cadf590aeb1dc4c1",
+      "modifiedAt": "2026-10-02T11:19:07.100Z"
+    },
+    {
+      "path": "C:/Users/tuana/.gemini/antigravity-cli/brain/86498389-9ca4-486e-9ba8-82247107fb96/handoff-t01-claude/mobile-320-viewport.png",
+      "width": 320,
+      "height": 640,
+      "bytes": 40887,
+      "sha256": "898e4e3463b5222686832bb41fffd45595e6eb9023cbe769bda744d23b5e9aa1",
+      "modifiedAt": "2026-10-02T11:19:06.619Z"
+    },
+    {
+      "path": "C:/Users/tuana/.gemini/antigravity-cli/brain/86498389-9ca4-486e-9ba8-82247107fb96/handoff-t01-claude/mobile-375-full.png",
+      "width": 375,
+      "height": 8723,
+      "bytes": 421433,
+      "sha256": "88dcfb78dfdc249eeb8471a5bbef68aa8807dc1f3ad5d3aac95f65fc53a51b40",
+      "modifiedAt": "2026-10-02T11:19:08.661Z"
+    },
+    {
+      "path": "C:/Users/tuana/.gemini/antigravity-cli/brain/86498389-9ca4-486e-9ba8-82247107fb96/handoff-t01-claude/mobile-375-menu-open.png",
+      "width": 375,
+      "height": 812,
+      "bytes": 35388,
+      "sha256": "a95700120cf52226be86f340c115f24e57805188a90ee701a4934360620fdc8a",
+      "modifiedAt": "2026-10-02T11:19:15.734Z"
+    },
+    {
+      "path": "C:/Users/tuana/.gemini/antigravity-cli/brain/86498389-9ca4-486e-9ba8-82247107fb96/handoff-t01-claude/mobile-375-viewport.png",
+      "width": 375,
+      "height": 812,
+      "bytes": 51528,
+      "sha256": "84f989059c110778f63fc97c4caa9b77502c5cc645daa92c67075d7b60d24c05",
+      "modifiedAt": "2026-10-02T11:19:08.210Z"
+    },
+    {
+      "path": "C:/Users/tuana/.gemini/antigravity-cli/brain/86498389-9ca4-486e-9ba8-82247107fb96/handoff-t01-claude/tablet-768-full.png",
+      "width": 768,
+      "height": 7323,
+      "bytes": 474692,
+      "sha256": "04d63fa01ca1509c12998439f705d0085b2f043d7da82c4ae760779472bb460e",
+      "modifiedAt": "2026-10-02T11:19:10.417Z"
+    },
+    {
+      "path": "C:/Users/tuana/.gemini/antigravity-cli/brain/86498389-9ca4-486e-9ba8-82247107fb96/handoff-t01-claude/tablet-768-viewport.png",
+      "width": 768,
+      "height": 1024,
+      "bytes": 80970,
+      "sha256": "5bd27ead0d0fc4bc5df54abe199e59e60aac49f69528ef623d935ba5398bf163",
+      "modifiedAt": "2026-10-02T11:19:09.784Z"
+    }
+  ],
+  "workerReportHash": "847c5b4fae76a7ac2f4eff35abfba986cea0b811db32dccfca8453ee74fc269a",
+  "copiedReportHash": "847c5b4fae76a7ac2f4eff35abfba986cea0b811db32dccfca8453ee74fc269a",
+  "handoffNotes": [
+    "Worker report says22check files; independent actual npm check log says23files, zero diagnostics. Independent log authoritative for reviewer result.",
+    "Worker mobile320 reduction compared against375baseline is not a valid same-viewport comparison. Correct320before11102 after9297=16.26%;375before10496 after8723=16.89%. Desktop/tablet reduction vs375baseline should not be treated as before/after.",
+    "Worker report mentions7routes plus404; actual preview has six normal routes pluscustom404, confirmed independently.",
+    "Geometry307x165 at375 is height-capped, not exact16:9; explicit Brain acceptance recorded."
+  ]
+}

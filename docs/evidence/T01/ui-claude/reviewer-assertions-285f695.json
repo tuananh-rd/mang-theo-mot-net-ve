@@ -1,0 +1,1282 @@
+{
+  "sha": "285f695e6c385ee0de6dff30d89c06aa92f46639",
+  "checkedAt": "2026-10-02T11:18:03.418Z",
+  "checks": [
+    {
+      "name": "Reviewed committed app stayed unchanged",
+      "pass": true,
+      "observed": {
+        "sha": "285f695e6c385ee0de6dff30d89c06aa92f46639",
+        "shaAtEnd": "285f695e6c385ee0de6dff30d89c06aa92f46639",
+        "appDiffAtStart": "",
+        "appDiffAtEnd": ""
+      }
+    },
+    {
+      "name": "HTTP direct/reload /",
+      "pass": true,
+      "observed": {
+        "status": 200,
+        "reloadStatus": 304
+      }
+    },
+    {
+      "name": "Current navigation /",
+      "pass": true,
+      "observed": [
+        "/",
+        "/"
+      ]
+    },
+    {
+      "name": "Preview landmarks/privacy /",
+      "pass": true,
+      "observed": {
+        "route": "/",
+        "status": 200,
+        "reloadStatus": 304,
+        "title": "Trang chủ | Mang Theo Một Nét Vẽ - Lăng Kính",
+        "lang": "vi",
+        "h1": 1,
+        "robots": "noindex, nofollow",
+        "main": 1,
+        "header": true,
+        "footer": true,
+        "forms": 0,
+        "activeHrefs": [
+          "/",
+          "/"
+        ],
+        "badFigcaption": 0,
+        "staticLiveRegions": 0,
+        "icon": "/favicon.svg"
+      }
+    },
+    {
+      "name": "Figure and static status semantics /",
+      "pass": true,
+      "observed": {
+        "badFigcaption": 0,
+        "staticLiveRegions": 0
+      }
+    },
+    {
+      "name": "HTTP direct/reload /du-an/mang-theo-mot-net-ve",
+      "pass": true,
+      "observed": {
+        "status": 200,
+        "reloadStatus": 304
+      }
+    },
+    {
+      "name": "Current navigation /du-an/mang-theo-mot-net-ve",
+      "pass": true,
+      "observed": [
+        "/du-an/mang-theo-mot-net-ve",
+        "/du-an/mang-theo-mot-net-ve"
+      ]
+    },
+    {
+      "name": "Preview landmarks/privacy /du-an/mang-theo-mot-net-ve",
+      "pass": true,
+      "observed": {
+        "route": "/du-an/mang-theo-mot-net-ve",
+        "status": 200,
+        "reloadStatus": 304,
+        "title": "Dự án Mang Theo Một Nét Vẽ | Mang Theo Một Nét Vẽ - Lăng Kính",
+        "lang": "vi",
+        "h1": 1,
+        "robots": "noindex, nofollow",
+        "main": 1,
+        "header": true,
+        "footer": true,
+        "forms": 0,
+        "activeHrefs": [
+          "/du-an/mang-theo-mot-net-ve",
+          "/du-an/mang-theo-mot-net-ve"
+        ],
+        "badFigcaption": 0,
+        "staticLiveRegions": 0,
+        "icon": "/favicon.svg"
+      }
+    },
+    {
+      "name": "Figure and static status semantics /du-an/mang-theo-mot-net-ve",
+      "pass": true,
+      "observed": {
+        "badFigcaption": 0,
+        "staticLiveRegions": 0
+      }
+    },
+    {
+      "name": "HTTP direct/reload /san-pham",
+      "pass": true,
+      "observed": {
+        "status": 200,
+        "reloadStatus": 304
+      }
+    },
+    {
+      "name": "Current navigation /san-pham",
+      "pass": true,
+      "observed": [
+        "/san-pham",
+        "/san-pham"
+      ]
+    },
+    {
+      "name": "Preview landmarks/privacy /san-pham",
+      "pass": true,
+      "observed": {
+        "route": "/san-pham",
+        "status": 200,
+        "reloadStatus": 304,
+        "title": "Sản phẩm gây quỹ | Mang Theo Một Nét Vẽ - Lăng Kính",
+        "lang": "vi",
+        "h1": 1,
+        "robots": "noindex, nofollow",
+        "main": 1,
+        "header": true,
+        "footer": true,
+        "forms": 0,
+        "activeHrefs": [
+          "/san-pham",
+          "/san-pham"
+        ],
+        "badFigcaption": 0,
+        "staticLiveRegions": 0,
+        "icon": "/favicon.svg"
+      }
+    },
+    {
+      "name": "Figure and static status semantics /san-pham",
+      "pass": true,
+      "observed": {
+        "badFigcaption": 0,
+        "staticLiveRegions": 0
+      }
+    },
+    {
+      "name": "HTTP direct/reload /minh-bach",
+      "pass": true,
+      "observed": {
+        "status": 200,
+        "reloadStatus": 304
+      }
+    },
+    {
+      "name": "Current navigation /minh-bach",
+      "pass": true,
+      "observed": [
+        "/minh-bach",
+        "/minh-bach"
+      ]
+    },
+    {
+      "name": "Preview landmarks/privacy /minh-bach",
+      "pass": true,
+      "observed": {
+        "route": "/minh-bach",
+        "status": 200,
+        "reloadStatus": 304,
+        "title": "Minh bạch thu chi | Mang Theo Một Nét Vẽ - Lăng Kính",
+        "lang": "vi",
+        "h1": 1,
+        "robots": "noindex, nofollow",
+        "main": 1,
+        "header": true,
+        "footer": true,
+        "forms": 0,
+        "activeHrefs": [
+          "/minh-bach",
+          "/minh-bach"
+        ],
+        "badFigcaption": 0,
+        "staticLiveRegions": 0,
+        "icon": "/favicon.svg"
+      }
+    },
+    {
+      "name": "Figure and static status semantics /minh-bach",
+      "pass": true,
+      "observed": {
+        "badFigcaption": 0,
+        "staticLiveRegions": 0
+      }
+    },
+    {
+      "name": "HTTP direct/reload /ve-nhom",
+      "pass": true,
+      "observed": {
+        "status": 200,
+        "reloadStatus": 304
+      }
+    },
+    {
+      "name": "Current navigation /ve-nhom",
+      "pass": true,
+      "observed": [
+        "/ve-nhom",
+        "/ve-nhom"
+      ]
+    },
+    {
+      "name": "Preview landmarks/privacy /ve-nhom",
+      "pass": true,
+      "observed": {
+        "route": "/ve-nhom",
+        "status": 200,
+        "reloadStatus": 304,
+        "title": "Về nhóm Lăng Kính | Mang Theo Một Nét Vẽ - Lăng Kính",
+        "lang": "vi",
+        "h1": 1,
+        "robots": "noindex, nofollow",
+        "main": 1,
+        "header": true,
+        "footer": true,
+        "forms": 0,
+        "activeHrefs": [
+          "/ve-nhom",
+          "/ve-nhom"
+        ],
+        "badFigcaption": 0,
+        "staticLiveRegions": 0,
+        "icon": "/favicon.svg"
+      }
+    },
+    {
+      "name": "Figure and static status semantics /ve-nhom",
+      "pass": true,
+      "observed": {
+        "badFigcaption": 0,
+        "staticLiveRegions": 0
+      }
+    },
+    {
+      "name": "HTTP direct/reload /dong-hanh",
+      "pass": true,
+      "observed": {
+        "status": 200,
+        "reloadStatus": 304
+      }
+    },
+    {
+      "name": "Current navigation /dong-hanh",
+      "pass": true,
+      "observed": [
+        "/dong-hanh",
+        "/dong-hanh"
+      ]
+    },
+    {
+      "name": "Preview landmarks/privacy /dong-hanh",
+      "pass": true,
+      "observed": {
+        "route": "/dong-hanh",
+        "status": 200,
+        "reloadStatus": 304,
+        "title": "Đồng hành cùng dự án | Mang Theo Một Nét Vẽ - Lăng Kính",
+        "lang": "vi",
+        "h1": 1,
+        "robots": "noindex, nofollow",
+        "main": 1,
+        "header": true,
+        "footer": true,
+        "forms": 0,
+        "activeHrefs": [
+          "/dong-hanh",
+          "/dong-hanh"
+        ],
+        "badFigcaption": 0,
+        "staticLiveRegions": 0,
+        "icon": "/favicon.svg"
+      }
+    },
+    {
+      "name": "Figure and static status semantics /dong-hanh",
+      "pass": true,
+      "observed": {
+        "badFigcaption": 0,
+        "staticLiveRegions": 0
+      }
+    },
+    {
+      "name": "HTTP direct/reload /review-route-does-not-exist",
+      "pass": true,
+      "observed": {
+        "status": 404,
+        "reloadStatus": 404
+      }
+    },
+    {
+      "name": "Current navigation /review-route-does-not-exist",
+      "pass": true,
+      "observed": []
+    },
+    {
+      "name": "Preview landmarks/privacy /review-route-does-not-exist",
+      "pass": true,
+      "observed": {
+        "route": "/review-route-does-not-exist",
+        "status": 404,
+        "reloadStatus": 404,
+        "title": "Không tìm thấy trang (404) | Mang Theo Một Nét Vẽ - Lăng Kính",
+        "lang": "vi",
+        "h1": 1,
+        "robots": "noindex, nofollow",
+        "main": 1,
+        "header": true,
+        "footer": true,
+        "forms": 0,
+        "activeHrefs": [],
+        "badFigcaption": 0,
+        "staticLiveRegions": 0,
+        "icon": "/favicon.svg"
+      }
+    },
+    {
+      "name": "Figure and static status semantics /review-route-does-not-exist",
+      "pass": true,
+      "observed": {
+        "badFigcaption": 0,
+        "staticLiveRegions": 0
+      }
+    },
+    {
+      "name": "No horizontal overflow 320",
+      "pass": true,
+      "observed": {
+        "width": 320,
+        "scrollWidth": 320
+      }
+    },
+    {
+      "name": "Text contrast 320",
+      "pass": true,
+      "observed": []
+    },
+    {
+      "name": "Readable small text 320",
+      "pass": true,
+      "observed": []
+    },
+    {
+      "name": "Section notes 14px nonitalic 320",
+      "pass": true,
+      "observed": [
+        {
+          "fontSize": "14px",
+          "fontStyle": "normal",
+          "color": "rgb(93, 107, 121)"
+        },
+        {
+          "fontSize": "14px",
+          "fontStyle": "normal",
+          "color": "rgb(93, 107, 121)"
+        }
+      ]
+    },
+    {
+      "name": "Muted not darker than secondary 320",
+      "pass": true,
+      "observed": {
+        "muted": "#5d6b79",
+        "secondary": "#52606d"
+      }
+    },
+    {
+      "name": "Product hierarchy and no broken inline label 320",
+      "pass": true,
+      "observed": [
+        {
+          "name": {
+            "top": 3345.640625,
+            "bottom": 3397.640625,
+            "width": 254,
+            "height": 52
+          },
+          "price": {
+            "top": 3409.640625,
+            "bottom": 3484.828125,
+            "width": 254,
+            "height": 75.1875
+          },
+          "oldStatusTag": false
+        },
+        {
+          "name": {
+            "top": 3907.171875,
+            "bottom": 3933.171875,
+            "width": 254,
+            "height": 26
+          },
+          "price": {
+            "top": 3945.171875,
+            "bottom": 4020.359375,
+            "width": 254,
+            "height": 75.1875
+          },
+          "oldStatusTag": false
+        },
+        {
+          "name": {
+            "top": 4421.703125,
+            "bottom": 4447.703125,
+            "width": 254,
+            "height": 26
+          },
+          "price": {
+            "top": 4459.703125,
+            "bottom": 4534.890625,
+            "width": 254,
+            "height": 75.1875
+          },
+          "oldStatusTag": false
+        }
+      ]
+    },
+    {
+      "name": "Footer touch targets 320",
+      "pass": true,
+      "observed": [
+        {
+          "href": "/",
+          "height": 44
+        },
+        {
+          "href": "/du-an/mang-theo-mot-net-ve",
+          "height": 44
+        },
+        {
+          "href": "/san-pham",
+          "height": 44
+        },
+        {
+          "href": "/minh-bach",
+          "height": 44
+        },
+        {
+          "href": "/ve-nhom",
+          "height": 44
+        },
+        {
+          "href": "/dong-hanh",
+          "height": 44
+        }
+      ]
+    },
+    {
+      "name": "Stage labels 320",
+      "pass": true,
+      "observed": 0
+    },
+    {
+      "name": "Support grid columns 320",
+      "pass": true,
+      "observed": "288px"
+    },
+    {
+      "name": "Mobile banner compact 320",
+      "pass": true,
+      "observed": {
+        "top": 0,
+        "bottom": 36.59375,
+        "width": 320,
+        "height": 36.59375
+      }
+    },
+    {
+      "name": "Mobile card visual preferred 16:9 with 165px height cap 320",
+      "pass": true,
+      "observed": [
+        {
+          "top": 983.6875,
+          "bottom": 1125.4375,
+          "width": 252,
+          "height": 141.75
+        },
+        {
+          "top": 1420.71875,
+          "bottom": 1562.46875,
+          "width": 252,
+          "height": 141.75
+        },
+        {
+          "top": 1837.453125,
+          "bottom": 1979.203125,
+          "width": 252,
+          "height": 141.75
+        },
+        {
+          "top": 2274.484375,
+          "bottom": 2416.234375,
+          "width": 252,
+          "height": 141.75
+        },
+        {
+          "top": 3139.890625,
+          "bottom": 3281.640625,
+          "width": 252,
+          "height": 141.75
+        },
+        {
+          "top": 3722.421875,
+          "bottom": 3864.171875,
+          "width": 252,
+          "height": 141.75
+        },
+        {
+          "top": 4236.953125,
+          "bottom": 4378.703125,
+          "width": 252,
+          "height": 141.75
+        }
+      ]
+    },
+    {
+      "name": "No horizontal overflow 375",
+      "pass": true,
+      "observed": {
+        "width": 375,
+        "scrollWidth": 375
+      }
+    },
+    {
+      "name": "Text contrast 375",
+      "pass": true,
+      "observed": []
+    },
+    {
+      "name": "Readable small text 375",
+      "pass": true,
+      "observed": []
+    },
+    {
+      "name": "Section notes 14px nonitalic 375",
+      "pass": true,
+      "observed": [
+        {
+          "fontSize": "14px",
+          "fontStyle": "normal",
+          "color": "rgb(93, 107, 121)"
+        },
+        {
+          "fontSize": "14px",
+          "fontStyle": "normal",
+          "color": "rgb(93, 107, 121)"
+        }
+      ]
+    },
+    {
+      "name": "Muted not darker than secondary 375",
+      "pass": true,
+      "observed": {
+        "muted": "#5d6b79",
+        "secondary": "#52606d"
+      }
+    },
+    {
+      "name": "Product hierarchy and no broken inline label 375",
+      "pass": true,
+      "observed": [
+        {
+          "name": {
+            "top": 3337.25,
+            "bottom": 3363.25,
+            "width": 309,
+            "height": 26
+          },
+          "price": {
+            "top": 3375.25,
+            "bottom": 3450.4375,
+            "width": 309,
+            "height": 75.1875
+          },
+          "oldStatusTag": false
+        },
+        {
+          "name": {
+            "top": 3875.03125,
+            "bottom": 3901.03125,
+            "width": 309,
+            "height": 26
+          },
+          "price": {
+            "top": 3913.03125,
+            "bottom": 3988.21875,
+            "width": 309,
+            "height": 75.1875
+          },
+          "oldStatusTag": false
+        },
+        {
+          "name": {
+            "top": 4391.8125,
+            "bottom": 4417.8125,
+            "width": 309,
+            "height": 26
+          },
+          "price": {
+            "top": 4429.8125,
+            "bottom": 4505,
+            "width": 309,
+            "height": 75.1875
+          },
+          "oldStatusTag": false
+        }
+      ]
+    },
+    {
+      "name": "Footer touch targets 375",
+      "pass": true,
+      "observed": [
+        {
+          "href": "/",
+          "height": 44
+        },
+        {
+          "href": "/du-an/mang-theo-mot-net-ve",
+          "height": 44
+        },
+        {
+          "href": "/san-pham",
+          "height": 44
+        },
+        {
+          "href": "/minh-bach",
+          "height": 44
+        },
+        {
+          "href": "/ve-nhom",
+          "height": 44
+        },
+        {
+          "href": "/dong-hanh",
+          "height": 44
+        }
+      ]
+    },
+    {
+      "name": "Stage labels 375",
+      "pass": true,
+      "observed": 0
+    },
+    {
+      "name": "Support grid columns 375",
+      "pass": true,
+      "observed": "343px"
+    },
+    {
+      "name": "Mobile banner compact 375",
+      "pass": true,
+      "observed": {
+        "top": 0,
+        "bottom": 36.59375,
+        "width": 375,
+        "height": 36.59375
+      }
+    },
+    {
+      "name": "Mobile card visual preferred 16:9 with 165px height cap 375",
+      "pass": true,
+      "observed": [
+        {
+          "top": 961.9375,
+          "bottom": 1126.9375,
+          "width": 307,
+          "height": 165
+        },
+        {
+          "top": 1401.921875,
+          "bottom": 1566.921875,
+          "width": 307,
+          "height": 165
+        },
+        {
+          "top": 1841.90625,
+          "bottom": 2006.90625,
+          "width": 307,
+          "height": 165
+        },
+        {
+          "top": 2281.890625,
+          "bottom": 2446.890625,
+          "width": 307,
+          "height": 165
+        },
+        {
+          "top": 3129.25,
+          "bottom": 3294.25,
+          "width": 307,
+          "height": 165
+        },
+        {
+          "top": 3667.03125,
+          "bottom": 3832.03125,
+          "width": 307,
+          "height": 165
+        },
+        {
+          "top": 4183.8125,
+          "bottom": 4348.8125,
+          "width": 307,
+          "height": 165
+        }
+      ]
+    },
+    {
+      "name": "Mobile hero visual and title on first viewport",
+      "pass": true,
+      "observed": {
+        "visual": {
+          "top": 117.59375,
+          "bottom": 320.59375,
+          "width": 343,
+          "height": 203
+        },
+        "title": {
+          "top": 336.59375,
+          "bottom": 410.1875,
+          "width": 343,
+          "height": 73.59375
+        }
+      }
+    },
+    {
+      "name": "Mobile primary CTA inside first viewport",
+      "pass": true,
+      "observed": {
+        "top": 577.78125,
+        "bottom": 629.375,
+        "width": 343,
+        "height": 51.59375
+      }
+    },
+    {
+      "name": "Mobile page at least 15% shorter",
+      "pass": true,
+      "observed": {
+        "before": 10496,
+        "after": 8723,
+        "reductionPercent": 16.8921493902439
+      }
+    },
+    {
+      "name": "No horizontal overflow 768",
+      "pass": true,
+      "observed": {
+        "width": 768,
+        "scrollWidth": 768
+      }
+    },
+    {
+      "name": "Text contrast 768",
+      "pass": true,
+      "observed": []
+    },
+    {
+      "name": "Readable small text 768",
+      "pass": true,
+      "observed": []
+    },
+    {
+      "name": "Section notes 14px nonitalic 768",
+      "pass": true,
+      "observed": [
+        {
+          "fontSize": "14px",
+          "fontStyle": "normal",
+          "color": "rgb(93, 107, 121)"
+        },
+        {
+          "fontSize": "14px",
+          "fontStyle": "normal",
+          "color": "rgb(93, 107, 121)"
+        }
+      ]
+    },
+    {
+      "name": "Muted not darker than secondary 768",
+      "pass": true,
+      "observed": {
+        "muted": "#5d6b79",
+        "secondary": "#52606d"
+      }
+    },
+    {
+      "name": "Product hierarchy and no broken inline label 768",
+      "pass": true,
+      "observed": [
+        {
+          "name": {
+            "top": 2931.65625,
+            "bottom": 2957.65625,
+            "width": 306,
+            "height": 26
+          },
+          "price": {
+            "top": 2969.65625,
+            "bottom": 3044.84375,
+            "width": 306,
+            "height": 75.1875
+          },
+          "oldStatusTag": false
+        },
+        {
+          "name": {
+            "top": 2931.65625,
+            "bottom": 2957.65625,
+            "width": 306,
+            "height": 26
+          },
+          "price": {
+            "top": 2969.65625,
+            "bottom": 3044.84375,
+            "width": 306,
+            "height": 75.1875
+          },
+          "oldStatusTag": false
+        },
+        {
+          "name": {
+            "top": 3564.84375,
+            "bottom": 3590.84375,
+            "width": 306,
+            "height": 26
+          },
+          "price": {
+            "top": 3602.84375,
+            "bottom": 3678.03125,
+            "width": 306,
+            "height": 75.1875
+          },
+          "oldStatusTag": false
+        }
+      ]
+    },
+    {
+      "name": "Footer touch targets 768",
+      "pass": true,
+      "observed": [
+        {
+          "href": "/",
+          "height": 44
+        },
+        {
+          "href": "/du-an/mang-theo-mot-net-ve",
+          "height": 44
+        },
+        {
+          "href": "/san-pham",
+          "height": 44
+        },
+        {
+          "href": "/minh-bach",
+          "height": 44
+        },
+        {
+          "href": "/ve-nhom",
+          "height": 44
+        },
+        {
+          "href": "/dong-hanh",
+          "height": 44
+        }
+      ]
+    },
+    {
+      "name": "Stage labels 768",
+      "pass": true,
+      "observed": 0
+    },
+    {
+      "name": "Support grid columns 768",
+      "pass": true,
+      "observed": "348px 348px"
+    },
+    {
+      "name": "Tablet hero bounded",
+      "pass": true,
+      "observed": {
+        "top": 441.890625,
+        "bottom": 900.390625,
+        "width": 560,
+        "height": 458.5
+      }
+    },
+    {
+      "name": "No horizontal overflow 1024",
+      "pass": true,
+      "observed": {
+        "width": 1024,
+        "scrollWidth": 1024
+      }
+    },
+    {
+      "name": "Text contrast 1024",
+      "pass": true,
+      "observed": []
+    },
+    {
+      "name": "Readable small text 1024",
+      "pass": true,
+      "observed": []
+    },
+    {
+      "name": "Section notes 14px nonitalic 1024",
+      "pass": true,
+      "observed": [
+        {
+          "fontSize": "14px",
+          "fontStyle": "normal",
+          "color": "rgb(93, 107, 121)"
+        },
+        {
+          "fontSize": "14px",
+          "fontStyle": "normal",
+          "color": "rgb(93, 107, 121)"
+        }
+      ]
+    },
+    {
+      "name": "Muted not darker than secondary 1024",
+      "pass": true,
+      "observed": {
+        "muted": "#5d6b79",
+        "secondary": "#52606d"
+      }
+    },
+    {
+      "name": "Product hierarchy and no broken inline label 1024",
+      "pass": true,
+      "observed": [
+        {
+          "name": {
+            "top": 2123.59375,
+            "bottom": 2175.59375,
+            "width": 267.328125,
+            "height": 52
+          },
+          "price": {
+            "top": 2187.59375,
+            "bottom": 2262.78125,
+            "width": 267.328125,
+            "height": 75.1875
+          },
+          "oldStatusTag": false
+        },
+        {
+          "name": {
+            "top": 2102.59375,
+            "bottom": 2128.59375,
+            "width": 267.328125,
+            "height": 26
+          },
+          "price": {
+            "top": 2140.59375,
+            "bottom": 2215.78125,
+            "width": 267.328125,
+            "height": 75.1875
+          },
+          "oldStatusTag": false
+        },
+        {
+          "name": {
+            "top": 2102.609375,
+            "bottom": 2128.609375,
+            "width": 267.34375,
+            "height": 26
+          },
+          "price": {
+            "top": 2140.609375,
+            "bottom": 2215.796875,
+            "width": 267.34375,
+            "height": 75.1875
+          },
+          "oldStatusTag": false
+        }
+      ]
+    },
+    {
+      "name": "Footer touch targets 1024",
+      "pass": true,
+      "observed": [
+        {
+          "href": "/",
+          "height": 44
+        },
+        {
+          "href": "/du-an/mang-theo-mot-net-ve",
+          "height": 44
+        },
+        {
+          "href": "/san-pham",
+          "height": 44
+        },
+        {
+          "href": "/minh-bach",
+          "height": 44
+        },
+        {
+          "href": "/ve-nhom",
+          "height": 44
+        },
+        {
+          "href": "/dong-hanh",
+          "height": 44
+        }
+      ]
+    },
+    {
+      "name": "Stage labels 1024",
+      "pass": true,
+      "observed": 0
+    },
+    {
+      "name": "Support grid columns 1024",
+      "pass": true,
+      "observed": "309.328px 309.328px 309.344px"
+    },
+    {
+      "name": "No horizontal overflow 1440",
+      "pass": true,
+      "observed": {
+        "width": 1440,
+        "scrollWidth": 1440
+      }
+    },
+    {
+      "name": "Text contrast 1440",
+      "pass": true,
+      "observed": []
+    },
+    {
+      "name": "Readable small text 1440",
+      "pass": true,
+      "observed": []
+    },
+    {
+      "name": "Section notes 14px nonitalic 1440",
+      "pass": true,
+      "observed": [
+        {
+          "fontSize": "14px",
+          "fontStyle": "normal",
+          "color": "rgb(93, 107, 121)"
+        },
+        {
+          "fontSize": "14px",
+          "fontStyle": "normal",
+          "color": "rgb(93, 107, 121)"
+        }
+      ]
+    },
+    {
+      "name": "Muted not darker than secondary 1440",
+      "pass": true,
+      "observed": {
+        "muted": "#5d6b79",
+        "secondary": "#52606d"
+      }
+    },
+    {
+      "name": "Product hierarchy and no broken inline label 1440",
+      "pass": true,
+      "observed": [
+        {
+          "name": {
+            "top": 2161.109375,
+            "bottom": 2187.109375,
+            "width": 326,
+            "height": 26
+          },
+          "price": {
+            "top": 2199.109375,
+            "bottom": 2274.296875,
+            "width": 326,
+            "height": 75.1875
+          },
+          "oldStatusTag": false
+        },
+        {
+          "name": {
+            "top": 2161.109375,
+            "bottom": 2187.109375,
+            "width": 326,
+            "height": 26
+          },
+          "price": {
+            "top": 2199.109375,
+            "bottom": 2274.296875,
+            "width": 326,
+            "height": 75.1875
+          },
+          "oldStatusTag": false
+        },
+        {
+          "name": {
+            "top": 2161.109375,
+            "bottom": 2187.109375,
+            "width": 326,
+            "height": 26
+          },
+          "price": {
+            "top": 2199.109375,
+            "bottom": 2274.296875,
+            "width": 326,
+            "height": 75.1875
+          },
+          "oldStatusTag": false
+        }
+      ]
+    },
+    {
+      "name": "Footer touch targets 1440",
+      "pass": true,
+      "observed": [
+        {
+          "href": "/",
+          "height": 44
+        },
+        {
+          "href": "/du-an/mang-theo-mot-net-ve",
+          "height": 44
+        },
+        {
+          "href": "/san-pham",
+          "height": 44
+        },
+        {
+          "href": "/minh-bach",
+          "height": 44
+        },
+        {
+          "href": "/ve-nhom",
+          "height": 44
+        },
+        {
+          "href": "/dong-hanh",
+          "height": 44
+        }
+      ]
+    },
+    {
+      "name": "Stage labels 1440",
+      "pass": true,
+      "observed": 0
+    },
+    {
+      "name": "Support grid columns 1440",
+      "pass": true,
+      "observed": "368px 368px 368px"
+    },
+    {
+      "name": "Skip link keyboard",
+      "pass": true,
+      "observed": {
+        "skipTab": "skip-link",
+        "skipEnter": "main-content",
+        "open": true,
+        "firstTab": {
+          "text": "Trang chủ",
+          "inside": true,
+          "outline": "rgb(23, 78, 166) solid 2px"
+        },
+        "escape": {
+          "hidden": true,
+          "expanded": "false",
+          "focus": "mobile-nav-toggle"
+        },
+        "closedTab": {
+          "inside": false,
+          "href": "/du-an/mang-theo-mot-net-ve"
+        },
+        "link": {
+          "url": "/san-pham",
+          "expanded": "false"
+        },
+        "resize": {
+          "panelVisible": false,
+          "desktopNavVisible": true
+        }
+      }
+    },
+    {
+      "name": "Menu opens and first link focus",
+      "pass": true,
+      "observed": {
+        "text": "Trang chủ",
+        "inside": true,
+        "outline": "rgb(23, 78, 166) solid 2px"
+      }
+    },
+    {
+      "name": "Escape closes and returns focus",
+      "pass": true,
+      "observed": {
+        "hidden": true,
+        "expanded": "false",
+        "focus": "mobile-nav-toggle"
+      }
+    },
+    {
+      "name": "Closed panel skipped by Tab",
+      "pass": true,
+      "observed": {
+        "inside": false,
+        "href": "/du-an/mang-theo-mot-net-ve"
+      }
+    },
+    {
+      "name": "Menu link navigates and closes",
+      "pass": true,
+      "observed": {
+        "url": "/san-pham",
+        "expanded": "false"
+      }
+    },
+    {
+      "name": "Resize hides mobile menu",
+      "pass": true,
+      "observed": {
+        "panelVisible": false,
+        "desktopNavVisible": true
+      }
+    },
+    {
+      "name": "No-JS menu has no inert toggle and footer routes remain",
+      "pass": true,
+      "observed": {
+        "toggleVisible": false,
+        "routes": [
+          "/",
+          "/du-an/mang-theo-mot-net-ve",
+          "/san-pham",
+          "/minh-bach",
+          "/ve-nhom",
+          "/dong-hanh"
+        ]
+      }
+    },
+    {
+      "name": "Favicon responds",
+      "pass": true,
+      "observed": {
+        "path": "/favicon.svg",
+        "status": 200,
+        "contentType": "image/svg+xml"
+      }
+    },
+    {
+      "name": "No JS runtime error",
+      "pass": true,
+      "observed": []
+    },
+    {
+      "name": "Reduced motion",
+      "pass": true,
+      "observed": "1e-05s"
+    }
+  ],
+  "failed": []
+}

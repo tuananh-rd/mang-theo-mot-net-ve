@@ -1,5 +1,23 @@
 # Bàn giao tiếp nối Brain — 02/10/2026
 
+## Cập nhật cuối sau yêu cầu sửa UI Claude
+
+Workspace vẫn là `C:\Users\tuana\Documents\Codex\2026-10-02\t\outputs\mang-theo-mot-net-ve`, branch `task/t01-home-shell`. **T01 DONE; R01 PASS** tại app SHA `285f695e6c385ee0de6dff30d89c06aa92f46639`. [Review final](../docs/reviews/R01-ui-285f695.md), [report Claude nguyên vẹn](ui-review-claude.md), [addendum](../docs/task-specs/T01-ui-claude.md). Base vòng sửa e6aa965, app commits e30f939+285f695; B0 ef102c8 vẫn giữ. Codex chỉ sửa tài liệu/evidence/review, Antigravity sửa15appfile. Không reset/xóa nguồn hoặc tạo worker/task khác.
+
+Private GitHub https://github.com/tuananh-rd/mang-theo-mot-net-ve đã được tạo/push theo yêu cầu trước. Brain lưu review bằng commit tài liệu riêng rồi cập nhật remote main và task/t01-home-shell; SHA tài liệu phải đọc Git/references hiện tại, không đoán từ app SHA. Localmain vẫnB0 chủ ý; không reset/move main để dọn. Chưa public website.
+
+Trước push vòng UI, remote main đã tiến thêm hai commit README `e460928`/`28e4348`; chỉ14dòng lịch sử/hướng dẫn khởi tạo đã bị bỏ, không appchange. Brain giữ những sửa đó trong README và merge origin/main thông thường sau commit review; không forcepush/đè lịch sử. Trạng thái task/review chi tiết nằm trong docs/reports.
+
+Runtime Orca mới `1bd6b1f6-fa95-48a2-bc22-13a4fbadaee4`; handle cũ bên dưới stale, không gửi lại. Worker hiện có được re-list/xác minh tại `term_7a3ca8f1-9b58-49a2-81df-a43775084579`, incarnation `8f703085-79ff-419e-8c38-48231dc25eae`, conversation `86498389-9ca4-486e-9ba8-82247107fb96`. Đầu lượt Claude Opus4.6Thinking hết quota trước ACK/appwrites; dùng catalog agyCLI1.2.14 và /usage để chuyển **cùngworker** sang Gemini3.8FlashHigh rồi mới tiếp tục. Có ACK/Read/Edit/Bash thật; receipts chỉinput_accepted/providerunsupported, không coi receipt là proof delivery. [Continuity](../docs/evidence/T01/ui-claude/continuity.json), [model recovery](../docs/evidence/T01/ui-claude/model-recovery.json), [ACK](../docs/evidence/T01/ui-claude/ack.json). Không dispatchMCP/Run/Task mới.
+
+Preview production http://127.0.0.1:4321/ còn chạy trên loopback127.0.0.1, PID32724 tại lần kiểm. Worker backgroundpreview từ18:09; phải kiểm listener/handle/worker lại trước thao tác, không dùng PID lịch sử đểkill. Claude dev4399 có thể còn chạy; không npmci trong repo khi Windowscompiler khóa. Clean-ci task730 đầu không hoàn thành do lệnh PowerShell; worker dừng đúngtask rồi dùng externalps1, task741 exit0 cólog gốc. Package/lockfile temp-final hash khớp repo. Codexcheck/build0,23file0diagnostics/7HTML; bundle hash sau ownbuild không đổi.
+
+BrowserChrome154.0.8037.93 headlessproduction,5viewport320/375/768/1024/1440 +menu375,92assertions và visualPASS. Mobile3758.723px giảm16,89%;3209.297 giảm16,26%; nooverflow/contrastfails/font<14. Khung375307×165 được Brain chấp nhận cap165, không claim chính xác16:9; SVGcontain đầy đủ. Dist10file7HTML+2CSS+favicon; scan mẫu không private/contact/secrets/form; sourceDOCX và reportClaude giữ hash. [Evidence](../docs/evidence/T01/ui-claude/handoff-verification-285f695.json), [worker handoff](../docs/evidence/T01/ui-claude/worker-handoff-285f695.md), [ci raw log](../docs/evidence/T01/ui-claude/worker-clean-ci-task-741.log). Workerreport có sai số mô tả22vs23checkfile/%320/base375 và sốroute, reviewBrain annotate rõ; không sửa báo cáo để che.
+
+**T02 WAITING_UI_APPROVAL**: chỉ mở sau chủ dự án duyệt hướng UI đã sửa. Nămroute phụ vẫnshell; form/liên hệ/thực tế/ảnh thật chưa có. Không nhận đơn/tiền/deploypublic. Giữ Antigravity worker duy nhất, Codex Brain/reviewer. Phần dưới lưu bàn giao lịch sử vòng trước, không lấy final/handle/trạng thái Git cũ làm hiện tại.
+
+## Bàn giao lịch sử trước vòng sửa Claude
+
 Workspace thực tế giữ nguyên: `C:\Users\tuana\Documents\Codex\2026-10-02\t\outputs\mang-theo-mot-net-ve`. Codex tiếp nhận tại Orca `net-ve-brain`, Antigravity đã được chủ dự án mở ở `net-ve-worker`, cùng filesystem. Giữ toàn bộ thay đổi cũ; không reset/xóa/revert hoặc commit dọn workspace. [Handoff trước](handoff-brain.md) là lịch sử trước khi kênh Orca và ứng dụng hoạt động.
 
 ## Kết quả hiện tại

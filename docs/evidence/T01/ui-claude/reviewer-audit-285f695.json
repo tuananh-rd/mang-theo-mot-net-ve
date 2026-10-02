@@ -1,0 +1,180 @@
+{
+  "sha": "285f695e6c385ee0de6dff30d89c06aa92f46639",
+  "checkedAt": "2026-10-02T11:19:17.216Z",
+  "files": [
+    {
+      "path": "dist\\404.html",
+      "bytes": 8877,
+      "sha256": "b695525dd529442c5a7d73592152c0a1b2cfb673b123a12405de1cbd80337bef"
+    },
+    {
+      "path": "dist\\dong-hanh\\index.html",
+      "bytes": 9319,
+      "sha256": "4d94672e65c0812fdeb643b943e781ac337dd659f00770f6e6fb94f23093a670"
+    },
+    {
+      "path": "dist\\du-an\\mang-theo-mot-net-ve\\index.html",
+      "bytes": 9294,
+      "sha256": "9834c2039301fc497464a8193b480d78d4ff124567a520f60005cf4307de7d21"
+    },
+    {
+      "path": "dist\\favicon.svg",
+      "bytes": 703,
+      "sha256": "cf5a6109d12aead474ccee95fd51643e1988adc2364bb1349e3c3e4e6d564051"
+    },
+    {
+      "path": "dist\\index.html",
+      "bytes": 35806,
+      "sha256": "50d1a65adc1361a8d5da2655ac66a6ed92148241bd6e637c9717f16f5eca84f5"
+    },
+    {
+      "path": "dist\\minh-bach\\index.html",
+      "bytes": 9284,
+      "sha256": "175085e260e19bf9da480e176fc07135f75fdbbb0710edde098c3f42c410a392"
+    },
+    {
+      "path": "dist\\san-pham\\index.html",
+      "bytes": 9350,
+      "sha256": "271b0ebe370a3db96a69abaaecbf3e1452c41de7ee8d554524f7d817338d726b"
+    },
+    {
+      "path": "dist\\ve-nhom\\index.html",
+      "bytes": 9277,
+      "sha256": "df45840628e17e6a4de27e4890691e4b4de5c73126d009524e0727fcdc5f2a2b"
+    },
+    {
+      "path": "dist\\_astro\\index.fLi5VbsV.css",
+      "bytes": 12662,
+      "sha256": "dbe4f907f8aef6aa06231240bed4b40b58249f352a09a5d7270f415d73d30aca"
+    },
+    {
+      "path": "dist\\_astro\\Layout.FhlXODiz.css",
+      "bytes": 12670,
+      "sha256": "9a9109e7436ddeca3d06969508e58a5f08b1c384effc2e94bf7b94c4b2a1ccf3"
+    }
+  ],
+  "matches": [],
+  "rawSourceHash": "83c038c04ad7cff87f616c98529a1df788a2467451b83d95e890bfba0f4307d5",
+  "rawSourceTracked": "",
+  "appWorkingDiff": "",
+  "diffNames": [
+    "public/favicon.svg",
+    "src/components/ActivityCard.astro",
+    "src/components/Footer.astro",
+    "src/components/Header.astro",
+    "src/components/Hero.astro",
+    "src/components/PlaceholderIllustration.astro",
+    "src/components/ProductCard.astro",
+    "src/components/StageCard.astro",
+    "src/data/campaign.ts",
+    "src/layouts/Layout.astro",
+    "src/pages/404.astro",
+    "src/pages/index.astro",
+    "src/pages/san-pham.astro",
+    "src/styles/global.css",
+    "src/styles/tokens.css"
+  ],
+  "packageHash": "d973d845f877c0f515cb8ccc33cb971f0eb003ba17dc2157d7ff189d91f742c9",
+  "lockfileHash": "ff3aa78d6644ec76e50748e34a2f502b578be8b80ed52391a7d7b9f03d487058",
+  "claudeReportHash": "9a7a438e4b53204b1b71ea1ca1bb774c14cc36f208d0f706a9461823cb344b6b",
+  "screenshots": [
+    {
+      "path": "docs\\evidence\\T01\\ui-claude\\reviewer-285f695-1024-full.png",
+      "bytes": 474049,
+      "width": 1024,
+      "height": 5554,
+      "sha256": "b00fb4f86f6b123265b60eb79bdab791ed6651da84c94c845e07a499f347b8d2"
+    },
+    {
+      "path": "docs\\evidence\\T01\\ui-claude\\reviewer-285f695-1024-viewport.png",
+      "bytes": 96544,
+      "width": 1024,
+      "height": 768,
+      "sha256": "344ac66251d4430fea100eff548ed0bd6ff20d777dca654374ed5bfc92a72390"
+    },
+    {
+      "path": "docs\\evidence\\T01\\ui-claude\\reviewer-285f695-1440-full.png",
+      "bytes": 472412,
+      "width": 1440,
+      "height": 5451,
+      "sha256": "d23a654c765dfd49aaeb79847bb76f07b55d8b069706d53bc128445293ace2c2"
+    },
+    {
+      "path": "docs\\evidence\\T01\\ui-claude\\reviewer-285f695-1440-viewport.png",
+      "bytes": 110523,
+      "width": 1440,
+      "height": 900,
+      "sha256": "c971253273b2cdb856f269de01660bc35614e6e949c7932920bfece3a56a5f49"
+    },
+    {
+      "path": "docs\\evidence\\T01\\ui-claude\\reviewer-285f695-320-full.png",
+      "bytes": 421100,
+      "width": 320,
+      "height": 9297,
+      "sha256": "c82e67086fb9366822a85c510744251791366934a799c312cadf590aeb1dc4c1"
+    },
+    {
+      "path": "docs\\evidence\\T01\\ui-claude\\reviewer-285f695-320-viewport.png",
+      "bytes": 40887,
+      "width": 320,
+      "height": 640,
+      "sha256": "898e4e3463b5222686832bb41fffd45595e6eb9023cbe769bda744d23b5e9aa1"
+    },
+    {
+      "path": "docs\\evidence\\T01\\ui-claude\\reviewer-285f695-375-footer.png",
+      "bytes": 28937,
+      "width": 375,
+      "height": 812,
+      "sha256": "4730a691441812e6799b8012c5cde7c7cf226210eb1a270284bc6b1a6dd20d13"
+    },
+    {
+      "path": "docs\\evidence\\T01\\ui-claude\\reviewer-285f695-375-full.png",
+      "bytes": 421433,
+      "width": 375,
+      "height": 8723,
+      "sha256": "88dcfb78dfdc249eeb8471a5bbef68aa8807dc1f3ad5d3aac95f65fc53a51b40"
+    },
+    {
+      "path": "docs\\evidence\\T01\\ui-claude\\reviewer-285f695-375-menu-open.png",
+      "bytes": 35399,
+      "width": 375,
+      "height": 812,
+      "sha256": "5515eec0ef6720d52ac06b529468460c49ecc36c544b0bb3c3e18747503040c1"
+    },
+    {
+      "path": "docs\\evidence\\T01\\ui-claude\\reviewer-285f695-375-products.png",
+      "bytes": 40689,
+      "width": 375,
+      "height": 812,
+      "sha256": "68f747ec231a985e84315cd659a64985ed7fa3d686d4ce7a64ab4aabf3ffe168"
+    },
+    {
+      "path": "docs\\evidence\\T01\\ui-claude\\reviewer-285f695-375-transparency.png",
+      "bytes": 39759,
+      "width": 375,
+      "height": 812,
+      "sha256": "090e8bf9e3735602c5098bced37b9570e0c8e34ceec8dd19c8175518204bbac3"
+    },
+    {
+      "path": "docs\\evidence\\T01\\ui-claude\\reviewer-285f695-375-viewport.png",
+      "bytes": 51528,
+      "width": 375,
+      "height": 812,
+      "sha256": "84f989059c110778f63fc97c4caa9b77502c5cc645daa92c67075d7b60d24c05"
+    },
+    {
+      "path": "docs\\evidence\\T01\\ui-claude\\reviewer-285f695-768-full.png",
+      "bytes": 474692,
+      "width": 768,
+      "height": 7323,
+      "sha256": "04d63fa01ca1509c12998439f705d0085b2f043d7da82c4ae760779472bb460e"
+    },
+    {
+      "path": "docs\\evidence\\T01\\ui-claude\\reviewer-285f695-768-viewport.png",
+      "bytes": 80970,
+      "width": 768,
+      "height": 1024,
+      "sha256": "5bd27ead0d0fc4bc5df54abe199e59e60aac49f69528ef623d935ba5398bf163"
+    }
+  ]
+}
