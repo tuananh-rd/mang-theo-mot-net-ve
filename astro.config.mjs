@@ -17,13 +17,15 @@ export default defineConfig({
       hooks: {
         'astro:build:done': ({ dir }) => {
           const distPath = fileURLToPath(dir);
-          const readmePath = path.join(distPath, 'images', 'README.md');
-          if (fs.existsSync(readmePath)) {
-            fs.unlinkSync(readmePath);
-          }
           const imagesDir = path.join(distPath, 'images');
-          if (fs.existsSync(imagesDir) && fs.readdirSync(imagesDir).length === 0) {
-            fs.rmdirSync(imagesDir);
+          if (fs.existsSync(imagesDir)) {
+            const readmePath = path.join(imagesDir, 'README.md');
+            if (fs.existsSync(readmePath)) {
+              fs.unlinkSync(readmePath);
+            }
+            if (fs.existsSync(imagesDir) && fs.readdirSync(imagesDir).length === 0) {
+              fs.rmSync(imagesDir, { recursive: true, force: true });
+            }
           }
         },
       },

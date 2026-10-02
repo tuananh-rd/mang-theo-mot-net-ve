@@ -158,7 +158,7 @@ export const PRODUCTS: Product[] = [
     originText: 'Phôi tre mộc; nguồn gốc trang trí chưa xác nhận',
     originVerification: 'unverified',
     assetId: null,
-    notes: 'Giá tham khảo trong đề xuất. Trong 40 phôi chuẩn bị, 10 chiếc để lại Mái ấm.',
+    notes: 'Giá tham khảo trong đề xuất. Dự kiến trong 40 phôi chuẩn bị, 10 chiếc để lại Mái ấm.',
   },
   {
     id: 'tui-but',
@@ -192,7 +192,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'tui-vai',
     name: 'Túi vải canvas',
-    description: 'Túi vải thân thiện với môi trường, diện tích chứa rộng rãi cho sách vở và đồ dùng.',
+    description: 'Túi vải canvas diện tích chứa rộng rãi cho sách vở và đồ dùng.',
     referencePrice: {
       value: 75000,
       unit: 'đ/chiếc',
@@ -231,7 +231,7 @@ export const SUPPORT_METHODS: SupportMethod[] = [
     id: 'san-pham',
     title: 'Quan tâm sản phẩm gây quỹ',
     description: 'Đăng ký quan tâm các sản phẩm thủ công gây quỹ khi mẫu, giá và lịch giao được công bố chính thức.',
-    statusText: 'Chưa mở bán chính thức, chưa nhận đặt cọc',
+    statusText: 'Trạng thái mở bán chưa được xác nhận; bản xem trước chưa nhận đơn/tiền',
   },
   {
     id: 'truyen-thong',
@@ -258,5 +258,5 @@ export const FINANCE_OVERVIEW = {
   actualCashBalance: null,
   actualInKindLedger: null,
   disclaimer:
-    'Các con số trên thuộc dự toán ban đầu trong đề xuất dự án. Mọi khoản thu chi, tài trợ thực tế sẽ được kiểm toán, đối soát và cập nhật công khai sau khi thực hiện.',
+    'Các con số trên thuộc dự toán ban đầu trong đề xuất dự án. Báo cáo sau đối soát, biên tập và được phép công bố sẽ được cập nhật sau khi hoàn thành.',
 };

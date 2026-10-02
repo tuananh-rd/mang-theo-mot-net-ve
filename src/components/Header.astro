@@ -220,14 +220,17 @@ const navItems = [
   }
 
   .cta-btn {
-    padding: var(--space-2) var(--space-5);
-    min-height: 40px;
+    padding: var(--space-3) var(--space-6);
+    min-height: 48px;
   }
 
   /* Mobile Toggle */
   .mobile-toggle {
     display: none;
     align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    min-width: 48px;
     gap: var(--space-2);
     background: transparent;
     border: 1px solid var(--color-border);
@@ -279,8 +282,10 @@ const navItems = [
   }
 
   .mobile-nav-link {
-    display: block;
-    padding: var(--space-3) var(--space-4);
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+    padding: var(--space-2) var(--space-4);
     font-size: 1.125rem;
     font-weight: 600;
     text-decoration: none;
