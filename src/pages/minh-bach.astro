@@ -16,6 +16,9 @@ import {
 
 const totalPlannedExpense = sumPlannedExpenses(PLANNED_EXPENSES);
 const totalPlannedRevenue = calculateTotalRevenueScenario(PRODUCTS);
+const revenueFormulaText = PRODUCTS.map(
+  (p) => `${p.plannedQuantity.value} ${p.name.toLowerCase()} × ${formatVND(p.referencePrice.value)}`
+).join(' + ');
 
 const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
   const result = calculateScenario(scenario, totalPlannedRevenue, totalPlannedExpense);
@@ -79,7 +82,7 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
             <span class="highlight-label">Doanh thu kịch bản</span>
             <span class="highlight-value">{formatVND(totalPlannedRevenue)}</span>
             <p class="highlight-condition">
-              Nếu bán đủ số lượng kế hoạch theo giá tham khảo (chưa mở bán chính thức).
+              Nếu bán đủ số lượng kế hoạch theo giá tham khảo; trạng thái mở bán chưa được xác nhận, bản xem trước chưa nhận đơn/tiền.
             </p>
           </div>
         </div>
@@ -87,7 +90,7 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
         <!-- Section Notice -->
         <div class="transparency-notice">
           <p>
-            <strong>Nguyên tắc trình bày:</strong> Bản xem trước tách bạch hoàn toàn giữa kế hoạch đề xuất và kết quả thực tế. Doanh thu dự kiến không phải là tiền đã nhận hay mục tiêu gây quỹ đã duyệt. Không sử dụng thanh tiến độ khi chưa có số liệu thực tế.
+            <strong>Nguyên tắc trình bày:</strong> Bản xem trước phân định rõ giữa dự toán trong đề xuất và số liệu thực tế. Doanh thu dự kiến phản ánh mô phỏng kế hoạch theo giá tham khảo, không phải khoản tiền đã nhận hay mục tiêu gây quỹ chính thức.
           </p>
         </div>
       </div>
@@ -209,7 +212,7 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
       <div class="formula-card card">
         <h3 class="formula-title">Phép tính doanh thu kịch bản bán đủ hàng</h3>
         <p class="formula-expression">
-          30 chuồn chuồn × 40.000đ + 20 túi bút × 55.000đ + 8 túi vải × 75.000đ = <strong>{formatVND(totalPlannedRevenue)}</strong>
+          {revenueFormulaText} = <strong>{formatVND(totalPlannedRevenue)}</strong>
         </p>
         <p class="formula-note">
           Doanh thu giả định tính trên giả thiết phát hành đủ số lượng và bán theo mức giá tham khảo trong đề xuất. Trạng thái mở bán hiện chưa được xác nhận; hàng tồn kho và đơn hàng chưa thanh toán không được coi là tiền thực nhận.
@@ -337,7 +340,7 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
             <span class="actual-tag">Chờ đối soát</span>
           </div>
           <div class="actual-value">{formatVND(ACTUAL_FINANCE.actualCashSpent.value)}</div>
-          <p class="actual-desc">Các khoản chi vật tư và vận hành thực tế có đầy đủ hóa đơn, chứng từ.</p>
+          <p class="actual-desc">Kế hoạch chi trả các khoản vật tư và vận hành theo đề xuất; số chi thực tế chờ đối soát.</p>
         </div>
 
         <div class="actual-card card">
@@ -346,7 +349,7 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
             <span class="actual-tag">Chờ đối soát</span>
           </div>
           <div class="actual-value">{formatVND(ACTUAL_FINANCE.actualCashBalance.value)}</div>
-          <p class="actual-desc">Chênh lệch giữa tổng tiền thực nhận và tổng chi tiền thực trả.</p>
+          <p class="actual-desc">Số dư đầu kỳ + tiền thực nhận − chi tiền thực trả; số dư đầu kỳ và số liệu phát sinh đều chưa được xác nhận.</p>
         </div>
 
         <div class="actual-card card">
@@ -355,7 +358,7 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
             <span class="actual-tag">Sổ riêng</span>
           </div>
           <div class="actual-value">Chưa xác nhận</div>
-          <p class="actual-desc">Theo dõi riêng trong sổ hiện vật, không quy đổi gộp vào tiền mặt.</p>
+          <p class="actual-desc">Theo dõi riêng trong sổ hiện vật theo kế hoạch, không quy đổi gộp vào tiền mặt.</p>
         </div>
 
         <div class="actual-card card">
@@ -364,7 +367,7 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
             <span class="actual-tag">Lưu trữ nội bộ</span>
           </div>
           <div class="actual-value">Chưa xác nhận</div>
-          <p class="actual-desc">Được lưu trữ để phục vụ đối soát; công bố bản biên tập sau duyệt.</p>
+          <p class="actual-desc">Kế hoạch lưu trữ đầy đủ hóa đơn, chứng từ phục vụ đối soát; công bố bản biên tập bảo vệ riêng tư sau khi được cấp quyền.</p>
         </div>
       </div>
 
@@ -374,7 +377,7 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
           <strong>Trạng thái thực tế:</strong> {ACTUAL_FINANCE.statusNotice}
         </p>
         <p class="text-sm text-muted">
-          {ACTUAL_FINANCE.disclaimer} Để đảm bảo tính trung thực, bản xem trước không tạo giao dịch giả định, không bịa tên nhà tài trợ hay danh sách người nhận khi chưa diễn ra đối soát chính thức.
+          {ACTUAL_FINANCE.disclaimer} Các báo cáo thu chi, tài trợ hiện vật và chứng từ minh bạch sẽ được đăng tải chi tiết sau khi có sự xác nhận chính thức từ các bên.
         </p>
       </div>
 
@@ -474,7 +477,7 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
 <style>
   /* Breadcrumb Bar */
   .breadcrumb-bar {
-    background-color: var(--color-surface);
+    background-color: var(--color-surface-card);
     border-bottom: 1px solid var(--color-border);
     padding: var(--space-3) 0;
   }
@@ -516,7 +519,7 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
   }
 
   .transparency-hero-card {
-    background-color: var(--color-surface);
+    background-color: var(--color-surface-card);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     padding: var(--space-8);
@@ -532,7 +535,7 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
   }
 
   .status-badge-neutral {
-    background-color: var(--color-surface-soft);
+    background-color: var(--color-canvas-soft);
     color: var(--color-text-secondary);
     border: 1px solid var(--color-border);
   }
@@ -560,7 +563,7 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
   }
 
   .highlight-card {
-    background-color: var(--color-surface-soft);
+    background-color: var(--color-canvas-soft);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     padding: var(--space-5);
@@ -636,7 +639,7 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
     overflow-x: auto;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
-    background-color: var(--color-surface);
+    background-color: var(--color-surface-card);
   }
 
   .data-table {
@@ -654,7 +657,7 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
   }
 
   .data-table thead th {
-    background-color: var(--color-surface-soft);
+    background-color: var(--color-canvas-soft);
     color: var(--color-text-primary);
     font-weight: 700;
   }
@@ -666,7 +669,7 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
   .data-table tfoot th,
   .data-table tfoot td {
     border-bottom: none;
-    background-color: var(--color-surface-soft);
+    background-color: var(--color-canvas-soft);
   }
 
   .total-row {
@@ -704,9 +707,9 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
   .category-tag {
     display: inline-block;
     padding: 2px 8px;
-    background-color: var(--color-surface-soft);
+    background-color: var(--color-canvas-soft);
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-full);
+    border-radius: var(--radius-pill);
     font-size: 0.875rem;
     color: var(--color-text-secondary);
   }
@@ -716,7 +719,7 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
     padding: 2px 8px;
     background-color: #FEF3C7;
     color: #92400E;
-    border-radius: var(--radius-full);
+    border-radius: var(--radius-pill);
     font-size: 0.875rem;
     font-weight: 600;
     margin-left: 6px;
@@ -747,7 +750,7 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
   .formula-card {
     padding: var(--space-6);
     margin-bottom: var(--space-6);
-    background-color: var(--color-surface-soft);
+    background-color: var(--color-canvas-soft);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     display: flex;
@@ -780,7 +783,7 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
   .clarification-box {
     margin-top: var(--space-6);
     padding: var(--space-6);
-    background-color: var(--color-surface);
+    background-color: var(--color-surface-card);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     display: flex;
@@ -837,7 +840,7 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
   .actual-tag {
     font-size: 0.875rem;
     padding: 2px 6px;
-    background-color: var(--color-surface-soft);
+    background-color: var(--color-canvas-soft);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-sm);
     color: var(--color-text-muted);
@@ -859,7 +862,7 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
   .ledger-empty-notice {
     padding: var(--space-5);
     margin-bottom: var(--space-8);
-    background-color: var(--color-surface);
+    background-color: var(--color-surface-card);
     border-left: 4px solid var(--color-text-muted);
     display: flex;
     flex-direction: column;
@@ -917,7 +920,7 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
     padding: var(--space-5);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
-    background-color: var(--color-surface);
+    background-color: var(--color-surface-card);
   }
 
   .faq-question {
@@ -1090,7 +1093,7 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
 
     .mobile-total-card {
       padding: var(--space-5);
-      background-color: var(--color-surface-soft);
+      background-color: var(--color-canvas-soft);
       border: 2px solid var(--color-text-accent);
       display: flex;
       flex-direction: column;
@@ -1141,7 +1144,7 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
     }
 
     .mobile-scenario-details {
-      background-color: var(--color-surface-soft);
+      background-color: var(--color-canvas-soft);
       border-radius: var(--radius-sm);
       padding: var(--space-3);
       display: flex;

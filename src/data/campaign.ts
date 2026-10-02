@@ -488,7 +488,7 @@ export const FINANCE_SCENARIOS: FinanceScenario[] = [
   {
     id: 'chua-tinh-tai-tro',
     title: 'Chưa tính tài trợ',
-    description: 'Toàn bộ chi phí dự toán thanh toán bằng tiền mặt từ nguồn thu sản phẩm.',
+    description: 'Không có hiện vật thay chi; chi tiền theo toàn bộ dự toán 3.120.000đ, doanh thu giả định bán đủ hàng còn thiếu 220.000đ.',
     inKindReplacement: {
       value: 0,
       unit: 'đ',
@@ -498,7 +498,7 @@ export const FINANCE_SCENARIOS: FinanceScenario[] = [
       updatedAt: null,
       publicApproval: 'pending',
     },
-    note: '0đ (chỉ tham số kịch bản cơ sở)',
+    note: '0đ (tham số kịch bản cơ sở, chưa tính tài trợ)',
   },
   {
     id: 'thay-mot-phan',
@@ -518,7 +518,7 @@ export const FINANCE_SCENARIOS: FinanceScenario[] = [
   {
     id: 'thay-chi-workshop',
     title: 'Hiện vật thay chi workshop',
-    description: 'Tiếp nhận tài trợ hiện vật thay thế toàn bộ chi phí vật tư góc chơi.',
+    description: 'Giả định tiếp nhận tài trợ hiện vật thay thế 3 khoản vật tư góc chơi (phôi chuồn chuồn, tượng thạch cao và màu vẽ).',
     inKindReplacement: {
       value: 1120000,
       unit: 'đ',
@@ -528,7 +528,7 @@ export const FINANCE_SCENARIOS: FinanceScenario[] = [
       updatedAt: null,
       publicApproval: 'pending',
     },
-    note: 'Hiện vật thay toàn bộ chi phí 4 khoản vật tư góc chơi (540k + 280k + 300k)',
+    note: 'Hiện vật thay thế 3 khoản vật tư góc chơi: 540.000đ (phôi chuồn chuồn) + 280.000đ (tượng) + 300.000đ (màu vẽ)',
   },
 ];
 
@@ -592,7 +592,7 @@ export const ACTUAL_FINANCE: ActualFinanceReport = {
   vouchersCount: null,
   statusNotice: 'Chưa có số liệu thực tế được xác nhận.',
   disclaimer:
-    'Mọi giao dịch thực tế sẽ được cập nhật công khai sau khi chiến dịch kết thúc, đối soát chéo độc lập và biên tập bảo mật theo quy định.',
+    'Số liệu thực tế sẽ được cập nhật sau khi hoàn tất đối soát chéo độc lập, biên tập bảo vệ riêng tư và được cấp quyền công bố.',
 };
 
 export interface OfficialContact {
