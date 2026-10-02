@@ -286,17 +286,17 @@ export const TEAM_PRINCIPLES: TeamPrinciple[] = [
   {
     title: 'Chuẩn bị an toàn và chu đáo',
     description:
-      'Tất cả phôi chuồn chuồn, tượng thạch cao, họa cụ và vật liệu màu nước đều được nhóm kiểm tra tính an toàn trước khi mang tới buổi trải nghiệm.',
+      'Kế hoạch chuẩn bị phôi chuồn chuồn, tượng thạch cao, họa cụ và vật liệu màu nước đều hướng đến tính an toàn cho người tham gia.',
   },
   {
     title: 'Sản phẩm do nhóm hoàn thiện',
     description:
-      'Nhóm sinh viên trực tiếp chuẩn bị và hoàn thiện các sản phẩm lưu niệm gây quỹ; tuyệt đối không giao chỉ tiêu sản xuất cho các em nhỏ.',
+      'Nhóm phụ trách chuẩn bị và hoàn thiện các sản phẩm lưu niệm gây quỹ; trong đó túi bút do nhóm hoàn thiện, chuồn chuồn có nguồn gốc trang trí chờ xác nhận. Tuyệt đối không giao chỉ tiêu sản xuất cho các em nhỏ.',
   },
   {
     title: 'Đối soát rõ ràng và độc lập',
     description:
-      'Mọi khoản dự toán thu chi, tài trợ hiện vật và chi phí vật tư đều được ghi chép độc lập bởi hai thành viên đối soát theo đề xuất.',
+      'Dự toán thu chi, tài trợ hiện vật và chi phí vật tư dự kiến được ghi chép độc lập bởi hai thành viên đối soát theo đề xuất.',
   },
   {
     title: 'Bảo vệ quyền riêng tư',
@@ -321,8 +321,8 @@ export const TEAM_COORDINATION: CoordinationArea[] = [
   {
     role: 'Chuẩn bị và Hoàn thiện sản phẩm',
     scope:
-      'Tìm nguồn phôi chuồn chuồn tre mộc mạc và trực tiếp may, hoàn thiện các mẫu túi bút lưu niệm gây quỹ.',
-    note: 'Nhóm sinh viên tự tay thực hiện việc hoàn thiện sản phẩm.',
+      'Tìm nguồn phôi chuồn chuồn tre mộc mạc và chuẩn bị, hoàn thiện các mẫu túi bút lưu niệm gây quỹ theo kế hoạch.',
+    note: 'Nhóm chuẩn bị và hoàn thiện túi bút theo nguồn đề xuất.',
   },
   {
     role: 'Hậu cần và Quản lý vật tư',
@@ -347,16 +347,16 @@ export const PRODUCT_FAQS: ProductFaq[] = [
   {
     question: 'Sản phẩm gây quỹ do ai làm và hoàn thiện?',
     answer:
-      'Túi bút do chính các bạn sinh viên trong nhóm tự tay chuẩn bị và hoàn thiện. Chuồn chuồn tre có nguồn gốc phôi tre mộc; trong 40 phôi chuẩn bị có 10 chiếc dự kiến để lại Mái ấm làm quà. Hoạt động tô tượng tại Mái ấm là góc chơi giải trí tại chỗ cho các em, không phải hàng hoá mang đi bán.',
+      'Túi bút do nhóm sinh viên chuẩn bị và hoàn thiện. Chuồn chuồn tre có nguồn gốc phôi tre mộc, nguồn gốc trang trí chưa được xác nhận; trong 40 phôi chuẩn bị có 10 chiếc dự kiến để lại Mái ấm làm quà. Hoạt động tô tượng tại Mái ấm là trải nghiệm vui chơi tại chỗ cho các em, không phải hàng hoá mang đi bán.',
   },
   {
     question: 'Khi nào mở bán và có thể đặt mua qua kênh nào?',
     answer:
-      'Hiện tại trạng thái mở bán chưa được xác nhận. Bản xem trước này nhằm mục đích lấy ý kiến đóng góp cho đề xuất dự án. Kênh tiếp nhận đăng ký chính thức sẽ được thông báo cụ thể sau khi hoàn tất đối soát và được cơ sở đồng ý.',
+      'Hiện tại trạng thái mở bán chưa được xác nhận. Bản xem trước này nhằm mục đích lấy ý kiến đóng góp cho đề xuất dự án. Kênh tiếp nhận đăng ký chính thức sẽ được thông báo cụ thể sau khi mẫu mã, mức giá, nguồn gốc và kế hoạch mở bán được phê duyệt.',
   },
   {
     question: 'Doanh thu từ các sản phẩm được sử dụng như thế nào?',
     answer:
-      'Doanh thu dự kiến khác với số dư sau chi phí. Trong dự toán, doanh thu sẽ ưu tiên bù đắp chi phí vật tư và vận hành thực tế. Phần số dư (nếu có sau khi đối soát hoặc nhận thêm tài trợ hiện vật) sẽ được chuyển toàn bộ thành các phần quà thiết yếu gửi tặng Mái ấm theo đúng danh mục nhu cầu thực tế.',
+      'Doanh thu dự kiến khác số dư sau chi phí. Theo kế hoạch, nguồn thu góp phần trang trải chi phí vật tư và vận hành; tiền và hiện vật được ghi nhận riêng biệt. Số dư tiền (nếu có sau đối soát) dự kiến dùng hỗ trợ hiện vật đúng nhu cầu của Mái ấm.',
   },
 ];
