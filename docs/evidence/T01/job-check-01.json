@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "❌ **Job `agy-c1dfa488` FAILED**\n- **Error**: URL can't contain control characters. '/v1beta/models/Gemini 3.1 Pro (High):generateContent?key=[REDACTED]' (found at least ' ')\n- **Logs**:\n  [09:38:57] Started job on Gemini REST API with model Gemini 3.1 Pro (High)\n  [09:38:57] Reading 12 context files...\n  [09:38:58] Context gathered (48622 characters).\n  [09:38:58] Dispatching request to Gemini REST endpoint...\n  [09:38:58] Error during execution: URL can't contain control characters. '/v1beta/models/Gemini 3.1 Pro (High):generateContent?key=[REDACTED]' (found at least ' ')"
+    }
+  ],
+  "isError": false
+}

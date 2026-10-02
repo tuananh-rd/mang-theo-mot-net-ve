@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "✅ **Subagent dispatched**\n- **Job ID**: `agy-c1dfa488`\n- **Model**: `Gemini 3.1 Pro (High)`\n- **Status**: `running`\n- **Note**: up to 3 jobs run concurrently (ANTIGRAVITY_MAX_CONCURRENT_JOBS); beyond that this job queues for a slot.\n\nCollect the result with `check_agent_job` using `job_id='agy-c1dfa488'`."
+    }
+  ],
+  "isError": false
+}

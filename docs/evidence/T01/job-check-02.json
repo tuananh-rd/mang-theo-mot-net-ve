@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "🎉 **Job `agy-2379cdec` COMPLETED** (1.8s)\n\n### Output:\nACK_BLOCKED\nMôi trường hiện tại không có công cụ filesystem, terminal shell hoặc browser tools cần thiết để Antigravity thực thi, kiểm tra và ghi code trực tiếp cho task T01. \nTheo đúng hướng dẫn: trả ACK_BLOCKED ngay với giới hạn này, không sinh một bản code dài để Codex tự áp dụng. Chủ dự án có thể chuyển trạng thái hoặc giao thủ công."
+    }
+  ],
+  "isError": false
+}

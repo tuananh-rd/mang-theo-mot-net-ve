@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "✅ **Subagent dispatched**\n- **Job ID**: `agy-2379cdec`\n- **Model**: `gemini-flash-lite-latest`\n- **Status**: `pending`\n- **Note**: up to 3 jobs run concurrently (ANTIGRAVITY_MAX_CONCURRENT_JOBS); beyond that this job queues for a slot.\n\nCollect the result with `check_agent_job` using `job_id='agy-2379cdec'`."
+    }
+  ],
+  "isError": false
+}
