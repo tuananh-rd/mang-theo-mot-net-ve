@@ -218,8 +218,42 @@ a {
   .banner-text-mobile {
     display: inline;
   }
+  .section {
+    padding-top: var(--space-6);
+    padding-bottom: var(--space-6);
+  }
+  .section-header {
+    margin-bottom: var(--space-5);
+  }
+  .card {
+    padding: var(--space-4) !important;
+  }
+  .card-visual {
+    margin-bottom: var(--space-3) !important;
+  }
   .card .illustration-wrapper .svg-container {
     aspect-ratio: 16 / 9 !important;
+    max-height: 165px !important;
+    overflow: hidden !important;
+  }
+  .card .illustration-wrapper .illustration-svg {
+    max-height: 100% !important;
+    object-fit: contain !important;
+  }
+  .card .illustration-wrapper .illustration-caption {
+    padding: var(--space-1) var(--space-2) !important;
+    font-size: var(--font-size-sm) !important;
+  }
+  .product-section-notice {
+    margin-bottom: var(--space-4);
+    padding: var(--space-2) var(--space-3);
+  }
+  .site-footer {
+    padding-top: var(--space-8);
+    padding-bottom: var(--space-6);
+  }
+  .footer-inner {
+    gap: var(--space-5);
   }
 }
 

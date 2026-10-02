@@ -49,4 +49,16 @@ const { stage } = Astro.props;
     line-height: 1.5;
     color: var(--color-text-secondary);
   }
+
+  @media (max-width: 767px) {
+    .stage-card {
+      padding: var(--space-4);
+      gap: var(--space-2);
+    }
+
+    .stage-desc {
+      font-size: 0.875rem;
+      line-height: 1.45;
+    }
+  }
 </style>
