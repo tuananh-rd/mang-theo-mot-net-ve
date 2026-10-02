@@ -15,7 +15,18 @@ const {
   currentPath = undefined,
 } = Astro.props;
 
-const pageTitle = `${title} | Mang Theo Một Nét Vẽ - Lăng Kính`;
+const BRAND_PROJECT = 'Mang Theo Một Nét Vẽ';
+const BRAND_TEAM = 'Lăng Kính';
+
+// Chuẩn hóa title: mỗi title riêng, tên dự án xuất hiện đúng một lần và tên nhóm hợp lý.
+let pageTitle: string;
+if (title.includes(BRAND_PROJECT)) {
+  pageTitle = title.includes(BRAND_TEAM) ? title : `${title} — ${BRAND_TEAM}`;
+} else if (title.includes(BRAND_TEAM)) {
+  pageTitle = `${title} | ${BRAND_PROJECT}`;
+} else {
+  pageTitle = `${title} | ${BRAND_PROJECT} — ${BRAND_TEAM}`;
+}
 ---
 
 <!doctype html>

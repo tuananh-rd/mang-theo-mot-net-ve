@@ -2,12 +2,13 @@
 import Layout from '../layouts/Layout.astro';
 import ProductCard from '../components/ProductCard.astro';
 import { PRODUCTS, PRODUCT_FAQS } from '../data/campaign';
+import { formatVND } from '../lib/finance';
 
 const productIllustrationTypes = ['chuon-chuon', 'tui-but', 'tui-vai'] as const;
 ---
 
 <Layout
-  title="Sản phẩm gây quỹ dự kiến — Mang Theo Một Nét Vẽ"
+  title="Sản phẩm gây quỹ dự kiến"
   description="Danh mục 3 sản phẩm thủ công gây quỹ dự kiến: chuồn chuồn tre kèm đế, túi bút và túi vải cho chiến dịch Mang Theo Một Nét Vẽ."
   currentPath="/san-pham"
 >
@@ -103,45 +104,29 @@ const productIllustrationTypes = ['chuon-chuon', 'tui-but', 'tui-vai'] as const;
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td class="col-name">
-                  <strong>Chuồn chuồn tre 12 cm kèm đế</strong>
-                </td>
-                <td class="col-price">40.000đ/bộ</td>
-                <td class="col-qty">30 bộ bán dự kiến</td>
-                <td class="col-notes">
-                  Phôi tre mộc; nguồn gốc trang trí chưa xác nhận. Dự kiến trong 40 phôi chuẩn bị, 10 chiếc để lại Mái ấm làm quà.
-                </td>
-                <td class="col-status">
-                  <span class="plan-status-badge">Chờ xác nhận</span>
-                </td>
-              </tr>
-              <tr>
-                <td class="col-name">
-                  <strong>Túi bút</strong>
-                </td>
-                <td class="col-price">55.000đ/chiếc</td>
-                <td class="col-qty">20 chiếc dự kiến</td>
-                <td class="col-notes">
-                  Nhóm sinh viên Lăng Kính chuẩn bị và hoàn thiện mẫu; phục vụ học tập và ghi chép.
-                </td>
-                <td class="col-status">
-                  <span class="plan-status-badge">Chờ xác nhận</span>
-                </td>
-              </tr>
-              <tr>
-                <td class="col-name">
-                  <strong>Túi vải</strong>
-                </td>
-                <td class="col-price">75.000đ/chiếc</td>
-                <td class="col-qty">Tối đa 8 chiếc</td>
-                <td class="col-notes">
-                  Sản xuất số lượng nhỏ theo đơn đặt trước trong kế hoạch; mẫu và mức giá cuối chưa chốt.
-                </td>
-                <td class="col-status">
-                  <span class="plan-status-badge">Chờ xác nhận</span>
-                </td>
-              </tr>
+              {
+                PRODUCTS.map((p) => (
+                  <tr>
+                    <td class="col-name">
+                      <strong>{p.name}</strong>
+                    </td>
+                    <td class="col-price">
+                      {formatVND(p.referencePrice.value)}/{p.referencePrice.unit.split('/')[1] || 'món'}
+                    </td>
+                    <td class="col-qty">
+                      {p.planQuantityText || `${p.plannedQuantity.value} ${p.plannedQuantity.unit}`}
+                    </td>
+                    <td class="col-notes">
+                      {p.planNotes || p.notes}
+                    </td>
+                    <td class="col-status">
+                      <span class="plan-status-badge">
+                        {p.saleStatus === 'unconfirmed' ? 'Chờ xác nhận' : p.saleStatus}
+                      </span>
+                    </td>
+                  </tr>
+                ))
+              }
             </tbody>
           </table>
         </div>
@@ -155,68 +140,36 @@ const productIllustrationTypes = ['chuon-chuon', 'tui-but', 'tui-vai'] as const;
 
       <!-- Mobile Vertical Cards view (không cần cuộn ngang) -->
       <div class="plan-mobile-list">
-        <div class="plan-mobile-card card">
-          <div class="plan-mobile-header">
-            <h3 class="plan-mobile-title">Chuồn chuồn tre 12 cm kèm đế</h3>
-            <span class="plan-status-badge">Chờ xác nhận</span>
-          </div>
-          <div class="plan-mobile-details">
-            <div class="plan-mobile-row">
-              <span class="row-label">Số lượng kế hoạch:</span>
-              <strong class="row-val row-val-accent">30 bộ bán dự kiến</strong>
+        {
+          PRODUCTS.map((p) => (
+            <div class="plan-mobile-card card">
+              <div class="plan-mobile-header">
+                <h3 class="plan-mobile-title">{p.name}</h3>
+                <span class="plan-status-badge">
+                  {p.saleStatus === 'unconfirmed' ? 'Chờ xác nhận' : p.saleStatus}
+                </span>
+              </div>
+              <div class="plan-mobile-details">
+                <div class="plan-mobile-row">
+                  <span class="row-label">Số lượng kế hoạch:</span>
+                  <strong class="row-val row-val-accent">
+                    {p.planQuantityText || `${p.plannedQuantity.value} ${p.plannedQuantity.unit}`}
+                  </strong>
+                </div>
+                <div class="plan-mobile-row">
+                  <span class="row-label">Giá tham khảo trong đề xuất:</span>
+                  <span class="row-val">
+                    {formatVND(p.referencePrice.value)}/{p.referencePrice.unit.split('/')[1] || 'món'}
+                  </span>
+                </div>
+                <div class="plan-mobile-row">
+                  <span class="row-label">Kế hoạch & Nguồn gốc:</span>
+                  <span class="row-val-notes">{p.planNotes || p.notes}</span>
+                </div>
+              </div>
             </div>
-            <div class="plan-mobile-row">
-              <span class="row-label">Giá tham khảo trong đề xuất:</span>
-              <span class="row-val">40.000đ/bộ</span>
-            </div>
-            <div class="plan-mobile-row">
-              <span class="row-label">Kế hoạch & Nguồn gốc:</span>
-              <span class="row-val-notes">Phôi tre mộc; nguồn gốc trang trí chưa xác nhận. Dự kiến trong 40 phôi chuẩn bị, 10 chiếc để lại Mái ấm làm quà.</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="plan-mobile-card card">
-          <div class="plan-mobile-header">
-            <h3 class="plan-mobile-title">Túi bút</h3>
-            <span class="plan-status-badge">Chờ xác nhận</span>
-          </div>
-          <div class="plan-mobile-details">
-            <div class="plan-mobile-row">
-              <span class="row-label">Số lượng kế hoạch:</span>
-              <strong class="row-val row-val-accent">20 chiếc dự kiến</strong>
-            </div>
-            <div class="plan-mobile-row">
-              <span class="row-label">Giá tham khảo trong đề xuất:</span>
-              <span class="row-val">55.000đ/chiếc</span>
-            </div>
-            <div class="plan-mobile-row">
-              <span class="row-label">Kế hoạch & Nguồn gốc:</span>
-              <span class="row-val-notes">Nhóm sinh viên Lăng Kính chuẩn bị và hoàn thiện mẫu; phục vụ học tập và ghi chép.</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="plan-mobile-card card">
-          <div class="plan-mobile-header">
-            <h3 class="plan-mobile-title">Túi vải</h3>
-            <span class="plan-status-badge">Chờ xác nhận</span>
-          </div>
-          <div class="plan-mobile-details">
-            <div class="plan-mobile-row">
-              <span class="row-label">Số lượng kế hoạch:</span>
-              <strong class="row-val row-val-accent">Tối đa 8 chiếc</strong>
-            </div>
-            <div class="plan-mobile-row">
-              <span class="row-label">Giá tham khảo trong đề xuất:</span>
-              <span class="row-val">75.000đ/chiếc</span>
-            </div>
-            <div class="plan-mobile-row">
-              <span class="row-label">Kế hoạch & Nguồn gốc:</span>
-              <span class="row-val-notes">Sản xuất số lượng nhỏ theo đơn đặt trước trong kế hoạch; mẫu và mức giá cuối chưa chốt.</span>
-            </div>
-          </div>
-        </div>
+          ))
+        }
 
         <div class="table-disclaimer">
           <p>

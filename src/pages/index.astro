@@ -10,7 +10,29 @@ import {
   SUPPORT_METHODS,
   TEAM_INFO,
   FINANCE_OVERVIEW,
+  PLANNED_EXPENSES,
+  FINANCE_SCENARIOS,
 } from '../data/campaign';
+import {
+  sumPlannedExpenses,
+  calculateTotalRevenueScenario,
+  calculateScenario,
+  formatVND,
+} from '../lib/finance';
+
+const totalPlannedExpense = sumPlannedExpenses(PLANNED_EXPENSES);
+const totalPlannedRevenue = calculateTotalRevenueScenario(PRODUCTS);
+const baseScenario =
+  FINANCE_SCENARIOS.find((s) => s.id === 'chua-tinh-tai-tro') || FINANCE_SCENARIOS[0];
+const baseScenarioResult = calculateScenario(
+  baseScenario,
+  totalPlannedRevenue,
+  totalPlannedExpense
+);
+const deficitAmountText =
+  baseScenarioResult && baseScenarioResult.projectedBalance < 0
+    ? `-${formatVND(Math.abs(baseScenarioResult.projectedBalance))}`
+    : '0đ';
 
 const activityIllustrationTypes = [
   'chuon-chuon',
@@ -145,15 +167,15 @@ const productIllustrationTypes = [
             <ul class="data-list">
               <li>
                 <span>Tổng chi phí dự toán:</span>
-                <strong>3.120.000đ</strong>
+                <strong>{formatVND(totalPlannedExpense)}</strong>
               </li>
               <li>
                 <span>Doanh thu kịch bản bán đủ hàng:</span>
-                <strong>2.900.000đ</strong>
+                <strong>{formatVND(totalPlannedRevenue)}</strong>
               </li>
               <li>
                 <span>Chênh lệch giả định (khi chưa có tài trợ):</span>
-                <span class="diff-negative">-220.000đ</span>
+                <span class="diff-negative">{deficitAmountText}</span>
               </li>
             </ul>
           </div>
