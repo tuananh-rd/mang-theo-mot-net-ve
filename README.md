@@ -2,12 +2,6 @@
 
 Mã nguồn: [tuananh-rd/mang-theo-mot-net-ve](https://github.com/tuananh-rd/mang-theo-mot-net-ve) — repository private. Lưu code trên GitHub không thay mốc duyệt hướng UI hoặc duyệt phát hành website.
 
-## Trạng thái tiếp nhận Orca — 02/10/2026
-
-**T01 DONE; R01 PASS** tại `c27fea2f8d377523b2200a1630756acfe46f54a2`, nhánh `task/t01-home-shell`, baseline B0 `ef102c8c1908f1dcd843d8d9f6741848dcb43d63`. Antigravity hiện có tại `net-ve-worker` triển khai và sửa theo review; Codex tại `net-ve-brain` kiểm diff, preview và bằng chứng. Không tạo worker mới. [Biên bản R01](docs/reviews/R01-c27fea2.md), [trạng thái task](docs/tasks.md), [bàn giao tiếp nối Brain](reports/resume-brain.md).
-
-Preview mẫu trang chủ: http://127.0.0.1:4321/. Năm route phụ là shell; chưa phải website hoàn chỉnh. **T02 chờ chủ dự án duyệt hướng UI; chưa phát hành public.** Các đoạn chưa có Git/MCP BLOCKED phía dưới được giữ như lịch sử T00.
-
 Bộ tài liệu khởi động website của **nhóm Lăng Kính – AI2015, SSG105, Đại học FPT Hà Nội**. Website giới thiệu nhóm và một dự án trọng tâm tại Mái ấm Thánh Tâm Xuy Xá, với UI tham khảo https://sharethemeal.org/fr.
 
 ## Chạy bản xem trước trên Windows
