@@ -1,0 +1,7 @@
+{
+  "checkedAt": "2026-10-02T04:04:46.109Z",
+  "commits": 4,
+  "credentialPatternFindings": [],
+  "privateRepository": true,
+  "scope": "Tracked history plus Brain documentation/evidence selected for upload; forbidden raw documents/env/dependencies/build outputs checked in history. Pattern audit, no credential values printed."
+}

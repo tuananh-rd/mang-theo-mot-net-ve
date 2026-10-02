@@ -1,0 +1,238 @@
+{
+  "sha": "c27fea2f8d377523b2200a1630756acfe46f54a2",
+  "startedAt": "2026-10-02T03:34:33.485Z",
+  "routes": [
+    {
+      "route": "/",
+      "status": 200,
+      "reloadStatus": 304,
+      "title": "Trang chủ | Mang Theo Một Nét Vẽ - Lăng Kính",
+      "lang": "vi",
+      "h1": 1,
+      "robots": "noindex, nofollow",
+      "main": 1,
+      "header": true,
+      "footer": true,
+      "forms": 0
+    },
+    {
+      "route": "/du-an/mang-theo-mot-net-ve",
+      "status": 200,
+      "reloadStatus": 304,
+      "title": "Dự án Mang Theo Một Nét Vẽ | Mang Theo Một Nét Vẽ - Lăng Kính",
+      "lang": "vi",
+      "h1": 1,
+      "robots": "noindex, nofollow",
+      "main": 1,
+      "header": true,
+      "footer": true,
+      "forms": 0
+    },
+    {
+      "route": "/san-pham",
+      "status": 200,
+      "reloadStatus": 304,
+      "title": "Sản phẩm gây quỹ | Mang Theo Một Nét Vẽ - Lăng Kính",
+      "lang": "vi",
+      "h1": 1,
+      "robots": "noindex, nofollow",
+      "main": 1,
+      "header": true,
+      "footer": true,
+      "forms": 0
+    },
+    {
+      "route": "/minh-bach",
+      "status": 200,
+      "reloadStatus": 304,
+      "title": "Minh bạch thu chi | Mang Theo Một Nét Vẽ - Lăng Kính",
+      "lang": "vi",
+      "h1": 1,
+      "robots": "noindex, nofollow",
+      "main": 1,
+      "header": true,
+      "footer": true,
+      "forms": 0
+    },
+    {
+      "route": "/ve-nhom",
+      "status": 200,
+      "reloadStatus": 304,
+      "title": "Về nhóm Lăng Kính | Mang Theo Một Nét Vẽ - Lăng Kính",
+      "lang": "vi",
+      "h1": 1,
+      "robots": "noindex, nofollow",
+      "main": 1,
+      "header": true,
+      "footer": true,
+      "forms": 0
+    },
+    {
+      "route": "/dong-hanh",
+      "status": 200,
+      "reloadStatus": 304,
+      "title": "Đồng hành cùng dự án | Mang Theo Một Nét Vẽ - Lăng Kính",
+      "lang": "vi",
+      "h1": 1,
+      "robots": "noindex, nofollow",
+      "main": 1,
+      "header": true,
+      "footer": true,
+      "forms": 0
+    },
+    {
+      "route": "/review-route-does-not-exist",
+      "status": 404,
+      "reloadStatus": 404,
+      "title": "Không tìm thấy trang (404) | Mang Theo Một Nét Vẽ - Lăng Kính",
+      "lang": "vi",
+      "h1": 1,
+      "robots": "noindex, nofollow",
+      "main": 1,
+      "header": true,
+      "footer": true,
+      "forms": 0
+    }
+  ],
+  "responsive": [
+    {
+      "width": 375,
+      "height": 812,
+      "scrollWidth": 375,
+      "scrollHeight": 10496,
+      "grids": [
+        {
+          "sel": ".activities-grid",
+          "columns": "335px"
+        },
+        {
+          "sel": ".products-grid",
+          "columns": "335px"
+        },
+        {
+          "sel": ".stages-grid",
+          "columns": "335px"
+        }
+      ],
+      "contrastFailures": [],
+      "ctaHeight": 0,
+      "toggleHeight": 48,
+      "captionSizes": [
+        "14px",
+        "14px",
+        "14px",
+        "14px",
+        "14px",
+        "14px",
+        "14px",
+        "14px"
+      ]
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "scrollWidth": 768,
+      "scrollHeight": 7634,
+      "grids": [
+        {
+          "sel": ".activities-grid",
+          "columns": "348px 348px"
+        },
+        {
+          "sel": ".products-grid",
+          "columns": "348px 348px"
+        },
+        {
+          "sel": ".stages-grid",
+          "columns": "348px 348px"
+        }
+      ],
+      "contrastFailures": [],
+      "ctaHeight": 0,
+      "toggleHeight": 48,
+      "captionSizes": [
+        "14px",
+        "14px",
+        "14px",
+        "14px",
+        "14px",
+        "14px",
+        "14px",
+        "14px"
+      ]
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "scrollWidth": 1440,
+      "scrollHeight": 5517,
+      "grids": [
+        {
+          "sel": ".activities-grid",
+          "columns": "270px 270px 270px 270px"
+        },
+        {
+          "sel": ".products-grid",
+          "columns": "368px 368px 368px"
+        },
+        {
+          "sel": ".stages-grid",
+          "columns": "270px 270px 270px 270px"
+        }
+      ],
+      "contrastFailures": [],
+      "ctaHeight": 48,
+      "toggleHeight": 0,
+      "captionSizes": [
+        "14px",
+        "14px",
+        "14px",
+        "14px",
+        "14px",
+        "14px",
+        "14px",
+        "14px"
+      ]
+    }
+  ],
+  "menu": {
+    "skipTab": "skip-link",
+    "skipEnter": "main-content",
+    "open": true,
+    "firstTab": {
+      "text": "Trang chủ",
+      "inside": true,
+      "outline": "rgb(23, 78, 166) solid 2px"
+    },
+    "escape": {
+      "hidden": true,
+      "expanded": "false",
+      "focus": "mobile-nav-toggle"
+    },
+    "closedTab": {
+      "inside": false,
+      "href": "/du-an/mang-theo-mot-net-ve"
+    },
+    "link": {
+      "url": "/san-pham",
+      "expanded": "false"
+    },
+    "resize": {
+      "panelVisible": false,
+      "desktopNavVisible": true
+    }
+  },
+  "errors": [],
+  "browser": "Chrome/154.0.8037.58",
+  "nojsFooterRoutes": [
+    "/",
+    "/du-an/mang-theo-mot-net-ve",
+    "/san-pham",
+    "/minh-bach",
+    "/ve-nhom",
+    "/dong-hanh"
+  ],
+  "reducedMotion": "1e-05s",
+  "endedAt": "2026-10-02T03:35:04.987Z",
+  "shaAtEnd": "c27fea2f8d377523b2200a1630756acfe46f54a2"
+}

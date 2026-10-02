@@ -1,5 +1,15 @@
 # Backlog
 
+## Tiếp nhận phiên Orca — 02/10/2026
+
+Trạng thái hiện tại thay phần lịch sử dưới đây: **T01 DONE; R01 PASS** tại final SHA **c27fea2f8d377523b2200a1630756acfe46f54a2**. Baseline **B0 = ef102c8c1908f1dcd843d8d9f6741848dcb43d63**, nhánh `task/t01-home-shell`. Antigravity hiện có ở `net-ve-worker`, handle đã kiểm `term_b8d3b82d-bec3-4a22-b23d-b95f9e9785d9`, đã triển khai và sửa cùng T01; không tạo worker/job/dispatch mới. Codex kiểm diff, source hash, build, routing/menu/responsive/contrast và visual preview thực tế. [R01 cuối](reviews/R01-c27fea2.md), [bàn giao worker](evidence/T01/worker-handoff-c27fea2.md).
+
+Orca 1.4.217 hoạt động; đã tải guide theo executable `orca`. Hai job MCP cũ được nhận diện và vẫn terminal: FAILED / COMPLETED với ACK_BLOCKED; không dispatch MCP lại. Phối hợp qua terminal hiện có, không gọi đây là Orca orchestration dispatch. Receipt chỉ có `input_accepted`; sau đó Codex đọc prompt, ACK và Read/Edit/Bash thực từ worker trace. [Bằng chứng tiếp nhận đã che credential](evidence/T01/resume-2026-10-02.json), [ACK và bàn giao](evidence/T01/worker-ack.md).
+
+Preview đang chạy loopback http://127.0.0.1:4321/, noindex/nofollow. **T02 WAITING_UI_APPROVAL, chưa giao hoặc triển khai**; cần chủ dự án duyệt hướng UI sau R01 PASS. Chưa public deploy. Lỗi reviewer `npm.cmd ci` khi preview giữ compiler đã được ghi đúng exit 1 và worker phục hồi ci/check/build exit 0; không che lỗi bằng claim pass.
+
+## Lịch sử phiên MCP trước khi tiếp nhận
+
 T00 đã hoàn thành phần tài liệu ngày 02/10/2026, với giới hạn khảo sát UI được ghi rõ. T01 đã được gửi qua **Antigravity MCP fallback** theo quyền chủ dự án; hiện **BLOCKED** với ACK_BLOCKED vì worker không có filesystem/shell/browser tools. Không có Git/commit/code/build/preview bàn giao. Không có agent thứ ba; không có hai job T01 chạy đồng thời.
 
 Task triển khai duy nhất: [T01 — khung và trang chủ mẫu](task-specs/T01.md). Commit xuất phát hiện **NONE** vì chưa có Git; Antigravity cần báo baseline B0 thật theo task trước khi code. Giữ nguyên task để giao lại khi có môi trường thực thi workspace; không mở T02.
@@ -9,9 +19,9 @@ Kiểm tra trước gửi 02/10: Antigravity MCP phản hồi model catalog và 
 | ID | Chủ trách nhiệm | Phụ thuộc | Đầu ra và nghiệm thu |
 | --- | --- | --- | --- |
 | T00 | Codex | Không | DONE_WITH_LIMITATIONS: đọc nguồn, khảo sát repo; architecture + UI đề xuất + T01; chưa xác minh UI nguồn hoặc kênh Orca, xem evidence/T00/survey.md |
-| T01 | Antigravity | T00 | BLOCKED: đã gửi MCP và nhận ACK_BLOCKED thiếu công cụ thực thi; chưa B0/code/build/preview |
-| R01 | Codex | T01 | BLOCKED: chưa có commit/diff/preview để review; không chứng nhận UI PASS |
-| T02 | Antigravity | R01 đạt | Trang dự án, nhóm và sản phẩm; dữ liệu có nguồn, giá tham khảo, không giả tồn kho hay thành tích |
+| T01 | Antigravity | T00 | DONE: final c27fea2, B0 ef102c8; trang chủ mẫu + 5 shell + 404, preview và evidence thật |
+| R01 | Codex | T01 | PASS tại c27fea2; vòng a625421 CHANGES_REQUIRED được giữ để truy vết |
+| T02 | Antigravity | R01 PASS + chủ dự án duyệt hướng UI | WAITING_UI_APPROVAL, chưa giao: trang dự án, nhóm và sản phẩm; dữ liệu có nguồn, giá tham khảo, không giả tồn kho hay thành tích |
 | R02 | Codex | T02 | Review routing, dữ liệu, nội dung, responsive |
 | T03 | Antigravity | R02 đạt | Minh bạch và đồng hành; phép tính đúng; trường hợp thiếu dữ liệu rõ; chỉ dùng liên hệ thật |
 | R03 | Codex | T03 | Review tách tiền/hiện vật, kế hoạch/thực tế, hành động và quyền công bố |
@@ -36,4 +46,4 @@ Không gộp toàn bộ website thành một task. Khi review yêu cầu sửa, 
 
 ## Review kế tiếp
 
-R01 **BLOCKED**, không có commit ứng dụng để review. Sau khi nhận B0 và SHA bàn giao, Codex đọc diff và preview thực tế; PASS chỉ khi đủ bằng chứng code/UI/hành vi/nội dung. Nếu không xem được preview, ghi BLOCKED ở phạm vi chưa kiểm chứng. Không chứng nhận UI giống ShareTheMeal khi chưa có bằng chứng nguồn. Sau PASS, chủ dự án duyệt hướng UI mới mở T02.
+R01 vòng đầu **CHANGES_REQUIRED** tại `a62542196676b61fd83618f18ccf6891821f9788`; [review vòng đầu](reviews/R01-a625421.md) được giữ nguyên. Antigravity sửa qua `191adc8` và bàn giao `c27fea2`; [R01 cuối PASS](reviews/R01-c27fea2.md). Chờ chủ dự án duyệt hướng UI trước T02. Không chứng nhận UI giống hệt ShareTheMeal; khảo sát nguồn có redirect và giới hạn đã ghi. R01 PASS chỉ nghiệm thu mẫu T01, không phải duyệt public hoặc xác nhận dữ liệu thực tế.

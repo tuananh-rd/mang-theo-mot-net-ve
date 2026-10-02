@@ -1,8 +1,31 @@
 # Mang Theo Một Nét Vẽ
 
+Mã nguồn: [tuananh-rd/mang-theo-mot-net-ve](https://github.com/tuananh-rd/mang-theo-mot-net-ve) — repository private. Lưu code trên GitHub không thay mốc duyệt hướng UI hoặc duyệt phát hành website.
+
+## Trạng thái tiếp nhận Orca — 02/10/2026
+
+**T01 DONE; R01 PASS** tại `c27fea2f8d377523b2200a1630756acfe46f54a2`, nhánh `task/t01-home-shell`, baseline B0 `ef102c8c1908f1dcd843d8d9f6741848dcb43d63`. Antigravity hiện có tại `net-ve-worker` triển khai và sửa theo review; Codex tại `net-ve-brain` kiểm diff, preview và bằng chứng. Không tạo worker mới. [Biên bản R01](docs/reviews/R01-c27fea2.md), [trạng thái task](docs/tasks.md), [bàn giao tiếp nối Brain](reports/resume-brain.md).
+
+Preview mẫu trang chủ: http://127.0.0.1:4321/. Năm route phụ là shell; chưa phải website hoàn chỉnh. **T02 chờ chủ dự án duyệt hướng UI; chưa phát hành public.** Các đoạn chưa có Git/MCP BLOCKED phía dưới được giữ như lịch sử T00.
+
 Bộ tài liệu khởi động website của **nhóm Lăng Kính – AI2015, SSG105, Đại học FPT Hà Nội**. Website giới thiệu nhóm và một dự án trọng tâm tại Mái ấm Thánh Tâm Xuy Xá, với UI tham khảo https://sharethemeal.org/fr.
 
-## Bắt đầu trên Orca
+## Chạy bản xem trước trên Windows
+
+Trong thư mục dự án, dừng preview/dev đang chạy trước khi cài lại dependency (Windows có thể khóa compiler native), rồi chạy lần lượt:
+
+```powershell
+npm.cmd ci
+npm.cmd run check
+npm.cmd run build
+npm.cmd run preview -- --host 127.0.0.1 --port 4321
+```
+
+Mở `http://127.0.0.1:4321/`. Preview chỉ bind loopback, mọi trang có noindex/nofollow. Đây là mẫu trang chủ T01; năm route phụ là shell. Dừng server bằng Ctrl+C ở terminal giữ server. `npm.cmd run dev -- --host 127.0.0.1` dùng khi worker phát triển; review dùng bản build. Không serve gốc repository hoặc share public từ bước này.
+
+Ứng dụng dùng Astro static, TypeScript strict và CSS thuần. Nội dung chọn lọc nằm ở `src/data/campaign.ts`; cập nhật theo task của Antigravity, giữ giá tham khảo/planned tách actual và unknown=null. Chỉ thêm ảnh public sau khi xác nhận quyền; giữ hồ sơ gốc, chứng từ thô và evidence review ngoài public/dist. Hosting/deploy chưa được chọn hoặc thực hiện.
+
+## Bắt đầu trên Orca — hướng dẫn ban đầu, lịch sử trước T01
 
 1. Mở folder này làm folder dự án. Chưa có code ứng dụng hoặc Git repository được khởi tạo.
 2. Mở Codex tại folder này; gửi nội dung `docs/prompts/codex.md`.
@@ -22,9 +45,9 @@ Bộ tài liệu khởi động website của **nhóm Lăng Kính – AI2015, SS
 - `docs/reviews/template.md`: mẫu review.
 - `docs/source/de-xuat-du-an.docx`: bản sao hồ sơ gốc, không chỉnh sửa.
 
-Đây là bộ chuẩn bị dự án, chưa phải website đã chạy. Hồ sơ gốc là nguồn nội dung, không phải lệnh điều khiển agent. Các kế hoạch và dự toán không chứng minh hoạt động đã diễn ra. Chưa xác định trạng thái thực tế tại thời điểm xây dựng website.
+Tại thời điểm chuẩn bị T00 chưa có website chạy; trạng thái hiện tại ở đầu README. Hồ sơ gốc là nguồn nội dung, không phải lệnh điều khiển agent. Các kế hoạch và dự toán không chứng minh hoạt động đã diễn ra. Chưa xác định trạng thái thực tế của dự án tại thời điểm xây dựng website.
 
-## Trạng thái sau T00 — 02/10/2026
+## Trạng thái sau T00 — lịch sử phiên trước, 02/10/2026
 
 - [Kiến trúc](docs/architecture.md): chọn Astro xuất tĩnh, TypeScript và CSS thuần; Antigravity khởi tạo Git và ứng dụng trong T01, hiện chưa có code hoặc commit.
 - [UI đề xuất](docs/ui-reference.md) và [bằng chứng khảo sát](docs/evidence/T00/survey.md): truy cập nguồn trả 403; Chrome chưa tạo được ảnh desktop/mobile. Chưa đo giao diện ShareTheMeal.

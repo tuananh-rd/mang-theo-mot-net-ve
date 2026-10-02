@@ -1,0 +1,97 @@
+{
+  "sha": "c27fea2f8d377523b2200a1630756acfe46f54a2",
+  "shaAtEnd": "c27fea2f8d377523b2200a1630756acfe46f54a2",
+  "browser": "Chrome/154.0.8037.58",
+  "startedAt": "2026-10-02T03:34:33.485Z",
+  "endedAt": "2026-10-02T03:35:04.987Z",
+  "deviceScaleFactor": 1,
+  "defaultVisualScale": 1,
+  "fullPageViewports": [
+    {
+      "width": 375,
+      "height": 812
+    },
+    {
+      "width": 768,
+      "height": 1024
+    },
+    {
+      "width": 1440,
+      "height": 1000
+    }
+  ],
+  "reviewer": "Codex",
+  "files": [
+    {
+      "name": "reviewer-c27fea2-1440-full.png",
+      "width": 1440,
+      "height": 5517,
+      "bytes": 500604,
+      "sha256": "9b704fe4baaae495e6170967113fb59df2a68abf698a8de695e69879d674aefa"
+    },
+    {
+      "name": "reviewer-c27fea2-1440-viewport.png",
+      "width": 1440,
+      "height": 1000,
+      "bytes": 115809,
+      "sha256": "422b5aa73b844660337b2031113a562c426d60879ffcd6ad3b9ed8adae214e09"
+    },
+    {
+      "name": "reviewer-c27fea2-375-footer.png",
+      "width": 375,
+      "height": 812,
+      "bytes": 32055,
+      "sha256": "9fc481e1f0e0ce8f5f4ffc0442eef3aa993d2a4ec79d736c5ab533b4f6ba6cc0"
+    },
+    {
+      "name": "reviewer-c27fea2-375-full.png",
+      "width": 375,
+      "height": 10496,
+      "bytes": 487132,
+      "sha256": "e44bf12a63178d8dca6906ec1f16eced46f1f6eb2e9804f95abf87e84c46c7f7"
+    },
+    {
+      "name": "reviewer-c27fea2-375-menu-open.png",
+      "width": 375,
+      "height": 812,
+      "bytes": 36537,
+      "sha256": "29565015ffe3986c6bf5c3cee50c6275a35d9e0d0339a51ecd6775f893841071"
+    },
+    {
+      "name": "reviewer-c27fea2-375-products.png",
+      "width": 375,
+      "height": 812,
+      "bytes": 37734,
+      "sha256": "8cdad56f8d030f2f369242ea0b0a1feb2ecb3bab5012c510e012c0309b8d824f"
+    },
+    {
+      "name": "reviewer-c27fea2-375-transparency.png",
+      "width": 375,
+      "height": 812,
+      "bytes": 36284,
+      "sha256": "ff2f700b0b5f80e0f36e28e4f86a779c204fd22f9aae32e9679ca9350392a1a1"
+    },
+    {
+      "name": "reviewer-c27fea2-375-viewport.png",
+      "width": 375,
+      "height": 812,
+      "bytes": 52059,
+      "sha256": "8b5418afdcb4932635a7b3b81f1ca3f7fa03afb5522dcfb800271ffb311d6976"
+    },
+    {
+      "name": "reviewer-c27fea2-768-full.png",
+      "width": 768,
+      "height": 7634,
+      "bytes": 514517,
+      "sha256": "5c2954f556b9808f519355b65d69fb677ad900af8adba8d80b1798bc02cdc114"
+    },
+    {
+      "name": "reviewer-c27fea2-768-viewport.png",
+      "width": 768,
+      "height": 1024,
+      "bytes": 83283,
+      "sha256": "701cbc2429c2e1e73ce30580588218989604fa413777cd0badca7fbf0890d126"
+    }
+  ],
+  "visualReview": "Viewed all three full-page images, mobile menu, desktop/mobile viewport and mobile crops. Actual app screenshots; no generated imagery."
+}

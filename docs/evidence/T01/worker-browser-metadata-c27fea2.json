@@ -1,0 +1,42 @@
+{
+  "browserVersion": "Chrome/154.0.8037.58",
+  "timestamp": "2026-10-02T03:34:40.662Z",
+  "zoom": "100%",
+  "desktop": {
+    "width": 1440,
+    "height": 5517,
+    "sizeBytes": 500604
+  },
+  "tablet": {
+    "width": 768,
+    "height": 7634,
+    "sizeBytes": 514517
+  },
+  "mobile": {
+    "width": 375,
+    "height": 10496,
+    "sizeBytes": 487132
+  },
+  "mobileMenuOpen": {
+    "width": 375,
+    "height": 812,
+    "sizeBytes": 36537
+  },
+  "desktopCtaMetrics": {
+    "width": 130.71875,
+    "height": 48,
+    "minHeight": "48px",
+    "display": "flex"
+  },
+  "mobileToggleMetrics": {
+    "width": 88.5625,
+    "height": 48,
+    "minHeight": "48px"
+  },
+  "fontMetrics": {
+    "cardNoteFontSize": "14px",
+    "notesInfoFontSize": "14px",
+    "captionFontSize": "14px",
+    "smallFontSize": "14px"
+  }
+}

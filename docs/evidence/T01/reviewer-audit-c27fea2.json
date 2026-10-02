@@ -1,0 +1,79 @@
+{
+  "sha": "c27fea2f8d377523b2200a1630756acfe46f54a2",
+  "checkedAt": "2026-10-02T03:43:16.484Z",
+  "files": [
+    {
+      "path": "dist\\404.html",
+      "bytes": 8638,
+      "sha256": "1dfd91f53028f0dee27102755eb6652b2bd5229107ab76969cbeac40e6968452"
+    },
+    {
+      "path": "dist\\dong-hanh\\index.html",
+      "bytes": 9233,
+      "sha256": "f0ef8e0316a0d9aed0c6d2f015a940cf445346dd56cb1f38f12ccad452bf1f81"
+    },
+    {
+      "path": "dist\\du-an\\mang-theo-mot-net-ve\\index.html",
+      "bytes": 9268,
+      "sha256": "70f1766aed2812c75aeef5f0f6f58451af376478d48f4ac7481b075b1e92de2b"
+    },
+    {
+      "path": "dist\\index.html",
+      "bytes": 36913,
+      "sha256": "6a6fb8364b7190b6e71b8e55f16490c8476457f4b2ecf2aae2c0342172dea2fb"
+    },
+    {
+      "path": "dist\\minh-bach\\index.html",
+      "bytes": 9258,
+      "sha256": "05501c2d7cf7c34484c37534c7e8df5621b322222f09275726ed0bdb2cba281f"
+    },
+    {
+      "path": "dist\\san-pham\\index.html",
+      "bytes": 9337,
+      "sha256": "8bb79a3a4e79abc91c6cc8925611d70c590dc117f9ecb42cd09de12a4238dd41"
+    },
+    {
+      "path": "dist\\ve-nhom\\index.html",
+      "bytes": 9251,
+      "sha256": "b511e7d5b41b1fb1bc7c261038844ad3087be127e047b597f98f5dd76c51bc60"
+    },
+    {
+      "path": "dist\\_astro\\index.uv0fSIQn.css",
+      "bytes": 9992,
+      "sha256": "37afc6fc37e5a78153746b94df51467bf7a57c85c0b2402ad71b59ca38bb22b1"
+    },
+    {
+      "path": "dist\\_astro\\Layout.DjIVqJ7z.css",
+      "bytes": 10411,
+      "sha256": "82bce0b98354e6e401b8f253291f1624db96c939205ec28486bf7f73bc915fed"
+    }
+  ],
+  "matches": [],
+  "rawSourceHash": "83c038c04ad7cff87f616c98529a1df788a2467451b83d95e890bfba0f4307d5",
+  "rawSourceTracked": "",
+  "appWorkingDiff": "",
+  "diffNames": [
+    "astro.config.mjs",
+    "package-lock.json",
+    "package.json",
+    "src/components/ActivityCard.astro",
+    "src/components/Footer.astro",
+    "src/components/Header.astro",
+    "src/components/Hero.astro",
+    "src/components/PlaceholderIllustration.astro",
+    "src/components/ProductCard.astro",
+    "src/components/StageCard.astro",
+    "src/data/campaign.ts",
+    "src/layouts/Layout.astro",
+    "src/pages/404.astro",
+    "src/pages/dong-hanh.astro",
+    "src/pages/du-an/mang-theo-mot-net-ve.astro",
+    "src/pages/index.astro",
+    "src/pages/minh-bach.astro",
+    "src/pages/san-pham.astro",
+    "src/pages/ve-nhom.astro",
+    "src/styles/global.css",
+    "src/styles/tokens.css",
+    "tsconfig.json"
+  ]
+}

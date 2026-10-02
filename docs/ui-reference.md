@@ -1,5 +1,9 @@
 # Đặc tả tham khảo UI
 
+## Bổ sung tại phiên tiếp nhận Orca — 02/10/2026
+
+Browser Orca đã quan sát được nguồn sau redirect `/fr` → `/en-us`, chụp và xem viewport desktop 1440×1000, mobile 375×812; H1 computed Open Sans 48/54 px desktop và 32/40 px mobile. [Khảo sát và giới hạn mới](evidence/T00/source-orca-survey.md). Ảnh ghép toàn trang có lỗi lặp, không dùng làm bằng chứng toàn trang. Chưa xác minh bản tiếng Pháp hoặc mọi phần nguồn. Giữ nguyên **đặc tả đề xuất T01** phía dưới trong khi worker đang triển khai; không chuyển các tokens đề xuất thành số đo nguồn. Các ghi nhận chưa truy cập được trong mục T00 phía dưới là lịch sử phiên trước.
+
 Nguồn: https://sharethemeal.org/fr. Người dùng yêu cầu UI giống trang này.
 
 ## Bằng chứng T00 — 02/10/2026

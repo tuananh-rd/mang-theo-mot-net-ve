@@ -1,0 +1,696 @@
+{
+  "sha": "a62542196676b61fd83618f18ccf6891821f9788",
+  "startedAt": "2026-10-02T03:17:19.253Z",
+  "routes": [
+    {
+      "route": "/",
+      "status": 200,
+      "reloadStatus": 304,
+      "title": "Trang chủ | Mang Theo Một Nét Vẽ - Lăng Kính",
+      "lang": "vi",
+      "h1": 1,
+      "robots": "noindex, nofollow",
+      "main": 1,
+      "header": true,
+      "footer": true,
+      "forms": 0
+    },
+    {
+      "route": "/du-an/mang-theo-mot-net-ve",
+      "status": 200,
+      "reloadStatus": 304,
+      "title": "Dự án Mang Theo Một Nét Vẽ | Mang Theo Một Nét Vẽ - Lăng Kính",
+      "lang": "vi",
+      "h1": 1,
+      "robots": "noindex, nofollow",
+      "main": 1,
+      "header": true,
+      "footer": true,
+      "forms": 0
+    },
+    {
+      "route": "/san-pham",
+      "status": 200,
+      "reloadStatus": 304,
+      "title": "Sản phẩm gây quỹ | Mang Theo Một Nét Vẽ - Lăng Kính",
+      "lang": "vi",
+      "h1": 1,
+      "robots": "noindex, nofollow",
+      "main": 1,
+      "header": true,
+      "footer": true,
+      "forms": 0
+    },
+    {
+      "route": "/minh-bach",
+      "status": 200,
+      "reloadStatus": 304,
+      "title": "Minh bạch thu chi | Mang Theo Một Nét Vẽ - Lăng Kính",
+      "lang": "vi",
+      "h1": 1,
+      "robots": "noindex, nofollow",
+      "main": 1,
+      "header": true,
+      "footer": true,
+      "forms": 0
+    },
+    {
+      "route": "/ve-nhom",
+      "status": 200,
+      "reloadStatus": 304,
+      "title": "Về nhóm Lăng Kính | Mang Theo Một Nét Vẽ - Lăng Kính",
+      "lang": "vi",
+      "h1": 1,
+      "robots": "noindex, nofollow",
+      "main": 1,
+      "header": true,
+      "footer": true,
+      "forms": 0
+    },
+    {
+      "route": "/dong-hanh",
+      "status": 200,
+      "reloadStatus": 304,
+      "title": "Đồng hành cùng dự án | Mang Theo Một Nét Vẽ - Lăng Kính",
+      "lang": "vi",
+      "h1": 1,
+      "robots": "noindex, nofollow",
+      "main": 1,
+      "header": true,
+      "footer": true,
+      "forms": 0
+    },
+    {
+      "route": "/review-route-does-not-exist",
+      "status": 404,
+      "reloadStatus": 404,
+      "title": "Không tìm thấy trang (404) | Mang Theo Một Nét Vẽ - Lăng Kính",
+      "lang": "vi",
+      "h1": 1,
+      "robots": "noindex, nofollow",
+      "main": 1,
+      "header": true,
+      "footer": true,
+      "forms": 0
+    }
+  ],
+  "responsive": [
+    {
+      "width": 375,
+      "height": 812,
+      "scrollWidth": 375,
+      "scrollHeight": 10389,
+      "grids": [
+        {
+          "sel": ".activities-grid",
+          "columns": "335px"
+        },
+        {
+          "sel": ".products-grid",
+          "columns": "335px"
+        },
+        {
+          "sel": ".stages-grid",
+          "columns": "335px"
+        }
+      ],
+      "contrastFailures": [
+        {
+          "tag": "SMALL",
+          "text": "Người tham gia có quyền lựa chọn làm, quan sát hoặc nghỉ ngơi.",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,255,255]",
+          "size": 10.8333,
+          "ratio": 3.661468576145535,
+          "threshold": 4.5
+        },
+        {
+          "tag": "SMALL",
+          "text": "Hoạt động vui chơi trải nghiệm, không phải hàng hoá gây quỹ.",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,255,255]",
+          "size": 10.8333,
+          "ratio": 3.661468576145535,
+          "threshold": 4.5
+        },
+        {
+          "tag": "SMALL",
+          "text": "Tạo không khí ấm áp, vui tươi và không áp lực biểu diễn.",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,255,255]",
+          "size": 10.8333,
+          "ratio": 3.661468576145535,
+          "threshold": 4.5
+        },
+        {
+          "tag": "SMALL",
+          "text": "Mỗi em nhỏ tự quyết định mức độ tham gia phù hợp thể trạng.",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,255,255]",
+          "size": 10.8333,
+          "ratio": 3.661468576145535,
+          "threshold": 4.5
+        },
+        {
+          "tag": "SPAN",
+          "text": "Giá tham khảo trong đề xuất:",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,253,245]",
+          "size": 13,
+          "ratio": 3.5953226338091886,
+          "threshold": 4.5
+        },
+        {
+          "tag": "SMALL",
+          "text": "Giá tham khảo trong đề xuất. Trong 40 phôi chuẩn bị, 10 chiếc để lại Mái ấm.",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,255,255]",
+          "size": 10.8333,
+          "ratio": 3.661468576145535,
+          "threshold": 4.5
+        },
+        {
+          "tag": "SPAN",
+          "text": "Giá tham khảo trong đề xuất:",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,253,245]",
+          "size": 13,
+          "ratio": 3.5953226338091886,
+          "threshold": 4.5
+        },
+        {
+          "tag": "SMALL",
+          "text": "Giá tham khảo trong đề xuất. Nhóm tự chuẩn bị và hoàn thiện mẫu.",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,255,255]",
+          "size": 10.8333,
+          "ratio": 3.661468576145535,
+          "threshold": 4.5
+        },
+        {
+          "tag": "SPAN",
+          "text": "Giá tham khảo trong đề xuất:",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,253,245]",
+          "size": 13,
+          "ratio": 3.5953226338091886,
+          "threshold": 4.5
+        },
+        {
+          "tag": "SMALL",
+          "text": "Giá tham khảo trong đề xuất. Sản xuất số lượng nhỏ theo đơn, mẫu chưa chốt.",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,255,255]",
+          "size": 10.8333,
+          "ratio": 3.661468576145535,
+          "threshold": 4.5
+        },
+        {
+          "tag": "P",
+          "text": "Hiện tại sản phẩm chưa mở bán chính thức. Mọi thông tin giá là số liệu tham khảo",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,248,232]",
+          "size": 14,
+          "ratio": 3.4599482711096092,
+          "threshold": 4.5
+        },
+        {
+          "tag": "P",
+          "text": "Toàn bộ hóa đơn, chứng từ mua sắm và biên bản bàn giao sẽ được biên tập, che thô",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,255,255]",
+          "size": 14,
+          "ratio": 3.661468576145535,
+          "threshold": 4.5
+        },
+        {
+          "tag": "SMALL",
+          "text": "Danh mục nhu cầu đang được đối chiếu xác nhận",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,255,255]",
+          "size": 10.8333,
+          "ratio": 3.661468576145535,
+          "threshold": 4.5
+        },
+        {
+          "tag": "SMALL",
+          "text": "Chưa mở bán chính thức, chưa nhận đặt cọc",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,255,255]",
+          "size": 10.8333,
+          "ratio": 3.661468576145535,
+          "threshold": 4.5
+        },
+        {
+          "tag": "SMALL",
+          "text": "Trong phạm vi nội dung đã được nhóm phê duyệt",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,255,255]",
+          "size": 10.8333,
+          "ratio": 3.661468576145535,
+          "threshold": 4.5
+        },
+        {
+          "tag": "P",
+          "text": "Lưu ý: Kênh tiếp nhận và thông tin liên hệ chính thức đang được nhóm cập nhật và",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,248,232]",
+          "size": 14,
+          "ratio": 3.4599482711096092,
+          "threshold": 4.5
+        },
+        {
+          "tag": "EM",
+          "text": "Lưu ý:",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,248,232]",
+          "size": 14,
+          "ratio": 3.4599482711096092,
+          "threshold": 4.5
+        },
+        {
+          "tag": "P",
+          "text": "Bản xem trước phục vụ thử nghiệm giao diện — Chưa triển khai phát hành chính thứ",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,248,232]",
+          "size": 13,
+          "ratio": 3.4599482711096092,
+          "threshold": 4.5
+        }
+      ],
+      "ctaHeight": 0,
+      "toggleHeight": 34
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "scrollWidth": 768,
+      "scrollHeight": 7594,
+      "grids": [
+        {
+          "sel": ".activities-grid",
+          "columns": "348px 348px"
+        },
+        {
+          "sel": ".products-grid",
+          "columns": "348px 348px"
+        },
+        {
+          "sel": ".stages-grid",
+          "columns": "348px 348px"
+        }
+      ],
+      "contrastFailures": [
+        {
+          "tag": "SMALL",
+          "text": "Người tham gia có quyền lựa chọn làm, quan sát hoặc nghỉ ngơi.",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,255,255]",
+          "size": 10.8333,
+          "ratio": 3.661468576145535,
+          "threshold": 4.5
+        },
+        {
+          "tag": "SMALL",
+          "text": "Hoạt động vui chơi trải nghiệm, không phải hàng hoá gây quỹ.",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,255,255]",
+          "size": 10.8333,
+          "ratio": 3.661468576145535,
+          "threshold": 4.5
+        },
+        {
+          "tag": "SMALL",
+          "text": "Tạo không khí ấm áp, vui tươi và không áp lực biểu diễn.",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,255,255]",
+          "size": 10.8333,
+          "ratio": 3.661468576145535,
+          "threshold": 4.5
+        },
+        {
+          "tag": "SMALL",
+          "text": "Mỗi em nhỏ tự quyết định mức độ tham gia phù hợp thể trạng.",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,255,255]",
+          "size": 10.8333,
+          "ratio": 3.661468576145535,
+          "threshold": 4.5
+        },
+        {
+          "tag": "SPAN",
+          "text": "Giá tham khảo trong đề xuất:",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,253,245]",
+          "size": 13,
+          "ratio": 3.5953226338091886,
+          "threshold": 4.5
+        },
+        {
+          "tag": "SMALL",
+          "text": "Giá tham khảo trong đề xuất. Trong 40 phôi chuẩn bị, 10 chiếc để lại Mái ấm.",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,255,255]",
+          "size": 10.8333,
+          "ratio": 3.661468576145535,
+          "threshold": 4.5
+        },
+        {
+          "tag": "SPAN",
+          "text": "Giá tham khảo trong đề xuất:",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,253,245]",
+          "size": 13,
+          "ratio": 3.5953226338091886,
+          "threshold": 4.5
+        },
+        {
+          "tag": "SMALL",
+          "text": "Giá tham khảo trong đề xuất. Nhóm tự chuẩn bị và hoàn thiện mẫu.",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,255,255]",
+          "size": 10.8333,
+          "ratio": 3.661468576145535,
+          "threshold": 4.5
+        },
+        {
+          "tag": "SPAN",
+          "text": "Giá tham khảo trong đề xuất:",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,253,245]",
+          "size": 13,
+          "ratio": 3.5953226338091886,
+          "threshold": 4.5
+        },
+        {
+          "tag": "SMALL",
+          "text": "Giá tham khảo trong đề xuất. Sản xuất số lượng nhỏ theo đơn, mẫu chưa chốt.",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,255,255]",
+          "size": 10.8333,
+          "ratio": 3.661468576145535,
+          "threshold": 4.5
+        },
+        {
+          "tag": "P",
+          "text": "Hiện tại sản phẩm chưa mở bán chính thức. Mọi thông tin giá là số liệu tham khảo",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,248,232]",
+          "size": 14,
+          "ratio": 3.4599482711096092,
+          "threshold": 4.5
+        },
+        {
+          "tag": "P",
+          "text": "Toàn bộ hóa đơn, chứng từ mua sắm và biên bản bàn giao sẽ được biên tập, che thô",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,255,255]",
+          "size": 14,
+          "ratio": 3.661468576145535,
+          "threshold": 4.5
+        },
+        {
+          "tag": "SMALL",
+          "text": "Danh mục nhu cầu đang được đối chiếu xác nhận",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,255,255]",
+          "size": 10.8333,
+          "ratio": 3.661468576145535,
+          "threshold": 4.5
+        },
+        {
+          "tag": "SMALL",
+          "text": "Chưa mở bán chính thức, chưa nhận đặt cọc",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,255,255]",
+          "size": 10.8333,
+          "ratio": 3.661468576145535,
+          "threshold": 4.5
+        },
+        {
+          "tag": "SMALL",
+          "text": "Trong phạm vi nội dung đã được nhóm phê duyệt",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,255,255]",
+          "size": 10.8333,
+          "ratio": 3.661468576145535,
+          "threshold": 4.5
+        },
+        {
+          "tag": "P",
+          "text": "Lưu ý: Kênh tiếp nhận và thông tin liên hệ chính thức đang được nhóm cập nhật và",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,248,232]",
+          "size": 14,
+          "ratio": 3.4599482711096092,
+          "threshold": 4.5
+        },
+        {
+          "tag": "EM",
+          "text": "Lưu ý:",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,248,232]",
+          "size": 14,
+          "ratio": 3.4599482711096092,
+          "threshold": 4.5
+        },
+        {
+          "tag": "P",
+          "text": "Bản xem trước phục vụ thử nghiệm giao diện — Chưa triển khai phát hành chính thứ",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,248,232]",
+          "size": 13,
+          "ratio": 3.4599482711096092,
+          "threshold": 4.5
+        }
+      ],
+      "ctaHeight": 0,
+      "toggleHeight": 34
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "scrollWidth": 1440,
+      "scrollHeight": 5472,
+      "grids": [
+        {
+          "sel": ".activities-grid",
+          "columns": "270px 270px 270px 270px"
+        },
+        {
+          "sel": ".products-grid",
+          "columns": "368px 368px 368px"
+        },
+        {
+          "sel": ".stages-grid",
+          "columns": "270px 270px 270px 270px"
+        }
+      ],
+      "contrastFailures": [
+        {
+          "tag": "SMALL",
+          "text": "Người tham gia có quyền lựa chọn làm, quan sát hoặc nghỉ ngơi.",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,255,255]",
+          "size": 10.8333,
+          "ratio": 3.661468576145535,
+          "threshold": 4.5
+        },
+        {
+          "tag": "SMALL",
+          "text": "Hoạt động vui chơi trải nghiệm, không phải hàng hoá gây quỹ.",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,255,255]",
+          "size": 10.8333,
+          "ratio": 3.661468576145535,
+          "threshold": 4.5
+        },
+        {
+          "tag": "SMALL",
+          "text": "Tạo không khí ấm áp, vui tươi và không áp lực biểu diễn.",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,255,255]",
+          "size": 10.8333,
+          "ratio": 3.661468576145535,
+          "threshold": 4.5
+        },
+        {
+          "tag": "SMALL",
+          "text": "Mỗi em nhỏ tự quyết định mức độ tham gia phù hợp thể trạng.",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,255,255]",
+          "size": 10.8333,
+          "ratio": 3.661468576145535,
+          "threshold": 4.5
+        },
+        {
+          "tag": "SPAN",
+          "text": "Giá tham khảo trong đề xuất:",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,253,245]",
+          "size": 13,
+          "ratio": 3.5953226338091886,
+          "threshold": 4.5
+        },
+        {
+          "tag": "SMALL",
+          "text": "Giá tham khảo trong đề xuất. Trong 40 phôi chuẩn bị, 10 chiếc để lại Mái ấm.",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,255,255]",
+          "size": 10.8333,
+          "ratio": 3.661468576145535,
+          "threshold": 4.5
+        },
+        {
+          "tag": "SPAN",
+          "text": "Giá tham khảo trong đề xuất:",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,253,245]",
+          "size": 13,
+          "ratio": 3.5953226338091886,
+          "threshold": 4.5
+        },
+        {
+          "tag": "SMALL",
+          "text": "Giá tham khảo trong đề xuất. Nhóm tự chuẩn bị và hoàn thiện mẫu.",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,255,255]",
+          "size": 10.8333,
+          "ratio": 3.661468576145535,
+          "threshold": 4.5
+        },
+        {
+          "tag": "SPAN",
+          "text": "Giá tham khảo trong đề xuất:",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,253,245]",
+          "size": 13,
+          "ratio": 3.5953226338091886,
+          "threshold": 4.5
+        },
+        {
+          "tag": "SMALL",
+          "text": "Giá tham khảo trong đề xuất. Sản xuất số lượng nhỏ theo đơn, mẫu chưa chốt.",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,255,255]",
+          "size": 10.8333,
+          "ratio": 3.661468576145535,
+          "threshold": 4.5
+        },
+        {
+          "tag": "P",
+          "text": "Hiện tại sản phẩm chưa mở bán chính thức. Mọi thông tin giá là số liệu tham khảo",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,248,232]",
+          "size": 14,
+          "ratio": 3.4599482711096092,
+          "threshold": 4.5
+        },
+        {
+          "tag": "P",
+          "text": "Toàn bộ hóa đơn, chứng từ mua sắm và biên bản bàn giao sẽ được biên tập, che thô",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,255,255]",
+          "size": 14,
+          "ratio": 3.661468576145535,
+          "threshold": 4.5
+        },
+        {
+          "tag": "SMALL",
+          "text": "Danh mục nhu cầu đang được đối chiếu xác nhận",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,255,255]",
+          "size": 10.8333,
+          "ratio": 3.661468576145535,
+          "threshold": 4.5
+        },
+        {
+          "tag": "SMALL",
+          "text": "Chưa mở bán chính thức, chưa nhận đặt cọc",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,255,255]",
+          "size": 10.8333,
+          "ratio": 3.661468576145535,
+          "threshold": 4.5
+        },
+        {
+          "tag": "SMALL",
+          "text": "Trong phạm vi nội dung đã được nhóm phê duyệt",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,255,255]",
+          "size": 10.8333,
+          "ratio": 3.661468576145535,
+          "threshold": 4.5
+        },
+        {
+          "tag": "P",
+          "text": "Lưu ý: Kênh tiếp nhận và thông tin liên hệ chính thức đang được nhóm cập nhật và",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,248,232]",
+          "size": 14,
+          "ratio": 3.4599482711096092,
+          "threshold": 4.5
+        },
+        {
+          "tag": "EM",
+          "text": "Lưu ý:",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,248,232]",
+          "size": 14,
+          "ratio": 3.4599482711096092,
+          "threshold": 4.5
+        },
+        {
+          "tag": "P",
+          "text": "Bản xem trước phục vụ thử nghiệm giao diện — Chưa triển khai phát hành chính thứ",
+          "color": "rgb(123, 135, 148)",
+          "bg": "[255,248,232]",
+          "size": 13,
+          "ratio": 3.4599482711096092,
+          "threshold": 4.5
+        }
+      ],
+      "ctaHeight": 43.59375,
+      "toggleHeight": 0
+    }
+  ],
+  "menu": {
+    "skipTab": "skip-link",
+    "skipEnter": "main-content",
+    "open": true,
+    "firstTab": {
+      "text": "Trang chủ",
+      "inside": true
+    },
+    "escape": {
+      "hidden": true,
+      "expanded": "false",
+      "focus": "mobile-nav-toggle"
+    },
+    "closedTab": {
+      "inside": false,
+      "href": "/du-an/mang-theo-mot-net-ve"
+    },
+    "link": {
+      "url": "/san-pham",
+      "expanded": "false"
+    },
+    "resize": {
+      "panelVisible": true,
+      "desktopNavVisible": true
+    }
+  },
+  "errors": [],
+  "browser": "Chrome/154.0.8037.58",
+  "nojsFooterRoutes": [
+    "/",
+    "/du-an/mang-theo-mot-net-ve",
+    "/san-pham",
+    "/minh-bach",
+    "/ve-nhom",
+    "/dong-hanh"
+  ],
+  "reducedMotion": "1e-05s",
+  "endedAt": "2026-10-02T03:17:47.458Z",
+  "shaAtEnd": "a62542196676b61fd83618f18ccf6891821f9788"
+}

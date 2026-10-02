@@ -1,0 +1,41 @@
+{
+  "taskId": "T01",
+  "sha": "c27fea2f8d377523b2200a1630756acfe46f54a2",
+  "reviewer": "Codex",
+  "independentCleanInstall": {
+    "chunk_id": "a04171",
+    "wall_time_seconds": 2.5067073,
+    "exit_code": 1,
+    "original_token_count": 320,
+    "output": "npm error code EPERM\nnpm error syscall unlink\nnpm error path C:\\Users\\tuana\\Documents\\Codex\\2026-10-02\\t\\outputs\\mang-theo-mot-net-ve\\node_modules\\@astrojs\\compiler-binding-win32-x64-msvc\\astro.win32-x64-msvc.node\nnpm error errno -4048\nnpm error [Error: EPERM: operation not permitted, unlink 'C:\\Users\\tuana\\Documents\\Codex\\2026-10-02\\t\\outputs\\mang-theo-mot-net-ve\\node_modules\\@astrojs\\compiler-binding-win32-x64-msvc\\astro.win32-x64-msvc.node'] {\nnpm error   errno: -4048,\nnpm error   code: 'EPERM',\nnpm error   syscall: 'unlink',\nnpm error   path: 'C:\\\\Users\\\\tuana\\\\Documents\\\\Codex\\\\2026-10-02\\\\t\\\\outputs\\\\mang-theo-mot-net-ve\\\\node_modules\\\\@astrojs\\\\compiler-binding-win32-x64-msvc\\\\astro.win32-x64-msvc.node'\nnpm error }\nnpm error\nnpm error The operation was rejected by your operating system.\nnpm error It's possible that the file was already in use (by a text editor or antivirus), or that you lack permissions to access it.\nnpm error\nnpm error If you believe this might be a permissions issue, please double-check the permissions of the file and its containing directories, or try running the command again as root/Administrator.\nnpm error A complete log of this run can be found in: C:\\Users\\tuana\\AppData\\Local\\npm-cache\\_logs\\2026-10-02T03_38_11_587Z-debug-0.log\n"
+  },
+  "recovery": "Worker stopped task-357 preview, npm.cmd ci exit 0, check/build exit 0, restarted loopback; see worker-handoff-c27fea2.md and recovery-ci.json. Reviewer failed ci is not counted as pass.",
+  "check": {
+    "chunk_id": "de3dde",
+    "wall_time_seconds": 6.6195278,
+    "exit_code": 0,
+    "original_token_count": 68,
+    "output": "\n> mang-theo-mot-net-ve@0.0.1 check\n> astro check\n\n10:42:04 [types] Generated 77ms\n10:42:04 [check] Getting diagnostics for Astro files in C:\\Users\\tuana\\Documents\\Codex\\2026-10-02\\t\\outputs\\mang-theo-mot-net-ve...\nResult (20 files): \n- 0 errors\n- 0 warnings\n- 0 hints\n\n"
+  },
+  "build": {
+    "chunk_id": "02c124",
+    "wall_time_seconds": 2.8876315999999997,
+    "exit_code": 0,
+    "original_token_count": 252,
+    "output": "\n> mang-theo-mot-net-ve@0.0.1 build\n> astro build\n\n10:42:30 [types] Generated 108ms\n10:42:30 [build] output: \"static\"\n10:42:30 [build] mode: \"static\"\n10:42:30 [build] directory: C:\\Users\\tuana\\Documents\\Codex\\2026-10-02\\t\\outputs\\mang-theo-mot-net-ve\\dist\\\n10:42:30 [build] Collecting build info...\n10:42:30 [build] ✓ Completed in 147ms.\n10:42:30 [build] Building static entrypoints...\n10:42:30 [vite] ✓ built in 397ms\n10:42:30 [vite] ✓ built in 41ms\n10:42:30 [build] Rearranging server assets...\n\n generating static routes \n10:42:30   ├─ /404.html (+21ms) \n10:42:30   ├─ /dong-hanh/index.html (+4ms) \n10:42:30   ├─ /du-an/mang-theo-mot-net-ve/index.html (+8ms) \n10:42:30   ├─ /minh-bach/index.html (+9ms) \n10:42:30   ├─ /san-pham/index.html (+10ms) \n10:42:30   ├─ /ve-nhom/index.html (+8ms) \n10:42:30   ├─ /index.html (+30ms) \n10:42:30 ✓ Completed in 105ms.\n\n10:42:30 [build] ✓ Completed in 609ms.\n10:42:30 [build] 7 page(s) built in 768ms\n10:42:30 [build] Complete!\n"
+  },
+  "versions": {
+    "node": "24.19.0",
+    "npm": "11.17.0",
+    "git": "2.55.0.windows.5",
+    "astro": "7.3.5",
+    "astroCheck": "0.9.10",
+    "typescript": "5.8.3"
+  },
+  "postBuildAudit": {
+    "exitCode": 0,
+    "bundleHashesUnchanged": true,
+    "checkedAt": "2026-10-02T03:43:16.484Z",
+    "previewHTTP": 200
+  }
+}

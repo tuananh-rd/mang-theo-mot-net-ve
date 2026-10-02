@@ -1,0 +1,17 @@
+{
+  "taskId": "T01",
+  "reviewId": "R01",
+  "finalSHA": "c27fea2f8d377523b2200a1630756acfe46f54a2",
+  "request": {
+    "handle": "term_b8d3b82d-bec3-4a22-b23d-b95f9e9785d9",
+    "message": "R01 PASS tại c27fea2f8d377523b2200a1630756acfe46f54a2. Brain đã lưu docs/reviews/R01-c27fea2.md; check/build độc lập exit 0, audit sau build cùng hash bundle với browser/screenshot final, preview HTTP 200. T01 DONE. Giữ preview loopback task-391; dừng triển khai và chờ chủ dự án duyệt hướng UI trước T02. Không sửa thêm app/config/docs, không stage tài liệu Brain, không tạo job/worker/commit mới. ACK đã nhận kết luận và đang chờ; đây không phải task triển khai mới."
+  },
+  "receipt": {
+    "chunk_id": "e5fa7b",
+    "wall_time_seconds": 1.2354198,
+    "exit_code": 0,
+    "original_token_count": 260,
+    "output": "[1002/104810.433:ERROR:third_party\\crashpad\\crashpad\\util\\win\\registration_protocol_win.cc:108] CreateFile: The system cannot find the file specified. (0x2)\r\n{\n  \"id\": \"bc4691d6-0396-4505-9576-3f4beab4054f\",\n  \"ok\": true,\n  \"result\": {\n    \"send\": {\n      \"handle\": \"term_b8d3b82d-bec3-4a22-b23d-b95f9e9785d9\",\n      \"accepted\": true,\n      \"bytesWritten\": 538,\n      \"prompt\": {\n        \"requestId\": \"76fda7fa-3dde-47c7-994a-ecfd466624a3\",\n        \"stages\": [\n          \"input_accepted\"\n        ],\n        \"provider\": \"unsupported\",\n        \"observation\": \"unsupported\",\n        \"processIncarnation\": \"915fca95-92ef-4e0c-b22f-613248c8125a\",\n        \"generation\": 15,\n        \"baselineWorkingSequence\": 0\n      }\n    },\n    \"mutation\": {\n      \"requestId\": \"76fda7fa-3dde-47c7-994a-ecfd466624a3\",\n      \"replayed\": false\n    },\n    \"warnings\": [\n      \"input was accepted, but this provider cannot report delivery. Inspect the terminal before retrying.\"\n    ]\n  },\n  \"_meta\": {\n    \"runtimeId\": \"d8ac0a37-0036-427e-8c8a-b92f9ed0bbd0\"\n  }\n}\n"
+  },
+  "ack": "Verified at 2026-10-02 10:49 Asia/Saigon from actual terminal reply: R01 PASS ACK; T01 DONE; final c27fea2; preview task-391 maintained at loopback; worker stops code/config/docs changes and waits for project owner UI approval. No new job/worker/commit."
+}
