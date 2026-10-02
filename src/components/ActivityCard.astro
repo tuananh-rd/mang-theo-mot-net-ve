@@ -1,0 +1,94 @@
+---
+import PlaceholderIllustration from './PlaceholderIllustration.astro';
+import type { Activity } from '../data/campaign';
+
+interface Props {
+  activity: Activity;
+  illustrationType: 'chuon-chuon' | 'to-tuong' | 'hat' | 'tro-choi';
+}
+
+const { activity, illustrationType } = Astro.props;
+---
+
+<article class="activity-card card">
+  <div class="card-visual">
+    <PlaceholderIllustration
+      type={illustrationType}
+      ratio="4:3"
+      caption={`Minh họa: ${activity.title}`}
+    />
+  </div>
+
+  <div class="card-body">
+    <div class="badge-row">
+      <span class="activity-badge">{activity.badge}</span>
+    </div>
+
+    <h3 class="card-title">{activity.title}</h3>
+
+    <p class="card-desc">{activity.description}</p>
+
+    {activity.note && (
+      <p class="card-note">
+        <small>{activity.note}</small>
+      </p>
+    )}
+  </div>
+</article>
+
+<style>
+  .activity-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-5);
+    background-color: var(--color-surface-card);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .card-visual {
+    margin-bottom: var(--space-4);
+  }
+
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: var(--space-2);
+  }
+
+  .badge-row {
+    margin-bottom: var(--space-1);
+  }
+
+  .activity-badge {
+    display: inline-block;
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--color-badge-text);
+    background-color: var(--color-badge-bg);
+    padding: 2px 10px;
+    border-radius: var(--radius-pill);
+  }
+
+  .card-title {
+    font-size: 1.25rem;
+    color: var(--color-text-primary);
+  }
+
+  .card-desc {
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    color: var(--color-text-secondary);
+    flex-grow: 1;
+  }
+
+  .card-note {
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    font-style: italic;
+    border-top: 1px solid var(--color-border-subtle);
+    padding-top: var(--space-2);
+    margin-top: var(--space-2);
+  }
+</style>

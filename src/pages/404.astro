@@ -1,0 +1,59 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Không tìm thấy trang (404)"
+  description="Trang bạn tìm kiếm không tồn tại trên hệ thống xem trước của dự án Mang Theo Một Nét Vẽ."
+>
+  <div class="error-container container section">
+    <div class="error-card card">
+      <div class="error-code">404</div>
+      <h1 class="error-title">Không tìm thấy trang</h1>
+      <p class="error-desc">
+        Đường dẫn bạn vừa truy cập không tồn tại hoặc đã được thay đổi trong bản xem trước.
+      </p>
+      <div class="error-actions">
+        <a href="/" class="btn btn-primary">
+          &larr; Về trang chủ
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .error-container {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .error-card {
+    padding: var(--space-10) var(--space-6);
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .error-code {
+    font-size: 5rem;
+    font-weight: 900;
+    line-height: 1;
+    color: var(--color-accent-text);
+  }
+
+  .error-title {
+    font-size: var(--font-size-h2);
+    color: var(--color-text-primary);
+  }
+
+  .error-desc {
+    font-size: var(--font-size-body);
+    color: var(--color-text-secondary);
+    max-width: 40ch;
+  }
+
+  .error-actions {
+    margin-top: var(--space-4);
+  }
+</style>

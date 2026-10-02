@@ -1,0 +1,145 @@
+---
+import PlaceholderIllustration from './PlaceholderIllustration.astro';
+import type { Product } from '../data/campaign';
+
+interface Props {
+  product: Product;
+  illustrationType: 'chuon-chuon' | 'tui-but' | 'tui-vai';
+}
+
+const { product, illustrationType } = Astro.props;
+
+function formatPrice(val: number | null): string {
+  if (val === null) return 'Đang cập nhật';
+  return new Intl.NumberFormat('vi-VN').format(val) + 'đ';
+}
+---
+
+<article class="product-card card">
+  <div class="card-visual">
+    <PlaceholderIllustration
+      type={illustrationType}
+      ratio="4:3"
+      caption={`Minh họa: ${product.name}`}
+    />
+  </div>
+
+  <div class="card-body">
+    <div class="status-row">
+      <span class="product-status-tag">Chưa mở bán chính thức</span>
+    </div>
+
+    <h3 class="product-name">{product.name}</h3>
+
+    <div class="price-box">
+      <span class="price-label">Giá tham khảo trong đề xuất:</span>
+      <strong class="price-val">
+        {formatPrice(product.referencePrice.value)}
+        <span class="price-unit">/{product.referencePrice.unit.split('/')[1] || 'món'}</span>
+      </strong>
+    </div>
+
+    <p class="product-desc">{product.description}</p>
+
+    <div class="product-meta">
+      <p class="origin-info">
+        <strong>Nguồn gốc:</strong> {product.originText}
+      </p>
+      <p class="notes-info">
+        <small>{product.notes}</small>
+      </p>
+    </div>
+  </div>
+</article>
+
+<style>
+  .product-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-5);
+    background-color: var(--color-surface-card);
+  }
+
+  .card-visual {
+    margin-bottom: var(--space-4);
+  }
+
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: var(--space-3);
+  }
+
+  .status-row {
+    margin-bottom: var(--space-1);
+  }
+
+  .product-status-tag {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    background-color: var(--color-canvas-soft);
+    border: 1px solid var(--color-border);
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+  }
+
+  .product-name {
+    font-size: 1.25rem;
+    color: var(--color-text-primary);
+  }
+
+  .price-box {
+    display: flex;
+    flex-direction: column;
+    background-color: #fffdf5;
+    padding: var(--space-3);
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--color-accent);
+  }
+
+  .price-label {
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+  }
+
+  .price-val {
+    font-size: 1.125rem;
+    color: var(--color-text-accent);
+    font-weight: 700;
+  }
+
+  .price-unit {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+  }
+
+  .product-desc {
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    color: var(--color-text-secondary);
+    flex-grow: 1;
+  }
+
+  .product-meta {
+    border-top: 1px solid var(--color-border-subtle);
+    padding-top: var(--space-3);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .origin-info {
+    font-size: 0.8125rem;
+    color: var(--color-text-secondary);
+  }
+
+  .notes-info {
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    font-style: italic;
+  }
+</style>

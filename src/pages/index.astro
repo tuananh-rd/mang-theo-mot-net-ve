@@ -1,0 +1,460 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import ActivityCard from '../components/ActivityCard.astro';
+import ProductCard from '../components/ProductCard.astro';
+import StageCard from '../components/StageCard.astro';
+import {
+  CAMPAIGN_PROJECT,
+  PRODUCTS,
+  SUPPORT_METHODS,
+  TEAM_INFO,
+  FINANCE_OVERVIEW,
+} from '../data/campaign';
+
+const activityIllustrationTypes = [
+  'chuon-chuon',
+  'to-tuong',
+  'hat',
+  'tro-choi',
+] as const;
+
+const productIllustrationTypes = [
+  'chuon-chuon',
+  'tui-but',
+  'tui-vai',
+] as const;
+---
+
+<Layout
+  title="Trang chủ"
+  description="Dự án Mang Theo Một Nét Vẽ - Lăng Kính (lớp AI2015, SSG105, Đại học FPT Hà Nội) tại Mái ấm Thánh Tâm Xuy Xá."
+  currentPath="/"
+>
+  <!-- Hero Section -->
+  <Hero />
+
+  <!-- Section 1: Buổi chơi có lựa chọn -->
+  <section class="section section-activities" aria-labelledby="activities-heading">
+    <div class="container">
+      <div class="section-header">
+        <h2 id="activities-heading">Buổi chơi có lựa chọn</h2>
+        <p>
+          Mỗi hoạt động được thiết kế để mang lại niềm vui vừa sức, an toàn. Người tham gia luôn có trọn vẹn quyền tự do lựa chọn tham gia góc chơi mình thích, quan sát bạn bè hoặc nghỉ ngơi.
+        </p>
+      </div>
+
+      <div class="activities-grid">
+        {
+          CAMPAIGN_PROJECT.activities.map((act, index) => (
+            <ActivityCard
+              activity={act}
+              illustrationType={activityIllustrationTypes[index]}
+            />
+          ))
+        }
+      </div>
+
+      <div class="section-footer-note">
+        <p>
+          <em>* Ghi chú bản xem trước:</em> Hoạt động hướng đến sự gần gũi, kết nối tinh thần; không tuyên bố tác động trị liệu và không đặt chỉ tiêu sản xuất cho các em nhỏ.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: Sản phẩm gây quỹ dự kiến -->
+  <section class="section section-soft section-products" aria-labelledby="products-heading">
+    <div class="container">
+      <div class="section-header">
+        <h2 id="products-heading">Sản phẩm gây quỹ dự kiến</h2>
+        <p>
+          Các sản phẩm lưu niệm thủ công được nhóm lên kế hoạch chuẩn bị nhằm gây quỹ mua quà tặng và vật phẩm thiết yếu theo danh mục xác nhận của Mái ấm.
+        </p>
+      </div>
+
+      <div class="products-grid">
+        {
+          PRODUCTS.map((prod, index) => (
+            <ProductCard
+              product={prod}
+              illustrationType={productIllustrationTypes[index]}
+            />
+          ))
+        }
+      </div>
+
+      <div class="section-action-center">
+        <a href="/san-pham" class="btn btn-secondary">
+          Xem chi tiết thông tin sản phẩm
+        </a>
+        <p class="action-note">
+          Hiện tại sản phẩm chưa mở bán chính thức. Mọi thông tin giá là số liệu tham khảo trong hồ sơ đề xuất.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: Hành trình dự kiến -->
+  <section class="section section-stages" aria-labelledby="stages-heading">
+    <div class="container">
+      <div class="section-header">
+        <h2 id="stages-heading">Hành trình dự kiến</h2>
+        <p>
+          Bốn giai đoạn kế hoạch được nhóm vạch ra để triển khai dự án từng bước bài bản, minh bạch và có trách nhiệm.
+        </p>
+      </div>
+
+      <div class="stages-grid">
+        {
+          CAMPAIGN_PROJECT.plannedStages.map((stage) => (
+            <StageCard stage={stage} />
+          ))
+        }
+      </div>
+
+      <div class="section-footer-note">
+        <p>
+          <em>* Lưu ý:</em> Lịch trình chia theo 4 bước kế hoạch, không tự gán ngày tháng hoặc đánh dấu hoàn thành khi chưa có xác nhận thực tế.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: Minh bạch từ kế hoạch đến thực tế -->
+  <section class="section section-soft section-transparency" aria-labelledby="transparency-heading">
+    <div class="container">
+      <div class="transparency-card">
+        <div class="transparency-header">
+          <div class="badge-row">
+            <span class="status-badge">Nguyên tắc minh bạch</span>
+          </div>
+          <h2 id="transparency-heading">Minh bạch từ kế hoạch đến thực tế</h2>
+          <p class="transparency-status">
+            <strong>{FINANCE_OVERVIEW.actualStatusNotice}</strong>
+          </p>
+        </div>
+
+        <div class="transparency-content">
+          <div class="transparency-col">
+            <h3 class="col-title">Dự toán kế hoạch trong đề xuất</h3>
+            <ul class="data-list">
+              <li>
+                <span>Tổng chi phí dự toán:</span>
+                <strong>3.120.000đ</strong>
+              </li>
+              <li>
+                <span>Doanh thu kịch bản bán đủ hàng:</span>
+                <strong>2.900.000đ</strong>
+              </li>
+              <li>
+                <span>Chênh lệch giả định (khi chưa có tài trợ):</span>
+                <span class="diff-negative">-220.000đ</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="transparency-col">
+            <h3 class="col-title">Nguyên tắc quản trị tài chính</h3>
+            <p>
+              Tài trợ hiện vật được ghi nhận riêng biệt với tiền mặt. Dự án không tuyên bố "100% doanh thu mua quà" vì có chi phí sản xuất và vật tư workshop thực tế.
+            </p>
+            <p class="transparency-sub">
+              Toàn bộ hóa đơn, chứng từ mua sắm và biên bản bàn giao sẽ được biên tập, che thông tin nhạy cảm và công khai đầy đủ sau khi thực hiện.
+            </p>
+          </div>
+        </div>
+
+        <div class="transparency-actions">
+          <a href="/minh-bach" class="btn btn-secondary">
+            Xem dự toán và nguyên tắc thu chi chi tiết
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 5: Về nhóm Lăng Kính -->
+  <section class="section section-team" aria-labelledby="team-heading">
+    <div class="container">
+      <div class="team-layout">
+        <div class="team-info">
+          <h2 id="team-heading">Về nhóm Lăng Kính</h2>
+          <p class="lead">
+            {TEAM_INFO.description}
+          </p>
+          <div class="team-meta">
+            <span class="team-meta-pill">Lớp: {TEAM_INFO.classId}</span>
+            <span class="team-meta-pill">{TEAM_INFO.course}</span>
+            <span class="team-meta-pill">Thành viên: {TEAM_INFO.size} sinh viên</span>
+          </div>
+          <div class="team-actions">
+            <a href="/ve-nhom" class="btn btn-secondary">
+              Tìm hiểu thêm về nhóm
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 6: Đồng hành đúng nhu cầu -->
+  <section class="section section-soft section-support" aria-labelledby="support-heading">
+    <div class="container">
+      <div class="section-header">
+        <h2 id="support-heading">Đồng hành đúng nhu cầu</h2>
+        <p>
+          Dự án ưu tiên tiếp nhận sự hỗ trợ thiết thực, đúng nhu cầu thực tế của Mái ấm Thánh Tâm Xuy Xá.
+        </p>
+      </div>
+
+      <div class="support-grid">
+        {
+          SUPPORT_METHODS.map((method) => (
+            <div class="support-card card">
+              <h3 class="support-title">{method.title}</h3>
+              <p class="support-desc">{method.description}</p>
+              <div class="support-status">
+                <small>{method.statusText}</small>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="section-action-center">
+        <a href="/dong-hanh" class="btn btn-primary">
+          Tìm hiểu cách đồng hành
+        </a>
+        <p class="action-note">
+          <em>Lưu ý:</em> Kênh tiếp nhận và thông tin liên hệ chính thức đang được nhóm cập nhật và đối soát.
+        </p>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Activities Grid */
+  .activities-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-6);
+  }
+
+  .section-footer-note {
+    margin-top: var(--space-6);
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+
+  /* Products Grid */
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+  }
+
+  .section-action-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+    margin-top: var(--space-10);
+    text-align: center;
+  }
+
+  .action-note {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    max-width: 500px;
+  }
+
+  /* Stages Grid */
+  .stages-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-6);
+  }
+
+  /* Transparency Panel */
+  .transparency-card {
+    background-color: var(--color-surface-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+  }
+
+  .transparency-header {
+    margin-bottom: var(--space-6);
+  }
+
+  .transparency-status {
+    margin-top: var(--space-2);
+    color: var(--color-text-accent);
+    font-size: 1.125rem;
+  }
+
+  .transparency-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8);
+    margin-bottom: var(--space-6);
+    padding-bottom: var(--space-6);
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+
+  .col-title {
+    font-size: 1.125rem;
+    margin-bottom: var(--space-4);
+    color: var(--color-text-primary);
+  }
+
+  .data-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: 0;
+    margin: 0;
+  }
+
+  .data-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-2) 0;
+    border-bottom: 1px dashed var(--color-border-subtle);
+    font-size: 0.9375rem;
+  }
+
+  .diff-negative {
+    color: #b91c1c;
+    font-weight: 700;
+  }
+
+  .transparency-sub {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    margin-top: var(--space-3);
+  }
+
+  .transparency-actions {
+    display: flex;
+  }
+
+  /* Team Layout */
+  .team-layout {
+    max-width: 800px;
+  }
+
+  .team-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .team-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: var(--space-2);
+  }
+
+  .team-meta-pill {
+    background-color: var(--color-canvas-soft);
+    border: 1px solid var(--color-border);
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-pill);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+  }
+
+  .team-actions {
+    margin-top: var(--space-4);
+  }
+
+  /* Support Grid */
+  .support-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+  }
+
+  .support-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: var(--space-5);
+  }
+
+  .support-title {
+    font-size: 1.25rem;
+    color: var(--color-text-primary);
+  }
+
+  .support-desc {
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    color: var(--color-text-secondary);
+    flex-grow: 1;
+  }
+
+  .support-status {
+    border-top: 1px solid var(--color-border-subtle);
+    padding-top: var(--space-2);
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    font-style: italic;
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 1023px) {
+    .activities-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .products-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .stages-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .transparency-content {
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+    }
+
+    .support-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .activities-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .products-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .stages-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .data-list li {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+    }
+
+    .transparency-card {
+      padding: var(--space-5);
+    }
+  }
+</style>
