@@ -1,0 +1,16 @@
+﻿{
+    "sha":  "221eafa73661cb822b3f8017b7fe1bf367106349",
+    "sourcePdfHash":  "0007f0c7c8ac4858c2cc2cfddd7079fb473663989d47643995f43afd5f2542ea",
+    "sourceHtmlHash":  "00f145f3fd3b7d6b79301c8904ed6fbb0ba0b1fdf60a2ff65423ba24713dc2df",
+    "workerDistVsReviewerDifferences":  [
+
+                                        ],
+    "previewListener":  [
+                            {
+                                "LocalAddress":  "127.0.0.1",
+                                "LocalPort":  4322,
+                                "OwningProcess":  25960
+                            }
+                        ],
+    "appStatus":  ""
+}

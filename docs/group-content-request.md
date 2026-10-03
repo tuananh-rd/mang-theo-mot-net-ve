@@ -1,0 +1,24 @@
+# Thông tin và ảnh nhóm cần cung cấp
+
+Danh sách này phục vụ việc hoàn thiện nội dung, không phải dữ liệu đã xác nhận. Gửi ảnh gốc cùng bảng: tên file, người chụp/nguồn, ngày, ngữ cảnh, người đồng ý công bố và phạm vi sử dụng. Ảnh stock trên preview chỉ minh họa; không thay ảnh nhóm, mẫu bán, chứng từ hay hoạt động tại Mái ấm.
+
+| Bộ cần gửi | Thông tin cần chốt | Ảnh và quy cách | Vị trí sử dụng |
+| --- | --- | --- | --- |
+| Trạng thái dự án | Giai đoạn thực tế, phiên bản nội dung, ngày cập nhật, người duyệt, phạm vi công bố | Không cần ảnh để chốt trạng thái | Banner/footer và cả 6 trang; C01–03, C11, C20 |
+| Lịch và phối hợp | Ngày hai buổi, lịch gây quỹ/bàn giao/theo dõi, thời lượng, địa điểm được công bố, đầu mối đã đồng ý; nội dung trao đổi nhu cầu được phép trích | 1–2 ảnh không gian/chuẩn bị được phép, ảnh ngang từ 1600×1200; không dùng cơ sở khác | Trang chủ, Dự án, Đồng hành; C07, C11–13, C18, C43 |
+| Nhóm 7 thành viên | Tên công khai, vai trò, nhiệm vụ ngắn, cặp đối soát; đồng ý sử dụng tên/ảnh của từng người | 1 ảnh nhóm 3:2 hoặc 16:9, cạnh dài từ 2400px; 7 chân dung 1:1, cạnh từ 1000px | Trang chủ và Về nhóm; C09, C37–39 |
+| Bốn góc hoạt động | Vật tư thật, cách hỗ trợ, phân công, bài hát/trò chơi đã chọn; không giao chỉ tiêu sản xuất cho trẻ | Ít nhất 4 ảnh: phôi tre và màu/cọ; tượng và họa cụ; nhạc cụ/không gian; bóng/bowling/thẻ thật. Từ 1600×1200; chủ thể không sát mép; kiểm crop 4:3 desktop và 16:9 mobile | Trang chủ và Dự án dùng cùng bộ; C04–05, C12, C14–17 |
+| Chuồn chuồn kèm đế | Mẫu 12cm, kích thước/chất liệu/màu, nguồn trang trí/người hoàn thiện, giá, số lượng phát hành và tồn kho thật | 1 ảnh chính đủ chuồn chuồn + đế, 1 ảnh cận; 4:3, từ 1600×1200, nền sáng | Trang chủ và Sản phẩm; C06, C19, C21, C28 |
+| Móc khóa | Mẫu có nhận diện Lăng Kính, hình dáng/kích thước/chất liệu, thiết kế và quyền hình ảnh, giá/tồn kho | Ảnh chính và hai mặt mẫu hoàn thiện; 4:3, từ 1600×1200; không dùng ảnh phôi stock | Trang chủ và Sản phẩm; C06, C22, C28 |
+| Set 79.000đ | Chính xác các món và số lượng; nước/sốt/bao bì kèm; quan hệ với các combo; giá và lịch nhận | 1 set hoàn chỉnh, thể hiện đúng khẩu phần; 4:3, từ 1600×1200 | Trang chủ và Sản phẩm; C06, C23, C28–30 |
+| Ba combo nem | Loại vỏ giòn/xù/phô mai; 5 cái/viên/thanh; trọng lượng, thành phần cần lưu ý, giá và lịch nhận | 3 ảnh chính đúng 5 món và sốt kèm; thêm ảnh cận lớp xù/nhân phô mai. Cùng nền/góc; 4:3, từ 1600×1200 | Sản phẩm; C24–26, C28–30 |
+| Hộp su kem | Số bánh/hộp, khối lượng, nhân/thành phần, bảo quản, giá và lịch nhận | Ảnh hộp thật và hộp mở đúng số bánh; 4:3, từ 1600×1200. A05 không chứng minh khẩu phần | Sản phẩm; C27–30 |
+| Bảng doanh thu đồ ăn | Từng SKU, số lượng dự kiến, đơn giá, thành tiền; set/combo có trùng hay không. Giải thích 50×79.000=3.950.000đ và phần chênh 550.000đ với mục tiêu 4.500.000đ | Bảng có công thức, nguồn, ngày và người duyệt; không cần ảnh | Trang chủ, Sản phẩm, Minh bạch, Dự án và FAQ; C28, C33 |
+| Điều kiện đồ ăn/mở bán | Nơi chế biến, nguồn nguyên liệu, người phụ trách, bảo quản/thành phần cần lưu ý. Kênh đăng ký, thời gian mở/đóng, xác nhận đơn, giao/nhận, đổi/hủy và thanh toán đã được duyệt | Ảnh chuẩn bị thật nếu có quyền; không dùng ảnh thay chứng từ hoặc quy trình | Sản phẩm và Đồng hành; C29–30, C41–43 |
+| Tài chính và hồ sơ | Bản đề xuất được phép công bố; đơn giá/khối lượng 19 khoản, đặc biệt kg khoai, quy cách dầu/bao bì/quà/truyền thông/xe. Kỳ sổ, đầu kỳ/thu/chi/cuối kỳ, hiện vật/tồn kho, cặp đối soát và ngày duyệt | PDF biên tập đã che thông tin riêng; hóa đơn, biên nhận, ảnh hàng mua và biên bản bàn giao thật. Giữ hồ sơ thô riêng | Minh bạch; C08, C31–36 |
+| Hiện vật và liên hệ | Danh mục chính thức: tên/quy cách/cần/đã nhận/còn thiếu/hạn/nơi nhận/người nhận/ngày xác nhận. Email/điện thoại/fanpage, giờ phản hồi; kênh nhận và cách dùng dữ liệu đã duyệt | Ảnh vật phẩm thật nếu có; chỉ công bố QR/tài khoản sau khi nhóm duyệt | Trang chủ, Đồng hành, footer; C02, C10, C34, C40–43 |
+| Truyền thông | Bài giới thiệu, poster, hashtag, liên kết chính thức, quy tắc nguồn và quyền ảnh | Ảnh chia sẻ 1200×630, poster gốc, logo hiện có; ghi rõ ảnh minh họa | Đồng hành; SEO khi được phép phát hành; C03, C44 |
+
+Ưu tiên ảnh không gian, đạo cụ, bàn chuẩn bị và sản phẩm. Không cần ảnh nhận diện trẻ để lấp website. Ảnh hoạt động khi có phải kèm quyền và ngữ cảnh; không dùng chuyện riêng hoặc ảnh trẻ để thúc đẩy mua hàng. Tên trong đề xuất chưa tự trở thành danh sách nhân sự đã đồng ý công khai.
+
+Gửi JPEG/PNG gốc, ánh sáng đều, không filter mạnh hoặc watermark che sản phẩm; nhóm giữ bản gốc. Website xuất WebP chất lượng 80–85 và crop riêng. Mục chưa có bằng chứng tiếp tục là dự kiến/chờ xác nhận; chưa phát sinh khác chưa xác nhận, không tự đổi null thành 0.

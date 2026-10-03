@@ -1,4 +1,9 @@
-# Vận hành bản xem trước
+﻿# Vận hành bản xem trước
+
+Cập nhật 03/10/2026: **C02 DONE; RC02 PASS cho preview local** tại app `221eafa73661cb822b3f8017b7fe1bf367106349`, baseline `5cdc624`, nhánh `task/c02-images-content`. Đã bổ sung A01–A05 có nhãn minh họa, đồng bộ nội dung và ghi rõ khoản chênh đồ ăn 550.000đ cần xác nhận. Check, 24 tests và build đạt; đủ sáu trang đã xem ở 375/768/1440px, menu/FAQ/link/ảnh/bundle đã kiểm. Preview hiện tại: http://127.0.0.1:4322/ — loopback PID 25960. Worker HOLD; không T05 hoặc deploy public.
+
+[Review C02](reviews/RC02-221eafa.md) · [Thông tin và ảnh cần nhóm gửi](group-content-request.md). Các mốc bên dưới là lịch sử; dùng URL/commit hiện tại ở trên.
+
 
 Cập nhật03/10/2026: **C01-UI DONE; RC01-UI PASS** tại app96f539772b78d70324adb95a11508d27163cd3ad (basea4e0aa8), sửa M1/M2 vàL1–L7 theo Claude; L8 giữ ảnh gốc chờ chủ dự án. Preview mới http://127.0.0.1:4322/ (loopbackPID25960), thay thông tin4321/PID2888 lịch sử phía dưới. Minh bạch375 giảm18%; check/18tests/build0,38targeted+20navigation+6finance+38bundle và19servedhash đạt. Review: docs/reviews/RC01-ui-96f5397.md. Worker HOLD, không T05/public.
 
@@ -20,7 +25,7 @@ npm.cmd ci
 npm.cmd run check
 node --test tests/finance.test.mjs
 npm.cmd run build
-npm.cmd run preview -- --host 127.0.0.1 --port 4321
+npm.cmd run preview -- --host 127.0.0.1 --port 4322
 ```
 
 Mở `http://127.0.0.1:4321/`; dừng bằng Ctrl+C ở terminal sở hữu server. Review dùng build từ `dist`, không dùng dev server làm bằng chứng output sản xuất. Không serve gốc repo. `noindex, nofollow` và banner xem trước hiện áp dụng mọi trang; noindex không phải cơ chế bảo vệ dữ liệu riêng tư. Preview chỉ bind loopback; chưa bật tunnel hoặc link public.
@@ -56,3 +61,4 @@ GitHub hiện là repo private để lưu code/review; push code không phát h�
 R04 nghiệm thu preview trước; RC01 nghiệm thu bản cập nhật nội dung/logo. T05 chỉ mở sau chủ dự án duyệt public và chọn hosting/domain. Gói phát hành chỉ là output `dist`, gồm sáu trang và `404.html` cùng CSS/favicon. Cấu hình host phải phục vụ đường dẫn thư mục tĩnh/direct reload và trả HTTP404 với trang404 cho URL không tồn tại; không dùng fallback trả200 cho mọi URL. Quy tắc mapping thực tế phải kiểm lại trên host đã chọn.
 
 Trước T05 cần xác nhận trạng thái/ngày dự án, quyền ảnh/nội dung, contact và nhu cầu thật nếu muốn bật kênh tiếp nhận. Ảnh placeholder được xử lý theo quyết định public của chủ dự án, không tự gọi là ảnh thật. Canonical/OG URL chỉ điền từ domain thật. Đổi robots/indexing, banner preview hoặc hành động nhận hỗ trợ thuộc task phát hành riêng. Sau phát hành kiểm URL/HTTPS, direct reload,404, asset, menu, metadata và dữ liệu đúng bản đã duyệt; không ghi đã kiểm public khi chỉ xem loopback.
+

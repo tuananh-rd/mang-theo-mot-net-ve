@@ -1,0 +1,707 @@
+{
+  "task": "C02",
+  "timestamp": "2026-10-03T10:43:02.550Z",
+  "targetServer": "http://127.0.0.1:4322",
+  "assertions": [
+    {
+      "description": "home status 200 on direct load",
+      "pass": true
+    },
+    {
+      "description": "home status 200/304 on reload",
+      "pass": true
+    },
+    {
+      "description": "project status 200 on direct load",
+      "pass": true
+    },
+    {
+      "description": "project status 200/304 on reload",
+      "pass": true
+    },
+    {
+      "description": "team status 200 on direct load",
+      "pass": true
+    },
+    {
+      "description": "team status 200/304 on reload",
+      "pass": true
+    },
+    {
+      "description": "product status 200 on direct load",
+      "pass": true
+    },
+    {
+      "description": "product status 200/304 on reload",
+      "pass": true
+    },
+    {
+      "description": "transparency status 200 on direct load",
+      "pass": true
+    },
+    {
+      "description": "transparency status 200/304 on reload",
+      "pass": true
+    },
+    {
+      "description": "support status 200 on direct load",
+      "pass": true
+    },
+    {
+      "description": "support status 200/304 on reload",
+      "pass": true
+    },
+    {
+      "description": "404 status 200 on direct load",
+      "pass": true
+    },
+    {
+      "description": "404 status 200/304 on reload",
+      "pass": true
+    },
+    {
+      "description": "Illustration a01.webp status 200/304",
+      "pass": true
+    },
+    {
+      "description": "Illustration a02.webp status 200/304",
+      "pass": true
+    },
+    {
+      "description": "Illustration a03.webp status 200/304",
+      "pass": true
+    },
+    {
+      "description": "Illustration a04.webp status 200/304",
+      "pass": true
+    },
+    {
+      "description": "Illustration a05.webp status 200/304",
+      "pass": true
+    },
+    {
+      "description": "Screenshot home-mobile-375-full.png exists and valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot home-tablet-768-full.png exists and valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot home-desktop-1440-full.png exists and valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot du-an-mobile-375-full.png exists and valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot du-an-tablet-768-full.png exists and valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot du-an-desktop-1440-full.png exists and valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot ve-nhom-mobile-375-full.png exists and valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot ve-nhom-tablet-768-full.png exists and valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot ve-nhom-desktop-1440-full.png exists and valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot san-pham-mobile-375-full.png exists and valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot san-pham-tablet-768-full.png exists and valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot san-pham-desktop-1440-full.png exists and valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot minh-bach-mobile-375-full.png exists and valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot minh-bach-tablet-768-full.png exists and valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot minh-bach-desktop-1440-full.png exists and valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot dong-hanh-mobile-375-full.png exists and valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot dong-hanh-tablet-768-full.png exists and valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot dong-hanh-desktop-1440-full.png exists and valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot 404-mobile-375-full.png exists and valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot 404-tablet-768-full.png exists and valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot 404-desktop-1440-full.png exists and valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot san-pham-breakpoint-900-full.png valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot san-pham-breakpoint-1024-full.png valid",
+      "pass": true
+    },
+    {
+      "description": "Mobile menu toggle aria-expanded is true",
+      "pass": true
+    },
+    {
+      "description": "Mobile menu closes on Escape",
+      "pass": true
+    },
+    {
+      "description": "Hero uses a01.webp image",
+      "pass": true
+    },
+    {
+      "description": "Hero alt describes paint brushes and palette",
+      "pass": true
+    },
+    {
+      "description": "Hero caption states illustration disclaimer",
+      "pass": true
+    },
+    {
+      "description": "Hero credit cites Pavel Danilyuk / Pexels",
+      "pass": true
+    },
+    {
+      "description": "Hero credit link has rel=\"noreferrer noopener\" and target=\"_blank\"",
+      "pass": true
+    },
+    {
+      "description": "Activity Chuồn chuồn uses a02.webp with crop 50% 90%",
+      "pass": true
+    },
+    {
+      "description": "Activity Tô tượng uses a01.webp",
+      "pass": true
+    },
+    {
+      "description": "Activity Hát uses a03.webp with yellow tambourine alt (no metal material assumed)",
+      "pass": true
+    },
+    {
+      "description": "Activity Trò chơi uses a04.webp with balls caption",
+      "pass": true
+    },
+    {
+      "description": "Craft products (Chuon chuon & Móc khóa) use SVG",
+      "pass": true
+    },
+    {
+      "description": "Nem products use SVG",
+      "pass": true
+    },
+    {
+      "description": "Bánh su kem uses a05.webp image with plain cream puffs alt (no powdered sugar)",
+      "pass": true
+    },
+    {
+      "description": "Bánh su kem caption clarifies plate illustration and no tea commitment",
+      "pass": true
+    },
+    {
+      "description": "Bánh su kem credit cites Ali Rashidi / Pexels",
+      "pass": true
+    },
+    {
+      "description": "Bánh su kem crop uses object-position 50% 80%",
+      "pass": true
+    },
+    {
+      "description": "#doi-chieu-do-an card exists on Minh-bach",
+      "pass": true
+    },
+    {
+      "description": "#doi-chieu-do-an shows 50 set × 79.000 = 3.950.000 vs 4.500.000 and 550.000 gap",
+      "pass": true
+    },
+    {
+      "description": "San-pham food description mentions đối chiếu and khoảng chênh",
+      "pass": true
+    },
+    {
+      "description": "San-pham links to /minh-bach#doi-chieu-do-an",
+      "pass": true
+    },
+    {
+      "description": "Home transparency subnote links to đối chiếu",
+      "pass": true
+    },
+    {
+      "description": "Home links to /minh-bach#doi-chieu-do-an",
+      "pass": true
+    },
+    {
+      "description": "Du-an footnote links to /minh-bach#doi-chieu-do-an",
+      "pass": true
+    },
+    {
+      "description": "Minh bach 375 height (10193px) <= 10511px (reduction: 17.57% >= 15%)",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on home at 375px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on home at 414px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on home at 768px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on home at 900px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on home at 1024px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on home at 1440px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on du-an at 375px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on du-an at 414px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on du-an at 768px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on du-an at 900px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on du-an at 1024px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on du-an at 1440px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on ve-nhom at 375px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on ve-nhom at 414px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on ve-nhom at 768px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on ve-nhom at 900px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on ve-nhom at 1024px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on ve-nhom at 1440px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on san-pham at 375px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on san-pham at 414px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on san-pham at 768px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on san-pham at 900px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on san-pham at 1024px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on san-pham at 1440px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on minh-bach at 375px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on minh-bach at 414px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on minh-bach at 768px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on minh-bach at 900px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on minh-bach at 1024px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on minh-bach at 1440px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on dong-hanh at 375px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on dong-hanh at 414px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on dong-hanh at 768px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on dong-hanh at 900px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on dong-hanh at 1024px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on dong-hanh at 1440px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on 404 at 375px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on 404 at 414px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on 404 at 768px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on 404 at 900px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on 404 at 1024px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on 404 at 1440px",
+      "pass": true
+    },
+    {
+      "description": "No content text < 14px on / at 375px",
+      "pass": true
+    },
+    {
+      "description": "No content text < 14px on /san-pham at 375px",
+      "pass": true
+    },
+    {
+      "description": "No content text < 14px on /minh-bach at 375px",
+      "pass": true
+    },
+    {
+      "description": "No content text < 14px on /du-an/mang-theo-mot-net-ve at 375px",
+      "pass": true
+    }
+  ],
+  "screenshots": [
+    {
+      "page": "home",
+      "viewport": "mobile-375",
+      "fileName": "home-mobile-375-full.png",
+      "dims": {
+        "width": 375,
+        "height": 9082
+      }
+    },
+    {
+      "page": "home",
+      "viewport": "tablet-768",
+      "fileName": "home-tablet-768-full.png",
+      "dims": {
+        "width": 768,
+        "height": 7534
+      }
+    },
+    {
+      "page": "home",
+      "viewport": "desktop-1440",
+      "fileName": "home-desktop-1440-full.png",
+      "dims": {
+        "width": 1440,
+        "height": 5645
+      }
+    },
+    {
+      "page": "du-an",
+      "viewport": "mobile-375",
+      "fileName": "du-an-mobile-375-full.png",
+      "dims": {
+        "width": 375,
+        "height": 6754
+      }
+    },
+    {
+      "page": "du-an",
+      "viewport": "tablet-768",
+      "fileName": "du-an-tablet-768-full.png",
+      "dims": {
+        "width": 768,
+        "height": 5462
+      }
+    },
+    {
+      "page": "du-an",
+      "viewport": "desktop-1440",
+      "fileName": "du-an-desktop-1440-full.png",
+      "dims": {
+        "width": 1440,
+        "height": 4394
+      }
+    },
+    {
+      "page": "ve-nhom",
+      "viewport": "mobile-375",
+      "fileName": "ve-nhom-mobile-375-full.png",
+      "dims": {
+        "width": 375,
+        "height": 4861
+      }
+    },
+    {
+      "page": "ve-nhom",
+      "viewport": "tablet-768",
+      "fileName": "ve-nhom-tablet-768-full.png",
+      "dims": {
+        "width": 768,
+        "height": 3857
+      }
+    },
+    {
+      "page": "ve-nhom",
+      "viewport": "desktop-1440",
+      "fileName": "ve-nhom-desktop-1440-full.png",
+      "dims": {
+        "width": 1440,
+        "height": 3382
+      }
+    },
+    {
+      "page": "san-pham",
+      "viewport": "mobile-375",
+      "fileName": "san-pham-mobile-375-full.png",
+      "dims": {
+        "width": 375,
+        "height": 9612
+      }
+    },
+    {
+      "page": "san-pham",
+      "viewport": "tablet-768",
+      "fileName": "san-pham-tablet-768-full.png",
+      "dims": {
+        "width": 768,
+        "height": 7163
+      }
+    },
+    {
+      "page": "san-pham",
+      "viewport": "desktop-1440",
+      "fileName": "san-pham-desktop-1440-full.png",
+      "dims": {
+        "width": 1440,
+        "height": 5466
+      }
+    },
+    {
+      "page": "minh-bach",
+      "viewport": "mobile-375",
+      "fileName": "minh-bach-mobile-375-full.png",
+      "dims": {
+        "width": 375,
+        "height": 10193
+      }
+    },
+    {
+      "page": "minh-bach",
+      "viewport": "tablet-768",
+      "fileName": "minh-bach-tablet-768-full.png",
+      "dims": {
+        "width": 768,
+        "height": 8272
+      }
+    },
+    {
+      "page": "minh-bach",
+      "viewport": "desktop-1440",
+      "fileName": "minh-bach-desktop-1440-full.png",
+      "dims": {
+        "width": 1440,
+        "height": 7375
+      }
+    },
+    {
+      "page": "dong-hanh",
+      "viewport": "mobile-375",
+      "fileName": "dong-hanh-mobile-375-full.png",
+      "dims": {
+        "width": 375,
+        "height": 6136
+      }
+    },
+    {
+      "page": "dong-hanh",
+      "viewport": "tablet-768",
+      "fileName": "dong-hanh-tablet-768-full.png",
+      "dims": {
+        "width": 768,
+        "height": 5156
+      }
+    },
+    {
+      "page": "dong-hanh",
+      "viewport": "desktop-1440",
+      "fileName": "dong-hanh-desktop-1440-full.png",
+      "dims": {
+        "width": 1440,
+        "height": 4158
+      }
+    },
+    {
+      "page": "404",
+      "viewport": "mobile-375",
+      "fileName": "404-mobile-375-full.png",
+      "dims": {
+        "width": 375,
+        "height": 1413
+      }
+    },
+    {
+      "page": "404",
+      "viewport": "tablet-768",
+      "fileName": "404-tablet-768-full.png",
+      "dims": {
+        "width": 768,
+        "height": 1170
+      }
+    },
+    {
+      "page": "404",
+      "viewport": "desktop-1440",
+      "fileName": "404-desktop-1440-full.png",
+      "dims": {
+        "width": 1440,
+        "height": 1125
+      }
+    },
+    {
+      "page": "san-pham",
+      "viewport": "breakpoint-900",
+      "fileName": "san-pham-breakpoint-900-full.png",
+      "dims": {
+        "width": 900,
+        "height": 7163
+      }
+    },
+    {
+      "page": "san-pham",
+      "viewport": "breakpoint-1024",
+      "fileName": "san-pham-breakpoint-1024-full.png",
+      "dims": {
+        "width": 1024,
+        "height": 5601
+      }
+    },
+    {
+      "page": "home",
+      "viewport": "mobile-375-menu-open",
+      "fileName": "mobile-375-menu-open.png",
+      "dims": {
+        "width": 375,
+        "height": 667
+      }
+    }
+  ],
+  "cropScreenshots": [
+    "crop-hero-desktop-1440.png",
+    "crop-hero-mobile-375.png",
+    "crop-a02-chuonchuon-desktop.png",
+    "crop-a03-hat-desktop.png",
+    "crop-a02-chuonchuon-mobile-375.png",
+    "crop-a05-banhsukem-desktop.png",
+    "crop-a05-banhsukem-mobile-375.png",
+    "crop-reconciliation-card-desktop.png",
+    "crop-reconciliation-card-mobile-375.png"
+  ],
+  "heightMeasurements": {
+    "home-375": 9082,
+    "du-an-375": 6754,
+    "ve-nhom-375": 4861,
+    "san-pham-375": 9612,
+    "minh-bach-375": 10193,
+    "dong-hanh-375": 6136,
+    "404-375": 1413
+  },
+  "minhBachHeightReduction": {
+    "baselineHeight": 12366,
+    "currentHeight": 10193,
+    "reductionPercent": "17.57%",
+    "thresholdMet": true
+  },
+  "endedAt": "2026-10-03T10:44:46.318Z",
+  "totalAssertions": 113,
+  "passedAssertions": 113,
+  "failedAssertions": []
+}

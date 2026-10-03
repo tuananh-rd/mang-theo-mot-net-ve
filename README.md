@@ -1,4 +1,9 @@
-# Mang Theo Một Nét Vẽ
+﻿# Mang Theo Một Nét Vẽ
+
+Cập nhật 03/10/2026: **C02 DONE; RC02 PASS cho preview local** tại app `221eafa73661cb822b3f8017b7fe1bf367106349`, baseline `5cdc624`, nhánh `task/c02-images-content`. Đã bổ sung A01–A05 có nhãn minh họa, đồng bộ nội dung và ghi rõ khoản chênh đồ ăn 550.000đ cần xác nhận. Check, 24 tests và build đạt; đủ sáu trang đã xem ở 375/768/1440px, menu/FAQ/link/ảnh/bundle đã kiểm. Preview hiện tại: http://127.0.0.1:4322/ — loopback PID 25960. Worker HOLD; không T05 hoặc deploy public.
+
+[Review C02](docs/reviews/RC02-221eafa.md) · [Thông tin và ảnh cần nhóm gửi](docs/group-content-request.md). Các mốc bên dưới là lịch sử; dùng URL/commit hiện tại ở trên.
+
 
 Cập nhật03/10/2026: **C01-UI DONE; RC01-UI PASS** tại app96f539772b78d70324adb95a11508d27163cd3ad (basea4e0aa8), sửa M1/M2 vàL1–L7 theo Claude; L8 giữ ảnh gốc chờ chủ dự án. Preview mới http://127.0.0.1:4322/ (loopbackPID25960), thay thông tin4321/PID2888 lịch sử phía dưới. Minh bạch375 giảm18%; check/18tests/build0,38targeted+20navigation+6finance+38bundle và19servedhash đạt. Review: docs/reviews/RC01-ui-96f5397.md. Worker HOLD, không T05/public.
 
@@ -21,7 +26,7 @@ Trong thư mục dự án, dừng preview/dev đang chạy trước khi cài l�
 npm.cmd ci
 npm.cmd run check
 npm.cmd run build
-npm.cmd run preview -- --host 127.0.0.1 --port 4321
+npm.cmd run preview -- --host 127.0.0.1 --port 4322
 ```
 
 Mở `http://127.0.0.1:4321/`. Preview chỉ bind loopback, mọi trang có noindex/nofollow. Sáu route và 404 hoạt động; thông tin liên hệ, nhu cầu và actual chưa xác nhận nên chưa bật nhận đơn/tiền. Dừng server bằng Ctrl+C ở terminal giữ server. `npm.cmd run dev -- --host 127.0.0.1` dùng khi worker phát triển; review dùng bản build. Không serve gốc repository hoặc share public từ bước này.
@@ -52,3 +57,4 @@ Tại thời điểm chuẩn bị T00 chưa có website chạy; trạng thái hi
 - [UI đề xuất](docs/ui-reference.md) và [bằng chứng khảo sát](docs/evidence/T00/survey.md): truy cập nguồn trả 403; Chrome chưa tạo được ảnh desktop/mobile. Chưa đo giao diện ShareTheMeal.
 - [Task T01 đầy đủ](docs/task-specs/T01.md): đã giao qua Antigravity MCP fallback được chủ dự án cho phép; [request/response, model, job và ACK](docs/evidence/T01/dispatch.md) được lưu. Job lần đầu lỗi connector; lần thử mặc định trả ACK_BLOCKED thiếu filesystem/shell/browser tools. Không phải Orca dispatch.
 - T01 và R01 hiện BLOCKED; chưa có commit ứng dụng, preview/build để review. T01 giới hạn khung và trang chủ mẫu; chỉ mở rộng sau review và duyệt hướng UI. Chưa xin duyệt public.
+

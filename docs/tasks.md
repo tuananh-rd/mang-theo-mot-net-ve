@@ -1,4 +1,14 @@
-# Backlog
+﻿# Backlog
+
+Cập nhật 03/10/2026: **C02 DONE; RC02 PASS cho preview local** tại app `221eafa73661cb822b3f8017b7fe1bf367106349`, baseline `5cdc624`, nhánh `task/c02-images-content`. Đã bổ sung A01–A05 có nhãn minh họa, đồng bộ nội dung và ghi rõ khoản chênh đồ ăn 550.000đ cần xác nhận. Check, 24 tests và build đạt; đủ sáu trang đã xem ở 375/768/1440px, menu/FAQ/link/ảnh/bundle đã kiểm. Preview hiện tại: http://127.0.0.1:4322/ — loopback PID 25960. Worker HOLD; không T05 hoặc deploy public.
+
+[Review C02](reviews/RC02-221eafa.md) · [Thông tin và ảnh cần nhóm gửi](group-content-request.md). Các mốc bên dưới là lịch sử; dùng URL/commit hiện tại ở trên.
+
+
+## C02 — hình ảnh và đồng bộ theo bàn giao sáu trang
+
+Chủ dự án yêu cầu triển khai phần đủ dữ liệu. Baseline5cdc624, worker Antigravity hiện có, [spec](task-specs/C02.md), [đối chiếu44mục](review-handoff-intake.md), [dữ liệu nhóm](group-content-request.md). C02 đã hoàn tất tại app221eafa; RC02 PASS theo bằng chứng độc lập. A01–05 chỉ minh họa, A06–11 không vào public/bundle. Không đổi mục tiêu đồ ăn khi thiếu phân bổ, giữ actual/contactnull. T05/public chưa giao.
+
 
 Cập nhật03/10/2026: **C01-UI DONE; RC01-UI PASS** tại app96f539772b78d70324adb95a11508d27163cd3ad (basea4e0aa8), sửa M1/M2 vàL1–L7 theo Claude; L8 giữ ảnh gốc chờ chủ dự án. Preview mới http://127.0.0.1:4322/ (loopbackPID25960), thay thông tin4321/PID2888 lịch sử phía dưới. Minh bạch375 giảm18%; check/18tests/build0,38targeted+20navigation+6finance+38bundle và19servedhash đạt. Review: docs/reviews/RC01-ui-96f5397.md. Worker HOLD, không T05/public.
 
@@ -97,3 +107,4 @@ R04 PASS tại fad117c; T05 chưa giao, cần chủ dự án xác nhận thông 
 R02 PASS tại `a317d85`; bước tiếp theo là đặc tả T03. Giữ riêng planned/actual, tiền/hiện vật và contact chưa xác nhận. Không mở task trùng hoặc yêu cầu duyệt public trước preview toàn site/R04. Đoạn R01 bên dưới là lịch sử.
 
 R01 vòng đầu **CHANGES_REQUIRED** tại `a62542196676b61fd83618f18ccf6891821f9788`; [review vòng đầu](reviews/R01-a625421.md) được giữ nguyên. Antigravity sửa qua `191adc8` và bàn giao `c27fea2`; [R01 cuối PASS](reviews/R01-c27fea2.md). Chờ chủ dự án duyệt hướng UI trước T02. Không chứng nhận UI giống hệt ShareTheMeal; khảo sát nguồn có redirect và giới hạn đã ghi. R01 PASS chỉ nghiệm thu mẫu T01, không phải duyệt public hoặc xác nhận dữ liệu thực tế.
+

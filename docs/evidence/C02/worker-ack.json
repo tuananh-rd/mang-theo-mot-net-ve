@@ -1,0 +1,59 @@
+{
+  "id": "a9bd8e73-86ba-4e0b-89cd-589ffc8d6a8c",
+  "ok": true,
+  "result": {
+    "terminal": {
+      "handle": "term_59fb45bd-ac6c-45f8-bfd0-06875596b4bc",
+      "status": "running",
+      "tail": [
+        "          • A03: Góc Hát tại Trang chủ & Dự án. Ảnh trống lắc stock, giữ nhạc cụ ở tâm, ghi rõ credit, tuyệt đối",
+        "          không gọi là người của dự án.",
+        "          • A04: Góc Trò chơi tại Trang chủ & Dự án. Ảnh bóng sắc màu minh họa, ghi rõ không phải bộ bowling hay ảnh",
+        "          hoạt động thực tế.",
+        "          • A05: Thẻ Bánh su kem tại Sản phẩm. Crop vùng dưới (object-position: 50% 80%), ghi chú: Ảnh minh họa bánh",
+        "          trên đĩa — không phải hộp/khẩu phần bán của nhóm; trà không thuộc cam kết sản phẩm.",
+        "      • Các sản phẩm khác (chuồn chuồn tre + đế, móc khóa, set đồ ăn, 3 combo nem) tiếp tục duy trì hình minh họa",
+        "      vector SVG với nhãn rõ ràng.",
+        "  2. Đồng bộ Dữ liệu & Đối chiếu Doanh thu Ẩm thực (3.950.000đ vs 4.500.000đ, chênh 550.000đ):",
+        "      • Tạo helper / data source duy nhất tại src/lib/finance.ts / src/data/campaign.ts để tính toán đối soát:",
+        "          • $50 \\text{ set giả định} \\times 79.000\\text{đ} = 3.950.000\\text{đ}$.",
+        "          • Mục tiêu hồ sơ: $4.500.000\\text{đ}$ $\\rightarrow$ Khoản chênh lệch chưa phân bổ: $550.000\\text{đ}$.",
+        "      • Bảo toàn nguyên tắc dữ liệu:",
+        "          • Giữ nguyên plannedQuantity = null cho 5 SKU đồ ăn (không gán 50 cho SKU set-do-an, không tự phân bổ 550.",
+        "          000đ cho combo/bánh).",
+        "          • Tổng doanh thu kịch bản vẫn là 6.700.000đ và số dư cơ sở vẫn là 1.765.000đ (được dán nhãn giả định chưa",
+        "          kiểm chứng cơ cấu bán).",
+        "          • Toàn bộ số liệu thực tế (actual), thông tin liên hệ (contact), nhân sự và hiện vật tiếp tục giữ trạng",
+        "          thái null / chưa xác nhận.",
+        "      • Đồng bộ giải trình nhất quán trên cả 6 trang, bảng/thẻ Sản phẩm và hệ thống FAQs.",
+        "  3. Quy trình Kiểm định & Dịch vụ Preview:",
+        "      • Chạy npm run check, unit tests tests/finance.test.mjs, và npm run build đảm bảo exit code 0.",
+        "      • Chạy bộ kiểm tra Playwright/Puppeteer đầy đủ trên 6 routes + 404, chụp ảnh full-page 375/768/1440px và các",
+        "      breakpoint 900/1024px.",
+        "      • Giữ nguyên vẹn tiến trình Reviewer Claude PID 21616 trên cổng 4321.",
+        "      • Duy trì loopback preview server Antigravity PID 25960 trên cổng 4322.",
+        "      • Bàn giao ngoài repo tại thư mục handoff-c02/.",
+        "      • Commit chỉ bao gồm mã nguồn ứng dụng, không commit tài liệu của Brain, không git push, không public website,",
+        "      không mở Task T05.",
+        "  ──────",
+        "  Tôi sẽ tiến hành triển khai ngay các nội dung trên theo đúng đặc tả C02.",
+        "────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────",
+        ">",
+        "────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────",
+        "  ● [16:00:32] npx.cmd astro preview --host 127.0.0.1 --port 4322 --ignore-lock running",
+        "────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────",
+        "? for shortcuts                                                             Gemini 3.8 Flash · high · 1 task(s) · /tasks"
+      ],
+      "truncated": true,
+      "limited": true,
+      "oldestCursor": "54821",
+      "nextCursor": "56821",
+      "latestCursor": "56821",
+      "returnedLineCount": 37,
+      "source": "screen"
+    }
+  },
+  "_meta": {
+    "runtimeId": "ddbdaf39-537d-4532-99e0-f7f964e33084"
+  }
+}

@@ -1,0 +1,1 @@
+﻿First links harness exited1: TypeError reading response.status because Puppeteer returns null for same-document hash navigation. Reviewer harness now navigates to about:blank before each target to require a real HTTP response. No application changes made. Full check rerun below; final JSON refers to corrected harness.

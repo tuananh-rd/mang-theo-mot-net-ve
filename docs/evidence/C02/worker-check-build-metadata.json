@@ -1,0 +1,154 @@
+{
+  "task": "C02",
+  "target": "Add A01-A05 stock illustrations, reconcile food revenue, and sync across 6 pages",
+  "baseSHA": "5cdc624f1bbe24d791e6386850428a3c60cb8c46",
+  "finalAppSHA": "221eafa73661cb822b3f8017b7fe1bf367106349",
+  "appCommits": [
+    {
+      "sha": "221eafa73661cb822b3f8017b7fe1bf367106349",
+      "message": "feat(c02): add A01-A05 stock illustrations and reconcile food revenue"
+    }
+  ],
+  "nodeVersion": "v24.19.0",
+  "astroVersion": "7.3.5",
+  "checkStatus": {
+    "errors": 0,
+    "warnings": 0,
+    "hints": 0,
+    "filesChecked": 61
+  },
+  "testStatus": {
+    "passed": 24,
+    "failed": 0,
+    "suites": 4,
+    "file": "tests/finance.test.mjs"
+  },
+  "browserAuditStatus": {
+    "totalAssertions": 113,
+    "passed": 113,
+    "failed": 0,
+    "screenshotsCount": 33,
+    "screenshotsBreakdown": {
+      "fullPage": 23,
+      "menuOpen": 1,
+      "crops": 9,
+      "totalPng": 33
+    },
+    "minhBach375Height": {
+      "baseline": 12366,
+      "current": 10193,
+      "reductionPercent": "17.57%",
+      "targetPassed": true
+    }
+  },
+  "previewService": {
+    "host": "127.0.0.1",
+    "port": 4322,
+    "pid": 25960,
+    "status": "RUNNING",
+    "claudePreviewUntouched": {
+      "host": "127.0.0.1",
+      "port": 4321,
+      "pid": 21616
+    }
+  },
+  "distFileCount": 24,
+  "distHashes": {
+    "404.html": {
+      "size": 9347,
+      "sha256": "acd832eab0821c2961b33757a9481fda21b208c36fa753896957a691e901911e"
+    },
+    "dong-hanh/index.html": {
+      "size": 22762,
+      "sha256": "0d4857e01a48d7c82fd958d2578d9f08107882c4634c31dabe26a62b432fde5e"
+    },
+    "du-an/mang-theo-mot-net-ve/index.html": {
+      "size": 30196,
+      "sha256": "0e135cbeab1ed8310555a74e5a89f113e23036a90cf771bac8ba954b06a79919"
+    },
+    "favicon.svg": {
+      "size": 703,
+      "sha256": "cf5a6109d12aead474ccee95fd51643e1988adc2364bb1349e3c3e4e6d564051"
+    },
+    "images/apple-touch-icon.png": {
+      "size": 6141,
+      "sha256": "1f17e268aaf9672ade06b400cc5348a3126c9201b7135bd7e3723d992da20e10"
+    },
+    "images/favicon-32x32.png": {
+      "size": 1263,
+      "sha256": "a960c351d4ca5d3fb258edf561b23e67e22a599a969a53f8fbf793f7103b3087"
+    },
+    "images/illustrations/a01.webp": {
+      "size": 100518,
+      "sha256": "a9fa9016a999b7adab3f52f8d942c0b2f3606326003a2ef42a6c7c28bdc2f3f1"
+    },
+    "images/illustrations/a02.webp": {
+      "size": 30248,
+      "sha256": "8db997d57ec418468478f940cde866e14ef970c3221b6f3978d6c2af4fb7e535"
+    },
+    "images/illustrations/a03.webp": {
+      "size": 89352,
+      "sha256": "4f0050853707213fafed52296fa75ef62f1519352a9a5c30a0be45cba435c5a7"
+    },
+    "images/illustrations/a04.webp": {
+      "size": 67214,
+      "sha256": "17c3fefd7484603a82dd9cb1cabf0122ce856c58e4977874179d2519df1ec61a"
+    },
+    "images/illustrations/a05.webp": {
+      "size": 101026,
+      "sha256": "8d8f4d8bbaa692295eb81b34858b8cdc2e454c82bd8bb610e84c1a33dcb9407f"
+    },
+    "images/logo_lang_kinh_2048.png": {
+      "size": 78915,
+      "sha256": "06f63ac9d41c079827d794b13ffec468ea30be7b818755b4ba96bc819f7facbc"
+    },
+    "images/logo_option5_horizontal.png": {
+      "size": 37399,
+      "sha256": "e078e7ea7bd8debae74d2c573fe4391fd55aee57a167ca4eb63534b17ee56db9"
+    },
+    "index.html": {
+      "size": 41548,
+      "sha256": "70779ba9a4abc0729c49daf0b600af5020d4af8571087f2d3a9475cd324d3336"
+    },
+    "minh-bach/index.html": {
+      "size": 62782,
+      "sha256": "b326d6fb3c22aba692335de73eba9309283129363254cd1be7745cec9eb32762"
+    },
+    "san-pham/index.html": {
+      "size": 53489,
+      "sha256": "9d52619d3d1ae2fd47eabcb872dc26db043d603404fa59b504aca28ee7b1f24c"
+    },
+    "ve-nhom/index.html": {
+      "size": 17980,
+      "sha256": "3a7fc977cee5ab63e262605e2a3d65d5eff6b095df9d15398322d77ae1ed4b07"
+    },
+    "_astro/dong-hanh.DuovsDRG.css": {
+      "size": 8160,
+      "sha256": "a7909fac09352b0713b695298bb4ed885b46a811dcb7424ffe0f62cb0406bdda"
+    },
+    "_astro/index.CBXXn_Oh.css": {
+      "size": 7035,
+      "sha256": "27171c6d671025d178170ff4be076b2ec8990093c4e798338105cb710f326345"
+    },
+    "_astro/Layout.Bk1kzqyo.css": {
+      "size": 13457,
+      "sha256": "6a9c3d539bb5d6b77504a5c063800b39159a82eff8124c55bea1dc8e00555900"
+    },
+    "_astro/mang-theo-mot-net-ve.BWRcd6ON.css": {
+      "size": 5855,
+      "sha256": "c501d34a1049239d17a9b40bd710f20d6fee8c3c661df16205e994ce534e0e58"
+    },
+    "_astro/minh-bach.DIZgCX4V.css": {
+      "size": 18882,
+      "sha256": "e98356996f02bf8736a1f3f1480215f0d3f33939d809ac27633d6df235f03c96"
+    },
+    "_astro/san-pham.CNL--A2A.css": {
+      "size": 9821,
+      "sha256": "60560a1f8c5295985d9f43378570275cfd2e583a74fa83012af6c98e8f1104c0"
+    },
+    "_astro/ve-nhom.BRoQZuFh.css": {
+      "size": 5973,
+      "sha256": "525a0d6d39ee63bb1bd2eb11d964c2d14b29a1f93e3f25d219e9a5ef70ccaa76"
+    }
+  }
+}
