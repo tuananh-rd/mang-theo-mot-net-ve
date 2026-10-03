@@ -1,0 +1,14 @@
+﻿{
+    "reviewedHead":  "3cce1b1a50c09275aa78c94eedd63589ef2c3a00",
+    "appSha":  "221eafa73661cb822b3f8017b7fe1bf367106349",
+    "reportHash":  "8176f7234965a866f80f45f05c14f71b7a9515a98fc4d58c6f33d29249bf2c04",
+    "jsonFiles":  9,
+    "appStatus":  "",
+    "previewListener":  [
+                            {
+                                "LocalAddress":  "127.0.0.1",
+                                "LocalPort":  4322,
+                                "OwningProcess":  25960
+                            }
+                        ]
+}

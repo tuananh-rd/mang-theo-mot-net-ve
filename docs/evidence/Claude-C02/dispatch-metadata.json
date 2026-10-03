@@ -1,0 +1,18 @@
+﻿{
+    "task":  "RV-C02-CLAUDE",
+    "channel":  "Orca terminal",
+    "head":  "3cce1b1a50c09275aa78c94eedd63589ef2c3a00",
+    "applicationCommit":  "221eafa73661cb822b3f8017b7fe1bf367106349",
+    "preview":  "http://127.0.0.1:4322/",
+    "handle":  "term_0ed92721-b76e-4572-bca8-370f3a754e85",
+    "incarnationId":  "e2b30856-03ba-4af2-b686-6db443880dac",
+    "runtimeId":  "ddbdaf39-537d-4532-99e0-f7f964e33084",
+    "modelHistorical":  "Opus 5.5; current model must be confirmed by reviewer",
+    "status":  "REVIEW_COMPLETE_HOLD",
+    "reviewerPriorState":  "idle; C01 complete; old preview4321 stopped due to memory; do not restart",
+    "antigravityState":  "HOLD",
+    "startedAt":  "2026-10-03T12:43:09.6668404Z",
+    "modelReported":  "claude-opus-5-5",
+    "report":  "reports/ui-content-review-claude-c02.md",
+    "triage":  "docs/reviews/RV-C02-claude-triage.md"
+}

@@ -1,0 +1,30 @@
+﻿{
+  "id": "36a7020a-2970-45bb-84e9-fcecc0ef165b",
+  "ok": true,
+  "result": {
+    "terminal": {
+      "handle": "term_0ed92721-b76e-4572-bca8-370f3a754e85",
+      "ptyId": "1873b0af-5f38-4783-9ee7-c7c32705fcaf::C:\\Users\\tuana\\Documents\\Codex\\2026-10-02\\t\\outputs\\mang-theo-mot-net-ve::workspace:7153b0bf-9ba1-484f-8db2-9aae86e392be@@7cc57028",
+      "incarnationId": "e2b30856-03ba-4af2-b686-6db443880dac",
+      "orphaned": false,
+      "worktreeId": "1873b0af-5f38-4783-9ee7-c7c32705fcaf::C:\\Users\\tuana\\Documents\\Codex\\2026-10-02\\t\\outputs\\mang-theo-mot-net-ve::workspace:7153b0bf-9ba1-484f-8db2-9aae86e392be",
+      "worktreePath": "C:\\Users\\tuana\\Documents\\Codex\\2026-10-02\\t\\outputs\\mang-theo-mot-net-ve",
+      "branch": "",
+      "tabId": "9cd5d9ae-8b1c-4a57-9333-aefbfbb1a4b1",
+      "leafId": "ab4e72c8-7b01-4aad-a779-ffa09aa19878",
+      "title": "✳ Web demo UI review RV-C01-CLAUDE",
+      "connected": true,
+      "writable": true,
+      "lastOutputAt": 1791031312578,
+      "preview": "───────────────────────────────────────────────────────────────────────────────────────────────────────\n❯\n─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────\n⏵⏵ bypass permissions on (shift+tab to cycle) · ← for agents",
+      "executionHostId": "local",
+      "agentIdentity": "claude",
+      "paneRuntimeId": 1,
+      "rendererGraphEpoch": 0,
+      "agentWait": null
+    }
+  },
+  "_meta": {
+    "runtimeId": "ddbdaf39-537d-4532-99e0-f7f964e33084"
+  }
+}

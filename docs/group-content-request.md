@@ -1,12 +1,12 @@
-# Thông tin và ảnh nhóm cần cung cấp
+﻿# Thông tin và ảnh nhóm cần cung cấp
 
 Danh sách này phục vụ việc hoàn thiện nội dung, không phải dữ liệu đã xác nhận. Gửi ảnh gốc cùng bảng: tên file, người chụp/nguồn, ngày, ngữ cảnh, người đồng ý công bố và phạm vi sử dụng. Ảnh stock trên preview chỉ minh họa; không thay ảnh nhóm, mẫu bán, chứng từ hay hoạt động tại Mái ấm.
 
 | Bộ cần gửi | Thông tin cần chốt | Ảnh và quy cách | Vị trí sử dụng |
 | --- | --- | --- | --- |
-| Trạng thái dự án | Giai đoạn thực tế, phiên bản nội dung, ngày cập nhật, người duyệt, phạm vi công bố | Không cần ảnh để chốt trạng thái | Banner/footer và cả 6 trang; C01–03, C11, C20 |
-| Lịch và phối hợp | Ngày hai buổi, lịch gây quỹ/bàn giao/theo dõi, thời lượng, địa điểm được công bố, đầu mối đã đồng ý; nội dung trao đổi nhu cầu được phép trích | 1–2 ảnh không gian/chuẩn bị được phép, ảnh ngang từ 1600×1200; không dùng cơ sở khác | Trang chủ, Dự án, Đồng hành; C07, C11–13, C18, C43 |
-| Nhóm 7 thành viên | Tên công khai, vai trò, nhiệm vụ ngắn, cặp đối soát; đồng ý sử dụng tên/ảnh của từng người | 1 ảnh nhóm 3:2 hoặc 16:9, cạnh dài từ 2400px; 7 chân dung 1:1, cạnh từ 1000px | Trang chủ và Về nhóm; C09, C37–39 |
+| Trạng thái dự án | Giai đoạn thực tế, một câu trạng thái ngắn có ngày và người duyệt, phiên bản nội dung, phạm vi công bố | Không cần ảnh để chốt trạng thái | Banner/footer và cả 6 trang; C01–03, C11, C20 |
+| Lịch và phối hợp | Ngày hai buổi, lịch gây quỹ/bàn giao/theo dõi, thời lượng được thống nhất (nguồn có các khoảng 90–120, 90–110 và 180 phút; cần chốt bản hiệu lực), địa điểm được công bố, đầu mối đã đồng ý; nội dung trao đổi nhu cầu được phép trích | 1–2 ảnh không gian/chuẩn bị được phép, ảnh ngang từ 1600×1200; không dùng cơ sở khác | Trang chủ, Dự án, Đồng hành; C07, C11–13, C18, C43 |
+| Nhóm 7 thành viên | Tên công khai, vai trò, nhiệm vụ ngắn, cặp đối soát; chốt bản phân công hiệu lực vì PDF và tài liệu cũ khác nhau ở trưởng nhóm/đối ngoại/hậu cần/tài chính; đồng ý sử dụng tên/ảnh của từng người | 1 ảnh nhóm 3:2 hoặc 16:9, cạnh dài từ 2400px; 7 chân dung 1:1, cạnh từ 1000px | Trang chủ và Về nhóm; C09, C37–39 |
 | Bốn góc hoạt động | Vật tư thật, cách hỗ trợ, phân công, bài hát/trò chơi đã chọn; không giao chỉ tiêu sản xuất cho trẻ | Ít nhất 4 ảnh: phôi tre và màu/cọ; tượng và họa cụ; nhạc cụ/không gian; bóng/bowling/thẻ thật. Từ 1600×1200; chủ thể không sát mép; kiểm crop 4:3 desktop và 16:9 mobile | Trang chủ và Dự án dùng cùng bộ; C04–05, C12, C14–17 |
 | Chuồn chuồn kèm đế | Mẫu 12cm, kích thước/chất liệu/màu, nguồn trang trí/người hoàn thiện, giá, số lượng phát hành và tồn kho thật | 1 ảnh chính đủ chuồn chuồn + đế, 1 ảnh cận; 4:3, từ 1600×1200, nền sáng | Trang chủ và Sản phẩm; C06, C19, C21, C28 |
 | Móc khóa | Mẫu có nhận diện Lăng Kính, hình dáng/kích thước/chất liệu, thiết kế và quyền hình ảnh, giá/tồn kho | Ảnh chính và hai mặt mẫu hoàn thiện; 4:3, từ 1600×1200; không dùng ảnh phôi stock | Trang chủ và Sản phẩm; C06, C22, C28 |

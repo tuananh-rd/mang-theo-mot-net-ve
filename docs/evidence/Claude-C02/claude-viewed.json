@@ -1,0 +1,33 @@
+{
+  "task": "RV-C02-CLAUDE",
+  "model": "claude-opus-5-5",
+  "head": "3cce1b1a50c09275aa78c94eedd63589ef2c3a00",
+  "app": "221eafa73661cb822b3f8017b7fe1bf367106349",
+  "preview": "http://127.0.0.1:4322 (PID 25960, Antigravity; not started/stopped by Claude)",
+  "viewedMethod": "Full-page PNG sliced/composited in session scratchpad (outside repo) and viewed with the image reader; composites are 3-4 slices side by side at native pixel size.",
+  "viewedFully": [
+    "claude-home-1440-full.png (all 5 slices)",
+    "claude-project-1440-full.png (slices 0,2,3; slice 1 = story text section seen in 375/768)",
+    "claude-products-1440-full.png (slices 0-3)",
+    "claude-finance-1440-full.png (slices 0,2,3,4; slice 1 = budget rows seen at 375/768)",
+    "claude-team-1440-full.png (slices 1,2; hero seen at 375)",
+    "claude-support-1440-full.png (slices 1,2; hero/footer seen at 375)",
+    "claude-home-375-full.png (all 7 slices via 2 sheets)",
+    "claude-products-375-full.png (all 7 slices)",
+    "claude-finance-375-full.png (all 7 slices)",
+    "claude-project-375-full.png (slices 0-3)",
+    "claude-team-375-full.png (all 4)",
+    "claude-support-375-full.png (slices 0-3)",
+    "claude-home-768-full.png (slices 0-2)",
+    "claude-products-768-full.png (slices 3-5)",
+    "claude-finance-768-full.png (slices 0-2)",
+    "claude-products-1024-full.png (slices 2-4)",
+    "claude-menu-375.png",
+    "claude-faq-open-finance-375.png"
+  ],
+  "capturedNotViewedIndividually": [
+    "claude-project-768-full.png", "claude-team-768-full.png", "claude-support-768-full.png",
+    "claude-products-900-full.png", "claude-*-fold.png (18)", "claude-faq-open-support-375.png", "claude-focus-1440.png",
+    "remaining 768 slices of home/products/finance"
+  ]
+}

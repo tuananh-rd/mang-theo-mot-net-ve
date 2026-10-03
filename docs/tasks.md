@@ -1,5 +1,9 @@
 ﻿# Backlog
 
+## RV-C02-CLAUDE — review UI và nội dung hoàn tất
+
+03/10/2026: Claude hiện có đã review app `221eafa`, HEAD khi giao `3cce1b1`, preview4322. [Báo cáo](../reports/ui-content-review-claude-c02.md), [Codex phân loại](reviews/RV-C02-claude-triage.md), [spec](task-specs/RV-C02-claude.md). Số liệu/chức năng nhất quán; cần cải thiện phân cấp, lặp nội dung và độ dài mobile. Có16đề xuất UI, đã tách phần đủ nguồn khỏi phần cần nhóm xác nhận. Chưa sửa code sau review, chưa giao task triển khai tiếp theo. Claude và Antigravity HOLD; T05/public chưa giao.
+
 Cập nhật 03/10/2026: **C02 DONE; RC02 PASS cho preview local** tại app `221eafa73661cb822b3f8017b7fe1bf367106349`, baseline `5cdc624`, nhánh `task/c02-images-content`. Đã bổ sung A01–A05 có nhãn minh họa, đồng bộ nội dung và ghi rõ khoản chênh đồ ăn 550.000đ cần xác nhận. Check, 24 tests và build đạt; đủ sáu trang đã xem ở 375/768/1440px, menu/FAQ/link/ảnh/bundle đã kiểm. Preview hiện tại: http://127.0.0.1:4322/ — loopback PID 25960. Worker HOLD; không T05 hoặc deploy public.
 
 [Review C02](reviews/RC02-221eafa.md) · [Thông tin và ảnh cần nhóm gửi](group-content-request.md). Các mốc bên dưới là lịch sử; dùng URL/commit hiện tại ở trên.
@@ -107,4 +111,5 @@ R04 PASS tại fad117c; T05 chưa giao, cần chủ dự án xác nhận thông 
 R02 PASS tại `a317d85`; bước tiếp theo là đặc tả T03. Giữ riêng planned/actual, tiền/hiện vật và contact chưa xác nhận. Không mở task trùng hoặc yêu cầu duyệt public trước preview toàn site/R04. Đoạn R01 bên dưới là lịch sử.
 
 R01 vòng đầu **CHANGES_REQUIRED** tại `a62542196676b61fd83618f18ccf6891821f9788`; [review vòng đầu](reviews/R01-a625421.md) được giữ nguyên. Antigravity sửa qua `191adc8` và bàn giao `c27fea2`; [R01 cuối PASS](reviews/R01-c27fea2.md). Chờ chủ dự án duyệt hướng UI trước T02. Không chứng nhận UI giống hệt ShareTheMeal; khảo sát nguồn có redirect và giới hạn đã ghi. R01 PASS chỉ nghiệm thu mẫu T01, không phải duyệt public hoặc xác nhận dữ liệu thực tế.
+
 

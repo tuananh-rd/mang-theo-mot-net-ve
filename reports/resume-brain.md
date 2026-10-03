@@ -1,5 +1,7 @@
 ﻿# Bàn giao tiếp nối Brain — 02/10/2026
 
+Cập nhật sau RV-C02-CLAUDE: chủ dự án yêu cầu review bố cục chuyên nghiệp/dễ nhận biết và nội dung thiếu. Claude Opus5.5 hiện có đã hoàn tất tại app221eafa, preview4322 giữ nguyên; [báo cáo](ui-content-review-claude-c02.md), [Codex phân loại](../docs/reviews/RV-C02-claude-triage.md), [bằng chứng](../docs/evidence/Claude-C02/dispatch.md). Không sửa app hoặc giao implementation sau review. Ưu tiên giảm lặp mobile Sản phẩm, tóm tắt tài chính, phân biệt hero hai trang và nhóm nội dung. Nội dung mới phải là kế hoạch, giữ quyền lựa chọn và ảnh minh họa có ngữ cảnh. Claude term_0ed92721-b76e-4572-bca8-370f3a754e85 và Antigravity term_59fb45bd-ac6c-45f8-bfd0-06875596b4bc đều HOLD; re-list/show/read trước thao tác lần sau. Claude4321 đã dừng do memory; không khởi động lại. T05/public chưa giao.
+
 Cập nhật 03/10/2026: **C02 DONE; RC02 PASS cho preview local** tại app `221eafa73661cb822b3f8017b7fe1bf367106349`, baseline `5cdc624`, nhánh `task/c02-images-content`. Đã bổ sung A01–A05 có nhãn minh họa, đồng bộ nội dung và ghi rõ khoản chênh đồ ăn 550.000đ cần xác nhận. Check, 24 tests và build đạt; đủ sáu trang đã xem ở 375/768/1440px, menu/FAQ/link/ảnh/bundle đã kiểm. Preview hiện tại: http://127.0.0.1:4322/ — loopback PID 25960. Worker HOLD; không T05 hoặc deploy public.
 
 [Review C02](../docs/reviews/RC02-221eafa.md) · [Thông tin và ảnh cần nhóm gửi](../docs/group-content-request.md). Các mốc bên dưới là lịch sử; dùng URL/commit hiện tại ở trên.
@@ -92,4 +94,5 @@ ShareTheMeal `/fr` web tool vẫn 403; Orca redirect `/en-us` có khảo sát vi
 **T02 WAITING_UI_APPROVAL**. Chờ chủ dự án duyệt hướng UI trên preview; chưa giao task triển khai tiếp theo. R01 PASS không phải duyệt public. Khi tiếp nhận phiên sau, kiểm workspace/Git/app diff và worker/preview lại; không tạo worker trùng hoặc tự sửa code. Giữ Codex sở hữu tài liệu/review, Antigravity sở hữu app/config/task checks.
 
 Nội dung thật, ảnh, liên hệ, trạng thái mở bán/tồn kho, lịch, nhu cầu Mái ấm và thu chi còn chờ chủ dự án xác nhận theo [open-questions](../docs/open-questions.md). Planned/actual và tiền/hiện vật vẫn tách; unknown=null. Không suy ra số liệu thực tế từ việc build hoặc UI được duyệt.
+
 

@@ -1,0 +1,2375 @@
+{
+  "base": "http://127.0.0.1:4322",
+  "startedAt": "2026-10-03T12:45:29.155Z",
+  "pages": [
+    {
+      "name": "home",
+      "route": "/",
+      "vw": 375,
+      "status": 200,
+      "shot": "docs/evidence/Claude-C02/claude-home-375-full.png",
+      "fold": "docs/evidence/Claude-C02/claude-home-375-fold.png",
+      "title": "Trang chủ | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "height": 9082,
+      "scrollW": 375,
+      "firstFoldText": [
+        "H1:Mang Theo Một Nét Vẽ",
+        "P:Một buổi chơi phù hợp, một món quà đúng nhu cầu.",
+        "P:Nhóm Lăng Kính dự kiến mang chuồn chuồn tre, sắc màu và nhữn",
+        "A:Khám phá dự án",
+        "A:Xem sản phẩm gây quỹ",
+        "SPAN:Ảnh minh họa họa cụ — chưa phải ảnh chuẩn bị hoặc hoạt động ",
+        "A:Pavel Danilyuk",
+        "H2:Buổi chơi có lựa chọn",
+        "P:Mỗi hoạt động được thiết kế để mang lại niềm vui vừa sức, an"
+      ],
+      "sections": [
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Mang Theo Một Nét Vẽ",
+          "top": 102,
+          "h": 630
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Buổi chơi có lựa chọn",
+          "top": 732,
+          "h": 2241
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Sản phẩm gây quỹ dự kiến",
+          "top": 2973,
+          "h": 2062
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Hành trình dự kiến",
+          "top": 5035,
+          "h": 991
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Minh bạch từ kế hoạch đến thực tế",
+          "top": 6026,
+          "h": 983
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Về nhóm Lăng Kính",
+          "top": 7008,
+          "h": 441
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Đồng hành đúng nhu cầu",
+          "top": 7450,
+          "h": 808
+        }
+      ],
+      "heads": [
+        "H1: Mang Theo Một Nét Vẽ",
+        "H2: Buổi chơi có lựa chọn",
+        "H3: Chuồn chuồn tre",
+        "H3: Tô tượng sắc màu",
+        "H3: Hát cùng nhau",
+        "H3: Trò chơi tương tác nhẹ",
+        "H2: Sản phẩm gây quỹ dự kiến",
+        "H3: Chuồn chuồn tre 12 cm kèm đế",
+        "H3: Móc khóa Lăng Kính",
+        "H3: Set đồ ăn gây quỹ",
+        "H2: Hành trình dự kiến",
+        "H3: Xác nhận và chuẩn bị nguồn lực",
+        "H3: Buổi chơi tại Mái ấm",
+        "H3: Hoàn thiện và gây quỹ",
+        "H3: Đối soát và trao tặng",
+        "H2: Minh bạch từ kế hoạch đến thực tế",
+        "H3: Dự toán kế hoạch trong đề xuất",
+        "H3: Nguyên tắc quản trị tài chính",
+        "H2: Về nhóm Lăng Kính",
+        "H2: Đồng hành đúng nhu cầu",
+        "H3: Hỗ trợ vật tư thiết yếu",
+        "H3: Quan tâm sản phẩm gây quỹ",
+        "H3: Kết nối và hỗ trợ truyền thông"
+      ],
+      "ctas": [
+        "Khám phá dự án",
+        "Xem sản phẩm gây quỹ",
+        "Xem chi tiết thông tin sản phẩm",
+        "Xem dự toán chi tiết",
+        "Tìm hiểu thêm về nhóm",
+        "Tìm hiểu cách đồng hành"
+      ],
+      "imgs": [
+        {
+          "src": "/images/illustrations/a01.webp",
+          "alt": "Bảng màu nước và các loại cọ vẽ đặt trên bàn",
+          "w": 341,
+          "h": 150,
+          "nat": "1600x1068",
+          "loading": "eager",
+          "ok": true,
+          "caption": "Ảnh minh họa họa cụ — chưa phải ảnh chuẩn bị hoặc hoạt động của dự án Ảnh: Pavel Danilyuk / Pexels"
+        },
+        {
+          "src": "/images/illustrations/a02.webp",
+          "alt": "Màu vẽ và cọ trên nền màu pastel",
+          "w": 307,
+          "h": 165,
+          "nat": "1067x1600",
+          "loading": "lazy",
+          "ok": true,
+          "caption": "Ảnh minh họa màu vẽ cho góc trang trí — mẫu chuồn chuồn thực tế chờ xác nhận Ảnh: Kaboompics (Karola G) / Pexels"
+        },
+        {
+          "src": "/images/illustrations/a01.webp",
+          "alt": "Bảng màu nước và cọ vẽ cho hoạt động tô màu",
+          "w": 307,
+          "h": 165,
+          "nat": "1600x1068",
+          "loading": "lazy",
+          "ok": true,
+          "caption": "Ảnh minh họa cọ và màu vẽ — mẫu tượng thạch cao thực tế chờ xác nhận Ảnh: Pavel Danilyuk / Pexels"
+        },
+        {
+          "src": "/images/illustrations/a03.webp",
+          "alt": "Trống lắc màu vàng",
+          "w": 307,
+          "h": 165,
+          "nat": "1600x1067",
+          "loading": "lazy",
+          "ok": true,
+          "caption": "Ảnh minh họa trống lắc — không phải nhạc cụ của nhóm hay người tham gia dự án Ảnh: Kaboompics (Karola G) / Pexels"
+        },
+        {
+          "src": "/images/illustrations/a04.webp",
+          "alt": "Những quả bóng nhựa nhiều màu sắc",
+          "w": 307,
+          "h": 165,
+          "nat": "1600x1067",
+          "loading": "lazy",
+          "ok": true,
+          "caption": "Ảnh minh họa bóng cho góc trò chơi — không phải bộ bowling hay ảnh hoạt động thực tế Ảnh: RDNE Stock project / Pexels"
+        }
+      ],
+      "counts": {
+        "chuaXacNhan": 5,
+        "duKien": 5,
+        "giaDinh": 5,
+        "minhHoa": 8,
+        "words": 1277
+      },
+      "smallText": 0,
+      "current": [
+        "Trang chủ",
+        "Trang chủ"
+      ]
+    },
+    {
+      "name": "project",
+      "route": "/du-an/mang-theo-mot-net-ve",
+      "vw": 375,
+      "status": 200,
+      "shot": "docs/evidence/Claude-C02/claude-project-375-full.png",
+      "fold": "docs/evidence/Claude-C02/claude-project-375-fold.png",
+      "title": "Câu chuyện dự án | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "height": 6754,
+      "scrollW": 375,
+      "firstFoldText": [
+        "A:Trang chủ",
+        "SPAN:Dự án",
+        "SPAN:Bản xem trước — nội dung đề xuất",
+        "H1:Mang Theo Một Nét Vẽ",
+        "P:Một buổi chơi phù hợp, một món quà đúng nhu cầu.",
+        "P:Nhóm Lăng Kính dự kiến mang chuồn chuồn tre, sắc màu và nhữn",
+        "SPAN:Ảnh minh họa họa cụ — chưa phải ảnh chuẩn bị hoặc hoạt động ",
+        "A:Pavel Danilyuk"
+      ],
+      "sections": [
+        {
+          "tag": "DIV",
+          "id": null,
+          "heading": null,
+          "top": 102,
+          "h": 61
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Mang Theo Một Nét Vẽ",
+          "top": 163,
+          "h": 802
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Câu chuyện từ đề xuất",
+          "top": 965,
+          "h": 570
+        },
+        {
+          "tag": "SECTION",
+          "id": "buoi-choi",
+          "heading": "Buổi chơi có nhiều lựa chọn",
+          "top": 1535,
+          "h": 2360
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Hành trình dự kiến của dự án",
+          "top": 3895,
+          "h": 1147
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Nguồn lực và nguyên tắc minh bạch",
+          "top": 5042,
+          "h": 489
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Cập nhật và kết quả",
+          "top": 5530,
+          "h": 400
+        }
+      ],
+      "heads": [
+        "H1: Mang Theo Một Nét Vẽ",
+        "H2: Câu chuyện từ đề xuất",
+        "H2: Buổi chơi có nhiều lựa chọn",
+        "H3: Chuồn chuồn tre",
+        "H3: Tô tượng sắc màu",
+        "H3: Hát cùng nhau",
+        "H3: Trò chơi tương tác nhẹ",
+        "H2: Hành trình dự kiến của dự án",
+        "H3: Xác nhận và chuẩn bị nguồn lực",
+        "H3: Buổi chơi tại Mái ấm",
+        "H3: Hoàn thiện và gây quỹ",
+        "H3: Đối soát và trao tặng",
+        "H2: Nguồn lực và nguyên tắc minh bạch",
+        "H2: Cập nhật và kết quả",
+        "H3: Chưa có cập nhật thực tế được xác nhận. Kết quả và báo cáo sẽ được côn"
+      ],
+      "ctas": [
+        "Xem sản phẩm gây quỹ",
+        "Xem các góc hoạt động",
+        "Xem nguyên tắc minh bạch thu chi"
+      ],
+      "imgs": [
+        {
+          "src": "/images/illustrations/a01.webp",
+          "alt": "Bảng màu nước và các loại cọ vẽ đặt trên bàn",
+          "w": 341,
+          "h": 150,
+          "nat": "1600x1068",
+          "loading": "eager",
+          "ok": true,
+          "caption": "Ảnh minh họa họa cụ — chưa phải ảnh chuẩn bị hoặc hoạt động của dự án Ảnh: Pavel Danilyuk / Pexels"
+        },
+        {
+          "src": "/images/illustrations/a02.webp",
+          "alt": "Màu vẽ và cọ trên nền màu pastel",
+          "w": 307,
+          "h": 165,
+          "nat": "1067x1600",
+          "loading": "lazy",
+          "ok": true,
+          "caption": "Ảnh minh họa màu vẽ cho góc trang trí — mẫu chuồn chuồn thực tế chờ xác nhận Ảnh: Kaboompics (Karola G) / Pexels"
+        },
+        {
+          "src": "/images/illustrations/a01.webp",
+          "alt": "Bảng màu nước và cọ vẽ cho hoạt động tô màu",
+          "w": 307,
+          "h": 165,
+          "nat": "1600x1068",
+          "loading": "lazy",
+          "ok": true,
+          "caption": "Ảnh minh họa cọ và màu vẽ — mẫu tượng thạch cao thực tế chờ xác nhận Ảnh: Pavel Danilyuk / Pexels"
+        },
+        {
+          "src": "/images/illustrations/a03.webp",
+          "alt": "Trống lắc màu vàng",
+          "w": 307,
+          "h": 165,
+          "nat": "1600x1067",
+          "loading": "lazy",
+          "ok": true,
+          "caption": "Ảnh minh họa trống lắc — không phải nhạc cụ của nhóm hay người tham gia dự án Ảnh: Kaboompics (Karola G) / Pexels"
+        },
+        {
+          "src": "/images/illustrations/a04.webp",
+          "alt": "Những quả bóng nhựa nhiều màu sắc",
+          "w": 307,
+          "h": 165,
+          "nat": "1600x1067",
+          "loading": "lazy",
+          "ok": true,
+          "caption": "Ảnh minh họa bóng cho góc trò chơi — không phải bộ bowling hay ảnh hoạt động thực tế Ảnh: RDNE Stock project / Pexels"
+        }
+      ],
+      "counts": {
+        "chuaXacNhan": 6,
+        "duKien": 8,
+        "giaDinh": 0,
+        "minhHoa": 5,
+        "words": 1031
+      },
+      "smallText": 0,
+      "current": [
+        "Dự án",
+        "Dự án",
+        "Dự án"
+      ]
+    },
+    {
+      "name": "products",
+      "route": "/san-pham",
+      "vw": 375,
+      "status": 200,
+      "shot": "docs/evidence/Claude-C02/claude-products-375-full.png",
+      "fold": "docs/evidence/Claude-C02/claude-products-375-fold.png",
+      "title": "Sản phẩm gây quỹ dự kiến | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "height": 9612,
+      "scrollW": 375,
+      "firstFoldText": [
+        "A:Trang chủ",
+        "SPAN:Sản phẩm",
+        "SPAN:Kế hoạch gây quỹ",
+        "H1:Sản phẩm gây quỹ dự kiến",
+        "P:Các sản phẩm thủ công và phương án ẩm thực nằm trong kế hoạc",
+        "SPAN:Danh mục đề xuất",
+        "H2:Sản phẩm trong kế hoạch đề xuất",
+        "P:Kế hoạch gây quỹ gồm 2 sản phẩm lưu niệm thủ công và thực đơ"
+      ],
+      "sections": [
+        {
+          "tag": "DIV",
+          "id": null,
+          "heading": null,
+          "top": 102,
+          "h": 61
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Sản phẩm gây quỹ dự kiến",
+          "top": 163,
+          "h": 359
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Sản phẩm trong kế hoạch đề xuất",
+          "top": 522,
+          "h": 3937
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Bảng tổng hợp kế hoạch số lượng",
+          "top": 4459,
+          "h": 2526
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Hỏi đáp về sản phẩm và gây quỹ",
+          "top": 6984,
+          "h": 1803
+        }
+      ],
+      "heads": [
+        "H1: Sản phẩm gây quỹ dự kiến",
+        "H2: Sản phẩm trong kế hoạch đề xuất",
+        "H3: 1. Sản phẩm lưu niệm thủ công",
+        "H3: Chuồn chuồn tre 12 cm kèm đế",
+        "H3: Móc khóa Lăng Kính",
+        "H3: 2. Thực đơn ẩm thực gây quỹ dự kiến",
+        "H2: Bảng tổng hợp kế hoạch số lượng",
+        "H3: Chuồn chuồn tre 12 cm kèm đế",
+        "H3: Móc khóa Lăng Kính",
+        "H3: Set đồ ăn gây quỹ",
+        "H3: Combo 5 nem vỏ giòn",
+        "H3: Combo 5 nem xù",
+        "H3: Combo 5 nem phô mai",
+        "H3: Bánh su kem",
+        "H2: Hỏi đáp về sản phẩm và gây quỹ",
+        "H3: Giá ghi trên website có phải là giá bán chính thức không?",
+        "H3: Sản phẩm gây quỹ do ai làm và hoàn thiện?",
+        "H3: Kế hoạch gây quỹ qua đồ ăn được triển khai như thế nào?",
+        "H3: Khi nào mở bán và có thể đặt mua qua kênh nào?",
+        "H3: Doanh thu từ các sản phẩm được sử dụng như thế nào?"
+      ],
+      "ctas": [
+        "Khám phá câu chuyện dự án",
+        "Xem nguyên tắc minh bạch thu chi"
+      ],
+      "imgs": [
+        {
+          "src": "/images/illustrations/a05.webp",
+          "alt": "Bánh su kem trên đĩa trắng",
+          "w": 307,
+          "h": 165,
+          "nat": "1062x1600",
+          "loading": "lazy",
+          "ok": true,
+          "caption": "Ảnh minh họa bánh trên đĩa — không phải hộp/khẩu phần bán của nhóm; trà không thuộc cam kết sản phẩm Ảnh: Ali Rashidi / Pexels"
+        }
+      ],
+      "counts": {
+        "chuaXacNhan": 18,
+        "duKien": 10,
+        "giaDinh": 6,
+        "minhHoa": 7,
+        "words": 1431
+      },
+      "smallText": 0,
+      "current": [
+        "Sản phẩm",
+        "Sản phẩm",
+        "Sản phẩm"
+      ]
+    },
+    {
+      "name": "finance",
+      "route": "/minh-bach",
+      "vw": 375,
+      "status": 200,
+      "shot": "docs/evidence/Claude-C02/claude-finance-375-full.png",
+      "fold": "docs/evidence/Claude-C02/claude-finance-375-fold.png",
+      "title": "Minh bạch thu chi | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "height": 10193,
+      "scrollW": 375,
+      "firstFoldText": [
+        "A:Trang chủ",
+        "SPAN:Minh bạch",
+        "SPAN:Dự toán trong đề xuất",
+        "SPAN:Chưa có số liệu thực tế được xác nhận",
+        "H1:Minh bạch thu chi",
+        "P:Kế hoạch dự toán ngân sách, doanh thu kịch bản bán đủ hàng v",
+        "SPAN:Chi dự kiến",
+        "SPAN:4.935.000đ",
+        "P:Dự toán 19 khoản chi phí nguyên vật liệu, vật tư góc chơi, q",
+        "SPAN:Doanh thu kịch bản",
+        "SPAN:6.700.000đ",
+        "P:Gồm 2.200.000đ từ 2 sản phẩm thủ công (bán đủ kế hoạch) và 4"
+      ],
+      "sections": [
+        {
+          "tag": "DIV",
+          "id": null,
+          "heading": null,
+          "top": 102,
+          "h": 49
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Minh bạch thu chi",
+          "top": 151,
+          "h": 921
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Dự toán chi phí kế hoạch",
+          "top": 1071,
+          "h": 2795
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Doanh thu kịch bản và phân tích số dư",
+          "top": 3866,
+          "h": 2683
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Báo cáo thực tế và nguyên tắc quản trị",
+          "top": 6550,
+          "h": 1931
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Câu hỏi thường gặp về tài chính",
+          "top": 8481,
+          "h": 541
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Tìm hiểu thêm về chiến dịch",
+          "top": 9022,
+          "h": 347
+        }
+      ],
+      "heads": [
+        "H1: Minh bạch thu chi",
+        "H2: Dự toán chi phí kế hoạch",
+        "H3: Nem Trần Công Châu",
+        "H3: Bột chiên xù",
+        "H3: Hộp đựng thức ăn",
+        "H3: Xiên que",
+        "H3: Phô mai",
+        "H3: Khoai tây",
+        "H3: Dầu ăn",
+        "H3: Nước uống tặng thêm",
+        "H3: Bánh su kem",
+        "H3: Chuồn chuồn tre 12cm",
+        "H3: Chân đế",
+        "H3: Tượng tô 10cm",
+        "H3: Bóng cho trò chơi",
+        "H3: Màu vẽ sáu màu",
+        "H3: Móc khóa",
+        "H3: Bánh kẹo/quà",
+        "H3: Truyền thông trực tiếp (standee, bánh kẹo tặng)",
+        "H3: Di chuyển buổi 1 — thuê xe",
+        "H3: Di chuyển buổi 2 — xe máy",
+        "H2: Doanh thu kịch bản và phân tích số dư",
+        "H3: Cơ cấu doanh thu kịch bản bán đủ hàng (6.700.000đ)",
+        "H3: Đối chiếu mục tiêu doanh thu ẩm thực trong đề xuất",
+        "H3: Kịch bản cơ sở (chưa tính tài trợ)",
+        "H3: Lưu ý quan trọng về các kịch bản tài chính",
+        "H2: Báo cáo thực tế và nguyên tắc quản trị",
+        "H3: Công thức dòng tiền chuẩn xác",
+        "H3: Tách bạch tiền mặt và hiện vật",
+        "H3: Đối soát chéo hai thành viên",
+        "H3: Biên tập chứng từ bảo vệ riêng tư",
+        "H2: Câu hỏi thường gặp về tài chính",
+        "H2: Tìm hiểu thêm về chiến dịch"
+      ],
+      "ctas": [
+        "Đồng hành cùng dự án →",
+        "Xem chi tiết câu chuyện dự án"
+      ],
+      "imgs": [],
+      "counts": {
+        "chuaXacNhan": 9,
+        "duKien": 8,
+        "giaDinh": 16,
+        "minhHoa": 0,
+        "words": 2106
+      },
+      "smallText": 0,
+      "current": [
+        "Minh bạch",
+        "Minh bạch",
+        "Minh bạch"
+      ]
+    },
+    {
+      "name": "team",
+      "route": "/ve-nhom",
+      "vw": 375,
+      "status": 200,
+      "shot": "docs/evidence/Claude-C02/claude-team-375-full.png",
+      "fold": "docs/evidence/Claude-C02/claude-team-375-fold.png",
+      "title": "Về nhóm Lăng Kính | Mang Theo Một Nét Vẽ",
+      "height": 4861,
+      "scrollW": 375,
+      "firstFoldText": [
+        "A:Trang chủ",
+        "SPAN:Về nhóm",
+        "SPAN:Thông tin nhóm thực hiện",
+        "H1:Về nhóm Lăng Kính",
+        "P:Lớp AI2015 • Học phần SSG105 — Đại học FPT Hà Nội • 7 sinh v",
+        "P:Kết nối một buổi vui chơi có lựa chọn với việc hỗ trợ hiện v",
+        "P:Lăng Kính là nhóm gồm 7 sinh viên lớp AI2015, học phần SSG10",
+        "SPAN:Cam kết trách nhiệm",
+        "H2:5 nguyên tắc cốt lõi của nhóm",
+        "P:Các định hướng nhất quán trong đề xuất, làm kim chỉ nam xuyê"
+      ],
+      "sections": [
+        {
+          "tag": "DIV",
+          "id": null,
+          "heading": null,
+          "top": 102,
+          "h": 61
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Về nhóm Lăng Kính",
+          "top": 163,
+          "h": 494
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "5 nguyên tắc cốt lõi của nhóm",
+          "top": 656,
+          "h": 1340
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Cách nhóm phối hợp thực hiện",
+          "top": 1996,
+          "h": 1460
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Thành viên nhóm Lăng Kính",
+          "top": 3456,
+          "h": 581
+        }
+      ],
+      "heads": [
+        "H1: Về nhóm Lăng Kính",
+        "H2: 5 nguyên tắc cốt lõi của nhóm",
+        "H3: Tôn trọng quyền lựa chọn",
+        "H3: Chuẩn bị an toàn và chu đáo",
+        "H3: Sản phẩm do nhóm hoàn thiện",
+        "H3: Đối soát rõ ràng và độc lập",
+        "H3: Bảo vệ quyền riêng tư",
+        "H2: Cách nhóm phối hợp thực hiện",
+        "H3: Điều phối và Đối ngoại",
+        "H3: Nội dung và Chuẩn bị góc chơi",
+        "H3: Chuẩn bị và Hoàn thiện sản phẩm",
+        "H3: Hậu cần và Quản lý vật tư",
+        "H3: Tài chính và Đối soát độc lập",
+        "H2: Thành viên nhóm Lăng Kính"
+      ],
+      "ctas": [
+        "Khám phá dự án",
+        "Xem sản phẩm gây quỹ"
+      ],
+      "imgs": [
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Logo nhóm Lăng Kính",
+          "w": 126,
+          "h": 52,
+          "nat": "1419x587",
+          "loading": "auto",
+          "ok": true,
+          "caption": null
+        }
+      ],
+      "counts": {
+        "chuaXacNhan": 1,
+        "duKien": 3,
+        "giaDinh": 0,
+        "minhHoa": 0,
+        "words": 727
+      },
+      "smallText": 0,
+      "current": [
+        "Về nhóm",
+        "Về nhóm",
+        "Về nhóm"
+      ]
+    },
+    {
+      "name": "support",
+      "route": "/dong-hanh",
+      "vw": 375,
+      "status": 200,
+      "shot": "docs/evidence/Claude-C02/claude-support-375-full.png",
+      "fold": "docs/evidence/Claude-C02/claude-support-375-fold.png",
+      "title": "Đồng hành cùng dự án | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "height": 6136,
+      "scrollW": 375,
+      "firstFoldText": [
+        "A:Trang chủ",
+        "SPAN:Đồng hành",
+        "SPAN:Tiếp nhận có lựa chọn",
+        "SPAN:Chưa mở tiếp nhận trực tuyến",
+        "H1:Đồng hành cùng dự án",
+        "P:Một buổi chơi phù hợp, một món quà đúng nhu cầu.",
+        "P:Nhóm Lăng Kính hướng đến việc kết nối những tấm lòng đồng hà"
+      ],
+      "sections": [
+        {
+          "tag": "DIV",
+          "id": null,
+          "heading": null,
+          "top": 102,
+          "h": 49
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Đồng hành cùng dự án",
+          "top": 151,
+          "h": 661
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Ba phương thức đồng hành dự kiến",
+          "top": 811,
+          "h": 1584
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Quy trình tiếp nhận dự kiến",
+          "top": 2395,
+          "h": 1110
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Kênh liên hệ chính thức",
+          "top": 3505,
+          "h": 665
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Câu hỏi thường gặp về đồng hành",
+          "top": 4170,
+          "h": 691
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Tìm hiểu thêm về chiến dịch",
+          "top": 4861,
+          "h": 451
+        }
+      ],
+      "heads": [
+        "H1: Đồng hành cùng dự án",
+        "H2: Ba phương thức đồng hành dự kiến",
+        "H3: Hỗ trợ vật tư thiết yếu",
+        "H3: Tìm hiểu sản phẩm gây quỹ",
+        "H3: Kết nối và hỗ trợ truyền thông",
+        "H2: Quy trình tiếp nhận dự kiến",
+        "H3: Làm rõ nhu cầu thực tế",
+        "H3: Thống nhất phương thức & Bàn giao",
+        "H3: Đối soát & Cập nhật công khai",
+        "H2: Kênh liên hệ chính thức",
+        "H3: Thông báo trạng thái liên hệ",
+        "H2: Câu hỏi thường gặp về đồng hành",
+        "H2: Tìm hiểu thêm về chiến dịch"
+      ],
+      "ctas": [
+        "Xem dự toán chi tiết →",
+        "Xem kế hoạch sản phẩm →",
+        "Tìm hiểu câu chuyện →",
+        "Xem minh bạch thu chi →",
+        "Tìm hiểu nhóm Lăng Kính",
+        "Xem câu chuyện dự án"
+      ],
+      "imgs": [],
+      "counts": {
+        "chuaXacNhan": 3,
+        "duKien": 2,
+        "giaDinh": 0,
+        "minhHoa": 0,
+        "words": 808
+      },
+      "smallText": 0,
+      "current": [
+        "Đồng hành",
+        "Đồng hành cùng dự án",
+        "Đồng hành"
+      ]
+    },
+    {
+      "name": "home",
+      "route": "/",
+      "vw": 768,
+      "status": 304,
+      "shot": "docs/evidence/Claude-C02/claude-home-768-full.png",
+      "fold": "docs/evidence/Claude-C02/claude-home-768-fold.png",
+      "title": "Trang chủ | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "height": 7534,
+      "scrollW": 768,
+      "firstFoldText": [
+        "H1:Mang Theo Một Nét Vẽ",
+        "P:Một buổi chơi phù hợp, một món quà đúng nhu cầu.",
+        "P:Nhóm Lăng Kính dự kiến mang chuồn chuồn tre, sắc màu và nhữn",
+        "A:Khám phá dự án",
+        "A:Xem sản phẩm gây quỹ",
+        "SPAN:Ảnh minh họa họa cụ — chưa phải ảnh chuẩn bị hoặc hoạt động ",
+        "A:Pavel Danilyuk",
+        "H2:Buổi chơi có lựa chọn"
+      ],
+      "sections": [
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Mang Theo Một Nét Vẽ",
+          "top": 102,
+          "h": 851
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Buổi chơi có lựa chọn",
+          "top": 953,
+          "h": 1525
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Sản phẩm gây quỹ dự kiến",
+          "top": 2477,
+          "h": 1682
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Hành trình dự kiến",
+          "top": 4160,
+          "h": 706
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Minh bạch từ kế hoạch đến thực tế",
+          "top": 4866,
+          "h": 837
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Về nhóm Lăng Kính",
+          "top": 5703,
+          "h": 398
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Đồng hành đúng nhu cầu",
+          "top": 6101,
+          "h": 822
+        }
+      ],
+      "heads": [
+        "H1: Mang Theo Một Nét Vẽ",
+        "H2: Buổi chơi có lựa chọn",
+        "H3: Chuồn chuồn tre",
+        "H3: Tô tượng sắc màu",
+        "H3: Hát cùng nhau",
+        "H3: Trò chơi tương tác nhẹ",
+        "H2: Sản phẩm gây quỹ dự kiến",
+        "H3: Chuồn chuồn tre 12 cm kèm đế",
+        "H3: Móc khóa Lăng Kính",
+        "H3: Set đồ ăn gây quỹ",
+        "H2: Hành trình dự kiến",
+        "H3: Xác nhận và chuẩn bị nguồn lực",
+        "H3: Buổi chơi tại Mái ấm",
+        "H3: Hoàn thiện và gây quỹ",
+        "H3: Đối soát và trao tặng",
+        "H2: Minh bạch từ kế hoạch đến thực tế",
+        "H3: Dự toán kế hoạch trong đề xuất",
+        "H3: Nguyên tắc quản trị tài chính",
+        "H2: Về nhóm Lăng Kính",
+        "H2: Đồng hành đúng nhu cầu",
+        "H3: Hỗ trợ vật tư thiết yếu",
+        "H3: Quan tâm sản phẩm gây quỹ",
+        "H3: Kết nối và hỗ trợ truyền thông"
+      ],
+      "ctas": [
+        "Khám phá dự án",
+        "Xem sản phẩm gây quỹ",
+        "Xem chi tiết thông tin sản phẩm",
+        "Xem dự toán chi tiết",
+        "Tìm hiểu thêm về nhóm",
+        "Tìm hiểu cách đồng hành"
+      ],
+      "imgs": [
+        {
+          "src": "/images/illustrations/a01.webp",
+          "alt": "Bảng màu nước và các loại cọ vẽ đặt trên bàn",
+          "w": 558,
+          "h": 419,
+          "nat": "1600x1068",
+          "loading": "eager",
+          "ok": true,
+          "caption": "Ảnh minh họa họa cụ — chưa phải ảnh chuẩn bị hoặc hoạt động của dự án Ảnh: Pavel Danilyuk / Pexels"
+        },
+        {
+          "src": "/images/illustrations/a02.webp",
+          "alt": "Màu vẽ và cọ trên nền màu pastel",
+          "w": 304,
+          "h": 228,
+          "nat": "1067x1600",
+          "loading": "lazy",
+          "ok": true,
+          "caption": "Ảnh minh họa màu vẽ cho góc trang trí — mẫu chuồn chuồn thực tế chờ xác nhận Ảnh: Kaboompics (Karola G) / Pexels"
+        },
+        {
+          "src": "/images/illustrations/a01.webp",
+          "alt": "Bảng màu nước và cọ vẽ cho hoạt động tô màu",
+          "w": 304,
+          "h": 228,
+          "nat": "1600x1068",
+          "loading": "lazy",
+          "ok": true,
+          "caption": "Ảnh minh họa cọ và màu vẽ — mẫu tượng thạch cao thực tế chờ xác nhận Ảnh: Pavel Danilyuk / Pexels"
+        },
+        {
+          "src": "/images/illustrations/a03.webp",
+          "alt": "Trống lắc màu vàng",
+          "w": 304,
+          "h": 228,
+          "nat": "1600x1067",
+          "loading": "lazy",
+          "ok": true,
+          "caption": "Ảnh minh họa trống lắc — không phải nhạc cụ của nhóm hay người tham gia dự án Ảnh: Kaboompics (Karola G) / Pexels"
+        },
+        {
+          "src": "/images/illustrations/a04.webp",
+          "alt": "Những quả bóng nhựa nhiều màu sắc",
+          "w": 304,
+          "h": 228,
+          "nat": "1600x1067",
+          "loading": "lazy",
+          "ok": true,
+          "caption": "Ảnh minh họa bóng cho góc trò chơi — không phải bộ bowling hay ảnh hoạt động thực tế Ảnh: RDNE Stock project / Pexels"
+        }
+      ],
+      "counts": {
+        "chuaXacNhan": 5,
+        "duKien": 5,
+        "giaDinh": 5,
+        "minhHoa": 8,
+        "words": 1277
+      },
+      "smallText": 0,
+      "current": [
+        "Trang chủ",
+        "Trang chủ"
+      ]
+    },
+    {
+      "name": "project",
+      "route": "/du-an/mang-theo-mot-net-ve",
+      "vw": 768,
+      "status": 304,
+      "shot": "docs/evidence/Claude-C02/claude-project-768-full.png",
+      "fold": "docs/evidence/Claude-C02/claude-project-768-fold.png",
+      "title": "Câu chuyện dự án | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "height": 5462,
+      "scrollW": 768,
+      "firstFoldText": [
+        "A:Trang chủ",
+        "SPAN:Dự án",
+        "SPAN:Bản xem trước — nội dung đề xuất",
+        "H1:Mang Theo Một Nét Vẽ",
+        "P:Một buổi chơi phù hợp, một món quà đúng nhu cầu.",
+        "P:Nhóm Lăng Kính dự kiến mang chuồn chuồn tre, sắc màu và nhữn",
+        "A:Xem sản phẩm gây quỹ",
+        "A:Xem các góc hoạt động"
+      ],
+      "sections": [
+        {
+          "tag": "DIV",
+          "id": null,
+          "heading": null,
+          "top": 102,
+          "h": 61
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Mang Theo Một Nét Vẽ",
+          "top": 163,
+          "h": 994
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Câu chuyện từ đề xuất",
+          "top": 1157,
+          "h": 517
+        },
+        {
+          "tag": "SECTION",
+          "id": "buoi-choi",
+          "heading": "Buổi chơi có nhiều lựa chọn",
+          "top": 1674,
+          "h": 1543
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Hành trình dự kiến của dự án",
+          "top": 3217,
+          "h": 765
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Nguồn lực và nguyên tắc minh bạch",
+          "top": 3982,
+          "h": 441
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Cập nhật và kết quả",
+          "top": 4423,
+          "h": 428
+        }
+      ],
+      "heads": [
+        "H1: Mang Theo Một Nét Vẽ",
+        "H2: Câu chuyện từ đề xuất",
+        "H2: Buổi chơi có nhiều lựa chọn",
+        "H3: Chuồn chuồn tre",
+        "H3: Tô tượng sắc màu",
+        "H3: Hát cùng nhau",
+        "H3: Trò chơi tương tác nhẹ",
+        "H2: Hành trình dự kiến của dự án",
+        "H3: Xác nhận và chuẩn bị nguồn lực",
+        "H3: Buổi chơi tại Mái ấm",
+        "H3: Hoàn thiện và gây quỹ",
+        "H3: Đối soát và trao tặng",
+        "H2: Nguồn lực và nguyên tắc minh bạch",
+        "H2: Cập nhật và kết quả",
+        "H3: Chưa có cập nhật thực tế được xác nhận. Kết quả và báo cáo sẽ được côn"
+      ],
+      "ctas": [
+        "Xem sản phẩm gây quỹ",
+        "Xem các góc hoạt động",
+        "Xem nguyên tắc minh bạch thu chi"
+      ],
+      "imgs": [
+        {
+          "src": "/images/illustrations/a01.webp",
+          "alt": "Bảng màu nước và các loại cọ vẽ đặt trên bàn",
+          "w": 558,
+          "h": 419,
+          "nat": "1600x1068",
+          "loading": "eager",
+          "ok": true,
+          "caption": "Ảnh minh họa họa cụ — chưa phải ảnh chuẩn bị hoặc hoạt động của dự án Ảnh: Pavel Danilyuk / Pexels"
+        },
+        {
+          "src": "/images/illustrations/a02.webp",
+          "alt": "Màu vẽ và cọ trên nền màu pastel",
+          "w": 304,
+          "h": 228,
+          "nat": "1067x1600",
+          "loading": "lazy",
+          "ok": true,
+          "caption": "Ảnh minh họa màu vẽ cho góc trang trí — mẫu chuồn chuồn thực tế chờ xác nhận Ảnh: Kaboompics (Karola G) / Pexels"
+        },
+        {
+          "src": "/images/illustrations/a01.webp",
+          "alt": "Bảng màu nước và cọ vẽ cho hoạt động tô màu",
+          "w": 304,
+          "h": 228,
+          "nat": "1600x1068",
+          "loading": "lazy",
+          "ok": true,
+          "caption": "Ảnh minh họa cọ và màu vẽ — mẫu tượng thạch cao thực tế chờ xác nhận Ảnh: Pavel Danilyuk / Pexels"
+        },
+        {
+          "src": "/images/illustrations/a03.webp",
+          "alt": "Trống lắc màu vàng",
+          "w": 304,
+          "h": 228,
+          "nat": "1600x1067",
+          "loading": "lazy",
+          "ok": true,
+          "caption": "Ảnh minh họa trống lắc — không phải nhạc cụ của nhóm hay người tham gia dự án Ảnh: Kaboompics (Karola G) / Pexels"
+        },
+        {
+          "src": "/images/illustrations/a04.webp",
+          "alt": "Những quả bóng nhựa nhiều màu sắc",
+          "w": 304,
+          "h": 228,
+          "nat": "1600x1067",
+          "loading": "lazy",
+          "ok": true,
+          "caption": "Ảnh minh họa bóng cho góc trò chơi — không phải bộ bowling hay ảnh hoạt động thực tế Ảnh: RDNE Stock project / Pexels"
+        }
+      ],
+      "counts": {
+        "chuaXacNhan": 6,
+        "duKien": 8,
+        "giaDinh": 0,
+        "minhHoa": 5,
+        "words": 1031
+      },
+      "smallText": 0,
+      "current": [
+        "Dự án",
+        "Dự án",
+        "Dự án"
+      ]
+    },
+    {
+      "name": "products",
+      "route": "/san-pham",
+      "vw": 768,
+      "status": 304,
+      "shot": "docs/evidence/Claude-C02/claude-products-768-full.png",
+      "fold": "docs/evidence/Claude-C02/claude-products-768-fold.png",
+      "title": "Sản phẩm gây quỹ dự kiến | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "height": 7163,
+      "scrollW": 768,
+      "firstFoldText": [
+        "A:Trang chủ",
+        "SPAN:Sản phẩm",
+        "SPAN:Kế hoạch gây quỹ",
+        "H1:Sản phẩm gây quỹ dự kiến",
+        "P:Các sản phẩm thủ công và phương án ẩm thực nằm trong kế hoạc",
+        "SPAN:Danh mục đề xuất",
+        "H2:Sản phẩm trong kế hoạch đề xuất",
+        "P:Kế hoạch gây quỹ gồm 2 sản phẩm lưu niệm thủ công và thực đơ",
+        "SPAN:Minh họa: Chuồn chuồn tre 12 cm kèm đế",
+        "SPAN:Minh họa: Móc khóa Lăng Kính"
+      ],
+      "sections": [
+        {
+          "tag": "DIV",
+          "id": null,
+          "heading": null,
+          "top": 102,
+          "h": 61
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Sản phẩm gây quỹ dự kiến",
+          "top": 163,
+          "h": 335
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Sản phẩm trong kế hoạch đề xuất",
+          "top": 498,
+          "h": 2514
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Bảng tổng hợp kế hoạch số lượng",
+          "top": 3012,
+          "h": 2314
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Hỏi đáp về sản phẩm và gây quỹ",
+          "top": 5326,
+          "h": 1226
+        }
+      ],
+      "heads": [
+        "H1: Sản phẩm gây quỹ dự kiến",
+        "H2: Sản phẩm trong kế hoạch đề xuất",
+        "H3: 1. Sản phẩm lưu niệm thủ công",
+        "H3: Chuồn chuồn tre 12 cm kèm đế",
+        "H3: Móc khóa Lăng Kính",
+        "H3: 2. Thực đơn ẩm thực gây quỹ dự kiến",
+        "H2: Bảng tổng hợp kế hoạch số lượng",
+        "H3: Chuồn chuồn tre 12 cm kèm đế",
+        "H3: Móc khóa Lăng Kính",
+        "H3: Set đồ ăn gây quỹ",
+        "H3: Combo 5 nem vỏ giòn",
+        "H3: Combo 5 nem xù",
+        "H3: Combo 5 nem phô mai",
+        "H3: Bánh su kem",
+        "H2: Hỏi đáp về sản phẩm và gây quỹ",
+        "H3: Giá ghi trên website có phải là giá bán chính thức không?",
+        "H3: Sản phẩm gây quỹ do ai làm và hoàn thiện?",
+        "H3: Kế hoạch gây quỹ qua đồ ăn được triển khai như thế nào?",
+        "H3: Khi nào mở bán và có thể đặt mua qua kênh nào?",
+        "H3: Doanh thu từ các sản phẩm được sử dụng như thế nào?"
+      ],
+      "ctas": [
+        "Khám phá câu chuyện dự án",
+        "Xem nguyên tắc minh bạch thu chi"
+      ],
+      "imgs": [
+        {
+          "src": "/images/illustrations/a05.webp",
+          "alt": "Bánh su kem trên đĩa trắng",
+          "w": 298,
+          "h": 168,
+          "nat": "1062x1600",
+          "loading": "lazy",
+          "ok": true,
+          "caption": "Ảnh minh họa bánh trên đĩa — không phải hộp/khẩu phần bán của nhóm; trà không thuộc cam kết sản phẩm Ảnh: Ali Rashidi / Pexels"
+        }
+      ],
+      "counts": {
+        "chuaXacNhan": 18,
+        "duKien": 10,
+        "giaDinh": 6,
+        "minhHoa": 7,
+        "words": 1431
+      },
+      "smallText": 0,
+      "current": [
+        "Sản phẩm",
+        "Sản phẩm",
+        "Sản phẩm"
+      ]
+    },
+    {
+      "name": "finance",
+      "route": "/minh-bach",
+      "vw": 768,
+      "status": 304,
+      "shot": "docs/evidence/Claude-C02/claude-finance-768-full.png",
+      "fold": "docs/evidence/Claude-C02/claude-finance-768-fold.png",
+      "title": "Minh bạch thu chi | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "height": 8272,
+      "scrollW": 768,
+      "firstFoldText": [
+        "A:Trang chủ",
+        "SPAN:Minh bạch",
+        "SPAN:Dự toán trong đề xuất",
+        "SPAN:Chưa có số liệu thực tế được xác nhận",
+        "H1:Minh bạch thu chi",
+        "P:Kế hoạch dự toán ngân sách, doanh thu kịch bản bán đủ hàng v",
+        "SPAN:Chi dự kiến",
+        "SPAN:4.935.000đ",
+        "P:Dự toán 19 khoản chi phí nguyên vật liệu, vật tư góc chơi, q",
+        "SPAN:Doanh thu kịch bản",
+        "SPAN:6.700.000đ",
+        "P:Gồm 2.200.000đ từ 2 sản phẩm thủ công (bán đủ kế hoạch) và 4",
+        "SPAN:Ngân sách dự kiến",
+        "H2:Dự toán chi phí kế hoạch",
+        "P:Tổng hợp 19 khoản mục dự toán chi phí chuẩn bị vật tư các gó"
+      ],
+      "sections": [
+        {
+          "tag": "DIV",
+          "id": null,
+          "heading": null,
+          "top": 102,
+          "h": 49
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Minh bạch thu chi",
+          "top": 151,
+          "h": 720
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Dự toán chi phí kế hoạch",
+          "top": 871,
+          "h": 2346
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Doanh thu kịch bản và phân tích số dư",
+          "top": 3216,
+          "h": 2103
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Báo cáo thực tế và nguyên tắc quản trị",
+          "top": 5319,
+          "h": 1428
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Câu hỏi thường gặp về tài chính",
+          "top": 6747,
+          "h": 612
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Tìm hiểu thêm về chiến dịch",
+          "top": 7359,
+          "h": 302
+        }
+      ],
+      "heads": [
+        "H1: Minh bạch thu chi",
+        "H2: Dự toán chi phí kế hoạch",
+        "H2: Doanh thu kịch bản và phân tích số dư",
+        "H3: Cơ cấu doanh thu kịch bản bán đủ hàng (6.700.000đ)",
+        "H3: Đối chiếu mục tiêu doanh thu ẩm thực trong đề xuất",
+        "H3: Lưu ý quan trọng về các kịch bản tài chính",
+        "H2: Báo cáo thực tế và nguyên tắc quản trị",
+        "H3: Công thức dòng tiền chuẩn xác",
+        "H3: Tách bạch tiền mặt và hiện vật",
+        "H3: Đối soát chéo hai thành viên",
+        "H3: Biên tập chứng từ bảo vệ riêng tư",
+        "H2: Câu hỏi thường gặp về tài chính",
+        "H2: Tìm hiểu thêm về chiến dịch"
+      ],
+      "ctas": [
+        "Đồng hành cùng dự án →",
+        "Xem chi tiết câu chuyện dự án"
+      ],
+      "imgs": [],
+      "counts": {
+        "chuaXacNhan": 9,
+        "duKien": 8,
+        "giaDinh": 16,
+        "minhHoa": 0,
+        "words": 2115
+      },
+      "smallText": 0,
+      "current": [
+        "Minh bạch",
+        "Minh bạch",
+        "Minh bạch"
+      ]
+    },
+    {
+      "name": "team",
+      "route": "/ve-nhom",
+      "vw": 768,
+      "status": 304,
+      "shot": "docs/evidence/Claude-C02/claude-team-768-full.png",
+      "fold": "docs/evidence/Claude-C02/claude-team-768-fold.png",
+      "title": "Về nhóm Lăng Kính | Mang Theo Một Nét Vẽ",
+      "height": 3857,
+      "scrollW": 768,
+      "firstFoldText": [
+        "A:Trang chủ",
+        "SPAN:Về nhóm",
+        "SPAN:Thông tin nhóm thực hiện",
+        "H1:Về nhóm Lăng Kính",
+        "P:Lớp AI2015 • Học phần SSG105 — Đại học FPT Hà Nội • 7 sinh v",
+        "P:Kết nối một buổi vui chơi có lựa chọn với việc hỗ trợ hiện v",
+        "P:Lăng Kính là nhóm gồm 7 sinh viên lớp AI2015, học phần SSG10",
+        "SPAN:Cam kết trách nhiệm",
+        "H2:5 nguyên tắc cốt lõi của nhóm",
+        "P:Các định hướng nhất quán trong đề xuất, làm kim chỉ nam xuyê",
+        "SPAN:01",
+        "P:Người tham gia tại Mái ấm hoàn toàn tự do chọn góc hoạt động",
+        "SPAN:02",
+        "P:Kế hoạch chuẩn bị phôi chuồn chuồn, tượng thạch cao, họa cụ "
+      ],
+      "sections": [
+        {
+          "tag": "DIV",
+          "id": null,
+          "heading": null,
+          "top": 102,
+          "h": 61
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Về nhóm Lăng Kính",
+          "top": 163,
+          "h": 497
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "5 nguyên tắc cốt lõi của nhóm",
+          "top": 660,
+          "h": 1022
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Cách nhóm phối hợp thực hiện",
+          "top": 1682,
+          "h": 1066
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Thành viên nhóm Lăng Kính",
+          "top": 2748,
+          "h": 499
+        }
+      ],
+      "heads": [
+        "H1: Về nhóm Lăng Kính",
+        "H2: 5 nguyên tắc cốt lõi của nhóm",
+        "H3: Tôn trọng quyền lựa chọn",
+        "H3: Chuẩn bị an toàn và chu đáo",
+        "H3: Sản phẩm do nhóm hoàn thiện",
+        "H3: Đối soát rõ ràng và độc lập",
+        "H3: Bảo vệ quyền riêng tư",
+        "H2: Cách nhóm phối hợp thực hiện",
+        "H3: Điều phối và Đối ngoại",
+        "H3: Nội dung và Chuẩn bị góc chơi",
+        "H3: Chuẩn bị và Hoàn thiện sản phẩm",
+        "H3: Hậu cần và Quản lý vật tư",
+        "H3: Tài chính và Đối soát độc lập",
+        "H2: Thành viên nhóm Lăng Kính"
+      ],
+      "ctas": [
+        "Khám phá dự án",
+        "Xem sản phẩm gây quỹ"
+      ],
+      "imgs": [
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Logo nhóm Lăng Kính",
+          "w": 126,
+          "h": 52,
+          "nat": "1419x587",
+          "loading": "auto",
+          "ok": true,
+          "caption": null
+        }
+      ],
+      "counts": {
+        "chuaXacNhan": 1,
+        "duKien": 3,
+        "giaDinh": 0,
+        "minhHoa": 0,
+        "words": 727
+      },
+      "smallText": 0,
+      "current": [
+        "Về nhóm",
+        "Về nhóm",
+        "Về nhóm"
+      ]
+    },
+    {
+      "name": "support",
+      "route": "/dong-hanh",
+      "vw": 768,
+      "status": 304,
+      "shot": "docs/evidence/Claude-C02/claude-support-768-full.png",
+      "fold": "docs/evidence/Claude-C02/claude-support-768-fold.png",
+      "title": "Đồng hành cùng dự án | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "height": 5156,
+      "scrollW": 768,
+      "firstFoldText": [
+        "A:Trang chủ",
+        "SPAN:Đồng hành",
+        "SPAN:Tiếp nhận có lựa chọn",
+        "SPAN:Chưa mở tiếp nhận trực tuyến",
+        "H1:Đồng hành cùng dự án",
+        "P:Một buổi chơi phù hợp, một món quà đúng nhu cầu.",
+        "P:Nhóm Lăng Kính hướng đến việc kết nối những tấm lòng đồng hà",
+        "SPAN:Hình thức hỗ trợ",
+        "H2:Ba phương thức đồng hành dự kiến",
+        "P:Các hình thức hỗ trợ được đề xuất nhằm đảm bảo đúng nhu cầu,",
+        "SPAN:Hiện vật",
+        "P:Chiến dịch chỉ tiếp nhận hiện vật theo danh mục do nhóm và M",
+        "SPAN:Ví dụ vật tư theo đề xuất (chưa phải yêu cầu chính thức):"
+      ],
+      "sections": [
+        {
+          "tag": "DIV",
+          "id": null,
+          "heading": null,
+          "top": 102,
+          "h": 49
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Đồng hành cùng dự án",
+          "top": 151,
+          "h": 479
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Ba phương thức đồng hành dự kiến",
+          "top": 629,
+          "h": 1397
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Quy trình tiếp nhận dự kiến",
+          "top": 2027,
+          "h": 967
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Kênh liên hệ chính thức",
+          "top": 2993,
+          "h": 599
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Câu hỏi thường gặp về đồng hành",
+          "top": 3592,
+          "h": 588
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Tìm hiểu thêm về chiến dịch",
+          "top": 4180,
+          "h": 365
+        }
+      ],
+      "heads": [
+        "H1: Đồng hành cùng dự án",
+        "H2: Ba phương thức đồng hành dự kiến",
+        "H3: Hỗ trợ vật tư thiết yếu",
+        "H3: Tìm hiểu sản phẩm gây quỹ",
+        "H3: Kết nối và hỗ trợ truyền thông",
+        "H2: Quy trình tiếp nhận dự kiến",
+        "H3: Làm rõ nhu cầu thực tế",
+        "H3: Thống nhất phương thức & Bàn giao",
+        "H3: Đối soát & Cập nhật công khai",
+        "H2: Kênh liên hệ chính thức",
+        "H3: Thông báo trạng thái liên hệ",
+        "H2: Câu hỏi thường gặp về đồng hành",
+        "H2: Tìm hiểu thêm về chiến dịch"
+      ],
+      "ctas": [
+        "Xem dự toán chi tiết →",
+        "Xem kế hoạch sản phẩm →",
+        "Tìm hiểu câu chuyện →",
+        "Xem minh bạch thu chi →",
+        "Tìm hiểu nhóm Lăng Kính",
+        "Xem câu chuyện dự án"
+      ],
+      "imgs": [],
+      "counts": {
+        "chuaXacNhan": 3,
+        "duKien": 2,
+        "giaDinh": 0,
+        "minhHoa": 0,
+        "words": 808
+      },
+      "smallText": 0,
+      "current": [
+        "Đồng hành",
+        "Đồng hành cùng dự án",
+        "Đồng hành"
+      ]
+    },
+    {
+      "name": "home",
+      "route": "/",
+      "vw": 1440,
+      "status": 304,
+      "shot": "docs/evidence/Claude-C02/claude-home-1440-full.png",
+      "fold": "docs/evidence/Claude-C02/claude-home-1440-fold.png",
+      "title": "Trang chủ | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "height": 5645,
+      "scrollW": 1440,
+      "firstFoldText": [
+        "H1:Mang Theo Một Nét Vẽ",
+        "P:Một buổi chơi phù hợp, một món quà đúng nhu cầu.",
+        "P:Nhóm Lăng Kính dự kiến mang chuồn chuồn tre, sắc màu và nhữn",
+        "A:Khám phá dự án",
+        "A:Xem sản phẩm gây quỹ",
+        "SPAN:Ảnh minh họa họa cụ — chưa phải ảnh chuẩn bị hoặc hoạt động ",
+        "A:Pavel Danilyuk",
+        "H2:Buổi chơi có lựa chọn",
+        "P:Mỗi hoạt động được thiết kế để mang lại niềm vui vừa sức, an"
+      ],
+      "sections": [
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Mang Theo Một Nét Vẽ",
+          "top": 118,
+          "h": 582
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Buổi chơi có lựa chọn",
+          "top": 700,
+          "h": 943
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Sản phẩm gây quỹ dự kiến",
+          "top": 1643,
+          "h": 1118
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Hành trình dự kiến",
+          "top": 2761,
+          "h": 593
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Minh bạch từ kế hoạch đến thực tế",
+          "top": 3354,
+          "h": 757
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Về nhóm Lăng Kính",
+          "top": 4112,
+          "h": 421
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Đồng hành đúng nhu cầu",
+          "top": 4533,
+          "h": 615
+        }
+      ],
+      "heads": [
+        "H1: Mang Theo Một Nét Vẽ",
+        "H2: Buổi chơi có lựa chọn",
+        "H3: Chuồn chuồn tre",
+        "H3: Tô tượng sắc màu",
+        "H3: Hát cùng nhau",
+        "H3: Trò chơi tương tác nhẹ",
+        "H2: Sản phẩm gây quỹ dự kiến",
+        "H3: Chuồn chuồn tre 12 cm kèm đế",
+        "H3: Móc khóa Lăng Kính",
+        "H3: Set đồ ăn gây quỹ",
+        "H2: Hành trình dự kiến",
+        "H3: Xác nhận và chuẩn bị nguồn lực",
+        "H3: Buổi chơi tại Mái ấm",
+        "H3: Hoàn thiện và gây quỹ",
+        "H3: Đối soát và trao tặng",
+        "H2: Minh bạch từ kế hoạch đến thực tế",
+        "H3: Dự toán kế hoạch trong đề xuất",
+        "H3: Nguyên tắc quản trị tài chính",
+        "H2: Về nhóm Lăng Kính",
+        "H2: Đồng hành đúng nhu cầu",
+        "H3: Hỗ trợ vật tư thiết yếu",
+        "H3: Quan tâm sản phẩm gây quỹ",
+        "H3: Kết nối và hỗ trợ truyền thông"
+      ],
+      "ctas": [
+        "Khám phá dự án",
+        "Xem sản phẩm gây quỹ",
+        "Xem chi tiết thông tin sản phẩm",
+        "Xem dự toán chi tiết",
+        "Tìm hiểu thêm về nhóm",
+        "Tìm hiểu cách đồng hành"
+      ],
+      "imgs": [
+        {
+          "src": "/images/illustrations/a01.webp",
+          "alt": "Bảng màu nước và các loại cọ vẽ đặt trên bàn",
+          "w": 600,
+          "h": 450,
+          "nat": "1600x1068",
+          "loading": "eager",
+          "ok": true,
+          "caption": "Ảnh minh họa họa cụ — chưa phải ảnh chuẩn bị hoặc hoạt động của dự án Ảnh: Pavel Danilyuk / Pexels"
+        },
+        {
+          "src": "/images/illustrations/a02.webp",
+          "alt": "Màu vẽ và cọ trên nền màu pastel",
+          "w": 226,
+          "h": 170,
+          "nat": "1067x1600",
+          "loading": "lazy",
+          "ok": true,
+          "caption": "Ảnh minh họa màu vẽ cho góc trang trí — mẫu chuồn chuồn thực tế chờ xác nhận Ảnh: Kaboompics (Karola G) / Pexels"
+        },
+        {
+          "src": "/images/illustrations/a01.webp",
+          "alt": "Bảng màu nước và cọ vẽ cho hoạt động tô màu",
+          "w": 226,
+          "h": 170,
+          "nat": "1600x1068",
+          "loading": "lazy",
+          "ok": true,
+          "caption": "Ảnh minh họa cọ và màu vẽ — mẫu tượng thạch cao thực tế chờ xác nhận Ảnh: Pavel Danilyuk / Pexels"
+        },
+        {
+          "src": "/images/illustrations/a03.webp",
+          "alt": "Trống lắc màu vàng",
+          "w": 226,
+          "h": 170,
+          "nat": "1600x1067",
+          "loading": "lazy",
+          "ok": true,
+          "caption": "Ảnh minh họa trống lắc — không phải nhạc cụ của nhóm hay người tham gia dự án Ảnh: Kaboompics (Karola G) / Pexels"
+        },
+        {
+          "src": "/images/illustrations/a04.webp",
+          "alt": "Những quả bóng nhựa nhiều màu sắc",
+          "w": 226,
+          "h": 170,
+          "nat": "1600x1067",
+          "loading": "lazy",
+          "ok": true,
+          "caption": "Ảnh minh họa bóng cho góc trò chơi — không phải bộ bowling hay ảnh hoạt động thực tế Ảnh: RDNE Stock project / Pexels"
+        }
+      ],
+      "counts": {
+        "chuaXacNhan": 5,
+        "duKien": 5,
+        "giaDinh": 5,
+        "minhHoa": 8,
+        "words": 1277
+      },
+      "smallText": 0,
+      "current": [
+        "Trang chủ",
+        "Trang chủ"
+      ]
+    },
+    {
+      "name": "project",
+      "route": "/du-an/mang-theo-mot-net-ve",
+      "vw": 1440,
+      "status": 304,
+      "shot": "docs/evidence/Claude-C02/claude-project-1440-full.png",
+      "fold": "docs/evidence/Claude-C02/claude-project-1440-fold.png",
+      "title": "Câu chuyện dự án | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "height": 4394,
+      "scrollW": 1440,
+      "firstFoldText": [
+        "A:Trang chủ",
+        "SPAN:Dự án",
+        "SPAN:Bản xem trước — nội dung đề xuất",
+        "H1:Mang Theo Một Nét Vẽ",
+        "P:Một buổi chơi phù hợp, một món quà đúng nhu cầu.",
+        "P:Nhóm Lăng Kính dự kiến mang chuồn chuồn tre, sắc màu và nhữn",
+        "A:Xem sản phẩm gây quỹ",
+        "A:Xem các góc hoạt động",
+        "SPAN:Ảnh minh họa họa cụ — chưa phải ảnh chuẩn bị hoặc hoạt động ",
+        "A:Pavel Danilyuk",
+        "SPAN:Kế hoạch dự kiến",
+        "H2:Câu chuyện từ đề xuất"
+      ],
+      "sections": [
+        {
+          "tag": "DIV",
+          "id": null,
+          "heading": null,
+          "top": 118,
+          "h": 61
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Mang Theo Một Nét Vẽ",
+          "top": 179,
+          "h": 610
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Câu chuyện từ đề xuất",
+          "top": 789,
+          "h": 542
+        },
+        {
+          "tag": "SECTION",
+          "id": "buoi-choi",
+          "heading": "Buổi chơi có nhiều lựa chọn",
+          "top": 1330,
+          "h": 961
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Hành trình dự kiến của dự án",
+          "top": 2291,
+          "h": 631
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Nguồn lực và nguyên tắc minh bạch",
+          "top": 2922,
+          "h": 494
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Cập nhật và kết quả",
+          "top": 3416,
+          "h": 481
+        }
+      ],
+      "heads": [
+        "H1: Mang Theo Một Nét Vẽ",
+        "H2: Câu chuyện từ đề xuất",
+        "H2: Buổi chơi có nhiều lựa chọn",
+        "H3: Chuồn chuồn tre",
+        "H3: Tô tượng sắc màu",
+        "H3: Hát cùng nhau",
+        "H3: Trò chơi tương tác nhẹ",
+        "H2: Hành trình dự kiến của dự án",
+        "H3: Xác nhận và chuẩn bị nguồn lực",
+        "H3: Buổi chơi tại Mái ấm",
+        "H3: Hoàn thiện và gây quỹ",
+        "H3: Đối soát và trao tặng",
+        "H2: Nguồn lực và nguyên tắc minh bạch",
+        "H2: Cập nhật và kết quả",
+        "H3: Chưa có cập nhật thực tế được xác nhận. Kết quả và báo cáo sẽ được côn"
+      ],
+      "ctas": [
+        "Xem sản phẩm gây quỹ",
+        "Xem các góc hoạt động",
+        "Xem nguyên tắc minh bạch thu chi"
+      ],
+      "imgs": [
+        {
+          "src": "/images/illustrations/a01.webp",
+          "alt": "Bảng màu nước và các loại cọ vẽ đặt trên bàn",
+          "w": 600,
+          "h": 450,
+          "nat": "1600x1068",
+          "loading": "eager",
+          "ok": true,
+          "caption": "Ảnh minh họa họa cụ — chưa phải ảnh chuẩn bị hoặc hoạt động của dự án Ảnh: Pavel Danilyuk / Pexels"
+        },
+        {
+          "src": "/images/illustrations/a02.webp",
+          "alt": "Màu vẽ và cọ trên nền màu pastel",
+          "w": 226,
+          "h": 170,
+          "nat": "1067x1600",
+          "loading": "lazy",
+          "ok": true,
+          "caption": "Ảnh minh họa màu vẽ cho góc trang trí — mẫu chuồn chuồn thực tế chờ xác nhận Ảnh: Kaboompics (Karola G) / Pexels"
+        },
+        {
+          "src": "/images/illustrations/a01.webp",
+          "alt": "Bảng màu nước và cọ vẽ cho hoạt động tô màu",
+          "w": 226,
+          "h": 170,
+          "nat": "1600x1068",
+          "loading": "lazy",
+          "ok": true,
+          "caption": "Ảnh minh họa cọ và màu vẽ — mẫu tượng thạch cao thực tế chờ xác nhận Ảnh: Pavel Danilyuk / Pexels"
+        },
+        {
+          "src": "/images/illustrations/a03.webp",
+          "alt": "Trống lắc màu vàng",
+          "w": 226,
+          "h": 170,
+          "nat": "1600x1067",
+          "loading": "lazy",
+          "ok": true,
+          "caption": "Ảnh minh họa trống lắc — không phải nhạc cụ của nhóm hay người tham gia dự án Ảnh: Kaboompics (Karola G) / Pexels"
+        },
+        {
+          "src": "/images/illustrations/a04.webp",
+          "alt": "Những quả bóng nhựa nhiều màu sắc",
+          "w": 226,
+          "h": 170,
+          "nat": "1600x1067",
+          "loading": "lazy",
+          "ok": true,
+          "caption": "Ảnh minh họa bóng cho góc trò chơi — không phải bộ bowling hay ảnh hoạt động thực tế Ảnh: RDNE Stock project / Pexels"
+        }
+      ],
+      "counts": {
+        "chuaXacNhan": 6,
+        "duKien": 8,
+        "giaDinh": 0,
+        "minhHoa": 5,
+        "words": 1031
+      },
+      "smallText": 0,
+      "current": [
+        "Dự án",
+        "Dự án",
+        "Dự án"
+      ]
+    },
+    {
+      "name": "products",
+      "route": "/san-pham",
+      "vw": 1440,
+      "status": 304,
+      "shot": "docs/evidence/Claude-C02/claude-products-1440-full.png",
+      "fold": "docs/evidence/Claude-C02/claude-products-1440-fold.png",
+      "title": "Sản phẩm gây quỹ dự kiến | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "height": 5466,
+      "scrollW": 1440,
+      "firstFoldText": [
+        "A:Trang chủ",
+        "SPAN:Sản phẩm",
+        "SPAN:Kế hoạch gây quỹ",
+        "H1:Sản phẩm gây quỹ dự kiến",
+        "P:Các sản phẩm thủ công và phương án ẩm thực nằm trong kế hoạc",
+        "SPAN:Danh mục đề xuất",
+        "H2:Sản phẩm trong kế hoạch đề xuất",
+        "P:Kế hoạch gây quỹ gồm 2 sản phẩm lưu niệm thủ công và thực đơ"
+      ],
+      "sections": [
+        {
+          "tag": "DIV",
+          "id": null,
+          "heading": null,
+          "top": 118,
+          "h": 61
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Sản phẩm gây quỹ dự kiến",
+          "top": 179,
+          "h": 348
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Sản phẩm trong kế hoạch đề xuất",
+          "top": 527,
+          "h": 2140
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Bảng tổng hợp kế hoạch số lượng",
+          "top": 2667,
+          "h": 1046
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Hỏi đáp về sản phẩm và gây quỹ",
+          "top": 3713,
+          "h": 1255
+        }
+      ],
+      "heads": [
+        "H1: Sản phẩm gây quỹ dự kiến",
+        "H2: Sản phẩm trong kế hoạch đề xuất",
+        "H3: 1. Sản phẩm lưu niệm thủ công",
+        "H3: Chuồn chuồn tre 12 cm kèm đế",
+        "H3: Móc khóa Lăng Kính",
+        "H3: 2. Thực đơn ẩm thực gây quỹ dự kiến",
+        "H2: Bảng tổng hợp kế hoạch số lượng",
+        "H2: Hỏi đáp về sản phẩm và gây quỹ",
+        "H3: Giá ghi trên website có phải là giá bán chính thức không?",
+        "H3: Sản phẩm gây quỹ do ai làm và hoàn thiện?",
+        "H3: Kế hoạch gây quỹ qua đồ ăn được triển khai như thế nào?",
+        "H3: Khi nào mở bán và có thể đặt mua qua kênh nào?",
+        "H3: Doanh thu từ các sản phẩm được sử dụng như thế nào?"
+      ],
+      "ctas": [
+        "Khám phá câu chuyện dự án",
+        "Xem nguyên tắc minh bạch thu chi"
+      ],
+      "imgs": [
+        {
+          "src": "/images/illustrations/a05.webp",
+          "alt": "Bánh su kem trên đĩa trắng",
+          "w": 319,
+          "h": 179,
+          "nat": "1062x1600",
+          "loading": "lazy",
+          "ok": true,
+          "caption": "Ảnh minh họa bánh trên đĩa — không phải hộp/khẩu phần bán của nhóm; trà không thuộc cam kết sản phẩm Ảnh: Ali Rashidi / Pexels"
+        }
+      ],
+      "counts": {
+        "chuaXacNhan": 18,
+        "duKien": 10,
+        "giaDinh": 6,
+        "minhHoa": 7,
+        "words": 1343
+      },
+      "smallText": 0,
+      "current": [
+        "Sản phẩm",
+        "Sản phẩm",
+        "Sản phẩm"
+      ]
+    },
+    {
+      "name": "finance",
+      "route": "/minh-bach",
+      "vw": 1440,
+      "status": 304,
+      "shot": "docs/evidence/Claude-C02/claude-finance-1440-full.png",
+      "fold": "docs/evidence/Claude-C02/claude-finance-1440-fold.png",
+      "title": "Minh bạch thu chi | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "height": 7375,
+      "scrollW": 1440,
+      "firstFoldText": [
+        "A:Trang chủ",
+        "SPAN:Minh bạch",
+        "SPAN:Dự toán trong đề xuất",
+        "SPAN:Chưa có số liệu thực tế được xác nhận",
+        "H1:Minh bạch thu chi",
+        "P:Kế hoạch dự toán ngân sách, doanh thu kịch bản bán đủ hàng v",
+        "SPAN:Chi dự kiến",
+        "SPAN:4.935.000đ",
+        "P:Dự toán 19 khoản chi phí nguyên vật liệu, vật tư góc chơi, q",
+        "SPAN:Doanh thu kịch bản",
+        "SPAN:6.700.000đ",
+        "P:Gồm 2.200.000đ từ 2 sản phẩm thủ công (bán đủ kế hoạch) và 4",
+        "SPAN:Ngân sách dự kiến"
+      ],
+      "sections": [
+        {
+          "tag": "DIV",
+          "id": null,
+          "heading": null,
+          "top": 118,
+          "h": 49
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Minh bạch thu chi",
+          "top": 167,
+          "h": 635
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Dự toán chi phí kế hoạch",
+          "top": 802,
+          "h": 2021
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Doanh thu kịch bản và phân tích số dư",
+          "top": 2823,
+          "h": 1776
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Báo cáo thực tế và nguyên tắc quản trị",
+          "top": 4599,
+          "h": 1307
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Câu hỏi thường gặp về tài chính",
+          "top": 5906,
+          "h": 665
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Tìm hiểu thêm về chiến dịch",
+          "top": 6571,
+          "h": 307
+        }
+      ],
+      "heads": [
+        "H1: Minh bạch thu chi",
+        "H2: Dự toán chi phí kế hoạch",
+        "H2: Doanh thu kịch bản và phân tích số dư",
+        "H3: Cơ cấu doanh thu kịch bản bán đủ hàng (6.700.000đ)",
+        "H3: Đối chiếu mục tiêu doanh thu ẩm thực trong đề xuất",
+        "H3: Lưu ý quan trọng về các kịch bản tài chính",
+        "H2: Báo cáo thực tế và nguyên tắc quản trị",
+        "H3: Công thức dòng tiền chuẩn xác",
+        "H3: Tách bạch tiền mặt và hiện vật",
+        "H3: Đối soát chéo hai thành viên",
+        "H3: Biên tập chứng từ bảo vệ riêng tư",
+        "H2: Câu hỏi thường gặp về tài chính",
+        "H2: Tìm hiểu thêm về chiến dịch"
+      ],
+      "ctas": [
+        "Đồng hành cùng dự án →",
+        "Xem chi tiết câu chuyện dự án"
+      ],
+      "imgs": [],
+      "counts": {
+        "chuaXacNhan": 9,
+        "duKien": 8,
+        "giaDinh": 16,
+        "minhHoa": 0,
+        "words": 2115
+      },
+      "smallText": 0,
+      "current": [
+        "Minh bạch",
+        "Minh bạch",
+        "Minh bạch"
+      ]
+    },
+    {
+      "name": "team",
+      "route": "/ve-nhom",
+      "vw": 1440,
+      "status": 304,
+      "shot": "docs/evidence/Claude-C02/claude-team-1440-full.png",
+      "fold": "docs/evidence/Claude-C02/claude-team-1440-fold.png",
+      "title": "Về nhóm Lăng Kính | Mang Theo Một Nét Vẽ",
+      "height": 3382,
+      "scrollW": 1440,
+      "firstFoldText": [
+        "A:Trang chủ",
+        "SPAN:Về nhóm",
+        "SPAN:Thông tin nhóm thực hiện",
+        "H1:Về nhóm Lăng Kính",
+        "P:Lớp AI2015 • Học phần SSG105 — Đại học FPT Hà Nội • 7 sinh v",
+        "P:Kết nối một buổi vui chơi có lựa chọn với việc hỗ trợ hiện v",
+        "P:Lăng Kính là nhóm gồm 7 sinh viên lớp AI2015, học phần SSG10",
+        "SPAN:Cam kết trách nhiệm",
+        "H2:5 nguyên tắc cốt lõi của nhóm",
+        "P:Các định hướng nhất quán trong đề xuất, làm kim chỉ nam xuyê"
+      ],
+      "sections": [
+        {
+          "tag": "DIV",
+          "id": null,
+          "heading": null,
+          "top": 118,
+          "h": 61
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Về nhóm Lăng Kính",
+          "top": 179,
+          "h": 510
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "5 nguyên tắc cốt lõi của nhóm",
+          "top": 689,
+          "h": 788
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Cách nhóm phối hợp thực hiện",
+          "top": 1477,
+          "h": 856
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Thành viên nhóm Lăng Kính",
+          "top": 2333,
+          "h": 552
+        }
+      ],
+      "heads": [
+        "H1: Về nhóm Lăng Kính",
+        "H2: 5 nguyên tắc cốt lõi của nhóm",
+        "H3: Tôn trọng quyền lựa chọn",
+        "H3: Chuẩn bị an toàn và chu đáo",
+        "H3: Sản phẩm do nhóm hoàn thiện",
+        "H3: Đối soát rõ ràng và độc lập",
+        "H3: Bảo vệ quyền riêng tư",
+        "H2: Cách nhóm phối hợp thực hiện",
+        "H3: Điều phối và Đối ngoại",
+        "H3: Nội dung và Chuẩn bị góc chơi",
+        "H3: Chuẩn bị và Hoàn thiện sản phẩm",
+        "H3: Hậu cần và Quản lý vật tư",
+        "H3: Tài chính và Đối soát độc lập",
+        "H2: Thành viên nhóm Lăng Kính"
+      ],
+      "ctas": [
+        "Khám phá dự án",
+        "Xem sản phẩm gây quỹ"
+      ],
+      "imgs": [
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Logo nhóm Lăng Kính",
+          "w": 126,
+          "h": 52,
+          "nat": "1419x587",
+          "loading": "auto",
+          "ok": true,
+          "caption": null
+        }
+      ],
+      "counts": {
+        "chuaXacNhan": 1,
+        "duKien": 3,
+        "giaDinh": 0,
+        "minhHoa": 0,
+        "words": 727
+      },
+      "smallText": 0,
+      "current": [
+        "Về nhóm",
+        "Về nhóm",
+        "Về nhóm"
+      ]
+    },
+    {
+      "name": "support",
+      "route": "/dong-hanh",
+      "vw": 1440,
+      "status": 304,
+      "shot": "docs/evidence/Claude-C02/claude-support-1440-full.png",
+      "fold": "docs/evidence/Claude-C02/claude-support-1440-fold.png",
+      "title": "Đồng hành cùng dự án | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "height": 4158,
+      "scrollW": 1440,
+      "firstFoldText": [
+        "A:Trang chủ",
+        "SPAN:Đồng hành",
+        "SPAN:Tiếp nhận có lựa chọn",
+        "SPAN:Chưa mở tiếp nhận trực tuyến",
+        "H1:Đồng hành cùng dự án",
+        "P:Một buổi chơi phù hợp, một món quà đúng nhu cầu.",
+        "P:Nhóm Lăng Kính hướng đến việc kết nối những tấm lòng đồng hà",
+        "SPAN:Hình thức hỗ trợ",
+        "H2:Ba phương thức đồng hành dự kiến",
+        "P:Các hình thức hỗ trợ được đề xuất nhằm đảm bảo đúng nhu cầu,",
+        "SPAN:Hiện vật",
+        "SPAN:Gây quỹ",
+        "SPAN:Lan tỏa"
+      ],
+      "sections": [
+        {
+          "tag": "DIV",
+          "id": null,
+          "heading": null,
+          "top": 118,
+          "h": 49
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Đồng hành cùng dự án",
+          "top": 167,
+          "h": 465
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Ba phương thức đồng hành dự kiến",
+          "top": 631,
+          "h": 763
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Quy trình tiếp nhận dự kiến",
+          "top": 1394,
+          "h": 627
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Kênh liên hệ chính thức",
+          "top": 2021,
+          "h": 628
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Câu hỏi thường gặp về đồng hành",
+          "top": 2649,
+          "h": 641
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "heading": "Tìm hiểu thêm về chiến dịch",
+          "top": 3291,
+          "h": 370
+        }
+      ],
+      "heads": [
+        "H1: Đồng hành cùng dự án",
+        "H2: Ba phương thức đồng hành dự kiến",
+        "H3: Hỗ trợ vật tư thiết yếu",
+        "H3: Tìm hiểu sản phẩm gây quỹ",
+        "H3: Kết nối và hỗ trợ truyền thông",
+        "H2: Quy trình tiếp nhận dự kiến",
+        "H3: Làm rõ nhu cầu thực tế",
+        "H3: Thống nhất phương thức & Bàn giao",
+        "H3: Đối soát & Cập nhật công khai",
+        "H2: Kênh liên hệ chính thức",
+        "H3: Thông báo trạng thái liên hệ",
+        "H2: Câu hỏi thường gặp về đồng hành",
+        "H2: Tìm hiểu thêm về chiến dịch"
+      ],
+      "ctas": [
+        "Xem dự toán chi tiết →",
+        "Xem kế hoạch sản phẩm →",
+        "Tìm hiểu câu chuyện →",
+        "Xem minh bạch thu chi →",
+        "Tìm hiểu nhóm Lăng Kính",
+        "Xem câu chuyện dự án"
+      ],
+      "imgs": [],
+      "counts": {
+        "chuaXacNhan": 3,
+        "duKien": 2,
+        "giaDinh": 0,
+        "minhHoa": 0,
+        "words": 808
+      },
+      "smallText": 0,
+      "current": [
+        "Đồng hành",
+        "Đồng hành cùng dự án",
+        "Đồng hành"
+      ]
+    }
+  ],
+  "errors": [],
+  "failed": [],
+  "external": [],
+  "extra": {
+    "products900": {
+      "h": 7163,
+      "sw": 900
+    },
+    "products1024": {
+      "h": 5601,
+      "sw": 1024
+    },
+    "menu": {
+      "expanded": "true",
+      "links": [
+        "Trang chủ",
+        "Dự án",
+        "Sản phẩm",
+        "Minh bạch*",
+        "Về nhóm",
+        "Đồng hành cùng dự án"
+      ]
+    },
+    "menuAfterEsc": {
+      "expanded": "false",
+      "focus": "mobile-nav-toggle"
+    },
+    "faq_finance": {
+      "details": 4
+    },
+    "faq_support": {
+      "details": 4
+    },
+    "faq_products": {
+      "details": 0
+    },
+    "focus1440": [
+      "Chuyển đến nội dung chính | solid 3px",
+      "Trang chủ Lăng Kính - Mang Theo Một Nét  | solid 2px",
+      "Trang chủ | solid 2px",
+      "Dự án | solid 2px",
+      "Sản phẩm | solid 2px",
+      "Minh bạch | solid 2px",
+      "Về nhóm | solid 2px",
+      "Đồng hành | solid 2px",
+      "Khám phá dự án | solid 2px",
+      "Xem sản phẩm gây quỹ | solid 2px"
+    ]
+  },
+  "browser": "Chrome/154.0.8037.93",
+  "finishedAt": "2026-10-03T12:46:48.900Z"
+}
