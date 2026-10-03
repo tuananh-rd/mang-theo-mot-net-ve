@@ -1,0 +1,1152 @@
+{
+  "startedAt": "2026-10-03T09:07:35.313Z",
+  "base": "http://127.0.0.1:4322",
+  "finalAppSha": "05c1f75b231ae11419e77dcdaa2114e38dcd0274",
+  "browser": "Chrome/154.0.8037.93",
+  "routes": [],
+  "screenshots": [
+    {
+      "page": "home",
+      "viewport": "mobile-375",
+      "fileName": "home-mobile-375-full.png",
+      "dims": {
+        "width": 375,
+        "height": 8897,
+        "bytes": 442919,
+        "sha256": "a72bf35c6d54c77631511f5df0ae8c46da126944d0111b6dae8468607fee340b"
+      }
+    },
+    {
+      "page": "home",
+      "viewport": "tablet-768",
+      "fileName": "home-tablet-768-full.png",
+      "dims": {
+        "width": 768,
+        "height": 7423,
+        "bytes": 496375,
+        "sha256": "dfd668d3239f4c262a8f41abc0e328248bcc1b21505511b84d711d8710cc2e3d"
+      }
+    },
+    {
+      "page": "home",
+      "viewport": "desktop-1440",
+      "fileName": "home-desktop-1440-full.png",
+      "dims": {
+        "width": 1440,
+        "height": 5531,
+        "bytes": 497324,
+        "sha256": "ec03228798206bbb178b7ec1786c20a2d4fcd2faed48a1953db7390ed3be92ad"
+      }
+    },
+    {
+      "page": "san-pham",
+      "viewport": "mobile-375",
+      "fileName": "san-pham-mobile-375-full.png",
+      "dims": {
+        "width": 375,
+        "height": 9355,
+        "bytes": 462078,
+        "sha256": "ca095a271dd1d8ea819a08881dcd040f7d359ac11928bf1721951f571ddb8302"
+      }
+    },
+    {
+      "page": "san-pham",
+      "viewport": "tablet-768",
+      "fileName": "san-pham-tablet-768-full.png",
+      "dims": {
+        "width": 768,
+        "height": 7208,
+        "bytes": 486566,
+        "sha256": "efec137f52544b3487a1380757a16d069cae2b3b2f627854eb7403af3aa1c4c6"
+      }
+    },
+    {
+      "page": "san-pham",
+      "viewport": "desktop-1440",
+      "fileName": "san-pham-desktop-1440-full.png",
+      "dims": {
+        "width": 1440,
+        "height": 5419,
+        "bytes": 485911,
+        "sha256": "066a76693ac3cdf9bed1952a9bd0fef6c01b11b8479a5b38140c5e25a3e5e88f"
+      }
+    },
+    {
+      "page": "minh-bach",
+      "viewport": "mobile-375",
+      "fileName": "minh-bach-mobile-375-full.png",
+      "dims": {
+        "width": 375,
+        "height": 10140,
+        "bytes": 577323,
+        "sha256": "ed98170763bdff0e0ef4b33615a64169019bd8026d4ea25521097ae8cdc3f2b4"
+      }
+    },
+    {
+      "page": "minh-bach",
+      "viewport": "tablet-768",
+      "fileName": "minh-bach-tablet-768-full.png",
+      "dims": {
+        "width": 768,
+        "height": 7628,
+        "bytes": 587769,
+        "sha256": "5f45849fb5e649a0bac18f086445dc53871e765a594196c92eb0795cff8d3122"
+      }
+    },
+    {
+      "page": "minh-bach",
+      "viewport": "desktop-1440",
+      "fileName": "minh-bach-desktop-1440-full.png",
+      "dims": {
+        "width": 1440,
+        "height": 6858,
+        "bytes": 595580,
+        "sha256": "1cc7d95d501a57964e08ed6ae9651b7f25bb749021b953b15676c7322156b2f7"
+      }
+    },
+    {
+      "page": "du-an",
+      "viewport": "mobile-375",
+      "fileName": "du-an-mobile-375-full.png",
+      "dims": {
+        "width": 375,
+        "height": 6509,
+        "bytes": 320826,
+        "sha256": "62a90b9f0710aa29490addd6b4114e843aa25e009903a3ceae168e446216442f"
+      }
+    },
+    {
+      "page": "du-an",
+      "viewport": "tablet-768",
+      "fileName": "du-an-tablet-768-full.png",
+      "dims": {
+        "width": 768,
+        "height": 5300,
+        "bytes": 375112,
+        "sha256": "4465ad93e0bd76df0fdafea2be2e244059b2cd2ce51e1c02653d9bf3445ae970"
+      }
+    },
+    {
+      "page": "du-an",
+      "viewport": "desktop-1440",
+      "fileName": "du-an-desktop-1440-full.png",
+      "dims": {
+        "width": 1440,
+        "height": 4294,
+        "bytes": 393527,
+        "sha256": "6c0bd643b60c7f45987c586248051e832d7b06333ac78c9a01945f43d6aec43c"
+      }
+    },
+    {
+      "page": "ve-nhom",
+      "viewport": "mobile-375",
+      "fileName": "ve-nhom-mobile-375-full.png",
+      "dims": {
+        "width": 375,
+        "height": 4861,
+        "bytes": 252805,
+        "sha256": "328ed7b71b1acb783086e0f1f3b09253043a7d6f6a994300b95cdb68063a0e3a"
+      }
+    },
+    {
+      "page": "ve-nhom",
+      "viewport": "tablet-768",
+      "fileName": "ve-nhom-tablet-768-full.png",
+      "dims": {
+        "width": 768,
+        "height": 3857,
+        "bytes": 274303,
+        "sha256": "2fd9da906909d3e2fe6fee8d6281ba82c23d52548d8369a696fcb8ab65781d8f"
+      }
+    },
+    {
+      "page": "ve-nhom",
+      "viewport": "desktop-1440",
+      "fileName": "ve-nhom-desktop-1440-full.png",
+      "dims": {
+        "width": 1440,
+        "height": 3382,
+        "bytes": 283289,
+        "sha256": "d7baba0e142e8764f1933f2f86439dc28beebffb7422c2cd9051e9afd8a4258d"
+      }
+    },
+    {
+      "page": "dong-hanh",
+      "viewport": "mobile-375",
+      "fileName": "dong-hanh-mobile-375-full.png",
+      "dims": {
+        "width": 375,
+        "height": 6136,
+        "bytes": 301756,
+        "sha256": "9f68b394564e5a86fdebad1eeba6e5af6163c493151e8935d00779d7d29a7d5f"
+      }
+    },
+    {
+      "page": "dong-hanh",
+      "viewport": "tablet-768",
+      "fileName": "dong-hanh-tablet-768-full.png",
+      "dims": {
+        "width": 768,
+        "height": 5156,
+        "bytes": 321401,
+        "sha256": "cef32589a1b414a0042c3014c52ad7418bc4961f8e841cbf90c9852e23a52cf8"
+      }
+    },
+    {
+      "page": "dong-hanh",
+      "viewport": "desktop-1440",
+      "fileName": "dong-hanh-desktop-1440-full.png",
+      "dims": {
+        "width": 1440,
+        "height": 4158,
+        "bytes": 327829,
+        "sha256": "52d56af7c2fc649d4ad5cdabb54e1d046ad6d28e2e78fcf866f19570686ea8fb"
+      }
+    },
+    {
+      "page": "404",
+      "viewport": "mobile-375",
+      "fileName": "404-mobile-375-full.png",
+      "dims": {
+        "width": 375,
+        "height": 1413,
+        "bytes": 57681,
+        "sha256": "7e974bd1242a6632da03577dd9a121d2b0b5563724060d8532fe87d5464ea00d"
+      }
+    },
+    {
+      "page": "404",
+      "viewport": "tablet-768",
+      "fileName": "404-tablet-768-full.png",
+      "dims": {
+        "width": 768,
+        "height": 1170,
+        "bytes": 64690,
+        "sha256": "44a4215b637802f5179d72104c3f156e9c1a2d6b23c655833f294ced6f4ca3ef"
+      }
+    },
+    {
+      "page": "404",
+      "viewport": "desktop-1440",
+      "fileName": "404-desktop-1440-full.png",
+      "dims": {
+        "width": 1440,
+        "height": 1125,
+        "bytes": 75314,
+        "sha256": "ce86a668aff51911a3a3b80c34eaf1baa4cb56de693c933aa512241bd390a524"
+      }
+    },
+    {
+      "page": "san-pham",
+      "viewport": "breakpoint-900",
+      "fileName": "san-pham-breakpoint-900-full.png",
+      "dims": {
+        "width": 900,
+        "height": 7242,
+        "bytes": 498730,
+        "sha256": "3272afbe9b9bb8c08a12647acb88f0284fc8e50f9650d153550e711446afc112"
+      }
+    },
+    {
+      "page": "san-pham",
+      "viewport": "breakpoint-1024",
+      "fileName": "san-pham-breakpoint-1024-full.png",
+      "dims": {
+        "width": 1024,
+        "height": 5577,
+        "bytes": 457835,
+        "sha256": "f8944109d57f5fae80df286c547e66ee5cfe0e16fe19332f737ccdadb02b5976"
+      }
+    },
+    {
+      "page": "home",
+      "viewport": "mobile-375-menu-open",
+      "fileName": "mobile-375-menu-open.png",
+      "dims": {
+        "width": 375,
+        "height": 667,
+        "bytes": 26805,
+        "sha256": "b36be2d1e472c4b3d8555a610e33f5d5cfdc44d33db91e4bc7afa6e3128500ec"
+      }
+    }
+  ],
+  "assertions": [
+    {
+      "name": "home status 200",
+      "pass": true,
+      "observed": 200
+    },
+    {
+      "name": "project status 200",
+      "pass": true,
+      "observed": 200
+    },
+    {
+      "name": "team status 200",
+      "pass": true,
+      "observed": 200
+    },
+    {
+      "name": "product status 200",
+      "pass": true,
+      "observed": 200
+    },
+    {
+      "name": "transparency status 200",
+      "pass": true,
+      "observed": 200
+    },
+    {
+      "name": "support status 200",
+      "pass": true,
+      "observed": 200
+    },
+    {
+      "name": "404 status 200",
+      "pass": true,
+      "observed": 200
+    },
+    {
+      "name": "favicon-32x32.png status 200/304",
+      "pass": true,
+      "observed": 304
+    },
+    {
+      "name": "apple-touch-icon.png status 200/304",
+      "pass": true,
+      "observed": 200
+    },
+    {
+      "name": "Screenshot home-mobile-375-full.png exists and valid",
+      "pass": true,
+      "observed": {
+        "width": 375,
+        "height": 8897,
+        "bytes": 442919,
+        "sha256": "a72bf35c6d54c77631511f5df0ae8c46da126944d0111b6dae8468607fee340b"
+      }
+    },
+    {
+      "name": "Screenshot home-tablet-768-full.png exists and valid",
+      "pass": true,
+      "observed": {
+        "width": 768,
+        "height": 7423,
+        "bytes": 496375,
+        "sha256": "dfd668d3239f4c262a8f41abc0e328248bcc1b21505511b84d711d8710cc2e3d"
+      }
+    },
+    {
+      "name": "Screenshot home-desktop-1440-full.png exists and valid",
+      "pass": true,
+      "observed": {
+        "width": 1440,
+        "height": 5531,
+        "bytes": 497324,
+        "sha256": "ec03228798206bbb178b7ec1786c20a2d4fcd2faed48a1953db7390ed3be92ad"
+      }
+    },
+    {
+      "name": "Screenshot san-pham-mobile-375-full.png exists and valid",
+      "pass": true,
+      "observed": {
+        "width": 375,
+        "height": 9355,
+        "bytes": 462078,
+        "sha256": "ca095a271dd1d8ea819a08881dcd040f7d359ac11928bf1721951f571ddb8302"
+      }
+    },
+    {
+      "name": "Screenshot san-pham-tablet-768-full.png exists and valid",
+      "pass": true,
+      "observed": {
+        "width": 768,
+        "height": 7208,
+        "bytes": 486566,
+        "sha256": "efec137f52544b3487a1380757a16d069cae2b3b2f627854eb7403af3aa1c4c6"
+      }
+    },
+    {
+      "name": "Screenshot san-pham-desktop-1440-full.png exists and valid",
+      "pass": true,
+      "observed": {
+        "width": 1440,
+        "height": 5419,
+        "bytes": 485911,
+        "sha256": "066a76693ac3cdf9bed1952a9bd0fef6c01b11b8479a5b38140c5e25a3e5e88f"
+      }
+    },
+    {
+      "name": "Screenshot minh-bach-mobile-375-full.png exists and valid",
+      "pass": true,
+      "observed": {
+        "width": 375,
+        "height": 10140,
+        "bytes": 577323,
+        "sha256": "ed98170763bdff0e0ef4b33615a64169019bd8026d4ea25521097ae8cdc3f2b4"
+      }
+    },
+    {
+      "name": "Screenshot minh-bach-tablet-768-full.png exists and valid",
+      "pass": true,
+      "observed": {
+        "width": 768,
+        "height": 7628,
+        "bytes": 587769,
+        "sha256": "5f45849fb5e649a0bac18f086445dc53871e765a594196c92eb0795cff8d3122"
+      }
+    },
+    {
+      "name": "Screenshot minh-bach-desktop-1440-full.png exists and valid",
+      "pass": true,
+      "observed": {
+        "width": 1440,
+        "height": 6858,
+        "bytes": 595580,
+        "sha256": "1cc7d95d501a57964e08ed6ae9651b7f25bb749021b953b15676c7322156b2f7"
+      }
+    },
+    {
+      "name": "Screenshot du-an-mobile-375-full.png exists and valid",
+      "pass": true,
+      "observed": {
+        "width": 375,
+        "height": 6509,
+        "bytes": 320826,
+        "sha256": "62a90b9f0710aa29490addd6b4114e843aa25e009903a3ceae168e446216442f"
+      }
+    },
+    {
+      "name": "Screenshot du-an-tablet-768-full.png exists and valid",
+      "pass": true,
+      "observed": {
+        "width": 768,
+        "height": 5300,
+        "bytes": 375112,
+        "sha256": "4465ad93e0bd76df0fdafea2be2e244059b2cd2ce51e1c02653d9bf3445ae970"
+      }
+    },
+    {
+      "name": "Screenshot du-an-desktop-1440-full.png exists and valid",
+      "pass": true,
+      "observed": {
+        "width": 1440,
+        "height": 4294,
+        "bytes": 393527,
+        "sha256": "6c0bd643b60c7f45987c586248051e832d7b06333ac78c9a01945f43d6aec43c"
+      }
+    },
+    {
+      "name": "Screenshot ve-nhom-mobile-375-full.png exists and valid",
+      "pass": true,
+      "observed": {
+        "width": 375,
+        "height": 4861,
+        "bytes": 252805,
+        "sha256": "328ed7b71b1acb783086e0f1f3b09253043a7d6f6a994300b95cdb68063a0e3a"
+      }
+    },
+    {
+      "name": "Screenshot ve-nhom-tablet-768-full.png exists and valid",
+      "pass": true,
+      "observed": {
+        "width": 768,
+        "height": 3857,
+        "bytes": 274303,
+        "sha256": "2fd9da906909d3e2fe6fee8d6281ba82c23d52548d8369a696fcb8ab65781d8f"
+      }
+    },
+    {
+      "name": "Screenshot ve-nhom-desktop-1440-full.png exists and valid",
+      "pass": true,
+      "observed": {
+        "width": 1440,
+        "height": 3382,
+        "bytes": 283289,
+        "sha256": "d7baba0e142e8764f1933f2f86439dc28beebffb7422c2cd9051e9afd8a4258d"
+      }
+    },
+    {
+      "name": "Screenshot dong-hanh-mobile-375-full.png exists and valid",
+      "pass": true,
+      "observed": {
+        "width": 375,
+        "height": 6136,
+        "bytes": 301756,
+        "sha256": "9f68b394564e5a86fdebad1eeba6e5af6163c493151e8935d00779d7d29a7d5f"
+      }
+    },
+    {
+      "name": "Screenshot dong-hanh-tablet-768-full.png exists and valid",
+      "pass": true,
+      "observed": {
+        "width": 768,
+        "height": 5156,
+        "bytes": 321401,
+        "sha256": "cef32589a1b414a0042c3014c52ad7418bc4961f8e841cbf90c9852e23a52cf8"
+      }
+    },
+    {
+      "name": "Screenshot dong-hanh-desktop-1440-full.png exists and valid",
+      "pass": true,
+      "observed": {
+        "width": 1440,
+        "height": 4158,
+        "bytes": 327829,
+        "sha256": "52d56af7c2fc649d4ad5cdabb54e1d046ad6d28e2e78fcf866f19570686ea8fb"
+      }
+    },
+    {
+      "name": "Screenshot 404-mobile-375-full.png exists and valid",
+      "pass": true,
+      "observed": {
+        "width": 375,
+        "height": 1413,
+        "bytes": 57681,
+        "sha256": "7e974bd1242a6632da03577dd9a121d2b0b5563724060d8532fe87d5464ea00d"
+      }
+    },
+    {
+      "name": "Screenshot 404-tablet-768-full.png exists and valid",
+      "pass": true,
+      "observed": {
+        "width": 768,
+        "height": 1170,
+        "bytes": 64690,
+        "sha256": "44a4215b637802f5179d72104c3f156e9c1a2d6b23c655833f294ced6f4ca3ef"
+      }
+    },
+    {
+      "name": "Screenshot 404-desktop-1440-full.png exists and valid",
+      "pass": true,
+      "observed": {
+        "width": 1440,
+        "height": 1125,
+        "bytes": 75314,
+        "sha256": "ce86a668aff51911a3a3b80c34eaf1baa4cb56de693c933aa512241bd390a524"
+      }
+    },
+    {
+      "name": "Screenshot san-pham-breakpoint-900-full.png valid",
+      "pass": true,
+      "observed": {
+        "width": 900,
+        "height": 7242,
+        "bytes": 498730,
+        "sha256": "3272afbe9b9bb8c08a12647acb88f0284fc8e50f9650d153550e711446afc112"
+      }
+    },
+    {
+      "name": "Screenshot san-pham-breakpoint-1024-full.png valid",
+      "pass": true,
+      "observed": {
+        "width": 1024,
+        "height": 5577,
+        "bytes": 457835,
+        "sha256": "f8944109d57f5fae80df286c547e66ee5cfe0e16fe19332f737ccdadb02b5976"
+      }
+    },
+    {
+      "name": "Mobile menu toggle aria-expanded is true",
+      "pass": true,
+      "observed": true
+    },
+    {
+      "name": "Mobile menu closes on Escape",
+      "pass": true,
+      "observed": true
+    },
+    {
+      "name": "M1 Header has logo_lang_kinh_2048 icon",
+      "pass": true,
+      "observed": {
+        "iconSrc": "/images/logo_lang_kinh_2048.png",
+        "iconWidth": 38,
+        "iconHeight": 38,
+        "nameText": "Lăng Kính",
+        "nameFontSize": "18px",
+        "subText": "Mang Theo Một Nét Vẽ",
+        "subFontSize": "14px",
+        "ariaLabel": "Trang chủ Lăng Kính - Mang Theo Một Nét Vẽ"
+      }
+    },
+    {
+      "name": "M1 Header has HTML text \"Lăng Kính\"",
+      "pass": true,
+      "observed": {
+        "iconSrc": "/images/logo_lang_kinh_2048.png",
+        "iconWidth": 38,
+        "iconHeight": 38,
+        "nameText": "Lăng Kính",
+        "nameFontSize": "18px",
+        "subText": "Mang Theo Một Nét Vẽ",
+        "subFontSize": "14px",
+        "ariaLabel": "Trang chủ Lăng Kính - Mang Theo Một Nét Vẽ"
+      }
+    },
+    {
+      "name": "M1 Header name font-size >= 16px",
+      "pass": true,
+      "observed": "18px"
+    },
+    {
+      "name": "M1 Header subtitle font-size >= 14px",
+      "pass": true,
+      "observed": "14px"
+    },
+    {
+      "name": "M1 Header accessible name contains Lăng Kính and Mang Theo Một Nét Vẽ",
+      "pass": true,
+      "observed": "Trang chủ Lăng Kính - Mang Theo Một Nét Vẽ"
+    },
+    {
+      "name": "M1 Footer has logo_lang_kinh_2048 icon",
+      "pass": true,
+      "observed": {
+        "iconSrc": "/images/logo_lang_kinh_2048.png",
+        "titleText": "Lăng Kính",
+        "titleFontSize": "20px"
+      }
+    },
+    {
+      "name": "M1 Footer has HTML text \"Lăng Kính\"",
+      "pass": true,
+      "observed": {
+        "iconSrc": "/images/logo_lang_kinh_2048.png",
+        "titleText": "Lăng Kính",
+        "titleFontSize": "20px"
+      }
+    },
+    {
+      "name": "M1 Footer title font-size >= 16px",
+      "pass": true,
+      "observed": "20px"
+    },
+    {
+      "name": "M2 tablet-768 displays card view (cardsVisible: true, tableVisible: false)",
+      "pass": true,
+      "observed": {
+        "tableVisible": false,
+        "cardsVisible": true
+      }
+    },
+    {
+      "name": "M2 breakpoint-900 displays card view (cardsVisible: true, tableVisible: false)",
+      "pass": true,
+      "observed": {
+        "tableVisible": false,
+        "cardsVisible": true
+      }
+    },
+    {
+      "name": "M2 breakpoint-1024 displays full table (tableVisible: true, cardsVisible: false)",
+      "pass": true,
+      "observed": {
+        "tableVisible": true,
+        "cardsVisible": false
+      }
+    },
+    {
+      "name": "M2 desktop-1440 displays full table (tableVisible: true, cardsVisible: false)",
+      "pass": true,
+      "observed": {
+        "tableVisible": true,
+        "cardsVisible": false
+      }
+    },
+    {
+      "name": "L1 Category tag has no pill border/border-radius",
+      "pass": true,
+      "observed": {
+        "display": "inline",
+        "borderRadius": "0px",
+        "borderStyle": "none"
+      }
+    },
+    {
+      "name": "L2 Minh bach formula expression preserves \"Lăng Kính\"",
+      "pass": true,
+      "observed": "30 chuồn chuồn tre 12 cm kèm đế × 40.000đ + 100 móc khóa Lăng Kính × 10.000đ = 2.200.000đ"
+    },
+    {
+      "name": "L2 Minh bach subnote preserves \"Lăng Kính\"",
+      "pass": true,
+      "observed": "Giả định bán đủ 30 chuồn chuồn tre 12 cm kèm đế và 100 móc khóa Lăng Kính theo giá tham khảo trong đề xuất."
+    },
+    {
+      "name": "L2 Minh bach does not have lowercase \"lăng kính\"",
+      "pass": true,
+      "observed": {
+        "expr": "30 chuồn chuồn tre 12 cm kèm đế × 40.000đ + 100 móc khóa Lăng Kính × 10.000đ = 2.200.000đ",
+        "sub": "Giả định bán đủ 30 chuồn chuồn tre 12 cm kèm đế và 100 móc khóa Lăng Kính theo giá tham khảo trong đề xuất."
+      }
+    },
+    {
+      "name": "L2 Home craftSummaryText preserves \"Lăng Kính\"",
+      "pass": true,
+      "observed": "* Kịch bản giả định: Thủ công 2.200.000đ (bán đủ 30 chuồn chuồn tre 12 cm kèm đế và 100 móc khóa Lăng Kính) + đồ ăn 4.500.000đ (mục tiêu giả định trong hồ sơ đề xuất, chưa phân bổ số lượng bán từng món)."
+    },
+    {
+      "name": "L3 Banh keo note is updated to plan note",
+      "pass": true,
+      "observed": {
+        "hasCorrectBanhKeoNote": true,
+        "hasOldInternalNote": false,
+        "hasCorrectMediaNote": true,
+        "hasOldDeviceNote": false
+      }
+    },
+    {
+      "name": "L3 Media note is updated without internal borrowed device text",
+      "pass": true,
+      "observed": {
+        "hasCorrectBanhKeoNote": true,
+        "hasOldInternalNote": false,
+        "hasCorrectMediaNote": true,
+        "hasOldDeviceNote": false
+      }
+    },
+    {
+      "name": "L4 Minh bach 375 height (10140px) reduced >= 15% vs baseline 12366px (actual: 18.0%)",
+      "pass": true,
+      "observed": {
+        "baselineHeight": 12366,
+        "currentHeight": 10140,
+        "reductionPercent": "18.00%"
+      }
+    },
+    {
+      "name": "L5 Mobile food-card-top is vertical (flex-direction: column)",
+      "pass": true,
+      "observed": "column"
+    },
+    {
+      "name": "L6 Food card unknown quantity shows \"Chưa xác định\" and not strong",
+      "pass": true,
+      "observed": [
+        {
+          "text": "Chưa xác định",
+          "color": "rgb(82, 96, 109)",
+          "isStrong": false
+        },
+        {
+          "text": "Chưa xác định",
+          "color": "rgb(82, 96, 109)",
+          "isStrong": false
+        },
+        {
+          "text": "Chưa xác định",
+          "color": "rgb(82, 96, 109)",
+          "isStrong": false
+        },
+        {
+          "text": "Chưa xác định",
+          "color": "rgb(82, 96, 109)",
+          "isStrong": false
+        },
+        {
+          "text": "Chưa xác định",
+          "color": "rgb(82, 96, 109)",
+          "isStrong": false
+        }
+      ]
+    },
+    {
+      "name": "No horizontal scroll on home at 375px",
+      "pass": true,
+      "observed": {
+        "docWidth": 375,
+        "winWidth": 375,
+        "hasScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on home at 414px",
+      "pass": true,
+      "observed": {
+        "docWidth": 414,
+        "winWidth": 414,
+        "hasScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on home at 768px",
+      "pass": true,
+      "observed": {
+        "docWidth": 768,
+        "winWidth": 768,
+        "hasScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on home at 900px",
+      "pass": true,
+      "observed": {
+        "docWidth": 900,
+        "winWidth": 900,
+        "hasScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on home at 1024px",
+      "pass": true,
+      "observed": {
+        "docWidth": 1024,
+        "winWidth": 1024,
+        "hasScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on home at 1440px",
+      "pass": true,
+      "observed": {
+        "docWidth": 1440,
+        "winWidth": 1440,
+        "hasScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on san-pham at 375px",
+      "pass": true,
+      "observed": {
+        "docWidth": 375,
+        "winWidth": 375,
+        "hasScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on san-pham at 414px",
+      "pass": true,
+      "observed": {
+        "docWidth": 414,
+        "winWidth": 414,
+        "hasScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on san-pham at 768px",
+      "pass": true,
+      "observed": {
+        "docWidth": 768,
+        "winWidth": 768,
+        "hasScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on san-pham at 900px",
+      "pass": true,
+      "observed": {
+        "docWidth": 900,
+        "winWidth": 900,
+        "hasScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on san-pham at 1024px",
+      "pass": true,
+      "observed": {
+        "docWidth": 1024,
+        "winWidth": 1024,
+        "hasScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on san-pham at 1440px",
+      "pass": true,
+      "observed": {
+        "docWidth": 1440,
+        "winWidth": 1440,
+        "hasScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on minh-bach at 375px",
+      "pass": true,
+      "observed": {
+        "docWidth": 375,
+        "winWidth": 375,
+        "hasScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on minh-bach at 414px",
+      "pass": true,
+      "observed": {
+        "docWidth": 414,
+        "winWidth": 414,
+        "hasScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on minh-bach at 768px",
+      "pass": true,
+      "observed": {
+        "docWidth": 768,
+        "winWidth": 768,
+        "hasScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on minh-bach at 900px",
+      "pass": true,
+      "observed": {
+        "docWidth": 900,
+        "winWidth": 900,
+        "hasScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on minh-bach at 1024px",
+      "pass": true,
+      "observed": {
+        "docWidth": 1024,
+        "winWidth": 1024,
+        "hasScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on minh-bach at 1440px",
+      "pass": true,
+      "observed": {
+        "docWidth": 1440,
+        "winWidth": 1440,
+        "hasScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on du-an at 375px",
+      "pass": true,
+      "observed": {
+        "docWidth": 375,
+        "winWidth": 375,
+        "hasScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on du-an at 414px",
+      "pass": true,
+      "observed": {
+        "docWidth": 414,
+        "winWidth": 414,
+        "hasScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on du-an at 768px",
+      "pass": true,
+      "observed": {
+        "docWidth": 768,
+        "winWidth": 768,
+        "hasScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on du-an at 900px",
+      "pass": true,
+      "observed": {
+        "docWidth": 900,
+        "winWidth": 900,
+        "hasScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on du-an at 1024px",
+      "pass": true,
+      "observed": {
+        "docWidth": 1024,
+        "winWidth": 1024,
+        "hasScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on du-an at 1440px",
+      "pass": true,
+      "observed": {
+        "docWidth": 1440,
+        "winWidth": 1440,
+        "hasScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on ve-nhom at 375px",
+      "pass": true,
+      "observed": {
+        "docWidth": 375,
+        "winWidth": 375,
+        "hasScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on ve-nhom at 414px",
+      "pass": true,
+      "observed": {
+        "docWidth": 414,
+        "winWidth": 414,
+        "hasScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on ve-nhom at 768px",
+      "pass": true,
+      "observed": {
+        "docWidth": 768,
+        "winWidth": 768,
+        "hasScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on ve-nhom at 900px",
+      "pass": true,
+      "observed": {
+        "docWidth": 900,
+        "winWidth": 900,
+        "hasScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on ve-nhom at 1024px",
+      "pass": true,
+      "observed": {
+        "docWidth": 1024,
+        "winWidth": 1024,
+        "hasScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on ve-nhom at 1440px",
+      "pass": true,
+      "observed": {
+        "docWidth": 1440,
+        "winWidth": 1440,
+        "hasScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on dong-hanh at 375px",
+      "pass": true,
+      "observed": {
+        "docWidth": 375,
+        "winWidth": 375,
+        "hasScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on dong-hanh at 414px",
+      "pass": true,
+      "observed": {
+        "docWidth": 414,
+        "winWidth": 414,
+        "hasScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on dong-hanh at 768px",
+      "pass": true,
+      "observed": {
+        "docWidth": 768,
+        "winWidth": 768,
+        "hasScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on dong-hanh at 900px",
+      "pass": true,
+      "observed": {
+        "docWidth": 900,
+        "winWidth": 900,
+        "hasScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on dong-hanh at 1024px",
+      "pass": true,
+      "observed": {
+        "docWidth": 1024,
+        "winWidth": 1024,
+        "hasScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on dong-hanh at 1440px",
+      "pass": true,
+      "observed": {
+        "docWidth": 1440,
+        "winWidth": 1440,
+        "hasScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on 404 at 375px",
+      "pass": true,
+      "observed": {
+        "docWidth": 375,
+        "winWidth": 375,
+        "hasScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on 404 at 414px",
+      "pass": true,
+      "observed": {
+        "docWidth": 414,
+        "winWidth": 414,
+        "hasScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on 404 at 768px",
+      "pass": true,
+      "observed": {
+        "docWidth": 768,
+        "winWidth": 768,
+        "hasScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on 404 at 900px",
+      "pass": true,
+      "observed": {
+        "docWidth": 900,
+        "winWidth": 900,
+        "hasScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on 404 at 1024px",
+      "pass": true,
+      "observed": {
+        "docWidth": 1024,
+        "winWidth": 1024,
+        "hasScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on 404 at 1440px",
+      "pass": true,
+      "observed": {
+        "docWidth": 1440,
+        "winWidth": 1440,
+        "hasScroll": false
+      }
+    }
+  ],
+  "heightMeasurements": {
+    "home-375": 8897,
+    "san-pham-375": 9355,
+    "minh-bach-375": 10140,
+    "du-an-375": 6509,
+    "ve-nhom-375": 4861,
+    "dong-hanh-375": 6136,
+    "404-375": 1413
+  },
+  "errors": [],
+  "minhBachHeightReduction": {
+    "baselineHeight": 12366,
+    "currentHeight": 10140,
+    "reductionPercent": "18.00%"
+  },
+  "endedAt": "2026-10-03T09:09:04.787Z",
+  "totalAssertions": 98,
+  "passedAssertions": 98,
+  "failedAssertions": []
+}

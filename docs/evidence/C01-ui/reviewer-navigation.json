@@ -1,0 +1,105 @@
+{
+  "checks": [
+    {
+      "name": "Direct /",
+      "pass": true,
+      "value": 200
+    },
+    {
+      "name": "Reload /",
+      "pass": true,
+      "value": 200
+    },
+    {
+      "name": "Direct /du-an/mang-theo-mot-net-ve",
+      "pass": true,
+      "value": 200
+    },
+    {
+      "name": "Reload /du-an/mang-theo-mot-net-ve",
+      "pass": true,
+      "value": 200
+    },
+    {
+      "name": "Direct /san-pham",
+      "pass": true,
+      "value": 200
+    },
+    {
+      "name": "Reload /san-pham",
+      "pass": true,
+      "value": 200
+    },
+    {
+      "name": "Direct /minh-bach",
+      "pass": true,
+      "value": 200
+    },
+    {
+      "name": "Reload /minh-bach",
+      "pass": true,
+      "value": 200
+    },
+    {
+      "name": "Direct /ve-nhom",
+      "pass": true,
+      "value": 200
+    },
+    {
+      "name": "Reload /ve-nhom",
+      "pass": true,
+      "value": 200
+    },
+    {
+      "name": "Direct /dong-hanh",
+      "pass": true,
+      "value": 200
+    },
+    {
+      "name": "Reload /dong-hanh",
+      "pass": true,
+      "value": 200
+    },
+    {
+      "name": "Direct /no-c01-ui-route",
+      "pass": true,
+      "value": 404
+    },
+    {
+      "name": "Reload /no-c01-ui-route",
+      "pass": true,
+      "value": 404
+    },
+    {
+      "name": "Skip link first",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "Skip moves to main",
+      "pass": true,
+      "value": "main-content"
+    },
+    {
+      "name": "Menu opens with keyboard",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "Menu links reachable by Tab",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "Escape closes and restores focus",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "Choosing link navigates and closes menu",
+      "pass": true,
+      "value": null
+    }
+  ],
+  "failed": []
+}

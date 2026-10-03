@@ -1,0 +1,13 @@
+{
+  "task": "RV-C01-CLAUDE",
+  "head": "a4e0aa879525d366335630eaf329633c35c6bb80",
+  "app": "ead94a482e590cf1c5ef4eb1e0829c99e30d378c",
+  "command": "npx astro preview --host 127.0.0.1 --port 4321",
+  "listen": "127.0.0.1:4321",
+  "pid": 21616,
+  "startedBy": "Claude (claude-opus-5-5), background shell of this review session",
+  "distSource": "stored dist/ (not rebuilt by Claude); 17/17 sha256 equal RC01 distAfter inventory, see claude-dist-hash.json",
+  "sourceVsHead": "git diff ead94a4..HEAD -- src public astro.config.* package.json is empty, so stored dist corresponds to current app source",
+  "routeStatus": {"/":200,"/du-an/mang-theo-mot-net-ve":200,"/san-pham":200,"/minh-bach":200,"/ve-nhom":200,"/dong-hanh":200,"/khong-co":404},
+  "browser": "Chrome/154.0.8037.93 headless via puppeteer-core, DPR1; 375/768 with isMobile+hasTouch, 1440 desktop"
+}

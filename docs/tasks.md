@@ -1,5 +1,11 @@
 # Backlog
 
+Cập nhật03/10/2026: **C01-UI DONE; RC01-UI PASS** tại app96f539772b78d70324adb95a11508d27163cd3ad (basea4e0aa8), sửa M1/M2 vàL1–L7 theo Claude; L8 giữ ảnh gốc chờ chủ dự án. Preview mới http://127.0.0.1:4322/ (loopbackPID25960), thay thông tin4321/PID2888 lịch sử phía dưới. Minh bạch375 giảm18%; check/18tests/build0,38targeted+20navigation+6finance+38bundle và19servedhash đạt. Review: docs/reviews/RC01-ui-96f5397.md. Worker HOLD, không T05/public.
+
+## C01-UI — sửa theo Claude, 03/10/2026
+
+Chủ dự án yêu cầu sửa theo [review Claude](../reports/ui-review-claude-c01.md). [Spec C01-UI](task-specs/C01-ui-claude.md) giao Antigravity duy nhất: M1/M2 và L1–L7, giữ nguyên wordmark L8 chờ chủ dự án. Baseline a4e0aa879525d366335630eaf329633c35c6bb80, task/c01-materials. Request đã nhận input, đang kiểm ACK/triển khai; chưa nghiệm thu hoặc public. Reviewer Claude đã hoàn thành chỉ đọc. Không mở T05.
+
 ## C01 hoàn thành — 03/10/2026
 
 **C01 DONE; RC01 PASS** tại app ead94a482e590cf1c5ef4eb1e0829c99e30d378c, base113069636c653cb7bbb255c33d681cbbbd940b19, nhánh task/c01-materials. [Review](reviews/RC01-ead94a4.md), [spec](task-specs/C01.md), [nguồn](materials-intake.md).655browser,18tests/check/build0,source6/6,bundle38/38,17disthash/HTTPbody,13ảnh đãxem. Worker ACK bàn giao và HOLD, giữ preview127.0.0.1:4321. T05 chưa giao/public chưa duyệt. Các mục IN_PROGRESS và T04 dưới đây là lịch sử.

@@ -1,0 +1,52 @@
+[
+  {
+    "w": 768,
+    "visible": true,
+    "containerW": 670,
+    "tableW": 858,
+    "hiddenPx": 188,
+    "statusRight": 907,
+    "containerRight": 719,
+    "tabindex": null
+  },
+  {
+    "w": 900,
+    "visible": true,
+    "containerW": 802,
+    "tableW": 858,
+    "hiddenPx": 56,
+    "statusRight": 907,
+    "containerRight": 851,
+    "tabindex": null
+  },
+  {
+    "w": 1024,
+    "visible": true,
+    "containerW": 926,
+    "tableW": 926,
+    "hiddenPx": 0,
+    "statusRight": 975,
+    "containerRight": 975,
+    "tabindex": null
+  },
+  {
+    "w": 1280,
+    "visible": true,
+    "containerW": 1102,
+    "tableW": 1102,
+    "hiddenPx": 0,
+    "statusRight": 1191,
+    "containerRight": 1191,
+    "tabindex": null
+  },
+  {
+    "w": 1440,
+    "visible": true,
+    "containerW": 1102,
+    "tableW": 1102,
+    "hiddenPx": 0,
+    "statusRight": 1271,
+    "containerRight": 1271,
+    "tabindex": null
+  }
+]

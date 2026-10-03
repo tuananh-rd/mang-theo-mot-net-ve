@@ -1,0 +1,1086 @@
+{
+  "base": "http://127.0.0.1:4321",
+  "startedAt": "2026-10-03T08:14:49.500Z",
+  "pages": [
+    {
+      "name": "home",
+      "route": "/",
+      "vw": 375,
+      "status": 200,
+      "shot": "docs/evidence/Claude-C01/claude-home-375-full.png",
+      "title": "Trang chủ | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "scrollW": 375,
+      "height": 8899,
+      "headerH": 65,
+      "h1": [
+        "Mang Theo Một Nét Vẽ"
+      ],
+      "current": [
+        "Trang chủ",
+        "Trang chủ"
+      ],
+      "small": [],
+      "smallCount": 0,
+      "low": [],
+      "lowCount": 0,
+      "over": [],
+      "imgs": [
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Lăng Kính",
+          "w": 125,
+          "h": 32,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Lăng Kính",
+          "w": 97,
+          "h": 40,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        }
+      ],
+      "figures": 0,
+      "tables": []
+    },
+    {
+      "name": "project",
+      "route": "/du-an/mang-theo-mot-net-ve",
+      "vw": 375,
+      "status": 200,
+      "shot": "docs/evidence/Claude-C01/claude-project-375-full.png",
+      "title": "Câu chuyện dự án | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "scrollW": 375,
+      "height": 6511,
+      "headerH": 65,
+      "h1": [
+        "Mang Theo Một Nét Vẽ"
+      ],
+      "current": [
+        "Dự án",
+        "Dự án",
+        "Dự án"
+      ],
+      "small": [],
+      "smallCount": 0,
+      "low": [],
+      "lowCount": 0,
+      "over": [],
+      "imgs": [
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Lăng Kính",
+          "w": 125,
+          "h": 32,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Lăng Kính",
+          "w": 97,
+          "h": 40,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        }
+      ],
+      "figures": 0,
+      "tables": []
+    },
+    {
+      "name": "products",
+      "route": "/san-pham",
+      "vw": 375,
+      "status": 200,
+      "shot": "docs/evidence/Claude-C01/claude-products-375-full.png",
+      "title": "Sản phẩm gây quỹ dự kiến | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "scrollW": 375,
+      "height": 9228,
+      "headerH": 65,
+      "h1": [
+        "Sản phẩm gây quỹ dự kiến"
+      ],
+      "current": [
+        "Sản phẩm",
+        "Sản phẩm",
+        "Sản phẩm"
+      ],
+      "small": [],
+      "smallCount": 0,
+      "low": [],
+      "lowCount": 0,
+      "over": [],
+      "imgs": [
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Lăng Kính",
+          "w": 125,
+          "h": 32,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Lăng Kính",
+          "w": 97,
+          "h": 40,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        }
+      ],
+      "figures": 0,
+      "tables": [
+        {
+          "w": 0,
+          "parentW": 0,
+          "parentOverflow": "auto"
+        }
+      ]
+    },
+    {
+      "name": "finance",
+      "route": "/minh-bach",
+      "vw": 375,
+      "status": 200,
+      "shot": "docs/evidence/Claude-C01/claude-finance-375-full.png",
+      "title": "Minh bạch thu chi | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "scrollW": 375,
+      "height": 12366,
+      "headerH": 65,
+      "h1": [
+        "Minh bạch thu chi"
+      ],
+      "current": [
+        "Minh bạch",
+        "Minh bạch",
+        "Minh bạch"
+      ],
+      "small": [],
+      "smallCount": 0,
+      "low": [],
+      "lowCount": 0,
+      "over": [],
+      "imgs": [
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Lăng Kính",
+          "w": 125,
+          "h": 32,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Lăng Kính",
+          "w": 97,
+          "h": 40,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        }
+      ],
+      "figures": 0,
+      "tables": [
+        {
+          "w": 0,
+          "parentW": 0,
+          "parentOverflow": "auto"
+        },
+        {
+          "w": 0,
+          "parentW": 0,
+          "parentOverflow": "auto"
+        }
+      ]
+    },
+    {
+      "name": "team",
+      "route": "/ve-nhom",
+      "vw": 375,
+      "status": 200,
+      "shot": "docs/evidence/Claude-C01/claude-team-375-full.png",
+      "title": "Về nhóm Lăng Kính | Mang Theo Một Nét Vẽ",
+      "scrollW": 375,
+      "height": 4863,
+      "headerH": 65,
+      "h1": [
+        "Về nhóm Lăng Kính"
+      ],
+      "current": [
+        "Về nhóm",
+        "Về nhóm",
+        "Về nhóm"
+      ],
+      "small": [],
+      "smallCount": 0,
+      "low": [],
+      "lowCount": 0,
+      "over": [],
+      "imgs": [
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Lăng Kính",
+          "w": 125,
+          "h": 32,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Logo nhóm Lăng Kính",
+          "w": 126,
+          "h": 52,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Lăng Kính",
+          "w": 97,
+          "h": 40,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        }
+      ],
+      "figures": 0,
+      "tables": []
+    },
+    {
+      "name": "support",
+      "route": "/dong-hanh",
+      "vw": 375,
+      "status": 200,
+      "shot": "docs/evidence/Claude-C01/claude-support-375-full.png",
+      "title": "Đồng hành cùng dự án | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "scrollW": 375,
+      "height": 6138,
+      "headerH": 65,
+      "h1": [
+        "Đồng hành cùng dự án"
+      ],
+      "current": [
+        "Đồng hành",
+        "Đồng hành cùng dự án",
+        "Đồng hành"
+      ],
+      "small": [],
+      "smallCount": 0,
+      "low": [],
+      "lowCount": 0,
+      "over": [],
+      "imgs": [
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Lăng Kính",
+          "w": 125,
+          "h": 32,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Lăng Kính",
+          "w": 97,
+          "h": 40,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        }
+      ],
+      "figures": 0,
+      "tables": []
+    },
+    {
+      "name": "404",
+      "route": "/claude-c01-khong-co",
+      "vw": 375,
+      "status": 404,
+      "shot": "docs/evidence/Claude-C01/claude-404-375-full.png",
+      "title": "Không tìm thấy trang (404) | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "scrollW": 375,
+      "height": 1415,
+      "headerH": 65,
+      "h1": [
+        "Không tìm thấy trang"
+      ],
+      "current": [],
+      "small": [],
+      "smallCount": 0,
+      "low": [],
+      "lowCount": 0,
+      "over": [],
+      "imgs": [
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Lăng Kính",
+          "w": 125,
+          "h": 32,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Lăng Kính",
+          "w": 97,
+          "h": 40,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        }
+      ],
+      "figures": 0,
+      "tables": []
+    },
+    {
+      "name": "home",
+      "route": "/",
+      "vw": 768,
+      "status": 304,
+      "shot": "docs/evidence/Claude-C01/claude-home-768-full.png",
+      "title": "Trang chủ | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "scrollW": 768,
+      "height": 7423,
+      "headerH": 65,
+      "h1": [
+        "Mang Theo Một Nét Vẽ"
+      ],
+      "current": [
+        "Trang chủ",
+        "Trang chủ"
+      ],
+      "small": [],
+      "smallCount": 0,
+      "low": [],
+      "lowCount": 0,
+      "over": [],
+      "imgs": [
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Lăng Kính",
+          "w": 150,
+          "h": 38,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Lăng Kính",
+          "w": 97,
+          "h": 40,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        }
+      ],
+      "figures": 0,
+      "tables": []
+    },
+    {
+      "name": "project",
+      "route": "/du-an/mang-theo-mot-net-ve",
+      "vw": 768,
+      "status": 304,
+      "shot": "docs/evidence/Claude-C01/claude-project-768-full.png",
+      "title": "Câu chuyện dự án | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "scrollW": 768,
+      "height": 5300,
+      "headerH": 65,
+      "h1": [
+        "Mang Theo Một Nét Vẽ"
+      ],
+      "current": [
+        "Dự án",
+        "Dự án",
+        "Dự án"
+      ],
+      "small": [],
+      "smallCount": 0,
+      "low": [],
+      "lowCount": 0,
+      "over": [],
+      "imgs": [
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Lăng Kính",
+          "w": 150,
+          "h": 38,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Lăng Kính",
+          "w": 97,
+          "h": 40,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        }
+      ],
+      "figures": 0,
+      "tables": []
+    },
+    {
+      "name": "products",
+      "route": "/san-pham",
+      "vw": 768,
+      "status": 304,
+      "shot": "docs/evidence/Claude-C01/claude-products-768-full.png",
+      "title": "Sản phẩm gây quỹ dự kiến | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "scrollW": 768,
+      "height": 6226,
+      "headerH": 65,
+      "h1": [
+        "Sản phẩm gây quỹ dự kiến"
+      ],
+      "current": [
+        "Sản phẩm",
+        "Sản phẩm",
+        "Sản phẩm"
+      ],
+      "small": [],
+      "smallCount": 0,
+      "low": [],
+      "lowCount": 0,
+      "over": [
+        "TABLE.plan-table",
+        "THEAD.",
+        "TR.",
+        "TH.",
+        "TBODY.",
+        "TR.",
+        "TD.col-status",
+        "SPAN.plan-status-badge"
+      ],
+      "imgs": [
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Lăng Kính",
+          "w": 150,
+          "h": 38,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Lăng Kính",
+          "w": 97,
+          "h": 40,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        }
+      ],
+      "figures": 0,
+      "tables": [
+        {
+          "w": 858,
+          "parentW": 670,
+          "parentOverflow": "auto"
+        }
+      ]
+    },
+    {
+      "name": "finance",
+      "route": "/minh-bach",
+      "vw": 768,
+      "status": 304,
+      "shot": "docs/evidence/Claude-C01/claude-finance-768-full.png",
+      "title": "Minh bạch thu chi | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "scrollW": 768,
+      "height": 7672,
+      "headerH": 65,
+      "h1": [
+        "Minh bạch thu chi"
+      ],
+      "current": [
+        "Minh bạch",
+        "Minh bạch",
+        "Minh bạch"
+      ],
+      "small": [],
+      "smallCount": 0,
+      "low": [],
+      "lowCount": 0,
+      "over": [],
+      "imgs": [
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Lăng Kính",
+          "w": 150,
+          "h": 38,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Lăng Kính",
+          "w": 97,
+          "h": 40,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        }
+      ],
+      "figures": 0,
+      "tables": [
+        {
+          "w": 718,
+          "parentW": 720,
+          "parentOverflow": "auto"
+        },
+        {
+          "w": 718,
+          "parentW": 720,
+          "parentOverflow": "auto"
+        }
+      ]
+    },
+    {
+      "name": "team",
+      "route": "/ve-nhom",
+      "vw": 768,
+      "status": 304,
+      "shot": "docs/evidence/Claude-C01/claude-team-768-full.png",
+      "title": "Về nhóm Lăng Kính | Mang Theo Một Nét Vẽ",
+      "scrollW": 768,
+      "height": 3857,
+      "headerH": 65,
+      "h1": [
+        "Về nhóm Lăng Kính"
+      ],
+      "current": [
+        "Về nhóm",
+        "Về nhóm",
+        "Về nhóm"
+      ],
+      "small": [],
+      "smallCount": 0,
+      "low": [],
+      "lowCount": 0,
+      "over": [],
+      "imgs": [
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Lăng Kính",
+          "w": 150,
+          "h": 38,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Logo nhóm Lăng Kính",
+          "w": 126,
+          "h": 52,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Lăng Kính",
+          "w": 97,
+          "h": 40,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        }
+      ],
+      "figures": 0,
+      "tables": []
+    },
+    {
+      "name": "support",
+      "route": "/dong-hanh",
+      "vw": 768,
+      "status": 304,
+      "shot": "docs/evidence/Claude-C01/claude-support-768-full.png",
+      "title": "Đồng hành cùng dự án | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "scrollW": 768,
+      "height": 5156,
+      "headerH": 65,
+      "h1": [
+        "Đồng hành cùng dự án"
+      ],
+      "current": [
+        "Đồng hành",
+        "Đồng hành cùng dự án",
+        "Đồng hành"
+      ],
+      "small": [],
+      "smallCount": 0,
+      "low": [],
+      "lowCount": 0,
+      "over": [],
+      "imgs": [
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Lăng Kính",
+          "w": 150,
+          "h": 38,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Lăng Kính",
+          "w": 97,
+          "h": 40,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        }
+      ],
+      "figures": 0,
+      "tables": []
+    },
+    {
+      "name": "404",
+      "route": "/claude-c01-khong-co",
+      "vw": 768,
+      "status": 404,
+      "shot": "docs/evidence/Claude-C01/claude-404-768-full.png",
+      "title": "Không tìm thấy trang (404) | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "scrollW": 768,
+      "height": 1170,
+      "headerH": 65,
+      "h1": [
+        "Không tìm thấy trang"
+      ],
+      "current": [],
+      "small": [],
+      "smallCount": 0,
+      "low": [],
+      "lowCount": 0,
+      "over": [],
+      "imgs": [
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Lăng Kính",
+          "w": 150,
+          "h": 38,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Lăng Kính",
+          "w": 97,
+          "h": 40,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        }
+      ],
+      "figures": 0,
+      "tables": []
+    },
+    {
+      "name": "home",
+      "route": "/",
+      "vw": 1440,
+      "status": 304,
+      "shot": "docs/evidence/Claude-C01/claude-home-1440-full.png",
+      "title": "Trang chủ | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "scrollW": 1440,
+      "height": 5531,
+      "headerH": 81,
+      "h1": [
+        "Mang Theo Một Nét Vẽ"
+      ],
+      "current": [
+        "Trang chủ",
+        "Trang chủ"
+      ],
+      "small": [],
+      "smallCount": 0,
+      "low": [],
+      "lowCount": 0,
+      "over": [],
+      "imgs": [
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Lăng Kính",
+          "w": 150,
+          "h": 38,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Lăng Kính",
+          "w": 97,
+          "h": 40,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        }
+      ],
+      "figures": 0,
+      "tables": []
+    },
+    {
+      "name": "project",
+      "route": "/du-an/mang-theo-mot-net-ve",
+      "vw": 1440,
+      "status": 304,
+      "shot": "docs/evidence/Claude-C01/claude-project-1440-full.png",
+      "title": "Câu chuyện dự án | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "scrollW": 1440,
+      "height": 4294,
+      "headerH": 81,
+      "h1": [
+        "Mang Theo Một Nét Vẽ"
+      ],
+      "current": [
+        "Dự án",
+        "Dự án",
+        "Dự án"
+      ],
+      "small": [],
+      "smallCount": 0,
+      "low": [],
+      "lowCount": 0,
+      "over": [],
+      "imgs": [
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Lăng Kính",
+          "w": 150,
+          "h": 38,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Lăng Kính",
+          "w": 97,
+          "h": 40,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        }
+      ],
+      "figures": 0,
+      "tables": []
+    },
+    {
+      "name": "products",
+      "route": "/san-pham",
+      "vw": 1440,
+      "status": 304,
+      "shot": "docs/evidence/Claude-C01/claude-products-1440-full.png",
+      "title": "Sản phẩm gây quỹ dự kiến | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "scrollW": 1440,
+      "height": 5419,
+      "headerH": 81,
+      "h1": [
+        "Sản phẩm gây quỹ dự kiến"
+      ],
+      "current": [
+        "Sản phẩm",
+        "Sản phẩm",
+        "Sản phẩm"
+      ],
+      "small": [],
+      "smallCount": 0,
+      "low": [],
+      "lowCount": 0,
+      "over": [],
+      "imgs": [
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Lăng Kính",
+          "w": 150,
+          "h": 38,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Lăng Kính",
+          "w": 97,
+          "h": 40,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        }
+      ],
+      "figures": 0,
+      "tables": [
+        {
+          "w": 1102,
+          "parentW": 1102,
+          "parentOverflow": "auto"
+        }
+      ]
+    },
+    {
+      "name": "finance",
+      "route": "/minh-bach",
+      "vw": 1440,
+      "status": 304,
+      "shot": "docs/evidence/Claude-C01/claude-finance-1440-full.png",
+      "title": "Minh bạch thu chi | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "scrollW": 1440,
+      "height": 6883,
+      "headerH": 81,
+      "h1": [
+        "Minh bạch thu chi"
+      ],
+      "current": [
+        "Minh bạch",
+        "Minh bạch",
+        "Minh bạch"
+      ],
+      "small": [],
+      "smallCount": 0,
+      "low": [],
+      "lowCount": 0,
+      "over": [],
+      "imgs": [
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Lăng Kính",
+          "w": 150,
+          "h": 38,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Lăng Kính",
+          "w": 97,
+          "h": 40,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        }
+      ],
+      "figures": 0,
+      "tables": [
+        {
+          "w": 1150,
+          "parentW": 1152,
+          "parentOverflow": "auto"
+        },
+        {
+          "w": 1150,
+          "parentW": 1152,
+          "parentOverflow": "auto"
+        }
+      ]
+    },
+    {
+      "name": "team",
+      "route": "/ve-nhom",
+      "vw": 1440,
+      "status": 304,
+      "shot": "docs/evidence/Claude-C01/claude-team-1440-full.png",
+      "title": "Về nhóm Lăng Kính | Mang Theo Một Nét Vẽ",
+      "scrollW": 1440,
+      "height": 3382,
+      "headerH": 81,
+      "h1": [
+        "Về nhóm Lăng Kính"
+      ],
+      "current": [
+        "Về nhóm",
+        "Về nhóm",
+        "Về nhóm"
+      ],
+      "small": [],
+      "smallCount": 0,
+      "low": [],
+      "lowCount": 0,
+      "over": [],
+      "imgs": [
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Lăng Kính",
+          "w": 150,
+          "h": 38,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Logo nhóm Lăng Kính",
+          "w": 126,
+          "h": 52,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Lăng Kính",
+          "w": 97,
+          "h": 40,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        }
+      ],
+      "figures": 0,
+      "tables": []
+    },
+    {
+      "name": "support",
+      "route": "/dong-hanh",
+      "vw": 1440,
+      "status": 304,
+      "shot": "docs/evidence/Claude-C01/claude-support-1440-full.png",
+      "title": "Đồng hành cùng dự án | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "scrollW": 1440,
+      "height": 4158,
+      "headerH": 81,
+      "h1": [
+        "Đồng hành cùng dự án"
+      ],
+      "current": [
+        "Đồng hành",
+        "Đồng hành cùng dự án",
+        "Đồng hành"
+      ],
+      "small": [],
+      "smallCount": 0,
+      "low": [],
+      "lowCount": 0,
+      "over": [],
+      "imgs": [
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Lăng Kính",
+          "w": 150,
+          "h": 38,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Lăng Kính",
+          "w": 97,
+          "h": 40,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        }
+      ],
+      "figures": 0,
+      "tables": []
+    },
+    {
+      "name": "404",
+      "route": "/claude-c01-khong-co",
+      "vw": 1440,
+      "status": 404,
+      "shot": "docs/evidence/Claude-C01/claude-404-1440-full.png",
+      "title": "Không tìm thấy trang (404) | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "scrollW": 1440,
+      "height": 1125,
+      "headerH": 81,
+      "h1": [
+        "Không tìm thấy trang"
+      ],
+      "current": [],
+      "small": [],
+      "smallCount": 0,
+      "low": [],
+      "lowCount": 0,
+      "over": [],
+      "imgs": [
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Lăng Kính",
+          "w": 150,
+          "h": 38,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_option5_horizontal.png",
+          "alt": "Lăng Kính",
+          "w": 97,
+          "h": 40,
+          "nat": "1419x587",
+          "fit": "contain",
+          "ok": true
+        }
+      ],
+      "figures": 0,
+      "tables": []
+    }
+  ],
+  "errors": [
+    "375 console Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "768 console Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "1440 console Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "failed": [],
+  "external": [],
+  "menu": {
+    "afterOpen": {
+      "expanded": "true",
+      "hidden": false,
+      "label": "Đóng menu điều hướng",
+      "links": [
+        "Trang chủ",
+        "Dự án",
+        "Sản phẩm*",
+        "Minh bạch",
+        "Về nhóm",
+        "Đồng hành cùng dự án"
+      ]
+    },
+    "shot": "docs/evidence/Claude-C01/claude-menu-375.png",
+    "afterEsc": {
+      "expanded": "false",
+      "focus": "mobile-nav-toggle"
+    }
+  },
+  "keyboard": {
+    "home1440": [
+      "Chuyển đến nội dung chính | outline solid 3px rgb(247, 201, 72)",
+      "Mang Theo Một Nét Vẽ | outline solid 2px rgb(23, 78, 166)",
+      "Trang chủ | outline solid 2px rgb(23, 78, 166)",
+      "Dự án | outline solid 2px rgb(23, 78, 166)",
+      "Sản phẩm | outline solid 2px rgb(23, 78, 166)",
+      "Minh bạch | outline solid 2px rgb(23, 78, 166)",
+      "Về nhóm | outline solid 2px rgb(23, 78, 166)",
+      "Đồng hành | outline solid 2px rgb(23, 78, 166)",
+      "Khám phá dự án | outline solid 2px rgb(23, 78, 166)"
+    ]
+  },
+  "browser": "Chrome/154.0.8037.93",
+  "finishedAt": "2026-10-03T08:15:16.222Z"
+}

@@ -1,5 +1,8 @@
 # Mang Theo Một Nét Vẽ
 
+Cập nhật03/10/2026: **C01-UI DONE; RC01-UI PASS** tại app96f539772b78d70324adb95a11508d27163cd3ad (basea4e0aa8), sửa M1/M2 vàL1–L7 theo Claude; L8 giữ ảnh gốc chờ chủ dự án. Preview mới http://127.0.0.1:4322/ (loopbackPID25960), thay thông tin4321/PID2888 lịch sử phía dưới. Minh bạch375 giảm18%; check/18tests/build0,38targeted+20navigation+6finance+38bundle và19servedhash đạt. Review: docs/reviews/RC01-ui-96f5397.md. Worker HOLD, không T05/public.
+
+
 ## C01 cập nhật materials — 03/10/2026
 
 Đã đưa hồ sơ PDF mới và logo Lăng Kính vào preview: chuồn chuồn, móc khóa và thực đơn gây quỹ; dự toán19khoản4.935.000đ. **C01 DONE; RC01 PASS** tại app ead94a482e590cf1c5ef4eb1e0829c99e30d378c, nhánh task/c01-materials. [Review](docs/reviews/RC01-ead94a4.md), [nguồn mới](docs/materials-intake.md). Độc lập655browser/18tests/check/build đạt,13ảnh đã xem,17HTTPbody khớpdist. Preview http://127.0.0.1:4321/; actual/contact còn chưa xác nhận, noindex/nofollow, chưa public. Các mốc T04 dưới đây là lịch sử.

@@ -1,5 +1,8 @@
 # Bàn giao tiếp nối Brain — 02/10/2026
 
+Cập nhật03/10/2026: **C01-UI DONE; RC01-UI PASS** tại app96f539772b78d70324adb95a11508d27163cd3ad (basea4e0aa8), sửa M1/M2 vàL1–L7 theo Claude; L8 giữ ảnh gốc chờ chủ dự án. Preview mới http://127.0.0.1:4322/ (loopbackPID25960), thay thông tin4321/PID2888 lịch sử phía dưới. Minh bạch375 giảm18%; check/18tests/build0,38targeted+20navigation+6finance+38bundle và19servedhash đạt. Review: docs/reviews/RC01-ui-96f5397.md. Worker HOLD, không T05/public.
+
+
 ## Tiếp tục từ C01 — 03/10/2026
 
 C01 DONE/RC01 PASS: app ead94a482e590cf1c5ef4eb1e0829c99e30d378c, base113069636c653cb7bbb255c33d681cbbbd940b19, branch task/c01-materials. Chủ dự án yêu cầu đọc D:\Downloads\materials và thêm vào website. Đã bổ sung hai logo, danh mục7món và dự toán19khoản4.935.000đ. Doanh thu6700000/sốdư1765000 chỉ giả định, food4500000 chưa phân bổSKU. [Review](../docs/reviews/RC01-ead94a4.md), [nguồn](../docs/materials-intake.md). Root655browser/18tests/check/build0/13ảnh/17servehash. Worker Antigravity hiện có HOLD; terminal term_4d29ba8e-7d0b-4a74-858f-d45e9a6fb9b9, context và bằng chứng trong docs/evidence/C01. Previewtask957/PID2888/127.0.0.1:4321. Không taskpublicT05/deploy; không tự coi sourcePDF là xác nhậnactual/contact/quyềnảnh. Các mốc T04 bên dưới là lịch sử.

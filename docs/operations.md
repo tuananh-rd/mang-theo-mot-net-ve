@@ -1,5 +1,8 @@
 # Vận hành bản xem trước
 
+Cập nhật03/10/2026: **C01-UI DONE; RC01-UI PASS** tại app96f539772b78d70324adb95a11508d27163cd3ad (basea4e0aa8), sửa M1/M2 vàL1–L7 theo Claude; L8 giữ ảnh gốc chờ chủ dự án. Preview mới http://127.0.0.1:4322/ (loopbackPID25960), thay thông tin4321/PID2888 lịch sử phía dưới. Minh bạch375 giảm18%; check/18tests/build0,38targeted+20navigation+6finance+38bundle và19servedhash đạt. Review: docs/reviews/RC01-ui-96f5397.md. Worker HOLD, không T05/public.
+
+
 ## Hiện hành sau C01
 
 App ead94a482e590cf1c5ef4eb1e0829c99e30d378c, [RC01 PASS](reviews/RC01-ead94a4.md). Nguồn cập nhật: [materials-intake.md](materials-intake.md); sourcePDF vẫnngoàiGit/bundle. Không dùng danh mục/dự toánT04 làm nguồn mới. Giữ preview/noindex và mốc public riêng.

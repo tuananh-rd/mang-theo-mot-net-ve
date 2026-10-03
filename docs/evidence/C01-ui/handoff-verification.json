@@ -1,0 +1,85 @@
+﻿{
+    "sha":  "96f539772b78d70324adb95a11508d27163cd3ad",
+    "workerFiles":  19,
+    "bad":  [
+
+            ],
+    "checks":  [
+                   {
+                       "path":  "404.html",
+                       "match":  true
+                   },
+                   {
+                       "path":  "dong-hanh\\index.html",
+                       "match":  true
+                   },
+                   {
+                       "path":  "du-an\\mang-theo-mot-net-ve\\index.html",
+                       "match":  true
+                   },
+                   {
+                       "path":  "favicon.svg",
+                       "match":  true
+                   },
+                   {
+                       "path":  "images\\apple-touch-icon.png",
+                       "match":  true
+                   },
+                   {
+                       "path":  "images\\favicon-32x32.png",
+                       "match":  true
+                   },
+                   {
+                       "path":  "images\\logo_lang_kinh_2048.png",
+                       "match":  true
+                   },
+                   {
+                       "path":  "images\\logo_option5_horizontal.png",
+                       "match":  true
+                   },
+                   {
+                       "path":  "index.html",
+                       "match":  true
+                   },
+                   {
+                       "path":  "minh-bach\\index.html",
+                       "match":  true
+                   },
+                   {
+                       "path":  "san-pham\\index.html",
+                       "match":  true
+                   },
+                   {
+                       "path":  "ve-nhom\\index.html",
+                       "match":  true
+                   },
+                   {
+                       "path":  "_astro\\dong-hanh.DuovsDRG.css",
+                       "match":  true
+                   },
+                   {
+                       "path":  "_astro\\index.72A2HRy4.css",
+                       "match":  true
+                   },
+                   {
+                       "path":  "_astro\\Layout.Bk1kzqyo.css",
+                       "match":  true
+                   },
+                   {
+                       "path":  "_astro\\mang-theo-mot-net-ve.BWRcd6ON.css",
+                       "match":  true
+                   },
+                   {
+                       "path":  "_astro\\minh-bach.CGbW3maB.css",
+                       "match":  true
+                   },
+                   {
+                       "path":  "_astro\\san-pham.DV70Wvlb.css",
+                       "match":  true
+                   },
+                   {
+                       "path":  "_astro\\ve-nhom.BRoQZuFh.css",
+                       "match":  true
+                   }
+               ]
+}

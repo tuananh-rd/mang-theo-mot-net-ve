@@ -1,0 +1,627 @@
+{
+  "sha": "96f539772b78d70324adb95a11508d27163cd3ad",
+  "checks": [
+    {
+      "name": "No horizontal overflow 375",
+      "pass": true,
+      "value": 375
+    },
+    {
+      "name": "Brand name readable as HTML 375",
+      "pass": true,
+      "value": [
+        {
+          "text": "Lăng Kính\nMang Theo Một Nét Vẽ",
+          "images": [
+            {
+              "src": "/images/logo_lang_kinh_2048.png",
+              "loaded": true,
+              "w": 32,
+              "h": 32
+            }
+          ]
+        },
+        {
+          "text": "Lăng Kính",
+          "images": [
+            {
+              "src": "/images/logo_lang_kinh_2048.png",
+              "loaded": true,
+              "w": 38,
+              "h": 38
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Brand icons loaded and square 375",
+      "pass": true,
+      "value": [
+        {
+          "text": "Lăng Kính\nMang Theo Một Nét Vẽ",
+          "images": [
+            {
+              "src": "/images/logo_lang_kinh_2048.png",
+              "loaded": true,
+              "w": 32,
+              "h": 32
+            }
+          ]
+        },
+        {
+          "text": "Lăng Kính",
+          "images": [
+            {
+              "src": "/images/logo_lang_kinh_2048.png",
+              "loaded": true,
+              "w": 38,
+              "h": 38
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Plan table breakpoint 375",
+      "pass": true,
+      "value": false
+    },
+    {
+      "name": "Desktop table fits 375",
+      "pass": true,
+      "value": {
+        "table": 0,
+        "container": 0
+      }
+    },
+    {
+      "name": "Sale status still disclosed 375",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "No horizontal overflow 768",
+      "pass": true,
+      "value": 768
+    },
+    {
+      "name": "Brand name readable as HTML 768",
+      "pass": true,
+      "value": [
+        {
+          "text": "Lăng Kính\nMang Theo Một Nét Vẽ",
+          "images": [
+            {
+              "src": "/images/logo_lang_kinh_2048.png",
+              "loaded": true,
+              "w": 38,
+              "h": 38
+            }
+          ]
+        },
+        {
+          "text": "Lăng Kính",
+          "images": [
+            {
+              "src": "/images/logo_lang_kinh_2048.png",
+              "loaded": true,
+              "w": 38,
+              "h": 38
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Brand icons loaded and square 768",
+      "pass": true,
+      "value": [
+        {
+          "text": "Lăng Kính\nMang Theo Một Nét Vẽ",
+          "images": [
+            {
+              "src": "/images/logo_lang_kinh_2048.png",
+              "loaded": true,
+              "w": 38,
+              "h": 38
+            }
+          ]
+        },
+        {
+          "text": "Lăng Kính",
+          "images": [
+            {
+              "src": "/images/logo_lang_kinh_2048.png",
+              "loaded": true,
+              "w": 38,
+              "h": 38
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Plan table breakpoint 768",
+      "pass": true,
+      "value": false
+    },
+    {
+      "name": "Desktop table fits 768",
+      "pass": true,
+      "value": {
+        "table": 0,
+        "container": 0
+      }
+    },
+    {
+      "name": "Sale status still disclosed 768",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "No horizontal overflow 900",
+      "pass": true,
+      "value": 900
+    },
+    {
+      "name": "Brand name readable as HTML 900",
+      "pass": true,
+      "value": [
+        {
+          "text": "Lăng Kính\nMang Theo Một Nét Vẽ",
+          "images": [
+            {
+              "src": "/images/logo_lang_kinh_2048.png",
+              "loaded": true,
+              "w": 38,
+              "h": 38
+            }
+          ]
+        },
+        {
+          "text": "Lăng Kính",
+          "images": [
+            {
+              "src": "/images/logo_lang_kinh_2048.png",
+              "loaded": true,
+              "w": 38,
+              "h": 38
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Brand icons loaded and square 900",
+      "pass": true,
+      "value": [
+        {
+          "text": "Lăng Kính\nMang Theo Một Nét Vẽ",
+          "images": [
+            {
+              "src": "/images/logo_lang_kinh_2048.png",
+              "loaded": true,
+              "w": 38,
+              "h": 38
+            }
+          ]
+        },
+        {
+          "text": "Lăng Kính",
+          "images": [
+            {
+              "src": "/images/logo_lang_kinh_2048.png",
+              "loaded": true,
+              "w": 38,
+              "h": 38
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Plan table breakpoint 900",
+      "pass": true,
+      "value": false
+    },
+    {
+      "name": "Desktop table fits 900",
+      "pass": true,
+      "value": {
+        "table": 0,
+        "container": 0
+      }
+    },
+    {
+      "name": "Sale status still disclosed 900",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "No horizontal overflow 1024",
+      "pass": true,
+      "value": 1024
+    },
+    {
+      "name": "Brand name readable as HTML 1024",
+      "pass": true,
+      "value": [
+        {
+          "text": "Lăng Kính\nMang Theo Một Nét Vẽ",
+          "images": [
+            {
+              "src": "/images/logo_lang_kinh_2048.png",
+              "loaded": true,
+              "w": 38,
+              "h": 38
+            }
+          ]
+        },
+        {
+          "text": "Lăng Kính",
+          "images": [
+            {
+              "src": "/images/logo_lang_kinh_2048.png",
+              "loaded": true,
+              "w": 38,
+              "h": 38
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Brand icons loaded and square 1024",
+      "pass": true,
+      "value": [
+        {
+          "text": "Lăng Kính\nMang Theo Một Nét Vẽ",
+          "images": [
+            {
+              "src": "/images/logo_lang_kinh_2048.png",
+              "loaded": true,
+              "w": 38,
+              "h": 38
+            }
+          ]
+        },
+        {
+          "text": "Lăng Kính",
+          "images": [
+            {
+              "src": "/images/logo_lang_kinh_2048.png",
+              "loaded": true,
+              "w": 38,
+              "h": 38
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Plan table breakpoint 1024",
+      "pass": true,
+      "value": true
+    },
+    {
+      "name": "Desktop table fits 1024",
+      "pass": true,
+      "value": {
+        "table": 926,
+        "container": 926
+      }
+    },
+    {
+      "name": "Sale status still disclosed 1024",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "No horizontal overflow 1440",
+      "pass": true,
+      "value": 1440
+    },
+    {
+      "name": "Brand name readable as HTML 1440",
+      "pass": true,
+      "value": [
+        {
+          "text": "Lăng Kính\nMang Theo Một Nét Vẽ",
+          "images": [
+            {
+              "src": "/images/logo_lang_kinh_2048.png",
+              "loaded": true,
+              "w": 38,
+              "h": 38
+            }
+          ]
+        },
+        {
+          "text": "Lăng Kính",
+          "images": [
+            {
+              "src": "/images/logo_lang_kinh_2048.png",
+              "loaded": true,
+              "w": 38,
+              "h": 38
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Brand icons loaded and square 1440",
+      "pass": true,
+      "value": [
+        {
+          "text": "Lăng Kính\nMang Theo Một Nét Vẽ",
+          "images": [
+            {
+              "src": "/images/logo_lang_kinh_2048.png",
+              "loaded": true,
+              "w": 38,
+              "h": 38
+            }
+          ]
+        },
+        {
+          "text": "Lăng Kính",
+          "images": [
+            {
+              "src": "/images/logo_lang_kinh_2048.png",
+              "loaded": true,
+              "w": 38,
+              "h": 38
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Plan table breakpoint 1440",
+      "pass": true,
+      "value": true
+    },
+    {
+      "name": "Desktop table fits 1440",
+      "pass": true,
+      "value": {
+        "table": 1102,
+        "container": 1102
+      }
+    },
+    {
+      "name": "Sale status still disclosed 1440",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "Finance mobile height reduced >=15%",
+      "pass": true,
+      "value": {
+        "old": 12366,
+        "current": 10140,
+        "reduction": 0.1800097040271713
+      }
+    },
+    {
+      "name": "Financial totals unchanged",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "Brand proper name retained",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "No internal instruction in public copy",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "Icon dimensions icon",
+      "pass": true,
+      "value": [
+        32,
+        32
+      ]
+    },
+    {
+      "name": "Icon dimensions apple-touch-icon",
+      "pass": true,
+      "value": [
+        180,
+        180
+      ]
+    },
+    {
+      "name": "Both favicon and touch icon configured",
+      "pass": true,
+      "value": [
+        {
+          "rel": "icon",
+          "href": "http://127.0.0.1:4322/images/favicon-32x32.png"
+        },
+        {
+          "rel": "apple-touch-icon",
+          "href": "http://127.0.0.1:4322/images/apple-touch-icon.png"
+        }
+      ]
+    },
+    {
+      "name": "Home proper name retained",
+      "pass": true,
+      "value": null
+    }
+  ],
+  "measurements": [
+    {
+      "w": 375,
+      "scrollW": 375,
+      "vw": 375,
+      "brands": [
+        {
+          "text": "Lăng Kính\nMang Theo Một Nét Vẽ",
+          "images": [
+            {
+              "src": "/images/logo_lang_kinh_2048.png",
+              "loaded": true,
+              "w": 32,
+              "h": 32
+            }
+          ]
+        },
+        {
+          "text": "Lăng Kính",
+          "images": [
+            {
+              "src": "/images/logo_lang_kinh_2048.png",
+              "loaded": true,
+              "w": 38,
+              "h": 38
+            }
+          ]
+        }
+      ],
+      "tableVisible": false,
+      "tableW": 0,
+      "containerW": 0,
+      "headerH": 65
+    },
+    {
+      "w": 768,
+      "scrollW": 768,
+      "vw": 768,
+      "brands": [
+        {
+          "text": "Lăng Kính\nMang Theo Một Nét Vẽ",
+          "images": [
+            {
+              "src": "/images/logo_lang_kinh_2048.png",
+              "loaded": true,
+              "w": 38,
+              "h": 38
+            }
+          ]
+        },
+        {
+          "text": "Lăng Kính",
+          "images": [
+            {
+              "src": "/images/logo_lang_kinh_2048.png",
+              "loaded": true,
+              "w": 38,
+              "h": 38
+            }
+          ]
+        }
+      ],
+      "tableVisible": false,
+      "tableW": 0,
+      "containerW": 0,
+      "headerH": 65
+    },
+    {
+      "w": 900,
+      "scrollW": 900,
+      "vw": 900,
+      "brands": [
+        {
+          "text": "Lăng Kính\nMang Theo Một Nét Vẽ",
+          "images": [
+            {
+              "src": "/images/logo_lang_kinh_2048.png",
+              "loaded": true,
+              "w": 38,
+              "h": 38
+            }
+          ]
+        },
+        {
+          "text": "Lăng Kính",
+          "images": [
+            {
+              "src": "/images/logo_lang_kinh_2048.png",
+              "loaded": true,
+              "w": 38,
+              "h": 38
+            }
+          ]
+        }
+      ],
+      "tableVisible": false,
+      "tableW": 0,
+      "containerW": 0,
+      "headerH": 65
+    },
+    {
+      "w": 1024,
+      "scrollW": 1024,
+      "vw": 1024,
+      "brands": [
+        {
+          "text": "Lăng Kính\nMang Theo Một Nét Vẽ",
+          "images": [
+            {
+              "src": "/images/logo_lang_kinh_2048.png",
+              "loaded": true,
+              "w": 38,
+              "h": 38
+            }
+          ]
+        },
+        {
+          "text": "Lăng Kính",
+          "images": [
+            {
+              "src": "/images/logo_lang_kinh_2048.png",
+              "loaded": true,
+              "w": 38,
+              "h": 38
+            }
+          ]
+        }
+      ],
+      "tableVisible": true,
+      "tableW": 926,
+      "containerW": 926,
+      "headerH": 81
+    },
+    {
+      "w": 1440,
+      "scrollW": 1440,
+      "vw": 1440,
+      "brands": [
+        {
+          "text": "Lăng Kính\nMang Theo Một Nét Vẽ",
+          "images": [
+            {
+              "src": "/images/logo_lang_kinh_2048.png",
+              "loaded": true,
+              "w": 38,
+              "h": 38
+            }
+          ]
+        },
+        {
+          "text": "Lăng Kính",
+          "images": [
+            {
+              "src": "/images/logo_lang_kinh_2048.png",
+              "loaded": true,
+              "w": 38,
+              "h": 38
+            }
+          ]
+        }
+      ],
+      "tableVisible": true,
+      "tableW": 1102,
+      "containerW": 1102,
+      "headerH": 81
+    }
+  ],
+  "failed": []
+}
