@@ -101,7 +101,7 @@ const getIllustrationType = (id: string) => {
           </span>
         </div>
         <p class="food-group-desc">
-          Kế hoạch đồ ăn tương đương 50 set trong phương án mục tiêu doanh thu, chưa có phân bổ số lượng từng loại. Dưới đây là 5 mức giá tham khảo theo từng món và combo trong đề xuất dự án (trang 24):
+          Mục tiêu doanh thu ẩm thực là con số giả định trong đề xuất (trang 18), chưa có bảng phân bổ số lượng chi tiết cho từng món và còn khoảng chênh khi đối chiếu với số set đồ ăn giả định (xem <a href="/minh-bach#doi-chieu-do-an" class="food-reconcile-link">bảng đối chiếu chi tiết tại trang Minh bạch</a>). Dưới đây là các mức giá tham khảo theo từng món và combo trong đề xuất dự án (trang 24):
         </p>
         <div class="food-items-grid">
           {
@@ -111,7 +111,7 @@ const getIllustrationType = (id: string) => {
                   <PlaceholderIllustration
                     type={getIllustrationType(p.id)}
                     ratio="16:9"
-                    caption={`Minh họa: ${p.name}`}
+                    caption={p.id === 'banh-su-kem' ? undefined : `Minh họa: ${p.name}`}
                   />
                 </div>
                 <div class="food-card-body">
@@ -424,6 +424,16 @@ const getIllustrationType = (id: string) => {
     line-height: 1.5;
     margin-bottom: var(--space-5);
     max-width: 75ch;
+  }
+
+  .food-reconcile-link {
+    color: var(--color-text-accent);
+    text-decoration: underline;
+    font-weight: 600;
+  }
+
+  .food-reconcile-link:hover {
+    color: var(--color-accent-hover);
   }
 
   /* Products Grid */

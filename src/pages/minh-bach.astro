@@ -13,6 +13,7 @@ import {
   calculateCraftRevenue,
   calculateCombinedPlannedRevenue,
   calculateScenario,
+  calculateFoodReconciliation,
   formatVND,
 } from '../lib/finance';
 
@@ -20,6 +21,15 @@ const totalPlannedExpense = sumPlannedExpenses(PLANNED_EXPENSES);
 const craftRevenue = calculateCraftRevenue(PRODUCTS);
 const foodAssumption = FINANCE_OVERVIEW.foodPlannedRevenueAssumption.value;
 const totalPlannedRevenue = calculateCombinedPlannedRevenue(craftRevenue, foodAssumption);
+
+const setDoAn = PRODUCTS.find((p) => p.id === 'set-do-an');
+const foodReconciliation = calculateFoodReconciliation(
+  FINANCE_OVERVIEW.foodHypotheticalSets,
+  setDoAn?.referencePrice,
+  FINANCE_OVERVIEW.foodPlannedRevenueAssumption,
+  craftRevenue,
+  totalPlannedExpense
+);
 
 const formatInSentence = (name: string) => (name ? name.charAt(0).toLowerCase() + name.slice(1) : '');
 const craftProducts = PRODUCTS.filter((p) => p.category === 'craft');
@@ -242,7 +252,7 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
           <div class="formula-part">
             <span class="formula-part-title">2. Phương án ẩm thực sinh viên (giả định):</span>
             <p class="formula-expression">Mục tiêu doanh thu trong đề xuất (trang 18) = <strong>{formatVND(foodAssumption)}</strong></p>
-            <p class="formula-subnote">Tương đương 50 set trong phương án mục tiêu doanh thu đề xuất; chưa có phân bổ số lượng từng món.</p>
+            <p class="formula-subnote">Mục tiêu giả định trong đề xuất; chưa có bảng phân bổ số lượng từng món (xem mục đối chiếu ẩm thực bên dưới).</p>
           </div>
         </div>
         <div class="formula-total">
@@ -252,6 +262,57 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
         <p class="formula-note">
           Doanh thu giả định tính trên giả thiết hoàn thành mục tiêu đề xuất và bán theo mức giá tham khảo. Trạng thái mở bán hiện chưa được xác nhận; bản xem trước chưa nhận đơn hoặc tiền.
         </p>
+      </div>
+
+      <!-- Food Reconciliation Card (#doi-chieu-do-an) -->
+      <div id="doi-chieu-do-an" class="reconciliation-card card">
+        <div class="reconciliation-header">
+          <div class="badge-wrap">
+            <span class="status-badge status-badge-warning">Đối chiếu kế hoạch đề xuất</span>
+          </div>
+          <h3 class="reconciliation-title">Đối chiếu mục tiêu doanh thu ẩm thực trong đề xuất</h3>
+        </div>
+
+        <p class="reconciliation-lead">
+          Hồ sơ đề xuất ghi nhận mục tiêu ẩm thực là <strong>{formatVND(foodReconciliation.targetFoodRevenue)}</strong> (trang 18), đồng thời nêu kế hoạch tương đương <strong>{foodReconciliation.hypotheticalSets ? `${foodReconciliation.hypotheticalSets} set` : 'set'}</strong> đồ ăn (trang 12) theo giá tham khảo <strong>{formatVND(foodReconciliation.setUnitPrice)}/set</strong> (trang 24):
+        </p>
+
+        <div class="reconciliation-grid">
+          <div class="reconcile-item">
+            <span class="reconcile-label">Doanh thu từ {foodReconciliation.hypotheticalSets ? `${foodReconciliation.hypotheticalSets} set` : 'set'} giả định</span>
+            <span class="reconcile-val">{foodReconciliation.hypotheticalSets ? `${foodReconciliation.hypotheticalSets} set × ` : ''}{formatVND(foodReconciliation.setUnitPrice)} = <strong>{formatVND(foodReconciliation.setsCalculatedRevenue)}</strong></span>
+            <span class="reconcile-note">Dẫn xuất từ số set giả định (trang 12) và giá SKU set đồ ăn (trang 24).</span>
+          </div>
+
+          <div class="reconcile-item">
+            <span class="reconcile-label">Mục tiêu ghi trong đề xuất</span>
+            <span class="reconcile-val"><strong>{formatVND(foodReconciliation.targetFoodRevenue)}</strong></span>
+            <span class="reconcile-note">Chỉ tiêu tổng ẩm thực tại bảng mục tiêu tài chính (trang 18).</span>
+          </div>
+
+          <div class="reconcile-item reconcile-gap">
+            <span class="reconcile-label">Khoản chênh chưa phân bổ</span>
+            <span class="reconcile-val font-bold text-accent">{formatVND(foodReconciliation.targetFoodRevenue)} − {formatVND(foodReconciliation.setsCalculatedRevenue)} = <strong>{formatVND(foodReconciliation.unallocatedGap)}</strong></span>
+            <span class="reconcile-note">Hồ sơ chưa có bảng phân bổ số lượng chi tiết để giải thích khoản chênh {foodReconciliation.unallocatedGap !== null ? formatVND(foodReconciliation.unallocatedGap) : ''}.</span>
+          </div>
+        </div>
+
+        <div class="reconciliation-analysis">
+          <p class="reconciliation-analysis-title">
+            <strong>Phân tích đối soát minh bạch:</strong>
+          </p>
+          <ul class="reconciliation-list">
+            <li>
+              Hồ sơ đề xuất đưa ra các mức giá tham khảo cho thực đơn (set đồ ăn, combo nem, bánh su kem) nhưng <em>chưa có bảng số lượng × giá từng món</em> để giải thích phần chênh lệch {foodReconciliation.unallocatedGap !== null ? formatVND(foodReconciliation.unallocatedGap) : ''}.
+            </li>
+            <li>
+              Cần làm rõ set đồ ăn và các phần combo nem / bánh su kem có bị trùng lặp khẩu phần hay không trước khi có thể chốt kế hoạch phát hành chính thức.
+            </li>
+            <li>
+              Kịch bản cơ sở hiện tại giữ nguyên <strong>{formatVND(totalPlannedRevenue)}</strong> doanh thu và <strong>+{formatVND(FINANCE_OVERVIEW.unfundedProjectedBalance)}</strong> số dư giả định, được dán nhãn kế hoạch chưa kiểm chứng cơ cấu bán. Không tự ý phân bổ khoản chênh {foodReconciliation.unallocatedGap !== null ? formatVND(foodReconciliation.unallocatedGap) : ''} cho các combo nem hay bánh su kem khi chưa có quyết định từ nhóm.
+            </li>
+          </ul>
+        </div>
       </div>
 
       <!-- Desktop & Tablet Scenarios Table -->
@@ -850,6 +911,108 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
     margin: 0;
   }
 
+  /* Reconciliation Card (#doi-chieu-do-an) */
+  .reconciliation-card {
+    padding: var(--space-6);
+    margin-bottom: var(--space-6);
+    background-color: var(--color-surface-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .status-badge-warning {
+    background-color: #fff7ed;
+    color: #c2410c;
+    border: 1px solid #fed7aa;
+  }
+
+  .reconciliation-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .reconciliation-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .reconciliation-lead {
+    font-size: 0.9375rem;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .reconciliation-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-3);
+    margin: var(--space-2) 0;
+  }
+
+  .reconcile-item {
+    background-color: var(--color-canvas-soft);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-sm);
+    padding: var(--space-3) var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .reconcile-gap {
+    border-color: #fed7aa;
+    background-color: #fffaf0;
+  }
+
+  .reconcile-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+  }
+
+  .reconcile-val {
+    font-size: 0.9375rem;
+    color: var(--color-text-primary);
+  }
+
+  .reconcile-note {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    line-height: 1.4;
+  }
+
+  .reconciliation-analysis {
+    border-top: 1px dashed var(--color-border);
+    padding-top: var(--space-3);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .reconciliation-analysis-title {
+    font-size: 0.9375rem;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .reconciliation-list {
+    margin: 0;
+    padding-left: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+  }
+
   .mobile-expense-calc {
     margin: 2px 0 var(--space-2);
   }
@@ -1108,52 +1271,58 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
     }
 
     .transparency-hero {
-      padding: var(--space-4) 0 !important;
+      padding: var(--space-3) 0 !important;
     }
 
     .transparency-hero-card {
-      padding: var(--space-4) !important;
-      gap: var(--space-3) !important;
+      padding: var(--space-3) !important;
+      gap: var(--space-2) !important;
     }
 
     .highlight-card {
-      padding: var(--space-3) var(--space-4) !important;
+      padding: var(--space-2) var(--space-3) !important;
     }
 
     .section {
-      padding-top: var(--space-4) !important;
-      padding-bottom: var(--space-4) !important;
+      padding-top: var(--space-3) !important;
+      padding-bottom: var(--space-3) !important;
     }
 
     .section-header {
-      margin-bottom: var(--space-4) !important;
+      margin-bottom: var(--space-3) !important;
     }
 
     .highlights-grid {
       grid-template-columns: 1fr;
+      gap: var(--space-2) !important;
     }
 
     .actual-ledger-grid {
       grid-template-columns: 1fr;
-      gap: var(--space-3);
+      gap: var(--space-2);
     }
 
     .actual-card {
-      padding: var(--space-3) var(--space-4) !important;
+      padding: var(--space-2) var(--space-3) !important;
     }
 
     .ledger-empty-notice {
-      padding: var(--space-4) !important;
-      margin-bottom: var(--space-4) !important;
+      padding: var(--space-3) !important;
+      margin-bottom: var(--space-3) !important;
     }
 
     .principles-grid {
       grid-template-columns: 1fr;
-      gap: var(--space-3);
+      gap: var(--space-2);
     }
 
     .principle-card {
-      padding: var(--space-4) !important;
+      padding: var(--space-2) var(--space-3) !important;
+      gap: 2px !important;
+    }
+
+    .principle-desc {
+      line-height: 1.35 !important;
     }
 
     .faq-list {
@@ -1161,39 +1330,90 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
     }
 
     .faq-item {
-      padding: var(--space-3) var(--space-4) !important;
+      padding: var(--space-2) var(--space-3) !important;
     }
 
     .navigation-cta-section {
-      padding: var(--space-4) 0 !important;
+      padding: var(--space-3) 0 !important;
     }
 
     .navigation-cta-card {
-      padding: var(--space-5) var(--space-4) !important;
+      padding: var(--space-4) var(--space-3) !important;
     }
 
     .formula-card {
-      padding: var(--space-4) !important;
-      margin-bottom: var(--space-4) !important;
+      padding: var(--space-3) !important;
+      margin-bottom: var(--space-3) !important;
+      gap: 6px !important;
+    }
+
+    .formula-breakdown {
+      gap: 6px !important;
+      margin: 4px 0 !important;
+    }
+
+    .formula-total {
+      padding-top: 6px !important;
+    }
+
+    .formula-note {
+      line-height: 1.35 !important;
     }
 
     .clarification-box {
-      padding: var(--space-4) !important;
-      margin-top: var(--space-4) !important;
+      padding: var(--space-3) !important;
+      margin-top: var(--space-3) !important;
+    }
+
+    .reconciliation-card {
+      padding: 10px 12px !important;
+      margin-bottom: var(--space-3) !important;
+      gap: 4px !important;
+    }
+
+    .reconciliation-lead {
+      line-height: 1.35 !important;
+      margin-bottom: 2px !important;
+    }
+
+    .reconciliation-grid {
+      grid-template-columns: 1fr;
+      gap: 4px !important;
+      margin: 4px 0 !important;
+    }
+
+    .reconcile-item {
+      padding: 4px 8px !important;
+      gap: 1px !important;
+    }
+
+    .reconcile-note {
+      line-height: 1.3 !important;
+    }
+
+    .reconciliation-analysis {
+      padding-top: 4px !important;
+      margin-top: 2px !important;
+      gap: 3px !important;
+    }
+
+    .reconciliation-list {
+      gap: 2px !important;
+      line-height: 1.35 !important;
     }
 
     /* Mobile Expense Cards (L4 Compact) */
     .mobile-expense-list {
       display: flex;
       flex-direction: column;
-      gap: 6px !important;
+      gap: 3px !important;
     }
 
     .mobile-expense-card {
-      padding: 8px 12px !important;
+      padding: 5px 8px !important;
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      gap: 1px !important;
     }
 
     .mobile-expense-top {
@@ -1294,10 +1514,10 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
 
     /* Mobile Scenario Cards */
     .mobile-scenario-card {
-      padding: var(--space-4);
+      padding: var(--space-3) !important;
       display: flex;
       flex-direction: column;
-      gap: var(--space-2);
+      gap: var(--space-1) !important;
     }
 
     .mobile-scenario-title {
@@ -1317,10 +1537,10 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
     .mobile-scenario-details {
       background-color: var(--color-canvas-soft);
       border-radius: var(--radius-sm);
-      padding: var(--space-3);
+      padding: var(--space-2) var(--space-3) !important;
       display: flex;
       flex-direction: column;
-      gap: var(--space-2);
+      gap: var(--space-1) !important;
     }
 
     .mobile-card-highlight {

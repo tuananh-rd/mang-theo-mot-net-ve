@@ -195,7 +195,7 @@ const featuredProducts = [
               </li>
             </ul>
             <p class="transparency-sub">
-              * Kịch bản giả định: Thủ công {formatVND(craftPlannedRevenue)} (bán đủ {craftSummaryText}) + đồ ăn {formatVND(foodPlannedAssumption.value)} (mục tiêu giả định trong hồ sơ đề xuất, chưa phân bổ số lượng bán từng món).
+              * Kịch bản giả định: Thủ công {formatVND(craftPlannedRevenue)} (bán đủ {craftSummaryText}) + đồ ăn {formatVND(foodPlannedAssumption.value)} (mục tiêu giả định trong hồ sơ đề xuất, chưa phân bổ số lượng bán từng món; xem <a href="/minh-bach#doi-chieu-do-an" class="transparency-link">đối chiếu chi tiết tại trang Minh bạch</a>).
             </p>
           </div>
 
@@ -386,6 +386,17 @@ const featuredProducts = [
     font-size: 0.875rem;
     color: var(--color-text-muted);
     margin-top: var(--space-3);
+    line-height: 1.5;
+  }
+
+  .transparency-link {
+    color: var(--color-text-accent);
+    text-decoration: underline;
+    font-weight: 600;
+  }
+
+  .transparency-link:hover {
+    color: var(--color-accent-hover);
   }
 
   .transparency-actions {

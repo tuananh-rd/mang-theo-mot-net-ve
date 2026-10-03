@@ -224,3 +224,97 @@ export function formatScenarioBalance(
     isUnknown: false,
   };
 }
+
+export interface FoodRevenueReconciliation {
+  hypotheticalSets: number | null;
+  setUnitPrice: number | null;
+  setsCalculatedRevenue: number | null;
+  targetFoodRevenue: number | null;
+  unallocatedGap: number | null;
+  hypotheticalTotalCombinedRevenue: number | null;
+  hypotheticalProjectedBalance: number | null;
+}
+
+/**
+ * Tính toán đối chiếu doanh thu ẩm thực giữa mục tiêu đề xuất và giả định số set.
+ * - hypotheticalSets: Số set giả định (number | QuantitativeFact | null | undefined).
+ * - setPrice: Đơn giá tham khảo SKU set đồ ăn (number | QuantitativeFact | null | undefined).
+ * - targetFoodRevenue: Mục tiêu doanh thu ẩm thực trong đề xuất (number | QuantitativeFact | null | undefined).
+ * - craftRevenue: Doanh thu kế hoạch nhóm thủ công (number | QuantitativeFact | null | undefined, mặc định null).
+ * - totalExpense: Tổng dự toán chi phí (number | QuantitativeFact | null | undefined, mặc định null).
+ *
+ * Nguyên tắc:
+ * - Không gán mặc định ngân sách cứng (craft 2.200.000đ hay expense 4.935.000đ).
+ * - Nếu bất kỳ giá trị đầu vào cần thiết nào là null/undefined, propagate null an toàn (không tự ép về 0).
+ */
+export function calculateFoodReconciliation(
+  hypotheticalSets: number | QuantitativeFact | null | undefined = null,
+  setPrice: number | QuantitativeFact | null | undefined = null,
+  targetFoodRevenue: number | QuantitativeFact | null | undefined = null,
+  craftRevenue: number | QuantitativeFact | null | undefined = null,
+  totalExpense: number | QuantitativeFact | null | undefined = null
+): FoodRevenueReconciliation {
+  const setsVal =
+    hypotheticalSets === null || hypotheticalSets === undefined
+      ? null
+      : typeof hypotheticalSets === 'number'
+        ? hypotheticalSets
+        : hypotheticalSets.value ?? null;
+
+  const priceVal =
+    setPrice === null || setPrice === undefined
+      ? null
+      : typeof setPrice === 'number'
+        ? setPrice
+        : setPrice.value ?? null;
+
+  const targetVal =
+    targetFoodRevenue === null || targetFoodRevenue === undefined
+      ? null
+      : typeof targetFoodRevenue === 'number'
+        ? targetFoodRevenue
+        : targetFoodRevenue.value ?? null;
+
+  const craftVal =
+    craftRevenue === null || craftRevenue === undefined
+      ? null
+      : typeof craftRevenue === 'number'
+        ? craftRevenue
+        : craftRevenue.value ?? null;
+
+  const expenseVal =
+    totalExpense === null || totalExpense === undefined
+      ? null
+      : typeof totalExpense === 'number'
+        ? totalExpense
+        : totalExpense.value ?? null;
+
+  const setsCalculatedRevenue =
+    setsVal !== null && priceVal !== null ? setsVal * priceVal : null;
+
+  const unallocatedGap =
+    targetVal !== null && setsCalculatedRevenue !== null
+      ? targetVal - setsCalculatedRevenue
+      : null;
+
+  const hypotheticalTotalCombinedRevenue =
+    craftVal !== null && setsCalculatedRevenue !== null
+      ? craftVal + setsCalculatedRevenue
+      : null;
+
+  const hypotheticalProjectedBalance =
+    hypotheticalTotalCombinedRevenue !== null && expenseVal !== null
+      ? hypotheticalTotalCombinedRevenue - expenseVal
+      : null;
+
+  return {
+    hypotheticalSets: setsVal,
+    setUnitPrice: priceVal,
+    setsCalculatedRevenue,
+    targetFoodRevenue: targetVal,
+    unallocatedGap,
+    hypotheticalTotalCombinedRevenue,
+    hypotheticalProjectedBalance,
+  };
+}
+

@@ -221,14 +221,15 @@ export const PRODUCTS: Product[] = [
       publicApproval: 'pending',
     },
     planNotes:
-      'Kế hoạch đồ ăn tương đương 50 set trong phương án doanh thu, chưa có phân bổ số lượng từng loại. Chỉ triển khai sau khi chốt địa điểm, quy trình an toàn và lịch nhận; hiện tại chưa mở bán.',
+      'Mục tiêu ẩm thực là con số giả định trong đề xuất (trang 18), chưa có bảng phân bổ số lượng từng loại và còn khoảng chênh đối chiếu so với số lượng set giả định. Chỉ triển khai sau khi chốt địa điểm, quy trình an toàn và lịch nhận; hiện tại chưa mở bán.',
     actualStock: null,
     saleStatus: 'unconfirmed',
     originText: 'Đề xuất kế hoạch ẩm thực sinh viên',
     originVerification: 'unverified',
     assetId: null,
     category: 'food',
-    notes: 'Giá tham khảo trong đề xuất (trang 24). Kế hoạch tương đương 50 set trong mục tiêu doanh thu, chưa phân bổ số lượng bán cụ thể.',
+    notes:
+      'Giá tham khảo trong đề xuất (trang 24). Mục tiêu đồ ăn giả định trong hồ sơ chưa có cơ cấu phân bổ chi tiết giữa các món.',
   },
   {
     id: 'combo-nem-gion',
@@ -400,6 +401,7 @@ export interface FinanceOverview {
   actualCashBalance: number | null;
   actualInKindLedger: string | null;
   disclaimer: string;
+  foodHypotheticalSets: number | null;
 }
 
 export const FINANCE_OVERVIEW: FinanceOverview = {
@@ -414,13 +416,14 @@ export const FINANCE_OVERVIEW: FinanceOverview = {
     updatedAt: null,
     publicApproval: 'pending',
   },
+  foodHypotheticalSets: 50,
   plannedRevenueScenario: 6700000,
   unfundedProjectedBalance: 1765000,
   actualStatusNotice: 'Chưa có số liệu thực tế được xác nhận.',
   actualCashBalance: null,
   actualInKindLedger: null,
   disclaimer:
-    'Các con số trên thuộc dự toán ban đầu trong đề xuất dự án (tháng 10/2026). Doanh thu đồ ăn 4.500.000đ là con số mục tiêu giả định trong hồ sơ đề xuất (trang 18), chưa có phân bổ số lượng bán từng loại. Báo cáo sau đối soát, biên tập và được phép công bố sẽ được cập nhật sau khi hoàn thành.',
+    'Các con số trên thuộc dự toán ban đầu trong đề xuất dự án (tháng 10/2026). Doanh thu đồ ăn là con số mục tiêu giả định trong hồ sơ đề xuất (trang 18), chưa có bảng phân bổ số lượng bán từng món. Báo cáo sau đối soát, biên tập và được phép công bố sẽ được cập nhật sau khi hoàn thành.',
 };
 
 export interface TeamPrinciple {
@@ -514,7 +517,7 @@ export const PRODUCT_FAQS: ProductFaq[] = [
   {
     question: 'Kế hoạch gây quỹ qua đồ ăn được triển khai như thế nào?',
     answer:
-      'Kế hoạch ẩm thực (set đồ ăn 79k, combo nem 40k–60k, bánh su kem 20k) tương đương 50 set trong phương án mục tiêu doanh thu, chưa có phân bổ số lượng từng loại. Kế hoạch này chỉ triển khai khi đã chốt địa điểm, quy trình an toàn thực phẩm và lịch nhận; hiện tại website chưa mở bán và chưa nhận đặt hàng.',
+      'Mục tiêu doanh thu ẩm thực là con số giả định trong đề xuất dự án (trang 18), chưa có bảng phân bổ số lượng bán cụ thể cho từng loại món. Khi đối chiếu với số lượng set giả định trong hồ sơ, kế hoạch vẫn còn khoảng chênh chưa có bảng phân bổ số lượng và đơn giá từng món. Kế hoạch này chỉ được xem xét triển khai khi đã chốt địa điểm, người phụ trách, quy trình an toàn thực phẩm và phương thức nhận; hiện tại website chưa mở bán và chưa nhận đặt hàng hay tiền ủng hộ.',
   },
   {
     question: 'Khi nào mở bán và có thể đặt mua qua kênh nào?',
@@ -1026,7 +1029,7 @@ export const SUPPORT_FAQS: SupportFaq[] = [
   {
     question: 'Các khoản đóng góp tiền mặt và hiện vật được quản lý như thế nào?',
     answer:
-      'Tiền mặt và hiện vật luôn được ghi nhận trong hai sổ theo dõi riêng biệt, tuyệt đối không gộp chung. Mọi khoản thu chi bằng tiền đều được hai thành viên đối soát chéo độc lập và có chứng từ lưu trữ.',
+      'Tiền mặt và hiện vật luôn được ghi nhận trong hai sổ theo dõi riêng biệt, tuyệt đối không gộp chung. Mọi khoản thu chi bằng tiền đều được hai thành viên đối soát chéo độc lập và có chứng từ lưu trữ. Nhóm không tuyên bố 100% doanh thu là tiền ủng hộ hay nhận tiền/đơn khi chưa có kênh liên hệ và phê duyệt chính thức.',
   },
 ];
 
@@ -1039,7 +1042,7 @@ export const TRANSPARENCY_FAQS: TransparencyFaq[] = [
   {
     question: 'Doanh thu kịch bản và dự toán chi phí được tính toán như thế nào?',
     answer:
-      'Dự toán chi phí kế hoạch gồm 19 khoản mục với tổng số tiền 4.935.000đ (chia làm 3 nhóm: nguyên liệu ẩm thực, vật tư góc chơi & quà tặng, truyền thông & di chuyển). Doanh thu kịch bản 6.700.000đ kết hợp từ 2.200.000đ sản phẩm lưu niệm thủ công (bán đủ 30 bộ chuồn chuồn và 100 móc khóa theo giá tham khảo) và 4.500.000đ mục tiêu ẩm thực sinh viên giả định trong đề xuất (trang 18). Chênh lệch dự toán mang lại số dư giả định +1.765.000đ; toàn bộ là mô phỏng kế hoạch trong đề xuất, không phải số liệu thực tế.',
+      'Dự toán chi phí kế hoạch gồm 19 khoản mục theo đề xuất (trang 24, 25, 26). Doanh thu kịch bản kết hợp từ khoản thủ công và mục tiêu ẩm thực giả định (trang 18). Khi đối chiếu mục tiêu ẩm thực với số lượng set đồ ăn giả định, hồ sơ còn khoảng chênh chưa có bảng phân bổ số lượng × giá từng món. Toàn bộ là mô phỏng kế hoạch trong đề xuất, không phải số liệu thực tế.',
   },
   {
     question: 'Doanh thu từ sản phẩm có phải 100% dành mua quà cho các em không?',

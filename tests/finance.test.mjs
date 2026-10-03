@@ -26,6 +26,7 @@ import {
   formatProductQuantity,
   formatProductPrice,
   formatScenarioBalance,
+  calculateFoodReconciliation,
 } from '../src/lib/finance.ts';
 
 describe('Kiểm thử logic tài chính và tính toán (Task C01)', () => {
@@ -347,3 +348,118 @@ describe('Kiểm thử helpers hiển thị và quy tắc định dạng (Task C
     assert.equal(unknownDisplay.isUnknown, true);
   });
 });
+
+describe('Kiểm thử đối chiếu doanh thu ẩm thực và kế hoạch (Task C02)', () => {
+  test('calculateFoodReconciliation tính chuẩn xác 50 set × 79.000đ = 3.950.000đ và chênh lệch 550.000đ với inputs rõ ràng', () => {
+    const setDoAn = PRODUCTS.find((p) => p.id === 'set-do-an');
+    assert.ok(setDoAn, 'Phải tìm thấy SKU set-do-an.');
+
+    const res = calculateFoodReconciliation(
+      FINANCE_OVERVIEW.foodHypotheticalSets,
+      setDoAn.referencePrice,
+      FINANCE_OVERVIEW.foodPlannedRevenueAssumption,
+      FINANCE_OVERVIEW.craftPlannedRevenue,
+      FINANCE_OVERVIEW.plannedExpenseTotal
+    );
+
+    assert.equal(res.hypotheticalSets, 50);
+    assert.equal(res.setUnitPrice, 79000);
+    assert.equal(res.setsCalculatedRevenue, 3950000);
+    assert.equal(res.targetFoodRevenue, 4500000);
+    assert.equal(res.unallocatedGap, 550000);
+    assert.equal(res.hypotheticalTotalCombinedRevenue, 6150000);
+    assert.equal(res.hypotheticalProjectedBalance, 1215000);
+  });
+
+  test('calculateFoodReconciliation mặc định craftRevenue và totalExpense là null khi không truyền (không gán cứng ngân sách)', () => {
+    const res = calculateFoodReconciliation(50, 79000, 4500000);
+
+    assert.equal(res.hypotheticalSets, 50);
+    assert.equal(res.setUnitPrice, 79000);
+    assert.equal(res.setsCalculatedRevenue, 3950000);
+    assert.equal(res.targetFoodRevenue, 4500000);
+    assert.equal(res.unallocatedGap, 550000);
+    // craft và expense không truyền -> kết quả kết hợp phải là null, không dùng số cứng 2.200.000đ / 4.935.000đ
+    assert.equal(res.hypotheticalTotalCombinedRevenue, null);
+    assert.equal(res.hypotheticalProjectedBalance, null);
+  });
+
+  test('calculateFoodReconciliation propagate null khi hypotheticalSets là null hoặc undefined (unknown count)', () => {
+    // 1. null sets
+    const resNull = calculateFoodReconciliation(null, 79000, 4500000, 2200000, 4935000);
+    assert.equal(resNull.hypotheticalSets, null);
+    assert.equal(resNull.setsCalculatedRevenue, null);
+    assert.equal(resNull.unallocatedGap, null);
+    assert.equal(resNull.hypotheticalTotalCombinedRevenue, null);
+    assert.equal(resNull.hypotheticalProjectedBalance, null);
+
+    // 2. undefined sets
+    const resUndefined = calculateFoodReconciliation(undefined, 79000, 4500000);
+    assert.equal(resUndefined.hypotheticalSets, null);
+    assert.equal(resUndefined.setsCalculatedRevenue, null);
+    assert.equal(resUndefined.unallocatedGap, null);
+
+    // 3. QuantitativeFact với value: null
+    const factNull = {
+      value: null,
+      unit: 'set',
+      kind: 'planned',
+      verification: 'unverified',
+      sourceRef: null,
+      updatedAt: null,
+      publicApproval: 'pending',
+    };
+    const resFactNull = calculateFoodReconciliation(factNull, 79000, 4500000);
+    assert.equal(resFactNull.hypotheticalSets, null);
+    assert.equal(resFactNull.setsCalculatedRevenue, null);
+    assert.equal(resFactNull.unallocatedGap, null);
+  });
+
+  test('calculateFoodReconciliation xử lý an toàn khi giá set hoặc mục tiêu là null (propagate null)', () => {
+    const resNullPrice = calculateFoodReconciliation(50, null, 4500000);
+    assert.equal(resNullPrice.setsCalculatedRevenue, null);
+    assert.equal(resNullPrice.unallocatedGap, null);
+    assert.equal(resNullPrice.hypotheticalTotalCombinedRevenue, null);
+
+    const resNullTarget = calculateFoodReconciliation(50, 79000, null);
+    assert.equal(resNullTarget.setsCalculatedRevenue, 3950000);
+    assert.equal(resNullTarget.unallocatedGap, null);
+  });
+
+  test('calculateFoodReconciliation tính toán động và chính xác với đơn giá và số lượng thay đổi (varied-price / varied-count)', () => {
+    // Kịch bản A: 60 set với đơn giá 85.000đ, mục tiêu ẩm thực 5.500.000đ
+    const resA = calculateFoodReconciliation(60, 85000, 5500000, 2000000, 5000000);
+    assert.equal(resA.hypotheticalSets, 60);
+    assert.equal(resA.setUnitPrice, 85000);
+    assert.equal(resA.setsCalculatedRevenue, 5100000); // 60 * 85.000
+    assert.equal(resA.targetFoodRevenue, 5500000);
+    assert.equal(resA.unallocatedGap, 400000); // 5.500.000 - 5.100.000
+    assert.equal(resA.hypotheticalTotalCombinedRevenue, 7100000); // 2.000.000 + 5.100.000
+    assert.equal(resA.hypotheticalProjectedBalance, 2100000); // 7.100.000 - 5.000.000
+
+    // Kịch bản B: 40 set với đơn giá 100.000đ, mục tiêu ẩm thực 3.500.000đ (vượt mục tiêu)
+    const resB = calculateFoodReconciliation(40, 100000, 3500000, 1500000, 6000000);
+    assert.equal(resB.hypotheticalSets, 40);
+    assert.equal(resB.setUnitPrice, 100000);
+    assert.equal(resB.setsCalculatedRevenue, 4000000); // 40 * 100.000
+    assert.equal(resB.unallocatedGap, -500000); // 3.500.000 - 4.000.000 = -500.000 (vượt)
+    assert.equal(resB.hypotheticalTotalCombinedRevenue, 5500000); // 1.500.000 + 4.000.000
+    assert.equal(resB.hypotheticalProjectedBalance, -500000); // 5.500.000 - 6.000.000 (thâm hụt)
+  });
+
+  test('FINANCE_OVERVIEW không lưu trữ trường tính toán dẫn xuất cứng, tính động từ foodHypotheticalSets và SKU set-do-an', () => {
+    assert.equal('foodCalculatedRevenueFromSets' in FINANCE_OVERVIEW, false, 'Không được lưu trữ foodCalculatedRevenueFromSets trong campaign.ts');
+    assert.equal('foodUnallocatedRevenueGap' in FINANCE_OVERVIEW, false, 'Không được lưu trữ foodUnallocatedRevenueGap trong campaign.ts');
+    assert.equal(FINANCE_OVERVIEW.foodHypotheticalSets, 50, 'Nguồn duy nhất cho số set giả định đề xuất là 50.');
+
+    const setDoAn = PRODUCTS.find((p) => p.id === 'set-do-an');
+    const dynamicRecon = calculateFoodReconciliation(
+      FINANCE_OVERVIEW.foodHypotheticalSets,
+      setDoAn.referencePrice,
+      FINANCE_OVERVIEW.foodPlannedRevenueAssumption
+    );
+    assert.equal(dynamicRecon.setsCalculatedRevenue, 3950000);
+    assert.equal(dynamicRecon.unallocatedGap, 550000);
+  });
+});
+
