@@ -1,0 +1,6 @@
+{
+    "task":  "C01",
+    "review":  "RC01-7e16cf3",
+    "prompt":  "RC01 CHANGES_REQUIRED at app7e16cf3c73b5d450247240dab5da8210c450c4d4. Read docs/reviews/RC01-7e16cf3.md. Only two small fixes src/pages/minh-bach.astro: formula-subnote font13px must \u003e=14px; remove hardcoded30/100 in craft subnote (derive data or avoid repeating quantities). Do not change any other completed content. Commit fix, final check/tests/build, update true final SHA/report and finance screenshots375/768/1440; hold preview. Root browser23flags were checker errors: contain image element box is not actual rendered aspect, current404 selflink should404, cachedfavicon304 valid. Other629browser checks pass, finance6/6,audit38/38,18tests,check/build0,12fullpagevisualseen. Fix only requested real app issues, not checker false flags. ACK final with source access and hold; no repeated whole-site worker QA if unchanged pages hashes prove same.",
+    "timestamp":  "2026-10-03T02:13:00.1061570Z"
+}

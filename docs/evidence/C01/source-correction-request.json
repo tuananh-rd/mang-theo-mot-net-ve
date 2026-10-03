@@ -1,0 +1,5 @@
+{
+    "task":  "C01",
+    "prompt":  "C01 source correction during implementation: I inspected current PLANNED_EXPENSES draft. Many invented names misassign real source amounts: nem-xu120k must be bot chien xu, bot-mi40k must be food boxes, bot-nang60k must be skewers, oil140k must be cheese, cu-cai250k must be oil, cups200k must be free water; balloons20k must be two game balls. Last expenses60k standee/direct outreach,750k hire vehicle visit1,320k four motorcycles visit2. Re-read newly added exact19-row source table in docs/task-specs/C01.md under supplemental expense mapping NOW before continuing. Do not invent expense categories or preserve false source labels. Food4500000 assumption needs QuantitativeFact metadata planned/unverified/sourceRef page18/null date/pending. Continue same C01, no new task. Record ACK/source access in handoff.",
+    "timestamp":  "2026-10-03T01:51:10.1478407Z"
+}

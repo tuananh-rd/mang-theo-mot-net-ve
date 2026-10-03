@@ -1,5 +1,13 @@
 # Backlog
 
+## C01 hoàn thành — 03/10/2026
+
+**C01 DONE; RC01 PASS** tại app ead94a482e590cf1c5ef4eb1e0829c99e30d378c, base113069636c653cb7bbb255c33d681cbbbd940b19, nhánh task/c01-materials. [Review](reviews/RC01-ead94a4.md), [spec](task-specs/C01.md), [nguồn](materials-intake.md).655browser,18tests/check/build0,source6/6,bundle38/38,17disthash/HTTPbody,13ảnh đãxem. Worker ACK bàn giao và HOLD, giữ preview127.0.0.1:4321. T05 chưa giao/public chưa duyệt. Các mục IN_PROGRESS và T04 dưới đây là lịch sử.
+
+## Hiện tại C01 — cập nhật materials, 03/10/2026
+
+**C01 IN_PROGRESS** theo yêu cầu thêm nội dung vào website. Antigravity hiện có đã đọc spec, kiểm repo/nguồn, tạo nhánh task/c01-materials từ113069636c653cb7bbb255c33d681cbbbd940b19 và bắt đầu copy logo. [Spec](task-specs/C01.md), [nguồn](materials-intake.md), [receipt](evidence/C01/dispatch-response.json), [trace](evidence/C01/worker-ack-trace.json). Receipt chỉ chứng minh input_accepted; chưa nhận ACK riêng hoặc commit bàn giao C01 tại thời điểm ghi mục này. R04 vẫn là nghiệm thu ứng dụng cũ. Không mở T05/public.
+
 ## Hiện tại sau T04/R04 — 03/10/2026
 
 **T04 DONE; R04 PASS** tại app fad117c7e12a80775b0dbd0ad93ff464db60fcb9, base1b6d678, nhánh task/t04-preview-polish. [Review cuối](reviews/R04-fad117c.md), [spec](task-specs/T04.md), [vận hành](operations.md). 410/410browser,16tests/check/build0,21full-page đã xem và bundle/serve hash khớp. Worker HOLD giữ loopbackpreview; T05 chưa giao, chờ thông tin thật/hosting và chủ dự án duyệt public. Các mốc T03/T02/T01 bên dưới là lịch sử.

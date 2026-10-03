@@ -1,0 +1,40 @@
+{
+  "id": "e723136f-180e-4f63-8b24-e56f109e0d34",
+  "ok": true,
+  "result": {
+    "terminal": {
+      "handle": "term_4d29ba8e-7d0b-4a74-858f-d45e9a6fb9b9",
+      "status": "running",
+      "tail": [
+        "● Bash(powershell -Command \") (ctrl+o to expand)",
+        "  Đang chạy npm run check và ghi raw log vào handoff-c01/raw-check.log.",
+        "● Schedule(10s: Wait for task-2257 completion) (ctrl+o to expand)",
+        "  Đang đợi kết quả chạy npm run check.",
+        "● ManageTask(status task-2257)",
+        "● ManageTask(kill task-2257) (ctrl+o to expand)",
+        "▸ Thought for 3s, 189 tokens",
+        "  Attempting to simplify the command execution by directly using PowerShell, assuming the execution environment supports it. This avoids nested shell calls...",
+        "● Bash($dest = \"C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-c01\"; if (!(Test-Path $dest)) { ...) (ctrl+o to",
+        "expand)",
+        "⣯  Running command...",
+        "└ Tip: Press esc to interrupt generation.",
+        "───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────",
+        ">",
+        "───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────",
+        "  ● [00:21:22] npx astro preview --host 127.0.0.1 --port 4321 running",
+        "───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────",
+        "esc to cancel                                                                                                      Gemini 3.8 Flash · high · 1 task(s) · /tasks"
+      ],
+      "truncated": true,
+      "limited": true,
+      "oldestCursor": "298475",
+      "nextCursor": "300475",
+      "latestCursor": "300475",
+      "returnedLineCount": 18,
+      "source": "screen"
+    }
+  },
+  "_meta": {
+    "runtimeId": "6e6114a7-3148-4dbe-b563-c2a58c95ba4d"
+  }
+}

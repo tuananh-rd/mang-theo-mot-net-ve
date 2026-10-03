@@ -1,5 +1,9 @@
 # Điểm cần chủ dự án xác nhận
 
+## Nguồn PDF mới tháng10/2026
+
+Xem [materials-intake.md](materials-intake.md): doanh thu đồ ăn4500000 chưa phân bổ, các gói hiện vật500000/1845000/1560000 có phạm vi mâu thuẫn, câu chưa hòa vốn sai với sốdưdương, lịch/thời lượng/KPI khác giữa các phần. C01 chỉ hiển thị dự toán19dòng và kịch bản cơ sở có nhãn giả định. Xác nhận Mái ấm/contact/ảnh vẫnchưa có. Các câu hỏi nguồn DOCX trước bên dưới chưa tự được giải quyết bằng việc cập nhậtPDF.
+
 Đây là danh sách làm rõ nội dung, không phải yêu cầu dừng mọi công việc.
 
 ## Phát hiện trong hồ sơ

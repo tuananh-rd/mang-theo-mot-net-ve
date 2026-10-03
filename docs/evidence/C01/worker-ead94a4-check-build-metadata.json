@@ -1,0 +1,132 @@
+{
+  "taskId": "C01",
+  "taskTitle": "Đưa nguồn materials vào website preview",
+  "finalAppSha": "ead94a482e590cf1c5ef4eb1e0829c99e30d378c",
+  "baseSha": "113069636c653cb7bbb255c33d681cbbbd940b19",
+  "branch": "task/c01-materials",
+  "nodeVersion": "v24.19.0",
+  "npmVersion": "11.17.0",
+  "astroVersion": "7.3.5",
+  "browserVersion": "Chrome/154.0.8037.93",
+  "distFileCount": 17,
+  "distFiles": [
+    {
+      "path": "_astro/dong-hanh.DuovsDRG.css",
+      "bytes": 8160,
+      "sha256": "a7909fac09352b0713b695298bb4ed885b46a811dcb7424ffe0f62cb0406bdda"
+    },
+    {
+      "path": "_astro/index.72A2HRy4.css",
+      "bytes": 6820,
+      "sha256": "6a0a62f8111247e8c20862bce5425f9e277f9c8010bfad6c2ebf6b7fbc6117a8"
+    },
+    {
+      "path": "_astro/Layout.DQAbUqjT.css",
+      "bytes": 12994,
+      "sha256": "c3444c181f99c93f3ab5de47a698d5249d3511e71789addd82ab10dd1f7b131a"
+    },
+    {
+      "path": "_astro/mang-theo-mot-net-ve.BWRcd6ON.css",
+      "bytes": 5855,
+      "sha256": "c501d34a1049239d17a9b40bd710f20d6fee8c3c661df16205e994ce534e0e58"
+    },
+    {
+      "path": "_astro/minh-bach.D7Rlnpbw.css",
+      "bytes": 14024,
+      "sha256": "58547852983b74ff20582b2dcde31a261c9a44466b2f54382b9b1c1eff9f75a7"
+    },
+    {
+      "path": "_astro/san-pham.B8W8WkJ_.css",
+      "bytes": 9474,
+      "sha256": "c260cd8f91d44853be9fb69bb885992ccb424b842be72cd98e038bd4c33ef878"
+    },
+    {
+      "path": "_astro/ve-nhom.BRoQZuFh.css",
+      "bytes": 5973,
+      "sha256": "525a0d6d39ee63bb1bd2eb11d964c2d14b29a1f93e3f25d219e9a5ef70ccaa76"
+    },
+    {
+      "path": "404.html",
+      "bytes": 9085,
+      "sha256": "44bce4c4d39acf7f9c96e8a52e9497afa7d34ac025cfec0a73e034064908cb2c"
+    },
+    {
+      "path": "dong-hanh/index.html",
+      "bytes": 22351,
+      "sha256": "23fa7062af6f24ff5f6bb0d46c98a86a0209db0d8ea5ab9d96ec7ce4902bd7dd"
+    },
+    {
+      "path": "du-an/mang-theo-mot-net-ve/index.html",
+      "bytes": 32235,
+      "sha256": "ab2efbe6ef7821dd5b3239926bda07ed4d1f71450ebc0f710c4f53777035eefa"
+    },
+    {
+      "path": "favicon.svg",
+      "bytes": 703,
+      "sha256": "cf5a6109d12aead474ccee95fd51643e1988adc2364bb1349e3c3e4e6d564051"
+    },
+    {
+      "path": "images/logo_lang_kinh_2048.png",
+      "bytes": 78915,
+      "sha256": "06f63ac9d41c079827d794b13ffec468ea30be7b818755b4ba96bc819f7facbc"
+    },
+    {
+      "path": "images/logo_option5_horizontal.png",
+      "bytes": 37399,
+      "sha256": "e078e7ea7bd8debae74d2c573fe4391fd55aee57a167ca4eb63534b17ee56db9"
+    },
+    {
+      "path": "index.html",
+      "bytes": 43651,
+      "sha256": "7e7b0fb62b63f02adf8bfdcd5955d8ba2e92f3cba4fbbf9dad9419d978480af7"
+    },
+    {
+      "path": "minh-bach/index.html",
+      "bytes": 56505,
+      "sha256": "f9ed7df53f61fcaf454ad1fd1c9edb519abc2fd80ec7a680e79425ad9f9c60fe"
+    },
+    {
+      "path": "san-pham/index.html",
+      "bytes": 49413,
+      "sha256": "ea65a53b593619169bf1c6e58952c3eb02b4c1373ad5f3ecc82a8faa31aa37c9"
+    },
+    {
+      "path": "ve-nhom/index.html",
+      "bytes": 17718,
+      "sha256": "37095580d9c4943b24f6814c498d2f84434304b99784f2a5198b84534bcbea44"
+    }
+  ],
+  "logoAssets": [
+    {
+      "name": "logo_option5_horizontal.png",
+      "bytes": 37399,
+      "sha256": "e078e7ea7bd8debae74d2c573fe4391fd55aee57a167ca4eb63534b17ee56db9",
+      "source": "D:\\Downloads\\materials\\logo_option5_horizontal.png"
+    },
+    {
+      "name": "logo_lang_kinh_2048.png",
+      "bytes": 78915,
+      "sha256": "06f63ac9d41c079827d794b13ffec468ea30be7b818755b4ba96bc819f7facbc",
+      "source": "D:\\Downloads\\materials\\logo_lang_kinh_2048.png"
+    }
+  ],
+  "checks": {
+    "checkExitCode": 0,
+    "checkLog": "handoff-c01/raw-check.log",
+    "testExitCode": 0,
+    "testLog": "handoff-c01/raw-test.log",
+    "testStats": "18 tests, 3 suites, 18 pass, 0 fail",
+    "buildExitCode": 0,
+    "buildLog": "handoff-c01/raw-build.log",
+    "browserAuditExitCode": 0,
+    "browserAuditLog": "handoff-c01/browser-audit-results.json",
+    "browserAssertions": "134 assertions pass, 0 fail"
+  },
+  "previewStatus": {
+    "host": "127.0.0.1",
+    "port": 4321,
+    "url": "http://127.0.0.1:4321/",
+    "pid": 2888,
+    "status": "ACTIVE_LISTENING"
+  }
+}

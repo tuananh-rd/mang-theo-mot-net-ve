@@ -1,5 +1,9 @@
 # Brief website
 
+## Bổ sung nguồn ngày 03/10/2026
+
+Chủ dự án cung cấp hồ sơ PDF và logo ở D:\Downloads\materials, sau đó yêu cầu đưa vào website. Danh mục mới là chuồn chuồn, móc khóa và đồ ăn; phần mô tả túi và danh mục ba loại cũ dưới đây là lịch sử T04. Nội dung mới theo [tiếp nhận nguồn](materials-intake.md) và [C01](task-specs/C01.md), vẫn là preview chờ xác nhận.
+
 ## Thông tin từ hồ sơ
 
 - Tên: Mang Theo Một Nét Vẽ.

@@ -1,0 +1,16 @@
+﻿
+> mang-theo-mot-net-ve@0.0.1 check
+> astro check
+
+[2m09:05:13[22m [34m[types][39m Generated [2m109ms[22m
+[2m09:05:13[22m [34m[check][39m Getting diagnostics for Astro files in C:\Users\tuana\Documents\Codex\2026-10-02\t\outputs\mang-theo-mot-net-ve...
+[96mdocs/evidence/C01/reviewer-browser.mjs[0m:[93m4[0m:[93m7[0m - [93mwarning[0m[90m ts(6133): [0m'require' is declared but its value is never read.
+
+[7m4[0m const require=createRequire('file:///C:/Users/tuana/.gemini/antigravity-cli/brain/86498389-9ca4-486e-9ba8-82247107fb96/scratch/take_screenshots.mjs');
+[7m [0m [93m      ~~~~~~~[0m
+
+Result (43 files): 
+- 0 errors
+- 0 warnings
+- 1 hint
+

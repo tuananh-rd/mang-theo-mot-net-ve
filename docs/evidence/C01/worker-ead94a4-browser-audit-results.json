@@ -1,0 +1,1895 @@
+{
+  "startedAt": "2026-10-03T02:17:46.488Z",
+  "base": "http://127.0.0.1:4321",
+  "routes": [
+    {
+      "path": "/",
+      "name": "home",
+      "status": 200,
+      "reloadStatus": 304,
+      "pageInfo": {
+        "title": "Trang chủ | Mang Theo Một Nét Vẽ — Lăng Kính",
+        "countProjectName": 1,
+        "countTeamName": 1,
+        "lang": "vi",
+        "robots": "noindex, nofollow",
+        "h1Count": 1,
+        "h1Text": "Mang Theo Một Nét Vẽ",
+        "mainCount": 1,
+        "headerExists": true,
+        "footerExists": true,
+        "formCount": 0,
+        "currentNavHrefs": [
+          "/",
+          "/"
+        ]
+      }
+    },
+    {
+      "path": "/du-an/mang-theo-mot-net-ve",
+      "name": "project",
+      "status": 200,
+      "reloadStatus": 304,
+      "pageInfo": {
+        "title": "Câu chuyện dự án | Mang Theo Một Nét Vẽ — Lăng Kính",
+        "countProjectName": 1,
+        "countTeamName": 1,
+        "lang": "vi",
+        "robots": "noindex, nofollow",
+        "h1Count": 1,
+        "h1Text": "Mang Theo Một Nét Vẽ",
+        "mainCount": 1,
+        "headerExists": true,
+        "footerExists": true,
+        "formCount": 0,
+        "currentNavHrefs": [
+          "/du-an/mang-theo-mot-net-ve",
+          "/du-an/mang-theo-mot-net-ve"
+        ]
+      }
+    },
+    {
+      "path": "/ve-nhom",
+      "name": "team",
+      "status": 200,
+      "reloadStatus": 304,
+      "pageInfo": {
+        "title": "Về nhóm Lăng Kính | Mang Theo Một Nét Vẽ",
+        "countProjectName": 1,
+        "countTeamName": 1,
+        "lang": "vi",
+        "robots": "noindex, nofollow",
+        "h1Count": 1,
+        "h1Text": "Về nhóm Lăng Kính",
+        "mainCount": 1,
+        "headerExists": true,
+        "footerExists": true,
+        "formCount": 0,
+        "currentNavHrefs": [
+          "/ve-nhom",
+          "/ve-nhom"
+        ]
+      }
+    },
+    {
+      "path": "/san-pham",
+      "name": "product",
+      "status": 200,
+      "reloadStatus": 304,
+      "pageInfo": {
+        "title": "Sản phẩm gây quỹ dự kiến | Mang Theo Một Nét Vẽ — Lăng Kính",
+        "countProjectName": 1,
+        "countTeamName": 1,
+        "lang": "vi",
+        "robots": "noindex, nofollow",
+        "h1Count": 1,
+        "h1Text": "Sản phẩm gây quỹ dự kiến",
+        "mainCount": 1,
+        "headerExists": true,
+        "footerExists": true,
+        "formCount": 0,
+        "currentNavHrefs": [
+          "/san-pham",
+          "/san-pham"
+        ]
+      }
+    },
+    {
+      "path": "/minh-bach",
+      "name": "transparency",
+      "status": 200,
+      "reloadStatus": 304,
+      "pageInfo": {
+        "title": "Minh bạch thu chi | Mang Theo Một Nét Vẽ — Lăng Kính",
+        "countProjectName": 1,
+        "countTeamName": 1,
+        "lang": "vi",
+        "robots": "noindex, nofollow",
+        "h1Count": 1,
+        "h1Text": "Minh bạch thu chi",
+        "mainCount": 1,
+        "headerExists": true,
+        "footerExists": true,
+        "formCount": 0,
+        "currentNavHrefs": [
+          "/minh-bach",
+          "/minh-bach"
+        ]
+      }
+    },
+    {
+      "path": "/dong-hanh",
+      "name": "support",
+      "status": 200,
+      "reloadStatus": 304,
+      "pageInfo": {
+        "title": "Đồng hành cùng dự án | Mang Theo Một Nét Vẽ — Lăng Kính",
+        "countProjectName": 1,
+        "countTeamName": 1,
+        "lang": "vi",
+        "robots": "noindex, nofollow",
+        "h1Count": 1,
+        "h1Text": "Đồng hành cùng dự án",
+        "mainCount": 1,
+        "headerExists": true,
+        "footerExists": true,
+        "formCount": 0,
+        "currentNavHrefs": [
+          "/dong-hanh",
+          "/dong-hanh"
+        ]
+      }
+    },
+    {
+      "path": "/404.html",
+      "name": "404",
+      "status": 200,
+      "reloadStatus": 304,
+      "pageInfo": {
+        "title": "Không tìm thấy trang (404) | Mang Theo Một Nét Vẽ — Lăng Kính",
+        "countProjectName": 1,
+        "countTeamName": 1,
+        "lang": "vi",
+        "robots": "noindex, nofollow",
+        "h1Count": 1,
+        "h1Text": "Không tìm thấy trang",
+        "mainCount": 1,
+        "headerExists": true,
+        "footerExists": true,
+        "formCount": 0,
+        "currentNavHrefs": []
+      }
+    },
+    {
+      "path": "/duong-dan-khong-ton-tai-404-test",
+      "name": "unknown-404",
+      "status": 404,
+      "reloadStatus": 404,
+      "pageInfo": {
+        "title": "Không tìm thấy trang (404) | Mang Theo Một Nét Vẽ — Lăng Kính",
+        "countProjectName": 1,
+        "countTeamName": 1,
+        "lang": "vi",
+        "robots": "noindex, nofollow",
+        "h1Count": 1,
+        "h1Text": "Không tìm thấy trang",
+        "mainCount": 1,
+        "headerExists": true,
+        "footerExists": true,
+        "formCount": 0,
+        "currentNavHrefs": []
+      }
+    }
+  ],
+  "screenshots": [
+    {
+      "page": "home",
+      "viewport": "mobile-375",
+      "fileName": "home-mobile-375-full.png",
+      "dims": {
+        "width": 375,
+        "height": 8899,
+        "bytes": 442938,
+        "sha256": "ba5d5fb0537a67c5e71a2db9e5d5adf791d999128ba2ab9ed2e5e97ccfa28135"
+      }
+    },
+    {
+      "page": "home",
+      "viewport": "tablet-768",
+      "fileName": "home-tablet-768-full.png",
+      "dims": {
+        "width": 768,
+        "height": 7423,
+        "bytes": 496174,
+        "sha256": "34b7b7fb45021b031c3aaba410dbd15e34c7624bea352cfdf49549a440c861ab"
+      }
+    },
+    {
+      "page": "home",
+      "viewport": "desktop-1440",
+      "fileName": "home-desktop-1440-full.png",
+      "dims": {
+        "width": 1440,
+        "height": 5531,
+        "bytes": 496922,
+        "sha256": "9cba89bdd1483dd3c8153751f856a6a7f55dc8b7011e364a26fa24b17bcf0bcd"
+      }
+    },
+    {
+      "page": "project",
+      "viewport": "mobile-375",
+      "fileName": "project-mobile-375-full.png",
+      "dims": {
+        "width": 375,
+        "height": 6511,
+        "bytes": 321056,
+        "sha256": "5527b198a84ac79a1d0bb80fc2d6895b6148cfc471d0d71f1140c0ed03586052"
+      }
+    },
+    {
+      "page": "project",
+      "viewport": "tablet-768",
+      "fileName": "project-tablet-768-full.png",
+      "dims": {
+        "width": 768,
+        "height": 5300,
+        "bytes": 375030,
+        "sha256": "aa8fda99ccfaadf110af466d86f301c785bc920bd27e653503b72ab66533a26e"
+      }
+    },
+    {
+      "page": "project",
+      "viewport": "desktop-1440",
+      "fileName": "project-desktop-1440-full.png",
+      "dims": {
+        "width": 1440,
+        "height": 4294,
+        "bytes": 393374,
+        "sha256": "712386a68da81a0d9517ea8c148846544098ce19595a8a3c738c0f8135584d11"
+      }
+    },
+    {
+      "page": "team",
+      "viewport": "mobile-375",
+      "fileName": "team-mobile-375-full.png",
+      "dims": {
+        "width": 375,
+        "height": 4863,
+        "bytes": 252998,
+        "sha256": "9781797a46a2aaad4a4726208363742007c0bc918a88e8c9d7873cce0c5ea7dd"
+      }
+    },
+    {
+      "page": "team",
+      "viewport": "tablet-768",
+      "fileName": "team-tablet-768-full.png",
+      "dims": {
+        "width": 768,
+        "height": 3857,
+        "bytes": 274181,
+        "sha256": "0aea1fca7099a8dcdb57817eab7dd856fc9a4606d4cee64e66c86b862105dc02"
+      }
+    },
+    {
+      "page": "team",
+      "viewport": "desktop-1440",
+      "fileName": "team-desktop-1440-full.png",
+      "dims": {
+        "width": 1440,
+        "height": 3382,
+        "bytes": 283077,
+        "sha256": "7f1a8773b7eef3e1765680b98c3cb0e948487f8265a41624e65f80736841948f"
+      }
+    },
+    {
+      "page": "product",
+      "viewport": "mobile-375",
+      "fileName": "product-mobile-375-full.png",
+      "dims": {
+        "width": 375,
+        "height": 9228,
+        "bytes": 455981,
+        "sha256": "7bd7de873b6032ca4b6f8868bb4a72d214f4910b69b70062fb550389103f45a5"
+      }
+    },
+    {
+      "page": "product",
+      "viewport": "tablet-768",
+      "fileName": "product-tablet-768-full.png",
+      "dims": {
+        "width": 768,
+        "height": 6226,
+        "bytes": 426742,
+        "sha256": "3dcedcf564814704577e9dee30398fd1a4579602d46fbc8649be4761c0ff1b25"
+      }
+    },
+    {
+      "page": "product",
+      "viewport": "desktop-1440",
+      "fileName": "product-desktop-1440-full.png",
+      "dims": {
+        "width": 1440,
+        "height": 5419,
+        "bytes": 476457,
+        "sha256": "855c27a2c6bb51f7c0370209c7fc77d51fad9b8722aa83552c8a45cd22ee363d"
+      }
+    },
+    {
+      "page": "transparency",
+      "viewport": "mobile-375",
+      "fileName": "transparency-mobile-375-full.png",
+      "dims": {
+        "width": 375,
+        "height": 12366,
+        "bytes": 605721,
+        "sha256": "82c584ebf97a80df0c61d704395cf8df12e6c8ca3e7fe0af19c124a2d55e62ff"
+      }
+    },
+    {
+      "page": "transparency",
+      "viewport": "tablet-768",
+      "fileName": "transparency-tablet-768-full.png",
+      "dims": {
+        "width": 768,
+        "height": 7672,
+        "bytes": 622134,
+        "sha256": "e8055efd566918069500d05f7006c7dff2abd3768cb0aaea90e146fb52599ab5"
+      }
+    },
+    {
+      "page": "transparency",
+      "viewport": "desktop-1440",
+      "fileName": "transparency-desktop-1440-full.png",
+      "dims": {
+        "width": 1440,
+        "height": 6883,
+        "bytes": 620521,
+        "sha256": "5fd202c9b2cbefd9817acf7a4b643433061f70aa61caac508b8aaf1304dc5724"
+      }
+    },
+    {
+      "page": "support",
+      "viewport": "mobile-375",
+      "fileName": "support-mobile-375-full.png",
+      "dims": {
+        "width": 375,
+        "height": 6138,
+        "bytes": 301985,
+        "sha256": "2fab4121fe35d1264a2791bb87385126285d658184434b014ded1436902e5c2c"
+      }
+    },
+    {
+      "page": "support",
+      "viewport": "tablet-768",
+      "fileName": "support-tablet-768-full.png",
+      "dims": {
+        "width": 768,
+        "height": 5156,
+        "bytes": 321274,
+        "sha256": "9441052cb140fe09ead5b43a117ef09b22014a849c50e774e59bb0ec8ae222f0"
+      }
+    },
+    {
+      "page": "support",
+      "viewport": "desktop-1440",
+      "fileName": "support-desktop-1440-full.png",
+      "dims": {
+        "width": 1440,
+        "height": 4158,
+        "bytes": 327587,
+        "sha256": "069c29d8cf1b5845ad4b341d6e005a41b2f09aa31b49f4bb8b888b847bf1c9fe"
+      }
+    },
+    {
+      "page": "404",
+      "viewport": "mobile-375",
+      "fileName": "404-mobile-375-full.png",
+      "dims": {
+        "width": 375,
+        "height": 1415,
+        "bytes": 57869,
+        "sha256": "4622d678d5f0f4e51f749a6fd54b5d208e0bcbcdc5844be82fe7e0e9dbe50454"
+      }
+    },
+    {
+      "page": "404",
+      "viewport": "tablet-768",
+      "fileName": "404-tablet-768-full.png",
+      "dims": {
+        "width": 768,
+        "height": 1170,
+        "bytes": 64571,
+        "sha256": "cee32b26dcaf799d471794abf9247ad5b109617bd35af6dffaa1dc79b4b8ada4"
+      }
+    },
+    {
+      "page": "404",
+      "viewport": "desktop-1440",
+      "fileName": "404-desktop-1440-full.png",
+      "dims": {
+        "width": 1440,
+        "height": 1125,
+        "bytes": 75123,
+        "sha256": "29e65f27f8d2058f3a0eceafba6904a98950fc4d5c7b2bb9d76c5bd97f2aaad9"
+      }
+    },
+    {
+      "page": "home",
+      "viewport": "mobile-375-menu-open",
+      "fileName": "mobile-375-menu-open.png",
+      "dims": {
+        "width": 375,
+        "height": 667,
+        "bytes": 27187,
+        "sha256": "52266cc46de2c6ef860912cc55274bfea9506239df7a3ce9cac62a2ade15b7cf"
+      }
+    },
+    {
+      "page": "transparency",
+      "viewport": "desktop-faq-open",
+      "fileName": "minh-bach-faq-open.png",
+      "dims": {
+        "width": 1440,
+        "height": 900,
+        "bytes": 74355,
+        "sha256": "d2291652ea870946b147200a059541a7b5b58a712e524b1d3772f4f01d2ae0e0"
+      }
+    }
+  ],
+  "assertions": [
+    {
+      "name": "home status 200/404",
+      "pass": true,
+      "observed": {
+        "status": 200,
+        "reloadStatus": 304
+      }
+    },
+    {
+      "name": "home lang=\"vi\"",
+      "pass": true,
+      "observed": "vi"
+    },
+    {
+      "name": "home robots noindex,nofollow",
+      "pass": true,
+      "observed": "noindex, nofollow"
+    },
+    {
+      "name": "home single h1",
+      "pass": true,
+      "observed": 1
+    },
+    {
+      "name": "home single main",
+      "pass": true,
+      "observed": 1
+    },
+    {
+      "name": "home zero forms",
+      "pass": true,
+      "observed": 0
+    },
+    {
+      "name": "home title has no repeated branding",
+      "pass": true,
+      "observed": "Trang chủ | Mang Theo Một Nét Vẽ — Lăng Kính"
+    },
+    {
+      "name": "project status 200/404",
+      "pass": true,
+      "observed": {
+        "status": 200,
+        "reloadStatus": 304
+      }
+    },
+    {
+      "name": "project lang=\"vi\"",
+      "pass": true,
+      "observed": "vi"
+    },
+    {
+      "name": "project robots noindex,nofollow",
+      "pass": true,
+      "observed": "noindex, nofollow"
+    },
+    {
+      "name": "project single h1",
+      "pass": true,
+      "observed": 1
+    },
+    {
+      "name": "project single main",
+      "pass": true,
+      "observed": 1
+    },
+    {
+      "name": "project zero forms",
+      "pass": true,
+      "observed": 0
+    },
+    {
+      "name": "project title has no repeated branding",
+      "pass": true,
+      "observed": "Câu chuyện dự án | Mang Theo Một Nét Vẽ — Lăng Kính"
+    },
+    {
+      "name": "team status 200/404",
+      "pass": true,
+      "observed": {
+        "status": 200,
+        "reloadStatus": 304
+      }
+    },
+    {
+      "name": "team lang=\"vi\"",
+      "pass": true,
+      "observed": "vi"
+    },
+    {
+      "name": "team robots noindex,nofollow",
+      "pass": true,
+      "observed": "noindex, nofollow"
+    },
+    {
+      "name": "team single h1",
+      "pass": true,
+      "observed": 1
+    },
+    {
+      "name": "team single main",
+      "pass": true,
+      "observed": 1
+    },
+    {
+      "name": "team zero forms",
+      "pass": true,
+      "observed": 0
+    },
+    {
+      "name": "team title has no repeated branding",
+      "pass": true,
+      "observed": "Về nhóm Lăng Kính | Mang Theo Một Nét Vẽ"
+    },
+    {
+      "name": "product status 200/404",
+      "pass": true,
+      "observed": {
+        "status": 200,
+        "reloadStatus": 304
+      }
+    },
+    {
+      "name": "product lang=\"vi\"",
+      "pass": true,
+      "observed": "vi"
+    },
+    {
+      "name": "product robots noindex,nofollow",
+      "pass": true,
+      "observed": "noindex, nofollow"
+    },
+    {
+      "name": "product single h1",
+      "pass": true,
+      "observed": 1
+    },
+    {
+      "name": "product single main",
+      "pass": true,
+      "observed": 1
+    },
+    {
+      "name": "product zero forms",
+      "pass": true,
+      "observed": 0
+    },
+    {
+      "name": "product title has no repeated branding",
+      "pass": true,
+      "observed": "Sản phẩm gây quỹ dự kiến | Mang Theo Một Nét Vẽ — Lăng Kính"
+    },
+    {
+      "name": "transparency status 200/404",
+      "pass": true,
+      "observed": {
+        "status": 200,
+        "reloadStatus": 304
+      }
+    },
+    {
+      "name": "transparency lang=\"vi\"",
+      "pass": true,
+      "observed": "vi"
+    },
+    {
+      "name": "transparency robots noindex,nofollow",
+      "pass": true,
+      "observed": "noindex, nofollow"
+    },
+    {
+      "name": "transparency single h1",
+      "pass": true,
+      "observed": 1
+    },
+    {
+      "name": "transparency single main",
+      "pass": true,
+      "observed": 1
+    },
+    {
+      "name": "transparency zero forms",
+      "pass": true,
+      "observed": 0
+    },
+    {
+      "name": "transparency title has no repeated branding",
+      "pass": true,
+      "observed": "Minh bạch thu chi | Mang Theo Một Nét Vẽ — Lăng Kính"
+    },
+    {
+      "name": "support status 200/404",
+      "pass": true,
+      "observed": {
+        "status": 200,
+        "reloadStatus": 304
+      }
+    },
+    {
+      "name": "support lang=\"vi\"",
+      "pass": true,
+      "observed": "vi"
+    },
+    {
+      "name": "support robots noindex,nofollow",
+      "pass": true,
+      "observed": "noindex, nofollow"
+    },
+    {
+      "name": "support single h1",
+      "pass": true,
+      "observed": 1
+    },
+    {
+      "name": "support single main",
+      "pass": true,
+      "observed": 1
+    },
+    {
+      "name": "support zero forms",
+      "pass": true,
+      "observed": 0
+    },
+    {
+      "name": "support title has no repeated branding",
+      "pass": true,
+      "observed": "Đồng hành cùng dự án | Mang Theo Một Nét Vẽ — Lăng Kính"
+    },
+    {
+      "name": "404 status 200/404",
+      "pass": true,
+      "observed": {
+        "status": 200,
+        "reloadStatus": 304
+      }
+    },
+    {
+      "name": "404 lang=\"vi\"",
+      "pass": true,
+      "observed": "vi"
+    },
+    {
+      "name": "404 robots noindex,nofollow",
+      "pass": true,
+      "observed": "noindex, nofollow"
+    },
+    {
+      "name": "404 single h1",
+      "pass": true,
+      "observed": 1
+    },
+    {
+      "name": "404 single main",
+      "pass": true,
+      "observed": 1
+    },
+    {
+      "name": "404 zero forms",
+      "pass": true,
+      "observed": 0
+    },
+    {
+      "name": "404 title has no repeated branding",
+      "pass": true,
+      "observed": "Không tìm thấy trang (404) | Mang Theo Một Nét Vẽ — Lăng Kính"
+    },
+    {
+      "name": "unknown-404 status 200/404",
+      "pass": true,
+      "observed": {
+        "status": 404,
+        "reloadStatus": 404
+      }
+    },
+    {
+      "name": "unknown-404 lang=\"vi\"",
+      "pass": true,
+      "observed": "vi"
+    },
+    {
+      "name": "unknown-404 robots noindex,nofollow",
+      "pass": true,
+      "observed": "noindex, nofollow"
+    },
+    {
+      "name": "unknown-404 single h1",
+      "pass": true,
+      "observed": 1
+    },
+    {
+      "name": "unknown-404 single main",
+      "pass": true,
+      "observed": 1
+    },
+    {
+      "name": "unknown-404 zero forms",
+      "pass": true,
+      "observed": 0
+    },
+    {
+      "name": "unknown-404 title has no repeated branding",
+      "pass": true,
+      "observed": "Không tìm thấy trang (404) | Mang Theo Một Nét Vẽ — Lăng Kính"
+    },
+    {
+      "name": "Screenshot home-mobile-375-full.png exists and valid",
+      "pass": true,
+      "observed": {
+        "width": 375,
+        "height": 8899,
+        "bytes": 442938,
+        "sha256": "ba5d5fb0537a67c5e71a2db9e5d5adf791d999128ba2ab9ed2e5e97ccfa28135"
+      }
+    },
+    {
+      "name": "Screenshot home-tablet-768-full.png exists and valid",
+      "pass": true,
+      "observed": {
+        "width": 768,
+        "height": 7423,
+        "bytes": 496174,
+        "sha256": "34b7b7fb45021b031c3aaba410dbd15e34c7624bea352cfdf49549a440c861ab"
+      }
+    },
+    {
+      "name": "Screenshot home-desktop-1440-full.png exists and valid",
+      "pass": true,
+      "observed": {
+        "width": 1440,
+        "height": 5531,
+        "bytes": 496922,
+        "sha256": "9cba89bdd1483dd3c8153751f856a6a7f55dc8b7011e364a26fa24b17bcf0bcd"
+      }
+    },
+    {
+      "name": "Screenshot project-mobile-375-full.png exists and valid",
+      "pass": true,
+      "observed": {
+        "width": 375,
+        "height": 6511,
+        "bytes": 321056,
+        "sha256": "5527b198a84ac79a1d0bb80fc2d6895b6148cfc471d0d71f1140c0ed03586052"
+      }
+    },
+    {
+      "name": "Screenshot project-tablet-768-full.png exists and valid",
+      "pass": true,
+      "observed": {
+        "width": 768,
+        "height": 5300,
+        "bytes": 375030,
+        "sha256": "aa8fda99ccfaadf110af466d86f301c785bc920bd27e653503b72ab66533a26e"
+      }
+    },
+    {
+      "name": "Screenshot project-desktop-1440-full.png exists and valid",
+      "pass": true,
+      "observed": {
+        "width": 1440,
+        "height": 4294,
+        "bytes": 393374,
+        "sha256": "712386a68da81a0d9517ea8c148846544098ce19595a8a3c738c0f8135584d11"
+      }
+    },
+    {
+      "name": "Screenshot team-mobile-375-full.png exists and valid",
+      "pass": true,
+      "observed": {
+        "width": 375,
+        "height": 4863,
+        "bytes": 252998,
+        "sha256": "9781797a46a2aaad4a4726208363742007c0bc918a88e8c9d7873cce0c5ea7dd"
+      }
+    },
+    {
+      "name": "Screenshot team-tablet-768-full.png exists and valid",
+      "pass": true,
+      "observed": {
+        "width": 768,
+        "height": 3857,
+        "bytes": 274181,
+        "sha256": "0aea1fca7099a8dcdb57817eab7dd856fc9a4606d4cee64e66c86b862105dc02"
+      }
+    },
+    {
+      "name": "Screenshot team-desktop-1440-full.png exists and valid",
+      "pass": true,
+      "observed": {
+        "width": 1440,
+        "height": 3382,
+        "bytes": 283077,
+        "sha256": "7f1a8773b7eef3e1765680b98c3cb0e948487f8265a41624e65f80736841948f"
+      }
+    },
+    {
+      "name": "Screenshot product-mobile-375-full.png exists and valid",
+      "pass": true,
+      "observed": {
+        "width": 375,
+        "height": 9228,
+        "bytes": 455981,
+        "sha256": "7bd7de873b6032ca4b6f8868bb4a72d214f4910b69b70062fb550389103f45a5"
+      }
+    },
+    {
+      "name": "Screenshot product-tablet-768-full.png exists and valid",
+      "pass": true,
+      "observed": {
+        "width": 768,
+        "height": 6226,
+        "bytes": 426742,
+        "sha256": "3dcedcf564814704577e9dee30398fd1a4579602d46fbc8649be4761c0ff1b25"
+      }
+    },
+    {
+      "name": "Screenshot product-desktop-1440-full.png exists and valid",
+      "pass": true,
+      "observed": {
+        "width": 1440,
+        "height": 5419,
+        "bytes": 476457,
+        "sha256": "855c27a2c6bb51f7c0370209c7fc77d51fad9b8722aa83552c8a45cd22ee363d"
+      }
+    },
+    {
+      "name": "Screenshot transparency-mobile-375-full.png exists and valid",
+      "pass": true,
+      "observed": {
+        "width": 375,
+        "height": 12366,
+        "bytes": 605721,
+        "sha256": "82c584ebf97a80df0c61d704395cf8df12e6c8ca3e7fe0af19c124a2d55e62ff"
+      }
+    },
+    {
+      "name": "Screenshot transparency-tablet-768-full.png exists and valid",
+      "pass": true,
+      "observed": {
+        "width": 768,
+        "height": 7672,
+        "bytes": 622134,
+        "sha256": "e8055efd566918069500d05f7006c7dff2abd3768cb0aaea90e146fb52599ab5"
+      }
+    },
+    {
+      "name": "Screenshot transparency-desktop-1440-full.png exists and valid",
+      "pass": true,
+      "observed": {
+        "width": 1440,
+        "height": 6883,
+        "bytes": 620521,
+        "sha256": "5fd202c9b2cbefd9817acf7a4b643433061f70aa61caac508b8aaf1304dc5724"
+      }
+    },
+    {
+      "name": "Screenshot support-mobile-375-full.png exists and valid",
+      "pass": true,
+      "observed": {
+        "width": 375,
+        "height": 6138,
+        "bytes": 301985,
+        "sha256": "2fab4121fe35d1264a2791bb87385126285d658184434b014ded1436902e5c2c"
+      }
+    },
+    {
+      "name": "Screenshot support-tablet-768-full.png exists and valid",
+      "pass": true,
+      "observed": {
+        "width": 768,
+        "height": 5156,
+        "bytes": 321274,
+        "sha256": "9441052cb140fe09ead5b43a117ef09b22014a849c50e774e59bb0ec8ae222f0"
+      }
+    },
+    {
+      "name": "Screenshot support-desktop-1440-full.png exists and valid",
+      "pass": true,
+      "observed": {
+        "width": 1440,
+        "height": 4158,
+        "bytes": 327587,
+        "sha256": "069c29d8cf1b5845ad4b341d6e005a41b2f09aa31b49f4bb8b888b847bf1c9fe"
+      }
+    },
+    {
+      "name": "Screenshot 404-mobile-375-full.png exists and valid",
+      "pass": true,
+      "observed": {
+        "width": 375,
+        "height": 1415,
+        "bytes": 57869,
+        "sha256": "4622d678d5f0f4e51f749a6fd54b5d208e0bcbcdc5844be82fe7e0e9dbe50454"
+      }
+    },
+    {
+      "name": "Screenshot 404-tablet-768-full.png exists and valid",
+      "pass": true,
+      "observed": {
+        "width": 768,
+        "height": 1170,
+        "bytes": 64571,
+        "sha256": "cee32b26dcaf799d471794abf9247ad5b109617bd35af6dffaa1dc79b4b8ada4"
+      }
+    },
+    {
+      "name": "Screenshot 404-desktop-1440-full.png exists and valid",
+      "pass": true,
+      "observed": {
+        "width": 1440,
+        "height": 1125,
+        "bytes": 75123,
+        "sha256": "29e65f27f8d2058f3a0eceafba6904a98950fc4d5c7b2bb9d76c5bd97f2aaad9"
+      }
+    },
+    {
+      "name": "Mobile menu toggle aria-expanded is true",
+      "pass": true,
+      "observed": true
+    },
+    {
+      "name": "Mobile menu closes on Escape",
+      "pass": true,
+      "observed": true
+    },
+    {
+      "name": "Minh bạch FAQ opened screenshot valid",
+      "pass": true,
+      "observed": {
+        "width": 1440,
+        "height": 900,
+        "bytes": 74355,
+        "sha256": "d2291652ea870946b147200a059541a7b5b58a712e524b1d3772f4f01d2ae0e0"
+      }
+    },
+    {
+      "name": "No horizontal scroll on home at iPhone SE (375px)",
+      "pass": true,
+      "observed": {
+        "docWidth": 375,
+        "winWidth": 375,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on home at iPhone XR (414px)",
+      "pass": true,
+      "observed": {
+        "docWidth": 414,
+        "winWidth": 414,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on home at iPad Mini (768px)",
+      "pass": true,
+      "observed": {
+        "docWidth": 768,
+        "winWidth": 768,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on home at iPad Pro / Small Desktop (1024px)",
+      "pass": true,
+      "observed": {
+        "docWidth": 1024,
+        "winWidth": 1024,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on home at Desktop (1440px)",
+      "pass": true,
+      "observed": {
+        "docWidth": 1440,
+        "winWidth": 1440,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on project at iPhone SE (375px)",
+      "pass": true,
+      "observed": {
+        "docWidth": 375,
+        "winWidth": 375,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on project at iPhone XR (414px)",
+      "pass": true,
+      "observed": {
+        "docWidth": 414,
+        "winWidth": 414,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on project at iPad Mini (768px)",
+      "pass": true,
+      "observed": {
+        "docWidth": 768,
+        "winWidth": 768,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on project at iPad Pro / Small Desktop (1024px)",
+      "pass": true,
+      "observed": {
+        "docWidth": 1024,
+        "winWidth": 1024,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on project at Desktop (1440px)",
+      "pass": true,
+      "observed": {
+        "docWidth": 1440,
+        "winWidth": 1440,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on team at iPhone SE (375px)",
+      "pass": true,
+      "observed": {
+        "docWidth": 375,
+        "winWidth": 375,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on team at iPhone XR (414px)",
+      "pass": true,
+      "observed": {
+        "docWidth": 414,
+        "winWidth": 414,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on team at iPad Mini (768px)",
+      "pass": true,
+      "observed": {
+        "docWidth": 768,
+        "winWidth": 768,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on team at iPad Pro / Small Desktop (1024px)",
+      "pass": true,
+      "observed": {
+        "docWidth": 1024,
+        "winWidth": 1024,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on team at Desktop (1440px)",
+      "pass": true,
+      "observed": {
+        "docWidth": 1440,
+        "winWidth": 1440,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on product at iPhone SE (375px)",
+      "pass": true,
+      "observed": {
+        "docWidth": 375,
+        "winWidth": 375,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on product at iPhone XR (414px)",
+      "pass": true,
+      "observed": {
+        "docWidth": 414,
+        "winWidth": 414,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on product at iPad Mini (768px)",
+      "pass": true,
+      "observed": {
+        "docWidth": 768,
+        "winWidth": 768,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on product at iPad Pro / Small Desktop (1024px)",
+      "pass": true,
+      "observed": {
+        "docWidth": 1024,
+        "winWidth": 1024,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on product at Desktop (1440px)",
+      "pass": true,
+      "observed": {
+        "docWidth": 1440,
+        "winWidth": 1440,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on transparency at iPhone SE (375px)",
+      "pass": true,
+      "observed": {
+        "docWidth": 375,
+        "winWidth": 375,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on transparency at iPhone XR (414px)",
+      "pass": true,
+      "observed": {
+        "docWidth": 414,
+        "winWidth": 414,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on transparency at iPad Mini (768px)",
+      "pass": true,
+      "observed": {
+        "docWidth": 768,
+        "winWidth": 768,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on transparency at iPad Pro / Small Desktop (1024px)",
+      "pass": true,
+      "observed": {
+        "docWidth": 1024,
+        "winWidth": 1024,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on transparency at Desktop (1440px)",
+      "pass": true,
+      "observed": {
+        "docWidth": 1440,
+        "winWidth": 1440,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on support at iPhone SE (375px)",
+      "pass": true,
+      "observed": {
+        "docWidth": 375,
+        "winWidth": 375,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on support at iPhone XR (414px)",
+      "pass": true,
+      "observed": {
+        "docWidth": 414,
+        "winWidth": 414,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on support at iPad Mini (768px)",
+      "pass": true,
+      "observed": {
+        "docWidth": 768,
+        "winWidth": 768,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on support at iPad Pro / Small Desktop (1024px)",
+      "pass": true,
+      "observed": {
+        "docWidth": 1024,
+        "winWidth": 1024,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on support at Desktop (1440px)",
+      "pass": true,
+      "observed": {
+        "docWidth": 1440,
+        "winWidth": 1440,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on 404 at iPhone SE (375px)",
+      "pass": true,
+      "observed": {
+        "docWidth": 375,
+        "winWidth": 375,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on 404 at iPhone XR (414px)",
+      "pass": true,
+      "observed": {
+        "docWidth": 414,
+        "winWidth": 414,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on 404 at iPad Mini (768px)",
+      "pass": true,
+      "observed": {
+        "docWidth": 768,
+        "winWidth": 768,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on 404 at iPad Pro / Small Desktop (1024px)",
+      "pass": true,
+      "observed": {
+        "docWidth": 1024,
+        "winWidth": 1024,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "name": "No horizontal scroll on 404 at Desktop (1440px)",
+      "pass": true,
+      "observed": {
+        "docWidth": 1440,
+        "winWidth": 1440,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "name": "Home displays 4.935.000đ expense",
+      "pass": true,
+      "observed": true
+    },
+    {
+      "name": "Home displays 6.700.000đ revenue assumption",
+      "pass": true,
+      "observed": true
+    },
+    {
+      "name": "Home displays +1.765.000đ balance",
+      "pass": true,
+      "observed": true
+    },
+    {
+      "name": "Home has no reference to pencil case or tote bag",
+      "pass": true,
+      "observed": {
+        "has4935": true,
+        "has6700": true,
+        "has1765": true,
+        "hasCraftRev": true,
+        "hasFoodAssumption": true,
+        "hasPencilCase": false,
+        "hasToteBag": false
+      }
+    },
+    {
+      "name": "Product page has all 7 SKUs and reference prices",
+      "pass": true,
+      "observed": {
+        "hasChuonChuon": true,
+        "hasMocKhoa": true,
+        "hasSetDoAn": true,
+        "hasComboNemGion": true,
+        "hasComboNemXu": true,
+        "hasComboNemPhoMai": true,
+        "hasBanhSuKem": true,
+        "hasPrice40k": true,
+        "hasPrice10k": true,
+        "hasPrice79k": true,
+        "hasPrice60k": true,
+        "hasPrice20k": true,
+        "hasUnconfirmedStatus": true,
+        "hasPencilCase": false
+      }
+    },
+    {
+      "name": "Product page has no reference to pencil case",
+      "pass": true,
+      "observed": false
+    },
+    {
+      "name": "Minh bạch has 4.935.000đ total expense and 19 line items",
+      "pass": true,
+      "observed": {
+        "has4935": true,
+        "has6700": true,
+        "has1765": true,
+        "hasCraftBreakdown": true,
+        "hasFoodBreakdown": true,
+        "hasChuaHoaVon": false,
+        "has220kDeficit": false,
+        "hasNemTranCongChau": true,
+        "hasBotChienXu": true,
+        "hasHopDungThucAn": true,
+        "hasXienQue": true,
+        "hasPhoMai": true,
+        "hasKhoaiTay": true,
+        "hasDauAn": true,
+        "hasNuocUong": true,
+        "hasBanhSuKemNL": true,
+        "hasChuonChuon12cm": true,
+        "hasChanDe": true,
+        "hasTuongTo": true,
+        "hasBongChoTroChoi": true,
+        "hasMauVeSauMau": true,
+        "hasMocKhoaNL": true,
+        "hasBanhKeoQua": true,
+        "hasTruyenThongTrucTiep": true,
+        "hasDiChuyenBuoi1": true,
+        "hasDiChuyenBuoi2": true
+      }
+    },
+    {
+      "name": "Minh bạch has dual-source revenue 6.700.000đ (2.200.000đ craft + 4.500.000đ food)",
+      "pass": true,
+      "observed": {
+        "has4935": true,
+        "has6700": true,
+        "has1765": true,
+        "hasCraftBreakdown": true,
+        "hasFoodBreakdown": true,
+        "hasChuaHoaVon": false,
+        "has220kDeficit": false,
+        "hasNemTranCongChau": true,
+        "hasBotChienXu": true,
+        "hasHopDungThucAn": true,
+        "hasXienQue": true,
+        "hasPhoMai": true,
+        "hasKhoaiTay": true,
+        "hasDauAn": true,
+        "hasNuocUong": true,
+        "hasBanhSuKemNL": true,
+        "hasChuonChuon12cm": true,
+        "hasChanDe": true,
+        "hasTuongTo": true,
+        "hasBongChoTroChoi": true,
+        "hasMauVeSauMau": true,
+        "hasMocKhoaNL": true,
+        "hasBanhKeoQua": true,
+        "hasTruyenThongTrucTiep": true,
+        "hasDiChuyenBuoi1": true,
+        "hasDiChuyenBuoi2": true
+      }
+    },
+    {
+      "name": "Minh bạch does not contain \"chưa hòa vốn\" or old 220.000đ deficit",
+      "pass": true,
+      "observed": {
+        "has4935": true,
+        "has6700": true,
+        "has1765": true,
+        "hasCraftBreakdown": true,
+        "hasFoodBreakdown": true,
+        "hasChuaHoaVon": false,
+        "has220kDeficit": false,
+        "hasNemTranCongChau": true,
+        "hasBotChienXu": true,
+        "hasHopDungThucAn": true,
+        "hasXienQue": true,
+        "hasPhoMai": true,
+        "hasKhoaiTay": true,
+        "hasDauAn": true,
+        "hasNuocUong": true,
+        "hasBanhSuKemNL": true,
+        "hasChuonChuon12cm": true,
+        "hasChanDe": true,
+        "hasTuongTo": true,
+        "hasBongChoTroChoi": true,
+        "hasMauVeSauMau": true,
+        "hasMocKhoaNL": true,
+        "hasBanhKeoQua": true,
+        "hasTruyenThongTrucTiep": true,
+        "hasDiChuyenBuoi1": true,
+        "hasDiChuyenBuoi2": true
+      }
+    },
+    {
+      "name": "Minh bạch .formula-subnote font-size >= 14px at mobile-375",
+      "pass": true,
+      "observed": {
+        "exists": true,
+        "fontSizePx": 14,
+        "fontSizeCss": "14px",
+        "text": "Giả định bán đủ 30 chuồn chuồn tre 12 cm kèm đế và 100 móc khóa lăng kính theo giá tham khảo trong đề xuất.",
+        "hasOverflow": false,
+        "containsDynamicCraftText": true,
+        "hasHardcodedOldLiteral": false
+      }
+    },
+    {
+      "name": "Minh bạch .formula-subnote no card overflow at mobile-375",
+      "pass": true,
+      "observed": {
+        "exists": true,
+        "fontSizePx": 14,
+        "fontSizeCss": "14px",
+        "text": "Giả định bán đủ 30 chuồn chuồn tre 12 cm kèm đế và 100 móc khóa lăng kính theo giá tham khảo trong đề xuất.",
+        "hasOverflow": false,
+        "containsDynamicCraftText": true,
+        "hasHardcodedOldLiteral": false
+      }
+    },
+    {
+      "name": "Minh bạch .formula-subnote uses dynamic craft text without old hardcoded literal at mobile-375",
+      "pass": true,
+      "observed": {
+        "exists": true,
+        "fontSizePx": 14,
+        "fontSizeCss": "14px",
+        "text": "Giả định bán đủ 30 chuồn chuồn tre 12 cm kèm đế và 100 móc khóa lăng kính theo giá tham khảo trong đề xuất.",
+        "hasOverflow": false,
+        "containsDynamicCraftText": true,
+        "hasHardcodedOldLiteral": false
+      }
+    },
+    {
+      "name": "Minh bạch .formula-subnote font-size >= 14px at tablet-768",
+      "pass": true,
+      "observed": {
+        "exists": true,
+        "fontSizePx": 14,
+        "fontSizeCss": "14px",
+        "text": "Giả định bán đủ 30 chuồn chuồn tre 12 cm kèm đế và 100 móc khóa lăng kính theo giá tham khảo trong đề xuất.",
+        "hasOverflow": false,
+        "containsDynamicCraftText": true,
+        "hasHardcodedOldLiteral": false
+      }
+    },
+    {
+      "name": "Minh bạch .formula-subnote no card overflow at tablet-768",
+      "pass": true,
+      "observed": {
+        "exists": true,
+        "fontSizePx": 14,
+        "fontSizeCss": "14px",
+        "text": "Giả định bán đủ 30 chuồn chuồn tre 12 cm kèm đế và 100 móc khóa lăng kính theo giá tham khảo trong đề xuất.",
+        "hasOverflow": false,
+        "containsDynamicCraftText": true,
+        "hasHardcodedOldLiteral": false
+      }
+    },
+    {
+      "name": "Minh bạch .formula-subnote uses dynamic craft text without old hardcoded literal at tablet-768",
+      "pass": true,
+      "observed": {
+        "exists": true,
+        "fontSizePx": 14,
+        "fontSizeCss": "14px",
+        "text": "Giả định bán đủ 30 chuồn chuồn tre 12 cm kèm đế và 100 móc khóa lăng kính theo giá tham khảo trong đề xuất.",
+        "hasOverflow": false,
+        "containsDynamicCraftText": true,
+        "hasHardcodedOldLiteral": false
+      }
+    },
+    {
+      "name": "Minh bạch .formula-subnote font-size >= 14px at desktop-1440",
+      "pass": true,
+      "observed": {
+        "exists": true,
+        "fontSizePx": 14,
+        "fontSizeCss": "14px",
+        "text": "Giả định bán đủ 30 chuồn chuồn tre 12 cm kèm đế và 100 móc khóa lăng kính theo giá tham khảo trong đề xuất.",
+        "hasOverflow": false,
+        "containsDynamicCraftText": true,
+        "hasHardcodedOldLiteral": false
+      }
+    },
+    {
+      "name": "Minh bạch .formula-subnote no card overflow at desktop-1440",
+      "pass": true,
+      "observed": {
+        "exists": true,
+        "fontSizePx": 14,
+        "fontSizeCss": "14px",
+        "text": "Giả định bán đủ 30 chuồn chuồn tre 12 cm kèm đế và 100 móc khóa lăng kính theo giá tham khảo trong đề xuất.",
+        "hasOverflow": false,
+        "containsDynamicCraftText": true,
+        "hasHardcodedOldLiteral": false
+      }
+    },
+    {
+      "name": "Minh bạch .formula-subnote uses dynamic craft text without old hardcoded literal at desktop-1440",
+      "pass": true,
+      "observed": {
+        "exists": true,
+        "fontSizePx": 14,
+        "fontSizeCss": "14px",
+        "text": "Giả định bán đủ 30 chuồn chuồn tre 12 cm kèm đế và 100 móc khóa lăng kính theo giá tham khảo trong đề xuất.",
+        "hasOverflow": false,
+        "containsDynamicCraftText": true,
+        "hasHardcodedOldLiteral": false
+      }
+    },
+    {
+      "name": "Logo horizontal option 5 loaded properly in header and footer",
+      "pass": true,
+      "observed": {
+        "headerLogoSrc": "/images/logo_option5_horizontal.png",
+        "footerLogoSrc": "/images/logo_option5_horizontal.png",
+        "headerLogoComplete": true,
+        "headerLogoNaturalWidth": 1419,
+        "footerLogoComplete": true,
+        "footerLogoNaturalWidth": 1419
+      }
+    }
+  ],
+  "responsiveChecks": [
+    {
+      "path": "/",
+      "viewport": "iPhone SE (375px)",
+      "overflow": {
+        "docWidth": 375,
+        "winWidth": 375,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "path": "/",
+      "viewport": "iPhone XR (414px)",
+      "overflow": {
+        "docWidth": 414,
+        "winWidth": 414,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "path": "/",
+      "viewport": "iPad Mini (768px)",
+      "overflow": {
+        "docWidth": 768,
+        "winWidth": 768,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "path": "/",
+      "viewport": "iPad Pro / Small Desktop (1024px)",
+      "overflow": {
+        "docWidth": 1024,
+        "winWidth": 1024,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "path": "/",
+      "viewport": "Desktop (1440px)",
+      "overflow": {
+        "docWidth": 1440,
+        "winWidth": 1440,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "path": "/du-an/mang-theo-mot-net-ve",
+      "viewport": "iPhone SE (375px)",
+      "overflow": {
+        "docWidth": 375,
+        "winWidth": 375,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "path": "/du-an/mang-theo-mot-net-ve",
+      "viewport": "iPhone XR (414px)",
+      "overflow": {
+        "docWidth": 414,
+        "winWidth": 414,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "path": "/du-an/mang-theo-mot-net-ve",
+      "viewport": "iPad Mini (768px)",
+      "overflow": {
+        "docWidth": 768,
+        "winWidth": 768,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "path": "/du-an/mang-theo-mot-net-ve",
+      "viewport": "iPad Pro / Small Desktop (1024px)",
+      "overflow": {
+        "docWidth": 1024,
+        "winWidth": 1024,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "path": "/du-an/mang-theo-mot-net-ve",
+      "viewport": "Desktop (1440px)",
+      "overflow": {
+        "docWidth": 1440,
+        "winWidth": 1440,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "path": "/ve-nhom",
+      "viewport": "iPhone SE (375px)",
+      "overflow": {
+        "docWidth": 375,
+        "winWidth": 375,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "path": "/ve-nhom",
+      "viewport": "iPhone XR (414px)",
+      "overflow": {
+        "docWidth": 414,
+        "winWidth": 414,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "path": "/ve-nhom",
+      "viewport": "iPad Mini (768px)",
+      "overflow": {
+        "docWidth": 768,
+        "winWidth": 768,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "path": "/ve-nhom",
+      "viewport": "iPad Pro / Small Desktop (1024px)",
+      "overflow": {
+        "docWidth": 1024,
+        "winWidth": 1024,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "path": "/ve-nhom",
+      "viewport": "Desktop (1440px)",
+      "overflow": {
+        "docWidth": 1440,
+        "winWidth": 1440,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "path": "/san-pham",
+      "viewport": "iPhone SE (375px)",
+      "overflow": {
+        "docWidth": 375,
+        "winWidth": 375,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "path": "/san-pham",
+      "viewport": "iPhone XR (414px)",
+      "overflow": {
+        "docWidth": 414,
+        "winWidth": 414,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "path": "/san-pham",
+      "viewport": "iPad Mini (768px)",
+      "overflow": {
+        "docWidth": 768,
+        "winWidth": 768,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "path": "/san-pham",
+      "viewport": "iPad Pro / Small Desktop (1024px)",
+      "overflow": {
+        "docWidth": 1024,
+        "winWidth": 1024,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "path": "/san-pham",
+      "viewport": "Desktop (1440px)",
+      "overflow": {
+        "docWidth": 1440,
+        "winWidth": 1440,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "path": "/minh-bach",
+      "viewport": "iPhone SE (375px)",
+      "overflow": {
+        "docWidth": 375,
+        "winWidth": 375,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "path": "/minh-bach",
+      "viewport": "iPhone XR (414px)",
+      "overflow": {
+        "docWidth": 414,
+        "winWidth": 414,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "path": "/minh-bach",
+      "viewport": "iPad Mini (768px)",
+      "overflow": {
+        "docWidth": 768,
+        "winWidth": 768,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "path": "/minh-bach",
+      "viewport": "iPad Pro / Small Desktop (1024px)",
+      "overflow": {
+        "docWidth": 1024,
+        "winWidth": 1024,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "path": "/minh-bach",
+      "viewport": "Desktop (1440px)",
+      "overflow": {
+        "docWidth": 1440,
+        "winWidth": 1440,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "path": "/dong-hanh",
+      "viewport": "iPhone SE (375px)",
+      "overflow": {
+        "docWidth": 375,
+        "winWidth": 375,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "path": "/dong-hanh",
+      "viewport": "iPhone XR (414px)",
+      "overflow": {
+        "docWidth": 414,
+        "winWidth": 414,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "path": "/dong-hanh",
+      "viewport": "iPad Mini (768px)",
+      "overflow": {
+        "docWidth": 768,
+        "winWidth": 768,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "path": "/dong-hanh",
+      "viewport": "iPad Pro / Small Desktop (1024px)",
+      "overflow": {
+        "docWidth": 1024,
+        "winWidth": 1024,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "path": "/dong-hanh",
+      "viewport": "Desktop (1440px)",
+      "overflow": {
+        "docWidth": 1440,
+        "winWidth": 1440,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "path": "/404.html",
+      "viewport": "iPhone SE (375px)",
+      "overflow": {
+        "docWidth": 375,
+        "winWidth": 375,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "path": "/404.html",
+      "viewport": "iPhone XR (414px)",
+      "overflow": {
+        "docWidth": 414,
+        "winWidth": 414,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "path": "/404.html",
+      "viewport": "iPad Mini (768px)",
+      "overflow": {
+        "docWidth": 768,
+        "winWidth": 768,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "path": "/404.html",
+      "viewport": "iPad Pro / Small Desktop (1024px)",
+      "overflow": {
+        "docWidth": 1024,
+        "winWidth": 1024,
+        "hasHorizontalScroll": false
+      }
+    },
+    {
+      "path": "/404.html",
+      "viewport": "Desktop (1440px)",
+      "overflow": {
+        "docWidth": 1440,
+        "winWidth": 1440,
+        "hasHorizontalScroll": false
+      }
+    }
+  ],
+  "keyboardMenuChecks": {},
+  "noJsChecks": {},
+  "errors": [],
+  "browser": "Chrome/154.0.8037.93",
+  "deviceScaleFactor": 1,
+  "zoom": "default 1, viewport simulated sizing",
+  "endedAt": "2026-10-03T02:19:15.072Z",
+  "totalAssertions": 134,
+  "passedAssertions": 134,
+  "failedAssertions": []
+}

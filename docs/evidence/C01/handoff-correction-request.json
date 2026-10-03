@@ -1,0 +1,5 @@
+{
+    "task":  "C01",
+    "prompt":  "C01 handoff documentation accuracy: actual installed Astro7.3.5 and Root browserChrome154.0.8037.93. Current handoff-report says cli5.16.4 and Chrome140.0.7339.186 without evidence; remove stale version claims or use actual command/browser JSON values. Logo variants selected by Brain from owner supplied materials, not explicitly selected individually by owner. Correct only external handoff-report/metadata alongside current RC01 fix, no extra app changes. Also record original browser harness fixes (menu selector/cached304), not claims that all initial runs passed.",
+    "timestamp":  "2026-10-03T02:13:48.8541034Z"
+}

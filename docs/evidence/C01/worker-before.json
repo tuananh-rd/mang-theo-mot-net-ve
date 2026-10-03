@@ -1,0 +1,40 @@
+{
+  "id": "1a7cd25a-94f2-4318-b5a1-a1c9ac014c65",
+  "ok": true,
+  "result": {
+    "terminals": [
+      {
+        "handle": "term_4d29ba8e-7d0b-4a74-858f-d45e9a6fb9b9",
+        "ptyId": "1873b0af-5f38-4783-9ee7-c7c32705fcaf::C:\\Users\\tuana\\Documents\\Codex\\2026-10-02\\t\\outputs\\mang-theo-mot-net-ve::workspace:a975a56e-0b5d-4351-b7c3-1e22cf16c0fc@@e7b697b9",
+        "incarnationId": "2ea6694a-36ff-4841-8433-a795aeb9a8b8",
+        "orphaned": false,
+        "worktreeId": "1873b0af-5f38-4783-9ee7-c7c32705fcaf::C:\\Users\\tuana\\Documents\\Codex\\2026-10-02\\t\\outputs\\mang-theo-mot-net-ve::workspace:a975a56e-0b5d-4351-b7c3-1e22cf16c0fc",
+        "worktreePath": "C:\\Users\\tuana\\Documents\\Codex\\2026-10-02\\t\\outputs\\mang-theo-mot-net-ve",
+        "branch": "",
+        "tabId": "d6f4df78-693e-42aa-b1c9-89fac4be6cd4",
+        "leafId": "5087d49c-238c-4a06-ba70-d075bb2d29e8",
+        "title": "C:\\WINDOWS\\system32\\cmd.exe",
+        "connected": true,
+        "writable": true,
+        "lastOutputAt": 1790986415606,
+        "preview": " QA/capture lặp.\n• Không mở Task T05, không git push, không triển khai public.\n• Tiếp tục duy trì Preview Server daemon task-957 (PID 2888) lắng nghe loopback trên http://127.0.0.1:4321/.\n• Nhường quyền commit tài liệ(docs/**) và cập nhật GitHub private cho Codex Brain theo phân quyền quản lý dự án.",
+        "executionHostId": "local",
+        "agentIdentity": "antigravity"
+      }
+    ],
+    "hostScope": {
+      "hostIds": [
+        "local"
+      ],
+      "omittedHostIds": []
+    },
+    "topologyRevisions": {
+      "1873b0af-5f38-4783-9ee7-c7c32705fcaf::C:\\Users\\tuana\\Documents\\Codex\\2026-10-02\\t\\outputs\\mang-theo-mot-net-ve::workspace:a975a56e-0b5d-4351-b7c3-1e22cf16c0fc": 37
+    },
+    "totalCount": 1,
+    "truncated": false
+  },
+  "_meta": {
+    "runtimeId": "6e6114a7-3148-4dbe-b563-c2a58c95ba4d"
+  }
+}

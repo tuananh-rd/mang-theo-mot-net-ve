@@ -1,0 +1,32 @@
+﻿▶ Kiểm thử logic tài chính và tính toán (Task C01)
+  ✔ Tổng dự toán chi của 19 khoản mục đúng bằng 4.935.000đ theo 3 nhóm cụ thể (0.7595ms)
+  ✔ sumPlannedExpenses ném lỗi khi có khoản mục null (không tự coi là 0) (0.3514ms)
+  ✔ Doanh thu kịch bản từng sản phẩm thủ công tính đúng theo giá tham khảo × số lượng kế hoạch (0.2434ms)
+  ✔ calculateTotalRevenueScenario ném lỗi khi có sản phẩm với plannedQuantity null (không âm thầm bỏ null) (0.1503ms)
+  ✔ calculateCombinedPlannedRevenue kết hợp đúng doanh thu thủ công và giả định ẩm thực (2.200.000đ + 4.500.000đ = 6.700.000đ) (0.1295ms)
+  ✔ calculateCombinedPlannedRevenue propagate null khi một trong hai nguồn là null (không tự về 0) (0.0671ms)
+  ✔ Kịch bản cơ sở — Chưa tính tài trợ: Chi 4.935.000đ, Thu giả định 6.700.000đ => Dư giả định 1.765.000đ (11.4377ms)
+  ✔ calculateScenario trả về null khi dữ liệu doanh thu hoặc chi phí chưa biết (null) (0.1799ms)
+  ✔ calculateScenario ném lỗi khi hiện vật vượt quá tổng chi hoặc là số âm (0.2152ms)
+  ✔ Định dạng formatVND xử lý chuẩn xác số dương, 0 và null (0.3337ms)
+✔ Kiểm thử logic tài chính và tính toán (Task C01) (15.0072ms)
+▶ Kiểm tra tính toàn vẹn dữ liệu và an toàn thông tin (Task C01)
+  ✔ Toàn bộ số liệu thực tế được khởi tạo ở trạng thái null / chưa xác nhận (0.119ms)
+  ✔ Kênh liên hệ chính thức có giá trị null và trạng thái unconfirmed (0.0755ms)
+  ✔ Sản phẩm gây quỹ có đủ 7 SKUs, actualStock null và saleStatus unconfirmed (0.0619ms)
+  ✔ 5 SKUs ẩm thực có plannedQuantity.value === null (chưa có phân bổ số lượng từng SKU) (0.1236ms)
+  ✔ Không còn tham chiếu tới túi bút hoặc túi vải cũ trong sản phẩm và chi phí (0.1615ms)
+✔ Kiểm tra tính toàn vẹn dữ liệu và an toàn thông tin (Task C01) (0.7345ms)
+▶ Kiểm thử helpers hiển thị và quy tắc định dạng (Task C01)
+  ✔ formatProductQuantity dẫn xuất đúng số lượng cho thủ công và Chưa xác nhận cho đồ ăn (0.1584ms)
+  ✔ formatProductPrice định dạng chuẩn cho cả 7 SKUs và không ghép đơn vị khi giá null (0.3174ms)
+  ✔ formatScenarioBalance phân biệt chính xác 4 trạng thái: âm, 0, dương, và unknown (0.2187ms)
+✔ Kiểm thử helpers hiển thị và quy tắc định dạng (Task C01) (0.7926ms)
+ℹ tests 18
+ℹ suites 3
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 117.3221

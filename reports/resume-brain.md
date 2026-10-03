@@ -1,5 +1,9 @@
 # Bàn giao tiếp nối Brain — 02/10/2026
 
+## Tiếp tục từ C01 — 03/10/2026
+
+C01 DONE/RC01 PASS: app ead94a482e590cf1c5ef4eb1e0829c99e30d378c, base113069636c653cb7bbb255c33d681cbbbd940b19, branch task/c01-materials. Chủ dự án yêu cầu đọc D:\Downloads\materials và thêm vào website. Đã bổ sung hai logo, danh mục7món và dự toán19khoản4.935.000đ. Doanh thu6700000/sốdư1765000 chỉ giả định, food4500000 chưa phân bổSKU. [Review](../docs/reviews/RC01-ead94a4.md), [nguồn](../docs/materials-intake.md). Root655browser/18tests/check/build0/13ảnh/17servehash. Worker Antigravity hiện có HOLD; terminal term_4d29ba8e-7d0b-4a74-858f-d45e9a6fb9b9, context và bằng chứng trong docs/evidence/C01. Previewtask957/PID2888/127.0.0.1:4321. Không taskpublicT05/deploy; không tự coi sourcePDF là xác nhậnactual/contact/quyềnảnh. Các mốc T04 bên dưới là lịch sử.
+
 ## Hiện tại sau T04/R04 — 03/10/2026
 
 Workspace giữ nguyên `C:\Users\tuana\Documents\Codex\2026-10-02\t\outputs\mang-theo-mot-net-ve`. **T04 DONE; R04 PASS**, base `1b6d678203a89cc8f2f384d08e50ee65e88a02a4`, app final `fad117c7e12a80775b0dbd0ad93ff464db60fcb9`, nhánh `task/t04-preview-polish`. [Review cuối](../docs/reviews/R04-fad117c.md), [candidate CHANGES_REQUIRED](../docs/reviews/R04-0d4bd9d.md), [spec](../docs/task-specs/T04.md), [dispatch/ACK](../docs/evidence/T04/dispatch.md), [vận hành](../docs/operations.md). Sáu trang và404 đủ preview, title không lặp, bảng/thẻ PRODUCTS một nguồn giá/số lượng; home cùng helper dự toán Minh bạch. Sửa candidate quantity text trùng số và balance else0đ che unknown/dương; tests mới bảo vệ null/dấu. Không đổi stack/dependency/lockfile/config, không bịa actual/stock/contact hoặc ảnh.

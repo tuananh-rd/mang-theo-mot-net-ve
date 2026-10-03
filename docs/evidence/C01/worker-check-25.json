@@ -1,0 +1,35 @@
+{
+  "id": "ef4a3882-ce56-45f2-b76d-26d517c88a0a",
+  "ok": true,
+  "result": {
+    "terminal": {
+      "handle": "term_4d29ba8e-7d0b-4a74-858f-d45e9a6fb9b9",
+      "status": "running",
+      "tail": [
+        "● ManageTask(status task-2276)",
+        "● Schedule(20s: Wait for task-2276 completion) (ctrl+o to expand)",
+        "  Đang chờ kết quả audit và chụp ảnh giao diện.",
+        "● ManageTask(status task-2276)",
+        "● Read(~/.gemini/antigravity-cli/brain/86498389-9ca4-486e-9ba8-82247107fb96/.system_generated/tasks/task-2276.log)",
+        "● Bash(Get-ChildItem -Path \"C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-c01\") (ctrl+o to expand)",
+        "⢿  Running command...",
+        "───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────",
+        ">",
+        "───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────",
+        "  ● [00:21:22] npx astro preview --host 127.0.0.1 --port 4321 running",
+        "───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────",
+        "esc to cancel                                                                                                      Gemini 3.8 Flash · high · 1 task(s) · /tasks"
+      ],
+      "truncated": true,
+      "limited": true,
+      "oldestCursor": "302256",
+      "nextCursor": "304256",
+      "latestCursor": "304256",
+      "returnedLineCount": 13,
+      "source": "screen"
+    }
+  },
+  "_meta": {
+    "runtimeId": "6e6114a7-3148-4dbe-b563-c2a58c95ba4d"
+  }
+}

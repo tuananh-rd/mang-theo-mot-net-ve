@@ -1,0 +1,40 @@
+{
+  "id": "3f2fcbd4-cde8-4d64-ba96-08591f86b255",
+  "ok": true,
+  "result": {
+    "terminal": {
+      "handle": "term_4d29ba8e-7d0b-4a74-858f-d45e9a6fb9b9",
+      "status": "running",
+      "tail": [
+        "● ManageTask(status task-2301)",
+        "● Bash(Get-ChildItem -Path \"C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-c01\" | Select-Object Name, Length,",
+        "Last...)",
+        "● ManageTask(status task-2301)",
+        "● Schedule(10s: Wait for task-2301 to finish) (ctrl+o to expand)",
+        "  Đang đợi tác vụ lưu kết quả audit.",
+        "● Bash(git status --short)",
+        "● Bash(git add src/ public/images/ tests/)",
+        "● Bash(git status)",
+        "● Bash(git commit -m \"feat(c01-materials): integrate proposal materials, 19-item budget, and dual-source revenue\")",
+        "● Bash(git rev-parse HEAD) (ctrl+o to expand)",
+        "⣟  Running command...",
+        "───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────",
+        ">",
+        "───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────",
+        "  ● [00:21:22] npx astro preview --host 127.0.0.1 --port 4321 running",
+        "───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────",
+        "esc to cancel                                                                                                      Gemini 3.8 Flash · high · 1 task(s) · /tasks"
+      ],
+      "truncated": true,
+      "limited": true,
+      "oldestCursor": "306976",
+      "nextCursor": "308976",
+      "latestCursor": "308976",
+      "returnedLineCount": 18,
+      "source": "screen"
+    }
+  },
+  "_meta": {
+    "runtimeId": "6e6114a7-3148-4dbe-b563-c2a58c95ba4d"
+  }
+}

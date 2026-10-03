@@ -1,5 +1,9 @@
 # Kiến trúc website
 
+## C01 — cập nhật nội dung/logo, giữ kiến trúc
+
+C01/RC01 PASS tại app ead94a482e590cf1c5ef4eb1e0829c99e30d378c. Không thay Astro/TS/CSS/dependency. Thêm category craft/food; doanh thu thủ công tính từ hai sản phẩm, giả định đồ ăn QuantitativeFact có nguồn trang18/null/approvalpending; tổng giả định dẫn xuất qua calculateCombinedPlannedRevenue, không bỏnullSKU.19khoảnchi thay dự toán cũ. Hai PNG nguồn thật dùng branding/favicon, ảnh hàng/sựkiện vẫnminhhọa. [Review](reviews/RC01-ead94a4.md), [spec](task-specs/C01.md). Phần kiến trúc các task trước bên dưới giữ để truy vết.
+
 ## Sau T04/R04 — 03/10/2026
 
 T04 DONE, [R04 PASS](reviews/R04-fad117c.md) tại app `fad117c7e12a80775b0dbd0ad93ff464db60fcb9`, base1b6d678, nhánh task/t04-preview-polish. Giữ Astro7.3.5 static/TS strict/CSS/npm lock,6route+404,15distfile và loopback/noindex. Title riêng không lặp; bảng/thẻ sản phẩm dùng PRODUCTS với quantityPrefix không chứa số; helpers định dạng quantity/price/null và balance4trạng thái. Home/Minh bạch cùng PLANNED_EXPENSES/PRODUCTS/kịch bản chưa tài trợ, actual/contact/stock vẫnnull.16tests và410browser assertions độc lập đạt,21full-page đã xem;15hash ổn định sau rebuild. [Vận hành](operations.md) ghi nguồn cập nhật, quyền công bố và static404 mapping. T05 chưa giao/public, workerHOLD. Các mốc bên dưới là lịch sử quyết định T00 đến T03.

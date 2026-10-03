@@ -1,5 +1,9 @@
 # Nội dung ban đầu
 
+## Nguồn cập nhật C01 — 03/10/2026
+
+Nguồn mới và nội dung thay thế được ghi ở [materials-intake.md](materials-intake.md) và [spec C01](task-specs/C01.md). C01 dùng chuồn chuồn, móc khóa và danh mục đồ ăn thay túi bút/túi vải; mọi giá là tham khảo, số lượng chưa biết là null. Logo lấy từ materials. Nội dung bên dưới là bản cũ T04, không trộn với nguồn mới.
+
 Nội dung dưới đây là bản nháp từ đề xuất, cần chủ dự án duyệt trước public.
 
 ## Hero

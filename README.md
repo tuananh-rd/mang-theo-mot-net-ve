@@ -1,5 +1,9 @@
 # Mang Theo Một Nét Vẽ
 
+## C01 cập nhật materials — 03/10/2026
+
+Đã đưa hồ sơ PDF mới và logo Lăng Kính vào preview: chuồn chuồn, móc khóa và thực đơn gây quỹ; dự toán19khoản4.935.000đ. **C01 DONE; RC01 PASS** tại app ead94a482e590cf1c5ef4eb1e0829c99e30d378c, nhánh task/c01-materials. [Review](docs/reviews/RC01-ead94a4.md), [nguồn mới](docs/materials-intake.md). Độc lập655browser/18tests/check/build đạt,13ảnh đã xem,17HTTPbody khớpdist. Preview http://127.0.0.1:4321/; actual/contact còn chưa xác nhận, noindex/nofollow, chưa public. Các mốc T04 dưới đây là lịch sử.
+
 Mã nguồn: [tuananh-rd/mang-theo-mot-net-ve](https://github.com/tuananh-rd/mang-theo-mot-net-ve) — repository private. Lưu code trên GitHub không thay mốc duyệt hướng UI hoặc duyệt phát hành website.
 
 **T04 DONE; R04 PASS** tại app SHA `fad117c7e12a80775b0dbd0ad93ff464db60fcb9`. Sáu trang và 404 đã được kiểm tổng thể, title không lặp, giá/số lượng và dự toán home dùng cùng nguồn dữ liệu. Check,16tests,build và410browser assertions độc lập đạt;21full-page đã xem. [Review cuối](docs/reviews/R04-fad117c.md), [đặc tả](docs/task-specs/T04.md), [vận hành](docs/operations.md), [bàn giao hiện tại](reports/resume-brain.md). Giữ hướng UI đã duyệt sau sửa [Claude](reports/ui-review-claude.md); website chưa public, T05 chờ chủ dự án xác nhận nội dung và duyệt phát hành.

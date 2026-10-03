@@ -1,0 +1,28 @@
+﻿
+> mang-theo-mot-net-ve@0.0.1 build
+> astro build
+
+09:10:04 [types] Generated 56ms
+09:10:04 [build] output: "static"
+09:10:04 [build] mode: "static"
+09:10:04 [build] directory: C:\Users\tuana\Documents\Codex\2026-10-02\t\outputs\mang-theo-mot-net-ve\dist\
+09:10:04 [build] Collecting build info...
+09:10:04 [build] ✓ Completed in 86ms.
+09:10:04 [build] Building static entrypoints...
+09:10:05 [vite] ✓ built in 218ms
+09:10:05 [vite] ✓ built in 17ms
+09:10:05 [build] Rearranging server assets...
+
+ generating static routes 
+09:10:05   ├─ /404.html (+9ms) 
+09:10:05   ├─ /dong-hanh/index.html (+4ms) 
+09:10:05   ├─ /du-an/mang-theo-mot-net-ve/index.html (+6ms) 
+09:10:05   ├─ /minh-bach/index.html (+8ms) 
+09:10:05   ├─ /san-pham/index.html (+7ms) 
+09:10:05   ├─ /ve-nhom/index.html (+5ms) 
+09:10:05   ├─ /index.html (+13ms) 
+09:10:05 ✓ Completed in 66ms.
+
+09:10:05 [build] ✓ Completed in 372ms.
+09:10:05 [build] 7 page(s) built in 465ms
+09:10:05 [build] Complete!

@@ -1,5 +1,9 @@
 # Dữ liệu và tài chính
 
+## Dự toán cập nhật C01 — 03/10/2026
+
+Nguồn mới: PDF người dùng cung cấp, trang24–27. Chi19khoản gồm nguyên liệu2.245.000đ + vật tư/sản phẩm/quà1.560.000đ + phát sinh1.130.000đ = **4.935.000đ**. Doanh thu thủ công giả định2.200.000đ; cộng mục tiêu đồ ăn4.500.000đ (chưa có phân bổ SKU) thành6.700.000đ. Số dư cơ sở giả định1.765.000đ. Không dùng các gói hiện vật chưa đối chiếu hoặc số cũ bên dưới làm kịch bản hiện hành. [Nguồn/phép tính/mâu thuẫn](materials-intake.md), [đặc tả C01](task-specs/C01.md). Quy tắc dữ liệu/actual/null vẫn áp dụng; các bảng3.120.000đ/2.900.000đ sau đây là lịch sử T04.
+
 ## Quy tắc dữ liệu
 
 Các số dưới đây thuộc **dự toán trong hồ sơ**, không phải giao dịch thực tế hoặc mục tiêu gây quỹ đã được duyệt. Dùng VND dạng số nguyên; format khi hiển thị.

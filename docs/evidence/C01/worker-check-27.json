@@ -1,0 +1,37 @@
+{
+  "id": "eb0899ef-4191-4b87-99e0-1b26c8f0cc08",
+  "ok": true,
+  "result": {
+    "terminal": {
+      "handle": "term_4d29ba8e-7d0b-4a74-858f-d45e9a6fb9b9",
+      "status": "running",
+      "tail": [
+        "● Edit(~/.gemini/antigravity-cli/brain/86498389-9ca4-486e-9ba8-82247107fb96/scratch/audit_and_screenshots_c01.mjs)",
+        "○ Bash(node \"C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\scratch\\audit_and_screenshots_c01.mjs\")",
+        "● Schedule(25s: Wait for task-2301 completion) (ctrl+o to expand)",
+        "  Đang chờ chụp ảnh menu di động và hoàn tất kiểm thử giao diện.",
+        "● ManageTask(status task-2301)",
+        "● Schedule(15s: Wait for task-2301 completion) (ctrl+o to expand)",
+        "  Đang đợi tác vụ hoàn tất.",
+        "⣟  Generating...",
+        "───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────",
+        ">",
+        "───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────",
+        "  ● [09:07:43] node \"C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\scratch\\audit_and_screenshots_c01.mjs\" running",
+        "  ● [00:21:22] npx astro preview --host 127.0.0.1 --port 4321 running",
+        "───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────",
+        "esc to cancel                                                                                                      Gemini 3.8 Flash · high · 2 task(s) · /tasks"
+      ],
+      "truncated": true,
+      "limited": true,
+      "oldestCursor": "304728",
+      "nextCursor": "306728",
+      "latestCursor": "306728",
+      "returnedLineCount": 15,
+      "source": "screen"
+    }
+  },
+  "_meta": {
+    "runtimeId": "6e6114a7-3148-4dbe-b563-c2a58c95ba4d"
+  }
+}

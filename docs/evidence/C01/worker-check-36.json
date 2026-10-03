@@ -1,0 +1,40 @@
+{
+  "id": "070c93c7-7082-415d-8b33-c7d463474dfd",
+  "ok": true,
+  "result": {
+    "terminal": {
+      "handle": "term_4d29ba8e-7d0b-4a74-858f-d45e9a6fb9b9",
+      "status": "running",
+      "tail": [
+        "  • 23 flags của checker reviewer ban đầu: Đã xác định rõ là do tiêu chí kiểm định của script (21 flags so sánh bounding box bỏ qua object-fit: contain, 1",
+        "  liên kết /404.html bị đòi mã 200, 1 favicon 304 bị đòi 200) chứ không phải lỗi của mã nguồn ứng dụng.",
+        "  ──────",
+        "  #### 5. Hồ sơ Bàn giao & Trạng thái (HOLD)",
+        "  • Handoff Directory (ngoài repo): handoff-c01/",
+        "      • handoff-report.md: Báo cáo kỹ thuật chi tiết đã cập nhật.",
+        "      • check-build-metadata.json: Metadata kiểm định với commit ead94a4, Astro 7.3.5, Chrome 154.0.8037.93, 17 dist hashes và 134 assertions pass.",
+        "      • Logs gốc và toàn bộ 23 ảnh chụp màn hình (bao gồm 3 ảnh finance 375/768/1440 và FAQ open đã cập nhật).",
+        "  • Preview Daemon: Task task-957 (PID 2888) liên tục hoạt động trên loopback http://127.0.0.1:4321/.",
+        "  • Trạng thái: HOLD hoàn toàn ứng dụng và bản build; không thực hiện git push, không public, giữ nguyên quyền quản lý docs cho Codex Brain để tiến hành",
+        "  review R_C01.",
+        "                                                                                                                               1 artifact · /artifact to review",
+        "───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────",
+        ">",
+        "───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────",
+        "  ● [00:21:22] npx astro preview --host 127.0.0.1 --port 4321 running",
+        "───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────",
+        "? for shortcuts                                                                                                    Gemini 3.8 Flash · high · 1 task(s) · /tasks"
+      ],
+      "truncated": true,
+      "limited": true,
+      "oldestCursor": "344626",
+      "nextCursor": "346626",
+      "latestCursor": "346626",
+      "returnedLineCount": 18,
+      "source": "screen"
+    }
+  },
+  "_meta": {
+    "runtimeId": "6e6114a7-3148-4dbe-b563-c2a58c95ba4d"
+  }
+}

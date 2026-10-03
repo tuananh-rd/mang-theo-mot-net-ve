@@ -1,0 +1,5 @@
+{
+    "task":  "C01",
+    "prompt":  "C01 final review notes before handoff: src/pages/index.astro transparency-sub currently hardcodes craft2200000/food4500000/quantities and says SKU. Render numbers from craftPlannedRevenue/foodPlannedAssumption/product data; use Vietnamese từng món instead of SKU. src/data/campaign.ts food planNotes says không bật đặt hàng; customer copy should say chưa mở bán, not implementation instructions. Header brand-sub became13px/12px; preserve prior14px minimum readable body/caption text and keep mobile nooverflow. Ensure active favicon uses supplied square logo PNG (Layout still favicon.svg currently). Apply these alongside food QuantitativeFact metadata, then final check/tests/build and captures on same final committed sources. Current screenshot task running during edits must not be presented as final SHA evidence unless final build matches. No duplicate jobs/new task; handoff ACK exactHEAD/source/logo access and HOLD.",
+    "timestamp":  "2026-10-03T02:00:43.2550843Z"
+}

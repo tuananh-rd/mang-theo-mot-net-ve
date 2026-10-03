@@ -1,0 +1,206 @@
+{
+  "sha": "ead94a482e590cf1c5ef4eb1e0829c99e30d378c",
+  "time": "2026-10-03T02:18:35.364Z",
+  "checks": [
+    {
+      "file": "dist\\404.html",
+      "urlPath": "/c01-no-such-route",
+      "status": 404,
+      "expectedStatus": 404,
+      "expected": "44bce4c4d39acf7f9c96e8a52e9497afa7d34ac025cfec0a73e034064908cb2c",
+      "actual": "44bce4c4d39acf7f9c96e8a52e9497afa7d34ac025cfec0a73e034064908cb2c",
+      "pass": true
+    },
+    {
+      "file": "dist\\dong-hanh\\index.html",
+      "urlPath": "/dong-hanh/",
+      "status": 404,
+      "expectedStatus": 200,
+      "expected": "23fa7062af6f24ff5f6bb0d46c98a86a0209db0d8ea5ab9d96ec7ce4902bd7dd",
+      "actual": "3c538e92b87c9f94f23d3c4a493a7447c42a12bba6cf2b1c570ac443d9f2187d",
+      "pass": false
+    },
+    {
+      "file": "dist\\du-an\\mang-theo-mot-net-ve\\index.html",
+      "urlPath": "/du-an/mang-theo-mot-net-ve/",
+      "status": 404,
+      "expectedStatus": 200,
+      "expected": "ab2efbe6ef7821dd5b3239926bda07ed4d1f71450ebc0f710c4f53777035eefa",
+      "actual": "f25ef07d0fa22c20aca910ee305ecfe2be0e71fb677c615f1d5224c2ab1e1531",
+      "pass": false
+    },
+    {
+      "file": "dist\\favicon.svg",
+      "urlPath": "/favicon.svg",
+      "status": 200,
+      "expectedStatus": 200,
+      "expected": "cf5a6109d12aead474ccee95fd51643e1988adc2364bb1349e3c3e4e6d564051",
+      "actual": "cf5a6109d12aead474ccee95fd51643e1988adc2364bb1349e3c3e4e6d564051",
+      "pass": true
+    },
+    {
+      "file": "dist\\images\\logo_lang_kinh_2048.png",
+      "urlPath": "/images/logo_lang_kinh_2048.png",
+      "status": 200,
+      "expectedStatus": 200,
+      "expected": "06f63ac9d41c079827d794b13ffec468ea30be7b818755b4ba96bc819f7facbc",
+      "actual": "06f63ac9d41c079827d794b13ffec468ea30be7b818755b4ba96bc819f7facbc",
+      "pass": true
+    },
+    {
+      "file": "dist\\images\\logo_option5_horizontal.png",
+      "urlPath": "/images/logo_option5_horizontal.png",
+      "status": 200,
+      "expectedStatus": 200,
+      "expected": "e078e7ea7bd8debae74d2c573fe4391fd55aee57a167ca4eb63534b17ee56db9",
+      "actual": "e078e7ea7bd8debae74d2c573fe4391fd55aee57a167ca4eb63534b17ee56db9",
+      "pass": true
+    },
+    {
+      "file": "dist\\index.html",
+      "urlPath": "/",
+      "status": 200,
+      "expectedStatus": 200,
+      "expected": "7e7b0fb62b63f02adf8bfdcd5955d8ba2e92f3cba4fbbf9dad9419d978480af7",
+      "actual": "7e7b0fb62b63f02adf8bfdcd5955d8ba2e92f3cba4fbbf9dad9419d978480af7",
+      "pass": true
+    },
+    {
+      "file": "dist\\minh-bach\\index.html",
+      "urlPath": "/minh-bach/",
+      "status": 404,
+      "expectedStatus": 200,
+      "expected": "f9ed7df53f61fcaf454ad1fd1c9edb519abc2fd80ec7a680e79425ad9f9c60fe",
+      "actual": "17b493eaae748c0929b2a70d379fd5361ab8d96f17189c8faf6a59f6c2cc53ab",
+      "pass": false
+    },
+    {
+      "file": "dist\\san-pham\\index.html",
+      "urlPath": "/san-pham/",
+      "status": 404,
+      "expectedStatus": 200,
+      "expected": "ea65a53b593619169bf1c6e58952c3eb02b4c1373ad5f3ecc82a8faa31aa37c9",
+      "actual": "e038a84cd0546a656c42b02dc7c5b6a1b6345a57ce7a09d1027b84a309a738e2",
+      "pass": false
+    },
+    {
+      "file": "dist\\ve-nhom\\index.html",
+      "urlPath": "/ve-nhom/",
+      "status": 404,
+      "expectedStatus": 200,
+      "expected": "37095580d9c4943b24f6814c498d2f84434304b99784f2a5198b84534bcbea44",
+      "actual": "35052aeb338c6cfdfb09b0953613ab9fff71b4ae27558e7b34c382f6725b7b4f",
+      "pass": false
+    },
+    {
+      "file": "dist\\_astro\\dong-hanh.DuovsDRG.css",
+      "urlPath": "/_astro/dong-hanh.DuovsDRG.css",
+      "status": 200,
+      "expectedStatus": 200,
+      "expected": "a7909fac09352b0713b695298bb4ed885b46a811dcb7424ffe0f62cb0406bdda",
+      "actual": "a7909fac09352b0713b695298bb4ed885b46a811dcb7424ffe0f62cb0406bdda",
+      "pass": true
+    },
+    {
+      "file": "dist\\_astro\\index.72A2HRy4.css",
+      "urlPath": "/_astro/index.72A2HRy4.css",
+      "status": 200,
+      "expectedStatus": 200,
+      "expected": "6a0a62f8111247e8c20862bce5425f9e277f9c8010bfad6c2ebf6b7fbc6117a8",
+      "actual": "6a0a62f8111247e8c20862bce5425f9e277f9c8010bfad6c2ebf6b7fbc6117a8",
+      "pass": true
+    },
+    {
+      "file": "dist\\_astro\\Layout.DQAbUqjT.css",
+      "urlPath": "/_astro/Layout.DQAbUqjT.css",
+      "status": 200,
+      "expectedStatus": 200,
+      "expected": "c3444c181f99c93f3ab5de47a698d5249d3511e71789addd82ab10dd1f7b131a",
+      "actual": "c3444c181f99c93f3ab5de47a698d5249d3511e71789addd82ab10dd1f7b131a",
+      "pass": true
+    },
+    {
+      "file": "dist\\_astro\\mang-theo-mot-net-ve.BWRcd6ON.css",
+      "urlPath": "/_astro/mang-theo-mot-net-ve.BWRcd6ON.css",
+      "status": 200,
+      "expectedStatus": 200,
+      "expected": "c501d34a1049239d17a9b40bd710f20d6fee8c3c661df16205e994ce534e0e58",
+      "actual": "c501d34a1049239d17a9b40bd710f20d6fee8c3c661df16205e994ce534e0e58",
+      "pass": true
+    },
+    {
+      "file": "dist\\_astro\\minh-bach.D7Rlnpbw.css",
+      "urlPath": "/_astro/minh-bach.D7Rlnpbw.css",
+      "status": 200,
+      "expectedStatus": 200,
+      "expected": "58547852983b74ff20582b2dcde31a261c9a44466b2f54382b9b1c1eff9f75a7",
+      "actual": "58547852983b74ff20582b2dcde31a261c9a44466b2f54382b9b1c1eff9f75a7",
+      "pass": true
+    },
+    {
+      "file": "dist\\_astro\\san-pham.B8W8WkJ_.css",
+      "urlPath": "/_astro/san-pham.B8W8WkJ_.css",
+      "status": 200,
+      "expectedStatus": 200,
+      "expected": "c260cd8f91d44853be9fb69bb885992ccb424b842be72cd98e038bd4c33ef878",
+      "actual": "c260cd8f91d44853be9fb69bb885992ccb424b842be72cd98e038bd4c33ef878",
+      "pass": true
+    },
+    {
+      "file": "dist\\_astro\\ve-nhom.BRoQZuFh.css",
+      "urlPath": "/_astro/ve-nhom.BRoQZuFh.css",
+      "status": 200,
+      "expectedStatus": 200,
+      "expected": "525a0d6d39ee63bb1bd2eb11d964c2d14b29a1f93e3f25d219e9a5ef70ccaa76",
+      "actual": "525a0d6d39ee63bb1bd2eb11d964c2d14b29a1f93e3f25d219e9a5ef70ccaa76",
+      "pass": true
+    }
+  ],
+  "failed": [
+    {
+      "file": "dist\\dong-hanh\\index.html",
+      "urlPath": "/dong-hanh/",
+      "status": 404,
+      "expectedStatus": 200,
+      "expected": "23fa7062af6f24ff5f6bb0d46c98a86a0209db0d8ea5ab9d96ec7ce4902bd7dd",
+      "actual": "3c538e92b87c9f94f23d3c4a493a7447c42a12bba6cf2b1c570ac443d9f2187d",
+      "pass": false
+    },
+    {
+      "file": "dist\\du-an\\mang-theo-mot-net-ve\\index.html",
+      "urlPath": "/du-an/mang-theo-mot-net-ve/",
+      "status": 404,
+      "expectedStatus": 200,
+      "expected": "ab2efbe6ef7821dd5b3239926bda07ed4d1f71450ebc0f710c4f53777035eefa",
+      "actual": "f25ef07d0fa22c20aca910ee305ecfe2be0e71fb677c615f1d5224c2ab1e1531",
+      "pass": false
+    },
+    {
+      "file": "dist\\minh-bach\\index.html",
+      "urlPath": "/minh-bach/",
+      "status": 404,
+      "expectedStatus": 200,
+      "expected": "f9ed7df53f61fcaf454ad1fd1c9edb519abc2fd80ec7a680e79425ad9f9c60fe",
+      "actual": "17b493eaae748c0929b2a70d379fd5361ab8d96f17189c8faf6a59f6c2cc53ab",
+      "pass": false
+    },
+    {
+      "file": "dist\\san-pham\\index.html",
+      "urlPath": "/san-pham/",
+      "status": 404,
+      "expectedStatus": 200,
+      "expected": "ea65a53b593619169bf1c6e58952c3eb02b4c1373ad5f3ecc82a8faa31aa37c9",
+      "actual": "e038a84cd0546a656c42b02dc7c5b6a1b6345a57ce7a09d1027b84a309a738e2",
+      "pass": false
+    },
+    {
+      "file": "dist\\ve-nhom\\index.html",
+      "urlPath": "/ve-nhom/",
+      "status": 404,
+      "expectedStatus": 200,
+      "expected": "37095580d9c4943b24f6814c498d2f84434304b99784f2a5198b84534bcbea44",
+      "actual": "35052aeb338c6cfdfb09b0953613ab9fff71b4ae27558e7b34c382f6725b7b4f",
+      "pass": false
+    }
+  ]
+}

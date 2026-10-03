@@ -1,0 +1,19 @@
+{
+  "source": "MANG THEO MỘT NÉT VẼ.pdf, supplied by owner at D:\\Downloads\\materials",
+  "sourceSha256": "0007f0c7c8ac4858c2cc2cfddd7079fb473663989d47643995f43afd5f2542ea",
+  "classification": "planned, unverified, public approval pending",
+  "expenseGroups": [
+    {"page": 24, "amounts": [960000,120000,40000,60000,140000,75000,250000,200000,400000], "total": 2245000},
+    {"page": 25, "amounts": [400000,300000,80000,20000,120000,300000,340000], "total": 1560000},
+    {"page": 26, "amounts": [60000,750000,320000], "total": 1130000}
+  ],
+  "expenseTotal": 4935000,
+  "craftRevenue": [{"quantity":30,"referencePrice":40000,"revenue":1200000},{"quantity":100,"referencePrice":10000,"revenue":1000000}],
+  "craftRevenueTotal": 2200000,
+  "foodRevenueAssumption": {"value":4500000,"page":18,"skuAllocation":null},
+  "hypotheticalRevenueTotal": 6700000,
+  "baseInKindReplacement": 0,
+  "hypotheticalBaseBalance": 1765000,
+  "actual": null,
+  "notes": ["Food target is a hypothesis, not derivable from a complete SKU quantity allocation.","The source sentence claiming a deficit contradicts its positive balance.","Other in-kind scenarios are not approved for display because replacement scopes conflict."]
+}
