@@ -1,5 +1,5 @@
 /**
- * Bộ kiểm thử logic tài chính và tính toàn vẹn dữ liệu cho Task T03.
+ * Bộ kiểm thử logic tài chính và tính toàn vẹn dữ liệu cho Task C01.
  * Chạy trên Node 24 native test runner: node --test tests/finance.test.mjs
  */
 
@@ -19,6 +19,8 @@ import {
   sumPlannedExpenses,
   calculateProductRevenue,
   calculateTotalRevenueScenario,
+  calculateCraftRevenue,
+  calculateCombinedPlannedRevenue,
   calculateScenario,
   formatVND,
   formatProductQuantity,
@@ -26,11 +28,31 @@ import {
   formatScenarioBalance,
 } from '../src/lib/finance.ts';
 
-describe('Kiểm thử logic tài chính và tính toán (Task T03)', () => {
-  test('Tổng dự toán chi của 6 khoản mục đúng bằng 3.120.000đ', () => {
-    assert.equal(PLANNED_EXPENSES.length, 6, 'Phải có đúng 6 khoản dự toán chi.');
+describe('Kiểm thử logic tài chính và tính toán (Task C01)', () => {
+  test('Tổng dự toán chi của 19 khoản mục đúng bằng 4.935.000đ theo 3 nhóm cụ thể', () => {
+    assert.equal(PLANNED_EXPENSES.length, 19, 'Phải có đúng 19 khoản dự toán chi.');
     const total = sumPlannedExpenses(PLANNED_EXPENSES);
-    assert.equal(total, 3120000, 'Tổng dự toán chi phải là 3.120.000đ.');
+    assert.equal(total, 4935000, 'Tổng dự toán chi phải là 4.935.000đ.');
+
+    // Nhóm 1: Nguyên liệu gây quỹ (trang 24) = 2.245.000đ
+    const group1 = PLANNED_EXPENSES.filter((i) => i.amount.sourceRef === 'proposal:page-24');
+    assert.equal(group1.length, 9, 'Nhóm 1 phải có 9 khoản.');
+    const group1Total = sumPlannedExpenses(group1);
+    assert.equal(group1Total, 2245000, 'Nhóm 1 phải có tổng là 2.245.000đ.');
+
+    // Nhóm 2: Vật tư workshop & quà tặng (trang 25) = 1.560.000đ
+    const group2 = PLANNED_EXPENSES.filter((i) => i.amount.sourceRef === 'proposal:page-25');
+    assert.equal(group2.length, 7, 'Nhóm 2 phải có 7 khoản.');
+    const group2Total = sumPlannedExpenses(group2);
+    assert.equal(group2Total, 1560000, 'Nhóm 2 phải có tổng là 1.560.000đ.');
+
+    // Nhóm 3: Truyền thông & Di chuyển (trang 26) = 1.130.000đ
+    const group3 = PLANNED_EXPENSES.filter((i) => i.amount.sourceRef === 'proposal:page-26');
+    assert.equal(group3.length, 3, 'Nhóm 3 phải có 3 khoản.');
+    const group3Total = sumPlannedExpenses(group3);
+    assert.equal(group3Total, 1130000, 'Nhóm 3 phải có tổng là 1.130.000đ.');
+
+    assert.equal(group1Total + group2Total + group3Total, 4935000);
   });
 
   test('sumPlannedExpenses ném lỗi khi có khoản mục null (không tự coi là 0)', () => {
@@ -74,78 +96,74 @@ describe('Kiểm thử logic tài chính và tính toán (Task T03)', () => {
     assert.throws(
       () => sumPlannedExpenses(dummyItems),
       /không có giá trị/,
-      'Hàm sumPlannedExpenses phải ném lỗi khi gặp giá trị null thay vì trả về 100.000đ.'
+      'Hàm sumPlannedExpenses phải ném lỗi khi gặp giá trị null thay vì tự làm tròn về 0.'
     );
   });
 
-  test('Doanh thu kịch bản từng sản phẩm tính đúng theo giá tham khảo × số lượng kế hoạch', () => {
+  test('Doanh thu kịch bản từng sản phẩm thủ công tính đúng theo giá tham khảo × số lượng kế hoạch', () => {
     const chuonChuon = PRODUCTS.find((p) => p.id === 'chuon-chuon-tre-kem-de');
-    const tuiBut = PRODUCTS.find((p) => p.id === 'tui-but');
-    const tuiVai = PRODUCTS.find((p) => p.id === 'tui-vai');
+    const mocKhoa = PRODUCTS.find((p) => p.id === 'moc-khoa');
 
     assert.ok(chuonChuon, 'Phải tìm thấy sản phẩm chuồn chuồn tre.');
-    assert.ok(tuiBut, 'Phải tìm thấy sản phẩm túi bút.');
-    assert.ok(tuiVai, 'Phải tìm thấy sản phẩm túi vải.');
+    assert.ok(mocKhoa, 'Phải tìm thấy sản phẩm móc khóa Lăng Kính.');
 
     // 30 × 40.000 = 1.200.000đ
     assert.equal(calculateProductRevenue(chuonChuon), 1200000);
-    // 20 × 55.000 = 1.100.000đ
-    assert.equal(calculateProductRevenue(tuiBut), 1100000);
-    // 8 × 75.000 = 600.000đ
-    assert.equal(calculateProductRevenue(tuiVai), 600000);
+    // 100 × 10.000 = 1.000.000đ
+    assert.equal(calculateProductRevenue(mocKhoa), 1000000);
+
+    // Tổng craft = 2.200.000đ
+    assert.equal(calculateCraftRevenue(PRODUCTS), 2200000);
   });
 
-  test('Tổng doanh thu kịch bản bán đủ hàng đúng bằng 2.900.000đ', () => {
-    const totalRev = calculateTotalRevenueScenario(PRODUCTS);
-    assert.equal(totalRev, 2900000, 'Tổng doanh thu kịch bản bán đủ hàng phải là 2.900.000đ.');
+  test('calculateTotalRevenueScenario ném lỗi khi có sản phẩm với plannedQuantity null (không âm thầm bỏ null)', () => {
+    assert.throws(
+      () => calculateTotalRevenueScenario(PRODUCTS),
+      /chưa có số lượng kế hoạch/,
+      'calculateTotalRevenueScenario trên toàn bộ 7 SKUs phải ném lỗi vì các món ăn có plannedQuantity null.'
+    );
   });
 
-  test('Kịch bản 1 — Chưa tính tài trợ: Chi 3.120.000đ, Thu 2.900.000đ => Thiếu 220.000đ', () => {
+  test('calculateCombinedPlannedRevenue kết hợp đúng doanh thu thủ công và giả định ẩm thực (2.200.000đ + 4.500.000đ = 6.700.000đ)', () => {
+    const craftRev = calculateCraftRevenue(PRODUCTS);
+    const foodFact = FINANCE_OVERVIEW.foodPlannedRevenueAssumption;
+    assert.equal(craftRev, 2200000);
+    assert.equal(foodFact.value, 4500000);
+    assert.equal(foodFact.unit, 'đ');
+    assert.equal(foodFact.kind, 'planned');
+    assert.equal(foodFact.verification, 'unverified');
+    assert.equal(foodFact.sourceRef, 'proposal:page-18');
+    assert.equal(foodFact.updatedAt, null);
+    assert.equal(foodFact.publicApproval, 'pending');
+
+    const combinedRev = calculateCombinedPlannedRevenue(craftRev, foodFact);
+    assert.equal(combinedRev, 6700000, 'Tổng doanh thu kịch bản kết hợp phải là 6.700.000đ.');
+  });
+
+  test('calculateCombinedPlannedRevenue propagate null khi một trong hai nguồn là null (không tự về 0)', () => {
+    assert.equal(calculateCombinedPlannedRevenue(null, 4500000), null);
+    assert.equal(calculateCombinedPlannedRevenue(2200000, null), null);
+    assert.equal(calculateCombinedPlannedRevenue(null, null), null);
+  });
+
+  test('Kịch bản cơ sở — Chưa tính tài trợ: Chi 4.935.000đ, Thu giả định 6.700.000đ => Dư giả định 1.765.000đ', () => {
     const s1 = FINANCE_SCENARIOS.find((s) => s.id === 'chua-tinh-tai-tro');
     assert.ok(s1);
 
-    const result = calculateScenario(s1, 2900000, 3120000);
+    const result = calculateScenario(s1, 6700000, 4935000);
     assert.ok(result);
     assert.equal(result.inKindReplacement, 0);
-    assert.equal(result.remainingCashExpense, 3120000);
-    assert.equal(result.projectedRevenue, 2900000);
-    assert.equal(result.projectedBalance, -220000);
-    assert.equal(result.isDeficit, true);
-    assert.equal(result.balanceText, 'Thiếu 220.000đ');
-  });
-
-  test('Kịch bản 2 — Hiện vật thay một phần (500.000đ): Chi tiền còn 2.620.000đ => Dư 280.000đ', () => {
-    const s2 = FINANCE_SCENARIOS.find((s) => s.id === 'thay-mot-phan');
-    assert.ok(s2);
-
-    const result = calculateScenario(s2, 2900000, 3120000);
-    assert.ok(result);
-    assert.equal(result.inKindReplacement, 500000);
-    assert.equal(result.remainingCashExpense, 2620000);
-    assert.equal(result.projectedRevenue, 2900000, 'Doanh thu không được cộng dồn giá trị hiện vật.');
-    assert.equal(result.projectedBalance, 280000);
+    assert.equal(result.remainingCashExpense, 4935000);
+    assert.equal(result.projectedRevenue, 6700000);
+    assert.equal(result.projectedBalance, 1765000);
     assert.equal(result.isDeficit, false);
-    assert.equal(result.balanceText, 'Dư 280.000đ');
-  });
-
-  test('Kịch bản 3 — Hiện vật thay chi workshop (1.120.000đ): Chi tiền còn 2.000.000đ => Dư 900.000đ', () => {
-    const s3 = FINANCE_SCENARIOS.find((s) => s.id === 'thay-chi-workshop');
-    assert.ok(s3);
-
-    const result = calculateScenario(s3, 2900000, 3120000);
-    assert.ok(result);
-    assert.equal(result.inKindReplacement, 1120000);
-    assert.equal(result.remainingCashExpense, 2000000);
-    assert.equal(result.projectedRevenue, 2900000);
-    assert.equal(result.projectedBalance, 900000);
-    assert.equal(result.isDeficit, false);
-    assert.equal(result.balanceText, 'Dư 900.000đ');
+    assert.equal(result.balanceText, 'Dư 1.765.000đ');
   });
 
   test('calculateScenario trả về null khi dữ liệu doanh thu hoặc chi phí chưa biết (null)', () => {
     const s = FINANCE_SCENARIOS[0];
-    assert.equal(calculateScenario(s, null, 3120000), null);
-    assert.equal(calculateScenario(s, 2900000, null), null);
+    assert.equal(calculateScenario(s, null, 4935000), null);
+    assert.equal(calculateScenario(s, 6700000, null), null);
   });
 
   test('calculateScenario ném lỗi khi hiện vật vượt quá tổng chi hoặc là số âm', () => {
@@ -154,7 +172,7 @@ describe('Kiểm thử logic tài chính và tính toán (Task T03)', () => {
       title: 'Vượt chi',
       description: '',
       inKindReplacement: {
-        value: 5000000,
+        value: 10000000,
         unit: 'đ',
         kind: 'planned',
         verification: 'unverified',
@@ -164,14 +182,14 @@ describe('Kiểm thử logic tài chính và tính toán (Task T03)', () => {
       },
       note: '',
     };
-    assert.throws(() => calculateScenario(invalidScenarioOver, 2900000, 3120000), /vượt quá tổng dự toán/);
+    assert.throws(() => calculateScenario(invalidScenarioOver, 6700000, 4935000), /vượt quá tổng dự toán/);
 
     const invalidScenarioNeg = {
       id: 'invalid-neg',
       title: 'Số âm',
       description: '',
       inKindReplacement: {
-        value: -1000,
+        value: -5000,
         unit: 'đ',
         kind: 'planned',
         verification: 'unverified',
@@ -181,18 +199,20 @@ describe('Kiểm thử logic tài chính và tính toán (Task T03)', () => {
       },
       note: '',
     };
-    assert.throws(() => calculateScenario(invalidScenarioNeg, 2900000, 3120000), /không được là số âm/);
+    assert.throws(() => calculateScenario(invalidScenarioNeg, 6700000, 4935000), /không được là số âm/);
   });
 
   test('Định dạng formatVND xử lý chuẩn xác số dương, 0 và null', () => {
-    assert.equal(formatVND(3120000), '3.120.000đ');
+    assert.equal(formatVND(4935000), '4.935.000đ');
+    assert.equal(formatVND(6700000), '6.700.000đ');
+    assert.equal(formatVND(1765000), '1.765.000đ');
     assert.equal(formatVND(0), '0đ');
     assert.equal(formatVND(null), 'Chưa xác nhận');
     assert.equal(formatVND(undefined), 'Chưa xác nhận');
   });
 });
 
-describe('Kiểm tra tính toàn vẹn dữ liệu và an toàn thông tin (Task T03)', () => {
+describe('Kiểm tra tính toàn vẹn dữ liệu và an toàn thông tin (Task C01)', () => {
   test('Toàn bộ số liệu thực tế được khởi tạo ở trạng thái null / chưa xác nhận', () => {
     assert.equal(FINANCE_OVERVIEW.actualCashBalance, null);
     assert.equal(FINANCE_OVERVIEW.actualInKindLedger, null);
@@ -212,23 +232,44 @@ describe('Kiểm tra tính toàn vẹn dữ liệu và an toàn thông tin (Task
     assert.equal(OFFICIAL_CONTACT.status, 'unconfirmed');
   });
 
-  test('Sản phẩm gây quỹ giữ nguyên trạng thái actualStock null và saleStatus unconfirmed', () => {
+  test('Sản phẩm gây quỹ có đủ 7 SKUs, actualStock null và saleStatus unconfirmed', () => {
+    assert.equal(PRODUCTS.length, 7, 'Phải có đúng 7 SKUs.');
     for (const product of PRODUCTS) {
       assert.equal(product.actualStock, null);
       assert.equal(product.saleStatus, 'unconfirmed');
+      assert.equal(product.assetId, null);
+    }
+  });
+
+  test('5 SKUs ẩm thực có plannedQuantity.value === null (chưa có phân bổ số lượng từng SKU)', () => {
+    const foodProducts = PRODUCTS.filter((p) => p.category === 'food');
+    assert.equal(foodProducts.length, 5, 'Phải có 5 SKUs ẩm thực.');
+    for (const food of foodProducts) {
+      assert.equal(food.plannedQuantity.value, null, `${food.name} phải có plannedQuantity.value là null.`);
+    }
+  });
+
+  test('Không còn tham chiếu tới túi bút hoặc túi vải cũ trong sản phẩm và chi phí', () => {
+    const productIds = PRODUCTS.map((p) => p.id);
+    assert.ok(!productIds.includes('tui-but'), 'Không được có túi bút.');
+    assert.ok(!productIds.includes('tui-vai'), 'Không được có túi vải.');
+
+    for (const expense of PLANNED_EXPENSES) {
+      assert.ok(!expense.id.includes('tui-but'));
+      assert.ok(!expense.id.includes('tui-vai'));
     }
   });
 });
 
-describe('Kiểm thử helpers hiển thị và quy tắc định dạng (Task T04 / R04)', () => {
-  test('formatProductQuantity dẫn xuất đúng số lượng, tiền tố và đơn vị', () => {
+describe('Kiểm thử helpers hiển thị và quy tắc định dạng (Task C01)', () => {
+  test('formatProductQuantity dẫn xuất đúng số lượng cho thủ công và Chưa xác nhận cho đồ ăn', () => {
     const chuonChuon = PRODUCTS.find((p) => p.id === 'chuon-chuon-tre-kem-de');
-    const tuiBut = PRODUCTS.find((p) => p.id === 'tui-but');
-    const tuiVai = PRODUCTS.find((p) => p.id === 'tui-vai');
+    const mocKhoa = PRODUCTS.find((p) => p.id === 'moc-khoa');
+    const setDoAn = PRODUCTS.find((p) => p.id === 'set-do-an');
 
     assert.equal(formatProductQuantity(chuonChuon), '30 bộ bán dự kiến');
-    assert.equal(formatProductQuantity(tuiBut), '20 chiếc dự kiến');
-    assert.equal(formatProductQuantity(tuiVai), 'Tối đa 8 chiếc');
+    assert.equal(formatProductQuantity(mocKhoa), '100 chiếc dự kiến');
+    assert.equal(formatProductQuantity(setDoAn), 'Chưa xác nhận');
 
     const dummyUnknownQty = {
       ...chuonChuon,
@@ -240,16 +281,22 @@ describe('Kiểm thử helpers hiển thị và quy tắc định dạng (Task T
     assert.equal(
       formatProductQuantity(dummyUnknownQty),
       'Chưa xác nhận',
-      'Khi số lượng null, chỉ hiển thị "Chưa xác nhận", không tự suy diễn số cũ.'
+      'Khi số lượng null, chỉ hiển thị "Chưa xác nhận".'
     );
   });
 
-  test('formatProductPrice định dạng chuẩn và không ghép đơn vị khi giá null', () => {
+  test('formatProductPrice định dạng chuẩn cho cả 7 SKUs và không ghép đơn vị khi giá null', () => {
     const chuonChuon = PRODUCTS.find((p) => p.id === 'chuon-chuon-tre-kem-de');
-    const tuiBut = PRODUCTS.find((p) => p.id === 'tui-but');
+    const mocKhoa = PRODUCTS.find((p) => p.id === 'moc-khoa');
+    const setDoAn = PRODUCTS.find((p) => p.id === 'set-do-an');
+    const comboNemGion = PRODUCTS.find((p) => p.id === 'combo-nem-gion');
+    const banhSuKem = PRODUCTS.find((p) => p.id === 'banh-su-kem');
 
     assert.equal(formatProductPrice(chuonChuon), '40.000đ/bộ');
-    assert.equal(formatProductPrice(tuiBut), '55.000đ/chiếc');
+    assert.equal(formatProductPrice(mocKhoa), '10.000đ/chiếc');
+    assert.equal(formatProductPrice(setDoAn), '79.000đ/set');
+    assert.equal(formatProductPrice(comboNemGion), '40.000đ/set');
+    assert.equal(formatProductPrice(banhSuKem), '20.000đ/hộp');
 
     const dummyUnknownPrice = {
       ...chuonChuon,
@@ -261,7 +308,7 @@ describe('Kiểm thử helpers hiển thị và quy tắc định dạng (Task T
     assert.equal(
       formatProductPrice(dummyUnknownPrice),
       'Chưa xác nhận',
-      'Khi giá null, chỉ hiển thị "Chưa xác nhận", không ghép thành "Chưa xác nhận/bộ".'
+      'Khi giá null, chỉ hiển thị "Chưa xác nhận", không ghép đơn vị.'
     );
   });
 
@@ -281,9 +328,9 @@ describe('Kiểm thử helpers hiển thị và quy tắc định dạng (Task T
     assert.equal(zeroDisplay.isUnknown, false);
 
     // 3. Dương
-    const posRes = { projectedBalance: 280000 };
+    const posRes = { projectedBalance: 1765000 };
     const posDisplay = formatScenarioBalance(posRes);
-    assert.equal(posDisplay.text, '+280.000đ');
+    assert.equal(posDisplay.text, '+1.765.000đ');
     assert.equal(posDisplay.diffClass, 'diff-positive');
     assert.equal(posDisplay.isUnknown, false);
 
@@ -300,4 +347,3 @@ describe('Kiểm thử helpers hiển thị và quy tắc định dạng (Task T
     assert.equal(unknownDisplay.isUnknown, true);
   });
 });
-

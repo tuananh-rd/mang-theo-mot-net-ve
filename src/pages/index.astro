@@ -13,16 +13,26 @@ import {
   PLANNED_EXPENSES,
   FINANCE_SCENARIOS,
 } from '../data/campaign';
+
 import {
   sumPlannedExpenses,
-  calculateTotalRevenueScenario,
+  calculateCraftRevenue,
+  calculateCombinedPlannedRevenue,
   calculateScenario,
   formatVND,
   formatScenarioBalance,
 } from '../lib/finance';
 
 const totalPlannedExpense = sumPlannedExpenses(PLANNED_EXPENSES);
-const totalPlannedRevenue = calculateTotalRevenueScenario(PRODUCTS);
+const craftPlannedRevenue = calculateCraftRevenue(PRODUCTS);
+const foodPlannedAssumption = FINANCE_OVERVIEW.foodPlannedRevenueAssumption;
+const totalPlannedRevenue = calculateCombinedPlannedRevenue(craftPlannedRevenue, foodPlannedAssumption);
+
+const craftProducts = PRODUCTS.filter((p) => p.category === 'craft');
+const craftSummaryText = craftProducts
+  .map((p) => `${p.plannedQuantity.value} ${p.name.toLowerCase()}`)
+  .join(' và ');
+
 const baseScenario = FINANCE_SCENARIOS.find((s) => s.id === 'chua-tinh-tai-tro');
 const baseScenarioResult = baseScenario
   ? calculateScenario(baseScenario, totalPlannedRevenue, totalPlannedExpense)
@@ -36,11 +46,21 @@ const activityIllustrationTypes = [
   'tro-choi',
 ] as const;
 
-const productIllustrationTypes = [
-  'chuon-chuon',
-  'tui-but',
-  'tui-vai',
-] as const;
+// 3 card sản phẩm đại diện trên trang chủ
+const featuredProducts = [
+  {
+    product: PRODUCTS.find((p) => p.id === 'chuon-chuon-tre-kem-de')!,
+    illustrationType: 'chuon-chuon' as const,
+  },
+  {
+    product: PRODUCTS.find((p) => p.id === 'moc-khoa')!,
+    illustrationType: 'moc-khoa' as const,
+  },
+  {
+    product: PRODUCTS.find((p) => p.id === 'set-do-an')!,
+    illustrationType: 'set-do-an' as const,
+  },
+];
 ---
 
 <Layout
@@ -96,10 +116,10 @@ const productIllustrationTypes = [
 
       <div class="products-grid">
         {
-          PRODUCTS.map((prod, index) => (
+          featuredProducts.map(({ product, illustrationType }) => (
             <ProductCard
-              product={prod}
-              illustrationType={productIllustrationTypes[index]}
+              product={product}
+              illustrationType={illustrationType}
             />
           ))
         }
@@ -161,11 +181,11 @@ const productIllustrationTypes = [
             <h3 class="col-title">Dự toán kế hoạch trong đề xuất</h3>
             <ul class="data-list">
               <li>
-                <span>Tổng chi phí dự toán:</span>
+                <span>Tổng chi phí dự toán (19 khoản):</span>
                 <strong>{formatVND(totalPlannedExpense)}</strong>
               </li>
               <li>
-                <span>Doanh thu kịch bản bán đủ hàng:</span>
+                <span>Doanh thu kịch bản giả định:</span>
                 <strong>{formatVND(totalPlannedRevenue)}</strong>
               </li>
               <li>
@@ -173,6 +193,9 @@ const productIllustrationTypes = [
                 <span class={balanceDisplay.diffClass}>{balanceDisplay.text}</span>
               </li>
             </ul>
+            <p class="transparency-sub">
+              * Kịch bản giả định: Thủ công {formatVND(craftPlannedRevenue)} (bán đủ {craftSummaryText}) + đồ ăn {formatVND(foodPlannedAssumption.value)} (mục tiêu giả định trong hồ sơ đề xuất, chưa phân bổ số lượng bán từng món).
+            </p>
           </div>
 
           <div class="transparency-col">

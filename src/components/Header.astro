@@ -18,7 +18,13 @@ const navItems = [
 <header class="site-header">
   <div class="container header-inner">
     <a href="/" class="brand-link" aria-label="Trang chủ Lăng Kính - Mang Theo Một Nét Vẽ">
-      <span class="brand-name">Lăng Kính</span>
+      <img
+        src="/images/logo_option5_horizontal.png"
+        alt="Lăng Kính"
+        class="brand-logo"
+        width="1419"
+        height="587"
+      />
       <span class="brand-sub">Mang Theo Một Nét Vẽ</span>
     </a>
 
@@ -192,21 +198,36 @@ const navItems = [
   .brand-link {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     text-decoration: none;
     color: var(--color-text-primary);
   }
 
-  .brand-name {
-    font-size: 1.5rem;
-    font-weight: 700;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
+  .brand-logo {
+    height: 38px;
+    width: auto;
+    max-width: 150px;
+    object-fit: contain;
+    display: block;
   }
 
   .brand-sub {
-    font-size: var(--font-size-sm);
+    font-size: 0.875rem;
     color: var(--color-text-secondary);
     font-weight: 500;
+    line-height: 1.2;
+    margin-top: 2px;
+  }
+
+  @media (max-width: 767px) {
+    .brand-logo {
+      height: 32px;
+      max-width: 125px;
+    }
+
+    .brand-sub {
+      font-size: 0.875rem;
+    }
   }
 
   /* Desktop Nav */

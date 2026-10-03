@@ -7,7 +7,7 @@
  * - Không tự ý chuyển giá trị null / chưa biết thành 0.
  */
 
-import type { Product, PlannedExpenseItem, FinanceScenario } from '../data/campaign';
+import type { Product, PlannedExpenseItem, FinanceScenario, QuantitativeFact } from '../data/campaign';
 
 /**
  * Tính tổng dự toán chi từ danh sách các khoản chi dự kiến.
@@ -38,9 +38,38 @@ export function calculateProductRevenue(product: Product): number {
 
 /**
  * Tính tổng doanh thu kịch bản từ danh sách sản phẩm khi bán đủ số lượng kế hoạch.
+ * Lưu ý: Ném lỗi nếu bất kỳ sản phẩm nào có số lượng null (không âm thầm bỏ qua null).
  */
 export function calculateTotalRevenueScenario(products: Product[]): number {
   return products.reduce((sum, p) => sum + calculateProductRevenue(p), 0);
+}
+
+/**
+ * Tính doanh thu kế hoạch từ nhóm sản phẩm thủ công (chuồn chuồn tre + móc khóa).
+ */
+export function calculateCraftRevenue(products: Product[]): number {
+  const craftProducts = products.filter((p) => p.category === 'craft');
+  return calculateTotalRevenueScenario(craftProducts);
+}
+
+/**
+ * Tính tổng doanh thu kế hoạch kết hợp giữa sản phẩm thủ công và mục tiêu ẩm thực giả định:
+ * - Nếu bất kỳ giá trị nào là null hoặc undefined: trả về null (propagate unknown), không tự coi là 0.
+ * - Hỗ trợ cả số nguyên lẫn QuantitativeFact metadata.
+ * - Khi cả hai có giá trị: trả về tổng doanh thu kế hoạch giả định.
+ */
+export function calculateCombinedPlannedRevenue(
+  craftRevenue: number | null | undefined,
+  foodAssumption: number | QuantitativeFact | null | undefined
+): number | null {
+  if (craftRevenue === null || craftRevenue === undefined || foodAssumption === null || foodAssumption === undefined) {
+    return null;
+  }
+  const foodVal = typeof foodAssumption === 'number' ? foodAssumption : foodAssumption.value;
+  if (foodVal === null || foodVal === undefined) {
+    return null;
+  }
+  return craftRevenue + foodVal;
 }
 
 export interface ScenarioCalculationResult {

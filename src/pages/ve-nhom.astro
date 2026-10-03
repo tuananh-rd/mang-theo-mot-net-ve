@@ -33,6 +33,16 @@ import { TEAM_INFO, TEAM_PRINCIPLES, TEAM_COORDINATION } from '../data/campaign'
           <span class="status-badge">Thông tin nhóm thực hiện</span>
         </div>
 
+        <div class="team-logo-banner">
+          <img
+            src="/images/logo_option5_horizontal.png"
+            alt="Logo nhóm Lăng Kính"
+            class="team-card-logo"
+            width="1419"
+            height="587"
+          />
+        </div>
+
         <h1 id="team-heading" class="team-title">
           Về nhóm {TEAM_INFO.name}
         </h1>
@@ -199,6 +209,20 @@ import { TEAM_INFO, TEAM_PRINCIPLES, TEAM_COORDINATION } from '../data/campaign'
 
   .badge-row {
     margin-bottom: var(--space-1);
+  }
+
+  .team-logo-banner {
+    display: flex;
+    justify-content: center;
+    margin: var(--space-2) 0;
+  }
+
+  .team-card-logo {
+    height: 52px;
+    width: auto;
+    max-width: 220px;
+    object-fit: contain;
+    display: block;
   }
 
   .team-title {

@@ -1,15 +1,26 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ProductCard from '../components/ProductCard.astro';
+import PlaceholderIllustration from '../components/PlaceholderIllustration.astro';
 import { PRODUCTS, PRODUCT_FAQS } from '../data/campaign';
 import { formatProductPrice, formatProductQuantity } from '../lib/finance';
 
-const productIllustrationTypes = ['chuon-chuon', 'tui-but', 'tui-vai'] as const;
+const craftProducts = PRODUCTS.filter((p) => p.category === 'craft');
+const foodProducts = PRODUCTS.filter((p) => p.category === 'food');
+
+const getIllustrationType = (id: string) => {
+  if (id === 'chuon-chuon-tre-kem-de') return 'chuon-chuon' as const;
+  if (id === 'moc-khoa') return 'moc-khoa' as const;
+  if (id === 'set-do-an') return 'set-do-an' as const;
+  if (id === 'combo-nem-gion' || id === 'combo-nem-xu' || id === 'combo-nem-pho-mai') return 'combo-nem' as const;
+  if (id === 'banh-su-kem') return 'banh-su-kem' as const;
+  return 'chuon-chuon' as const;
+};
 ---
 
 <Layout
   title="Sản phẩm gây quỹ dự kiến"
-  description="Danh mục 3 sản phẩm thủ công gây quỹ dự kiến: chuồn chuồn tre kèm đế, túi bút và túi vải cho chiến dịch Mang Theo Một Nét Vẽ."
+  description="Danh mục sản phẩm thủ công và thực đơn ẩm thực gây quỹ dự kiến trong chiến dịch Mang Theo Một Nét Vẽ."
   currentPath="/san-pham"
 >
   <!-- Breadcrumb -->
@@ -42,7 +53,7 @@ const productIllustrationTypes = ['chuon-chuon', 'tui-but', 'tui-vai'] as const;
         </h1>
 
         <p class="products-lead">
-          Các sản phẩm thủ công nằm trong kế hoạch gây quỹ của chiến dịch, nhằm bù đắp chi phí vật tư và tạo nguồn lực trao tặng theo nhu cầu thực tế.
+          Các sản phẩm thủ công và phương án ẩm thực nằm trong kế hoạch gây quỹ của chiến dịch, nhằm bù đắp chi phí vật tư và tạo nguồn lực trao tặng theo nhu cầu thực tế.
         </p>
 
         <!-- Notice Box Quan Trọng -->
@@ -60,21 +71,62 @@ const productIllustrationTypes = ['chuon-chuon', 'tui-but', 'tui-vai'] as const;
     <div class="container">
       <div class="section-header">
         <span class="section-kicker">Danh mục đề xuất</span>
-        <h2 id="catalog-heading">3 sản phẩm trong kế hoạch đề xuất</h2>
+        <h2 id="catalog-heading">Sản phẩm trong kế hoạch đề xuất</h2>
         <p class="section-lead">
-          Thông tin chi tiết về từng món đồ lưu niệm, mức giá tham khảo trong đề xuất và nguồn gốc hoàn thiện của sản phẩm.
+          Kế hoạch gây quỹ gồm 2 sản phẩm lưu niệm thủ công và thực đơn ẩm thực sinh viên dự kiến nhằm bù đắp chi phí vật tư và tạo nguồn lực trao tặng.
         </p>
       </div>
 
-      <div class="products-grid">
-        {
-          PRODUCTS.map((product, index) => (
-            <ProductCard
-              product={product}
-              illustrationType={productIllustrationTypes[index]}
-            />
-          ))
-        }
+      <div class="catalog-group">
+        <h3 class="catalog-subheading">1. Sản phẩm lưu niệm thủ công</h3>
+        <div class="products-grid products-grid-craft">
+          {
+            craftProducts.map((product) => (
+              <ProductCard
+                product={product}
+                illustrationType={getIllustrationType(product.id)}
+              />
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="catalog-group food-catalog-group">
+        <div class="food-group-header">
+          <h3 class="catalog-subheading">2. Thực đơn ẩm thực gây quỹ dự kiến</h3>
+          <span class="food-condition-badge">
+            Chỉ triển khai khi chốt địa điểm, an toàn & lịch nhận
+          </span>
+        </div>
+        <p class="food-group-desc">
+          Kế hoạch đồ ăn tương đương 50 set trong phương án mục tiêu doanh thu, chưa có phân bổ số lượng từng loại. Dưới đây là 5 mức giá tham khảo theo từng món và combo trong đề xuất dự án (trang 24):
+        </p>
+        <div class="food-items-grid">
+          {
+            foodProducts.map((p) => (
+              <div class="food-item-card card">
+                <div class="food-card-visual">
+                  <PlaceholderIllustration
+                    type={getIllustrationType(p.id)}
+                    ratio="16:9"
+                    caption={`Minh họa: ${p.name}`}
+                  />
+                </div>
+                <div class="food-card-body">
+                  <div class="food-card-top">
+                    <h4 class="food-name">{p.name}</h4>
+                    <span class="food-price">{formatProductPrice(p)}</span>
+                  </div>
+                  <p class="food-desc">{p.description}</p>
+                  <div class="food-meta">
+                    <span class="food-qty-label">Số lượng kế hoạch:</span>
+                    <strong class="food-qty-val">{formatProductQuantity(p)}</strong>
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
       </div>
     </div>
   </section>
@@ -306,11 +358,153 @@ const productIllustrationTypes = ['chuon-chuon', 'tui-but', 'tui-vai'] as const;
     line-height: 1.5;
   }
 
+  /* Product Section Notice */
+  .product-section-notice {
+    padding: var(--space-3) var(--space-4);
+    background-color: var(--color-canvas-soft);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .product-section-notice p {
+    margin: 0;
+  }
+
+  /* Catalog Groups */
+  .catalog-group {
+    margin-bottom: var(--space-8);
+  }
+
+  .catalog-subheading {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-4);
+  }
+
+  .food-catalog-group {
+    margin-top: var(--space-6);
+  }
+
+  .food-group-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-bottom: var(--space-2);
+  }
+
+  .food-group-header .catalog-subheading {
+    margin-bottom: 0;
+  }
+
+  .food-condition-badge {
+    display: inline-block;
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    padding: 3px 12px;
+    background-color: #fff8e6;
+    color: #8c5b00;
+    border: 1px solid #ffd591;
+    border-radius: var(--radius-pill);
+  }
+
+  .food-group-desc {
+    font-size: 0.9375rem;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+    margin-bottom: var(--space-5);
+    max-width: 75ch;
+  }
+
   /* Products Grid */
   .products-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: var(--space-6);
+  }
+
+  .products-grid-craft {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 800px;
+  }
+
+  /* Food Items Grid */
+  .food-items-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-5);
+  }
+
+  .food-item-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    height: 100%;
+  }
+
+  .food-card-visual {
+    background-color: var(--color-canvas-soft);
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+
+  .food-card-body {
+    padding: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: var(--space-2);
+  }
+
+  .food-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-2);
+  }
+
+  .food-name {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .food-price {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: var(--color-text-accent);
+    white-space: nowrap;
+  }
+
+  .food-desc {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+    margin: 0;
+    flex-grow: 1;
+  }
+
+  .food-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: var(--space-2);
+    border-top: 1px dashed var(--color-border-subtle);
+    font-size: var(--font-size-sm);
+  }
+
+  .food-qty-label {
+    color: var(--color-text-muted);
+  }
+
+  .food-qty-val {
+    color: var(--color-text-primary);
   }
 
   /* Plan Table */
@@ -443,6 +637,10 @@ const productIllustrationTypes = ['chuon-chuon', 'tui-but', 'tui-vai'] as const;
     .products-grid {
       grid-template-columns: repeat(2, 1fr);
     }
+
+    .food-items-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   @media (max-width: 767px) {
@@ -462,6 +660,21 @@ const productIllustrationTypes = ['chuon-chuon', 'tui-but', 'tui-vai'] as const;
     }
 
     .products-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+    }
+
+    .products-grid-craft {
+      grid-template-columns: 1fr;
+    }
+
+    .food-group-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-2);
+    }
+
+    .food-items-grid {
       grid-template-columns: 1fr;
       gap: var(--space-4);
     }

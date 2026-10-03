@@ -5,7 +5,14 @@ import { formatProductPrice } from '../lib/finance';
 
 interface Props {
   product: Product;
-  illustrationType: 'chuon-chuon' | 'tui-but' | 'tui-vai';
+  illustrationType:
+    | 'chuon-chuon'
+    | 'moc-khoa'
+    | 'set-do-an'
+    | 'combo-nem'
+    | 'banh-su-kem'
+    | 'tui-but'
+    | 'tui-vai';
 }
 
 const { product, illustrationType } = Astro.props;

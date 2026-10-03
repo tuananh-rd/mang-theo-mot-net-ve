@@ -13,7 +13,15 @@ const navLinks = [
   <div class="container footer-inner">
     <div class="footer-top">
       <div class="footer-brand">
-        <h2 class="footer-title">Lăng Kính</h2>
+        <h2 class="footer-title">
+          <img
+            src="/images/logo_option5_horizontal.png"
+            alt="Lăng Kính"
+            class="footer-logo"
+            width="1419"
+            height="587"
+          />
+        </h2>
         <p class="footer-desc">
           Nhóm sinh viên lớp AI2015, học phần SSG105 (Kỹ năng làm việc nhóm), Đại học FPT Hà Nội.
         </p>
@@ -76,6 +84,15 @@ const navLinks = [
 
   .footer-title {
     font-size: 1.5rem;
+    margin-bottom: var(--space-2);
+  }
+
+  .footer-logo {
+    height: 40px;
+    width: auto;
+    max-width: 160px;
+    object-fit: contain;
+    display: block;
     margin-bottom: var(--space-2);
   }
 

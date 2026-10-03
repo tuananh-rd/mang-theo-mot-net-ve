@@ -6,19 +6,25 @@ import {
   FINANCE_SCENARIOS,
   TRANSPARENCY_FAQS,
   ACTUAL_FINANCE,
+  FINANCE_OVERVIEW,
 } from '../data/campaign';
 import {
   sumPlannedExpenses,
-  calculateTotalRevenueScenario,
+  calculateCraftRevenue,
+  calculateCombinedPlannedRevenue,
   calculateScenario,
   formatVND,
 } from '../lib/finance';
 
 const totalPlannedExpense = sumPlannedExpenses(PLANNED_EXPENSES);
-const totalPlannedRevenue = calculateTotalRevenueScenario(PRODUCTS);
-const revenueFormulaText = PRODUCTS.map(
-  (p) => `${p.plannedQuantity.value} ${p.name.toLowerCase()} × ${formatVND(p.referencePrice.value)}`
-).join(' + ');
+const craftRevenue = calculateCraftRevenue(PRODUCTS);
+const foodAssumption = FINANCE_OVERVIEW.foodPlannedRevenueAssumption.value;
+const totalPlannedRevenue = calculateCombinedPlannedRevenue(craftRevenue, foodAssumption);
+
+const craftProducts = PRODUCTS.filter((p) => p.category === 'craft');
+const craftFormulaText = craftProducts
+  .map((p) => `${p.plannedQuantity.value} ${p.name.toLowerCase()} × ${formatVND(p.referencePrice.value)}`)
+  .join(' + ');
 
 const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
   const result = calculateScenario(scenario, totalPlannedRevenue, totalPlannedExpense);
@@ -74,7 +80,7 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
             <span class="highlight-label">Chi dự kiến</span>
             <span class="highlight-value">{formatVND(totalPlannedExpense)}</span>
             <p class="highlight-condition">
-              Dự toán 6 nhóm chi phí vật tư và vận hành trong đề xuất ban đầu.
+              Dự toán 19 khoản chi phí nguyên vật liệu, vật tư góc chơi, quà tặng và di chuyển theo đề xuất (trang 24, 25, 26).
             </p>
           </div>
 
@@ -82,7 +88,7 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
             <span class="highlight-label">Doanh thu kịch bản</span>
             <span class="highlight-value">{formatVND(totalPlannedRevenue)}</span>
             <p class="highlight-condition">
-              Nếu bán đủ số lượng kế hoạch theo giá tham khảo; trạng thái mở bán chưa được xác nhận, bản xem trước chưa nhận đơn/tiền.
+              Gồm {formatVND(craftRevenue)} từ 2 sản phẩm thủ công (bán đủ kế hoạch) và {formatVND(foodAssumption)} giả định mục tiêu ẩm thực (trang 18). Trạng thái mở bán chưa được xác nhận; bản xem trước chưa nhận đơn/tiền.
             </p>
           </div>
         </div>
@@ -108,7 +114,7 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
           Dự toán chi phí kế hoạch
         </h2>
         <p class="section-subtitle">
-          Tổng hợp 6 khoản mục dự toán chi phí chuẩn bị vật tư các góc chơi và sản phẩm gây quỹ theo đề xuất.
+          Tổng hợp 19 khoản mục dự toán chi phí chuẩn bị vật tư các góc chơi, quà tặng, nguyên liệu và di chuyển theo đề xuất (trang 24, 25, 26).
         </p>
       </div>
 
@@ -129,7 +135,8 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
               PLANNED_EXPENSES.map((item) => (
                 <tr>
                   <td>
-                    <strong>{item.calculationText}</strong>
+                    <strong>{item.title}</strong>
+                    <div class="text-xs text-muted">{item.calculationText}</div>
                   </td>
                   <td>
                     <span class="category-tag">{item.category}</span>
@@ -153,7 +160,7 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
               <td class="text-right font-bold text-accent">
                 {formatVND(totalPlannedExpense)}
               </td>
-              <td class="text-muted">Dẫn xuất từ 6 khoản mục dự toán, không phải chi phí thực tế</td>
+              <td class="text-muted">Dẫn xuất từ 19 khoản mục dự toán, không phải chi phí thực tế</td>
             </tr>
           </tfoot>
         </table>
@@ -170,7 +177,8 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
                   <span class="estimated-tag">Chi phí giả định</span>
                 )}
               </div>
-              <h3 class="mobile-expense-title">{item.calculationText}</h3>
+              <h3 class="mobile-expense-title">{item.title}</h3>
+              <p class="mobile-expense-calc text-xs text-muted">{item.calculationText}</p>
               <div class="mobile-card-row">
                 <span class="mobile-row-label">Thành tiền dự kiến:</span>
                 <span class="mobile-row-value font-bold text-accent">
@@ -186,14 +194,14 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
           <div class="mobile-total-header">Tổng dự toán chi kế hoạch</div>
           <div class="mobile-total-amount">{formatVND(totalPlannedExpense)}</div>
           <p class="mobile-total-note">
-            Dẫn xuất từ tổng 6 khoản mục chi theo đề xuất ban đầu; không phải chi phí thực tế đã thanh toán.
+            Dẫn xuất từ tổng 19 khoản mục chi theo đề xuất ban đầu; không phải chi phí thực tế đã thanh toán.
           </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Section 2: Doanh thu giả định và 3 kịch bản -->
+  <!-- Section 2: Doanh thu giả định và kịch bản -->
   <section class="section" aria-labelledby="scenarios-heading">
     <div class="container">
       <div class="section-header">
@@ -204,25 +212,38 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
           Doanh thu kịch bản và phân tích số dư
         </h2>
         <p class="section-subtitle">
-          Tính toán doanh thu giả định khi bán đủ số lượng kế hoạch và đối sánh 3 kịch bản tài trợ hiện vật bù đắp chi phí.
+          Tính toán doanh thu giả định khi hoàn thành các mục tiêu kế hoạch và đối sánh với dự toán chi phí.
         </p>
       </div>
 
       <!-- Calculation Breakdown Card -->
       <div class="formula-card card">
-        <h3 class="formula-title">Phép tính doanh thu kịch bản bán đủ hàng</h3>
-        <p class="formula-expression">
-          {revenueFormulaText} = <strong>{formatVND(totalPlannedRevenue)}</strong>
-        </p>
+        <h3 class="formula-title">Cơ cấu doanh thu kịch bản bán đủ hàng ({formatVND(totalPlannedRevenue)})</h3>
+        <div class="formula-breakdown">
+          <div class="formula-part">
+            <span class="formula-part-title">1. Sản phẩm lưu niệm thủ công:</span>
+            <p class="formula-expression">{craftFormulaText} = <strong>{formatVND(craftRevenue)}</strong></p>
+            <p class="formula-subnote">Giả định bán đủ 30 bộ chuồn chuồn tre mộc kèm đế và 100 móc khóa Lăng Kính theo giá tham khảo.</p>
+          </div>
+          <div class="formula-part">
+            <span class="formula-part-title">2. Phương án ẩm thực sinh viên (giả định):</span>
+            <p class="formula-expression">Mục tiêu doanh thu trong đề xuất (trang 18) = <strong>{formatVND(foodAssumption)}</strong></p>
+            <p class="formula-subnote">Tương đương 50 set trong phương án mục tiêu doanh thu đề xuất; chưa có phân bổ số lượng từng món.</p>
+          </div>
+        </div>
+        <div class="formula-total">
+          <span>Tổng doanh thu kịch bản kết hợp:</span>
+          <strong>{formatVND(craftRevenue)} (thủ công) + {formatVND(foodAssumption)} (ẩm thực giả định) = {formatVND(totalPlannedRevenue)}</strong>
+        </div>
         <p class="formula-note">
-          Doanh thu giả định tính trên giả thiết phát hành đủ số lượng và bán theo mức giá tham khảo trong đề xuất. Trạng thái mở bán hiện chưa được xác nhận; hàng tồn kho và đơn hàng chưa thanh toán không được coi là tiền thực nhận.
+          Doanh thu giả định tính trên giả thiết hoàn thành mục tiêu đề xuất và bán theo mức giá tham khảo. Trạng thái mở bán hiện chưa được xác nhận; bản xem trước chưa nhận đơn hoặc tiền.
         </p>
       </div>
 
       <!-- Desktop & Tablet Scenarios Table -->
       <div class="table-wrap desktop-only">
         <table class="data-table">
-          <caption class="sr-only">Bảng so sánh 3 kịch bản tài chính kế hoạch</caption>
+          <caption class="sr-only">Bảng so sánh kịch bản tài chính kế hoạch</caption>
           <thead>
             <tr>
               <th scope="col">Kịch bản kế hoạch</th>
@@ -259,7 +280,7 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
       </div>
 
       <!-- Mobile Scenarios List (Không cuộn ngang) -->
-      <div class="mobile-only mobile-scenario-list" aria-label="Danh sách 3 kịch bản tài chính trên di động">
+      <div class="mobile-only mobile-scenario-list" aria-label="Danh sách kịch bản tài chính trên di động">
         {
           scenarioResults.map(({ scenario, result }) => (
             <div class="mobile-scenario-card card">
@@ -295,13 +316,16 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
         <h3 class="clarification-title">Lưu ý quan trọng về các kịch bản tài chính</h3>
         <ul class="clarification-list">
           <li>
-            <strong>Nguyên tắc thay thế chi phí:</strong> “Hiện vật thay chi tiền” chỉ phát huy tác dụng khi hiện vật tiếp nhận đúng danh mục và thay thế trực tiếp khoản dự toán chi tương đương, tuyệt đối không cộng giá trị hiện vật vào doanh thu tiền rồi trừ lại hai lần.
+            <strong>Nguyên tắc đối chiếu tài trợ hiện vật:</strong> Đề xuất dự án có nêu các giả định vận động hiện vật (như nguyên vật liệu góc chơi hoặc quà tặng). Tuy nhiên, các phương án này cần được đối chiếu cụ thể danh mục và phạm vi khoản thay chi trước khi áp dụng vào tính toán. Nhóm không công bố các số dư kịch bản chưa được đối soát chính thức.
+          </li>
+          <li>
+            <strong>Nguyên tắc thay thế chi phí:</strong> “Hiện vật thay chi tiền” chỉ phát huy tác dụng khi hiện vật tiếp nhận đúng danh mục và thay thế trực tiếp khoản dự toán chi tương đương, tuyệt đối không quy đổi hiện vật thành tiền rồi cộng vào doanh thu.
           </li>
           <li>
             <strong>Mục đích sử dụng nguồn thu:</strong> Dự án không đưa ra cam kết “100% doanh thu mua quà”. Doanh thu bán sản phẩm dự kiến dùng để trang trải chi phí nguyên vật liệu và tổ chức. Số dư tiền thực tế (nếu có sau khi đối soát tất cả các khoản chi) dự kiến sẽ được dùng để hỗ trợ hiện vật đúng nhu cầu của Mái ấm.
           </li>
           <li>
-            <strong>Bản chất giả định:</strong> Tất cả các kịch bản trên đều là mô phỏng kế hoạch trong đề xuất, không cấu thành cam kết tài trợ hay doanh thu tiền mặt thực tế đã phát sinh.
+            <strong>Bản chất kế hoạch:</strong> Toàn bộ các con số trên là mô phỏng kế hoạch trong đề xuất, không cấu thành cam kết tài trợ hay doanh thu tiền mặt thực tế đã phát sinh. Cơ cấu doanh thu đồ ăn và phạm vi tài trợ hiện vật đang được đối chiếu; dự toán không phải kết quả thực tế.
           </li>
         </ul>
       </div>
@@ -772,11 +796,51 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
     line-height: 1.4;
   }
 
+  .formula-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin: var(--space-2) 0;
+  }
+
+  .formula-part-title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .formula-subnote {
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    margin: 2px 0 0;
+    line-height: 1.4;
+  }
+
+  .formula-total {
+    padding-top: var(--space-3);
+    border-top: 1px dashed var(--color-border);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.9375rem;
+    color: var(--color-text-primary);
+  }
+
+  .formula-total strong {
+    color: var(--color-text-accent);
+  }
+
   .formula-note {
     font-size: 0.875rem;
     color: var(--color-text-secondary);
     line-height: 1.5;
     margin: 0;
+  }
+
+  .mobile-expense-calc {
+    margin: 2px 0 var(--space-2);
   }
 
   /* Clarification Policy Box */
