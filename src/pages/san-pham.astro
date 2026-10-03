@@ -191,11 +191,11 @@ const foodProducts = PRODUCTS.filter((p) => p.category === 'food');
               <table class="plan-table mobile-expanded-table">
                 <thead>
                   <tr>
-                    <th scope="col">Sản phẩm</th>
-                    <th scope="col">Giá tham khảo</th>
-                    <th scope="col">Số lượng</th>
-                    <th scope="col">Nguồn gốc / Ghi chú</th>
-                    <th scope="col">Trạng thái</th>
+                    <th scope="col" class="col-name">Sản phẩm</th>
+                    <th scope="col" class="col-price">Giá tham khảo</th>
+                    <th scope="col" class="col-qty">Số lượng</th>
+                    <th scope="col" class="col-notes">Nguồn gốc / Ghi chú</th>
+                    <th scope="col" class="col-status">Trạng thái</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -625,10 +625,48 @@ const foodProducts = PRODUCTS.filter((p) => p.category === 'food');
     outline-offset: -2px;
   }
 
+  .mobile-expanded-table {
+    min-width: 960px;
+    width: 960px;
+    table-layout: fixed;
+  }
+
   .mobile-expanded-table th,
   .mobile-expanded-table td {
-    padding: var(--space-3) var(--space-2);
+    padding: var(--space-3) var(--space-3);
     font-size: 0.875rem;
+    vertical-align: top;
+  }
+
+  .mobile-expanded-table .col-name {
+    width: 220px;
+    min-width: 200px;
+  }
+
+  .mobile-expanded-table .col-price {
+    width: 130px;
+    min-width: 120px;
+    white-space: nowrap;
+  }
+
+  .mobile-expanded-table .col-qty {
+    width: 120px;
+    min-width: 110px;
+    white-space: nowrap;
+  }
+
+  .mobile-expanded-table .col-notes {
+    width: 330px;
+    min-width: 280px;
+    line-height: 1.55;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+
+  .mobile-expanded-table .col-status {
+    width: 160px;
+    min-width: 140px;
+    white-space: nowrap;
   }
 
   /* FAQ Wrap */
