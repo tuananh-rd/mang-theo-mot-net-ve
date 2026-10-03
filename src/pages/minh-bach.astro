@@ -25,6 +25,9 @@ const craftProducts = PRODUCTS.filter((p) => p.category === 'craft');
 const craftFormulaText = craftProducts
   .map((p) => `${p.plannedQuantity.value} ${p.name.toLowerCase()} × ${formatVND(p.referencePrice.value)}`)
   .join(' + ');
+const craftSummaryText = craftProducts
+  .map((p) => `${p.plannedQuantity.value} ${p.name.toLowerCase()}`)
+  .join(' và ');
 
 const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
   const result = calculateScenario(scenario, totalPlannedRevenue, totalPlannedExpense);
@@ -223,7 +226,7 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
           <div class="formula-part">
             <span class="formula-part-title">1. Sản phẩm lưu niệm thủ công:</span>
             <p class="formula-expression">{craftFormulaText} = <strong>{formatVND(craftRevenue)}</strong></p>
-            <p class="formula-subnote">Giả định bán đủ 30 bộ chuồn chuồn tre mộc kèm đế và 100 móc khóa Lăng Kính theo giá tham khảo.</p>
+            <p class="formula-subnote">Giả định bán đủ {craftSummaryText} theo giá tham khảo trong đề xuất.</p>
           </div>
           <div class="formula-part">
             <span class="formula-part-title">2. Phương án ẩm thực sinh viên (giả định):</span>
@@ -812,7 +815,7 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
   }
 
   .formula-subnote {
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
     color: var(--color-text-muted);
     margin: 2px 0 0;
     line-height: 1.4;
