@@ -12,7 +12,9 @@ const getIllustrationType = (id: string) => {
   if (id === 'chuon-chuon-tre-kem-de') return 'chuon-chuon' as const;
   if (id === 'moc-khoa') return 'moc-khoa' as const;
   if (id === 'set-do-an') return 'set-do-an' as const;
-  if (id === 'combo-nem-gion' || id === 'combo-nem-xu' || id === 'combo-nem-pho-mai') return 'combo-nem' as const;
+  if (id === 'combo-nem-gion') return 'combo-nem-gion' as const;
+  if (id === 'combo-nem-xu') return 'combo-nem-xu' as const;
+  if (id === 'combo-nem-pho-mai') return 'combo-nem-pho-mai' as const;
   if (id === 'banh-su-kem') return 'banh-su-kem' as const;
   return 'chuon-chuon' as const;
 };
@@ -120,7 +122,9 @@ const getIllustrationType = (id: string) => {
                   <p class="food-desc">{p.description}</p>
                   <div class="food-meta">
                     <span class="food-qty-label">Số lượng kế hoạch:</span>
-                    <strong class="food-qty-val">{formatProductQuantity(p)}</strong>
+                    <span class="food-qty-val">
+                      {p.plannedQuantity.value !== null ? formatProductQuantity(p) : 'Chưa xác định'}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -504,7 +508,8 @@ const getIllustrationType = (id: string) => {
   }
 
   .food-qty-val {
-    color: var(--color-text-primary);
+    color: var(--color-text-secondary);
+    font-weight: 500;
   }
 
   /* Plan Table */
@@ -641,44 +646,8 @@ const getIllustrationType = (id: string) => {
     .food-items-grid {
       grid-template-columns: repeat(2, 1fr);
     }
-  }
 
-  @media (max-width: 767px) {
-    .products-hero {
-      padding-top: var(--space-6);
-      padding-bottom: var(--space-6);
-    }
-
-    .products-title {
-      font-size: 2rem;
-      line-height: 1.15;
-    }
-
-    .products-lead {
-      font-size: 0.9375rem;
-      line-height: 1.45;
-    }
-
-    .products-grid {
-      grid-template-columns: 1fr;
-      gap: var(--space-4);
-    }
-
-    .products-grid-craft {
-      grid-template-columns: 1fr;
-    }
-
-    .food-group-header {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: var(--space-2);
-    }
-
-    .food-items-grid {
-      grid-template-columns: 1fr;
-      gap: var(--space-4);
-    }
-
+    /* M2: Switch to card view for tablets <= 1023px, full table for >= 1024px */
     .table-desktop {
       display: none !important;
     }
@@ -690,7 +659,7 @@ const getIllustrationType = (id: string) => {
     }
 
     .plan-mobile-card {
-      padding: var(--space-4) !important;
+      padding: var(--space-5);
       display: flex;
       flex-direction: column;
       gap: var(--space-3);
@@ -742,6 +711,54 @@ const getIllustrationType = (id: string) => {
     .row-val-notes {
       color: var(--color-text-secondary);
       line-height: var(--line-height-sm);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .products-hero {
+      padding-top: var(--space-6);
+      padding-bottom: var(--space-6);
+    }
+
+    .products-title {
+      font-size: 2rem;
+      line-height: 1.15;
+    }
+
+    .products-lead {
+      font-size: 0.9375rem;
+      line-height: 1.45;
+    }
+
+    .products-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+    }
+
+    .products-grid-craft {
+      grid-template-columns: 1fr;
+    }
+
+    .food-group-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-2);
+    }
+
+    /* L5: Xếp tên và giá theo chiều dọc ở mobile để tên không bị ép */
+    .food-card-top {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+    }
+
+    .food-items-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+    }
+
+    .plan-mobile-card {
+      padding: var(--space-4) !important;
     }
 
     .table-container {

@@ -21,12 +21,13 @@ const craftRevenue = calculateCraftRevenue(PRODUCTS);
 const foodAssumption = FINANCE_OVERVIEW.foodPlannedRevenueAssumption.value;
 const totalPlannedRevenue = calculateCombinedPlannedRevenue(craftRevenue, foodAssumption);
 
+const formatInSentence = (name: string) => (name ? name.charAt(0).toLowerCase() + name.slice(1) : '');
 const craftProducts = PRODUCTS.filter((p) => p.category === 'craft');
 const craftFormulaText = craftProducts
-  .map((p) => `${p.plannedQuantity.value} ${p.name.toLowerCase()} × ${formatVND(p.referencePrice.value)}`)
+  .map((p) => `${p.plannedQuantity.value} ${formatInSentence(p.name)} × ${formatVND(p.referencePrice.value)}`)
   .join(' + ');
 const craftSummaryText = craftProducts
-  .map((p) => `${p.plannedQuantity.value} ${p.name.toLowerCase()}`)
+  .map((p) => `${p.plannedQuantity.value} ${formatInSentence(p.name)}`)
   .join(' và ');
 
 const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
@@ -174,21 +175,31 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
         {
           PLANNED_EXPENSES.map((item) => (
             <div class="mobile-expense-card card">
-              <div class="mobile-card-header">
-                <span class="category-tag">{item.category}</span>
-                {item.isEstimated && (
-                  <span class="estimated-tag">Chi phí giả định</span>
+              <div class="mobile-expense-top">
+                <div class="mobile-expense-main">
+                  <h3 class="mobile-expense-title">{item.title}</h3>
+                  <span class="mobile-expense-cat">{item.category}</span>
+                </div>
+                <div class="mobile-expense-val-col">
+                  <span class="mobile-expense-val text-accent font-bold">
+                    {formatVND(item.amount.value)}
+                  </span>
+                  {item.isEstimated && (
+                    <span class="estimated-tag">Chi phí giả định</span>
+                  )}
+                </div>
+              </div>
+              <div class="mobile-expense-sub text-muted">
+                {item.calculationText && (
+                  <span class="mobile-expense-calc">{item.calculationText}</span>
+                )}
+                {item.calculationText && item.note && (
+                  <span class="mobile-sub-sep" aria-hidden="true">&bull;</span>
+                )}
+                {item.note && (
+                  <span class="mobile-expense-note">{item.note}</span>
                 )}
               </div>
-              <h3 class="mobile-expense-title">{item.title}</h3>
-              <p class="mobile-expense-calc text-xs text-muted">{item.calculationText}</p>
-              <div class="mobile-card-row">
-                <span class="mobile-row-label">Thành tiền dự kiến:</span>
-                <span class="mobile-row-value font-bold text-accent">
-                  {formatVND(item.amount.value)}
-                </span>
-              </div>
-              <p class="mobile-expense-note">{item.note}</p>
             </div>
           ))
         }
@@ -732,13 +743,10 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
   }
 
   .category-tag {
-    display: inline-block;
-    padding: 2px 8px;
-    background-color: var(--color-canvas-soft);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-pill);
+    display: inline;
     font-size: 0.875rem;
     color: var(--color-text-secondary);
+    line-height: 1.4;
   }
 
   .estimated-tag {
@@ -1111,51 +1119,84 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
       grid-template-columns: 1fr;
     }
 
-    /* Mobile Expense Cards */
-    .mobile-expense-card {
-      padding: var(--space-4);
+    /* Mobile Expense Cards (L4 Compact) */
+    .mobile-expense-list {
       display: flex;
       flex-direction: column;
-      gap: var(--space-2);
+      gap: var(--space-3);
     }
 
-    .mobile-card-header {
+    .mobile-expense-card {
+      padding: var(--space-3) var(--space-4);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .mobile-expense-top {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: flex-start;
+      gap: var(--space-3);
+    }
+
+    .mobile-expense-main {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      flex: 1;
     }
 
     .mobile-expense-title {
-      font-size: 1.0625rem;
+      font-size: 1rem;
       font-weight: 700;
       color: var(--color-text-primary);
       margin: 0;
+      line-height: 1.3;
     }
 
-    .mobile-card-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      padding: var(--space-1) 0;
-    }
-
-    .mobile-row-label {
+    .mobile-expense-cat {
       font-size: 0.875rem;
       color: var(--color-text-secondary);
+      line-height: 1.3;
     }
 
-    .mobile-row-value {
-      font-size: 0.9375rem;
-      color: var(--color-text-primary);
+    .mobile-expense-val-col {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 3px;
+      flex-shrink: 0;
+    }
+
+    .mobile-expense-val {
+      font-size: 1.0625rem;
+      line-height: 1.2;
+    }
+
+    .mobile-expense-sub {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 4px 6px;
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+      line-height: 1.4;
+      border-top: 1px solid var(--color-border-subtle);
+      padding-top: 5px;
+    }
+
+    .mobile-expense-calc {
+      color: var(--color-text-secondary);
+      font-weight: 500;
+    }
+
+    .mobile-sub-sep {
+      color: var(--color-border);
     }
 
     .mobile-expense-note {
-      font-size: 0.875rem;
-      color: var(--color-text-muted);
       margin: 0;
-      line-height: 1.4;
-      border-top: 1px solid var(--color-border);
-      padding-top: var(--space-2);
     }
 
     .mobile-total-card {

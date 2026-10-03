@@ -811,7 +811,7 @@ export const PLANNED_EXPENSES: PlannedExpenseItem[] = [
       updatedAt: null,
       publicApproval: 'pending',
     },
-    note: 'Kế hoạch tổng; không public số trẻ như đã xác nhận (trang 25)',
+    note: 'Kế hoạch tổng, chưa phân bổ theo người nhận (trang 25)',
     isEstimated: false,
   },
 
@@ -830,7 +830,7 @@ export const PLANNED_EXPENSES: PlannedExpenseItem[] = [
       updatedAt: null,
       publicApproval: 'pending',
     },
-    note: 'Thiết bị mượn theo đề xuất, chưa xác nhận thực tế (trang 26)',
+    note: 'Khoản dự kiến theo đề xuất trang 26, chưa xác nhận triển khai',
     isEstimated: false,
   },
   {

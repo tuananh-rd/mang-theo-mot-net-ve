@@ -9,6 +9,9 @@ interface Props {
     | 'moc-khoa'
     | 'set-do-an'
     | 'combo-nem'
+    | 'combo-nem-gion'
+    | 'combo-nem-xu'
+    | 'combo-nem-pho-mai'
     | 'banh-su-kem'
     | 'tui-but'
     | 'tui-vai';
@@ -260,7 +263,7 @@ const {
       </svg>
     )}
 
-    {type === 'combo-nem' && (
+    {(type === 'combo-nem' || type === 'combo-nem-gion') && (
       <svg
         viewBox="0 0 400 300"
         fill="none"
@@ -268,22 +271,113 @@ const {
         class="illustration-svg"
         aria-hidden="true"
       >
-        <rect width="400" height="300" rx="12" fill="#FEF2F2" />
-        <circle cx="200" cy="150" r="90" fill="#FEE2E2" opacity="0.6" />
-        <!-- Spring rolls combo -->
+        <rect width="400" height="300" rx="12" fill="#FEF3C7" />
+        <circle cx="200" cy="150" r="90" fill="#FDE68A" opacity="0.6" />
+        <!-- Spring rolls crispy skin (nem vỏ giòn) -->
         <g transform="translate(200, 150)">
           <!-- Plate -->
           <ellipse cx="0" cy="40" rx="115" ry="26" fill="#E2E8F0" />
+          <ellipse cx="0" cy="36" rx="105" ry="22" fill="#FFFFFF" />
+          <!-- 5 Nem rolls stacked with golden sheen -->
+          <rect x="-65" y="10" width="70" height="16" rx="8" fill="#D97706" />
+          <line x1="-55" y1="18" x2="-10" y2="18" stroke="#FDE68A" stroke-width="2" stroke-linecap="round" opacity="0.8" />
+          <rect x="-10" y="15" width="70" height="16" rx="8" fill="#B45309" />
+          <line x1="0" y1="23" x2="45" y2="23" stroke="#FDE68A" stroke-width="2" stroke-linecap="round" opacity="0.8" />
+          <rect x="-45" y="-5" width="68" height="16" rx="8" fill="#F59E0B" />
+          <line x1="-35" y1="3" x2="10" y2="3" stroke="#FEF3C7" stroke-width="2" stroke-linecap="round" opacity="0.8" />
+          <rect x="5" y="0" width="65" height="16" rx="8" fill="#D97706" />
+          <rect x="-20" y="-20" width="65" height="16" rx="8" fill="#B45309" />
+          <line x1="-10" y1="-12" x2="35" y2="-12" stroke="#FDE68A" stroke-width="2" stroke-linecap="round" opacity="0.8" />
+          <!-- Chili dipping sauce dish -->
+          <circle cx="-65" cy="35" r="18" fill="#EF4444" opacity="0.9" />
+          <circle cx="-65" cy="35" r="13" fill="#DC2626" />
+          <circle cx="-68" cy="32" r="3" fill="#FCA5A5" opacity="0.7" />
+        </g>
+      </svg>
+    )}
+
+    {type === 'combo-nem-xu' && (
+      <svg
+        viewBox="0 0 400 300"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        class="illustration-svg"
+        aria-hidden="true"
+      >
+        <rect width="400" height="300" rx="12" fill="#FFFBEB" />
+        <circle cx="200" cy="150" r="90" fill="#FEF08A" opacity="0.6" />
+        <!-- Panko breadcrumb crumbed rolls (nem xù) -->
+        <g transform="translate(200, 150)">
+          <!-- Plate -->
+          <ellipse cx="0" cy="40" rx="115" ry="26" fill="#CBD5E1" />
           <ellipse cx="0" cy="36" rx="105" ry="22" fill="#F8FAFC" />
+          <!-- Nem rolls with panko textured crumb pattern -->
+          <rect x="-65" y="10" width="70" height="18" rx="9" fill="#D97706" />
+          <circle cx="-50" cy="15" r="2.5" fill="#FEF08A" />
+          <circle cx="-35" cy="22" r="2" fill="#FDE68A" />
+          <circle cx="-20" cy="16" r="2.5" fill="#FEF08A" />
+          <circle cx="-40" cy="18" r="1.5" fill="#FFFFFF" />
+          
+          <rect x="-10" y="15" width="70" height="18" rx="9" fill="#B45309" />
+          <circle cx="5" cy="20" r="2.5" fill="#FEF08A" />
+          <circle cx="20" cy="26" r="2" fill="#FDE68A" />
+          <circle cx="35" cy="21" r="2.5" fill="#FEF08A" />
+
+          <rect x="-45" y="-5" width="68" height="18" rx="9" fill="#EA580C" />
+          <circle cx="-30" cy="0" r="2.5" fill="#FEF08A" />
+          <circle cx="-15" cy="7" r="2" fill="#FDE68A" />
+          <circle cx="0" cy="2" r="2.5" fill="#FEF08A" />
+
+          <rect x="5" y="0" width="65" height="18" rx="9" fill="#D97706" />
+          <circle cx="20" cy="5" r="2.5" fill="#FEF08A" />
+          <circle cx="35" cy="11" r="2" fill="#FDE68A" />
+          <circle cx="50" cy="7" r="2" fill="#FEF08A" />
+
+          <rect x="-20" y="-20" width="65" height="18" rx="9" fill="#B45309" />
+          <circle cx="-5" cy="-15" r="2.5" fill="#FEF08A" />
+          <circle cx="10" cy="-9" r="2" fill="#FDE68A" />
+          <circle cx="25" cy="-14" r="2.5" fill="#FEF08A" />
+
+          <!-- Mayo / sweet chili dip -->
+          <circle cx="-65" cy="35" r="18" fill="#F97316" opacity="0.9" />
+          <circle cx="-65" cy="35" r="13" fill="#EA580C" />
+          <path d="M-72 35 Q-65 30 -58 35" stroke="#FEF08A" stroke-width="2.5" fill="none" stroke-linecap="round" />
+        </g>
+      </svg>
+    )}
+
+    {type === 'combo-nem-pho-mai' && (
+      <svg
+        viewBox="0 0 400 300"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        class="illustration-svg"
+        aria-hidden="true"
+      >
+        <rect width="400" height="300" rx="12" fill="#FFF7ED" />
+        <circle cx="200" cy="150" r="90" fill="#FED7AA" opacity="0.6" />
+        <!-- Cheese-filled spring rolls (nem phô mai) with cheese melt pull -->
+        <g transform="translate(200, 150)">
+          <!-- Plate -->
+          <ellipse cx="0" cy="40" rx="115" ry="26" fill="#E2E8F0" />
+          <ellipse cx="0" cy="36" rx="105" ry="22" fill="#FFFFFF" />
           <!-- 5 Nem rolls stacked -->
           <rect x="-65" y="10" width="70" height="16" rx="8" fill="#D97706" />
           <rect x="-10" y="15" width="70" height="16" rx="8" fill="#B45309" />
           <rect x="-45" y="-5" width="68" height="16" rx="8" fill="#F59E0B" />
           <rect x="5" y="0" width="65" height="16" rx="8" fill="#D97706" />
           <rect x="-20" y="-20" width="65" height="16" rx="8" fill="#B45309" />
-          <!-- Sauce dish -->
-          <circle cx="-65" cy="35" r="18" fill="#EF4444" opacity="0.85" />
+          
+          <!-- Melted cheese pull highlight -->
+          <path d="M-15 -12 Q5 -6 20 -4" stroke="#FBBF24" stroke-width="5" stroke-linecap="round" />
+          <path d="M-15 -12 Q5 -6 20 -4" stroke="#FEF08A" stroke-width="2.5" stroke-linecap="round" />
+          <ellipse cx="-15" cy="-12" rx="4" ry="3" fill="#FDE047" />
+          <ellipse cx="20" cy="-4" rx="5" ry="4" fill="#FDE047" />
+
+          <!-- Sauce dish with creamy cheese-dip blend -->
+          <circle cx="-65" cy="35" r="18" fill="#EF4444" opacity="0.9" />
           <circle cx="-65" cy="35" r="13" fill="#DC2626" />
+          <circle cx="-65" cy="35" r="6" fill="#FEF08A" />
         </g>
       </svg>
     )}

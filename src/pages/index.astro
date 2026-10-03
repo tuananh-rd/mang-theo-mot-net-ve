@@ -28,9 +28,10 @@ const craftPlannedRevenue = calculateCraftRevenue(PRODUCTS);
 const foodPlannedAssumption = FINANCE_OVERVIEW.foodPlannedRevenueAssumption;
 const totalPlannedRevenue = calculateCombinedPlannedRevenue(craftPlannedRevenue, foodPlannedAssumption);
 
+const formatInSentence = (name: string) => (name ? name.charAt(0).toLowerCase() + name.slice(1) : '');
 const craftProducts = PRODUCTS.filter((p) => p.category === 'craft');
 const craftSummaryText = craftProducts
-  .map((p) => `${p.plannedQuantity.value} ${p.name.toLowerCase()}`)
+  .map((p) => `${p.plannedQuantity.value} ${formatInSentence(p.name)}`)
   .join(' và ');
 
 const baseScenario = FINANCE_SCENARIOS.find((s) => s.id === 'chua-tinh-tai-tro');
