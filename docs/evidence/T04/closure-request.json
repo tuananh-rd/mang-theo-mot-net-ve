@@ -1,0 +1,7 @@
+﻿{
+    "taskId":  "T04",
+    "sha":  "fad117c7e12a80775b0dbd0ad93ff464db60fcb9",
+    "review":  "docs/reviews/R04-fad117c.md",
+    "text":  "T04 DONE, R04 PASS tại app fad117c7e12a80775b0dbd0ad93ff464db60fcb9. Đọc docs/reviews/R04-fad117c.md:2finding source đã sửa; Codex410/410browser,16tests/check/build0,21fullpage+menu+2FAQfocus đãxem,15disthash ổn định,8HTTPbodykhớpdist,appclean. Handoff báo cáo đã được hiệu chỉnh/copy. BlankEOF tests303 được ghi rõ và chấp nhận không commitdọn. Kết thúcT04; HOLD app/code/build, không T05/push/public hoặc kiểm/capture lặp. Giữ previewtask957/PID2888/127.0.0.1:4321. Brain commitdocs và pushGitHubprivate theo quyền chủdựán. ACK R04PASS/T04/fad117c/HOLD/preview ngắn.",
+    "at":  "2026-10-03T00:13:23.6643341Z"
+}

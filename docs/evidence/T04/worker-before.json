@@ -1,0 +1,30 @@
+﻿{
+  "id": "75234f56-4d9c-4af1-8804-3c8cdd6378fc",
+  "ok": true,
+  "result": {
+    "terminal": {
+      "handle": "term_4d29ba8e-7d0b-4a74-858f-d45e9a6fb9b9",
+      "ptyId": "1873b0af-5f38-4783-9ee7-c7c32705fcaf::C:\\Users\\tuana\\Documents\\Codex\\2026-10-02\\t\\outputs\\mang-theo-mot-net-ve::workspace:a975a56e-0b5d-4351-b7c3-1e22cf16c0fc@@e7b697b9",
+      "incarnationId": "2ea6694a-36ff-4841-8433-a795aeb9a8b8",
+      "orphaned": false,
+      "worktreeId": "1873b0af-5f38-4783-9ee7-c7c32705fcaf::C:\\Users\\tuana\\Documents\\Codex\\2026-10-02\\t\\outputs\\mang-theo-mot-net-ve::workspace:a975a56e-0b5d-4351-b7c3-1e22cf16c0fc",
+      "worktreePath": "C:\\Users\\tuana\\Documents\\Codex\\2026-10-02\\t\\outputs\\mang-theo-mot-net-ve",
+      "branch": "",
+      "tabId": "d6f4df78-693e-42aa-b1c9-89fac4be6cd4",
+      "leafId": "5087d49c-238c-4a06-ba70-d075bb2d29e8",
+      "title": "C:\\WINDOWS\\system32\\cmd.exe",
+      "connected": true,
+      "writable": true,
+      "lastOutputAt": 1790966716451,
+      "preview": " (PID 2888) bind tại http://127.0.0.1:4321/, phục vụ trực tiếp bản build static hoàn chỉnh từ dist/\n• Chế độ HOLD: Đóng băng toàn bộ code ứng dụng và tài liệu; không tự ý mở T04, không chạy git push, không deploy public, không chạy kiểm tra lặp lại. Chờ\nchỉ đạo tiếp theo từ chủ dự án và Codex Brain.",
+      "executionHostId": "local",
+      "agentIdentity": "antigravity",
+      "paneRuntimeId": 1,
+      "rendererGraphEpoch": 0,
+      "agentWait": null
+    }
+  },
+  "_meta": {
+    "runtimeId": "6e6114a7-3148-4dbe-b563-c2a58c95ba4d"
+  }
+}

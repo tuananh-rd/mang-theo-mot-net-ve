@@ -1,0 +1,2074 @@
+{
+  "startedAt": "2026-10-03T00:00:07.317Z",
+  "base": "http://127.0.0.1:4321",
+  "routes": [
+    {
+      "route": "/",
+      "status": 200,
+      "reloadStatus": 304,
+      "title": "Trang chủ | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "countProjectName": 1,
+      "countTeamName": 1,
+      "lang": "vi",
+      "robots": "noindex, nofollow",
+      "h1Count": 1,
+      "h1Text": "Mang Theo Một Nét Vẽ",
+      "mainCount": 1,
+      "headerExists": true,
+      "footerExists": true,
+      "formCount": 0,
+      "currentNavHrefs": [
+        "/",
+        "/"
+      ]
+    },
+    {
+      "route": "/du-an/mang-theo-mot-net-ve",
+      "status": 200,
+      "reloadStatus": 304,
+      "title": "Câu chuyện dự án | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "countProjectName": 1,
+      "countTeamName": 1,
+      "lang": "vi",
+      "robots": "noindex, nofollow",
+      "h1Count": 1,
+      "h1Text": "Mang Theo Một Nét Vẽ",
+      "mainCount": 1,
+      "headerExists": true,
+      "footerExists": true,
+      "formCount": 0,
+      "currentNavHrefs": [
+        "/du-an/mang-theo-mot-net-ve",
+        "/du-an/mang-theo-mot-net-ve"
+      ]
+    },
+    {
+      "route": "/ve-nhom",
+      "status": 200,
+      "reloadStatus": 304,
+      "title": "Về nhóm Lăng Kính | Mang Theo Một Nét Vẽ",
+      "countProjectName": 1,
+      "countTeamName": 1,
+      "lang": "vi",
+      "robots": "noindex, nofollow",
+      "h1Count": 1,
+      "h1Text": "Về nhóm Lăng Kính",
+      "mainCount": 1,
+      "headerExists": true,
+      "footerExists": true,
+      "formCount": 0,
+      "currentNavHrefs": [
+        "/ve-nhom",
+        "/ve-nhom"
+      ]
+    },
+    {
+      "route": "/san-pham",
+      "status": 200,
+      "reloadStatus": 304,
+      "title": "Sản phẩm gây quỹ dự kiến | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "countProjectName": 1,
+      "countTeamName": 1,
+      "lang": "vi",
+      "robots": "noindex, nofollow",
+      "h1Count": 1,
+      "h1Text": "Sản phẩm gây quỹ dự kiến",
+      "mainCount": 1,
+      "headerExists": true,
+      "footerExists": true,
+      "formCount": 0,
+      "currentNavHrefs": [
+        "/san-pham",
+        "/san-pham"
+      ]
+    },
+    {
+      "route": "/minh-bach",
+      "status": 200,
+      "reloadStatus": 304,
+      "title": "Minh bạch thu chi | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "countProjectName": 1,
+      "countTeamName": 1,
+      "lang": "vi",
+      "robots": "noindex, nofollow",
+      "h1Count": 1,
+      "h1Text": "Minh bạch thu chi",
+      "mainCount": 1,
+      "headerExists": true,
+      "footerExists": true,
+      "formCount": 0,
+      "currentNavHrefs": [
+        "/minh-bach",
+        "/minh-bach"
+      ]
+    },
+    {
+      "route": "/dong-hanh",
+      "status": 200,
+      "reloadStatus": 304,
+      "title": "Đồng hành cùng dự án | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "countProjectName": 1,
+      "countTeamName": 1,
+      "lang": "vi",
+      "robots": "noindex, nofollow",
+      "h1Count": 1,
+      "h1Text": "Đồng hành cùng dự án",
+      "mainCount": 1,
+      "headerExists": true,
+      "footerExists": true,
+      "formCount": 0,
+      "currentNavHrefs": [
+        "/dong-hanh",
+        "/dong-hanh"
+      ]
+    },
+    {
+      "route": "/404.html",
+      "status": 200,
+      "reloadStatus": 304,
+      "title": "Không tìm thấy trang (404) | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "countProjectName": 1,
+      "countTeamName": 1,
+      "lang": "vi",
+      "robots": "noindex, nofollow",
+      "h1Count": 1,
+      "h1Text": "Không tìm thấy trang",
+      "mainCount": 1,
+      "headerExists": true,
+      "footerExists": true,
+      "formCount": 0,
+      "currentNavHrefs": []
+    },
+    {
+      "route": "/duong-dan-khong-ton-tai-404-test",
+      "status": 404,
+      "reloadStatus": 404,
+      "title": "Không tìm thấy trang (404) | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "countProjectName": 1,
+      "countTeamName": 1,
+      "lang": "vi",
+      "robots": "noindex, nofollow",
+      "h1Count": 1,
+      "h1Text": "Không tìm thấy trang",
+      "mainCount": 1,
+      "headerExists": true,
+      "footerExists": true,
+      "formCount": 0,
+      "currentNavHrefs": []
+    }
+  ],
+  "screenshots": [
+    {
+      "name": "home-mobile-375-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t04\\home-mobile-375-full.png",
+      "target": "home",
+      "viewport": "mobile-375",
+      "width": 375,
+      "height": 8723,
+      "bytes": 420924,
+      "sha256": "25f48c16e462bffa7175ac2f5ebb828959a29791d6d17816ed9c789524c0620a"
+    },
+    {
+      "name": "home-tablet-768-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t04\\home-tablet-768-full.png",
+      "target": "home",
+      "viewport": "tablet-768",
+      "width": 768,
+      "height": 7323,
+      "bytes": 474195,
+      "sha256": "480f796920881f87192fc2143075bf5d4956dee56b94d928739db9687eea654f"
+    },
+    {
+      "name": "home-desktop-1440-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t04\\home-desktop-1440-full.png",
+      "target": "home",
+      "viewport": "desktop-1440",
+      "width": 1440,
+      "height": 5451,
+      "bytes": 472096,
+      "sha256": "e903d6ce33eb54fa344caf8557ee4f5f35216b14dfc2b05bbeb4061b930d6348"
+    },
+    {
+      "name": "project-mobile-375-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t04\\project-mobile-375-full.png",
+      "target": "project",
+      "viewport": "mobile-375",
+      "width": 375,
+      "height": 6432,
+      "bytes": 314859,
+      "sha256": "baafca83280b34d7ffb6972315838144a26d06ba139f72f230342b74faed2634"
+    },
+    {
+      "name": "project-tablet-768-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t04\\project-tablet-768-full.png",
+      "target": "project",
+      "viewport": "tablet-768",
+      "width": 768,
+      "height": 5252,
+      "bytes": 368085,
+      "sha256": "ebc8d85063650112ee756acc7436be16cc6c8e993a53065029345561f3e9c5cf"
+    },
+    {
+      "name": "project-desktop-1440-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t04\\project-desktop-1440-full.png",
+      "target": "project",
+      "viewport": "desktop-1440",
+      "width": 1440,
+      "height": 4267,
+      "bytes": 386671,
+      "sha256": "0fd843a5db06ac5b399f9f4359b0aff72aa0cf23ca802b9e425d85c11f528aa1"
+    },
+    {
+      "name": "team-mobile-375-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t04\\team-mobile-375-full.png",
+      "target": "team",
+      "viewport": "mobile-375",
+      "width": 375,
+      "height": 4746,
+      "bytes": 246912,
+      "sha256": "4f42146966ae6c82118c9baaeab4112b84836ed2551dfb869e9623279c410198"
+    },
+    {
+      "name": "team-tablet-768-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t04\\team-tablet-768-full.png",
+      "target": "team",
+      "viewport": "tablet-768",
+      "width": 768,
+      "height": 3750,
+      "bytes": 267129,
+      "sha256": "50c34cd4bf74efa8922b62c078e18ef5ef5bdce8cb1a5792d2ff85a205c5a3e5"
+    },
+    {
+      "name": "team-desktop-1440-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t04\\team-desktop-1440-full.png",
+      "target": "team",
+      "viewport": "desktop-1440",
+      "width": 1440,
+      "height": 3298,
+      "bytes": 276265,
+      "sha256": "c868fe17dcb406bf358c627591081d64347fe2f1629f9f0355a73dba63820dec"
+    },
+    {
+      "name": "product-mobile-375-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t04\\product-mobile-375-full.png",
+      "target": "product",
+      "viewport": "mobile-375",
+      "width": 375,
+      "height": 5782,
+      "bytes": 278236,
+      "sha256": "d7bd98ac6b83903538bed75c75091092538ab34a7422b4e80e8ffe0ee5ee44ba"
+    },
+    {
+      "name": "product-tablet-768-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t04\\product-tablet-768-full.png",
+      "target": "product",
+      "viewport": "tablet-768",
+      "width": 768,
+      "height": 4381,
+      "bytes": 280762,
+      "sha256": "fd146820999ee09dbb39a49d5ee2fbba5b90de72ea3f4f7e56a2cef0d11463e4"
+    },
+    {
+      "name": "product-desktop-1440-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t04\\product-desktop-1440-full.png",
+      "target": "product",
+      "viewport": "desktop-1440",
+      "width": 1440,
+      "height": 3708,
+      "bytes": 301825,
+      "sha256": "b4bf83fd445f755453f726a362a21ddd24b940a05d395baa3b66019e8695386d"
+    },
+    {
+      "name": "transparency-mobile-375-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t04\\transparency-mobile-375-full.png",
+      "target": "transparency",
+      "viewport": "mobile-375",
+      "width": 375,
+      "height": 9048,
+      "bytes": 449062,
+      "sha256": "df3dd6422d21a4174466d74590387ba4f158abcc0d603a64dcc3105787c742eb"
+    },
+    {
+      "name": "transparency-tablet-768-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t04\\transparency-tablet-768-full.png",
+      "target": "transparency",
+      "viewport": "tablet-768",
+      "width": 768,
+      "height": 6165,
+      "bytes": 452374,
+      "sha256": "b885bf34b1a904e00958d83ed260e6322a0c0cf99c743a8d8cb69f012999fea0"
+    },
+    {
+      "name": "transparency-desktop-1440-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t04\\transparency-desktop-1440-full.png",
+      "target": "transparency",
+      "viewport": "desktop-1440",
+      "width": 1440,
+      "height": 5573,
+      "bytes": 458485,
+      "sha256": "3388554e338e5fe1924085c439e494a62e529b5e072bfdff44db9a314f07ba22"
+    },
+    {
+      "name": "support-mobile-375-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t04\\support-mobile-375-full.png",
+      "target": "support",
+      "viewport": "mobile-375",
+      "width": 375,
+      "height": 6105,
+      "bytes": 298969,
+      "sha256": "b8663873a8b248593bc95930d4637390a1010d0b5d21da5eab207ca6ba3706ea"
+    },
+    {
+      "name": "support-tablet-768-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t04\\support-tablet-768-full.png",
+      "target": "support",
+      "viewport": "tablet-768",
+      "width": 768,
+      "height": 5133,
+      "bytes": 318102,
+      "sha256": "f44541660ac06b1543feb211c44d174120d2abf004c371a57120bf47641a6fe6"
+    },
+    {
+      "name": "support-desktop-1440-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t04\\support-desktop-1440-full.png",
+      "target": "support",
+      "viewport": "desktop-1440",
+      "width": 1440,
+      "height": 4157,
+      "bytes": 324345,
+      "sha256": "a4d7f8aa950af05072006a81515564c9eb981e72f6bb6e9f5c20f429570261bd"
+    },
+    {
+      "name": "404-mobile-375-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t04\\404-mobile-375-full.png",
+      "target": "404",
+      "viewport": "mobile-375",
+      "width": 375,
+      "height": 1405,
+      "bytes": 56975,
+      "sha256": "4586f97806fb112c97746b5350b43a34ca1fc8a30c352c88275fd69bb64a863b"
+    },
+    {
+      "name": "404-tablet-768-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t04\\404-tablet-768-full.png",
+      "target": "404",
+      "viewport": "tablet-768",
+      "width": 768,
+      "height": 1170,
+      "bytes": 63676,
+      "sha256": "1b0ac8428afbf5a0c54d8206a435792ffeb784219b5921d315ad4f5c92880b0e"
+    },
+    {
+      "name": "404-desktop-1440-full.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t04\\404-desktop-1440-full.png",
+      "target": "404",
+      "viewport": "desktop-1440",
+      "width": 1440,
+      "height": 1125,
+      "bytes": 74302,
+      "sha256": "ce83d62cded34ed01c427a5f103c7ae696d3f3f60b0b5815ae796db3cfa9003a"
+    },
+    {
+      "name": "mobile-375-menu-open.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t04\\mobile-375-menu-open.png",
+      "target": "home",
+      "viewport": "mobile-375-menu-open",
+      "width": 375,
+      "height": 812,
+      "bytes": 35388,
+      "sha256": "a95700120cf52226be86f340c115f24e57805188a90ee701a4934360620fdc8a"
+    },
+    {
+      "name": "minh-bach-faq-open.png",
+      "path": "C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t04\\minh-bach-faq-open.png",
+      "target": "minh-bach",
+      "viewport": "desktop-faq-open",
+      "width": 1440,
+      "height": 900,
+      "bytes": 70567,
+      "sha256": "bcf1c7d452f2d9ec21b654c3d3fc9799650e02d1c6d9f79465d55672ce495644"
+    }
+  ],
+  "assertions": [
+    {
+      "name": "HTTP 200/304 cho route: /",
+      "pass": true,
+      "observed": {
+        "status": 200,
+        "reloadStatus": 304
+      }
+    },
+    {
+      "name": "Title không lặp tên dự án và tên nhóm trên: /",
+      "pass": true,
+      "observed": {
+        "title": "Trang chủ | Mang Theo Một Nét Vẽ — Lăng Kính",
+        "projectCount": 1,
+        "teamCount": 1
+      }
+    },
+    {
+      "name": "Landmarks chuẩn trên route: /",
+      "pass": true,
+      "observed": {
+        "title": "Trang chủ | Mang Theo Một Nét Vẽ — Lăng Kính",
+        "countProjectName": 1,
+        "countTeamName": 1,
+        "lang": "vi",
+        "robots": "noindex, nofollow",
+        "h1Count": 1,
+        "h1Text": "Mang Theo Một Nét Vẽ",
+        "mainCount": 1,
+        "headerExists": true,
+        "footerExists": true,
+        "formCount": 0,
+        "currentNavHrefs": [
+          "/",
+          "/"
+        ]
+      }
+    },
+    {
+      "name": "Lang='vi' và robots='noindex, nofollow' trên: /",
+      "pass": true,
+      "observed": {
+        "title": "Trang chủ | Mang Theo Một Nét Vẽ — Lăng Kính",
+        "countProjectName": 1,
+        "countTeamName": 1,
+        "lang": "vi",
+        "robots": "noindex, nofollow",
+        "h1Count": 1,
+        "h1Text": "Mang Theo Một Nét Vẽ",
+        "mainCount": 1,
+        "headerExists": true,
+        "footerExists": true,
+        "formCount": 0,
+        "currentNavHrefs": [
+          "/",
+          "/"
+        ]
+      }
+    },
+    {
+      "name": "Không có biểu mẫu form thu thập dữ liệu trên: /",
+      "pass": true,
+      "observed": {
+        "forms": 0
+      }
+    },
+    {
+      "name": "Menu active link chính xác trên: /",
+      "pass": true,
+      "observed": [
+        "/",
+        "/"
+      ]
+    },
+    {
+      "name": "HTTP 200/304 cho route: /du-an/mang-theo-mot-net-ve",
+      "pass": true,
+      "observed": {
+        "status": 200,
+        "reloadStatus": 304
+      }
+    },
+    {
+      "name": "Title không lặp tên dự án và tên nhóm trên: /du-an/mang-theo-mot-net-ve",
+      "pass": true,
+      "observed": {
+        "title": "Câu chuyện dự án | Mang Theo Một Nét Vẽ — Lăng Kính",
+        "projectCount": 1,
+        "teamCount": 1
+      }
+    },
+    {
+      "name": "Landmarks chuẩn trên route: /du-an/mang-theo-mot-net-ve",
+      "pass": true,
+      "observed": {
+        "title": "Câu chuyện dự án | Mang Theo Một Nét Vẽ — Lăng Kính",
+        "countProjectName": 1,
+        "countTeamName": 1,
+        "lang": "vi",
+        "robots": "noindex, nofollow",
+        "h1Count": 1,
+        "h1Text": "Mang Theo Một Nét Vẽ",
+        "mainCount": 1,
+        "headerExists": true,
+        "footerExists": true,
+        "formCount": 0,
+        "currentNavHrefs": [
+          "/du-an/mang-theo-mot-net-ve",
+          "/du-an/mang-theo-mot-net-ve"
+        ]
+      }
+    },
+    {
+      "name": "Lang='vi' và robots='noindex, nofollow' trên: /du-an/mang-theo-mot-net-ve",
+      "pass": true,
+      "observed": {
+        "title": "Câu chuyện dự án | Mang Theo Một Nét Vẽ — Lăng Kính",
+        "countProjectName": 1,
+        "countTeamName": 1,
+        "lang": "vi",
+        "robots": "noindex, nofollow",
+        "h1Count": 1,
+        "h1Text": "Mang Theo Một Nét Vẽ",
+        "mainCount": 1,
+        "headerExists": true,
+        "footerExists": true,
+        "formCount": 0,
+        "currentNavHrefs": [
+          "/du-an/mang-theo-mot-net-ve",
+          "/du-an/mang-theo-mot-net-ve"
+        ]
+      }
+    },
+    {
+      "name": "Không có biểu mẫu form thu thập dữ liệu trên: /du-an/mang-theo-mot-net-ve",
+      "pass": true,
+      "observed": {
+        "forms": 0
+      }
+    },
+    {
+      "name": "Menu active link chính xác trên: /du-an/mang-theo-mot-net-ve",
+      "pass": true,
+      "observed": [
+        "/du-an/mang-theo-mot-net-ve",
+        "/du-an/mang-theo-mot-net-ve"
+      ]
+    },
+    {
+      "name": "HTTP 200/304 cho route: /ve-nhom",
+      "pass": true,
+      "observed": {
+        "status": 200,
+        "reloadStatus": 304
+      }
+    },
+    {
+      "name": "Title không lặp tên dự án và tên nhóm trên: /ve-nhom",
+      "pass": true,
+      "observed": {
+        "title": "Về nhóm Lăng Kính | Mang Theo Một Nét Vẽ",
+        "projectCount": 1,
+        "teamCount": 1
+      }
+    },
+    {
+      "name": "Landmarks chuẩn trên route: /ve-nhom",
+      "pass": true,
+      "observed": {
+        "title": "Về nhóm Lăng Kính | Mang Theo Một Nét Vẽ",
+        "countProjectName": 1,
+        "countTeamName": 1,
+        "lang": "vi",
+        "robots": "noindex, nofollow",
+        "h1Count": 1,
+        "h1Text": "Về nhóm Lăng Kính",
+        "mainCount": 1,
+        "headerExists": true,
+        "footerExists": true,
+        "formCount": 0,
+        "currentNavHrefs": [
+          "/ve-nhom",
+          "/ve-nhom"
+        ]
+      }
+    },
+    {
+      "name": "Lang='vi' và robots='noindex, nofollow' trên: /ve-nhom",
+      "pass": true,
+      "observed": {
+        "title": "Về nhóm Lăng Kính | Mang Theo Một Nét Vẽ",
+        "countProjectName": 1,
+        "countTeamName": 1,
+        "lang": "vi",
+        "robots": "noindex, nofollow",
+        "h1Count": 1,
+        "h1Text": "Về nhóm Lăng Kính",
+        "mainCount": 1,
+        "headerExists": true,
+        "footerExists": true,
+        "formCount": 0,
+        "currentNavHrefs": [
+          "/ve-nhom",
+          "/ve-nhom"
+        ]
+      }
+    },
+    {
+      "name": "Không có biểu mẫu form thu thập dữ liệu trên: /ve-nhom",
+      "pass": true,
+      "observed": {
+        "forms": 0
+      }
+    },
+    {
+      "name": "Menu active link chính xác trên: /ve-nhom",
+      "pass": true,
+      "observed": [
+        "/ve-nhom",
+        "/ve-nhom"
+      ]
+    },
+    {
+      "name": "HTTP 200/304 cho route: /san-pham",
+      "pass": true,
+      "observed": {
+        "status": 200,
+        "reloadStatus": 304
+      }
+    },
+    {
+      "name": "Title không lặp tên dự án và tên nhóm trên: /san-pham",
+      "pass": true,
+      "observed": {
+        "title": "Sản phẩm gây quỹ dự kiến | Mang Theo Một Nét Vẽ — Lăng Kính",
+        "projectCount": 1,
+        "teamCount": 1
+      }
+    },
+    {
+      "name": "Landmarks chuẩn trên route: /san-pham",
+      "pass": true,
+      "observed": {
+        "title": "Sản phẩm gây quỹ dự kiến | Mang Theo Một Nét Vẽ — Lăng Kính",
+        "countProjectName": 1,
+        "countTeamName": 1,
+        "lang": "vi",
+        "robots": "noindex, nofollow",
+        "h1Count": 1,
+        "h1Text": "Sản phẩm gây quỹ dự kiến",
+        "mainCount": 1,
+        "headerExists": true,
+        "footerExists": true,
+        "formCount": 0,
+        "currentNavHrefs": [
+          "/san-pham",
+          "/san-pham"
+        ]
+      }
+    },
+    {
+      "name": "Lang='vi' và robots='noindex, nofollow' trên: /san-pham",
+      "pass": true,
+      "observed": {
+        "title": "Sản phẩm gây quỹ dự kiến | Mang Theo Một Nét Vẽ — Lăng Kính",
+        "countProjectName": 1,
+        "countTeamName": 1,
+        "lang": "vi",
+        "robots": "noindex, nofollow",
+        "h1Count": 1,
+        "h1Text": "Sản phẩm gây quỹ dự kiến",
+        "mainCount": 1,
+        "headerExists": true,
+        "footerExists": true,
+        "formCount": 0,
+        "currentNavHrefs": [
+          "/san-pham",
+          "/san-pham"
+        ]
+      }
+    },
+    {
+      "name": "Không có biểu mẫu form thu thập dữ liệu trên: /san-pham",
+      "pass": true,
+      "observed": {
+        "forms": 0
+      }
+    },
+    {
+      "name": "Menu active link chính xác trên: /san-pham",
+      "pass": true,
+      "observed": [
+        "/san-pham",
+        "/san-pham"
+      ]
+    },
+    {
+      "name": "HTTP 200/304 cho route: /minh-bach",
+      "pass": true,
+      "observed": {
+        "status": 200,
+        "reloadStatus": 304
+      }
+    },
+    {
+      "name": "Title không lặp tên dự án và tên nhóm trên: /minh-bach",
+      "pass": true,
+      "observed": {
+        "title": "Minh bạch thu chi | Mang Theo Một Nét Vẽ — Lăng Kính",
+        "projectCount": 1,
+        "teamCount": 1
+      }
+    },
+    {
+      "name": "Landmarks chuẩn trên route: /minh-bach",
+      "pass": true,
+      "observed": {
+        "title": "Minh bạch thu chi | Mang Theo Một Nét Vẽ — Lăng Kính",
+        "countProjectName": 1,
+        "countTeamName": 1,
+        "lang": "vi",
+        "robots": "noindex, nofollow",
+        "h1Count": 1,
+        "h1Text": "Minh bạch thu chi",
+        "mainCount": 1,
+        "headerExists": true,
+        "footerExists": true,
+        "formCount": 0,
+        "currentNavHrefs": [
+          "/minh-bach",
+          "/minh-bach"
+        ]
+      }
+    },
+    {
+      "name": "Lang='vi' và robots='noindex, nofollow' trên: /minh-bach",
+      "pass": true,
+      "observed": {
+        "title": "Minh bạch thu chi | Mang Theo Một Nét Vẽ — Lăng Kính",
+        "countProjectName": 1,
+        "countTeamName": 1,
+        "lang": "vi",
+        "robots": "noindex, nofollow",
+        "h1Count": 1,
+        "h1Text": "Minh bạch thu chi",
+        "mainCount": 1,
+        "headerExists": true,
+        "footerExists": true,
+        "formCount": 0,
+        "currentNavHrefs": [
+          "/minh-bach",
+          "/minh-bach"
+        ]
+      }
+    },
+    {
+      "name": "Không có biểu mẫu form thu thập dữ liệu trên: /minh-bach",
+      "pass": true,
+      "observed": {
+        "forms": 0
+      }
+    },
+    {
+      "name": "Menu active link chính xác trên: /minh-bach",
+      "pass": true,
+      "observed": [
+        "/minh-bach",
+        "/minh-bach"
+      ]
+    },
+    {
+      "name": "HTTP 200/304 cho route: /dong-hanh",
+      "pass": true,
+      "observed": {
+        "status": 200,
+        "reloadStatus": 304
+      }
+    },
+    {
+      "name": "Title không lặp tên dự án và tên nhóm trên: /dong-hanh",
+      "pass": true,
+      "observed": {
+        "title": "Đồng hành cùng dự án | Mang Theo Một Nét Vẽ — Lăng Kính",
+        "projectCount": 1,
+        "teamCount": 1
+      }
+    },
+    {
+      "name": "Landmarks chuẩn trên route: /dong-hanh",
+      "pass": true,
+      "observed": {
+        "title": "Đồng hành cùng dự án | Mang Theo Một Nét Vẽ — Lăng Kính",
+        "countProjectName": 1,
+        "countTeamName": 1,
+        "lang": "vi",
+        "robots": "noindex, nofollow",
+        "h1Count": 1,
+        "h1Text": "Đồng hành cùng dự án",
+        "mainCount": 1,
+        "headerExists": true,
+        "footerExists": true,
+        "formCount": 0,
+        "currentNavHrefs": [
+          "/dong-hanh",
+          "/dong-hanh"
+        ]
+      }
+    },
+    {
+      "name": "Lang='vi' và robots='noindex, nofollow' trên: /dong-hanh",
+      "pass": true,
+      "observed": {
+        "title": "Đồng hành cùng dự án | Mang Theo Một Nét Vẽ — Lăng Kính",
+        "countProjectName": 1,
+        "countTeamName": 1,
+        "lang": "vi",
+        "robots": "noindex, nofollow",
+        "h1Count": 1,
+        "h1Text": "Đồng hành cùng dự án",
+        "mainCount": 1,
+        "headerExists": true,
+        "footerExists": true,
+        "formCount": 0,
+        "currentNavHrefs": [
+          "/dong-hanh",
+          "/dong-hanh"
+        ]
+      }
+    },
+    {
+      "name": "Không có biểu mẫu form thu thập dữ liệu trên: /dong-hanh",
+      "pass": true,
+      "observed": {
+        "forms": 0
+      }
+    },
+    {
+      "name": "Menu active link chính xác trên: /dong-hanh",
+      "pass": true,
+      "observed": [
+        "/dong-hanh",
+        "/dong-hanh"
+      ]
+    },
+    {
+      "name": "HTTP 200/304 cho route: /404.html",
+      "pass": true,
+      "observed": {
+        "status": 200,
+        "reloadStatus": 304
+      }
+    },
+    {
+      "name": "Title không lặp tên dự án và tên nhóm trên: /404.html",
+      "pass": true,
+      "observed": {
+        "title": "Không tìm thấy trang (404) | Mang Theo Một Nét Vẽ — Lăng Kính",
+        "projectCount": 1,
+        "teamCount": 1
+      }
+    },
+    {
+      "name": "Landmarks chuẩn trên route: /404.html",
+      "pass": true,
+      "observed": {
+        "title": "Không tìm thấy trang (404) | Mang Theo Một Nét Vẽ — Lăng Kính",
+        "countProjectName": 1,
+        "countTeamName": 1,
+        "lang": "vi",
+        "robots": "noindex, nofollow",
+        "h1Count": 1,
+        "h1Text": "Không tìm thấy trang",
+        "mainCount": 1,
+        "headerExists": true,
+        "footerExists": true,
+        "formCount": 0,
+        "currentNavHrefs": []
+      }
+    },
+    {
+      "name": "Lang='vi' và robots='noindex, nofollow' trên: /404.html",
+      "pass": true,
+      "observed": {
+        "title": "Không tìm thấy trang (404) | Mang Theo Một Nét Vẽ — Lăng Kính",
+        "countProjectName": 1,
+        "countTeamName": 1,
+        "lang": "vi",
+        "robots": "noindex, nofollow",
+        "h1Count": 1,
+        "h1Text": "Không tìm thấy trang",
+        "mainCount": 1,
+        "headerExists": true,
+        "footerExists": true,
+        "formCount": 0,
+        "currentNavHrefs": []
+      }
+    },
+    {
+      "name": "Không có biểu mẫu form thu thập dữ liệu trên: /404.html",
+      "pass": true,
+      "observed": {
+        "forms": 0
+      }
+    },
+    {
+      "name": "HTTP 404 cho đường dẫn không tồn tại: /duong-dan-khong-ton-tai-404-test",
+      "pass": true,
+      "observed": {
+        "status": 404,
+        "reloadStatus": 404
+      }
+    },
+    {
+      "name": "Không tràn ngang trên home tại 320px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 320,
+        "clientWidth": 320,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên home tại 320px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 320,
+        "clientWidth": 320,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Không tràn ngang trên home tại 375px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 375,
+        "clientWidth": 375,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên home tại 375px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 375,
+        "clientWidth": 375,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Không tràn ngang trên home tại 768px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên home tại 768px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Không tràn ngang trên home tại 1024px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 1024,
+        "clientWidth": 1024,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên home tại 1024px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 1024,
+        "clientWidth": 1024,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Không tràn ngang trên home tại 1440px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên home tại 1440px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Không tràn ngang trên project tại 320px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 320,
+        "clientWidth": 320,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên project tại 320px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 320,
+        "clientWidth": 320,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Không tràn ngang trên project tại 375px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 375,
+        "clientWidth": 375,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên project tại 375px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 375,
+        "clientWidth": 375,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Không tràn ngang trên project tại 768px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên project tại 768px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Không tràn ngang trên project tại 1024px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 1024,
+        "clientWidth": 1024,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên project tại 1024px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 1024,
+        "clientWidth": 1024,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Không tràn ngang trên project tại 1440px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên project tại 1440px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Không tràn ngang trên team tại 320px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 320,
+        "clientWidth": 320,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên team tại 320px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 320,
+        "clientWidth": 320,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Không tràn ngang trên team tại 375px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 375,
+        "clientWidth": 375,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên team tại 375px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 375,
+        "clientWidth": 375,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Không tràn ngang trên team tại 768px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên team tại 768px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Không tràn ngang trên team tại 1024px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 1024,
+        "clientWidth": 1024,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên team tại 1024px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 1024,
+        "clientWidth": 1024,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Không tràn ngang trên team tại 1440px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên team tại 1440px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Không tràn ngang trên product tại 320px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 320,
+        "clientWidth": 320,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên product tại 320px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 320,
+        "clientWidth": 320,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Không tràn ngang trên product tại 375px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 375,
+        "clientWidth": 375,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên product tại 375px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 375,
+        "clientWidth": 375,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Không tràn ngang trên product tại 768px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên product tại 768px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Không tràn ngang trên product tại 1024px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 1024,
+        "clientWidth": 1024,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên product tại 1024px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 1024,
+        "clientWidth": 1024,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Không tràn ngang trên product tại 1440px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên product tại 1440px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Không tràn ngang trên transparency tại 320px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 320,
+        "clientWidth": 320,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên transparency tại 320px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 320,
+        "clientWidth": 320,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Không tràn ngang trên transparency tại 375px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 375,
+        "clientWidth": 375,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên transparency tại 375px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 375,
+        "clientWidth": 375,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Không tràn ngang trên transparency tại 768px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên transparency tại 768px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Không tràn ngang trên transparency tại 1024px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 1024,
+        "clientWidth": 1024,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên transparency tại 1024px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 1024,
+        "clientWidth": 1024,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Không tràn ngang trên transparency tại 1440px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên transparency tại 1440px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Không tràn ngang trên support tại 320px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 320,
+        "clientWidth": 320,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên support tại 320px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 320,
+        "clientWidth": 320,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Không tràn ngang trên support tại 375px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 375,
+        "clientWidth": 375,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên support tại 375px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 375,
+        "clientWidth": 375,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Không tràn ngang trên support tại 768px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên support tại 768px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Không tràn ngang trên support tại 1024px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 1024,
+        "clientWidth": 1024,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên support tại 1024px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 1024,
+        "clientWidth": 1024,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Không tràn ngang trên support tại 1440px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên support tại 1440px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Không tràn ngang trên 404 tại 320px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 320,
+        "clientWidth": 320,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên 404 tại 320px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 320,
+        "clientWidth": 320,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Không tràn ngang trên 404 tại 375px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 375,
+        "clientWidth": 375,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên 404 tại 375px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 375,
+        "clientWidth": 375,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Không tràn ngang trên 404 tại 768px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên 404 tại 768px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Không tràn ngang trên 404 tại 1024px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 1024,
+        "clientWidth": 1024,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên 404 tại 1024px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 1024,
+        "clientWidth": 1024,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Không tràn ngang trên 404 tại 1440px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Font chữ >= 14px trên 404 tại 1440px",
+      "pass": true,
+      "observed": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "hasOverflow": false,
+        "smallTextsCount": 0,
+        "smallTextsSample": []
+      }
+    },
+    {
+      "name": "Phím Escape đóng mobile menu và trả focus về toggle",
+      "pass": true,
+      "observed": {
+        "expanded": "false",
+        "isFocused": true
+      }
+    },
+    {
+      "name": "Resize sang Desktop hiển thị desktop-nav và ẩn mobile-nav-panel",
+      "pass": true,
+      "observed": {
+        "resize": true
+      }
+    },
+    {
+      "name": "Tương tác mở FAQ hiển thị câu trả lời rõ ràng",
+      "pass": true,
+      "observed": {
+        "faqOpen": true
+      }
+    },
+    {
+      "name": "Khi tắt JS: toggle button bị ẩn",
+      "pass": true,
+      "observed": {
+        "toggleVisible": false,
+        "footerLinksCount": 6,
+        "footerLinks": [
+          "/",
+          "/du-an/mang-theo-mot-net-ve",
+          "/san-pham",
+          "/minh-bach",
+          "/ve-nhom",
+          "/dong-hanh"
+        ]
+      }
+    },
+    {
+      "name": "Khi tắt JS: footer navigation cung cấp đầy đủ liên kết điều hướng",
+      "pass": true,
+      "observed": {
+        "toggleVisible": false,
+        "footerLinksCount": 6,
+        "footerLinks": [
+          "/",
+          "/du-an/mang-theo-mot-net-ve",
+          "/san-pham",
+          "/minh-bach",
+          "/ve-nhom",
+          "/dong-hanh"
+        ]
+      }
+    }
+  ],
+  "responsiveChecks": [
+    {
+      "page": "home",
+      "width": 320,
+      "scrollWidth": 320,
+      "clientWidth": 320,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    },
+    {
+      "page": "home",
+      "width": 375,
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    },
+    {
+      "page": "home",
+      "width": 768,
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    },
+    {
+      "page": "home",
+      "width": 1024,
+      "scrollWidth": 1024,
+      "clientWidth": 1024,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    },
+    {
+      "page": "home",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    },
+    {
+      "page": "project",
+      "width": 320,
+      "scrollWidth": 320,
+      "clientWidth": 320,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    },
+    {
+      "page": "project",
+      "width": 375,
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    },
+    {
+      "page": "project",
+      "width": 768,
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    },
+    {
+      "page": "project",
+      "width": 1024,
+      "scrollWidth": 1024,
+      "clientWidth": 1024,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    },
+    {
+      "page": "project",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    },
+    {
+      "page": "team",
+      "width": 320,
+      "scrollWidth": 320,
+      "clientWidth": 320,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    },
+    {
+      "page": "team",
+      "width": 375,
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    },
+    {
+      "page": "team",
+      "width": 768,
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    },
+    {
+      "page": "team",
+      "width": 1024,
+      "scrollWidth": 1024,
+      "clientWidth": 1024,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    },
+    {
+      "page": "team",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    },
+    {
+      "page": "product",
+      "width": 320,
+      "scrollWidth": 320,
+      "clientWidth": 320,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    },
+    {
+      "page": "product",
+      "width": 375,
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    },
+    {
+      "page": "product",
+      "width": 768,
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    },
+    {
+      "page": "product",
+      "width": 1024,
+      "scrollWidth": 1024,
+      "clientWidth": 1024,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    },
+    {
+      "page": "product",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    },
+    {
+      "page": "transparency",
+      "width": 320,
+      "scrollWidth": 320,
+      "clientWidth": 320,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    },
+    {
+      "page": "transparency",
+      "width": 375,
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    },
+    {
+      "page": "transparency",
+      "width": 768,
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    },
+    {
+      "page": "transparency",
+      "width": 1024,
+      "scrollWidth": 1024,
+      "clientWidth": 1024,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    },
+    {
+      "page": "transparency",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    },
+    {
+      "page": "support",
+      "width": 320,
+      "scrollWidth": 320,
+      "clientWidth": 320,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    },
+    {
+      "page": "support",
+      "width": 375,
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    },
+    {
+      "page": "support",
+      "width": 768,
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    },
+    {
+      "page": "support",
+      "width": 1024,
+      "scrollWidth": 1024,
+      "clientWidth": 1024,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    },
+    {
+      "page": "support",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    },
+    {
+      "page": "404",
+      "width": 320,
+      "scrollWidth": 320,
+      "clientWidth": 320,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    },
+    {
+      "page": "404",
+      "width": 375,
+      "scrollWidth": 375,
+      "clientWidth": 375,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    },
+    {
+      "page": "404",
+      "width": 768,
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    },
+    {
+      "page": "404",
+      "width": 1024,
+      "scrollWidth": 1024,
+      "clientWidth": 1024,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    },
+    {
+      "page": "404",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "hasOverflow": false,
+      "smallTextsCount": 0,
+      "smallTextsSample": []
+    }
+  ],
+  "keyboardMenuChecks": {
+    "escape": {
+      "expanded": "false",
+      "isFocused": true
+    },
+    "resize": true
+  },
+  "noJsChecks": {
+    "toggleVisible": false,
+    "footerLinksCount": 6,
+    "footerLinks": [
+      "/",
+      "/du-an/mang-theo-mot-net-ve",
+      "/san-pham",
+      "/minh-bach",
+      "/ve-nhom",
+      "/dong-hanh"
+    ]
+  },
+  "errors": [],
+  "browser": "Chrome/154.0.8037.93",
+  "deviceScaleFactor": 1,
+  "zoom": "default 1, viewport simulated sizing",
+  "endedAt": "2026-10-03T00:01:30.899Z",
+  "totalAssertions": 117,
+  "passedAssertions": 117,
+  "failedAssertions": []
+}

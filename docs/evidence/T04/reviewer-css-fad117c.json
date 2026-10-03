@@ -1,0 +1,6 @@
+{
+  "sha": "fad117c7e12a80775b0dbd0ad93ff464db60fcb9",
+  "checkedAt": "2026-10-02T23:59:47.023Z",
+  "scope": "All Astro/CSS source files, declared shared style tokens, vars without fallback",
+  "missing": []
+}

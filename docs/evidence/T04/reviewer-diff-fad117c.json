@@ -1,0 +1,6 @@
+﻿{
+    "sha":  "fad117c7e12a80775b0dbd0ad93ff464db60fcb9",
+    "command":  "git diff --check 1b6d678..HEAD -- src tests",
+    "exitCode":  2,
+    "assessment":  "Only one extra blank line at EOF in tests/finance.test.mjs:303; nonfunctional, accepted without a cleanup commit"
+}

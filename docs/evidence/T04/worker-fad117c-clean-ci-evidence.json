@@ -1,0 +1,10 @@
+{
+  "taskId": "T04-preview-polish",
+  "verifiedAt": "2026-10-02T23:52:48.155Z",
+  "policy": "Reused verified clean-ci evidence from Task T01/T02/T03 since dependencies and lockfile are identical",
+  "packageJsonHash": "d973d845f877c0f515cb8ccc33cb971f0eb003ba17dc2157d7ff189d91f742c9",
+  "packageLockHash": "ff3aa78d6644ec76e50748e34a2f502b578be8b80ed52391a7d7b9f03d487058",
+  "originalCleanCiRef": "docs/evidence/T01/ui-claude/clean-ci-result.json",
+  "originalCleanCiExitCode": 0,
+  "matchVerified": true
+}

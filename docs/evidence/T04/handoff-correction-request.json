@@ -1,0 +1,6 @@
+﻿{
+    "taskId":  "T04",
+    "appSha":  "fad117c7e12a80775b0dbd0ad93ff464db60fcb9",
+    "text":  "Bàn giao app fad117c đã nhận; Codex browser410/410 PASS, đang xemảnh và sẽ check/test/build độc lập một lần. Chỉ sửa báo cáo ngoài repo, HOLD code/commit/build: handoff-report.md ghi Astro5.16.4 nhưng node_modules/astro/package.json thực tế7.3.5; ProductCard dùng home và san-pham, không dong-hanh. Metadata timestamp07:00Z dường như là giờlocal07:00+07, cần ghi thời điểm UTC thật hoặc bỏ timestamp thủ công, không bịa giờ. Giữ artifact candidate đã có (Codex đã lưu snapshot0d4 riêng). ACK T04/fad117c/model/HOLD và báo cáo sửa ngắn, không rerun QA/capture hoặc tạo appSHA mới cho lỗi tài liệu.",
+    "at":  "2026-10-03T00:04:02.1378955Z"
+}

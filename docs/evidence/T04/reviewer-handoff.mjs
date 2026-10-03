@@ -1,0 +1,37 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import crypto from 'node:crypto';
+import assert from 'node:assert/strict';
+import {execFileSync} from 'node:child_process';
+const dir='docs/evidence/T04',sha=execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();
+const read=file=>JSON.parse(fs.readFileSync(file,'utf8').replace(/^\uFEFF/,''));
+const hash=bytes=>crypto.createHash('sha256').update(bytes).digest('hex');
+const browser=read(dir+'/reviewer-browser-'+sha.slice(0,7)+'.json');
+const worker=read(dir+'/worker-'+sha.slice(0,7)+'-check-build-metadata.json');
+const workerBrowser=read(dir+'/worker-'+sha.slice(0,7)+'-browser-audit-results.json');
+const checks=read(dir+'/reviewer-checks-'+sha.slice(0,7)+'.json');
+assert.equal(worker.commitSha,sha);assert.equal(browser.sha,sha);assert.equal(checks.sha,sha);
+assert.equal(browser.failed.length,0);assert.equal(browser.checks.length,410);
+assert.ok(workerBrowser.assertions.every(a=>a.pass));
+assert.ok(checks.commands.length===3&&checks.commands.every(c=>c.exitCode===0));
+assert.ok(checks.changedOutputs.length===0&&checks.outputCountUnchanged);
+const screenshots=fs.readdirSync(dir).filter(n=>n.endsWith('.png')).map(name=>{
+  const file=path.join(dir,name),bytes=fs.readFileSync(file);
+  return {file,bytes:bytes.length,width:bytes.readUInt32BE(16),height:bytes.readUInt32BE(20),sha256:hash(bytes)};
+});
+const reviewer=screenshots.filter(s=>s.file.includes('reviewer-'+sha.slice(0,7))),workerShots=screenshots.filter(s=>s.file.includes('worker-'+sha.slice(0,7)));
+assert.equal(reviewer.filter(s=>s.file.endsWith('-full.png')).length,21);
+assert.equal(workerShots.filter(s=>s.file.endsWith('-full.png')).length,21);
+assert.equal(reviewer.length,45);assert.equal(workerShots.length,23);
+const routes=[['/','dist/index.html'],['/du-an/mang-theo-mot-net-ve','dist/du-an/mang-theo-mot-net-ve/index.html'],['/san-pham','dist/san-pham/index.html'],['/minh-bach','dist/minh-bach/index.html'],['/ve-nhom','dist/ve-nhom/index.html'],['/dong-hanh','dist/dong-hanh/index.html'],['/r04-final-not-found','dist/404.html'],['/favicon.svg','dist/favicon.svg']];
+const served=await Promise.all(routes.map(async([route,file])=>{
+  const response=await fetch('http://127.0.0.1:4321'+route),body=Buffer.from(await response.arrayBuffer());
+  const expected=route.includes('not-found')?404:200;
+  assert.equal(response.status,expected);assert.equal(hash(body),hash(fs.readFileSync(file)));
+  return {route,status:response.status,sha256:hash(body),file};
+}));
+const status=execFileSync('git',['status','--porcelain','--untracked-files=all','--','src','public','tests','package.json','package-lock.json','astro.config.mjs','tsconfig.json'],{encoding:'utf8'}).trim();
+assert.equal(status,'');assert.equal(execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),sha);
+const result={sha,verifiedAt:new Date().toISOString(),workerBrowserAssertions:workerBrowser.assertions.length,reviewerBrowserAssertions:browser.checks.length,commands:checks.commands,astroInstalled:checks.astro,sourceDiffCheck:read(dir+'/reviewer-diff-'+sha.slice(0,7)+'.json'),screenshots,reviewerScreenshots:reviewer.length,workerScreenshots:workerShots.length,served,appStatus:status,distStableAcrossRebuild:true};
+fs.writeFileSync(dir+'/handoff-verification-'+sha.slice(0,7)+'.json',JSON.stringify(result,null,2));
+console.log(JSON.stringify({sha,reviewerBrowserAssertions:browser.checks.length,workerBrowserAssertions:workerBrowser.assertions.length,screenshots:screenshots.length,reviewerScreenshots:reviewer.length,workerScreenshots:workerShots.length,servedRoutes:served.length,appStatus:status}));

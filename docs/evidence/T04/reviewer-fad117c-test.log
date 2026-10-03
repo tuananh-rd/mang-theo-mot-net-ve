@@ -1,0 +1,30 @@
+﻿▶ Kiểm thử logic tài chính và tính toán (Task T03)
+  ✔ Tổng dự toán chi của 6 khoản mục đúng bằng 3.120.000đ (0.6095ms)
+  ✔ sumPlannedExpenses ném lỗi khi có khoản mục null (không tự coi là 0) (0.3321ms)
+  ✔ Doanh thu kịch bản từng sản phẩm tính đúng theo giá tham khảo × số lượng kế hoạch (0.1685ms)
+  ✔ Tổng doanh thu kịch bản bán đủ hàng đúng bằng 2.900.000đ (0.1103ms)
+  ✔ Kịch bản 1 — Chưa tính tài trợ: Chi 3.120.000đ, Thu 2.900.000đ => Thiếu 220.000đ (11.388ms)
+  ✔ Kịch bản 2 — Hiện vật thay một phần (500.000đ): Chi tiền còn 2.620.000đ => Dư 280.000đ (0.28ms)
+  ✔ Kịch bản 3 — Hiện vật thay chi workshop (1.120.000đ): Chi tiền còn 2.000.000đ => Dư 900.000đ (0.2159ms)
+  ✔ calculateScenario trả về null khi dữ liệu doanh thu hoặc chi phí chưa biết (null) (0.1034ms)
+  ✔ calculateScenario ném lỗi khi hiện vật vượt quá tổng chi hoặc là số âm (0.1942ms)
+  ✔ Định dạng formatVND xử lý chuẩn xác số dương, 0 và null (0.2279ms)
+✔ Kiểm thử logic tài chính và tính toán (Task T03) (14.6273ms)
+▶ Kiểm tra tính toàn vẹn dữ liệu và an toàn thông tin (Task T03)
+  ✔ Toàn bộ số liệu thực tế được khởi tạo ở trạng thái null / chưa xác nhận (0.104ms)
+  ✔ Kênh liên hệ chính thức có giá trị null và trạng thái unconfirmed (0.0594ms)
+  ✔ Sản phẩm gây quỹ giữ nguyên trạng thái actualStock null và saleStatus unconfirmed (0.0869ms)
+✔ Kiểm tra tính toàn vẹn dữ liệu và an toàn thông tin (Task T03) (0.3677ms)
+▶ Kiểm thử helpers hiển thị và quy tắc định dạng (Task T04 / R04)
+  ✔ formatProductQuantity dẫn xuất đúng số lượng, tiền tố và đơn vị (0.1835ms)
+  ✔ formatProductPrice định dạng chuẩn và không ghép đơn vị khi giá null (0.226ms)
+  ✔ formatScenarioBalance phân biệt chính xác 4 trạng thái: âm, 0, dương, và unknown (0.2149ms)
+✔ Kiểm thử helpers hiển thị và quy tắc định dạng (Task T04 / R04) (0.7083ms)
+ℹ tests 16
+ℹ suites 3
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 117.2191

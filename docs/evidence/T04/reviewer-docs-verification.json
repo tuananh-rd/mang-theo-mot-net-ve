@@ -1,0 +1,447 @@
+{
+  "checkedAt": "2026-10-03T00:14:58.400Z",
+  "ownedFiles": [
+    "README.md",
+    "docs/tasks.md",
+    "docs/architecture.md",
+    "docs/operations.md",
+    "docs/task-specs/T04.md",
+    "docs/reviews/R04-0d4bd9d.md",
+    "docs/reviews/R04-fad117c.md",
+    "reports/resume-brain.md",
+    "docs/evidence/T04/dispatch.md",
+    "docs\\evidence\\T04\\reviewer-audit.mjs",
+    "docs\\evidence\\T04\\reviewer-browser.mjs",
+    "docs\\evidence\\T04\\reviewer-checks.ps1",
+    "docs\\evidence\\T04\\reviewer-css.mjs",
+    "docs\\evidence\\T04\\reviewer-docs.mjs",
+    "docs\\evidence\\T04\\reviewer-faq.mjs",
+    "docs\\evidence\\T04\\reviewer-finance.mjs",
+    "docs\\evidence\\T04\\reviewer-handoff.mjs"
+  ],
+  "jsonFilesParsed": 48,
+  "links": [
+    {
+      "file": "README.md",
+      "target": "docs/reviews/R04-fad117c.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/task-specs/T04.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/operations.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "reports/resume-brain.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "reports/ui-review-claude.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/operations.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/architecture.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/ui-reference.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/evidence/T00/survey.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/task-specs/T01.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/evidence/T01/dispatch.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks.md",
+      "target": "reviews/R04-fad117c.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks.md",
+      "target": "task-specs/T04.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks.md",
+      "target": "operations.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks.md",
+      "target": "reviews/R03-b6e5205.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks.md",
+      "target": "reviews/R03-e563de4.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks.md",
+      "target": "task-specs/T03.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks.md",
+      "target": "reviews/R03-e563de4.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks.md",
+      "target": "evidence/T03/continuity.json",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks.md",
+      "target": "evidence/T03/worker-ack.json",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks.md",
+      "target": "reviews/R02-a317d85.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks.md",
+      "target": "reviews/R02-311dc33.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks.md",
+      "target": "evidence/T02/resume-2026-10-03.json",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks.md",
+      "target": "task-specs/T02.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks.md",
+      "target": "evidence/T02/continuity.json",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks.md",
+      "target": "evidence/T02/ack.json",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks.md",
+      "target": "reviews/R01-ui-285f695.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks.md",
+      "target": "../reports/ui-review-claude.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks.md",
+      "target": "task-specs/T01-ui-claude.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks.md",
+      "target": "evidence/T01/ui-claude/continuity.json",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks.md",
+      "target": "reviews/R01-c27fea2.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks.md",
+      "target": "evidence/T01/worker-handoff-c27fea2.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks.md",
+      "target": "evidence/T01/resume-2026-10-02.json",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks.md",
+      "target": "evidence/T01/worker-ack.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks.md",
+      "target": "task-specs/T01.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks.md",
+      "target": "evidence/T01/dispatch.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks.md",
+      "target": "reviews/R01-a625421.md",
+      "exists": true
+    },
+    {
+      "file": "docs/tasks.md",
+      "target": "reviews/R01-c27fea2.md",
+      "exists": true
+    },
+    {
+      "file": "docs/architecture.md",
+      "target": "reviews/R04-fad117c.md",
+      "exists": true
+    },
+    {
+      "file": "docs/architecture.md",
+      "target": "operations.md",
+      "exists": true
+    },
+    {
+      "file": "docs/architecture.md",
+      "target": "reviews/R03-b6e5205.md",
+      "exists": true
+    },
+    {
+      "file": "docs/architecture.md",
+      "target": "reviews/R02-a317d85.md",
+      "exists": true
+    },
+    {
+      "file": "docs/architecture.md",
+      "target": "reviews/R01-ui-285f695.md",
+      "exists": true
+    },
+    {
+      "file": "docs/architecture.md",
+      "target": "reviews/R01-c27fea2.md",
+      "exists": true
+    },
+    {
+      "file": "docs/operations.md",
+      "target": "reviews/R04-fad117c.md",
+      "exists": true
+    },
+    {
+      "file": "docs/operations.md",
+      "target": "open-questions.md",
+      "exists": true
+    },
+    {
+      "file": "docs/task-specs/T04.md",
+      "target": "../reviews/R04-fad117c.md",
+      "exists": true
+    },
+    {
+      "file": "docs/reviews/R04-fad117c.md",
+      "target": "R04-0d4bd9d.md",
+      "exists": true
+    },
+    {
+      "file": "docs/reviews/R04-fad117c.md",
+      "target": "../evidence/T04/dispatch.md",
+      "exists": true
+    },
+    {
+      "file": "docs/reviews/R04-fad117c.md",
+      "target": "../operations.md",
+      "exists": true
+    },
+    {
+      "file": "docs/reviews/R04-fad117c.md",
+      "target": "../open-questions.md",
+      "exists": true
+    },
+    {
+      "file": "reports/resume-brain.md",
+      "target": "../docs/reviews/R04-fad117c.md",
+      "exists": true
+    },
+    {
+      "file": "reports/resume-brain.md",
+      "target": "../docs/reviews/R04-0d4bd9d.md",
+      "exists": true
+    },
+    {
+      "file": "reports/resume-brain.md",
+      "target": "../docs/task-specs/T04.md",
+      "exists": true
+    },
+    {
+      "file": "reports/resume-brain.md",
+      "target": "../docs/evidence/T04/dispatch.md",
+      "exists": true
+    },
+    {
+      "file": "reports/resume-brain.md",
+      "target": "../docs/operations.md",
+      "exists": true
+    },
+    {
+      "file": "reports/resume-brain.md",
+      "target": "../docs/reviews/R03-b6e5205.md",
+      "exists": true
+    },
+    {
+      "file": "reports/resume-brain.md",
+      "target": "../docs/reviews/R03-e563de4.md",
+      "exists": true
+    },
+    {
+      "file": "reports/resume-brain.md",
+      "target": "../docs/task-specs/T03.md",
+      "exists": true
+    },
+    {
+      "file": "reports/resume-brain.md",
+      "target": "../docs/evidence/T03/worker-handoff-b6e5205.md",
+      "exists": true
+    },
+    {
+      "file": "reports/resume-brain.md",
+      "target": "../docs/reviews/R02-a317d85.md",
+      "exists": true
+    },
+    {
+      "file": "reports/resume-brain.md",
+      "target": "../docs/task-specs/T02.md",
+      "exists": true
+    },
+    {
+      "file": "reports/resume-brain.md",
+      "target": "../docs/evidence/T02/worker-handoff-a317d85.md",
+      "exists": true
+    },
+    {
+      "file": "reports/resume-brain.md",
+      "target": "../docs/reviews/R01-ui-285f695.md",
+      "exists": true
+    },
+    {
+      "file": "reports/resume-brain.md",
+      "target": "ui-review-claude.md",
+      "exists": true
+    },
+    {
+      "file": "reports/resume-brain.md",
+      "target": "../docs/task-specs/T01-ui-claude.md",
+      "exists": true
+    },
+    {
+      "file": "reports/resume-brain.md",
+      "target": "../docs/evidence/T01/ui-claude/continuity.json",
+      "exists": true
+    },
+    {
+      "file": "reports/resume-brain.md",
+      "target": "../docs/evidence/T01/ui-claude/model-recovery.json",
+      "exists": true
+    },
+    {
+      "file": "reports/resume-brain.md",
+      "target": "../docs/evidence/T01/ui-claude/ack.json",
+      "exists": true
+    },
+    {
+      "file": "reports/resume-brain.md",
+      "target": "../docs/evidence/T01/ui-claude/handoff-verification-285f695.json",
+      "exists": true
+    },
+    {
+      "file": "reports/resume-brain.md",
+      "target": "../docs/evidence/T01/ui-claude/worker-handoff-285f695.md",
+      "exists": true
+    },
+    {
+      "file": "reports/resume-brain.md",
+      "target": "../docs/evidence/T01/ui-claude/worker-clean-ci-task-741.log",
+      "exists": true
+    },
+    {
+      "file": "reports/resume-brain.md",
+      "target": "handoff-brain.md",
+      "exists": true
+    },
+    {
+      "file": "reports/resume-brain.md",
+      "target": "../docs/reviews/R01-c27fea2.md",
+      "exists": true
+    },
+    {
+      "file": "reports/resume-brain.md",
+      "target": "../docs/evidence/T01/recovery-ci.json",
+      "exists": true
+    },
+    {
+      "file": "reports/resume-brain.md",
+      "target": "../docs/evidence/T01/worker-ack.md",
+      "exists": true
+    },
+    {
+      "file": "reports/resume-brain.md",
+      "target": "../docs/evidence/T01/resume-2026-10-02.json",
+      "exists": true
+    },
+    {
+      "file": "reports/resume-brain.md",
+      "target": "../docs/evidence/T01/worker-handoff-c27fea2.md",
+      "exists": true
+    },
+    {
+      "file": "reports/resume-brain.md",
+      "target": "../docs/evidence/T01/reviewer-browser-c27fea2.json",
+      "exists": true
+    },
+    {
+      "file": "reports/resume-brain.md",
+      "target": "../docs/evidence/T01/reviewer-build-c27fea2.json",
+      "exists": true
+    },
+    {
+      "file": "reports/resume-brain.md",
+      "target": "../docs/evidence/T01/reviewer-audit-c27fea2.json",
+      "exists": true
+    },
+    {
+      "file": "reports/resume-brain.md",
+      "target": "../docs/evidence/T00/source-orca-survey.md",
+      "exists": true
+    },
+    {
+      "file": "reports/resume-brain.md",
+      "target": "../docs/open-questions.md",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/T04/dispatch.md",
+      "target": "../../task-specs/T04.md",
+      "exists": true
+    }
+  ],
+  "workerRawReportsAndLogsPreserved": true,
+  "pass": true
+}

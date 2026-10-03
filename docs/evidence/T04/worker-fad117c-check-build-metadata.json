@@ -1,0 +1,47 @@
+{
+  "taskId": "T04-preview-polish",
+  "commitSha": "fad117c7e12a80775b0dbd0ad93ff464db60fcb9",
+  "baseSha": "1b6d678203a89cc8f2f384d08e50ee65e88a02a4",
+  "branch": "task/t04-preview-polish",
+  "nodeVersion": "v24.19.0",
+  "astroVersion": "7.3.5",
+  "os": "Windows",
+  "timestampUtc": "2026-10-02T23:59:51.056Z",
+  "timestampLocal": "2026-10-03T06:59:51+07:00",
+  "commands": {
+    "check": {
+      "command": "npm.cmd run check",
+      "exitCode": 0,
+      "summary": "37 files checked: 0 errors, 0 warnings, 0 hints",
+      "rawLog": "handoff-t04/raw-check.log"
+    },
+    "test": {
+      "command": "node --test tests/finance.test.mjs",
+      "exitCode": 0,
+      "summary": "3 suites, 16 tests, 16 passed, 0 failed",
+      "rawLog": "handoff-t04/raw-test.log"
+    },
+    "build": {
+      "command": "npm.cmd run build",
+      "exitCode": 0,
+      "summary": "7 static HTML pages built in 478ms, 15 dist files total",
+      "rawLog": "handoff-t04/raw-build.log"
+    }
+  },
+  "packageJsonSha256": "d973d845f877c0f515cb8ccc33cb971f0eb003ba17dc2157d7ff189d91f742c9",
+  "packageLockSha256": "ff3aa78d6644ec76e50748e34a2f502b578be8b80ed52391a7d7b9f03d487058",
+  "lockfileVerification": {
+    "cleanCiReused": true,
+    "matchVerified": true,
+    "refEvidence": "handoff-t04/clean-ci-evidence.json"
+  },
+  "previewServer": {
+    "taskId": "86498389-9ca4-486e-9ba8-82247107fb96/task-957",
+    "pid": 2888,
+    "url": "http://127.0.0.1:4321/",
+    "host": "127.0.0.1",
+    "port": 4321,
+    "status": "RUNNING",
+    "loopbackVerified": true
+  }
+}

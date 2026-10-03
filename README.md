@@ -2,7 +2,7 @@
 
 Mã nguồn: [tuananh-rd/mang-theo-mot-net-ve](https://github.com/tuananh-rd/mang-theo-mot-net-ve) — repository private. Lưu code trên GitHub không thay mốc duyệt hướng UI hoặc duyệt phát hành website.
 
-**T03 DONE; R03 PASS** tại app SHA `b6e5205`. Cả sáu trang đã có nội dung preview, gồm Minh bạch và Đồng hành; hướng UI đã được duyệt sau sửa theo [Claude](reports/ui-review-claude.md). [Review T03](docs/reviews/R03-b6e5205.md), [đặc tả](docs/task-specs/T03.md), [bàn giao hiện tại](reports/resume-brain.md). T04 kiểm tổng thể/hoàn thiện vận hành chưa giao; chưa public website.
+**T04 DONE; R04 PASS** tại app SHA `fad117c7e12a80775b0dbd0ad93ff464db60fcb9`. Sáu trang và 404 đã được kiểm tổng thể, title không lặp, giá/số lượng và dự toán home dùng cùng nguồn dữ liệu. Check,16tests,build và410browser assertions độc lập đạt;21full-page đã xem. [Review cuối](docs/reviews/R04-fad117c.md), [đặc tả](docs/task-specs/T04.md), [vận hành](docs/operations.md), [bàn giao hiện tại](reports/resume-brain.md). Giữ hướng UI đã duyệt sau sửa [Claude](reports/ui-review-claude.md); website chưa public, T05 chờ chủ dự án xác nhận nội dung và duyệt phát hành.
 
 Bộ tài liệu khởi động website của **nhóm Lăng Kính – AI2015, SSG105, Đại học FPT Hà Nội**. Website giới thiệu nhóm và một dự án trọng tâm tại Mái ấm Thánh Tâm Xuy Xá, với UI tham khảo https://sharethemeal.org/fr.
 
@@ -21,7 +21,7 @@ Mở `http://127.0.0.1:4321/`. Preview chỉ bind loopback, mọi trang có noin
 
 Ứng dụng dùng Astro static, TypeScript strict và CSS thuần. Nội dung chọn lọc nằm ở `src/data/campaign.ts`; cập nhật theo task của Antigravity, giữ giá tham khảo/planned tách actual và unknown=null. Chỉ thêm ảnh public sau khi xác nhận quyền; giữ hồ sơ gốc, chứng từ thô và evidence review ngoài public/dist. Hosting/deploy chưa được chọn hoặc thực hiện.
 
-Bảng số lượng sản phẩm hiện là bản kế hoạch tĩnh: khi đổi giá hoặc số lượng đề xuất, Antigravity cần giữ dữ liệu typed, bảng desktop/tablet và thẻ mobile trong `src/pages/san-pham.astro` nhất quán. Chưa có tồn kho hoặc trạng thái mở bán được xác nhận.
+Card, bảng desktop/tablet và thẻ mobile lấy giá/số lượng trực tiếp từ PRODUCTS qua helpers `formatProductPrice`/`formatProductQuantity`. Tiền tố “Tối đa” không lặp số kế hoạch. Home và Minh bạch cùng tính chi/doanh thu từ data; unknown không đổi thành0. Chưa có tồn kho hoặc trạng thái mở bán được xác nhận. Khi cập nhật dữ liệu, kiểm lại copy/FAQ/kịch bản có con số theo [hướng dẫn vận hành](docs/operations.md).
 
 Minh bạch dùng `PLANNED_EXPENSES`, `FINANCE_SCENARIOS` và helper `src/lib/finance.ts`, render table/mobile từ cùng data; doanh thu lấy giá×số lượng PRODUCTS. `ACTUAL_FINANCE` tách khỏi kế hoạch, `OFFICIAL_CONTACT` hiện null/unconfirmed. Cập nhật dữ liệu đã được phép theo task worker, đồng bộ overview trang chủ nếu bổ sung actual; chưa tự bật kênh tiếp nhận. Kiểm logic tài chính bằng `node --test tests/finance.test.mjs`.
 

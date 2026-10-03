@@ -1,4 +1,8 @@
-# Kiến trúc — quyết định T00
+# Kiến trúc website
+
+## Sau T04/R04 — 03/10/2026
+
+T04 DONE, [R04 PASS](reviews/R04-fad117c.md) tại app `fad117c7e12a80775b0dbd0ad93ff464db60fcb9`, base1b6d678, nhánh task/t04-preview-polish. Giữ Astro7.3.5 static/TS strict/CSS/npm lock,6route+404,15distfile và loopback/noindex. Title riêng không lặp; bảng/thẻ sản phẩm dùng PRODUCTS với quantityPrefix không chứa số; helpers định dạng quantity/price/null và balance4trạng thái. Home/Minh bạch cùng PLANNED_EXPENSES/PRODUCTS/kịch bản chưa tài trợ, actual/contact/stock vẫnnull.16tests và410browser assertions độc lập đạt,21full-page đã xem;15hash ổn định sau rebuild. [Vận hành](operations.md) ghi nguồn cập nhật, quyền công bố và static404 mapping. T05 chưa giao/public, workerHOLD. Các mốc bên dưới là lịch sử quyết định T00 đến T03.
 
 ## Cập nhật T03 — 03/10/2026
 

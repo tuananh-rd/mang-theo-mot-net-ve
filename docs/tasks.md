@@ -1,5 +1,9 @@
 # Backlog
 
+## Hiện tại sau T04/R04 — 03/10/2026
+
+**T04 DONE; R04 PASS** tại app fad117c7e12a80775b0dbd0ad93ff464db60fcb9, base1b6d678, nhánh task/t04-preview-polish. [Review cuối](reviews/R04-fad117c.md), [spec](task-specs/T04.md), [vận hành](operations.md). 410/410browser,16tests/check/build0,21full-page đã xem và bundle/serve hash khớp. Worker HOLD giữ loopbackpreview; T05 chưa giao, chờ thông tin thật/hosting và chủ dự án duyệt public. Các mốc T03/T02/T01 bên dưới là lịch sử.
+
 ## Trạng thái hiện tại sau R03 — 03/10/2026
 
 **T03 DONE; R03 PASS** tại app `b6e5205c6cfd19b6bae592e7148c49385c671e8d`, base `da890a212e029249e29545aa1606e71027034674`, nhánh `task/t03-finance-support`. [Review cuối](reviews/R03-b6e5205.md), [candidate yêu cầu sửa](reviews/R03-e563de4.md). Check/tests/build độc lập exit0,13tests tài chính đạt,266browser assertions được chấp nhận (264fullrun+2targetedFAQ, nguyên nhân script ghi rõ),6full-page đã xem. Cả6route nội dung preview; actual/contact vẫn chưa xác nhận. **T04 READY, chưa giao**, worker HOLD giữ preview; chưa public. Các trạng thái IN_PROGRESS/CHANGES_REQUIRED bên dưới là lịch sử.
@@ -53,9 +57,9 @@ Kiểm tra trước gửi 02/10: Antigravity MCP phản hồi model catalog và 
 | R02 | Codex | T02 | PASS tại a317d85: diff, nội dung, 279 assertions, visual, check/build và audit |
 | T03 | Antigravity | R02 đạt | DONE b6e5205: Minh bạch/Đồng hành, planned/actual/contact data, helper và tests |
 | R03 | Codex | T03 | PASS b6e5205 sau sửa e563de4, review source/visual/browser/finance/build/audit |
-| T04 | Antigravity | R03 | READY, chưa giao: kiểm tổng thể, metadata/404/a11y/ảnh và hướng dẫn vận hành |
-| R04 | Codex | T04 | Nghiệm thu preview hoàn chỉnh, báo giới hạn và các thông tin còn thiếu |
-| T05 | Antigravity | R04 + chủ dự án duyệt public | Phát hành lên môi trường được chọn, kiểm URL public và hành vi |
+| T04 | Antigravity | R03 | DONE fad117c: metadata/data thống nhất và preview tổng thể; task/t04-preview-polish, base1b6d678 |
+| R04 | Codex | T04 | PASS fad117c: diff/410browser/16tests/build/visual/audit; hướng dẫn vận hành và giới hạn đã ghi |
+| T05 | Antigravity | R04 + chủ dự án duyệt public | NOT_ASSIGNED: chờ xác nhận dữ liệu/ảnh/liên hệ/hosting và duyệt phát hành |
 
 ## Mẫu task Codex giao
 
@@ -74,7 +78,7 @@ Không gộp toàn bộ website thành một task. Khi review yêu cầu sửa, 
 
 ## Review kế tiếp
 
-R03 PASS tại b6e5205; bước tiếp theo là đặc tả T04 và R04 preview toàn site. Chưa public; dữ liệu/ảnh/liên hệ thật chưa đủ thì tiếp tục ẩn hành động phụ thuộc. Đoạn T03/R02 bên dưới là lịch sử.
+R04 PASS tại fad117c; T05 chưa giao, cần chủ dự án xác nhận thông tin thật/hosting và duyệt public. Giữ preview và ẩn hành động chưa đủ thông tin. Các dòng R03/R02 dưới đây là lịch sử.
 
 R02 PASS tại `a317d85`; bước tiếp theo là đặc tả T03. Giữ riêng planned/actual, tiền/hiện vật và contact chưa xác nhận. Không mở task trùng hoặc yêu cầu duyệt public trước preview toàn site/R04. Đoạn R01 bên dưới là lịch sử.
 

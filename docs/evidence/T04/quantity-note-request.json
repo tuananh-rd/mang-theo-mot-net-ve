@@ -1,0 +1,5 @@
+﻿{
+    "taskId":  "T04",
+    "text":  "Lưu ý T04 mục2: metadata hiển thị quantity nên là prefix/qualifier như tối đa, không tạo full string có số8/20/30 lặp với plannedQuantity.value. Hai view lấy số trực tiếp PRODUCTS; nếu thiếu số thì chưa xác nhận. Giá không tự thêm unit vào Chưa xác nhận. Codex giữ docs, bạn handoff operations notes ngoài repo. ACK T04/base/branch/model ngắn ở checkpoint, chưa thấy ACK riêng trong trace hiện tại; không cần dừng triển khai để trả lời.",
+    "at":  "2026-10-02T23:48:38.9055681Z"
+}

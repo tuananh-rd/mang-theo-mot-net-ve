@@ -1,0 +1,31 @@
+{
+  "sha": "fad117c7e12a80775b0dbd0ad93ff464db60fcb9",
+  "checkedAt": "2026-10-03T00:06:15.227Z",
+  "reason": "R04 targeted capture of open native FAQ and visible keyboard focus; the full browser audit passed but did not save this representative image",
+  "results": [
+    {
+      "page": "finance",
+      "open": true,
+      "answerHeight": 179.15625,
+      "fontSize": 16,
+      "outlineStyle": "auto",
+      "outlineWidth": 1,
+      "outlineColor": "rgb(16, 16, 16)",
+      "focusedSummary": true,
+      "closed": true,
+      "pass": true
+    },
+    {
+      "page": "support",
+      "open": true,
+      "answerHeight": 153.5625,
+      "fontSize": 16,
+      "outlineStyle": "auto",
+      "outlineWidth": 1,
+      "outlineColor": "rgb(16, 16, 16)",
+      "focusedSummary": true,
+      "closed": true,
+      "pass": true
+    }
+  ]
+}

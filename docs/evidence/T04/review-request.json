@@ -1,0 +1,7 @@
+﻿{
+    "taskId":  "T04",
+    "candidate":  "0d4bd9ddc4895571a3ab32d67d751bf062752da1",
+    "review":  "docs/reviews/R04-0d4bd9d.md",
+    "text":  "R04 source review CHANGES_REQUIRED tại commit thật 0d4bd9ddc4895571a3ab32d67d751bf062752da1. Đọc docs/reviews/R04-0d4bd9d.md đầy đủ, sửa2finding trong chính T04: quantity vẫn chứa số lặp ở planQuantityText; home else0đ che unknown/số dương và luôn classâm. Chưa nghiệm thu build/visual candidate. Có thể dừng chụp candidate để không chụp lại sau sửa; giữ artifact đã có. Note quantity đã gửi là cùng yêu cầu, không task mới. Giá/quantity null chỉ nhãn chưa xác nhận. Handoff finalSHA thật/checks/screens toànsite/spec sau sửa rồi HOLD. ACK T04/base/branch/model/review lúc checkpoint. Codex không sửa code.",
+    "at":  "2026-10-02T23:53:32.4543747Z"
+}

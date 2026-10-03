@@ -1,0 +1,37 @@
+﻿{
+  "id": "17d8482e-3854-409a-9fb6-5066caca7010",
+  "ok": true,
+  "result": {
+    "terminal": {
+      "handle": "term_4d29ba8e-7d0b-4a74-858f-d45e9a6fb9b9",
+      "status": "running",
+      "tail": [
+        "● Bash(node -e \"fetch('http://127.0.0.1:4321/san-pham/').then(r => r.text()).then(t => console.log(t.substring(0, 500)))\")",
+        "● Bash(node -e \"fetch('http://127.0.0.1:4321/san-pham').then(r => r.text()).then(t => console.log('Length:', t.length, 'Tối đa 8 chiếc:', t.includes('Tối đa",
+        "...)",
+        "● Bash(node -e \") (ctrl+o to expand)",
+        "▸ Thought for 3s, 384 tokens",
+        "  Every route tested successfully returns the expected title with a 200 status code. This suggests the basic routing and title retrieval mechanism is funct...",
+        "● Bash(Get-ChildItem -Path \"C:\\Users\\tuana\\.gemini\\antigravity-cli\\brain\\86498389-9ca4-486e-9ba8-82247107fb96\\handoff-t04\") (ctrl+o to expand)",
+        "⣾  Running command...",
+        "└ Tip: Use /diff to view uncommitted changes in your workspace.",
+        "───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────",
+        ">",
+        "───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────",
+        "  ● [00:21:22] npx astro preview --host 127.0.0.1 --port 4321 running",
+        "───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────",
+        "esc to cancel                                                                                                      Gemini 3.8 Flash · high · 1 task(s) · /tasks"
+      ],
+      "truncated": true,
+      "limited": true,
+      "oldestCursor": "215270",
+      "nextCursor": "217270",
+      "latestCursor": "217270",
+      "returnedLineCount": 15,
+      "source": "screen"
+    }
+  },
+  "_meta": {
+    "runtimeId": "6e6114a7-3148-4dbe-b563-c2a58c95ba4d"
+  }
+}
