@@ -222,10 +222,13 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
   <!-- Section 6: Nguồn lực và minh bạch (2 dòng + link Minh bạch) -->
   <section class="section section-soft" aria-labelledby="resources-heading">
     <div class="container">
+      <div class="section-header">
+        <span class="section-kicker">Quản lý nguồn quỹ</span>
+        <h2 id="resources-heading">Nguồn lực và nguyên tắc minh bạch</h2>
+      </div>
+
       <div class="resources-layout">
         <div class="resources-content">
-          <span class="section-kicker">Quản lý nguồn quỹ</span>
-          <h2 id="resources-heading">Nguồn lực và nguyên tắc minh bạch</h2>
           <p class="resources-desc">
             Theo đề xuất, nhóm sinh viên dự kiến phụ trách chuẩn bị vật tư các góc chơi, hoàn thiện quà lưu niệm và phương án ẩm thực gây quỹ; nguồn lực được dự kiến theo dõi và đối soát độc lập giữa tiền mặt và hiện vật. Chi tiết dự toán 19 khoản và cơ cấu số dư được công khai minh bạch tại trang Minh bạch.
           </p>
@@ -492,17 +495,19 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
   }
 
   /* Resources */
+  /* Resources */
   .resources-layout {
     max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
+    margin: 0;
+    text-align: left;
   }
 
   .resources-content {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     gap: var(--space-3);
+    text-align: left;
   }
 
   .resources-desc {
@@ -510,6 +515,7 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
     line-height: 1.6;
     color: var(--color-text-secondary);
     max-width: 65ch;
+    text-align: left;
   }
 
   .resources-actions {
@@ -560,6 +566,11 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
 
     .stages-grid {
       grid-template-columns: repeat(2, 1fr);
+    }
+
+    .empty-desc,
+    .resources-desc {
+      text-align: left;
     }
   }
 
@@ -625,6 +636,13 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
 
     .empty-state-card {
       padding: var(--space-5);
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .empty-desc,
+    .resources-desc {
+      text-align: left;
     }
   }
 </style>

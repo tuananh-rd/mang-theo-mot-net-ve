@@ -396,6 +396,19 @@ import { TEAM_INFO, TEAM_PRINCIPLES, TEAM_COORDINATION } from '../data/campaign'
 
   /* Responsive */
   @media (max-width: 1023px) {
+    .team-mission-lead {
+      text-align: left;
+    }
+
+    .members-notice-card {
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .members-desc {
+      text-align: left;
+    }
+
     .principles-grid {
       grid-template-columns: repeat(2, 1fr);
     }
@@ -419,6 +432,7 @@ import { TEAM_INFO, TEAM_PRINCIPLES, TEAM_COORDINATION } from '../data/campaign'
     .team-mission-lead {
       font-size: 1.125rem;
       line-height: 1.35;
+      text-align: left;
     }
 
     .team-hero-content {
@@ -446,6 +460,12 @@ import { TEAM_INFO, TEAM_PRINCIPLES, TEAM_COORDINATION } from '../data/campaign'
     .coordination-card,
     .members-notice-card {
       padding: var(--space-4) !important;
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .members-desc {
+      text-align: left;
     }
 
     .team-bottom-actions {

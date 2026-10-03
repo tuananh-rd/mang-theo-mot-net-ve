@@ -303,7 +303,7 @@ const foodProducts = PRODUCTS.filter((p) => p.category === 'food');
   }
 
   .breadcrumb-link:hover {
-    color: var(--color-brand-primary);
+    color: var(--color-focus);
     text-decoration: underline;
   }
 
@@ -343,7 +343,7 @@ const foodProducts = PRODUCTS.filter((p) => p.category === 'food');
     color: var(--color-text-secondary);
     background-color: var(--color-canvas-soft);
     padding: 4px 12px;
-    border-radius: var(--radius-full);
+    border-radius: var(--radius-pill);
     border: 1px solid var(--color-border-subtle);
     font-weight: 500;
   }
@@ -416,7 +416,7 @@ const foodProducts = PRODUCTS.filter((p) => p.category === 'food');
     background-color: #fff7ed;
     border: 1px solid #fed7aa;
     padding: 3px 10px;
-    border-radius: var(--radius-full);
+    border-radius: var(--radius-pill);
     font-weight: 500;
   }
 
@@ -428,13 +428,13 @@ const foodProducts = PRODUCTS.filter((p) => p.category === 'food');
   }
 
   .food-reconcile-link {
-    color: var(--color-brand-primary);
+    color: var(--color-focus);
     font-weight: 600;
     text-decoration: underline;
   }
 
   .food-reconcile-link:hover {
-    color: var(--color-brand-hover);
+    color: var(--color-text-primary);
   }
 
   /* Products Grids */
@@ -520,7 +520,7 @@ const foodProducts = PRODUCTS.filter((p) => p.category === 'food');
   .plan-status-badge {
     display: inline-block;
     padding: 3px 8px;
-    border-radius: var(--radius-full);
+    border-radius: var(--radius-pill);
     font-size: 0.875rem;
     font-weight: 600;
     background-color: #fff7ed;
@@ -576,8 +576,9 @@ const foodProducts = PRODUCTS.filter((p) => p.category === 'food');
     display: none;
   }
 
+  .plan-mobile-summary:focus,
   .plan-mobile-summary:focus-visible {
-    outline: 2px solid var(--color-brand-primary);
+    outline: 3px solid var(--color-focus);
     outline-offset: -2px;
   }
 
@@ -588,7 +589,7 @@ const foodProducts = PRODUCTS.filter((p) => p.category === 'food');
 
   .summary-badge {
     font-size: 0.875rem;
-    color: var(--color-brand-primary);
+    color: var(--color-text-accent);
     font-weight: 600;
   }
 
@@ -618,8 +619,9 @@ const foodProducts = PRODUCTS.filter((p) => p.category === 'food');
     gap: var(--space-2);
   }
 
+  .table-responsive:focus,
   .table-responsive:focus-visible {
-    outline: 2px solid var(--color-brand-primary);
+    outline: 3px solid var(--color-focus);
     outline-offset: -2px;
   }
 
