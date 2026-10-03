@@ -1,6 +1,5 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import PlaceholderIllustration from '../../components/PlaceholderIllustration.astro';
 import ActivityCard from '../../components/ActivityCard.astro';
 import StageCard from '../../components/StageCard.astro';
 import { CAMPAIGN_PROJECT } from '../../data/campaign';
@@ -30,17 +29,17 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
     </div>
   </div>
 
-  <!-- Hero Section -->
+  <!-- Hero Section (Dạng biên tập, thay ảnh trùng bằng tóm tắt 4 thông tin cốt lõi) -->
   <section class="project-hero" aria-labelledby="project-heading">
     <div class="container">
       <div class="project-hero-grid">
         <div class="project-hero-content">
           <div class="badge-row">
-            <span class="status-badge">Bản xem trước — nội dung đề xuất</span>
+            <span class="status-badge">Đề xuất — chưa có xác nhận chính thức</span>
           </div>
 
           <h1 id="project-heading" class="project-title">
-            {CAMPAIGN_PROJECT.title}
+            Dự án Mang Theo Một Nét Vẽ
           </h1>
 
           <p class="project-slogan">
@@ -48,60 +47,100 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
           </p>
 
           <p class="project-intro">
-            {CAMPAIGN_PROJECT.summary}
+            Dự án học phần SSG105 của nhóm Lăng Kính (Đại học FPT Hà Nội), đề xuất kết nối một buổi vui chơi an toàn, có lựa chọn với việc hỗ trợ hiện vật theo nhu cầu thực tế của Mái ấm.
           </p>
 
-          <div class="project-meta-box">
-            <p class="meta-item">
-              <strong>Địa điểm dự kiến:</strong> {CAMPAIGN_PROJECT.location}
-            </p>
-            <p class="meta-item">
-              <strong>Trạng thái thực tế:</strong> {CAMPAIGN_PROJECT.statusNotice}
-            </p>
-          </div>
-
           <div class="project-hero-actions">
-            <a href="/san-pham" class="btn btn-primary">
-              Xem sản phẩm gây quỹ
+            <a href="#muc-tieu" class="btn btn-primary">
+              Mục tiêu &amp; An toàn
             </a>
             <a href="#buoi-choi" class="btn btn-secondary">
-              Xem các góc hoạt động
+              Xem 4 góc hoạt động
             </a>
           </div>
         </div>
 
-        <div class="project-hero-visual">
-          <PlaceholderIllustration
-            type="hero"
-            ratio="4:3"
-          />
+        <div class="project-hero-editorial">
+          <div class="project-core-summary card">
+            <h2 class="core-summary-title">4 thông tin cốt lõi đề xuất</h2>
+            <ul class="core-summary-list">
+              <li>
+                <strong>Nơi dự kiến:</strong>
+                <span>{CAMPAIGN_PROJECT.location}</span>
+              </li>
+              <li>
+                <strong>Người tham gia:</strong>
+                <span>Do Mái ấm xác nhận theo điều kiện thực tế của cơ sở</span>
+              </li>
+              <li>
+                <strong>Kế hoạch:</strong>
+                <span>2 buổi tại Mái ấm với 4 góc chơi có lựa chọn</span>
+              </li>
+              <li>
+                <strong>Trạng thái:</strong>
+                <span>Đề xuất dự án — chưa có xác nhận chính thức</span>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Section 1: Câu chuyện từ đề xuất -->
+  <!-- Section 1: Mục tiêu và nguyên tắc an toàn (N1, N2, N3) -->
+  <section id="muc-tieu" class="section section-soft" aria-labelledby="objectives-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-kicker">Định hướng cốt lõi</span>
+        <h2 id="objectives-heading">Mục tiêu &amp; Nguyên tắc an toàn</h2>
+        <p class="section-lead">
+          Các nguyên tắc đề xuất nhằm bảo đảm buổi chơi an toàn, vừa sức và tôn trọng trọn vẹn quyền lựa chọn của từng người tham gia.
+        </p>
+      </div>
+
+      <div class="objectives-grid">
+        <div class="objective-card card">
+          <div class="badge-row">
+            <span class="status-badge">Mục tiêu đề xuất</span>
+          </div>
+          <h3 class="objective-title">Buổi chơi theo lựa chọn</h3>
+          <p class="objective-text">
+            Theo đề xuất, nhóm hướng đến một buổi chơi có lựa chọn và hỗ trợ hiện vật đúng nhu cầu. Mỗi người có thể tham gia theo khả năng, quan sát hoặc nghỉ; không có chỉ tiêu sản phẩm dành cho trẻ. Nhóm dự kiến hoàn thiện, kiểm tra sản phẩm và theo dõi làm/bán/tồn trước khi công bố thu chi.
+          </p>
+        </div>
+
+        <div class="objective-card card">
+          <div class="badge-row">
+            <span class="status-badge">An toàn &amp; Phối hợp</span>
+          </div>
+          <h3 class="objective-title">An toàn, phối hợp &amp; Quyền cơ sở</h3>
+          <p class="objective-text">
+            Lịch, không gian, vật liệu và hoạt động dự kiến cần được thống nhất với Mái ấm trước khi tổ chức. Nhóm dự kiến kiểm tra cạnh và chi tiết nhỏ, điều chỉnh trò chơi nhẹ phù hợp; người chăm sóc hỗ trợ lựa chọn và điều kiện an toàn. Người tham gia vẫn có quyền chọn hoạt động, quan sát hoặc nghỉ. Phương án bowling dự kiến có thể điều chỉnh lăn bóng hoặc chuyền bóng nhẹ không tính điểm loại trừ.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: Câu chuyện từ đề xuất (Rút 1 đoạn) -->
   <section class="section section-story" aria-labelledby="story-heading">
     <div class="container">
       <div class="story-wrapper">
         <div class="section-header">
-          <span class="section-kicker">Kế hoạch dự kiến</span>
+          <span class="section-kicker">Bối cảnh hình thành</span>
           <h2 id="story-heading">Câu chuyện từ đề xuất</h2>
         </div>
 
         <div class="story-prose">
           <p>
-            Trong đề xuất ban đầu, sau khi lắng nghe những góp ý từ người chăm sóc tại Mái ấm Thánh Tâm Xuy Xá, nhóm Lăng Kính dự kiến điều chỉnh các hoạt động để tạo ra một không gian có nhiều góc vui chơi khác nhau. Mục tiêu là giúp mỗi em nhỏ và người tham gia đều có quyền tự do lựa chọn cách trải nghiệm phù hợp nhất với thể trạng, tâm trạng và sở thích riêng.
-          </p>
-          <p>
-            Tại các góc chơi, người tham gia có thể thỏa sức chọn màu vẽ, tô tượng, hòa giọng ca hát, lăn bóng nhẹ nhàng hoặc chỉ đơn giản là ngồi quan sát và nghỉ ngơi trong sự tôn trọng. Song song đó, các thành viên nhóm chịu trách nhiệm chuẩn bị họa cụ an toàn, trực tiếp hoàn thiện các sản phẩm lưu niệm gây quỹ và bảo đảm quá trình đối soát nguồn lực diễn ra minh bạch, rõ ràng.
+            Xuất phát từ mong muốn mang lại niềm vui nhẹ nhàng và thiết thực, nhóm Lăng Kính lên ý tưởng tổ chức một không gian vui chơi có nhiều góc hoạt động tại Mái ấm Thánh Tâm Xuy Xá. Mỗi góc chơi được bố trí để người tham gia tự do lựa chọn trải nghiệm phù hợp với thể trạng và sở thích riêng — từ tô tượng, trang trí chuồn chuồn tre mộc, ca hát đến trò chơi vận động nhẹ — trong khi nhóm sinh viên dự kiến tự chịu trách nhiệm chuẩn bị vật tư, trực tiếp hoàn thiện hàng lưu niệm gây quỹ và quản lý thu chi minh bạch sau đối soát.
           </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Section 2: Buổi chơi có lựa chọn -->
+  <!-- Section 3: Buổi chơi có lựa chọn (4 góc chơi) -->
   <section id="buoi-choi" class="section section-soft" aria-labelledby="activities-heading">
     <div class="container">
       <div class="section-header">
@@ -125,13 +164,13 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
 
       <div class="section-footer-note">
         <p>
-          Lưu ý: Hoạt động tô tượng là trải nghiệm vui chơi tại chỗ cho các em, không phải hàng hoá mang đi bán gây quỹ. Mọi kế hoạch gây quỹ qua sản phẩm và thực đơn ẩm thực đều đang ở trạng thái chuẩn bị, chưa mở bán và chưa phân bổ số lượng bán cụ thể; xem chi tiết tại <a href="/minh-bach#doi-chieu-do-an" class="text-accent underline font-medium">đối chiếu mục tiêu ẩm thực trên trang Minh bạch</a>.
+          * Ghi chú: Ảnh minh họa đạo cụ, không phải ảnh hoạt động của dự án. Mẫu chuồn chuồn, tượng và nhạc cụ thực tế chờ xác nhận; ảnh bóng không thể hiện bộ bowling. Hoạt động tô tượng là trải nghiệm vui chơi tại chỗ cho các em, không phải hàng hoá mang đi bán gây quỹ.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- Section 3: Hành trình dự kiến -->
+  <!-- Section 4: Hành trình dự kiến -->
   <section class="section section-stages" aria-labelledby="stages-heading">
     <div class="container">
       <div class="section-header">
@@ -158,27 +197,7 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
     </div>
   </section>
 
-  <!-- Section 4: Nguồn lực và minh bạch -->
-  <section class="section section-soft" aria-labelledby="resources-heading">
-    <div class="container">
-      <div class="resources-layout">
-        <div class="resources-content">
-          <span class="section-kicker">Quản lý nguồn quỹ</span>
-          <h2 id="resources-heading">Nguồn lực và nguyên tắc minh bạch</h2>
-          <p class="resources-desc">
-            Theo đề xuất, nhóm sinh viên phụ trách chuẩn bị vật tư cho buổi chơi, hoàn thiện móc khóa lưu niệm, chuồn chuồn tre mộc và chuẩn bị phương án ẩm thực gây quỹ theo kế hoạch; nguồn gốc trang trí chuồn chuồn tre chờ xác nhận. Kế hoạch dự kiến tách bạch chi phí trải nghiệm với nguồn thu bán hàng; tiền và hiện vật hỗ trợ sẽ được lưu trữ chứng từ và đối soát cẩn trọng trước khi công bố.
-          </p>
-          <div class="resources-actions">
-            <a href="/minh-bach" class="btn btn-secondary">
-              Xem nguyên tắc minh bạch thu chi
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Section 5: Cập nhật và kết quả -->
+  <!-- Section 5: Cập nhật và kết quả (Compact updates) -->
   <section class="section section-updates" aria-labelledby="updates-heading">
     <div class="container">
       <div class="section-header">
@@ -188,7 +207,7 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
 
       <div class="empty-state-card card">
         <div class="empty-badge">
-          <span class="status-badge">Chờ xác nhận</span>
+          <span class="status-badge">Chưa xác nhận</span>
         </div>
         <h3 class="empty-title">
           Chưa có cập nhật thực tế được xác nhận. Kết quả và báo cáo sẽ được công bố sau khi đối soát và được phép.
@@ -196,6 +215,26 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
         <p class="empty-desc">
           Kế hoạch, lịch trình chi tiết và báo cáo hoạt động sẽ được cập nhật sau khi hoàn tất đối soát và được phép công bố.
         </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 6: Nguồn lực và minh bạch (2 dòng + link Minh bạch) -->
+  <section class="section section-soft" aria-labelledby="resources-heading">
+    <div class="container">
+      <div class="resources-layout">
+        <div class="resources-content">
+          <span class="section-kicker">Quản lý nguồn quỹ</span>
+          <h2 id="resources-heading">Nguồn lực và nguyên tắc minh bạch</h2>
+          <p class="resources-desc">
+            Theo đề xuất, nhóm sinh viên dự kiến phụ trách chuẩn bị vật tư các góc chơi, hoàn thiện quà lưu niệm và phương án ẩm thực gây quỹ; nguồn lực được dự kiến theo dõi và đối soát độc lập giữa tiền mặt và hiện vật. Chi tiết dự toán 19 khoản và cơ cấu số dư được công khai minh bạch tại trang Minh bạch.
+          </p>
+          <div class="resources-actions">
+            <a href="/minh-bach" class="btn btn-secondary">
+              Xem minh bạch thu chi &rarr;
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -286,22 +325,6 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
     color: var(--color-text-secondary);
   }
 
-  .project-meta-box {
-    background-color: var(--color-canvas-soft);
-    border-left: 4px solid var(--color-accent);
-    padding: var(--space-3) var(--space-4);
-    border-radius: var(--radius-sm);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-  }
-
-  .meta-item {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-secondary);
-    margin: 0;
-  }
-
   .project-hero-actions {
     display: flex;
     gap: var(--space-4);
@@ -309,8 +332,93 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
     flex-wrap: wrap;
   }
 
-  .project-hero-visual {
+  /* Editorial Hero Summary Card */
+  .project-hero-editorial {
     width: 100%;
+  }
+
+  .project-core-summary {
+    background-color: var(--color-surface-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .core-summary-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin: 0;
+    padding-bottom: var(--space-2);
+    border-bottom: 2px solid var(--color-text-accent);
+  }
+
+  .core-summary-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .core-summary-list li {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 0.9375rem;
+    border-bottom: 1px dashed var(--color-border-subtle);
+    padding-bottom: var(--space-2);
+  }
+
+  .core-summary-list li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .core-summary-list strong {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-secondary);
+  }
+
+  .core-summary-list span {
+    color: var(--color-text-primary);
+    line-height: 1.45;
+  }
+
+  /* Objectives Grid */
+  .objectives-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6);
+  }
+
+  .objective-card {
+    background-color: var(--color-surface-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .objective-title {
+    font-size: 1.25rem;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .objective-text {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+    margin: 0;
   }
 
   /* Section Story */
@@ -442,10 +550,8 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
       gap: var(--space-8);
     }
 
-    .project-hero-visual {
-      max-width: 560px;
-      margin-left: auto;
-      margin-right: auto;
+    .objectives-grid {
+      grid-template-columns: 1fr;
     }
 
     .activities-grid {
@@ -468,15 +574,9 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
       gap: var(--space-4);
     }
 
-    .project-hero-visual {
-      order: -1;
-      max-width: 100%;
-    }
-
-    .project-hero-visual :global(.illustration-wrapper .svg-container) {
-      height: 150px;
-      max-height: 150px !important;
-      aspect-ratio: auto !important;
+    .objectives-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
     }
 
     .project-hero-content {
@@ -496,6 +596,11 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
     .project-intro {
       font-size: 0.9375rem;
       line-height: 1.45;
+      text-align: left;
+    }
+
+    .story-prose {
+      text-align: left;
     }
 
     .project-hero-actions {

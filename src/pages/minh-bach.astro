@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import FaqAccordion from '../components/FaqAccordion.astro';
 import {
   PLANNED_EXPENSES,
   PRODUCTS,
@@ -14,10 +15,13 @@ import {
   calculateCombinedPlannedRevenue,
   calculateScenario,
   calculateFoodReconciliation,
+  groupPlannedExpensesByCategory,
+  formatScenarioBalance,
   formatVND,
 } from '../lib/finance';
 
 const totalPlannedExpense = sumPlannedExpenses(PLANNED_EXPENSES);
+const expenseGroups = groupPlannedExpensesByCategory(PLANNED_EXPENSES);
 const craftRevenue = calculateCraftRevenue(PRODUCTS);
 const foodAssumption = FINANCE_OVERVIEW.foodPlannedRevenueAssumption.value;
 const totalPlannedRevenue = calculateCombinedPlannedRevenue(craftRevenue, foodAssumption);
@@ -47,6 +51,12 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
     result,
   };
 });
+
+const baseScenario = FINANCE_SCENARIOS.find((s) => s.id === 'chua-tinh-tai-tro') || FINANCE_SCENARIOS[0];
+const baseScenarioResult = baseScenario
+  ? calculateScenario(baseScenario, totalPlannedRevenue, totalPlannedExpense)
+  : null;
+const baseBalanceDisplay = formatScenarioBalance(baseScenarioResult);
 ---
 
 <Layout
@@ -88,10 +98,10 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
           Kế hoạch dự toán ngân sách, doanh thu kịch bản bán đủ hàng và các nguyên tắc quản trị tài chính minh bạch cho chiến dịch tại Mái ấm Thánh Tâm Xuy Xá.
         </p>
 
-        <!-- Highlights Grid -->
+        <!-- Highlights Grid (3 KPI kế hoạch / giả định) -->
         <div class="highlights-grid" role="region" aria-label="Các chỉ số kế hoạch nổi bật">
           <div class="highlight-card">
-            <span class="highlight-label">Chi dự kiến</span>
+            <span class="highlight-label">Chi dự kiến (kế hoạch)</span>
             <span class="highlight-value">{formatVND(totalPlannedExpense)}</span>
             <p class="highlight-condition">
               Dự toán 19 khoản chi phí nguyên vật liệu, vật tư góc chơi, quà tặng và di chuyển theo đề xuất (trang 24, 25, 26).
@@ -99,12 +109,32 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
           </div>
 
           <div class="highlight-card">
-            <span class="highlight-label">Doanh thu kịch bản</span>
+            <span class="highlight-label">Doanh thu kịch bản (giả định)</span>
             <span class="highlight-value">{formatVND(totalPlannedRevenue)}</span>
             <p class="highlight-condition">
-              Gồm {formatVND(craftRevenue)} từ 2 sản phẩm thủ công (bán đủ kế hoạch) và {formatVND(foodAssumption)} giả định mục tiêu ẩm thực (trang 18). Trạng thái mở bán chưa được xác nhận; bản xem trước chưa nhận đơn/tiền.
+              Gồm {formatVND(craftRevenue)} thủ công (bán đủ kế hoạch) và {formatVND(foodAssumption)} ẩm thực giả định (trang 18).
             </p>
           </div>
+
+          <div class="highlight-card">
+            <span class="highlight-label">Số dư giả định (kịch bản cơ sở)</span>
+            <span class:list={['highlight-value', baseBalanceDisplay.diffClass === 'diff-positive' ? 'text-positive' : baseBalanceDisplay.diffClass === 'diff-negative' ? 'text-negative' : '']}>
+              {baseBalanceDisplay.text}
+            </span>
+            <p class="highlight-condition">
+              Số dư mô phỏng khi chưa tính tài trợ hiện vật, dựa trên giả định bán hết sản phẩm theo giá tham khảo.
+            </p>
+          </div>
+        </div>
+
+        <!-- Cảnh báo dẫn xuất chênh 550.000đ và link đối chiếu -->
+        <div class="transparency-gap-alert" role="note">
+          <p class="gap-alert-text">
+            <strong>Lưu ý đối soát mục tiêu ẩm thực:</strong> Hồ sơ đề xuất ghi mục tiêu ẩm thực <strong>{formatVND(foodReconciliation.targetFoodRevenue)}</strong> (trang 18) nhưng số set giả định tính theo đơn giá SKU là <strong>{formatVND(foodReconciliation.setsCalculatedRevenue)}</strong> ({foodReconciliation.hypotheticalSets} set &times; {formatVND(foodReconciliation.setUnitPrice)}). Khoản chênh <strong>{foodReconciliation.unallocatedGap !== null ? formatVND(foodReconciliation.unallocatedGap) : ''}</strong> chưa có bảng phân bổ số lượng chi tiết từng món.
+          </p>
+          <a href="#doi-chieu-do-an" class="gap-alert-link">
+            Xem bảng đối chiếu ẩm thực &darr;
+          </a>
         </div>
 
         <!-- Section Notice -->
@@ -117,116 +147,8 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
     </div>
   </section>
 
-  <!-- Section 1: Dự toán chi -->
-  <section class="section section-soft" aria-labelledby="expenses-heading">
-    <div class="container">
-      <div class="section-header">
-        <div class="badge-wrap">
-          <span class="status-badge">Ngân sách dự kiến</span>
-        </div>
-        <h2 id="expenses-heading" class="section-title">
-          Dự toán chi phí kế hoạch
-        </h2>
-        <p class="section-subtitle">
-          Tổng hợp 19 khoản mục dự toán chi phí chuẩn bị vật tư các góc chơi, quà tặng, nguyên liệu và di chuyển theo đề xuất (trang 24, 25, 26).
-        </p>
-      </div>
-
-      <!-- Desktop & Tablet Table View -->
-      <div class="table-wrap desktop-only">
-        <table class="data-table">
-          <caption class="sr-only">Bảng chi tiết các khoản dự toán chi phí kế hoạch</caption>
-          <thead>
-            <tr>
-              <th scope="col">Khoản dự toán</th>
-              <th scope="col">Phân loại</th>
-              <th scope="col" class="text-right">Thành tiền</th>
-              <th scope="col">Ghi chú kế hoạch</th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              PLANNED_EXPENSES.map((item) => (
-                <tr>
-                  <td>
-                    <strong>{item.title}</strong>
-                    <div class="text-xs text-muted">{item.calculationText}</div>
-                  </td>
-                  <td>
-                    <span class="category-tag">{item.category}</span>
-                  </td>
-                  <td class="text-right font-medium">
-                    {formatVND(item.amount.value)}
-                  </td>
-                  <td class="text-muted">
-                    {item.note}
-                    {item.isEstimated && (
-                      <span class="estimated-tag">Chi phí giả định</span>
-                    )}
-                  </td>
-                </tr>
-              ))
-            }
-          </tbody>
-          <tfoot>
-            <tr class="total-row">
-              <th scope="row" colspan="2">Tổng dự toán chi</th>
-              <td class="text-right font-bold text-accent">
-                {formatVND(totalPlannedExpense)}
-              </td>
-              <td class="text-muted">Dẫn xuất từ 19 khoản mục dự toán, không phải chi phí thực tế</td>
-            </tr>
-          </tfoot>
-        </table>
-      </div>
-
-      <!-- Mobile List View (Không cuộn ngang) -->
-      <div class="mobile-only mobile-expense-list" aria-label="Danh sách khoản dự toán chi trên di động">
-        {
-          PLANNED_EXPENSES.map((item) => (
-            <div class="mobile-expense-card card">
-              <div class="mobile-expense-top">
-                <div class="mobile-expense-main">
-                  <h3 class="mobile-expense-title">{item.title}</h3>
-                  <span class="mobile-expense-cat">{item.category}</span>
-                </div>
-                <div class="mobile-expense-val-col">
-                  <span class="mobile-expense-val text-accent font-bold">
-                    {formatVND(item.amount.value)}
-                  </span>
-                  {item.isEstimated && (
-                    <span class="estimated-tag">Chi phí giả định</span>
-                  )}
-                </div>
-              </div>
-              <div class="mobile-expense-sub text-muted">
-                {item.calculationText && (
-                  <span class="mobile-expense-calc">{item.calculationText}</span>
-                )}
-                {item.calculationText && item.note && (
-                  <span class="mobile-sub-sep" aria-hidden="true">&bull;</span>
-                )}
-                {item.note && (
-                  <span class="mobile-expense-note">{item.note}</span>
-                )}
-              </div>
-            </div>
-          ))
-        }
-
-        <div class="mobile-total-card card">
-          <div class="mobile-total-header">Tổng dự toán chi kế hoạch</div>
-          <div class="mobile-total-amount">{formatVND(totalPlannedExpense)}</div>
-          <p class="mobile-total-note">
-            Dẫn xuất từ tổng 19 khoản mục chi theo đề xuất ban đầu; không phải chi phí thực tế đã thanh toán.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Section 2: Doanh thu giả định và kịch bản -->
-  <section class="section" aria-labelledby="scenarios-heading">
+  <!-- Section 1: Doanh thu kịch bản và phân tích số dư -->
+  <section class="section section-soft" aria-labelledby="scenarios-heading">
     <div class="container">
       <div class="section-header">
         <div class="badge-wrap">
@@ -407,6 +329,162 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
     </div>
   </section>
 
+  <!-- Section 2: Dự toán chi phí kế hoạch (19 khoản phân theo 3 nhóm) -->
+  <section class="section" aria-labelledby="expenses-heading">
+    <div class="container">
+      <div class="section-header">
+        <div class="badge-wrap">
+          <span class="status-badge">Ngân sách dự kiến</span>
+        </div>
+        <h2 id="expenses-heading" class="section-title">
+          Dự toán chi phí kế hoạch
+        </h2>
+        <p class="section-subtitle">
+          Tổng hợp 19 khoản mục dự toán chi phí chuẩn bị vật tư các góc chơi, quà tặng, nguyên liệu và di chuyển theo đề xuất (trang 24, 25, 26), phân thành 3 nhóm có tổng phụ tính toán trực tiếp từ dữ liệu.
+        </p>
+      </div>
+
+      <!-- Desktop & Tablet Table View (Phân nhóm có subtotal) -->
+      <div class="table-wrap desktop-only">
+        <table class="data-table">
+          <caption class="sr-only">Bảng chi tiết các khoản dự toán chi phí kế hoạch theo 3 nhóm</caption>
+          <thead>
+            <tr>
+              <th scope="col">Khoản dự toán</th>
+              <th scope="col">Phân loại</th>
+              <th scope="col" class="text-right">Thành tiền</th>
+              <th scope="col">Ghi chú kế hoạch</th>
+            </tr>
+          </thead>
+          {
+            expenseGroups.map((group) => (
+              <tbody class="expense-group-body">
+                <tr class="group-header-row">
+                  <th colspan="2" scope="colgroup" class="group-header-cell">
+                    <span class="group-header-badge">{group.category}</span>
+                    <span class="group-header-ref text-xs text-muted">({group.sourceRef.replace('proposal:page-', 'hồ sơ trang ')})</span>
+                  </th>
+                  <td class="text-right font-bold group-header-subtotal">
+                    {formatVND(group.subtotal)}
+                  </td>
+                  <td class="text-muted text-xs group-header-note">
+                    Tổng phụ {group.items.length} khoản
+                  </td>
+                </tr>
+                {
+                  group.items.map((item) => (
+                    <tr>
+                      <td>
+                        <strong>{item.title}</strong>
+                        <div class="text-xs text-muted">{item.calculationText}</div>
+                      </td>
+                      <td>
+                        <span class="category-tag">{item.category}</span>
+                      </td>
+                      <td class="text-right font-medium">
+                        {formatVND(item.amount.value)}
+                      </td>
+                      <td class="text-muted">
+                        {item.note}
+                        {item.isEstimated && (
+                          <span class="estimated-tag">Chi phí giả định</span>
+                        )}
+                      </td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+            ))
+          }
+          <tfoot>
+            <tr class="total-row">
+              <th scope="row" colspan="2">Tổng dự toán chi kế hoạch (19 khoản)</th>
+              <td class="text-right font-bold text-accent">
+                {formatVND(totalPlannedExpense)}
+              </td>
+              <td class="text-muted">Dẫn xuất từ 19 khoản mục dự toán trong đề xuất, không phải chi phí thực tế</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <!-- Mobile Grouped List View (Collapsible details với subtotal nhìn thấy khi đóng) -->
+      <div class="mobile-only mobile-expense-grouped-container" aria-label="Danh sách khoản dự toán chi trên di động phân theo nhóm">
+        {
+          expenseGroups.map((group) => (
+            <details class="mobile-expense-group-card card">
+              <summary class="mobile-group-summary">
+                <div class="group-summary-left">
+                  <span class="group-summary-title">{group.category}</span>
+                  <span class="group-summary-count text-xs text-muted">({group.items.length} khoản)</span>
+                </div>
+                <div class="group-summary-right font-bold text-accent">
+                  <span class="group-subtotal-val">{formatVND(group.subtotal)}</span>
+                  <span class="group-expand-cue" aria-hidden="true">
+                    <svg
+                      class="chevron-svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                  </span>
+                </div>
+              </summary>
+
+              <div class="group-items-list">
+                {
+                  group.items.map((item) => (
+                    <div class="mobile-expense-item">
+                      <div class="mobile-expense-top">
+                        <div class="mobile-expense-main">
+                          <h3 class="mobile-expense-title">{item.title}</h3>
+                        </div>
+                        <div class="mobile-expense-val-col">
+                          <span class="mobile-expense-val text-accent font-bold">
+                            {formatVND(item.amount.value)}
+                          </span>
+                          {item.isEstimated && (
+                            <span class="estimated-tag">Giả định</span>
+                          )}
+                        </div>
+                      </div>
+                      <div class="mobile-expense-sub text-muted">
+                        {item.calculationText && (
+                          <span class="mobile-expense-calc">{item.calculationText}</span>
+                        )}
+                        {item.calculationText && item.note && (
+                          <span class="mobile-sub-sep" aria-hidden="true">&bull;</span>
+                        )}
+                        {item.note && (
+                          <span class="mobile-expense-note">{item.note}</span>
+                        )}
+                      </div>
+                    </div>
+                  ))
+                }
+              </div>
+            </details>
+          ))
+        }
+
+        <div class="mobile-total-card card">
+          <div class="mobile-total-header">Tổng dự toán chi kế hoạch (19 khoản)</div>
+          <div class="mobile-total-amount">{formatVND(totalPlannedExpense)}</div>
+          <p class="mobile-total-note">
+            Dẫn xuất từ 3 nhóm dự toán trong đề xuất ban đầu (trang 24, 25, 26); không phải chi phí thực tế đã thanh toán.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Section 3: Báo cáo thực tế và nguyên tắc quản trị -->
   <section class="section section-soft" aria-labelledby="actual-governance-heading">
     <div class="container">
@@ -418,55 +496,65 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
           Báo cáo thực tế và nguyên tắc quản trị
         </h2>
         <p class="section-subtitle">
-          Khung theo dõi dòng tiền thực tế và 4 nguyên tắc quản trị tài chính minh bạch của nhóm Lăng Kính.
+          Thông tin thu chi thực tế sẽ được cập nhật sau khi đối soát và được phép công bố.
         </p>
       </div>
 
-      <!-- Actual Ledger Grid (Tất cả hiển thị chưa xác nhận rõ ràng, không in null) -->
-      <div class="actual-ledger-grid" role="region" aria-label="Khung theo dõi số liệu thực tế">
-        <div class="actual-card card">
-          <div class="actual-card-header">
-            <span class="actual-label">Tiền thực nhận</span>
-            <span class="actual-tag">Chờ đối soát</span>
+      <!-- Actual Ledger Compact (5 dòng gọn gàng, giữ null và chữ "Chưa xác nhận") -->
+      <div class="actual-ledger-compact card" role="region" aria-label="Sổ theo dõi thực tế">
+        <div class="actual-row">
+          <div class="actual-col-main">
+            <div class="actual-col-title">
+              <strong>1. Tiền thực nhận</strong>
+              <span class="actual-tag">Chờ đối soát</span>
+            </div>
+            <p class="actual-col-desc">Gồm doanh thu bán hàng thực tế và tài trợ tiền mặt thực nhận.</p>
           </div>
-          <div class="actual-value">{formatVND(ACTUAL_FINANCE.actualCashReceived.value)}</div>
-          <p class="actual-desc">Gồm doanh thu bán hàng thực tế và tài trợ tiền mặt thực nhận.</p>
+          <div class="actual-col-val">{formatVND(ACTUAL_FINANCE.actualCashReceived.value)}</div>
         </div>
 
-        <div class="actual-card card">
-          <div class="actual-card-header">
-            <span class="actual-label">Chi tiền thực trả</span>
-            <span class="actual-tag">Chờ đối soát</span>
+        <div class="actual-row">
+          <div class="actual-col-main">
+            <div class="actual-col-title">
+              <strong>2. Chi tiền thực trả</strong>
+              <span class="actual-tag">Chờ đối soát</span>
+            </div>
+            <p class="actual-col-desc">Kế hoạch chi trả các khoản vật tư và vận hành; số chi thực tế chờ đối soát.</p>
           </div>
-          <div class="actual-value">{formatVND(ACTUAL_FINANCE.actualCashSpent.value)}</div>
-          <p class="actual-desc">Kế hoạch chi trả các khoản vật tư và vận hành theo đề xuất; số chi thực tế chờ đối soát.</p>
+          <div class="actual-col-val">{formatVND(ACTUAL_FINANCE.actualCashSpent.value)}</div>
         </div>
 
-        <div class="actual-card card">
-          <div class="actual-card-header">
-            <span class="actual-label">Số dư tiền thực tế</span>
-            <span class="actual-tag">Chờ đối soát</span>
+        <div class="actual-row">
+          <div class="actual-col-main">
+            <div class="actual-col-title">
+              <strong>3. Số dư tiền thực tế</strong>
+              <span class="actual-tag">Chờ đối soát</span>
+            </div>
+            <p class="actual-col-desc">Số dư đầu kỳ + tiền thực nhận − chi tiền thực trả; số liệu phát sinh chờ đối soát.</p>
           </div>
-          <div class="actual-value">{formatVND(ACTUAL_FINANCE.actualCashBalance.value)}</div>
-          <p class="actual-desc">Số dư đầu kỳ + tiền thực nhận − chi tiền thực trả; số dư đầu kỳ và số liệu phát sinh đều chưa được xác nhận.</p>
+          <div class="actual-col-val">{formatVND(ACTUAL_FINANCE.actualCashBalance.value)}</div>
         </div>
 
-        <div class="actual-card card">
-          <div class="actual-card-header">
-            <span class="actual-label">Hiện vật tiếp nhận & bàn giao</span>
-            <span class="actual-tag">Sổ riêng</span>
+        <div class="actual-row">
+          <div class="actual-col-main">
+            <div class="actual-col-title">
+              <strong>4. Hiện vật tiếp nhận &amp; bàn giao</strong>
+              <span class="actual-tag">Sổ riêng</span>
+            </div>
+            <p class="actual-col-desc">Theo dõi riêng trong sổ hiện vật theo kế hoạch, không quy đổi gộp vào tiền mặt.</p>
           </div>
-          <div class="actual-value">Chưa xác nhận</div>
-          <p class="actual-desc">Theo dõi riêng trong sổ hiện vật theo kế hoạch, không quy đổi gộp vào tiền mặt.</p>
+          <div class="actual-col-val">Chưa xác nhận</div>
         </div>
 
-        <div class="actual-card card">
-          <div class="actual-card-header">
-            <span class="actual-label">Chứng từ & Hóa đơn</span>
-            <span class="actual-tag">Lưu trữ nội bộ</span>
+        <div class="actual-row">
+          <div class="actual-col-main">
+            <div class="actual-col-title">
+              <strong>5. Chứng từ &amp; Hóa đơn</strong>
+              <span class="actual-tag">Lưu trữ nội bộ</span>
+            </div>
+            <p class="actual-col-desc">Kế hoạch lưu trữ đầy đủ hóa đơn, chứng từ; công bố bản biên tập bảo vệ riêng tư sau khi được duyệt.</p>
           </div>
-          <div class="actual-value">Chưa xác nhận</div>
-          <p class="actual-desc">Kế hoạch lưu trữ đầy đủ hóa đơn, chứng từ phục vụ đối soát; công bố bản biên tập bảo vệ riêng tư sau khi được cấp quyền.</p>
+          <div class="actual-col-val">Chưa xác nhận</div>
         </div>
       </div>
 
@@ -480,7 +568,7 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
         </p>
       </div>
 
-      <!-- 4 Governance Principles -->
+      <!-- Governance Principles & Contingency Grid -->
       <div class="principles-grid">
         <div class="principle-card card">
           <div class="principle-number">01</div>
@@ -513,11 +601,19 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
             Báo cáo tài chính và chứng từ gốc sau đối soát sẽ được biên tập che các thông tin cá nhân nhạy cảm trước khi công bố công khai theo quyền hạn được duyệt.
           </p>
         </div>
+
+        <div class="principle-card card principle-card-wide">
+          <div class="principle-number">05</div>
+          <h3 class="principle-title">Phương án dự phòng và quản trị rủi ro</h3>
+          <p class="principle-desc">
+            Theo đề xuất, khi chưa đủ điều kiện phối hợp và kinh phí, nhóm cần điều chỉnh kế hoạch trước khi mua sắm lớn hoặc mở bán. Hàng tồn và thu chi được dự kiến theo dõi riêng; việc mua quà dựa trên số dư thực tế sau đối soát và nhu cầu được xác nhận.
+          </p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Section 4: FAQs -->
+  <!-- Section 4: FAQs (Dùng FaqAccordion) -->
   <section class="section" aria-labelledby="transparency-faq-heading">
     <div class="container">
       <div class="section-header">
@@ -532,21 +628,7 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
         </p>
       </div>
 
-      <div class="faq-list">
-        {
-          TRANSPARENCY_FAQS.map((faq) => (
-            <details class="faq-item card">
-              <summary class="faq-question">
-                <span>{faq.question}</span>
-                <span class="faq-icon" aria-hidden="true">+</span>
-              </summary>
-              <div class="faq-answer">
-                <p>{faq.answer}</p>
-              </div>
-            </details>
-          ))
-        }
-      </div>
+      <FaqAccordion faqs={TRANSPARENCY_FAQS} />
     </div>
   </section>
 
@@ -562,7 +644,7 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
         </p>
         <div class="navigation-cta-actions">
           <a href="/dong-hanh" class="btn btn-primary">
-            Đồng hành cùng dự án &rarr;
+            Cách đồng hành &rarr;
           </a>
           <a href="/du-an/mang-theo-mot-net-ve" class="btn btn-secondary">
             Xem chi tiết câu chuyện dự án
@@ -657,7 +739,7 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
   /* Highlights Grid */
   .highlights-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: var(--space-4);
   }
 
@@ -672,7 +754,7 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
   }
 
   .highlight-label {
-    font-size: 0.9375rem;
+    font-size: 0.875rem;
     font-weight: 600;
     color: var(--color-text-secondary);
     text-transform: uppercase;
@@ -680,10 +762,14 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
   }
 
   .highlight-value {
-    font-size: 2rem;
+    font-size: 1.875rem;
     font-weight: 800;
     color: var(--color-text-accent);
     line-height: 1.15;
+  }
+
+  .text-positive {
+    color: #15803d !important;
   }
 
   .highlight-condition {
@@ -691,6 +777,40 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
     color: var(--color-text-secondary);
     line-height: 1.5;
     margin: 0;
+  }
+
+  /* Gap Alert */
+  .transparency-gap-alert {
+    background-color: #fffaf0;
+    border: 1px solid #fed7aa;
+    border-left: 4px solid #f97316;
+    border-radius: var(--radius-sm);
+    padding: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .gap-alert-text {
+    font-size: 0.9375rem;
+    color: var(--color-text-primary);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .gap-alert-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: #c2410c;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    text-decoration: underline;
+    width: fit-content;
+  }
+
+  .gap-alert-link:hover {
+    color: #9a3412;
   }
 
   .transparency-notice {
@@ -708,14 +828,46 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
     margin: 0;
   }
 
+  /* Table Group Header */
+  .group-header-row {
+    background-color: #f1f5f9;
+    border-top: 2px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .group-header-cell {
+    padding: var(--space-3) var(--space-5);
+    text-align: left;
+  }
+
+  .group-header-badge {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+  }
+
+  .group-header-ref {
+    margin-left: var(--space-2);
+    font-weight: normal;
+  }
+
+  .group-header-subtotal {
+    font-size: 1.0625rem;
+    color: var(--color-text-accent);
+  }
+
+  .group-header-note {
+    font-style: italic;
+  }
+
   /* Section Headers */
   .section-header {
-    text-align: center;
-    max-width: 680px;
-    margin: 0 auto var(--space-8);
+    text-align: left;
+    max-width: 720px;
+    margin: 0 0 var(--space-8);
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     gap: var(--space-2);
   }
 
@@ -1047,54 +1199,69 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
     line-height: 1.55;
   }
 
-  /* Actual Ledger Grid */
-  .actual-ledger-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-4);
+  /* Compact Actual Ledger */
+  .actual-ledger-compact {
+    padding: var(--space-3) var(--space-6);
+    background-color: var(--color-surface-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
     margin-bottom: var(--space-6);
-  }
-
-  .actual-card {
-    padding: var(--space-5);
     display: flex;
     flex-direction: column;
-    gap: var(--space-2);
   }
 
-  .actual-card-header {
+  .actual-row {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    padding: var(--space-4) 0;
+    border-bottom: 1px solid var(--color-border-subtle);
+    gap: var(--space-4);
+  }
+
+  .actual-row:last-child {
+    border-bottom: none;
+  }
+
+  .actual-col-main {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+  }
+
+  .actual-col-title {
+    display: flex;
     align-items: center;
     gap: var(--space-2);
   }
 
-  .actual-label {
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: var(--color-text-secondary);
-  }
-
-  .actual-tag {
-    font-size: 0.875rem;
-    padding: 2px 6px;
-    background-color: var(--color-canvas-soft);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    color: var(--color-text-muted);
-  }
-
-  .actual-value {
-    font-size: 1.375rem;
-    font-weight: 700;
+  .actual-col-title strong {
+    font-size: 0.9375rem;
     color: var(--color-text-primary);
   }
 
-  .actual-desc {
+  .actual-col-desc {
     font-size: 0.875rem;
     color: var(--color-text-muted);
     line-height: 1.45;
     margin: 0;
+  }
+
+  .actual-col-val {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    white-space: nowrap;
+  }
+
+  .actual-tag {
+    font-size: 0.875rem;
+    padding: 2px 8px;
+    background-color: var(--color-canvas-soft);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-muted);
   }
 
   .ledger-empty-notice {
@@ -1116,6 +1283,10 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: var(--space-4);
+  }
+
+  .principle-card-wide {
+    grid-column: 1 / -1;
   }
 
   .principle-card {
@@ -1250,6 +1421,94 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
     border-width: 0;
   }
 
+  /* Mobile Grouped Expenses */
+  .mobile-expense-grouped-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .mobile-expense-group-card {
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-surface-card);
+  }
+
+  .mobile-group-summary {
+    padding: var(--space-3) var(--space-4);
+    background-color: var(--color-canvas-soft);
+    border-bottom: 1px solid var(--color-border-subtle);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-2);
+    list-style: none;
+    user-select: none;
+  }
+
+  .mobile-group-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .mobile-group-summary:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: -2px;
+  }
+
+  .group-summary-left {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+
+  .group-summary-title {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+  }
+
+  .group-summary-right {
+    font-size: 1rem;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .group-expand-cue {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-muted);
+    transition: transform var(--transition-fast, 0.2s ease);
+  }
+
+  .mobile-expense-group-card[open] .group-expand-cue {
+    transform: rotate(180deg);
+  }
+
+  .group-items-list {
+    display: flex;
+    flex-direction: column;
+    padding: 0 var(--space-3);
+  }
+
+  .mobile-expense-item {
+    padding: var(--space-3) 0;
+    border-bottom: 1px solid var(--color-border-subtle);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .mobile-expense-item:last-child {
+    border-bottom: none;
+  }
+
   /* Responsive Display Rules */
   .desktop-only {
     display: block;
@@ -1297,13 +1556,19 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
       gap: var(--space-2) !important;
     }
 
-    .actual-ledger-grid {
-      grid-template-columns: 1fr;
-      gap: var(--space-2);
+    .actual-row {
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      gap: 4px !important;
+      padding: var(--space-3) 0 !important;
     }
 
-    .actual-card {
-      padding: var(--space-2) var(--space-3) !important;
+    .actual-col-val {
+      color: var(--color-text-accent) !important;
+    }
+
+    .principle-card-wide {
+      grid-column: auto !important;
     }
 
     .ledger-empty-notice {
@@ -1553,6 +1818,10 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
       color: var(--color-text-muted);
       margin: 0;
       line-height: 1.4;
+    }
+
+    .navigation-cta-desc {
+      text-align: left;
     }
   }
 

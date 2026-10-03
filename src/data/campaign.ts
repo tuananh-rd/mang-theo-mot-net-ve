@@ -833,7 +833,7 @@ export const PLANNED_EXPENSES: PlannedExpenseItem[] = [
       updatedAt: null,
       publicApproval: 'pending',
     },
-    note: 'Khoản dự kiến theo đề xuất trang 26, chưa xác nhận triển khai',
+    note: 'Theo đề xuất, khoản này dự kiến dành cho đồ tặng nếu sử dụng bộ standee mượn; tình trạng mượn cần xác nhận (trang 26)',
     isEstimated: false,
   },
   {

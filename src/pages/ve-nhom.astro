@@ -25,22 +25,12 @@ import { TEAM_INFO, TEAM_PRINCIPLES, TEAM_COORDINATION } from '../data/campaign'
     </div>
   </div>
 
-  <!-- Header / Hero Section -->
+  <!-- Header / Hero Section (Bỏ logo lặp, giữ nhận diện header/footer) -->
   <section class="team-hero" aria-labelledby="team-heading">
     <div class="container">
       <div class="team-hero-card">
         <div class="badge-row">
           <span class="status-badge">Thông tin nhóm thực hiện</span>
-        </div>
-
-        <div class="team-logo-banner">
-          <img
-            src="/images/logo_option5_horizontal.png"
-            alt="Logo nhóm Lăng Kính"
-            class="team-card-logo"
-            width="1419"
-            height="587"
-          />
         </div>
 
         <h1 id="team-heading" class="team-title">
@@ -62,35 +52,25 @@ import { TEAM_INFO, TEAM_PRINCIPLES, TEAM_COORDINATION } from '../data/campaign'
     </div>
   </section>
 
-  <!-- Section 1: Nguyên tắc hoạt động -->
-  <section class="section section-soft" aria-labelledby="principles-heading">
+  <!-- Section 1: Nhân sự thực hiện (Gọn gàng, không tạo card rỗng) -->
+  <section class="section section-soft section-roster" aria-labelledby="members-heading">
     <div class="container">
-      <div class="section-header center-header">
-        <span class="section-kicker">Cam kết trách nhiệm</span>
-        <h2 id="principles-heading">5 nguyên tắc cốt lõi của nhóm</h2>
-        <p class="section-lead">
-          Các định hướng nhất quán trong đề xuất, làm kim chỉ nam xuyên suốt từ khâu xây dựng ý tưởng đến chuẩn bị và triển khai dự kiến.
-        </p>
-      </div>
-
-      <div class="principles-grid">
-        {
-          TEAM_PRINCIPLES.map((principle, index) => (
-            <div class="principle-card card">
-              <span class="principle-num">0{index + 1}</span>
-              <h3 class="principle-title">{principle.title}</h3>
-              <p class="principle-desc">{principle.description}</p>
-            </div>
-          ))
-        }
+      <div class="members-notice-wrapper">
+        <div class="members-notice-card card">
+          <span class="section-kicker">Nhân sự thực hiện</span>
+          <h2 id="members-heading" class="members-title">Thành viên nhóm Lăng Kính</h2>
+          <p class="members-desc">
+            Nhóm gồm 7 sinh viên lớp AI2015, học phần SSG105 (Kỹ năng làm việc nhóm), Đại học FPT Hà Nội. Tên, hình ảnh và phân công chi tiết chờ được xác nhận và cho phép công bố.
+          </p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Section 2: Cách nhóm phối hợp -->
+  <!-- Section 2: Cách nhóm phối hợp (5 nhóm việc dự kiến) -->
   <section class="section" aria-labelledby="coordination-heading">
     <div class="container">
-      <div class="section-header center-header">
+      <div class="section-header">
         <span class="section-kicker">Kế hoạch làm việc nhóm</span>
         <h2 id="coordination-heading">Cách nhóm phối hợp thực hiện</h2>
         <p class="section-lead">
@@ -112,7 +92,7 @@ import { TEAM_INFO, TEAM_PRINCIPLES, TEAM_COORDINATION } from '../data/campaign'
         }
       </div>
 
-      <div class="section-footer-note center-text">
+      <div class="section-footer-note">
         <p>
           Các nhóm việc trên là mô tả phân công trách nhiệm trong đề xuất học phần; không phải chức danh nhân sự hay thông tin liên hệ công khai đã xác nhận.
         </p>
@@ -120,31 +100,47 @@ import { TEAM_INFO, TEAM_PRINCIPLES, TEAM_COORDINATION } from '../data/campaign'
     </div>
   </section>
 
-  <!-- Section 3: Thành viên nhóm -->
-  <section class="section section-soft" aria-labelledby="members-heading">
+  <!-- Section 3: 5 nguyên tắc cốt lõi của nhóm -->
+  <section class="section section-soft" aria-labelledby="principles-heading">
     <div class="container">
-      <div class="members-notice-wrapper">
-        <div class="members-notice-card card">
-          <span class="section-kicker">Nhân sự thực hiện</span>
-          <h2 id="members-heading" class="members-title">Thành viên nhóm Lăng Kính</h2>
-          <p class="members-desc">
-            Nhóm gồm 7 sinh viên lớp AI2015, học phần SSG105 (Kỹ năng làm việc nhóm), Đại học FPT Hà Nội. Tên, hình ảnh và phân công chi tiết sẽ bổ sung sau khi được xác nhận và cho phép công bố.
-          </p>
-          <div class="notice-info-box">
-            <p>
-              Thông tin thành viên sẽ được cập nhật đầy đủ ngay khi có sự phê duyệt công bố chính thức.
-            </p>
-          </div>
-        </div>
+      <div class="section-header">
+        <span class="section-kicker">Cam kết trách nhiệm</span>
+        <h2 id="principles-heading">5 nguyên tắc cốt lõi của nhóm</h2>
+        <p class="section-lead">
+          Các định hướng nhất quán trong đề xuất, làm kim chỉ nam xuyên suốt từ khâu xây dựng ý tưởng đến chuẩn bị và triển khai dự kiến.
+        </p>
       </div>
 
-      <div class="team-bottom-actions">
-        <a href="/du-an/mang-theo-mot-net-ve" class="btn btn-primary">
-          Khám phá dự án
-        </a>
-        <a href="/san-pham" class="btn btn-secondary">
-          Xem sản phẩm gây quỹ
-        </a>
+      <div class="principles-grid">
+        {
+          TEAM_PRINCIPLES.map((principle, index) => (
+            <div class="principle-card card">
+              <span class="principle-num">0{index + 1}</span>
+              <h3 class="principle-title">{principle.title}</h3>
+              <p class="principle-desc">{principle.description}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: CTA cuối trang -->
+  <section class="section team-cta-section" aria-labelledby="team-cta-heading">
+    <div class="container">
+      <div class="team-cta-card card">
+        <h2 id="team-cta-heading">Khám phá hoạt động &amp; Sản phẩm</h2>
+        <p>
+          Tìm hiểu thêm về câu chuyện dự án và 4 góc hoạt động tại Mái ấm, hoặc xem danh mục sản phẩm gây quỹ theo đề xuất.
+        </p>
+        <div class="team-bottom-actions">
+          <a href="/du-an/mang-theo-mot-net-ve" class="btn btn-primary">
+            Khám phá dự án &rarr;
+          </a>
+          <a href="/san-pham" class="btn btn-secondary">
+            Xem sản phẩm gây quỹ
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -211,20 +207,6 @@ import { TEAM_INFO, TEAM_PRINCIPLES, TEAM_COORDINATION } from '../data/campaign'
     margin-bottom: var(--space-1);
   }
 
-  .team-logo-banner {
-    display: flex;
-    justify-content: center;
-    margin: var(--space-2) 0;
-  }
-
-  .team-card-logo {
-    height: 52px;
-    width: auto;
-    max-width: 220px;
-    object-fit: contain;
-    display: block;
-  }
-
   .team-title {
     font-size: var(--font-size-h1);
     line-height: var(--line-height-h1);
@@ -256,14 +238,9 @@ import { TEAM_INFO, TEAM_PRINCIPLES, TEAM_COORDINATION } from '../data/campaign'
   }
 
   /* Section Headers */
-  .center-header {
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .center-text {
-    text-align: center;
+  .section-header {
+    text-align: left;
+    margin-bottom: var(--space-8);
   }
 
   .section-kicker {
@@ -281,7 +258,8 @@ import { TEAM_INFO, TEAM_PRINCIPLES, TEAM_COORDINATION } from '../data/campaign'
     color: var(--color-text-secondary);
     line-height: 1.5;
     max-width: 65ch;
-    margin: 0 auto;
+    margin: 0;
+    text-align: left;
   }
 
   /* Principles Grid */
@@ -443,9 +421,15 @@ import { TEAM_INFO, TEAM_PRINCIPLES, TEAM_COORDINATION } from '../data/campaign'
       line-height: 1.35;
     }
 
+    .team-hero-content {
+      align-items: flex-start;
+      text-align: left;
+    }
+
     .team-intro-text {
       font-size: 0.9375rem;
       line-height: 1.45;
+      text-align: left;
     }
 
     .principles-grid {

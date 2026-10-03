@@ -7,7 +7,6 @@ import StageCard from '../components/StageCard.astro';
 import {
   CAMPAIGN_PROJECT,
   PRODUCTS,
-  SUPPORT_METHODS,
   TEAM_INFO,
   FINANCE_OVERVIEW,
   PLANNED_EXPENSES,
@@ -72,7 +71,31 @@ const featuredProducts = [
   <!-- Hero Section -->
   <Hero />
 
-  <!-- Section 1: Buổi chơi có lựa chọn -->
+  <!-- Quick Summary Section -->
+  <section class="section-summary" aria-label="Tóm tắt nhanh dự án">
+    <div class="container">
+      <div class="quick-summary-bar card">
+        <div class="summary-item">
+          <span class="summary-label">Nhóm thực hiện</span>
+          <span class="summary-text">Nhóm Lăng Kính (7 sinh viên, lớp {TEAM_INFO.classId}, ĐH FPT)</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Địa điểm dự kiến</span>
+          <span class="summary-text">{CAMPAIGN_PROJECT.location}</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Trạng thái</span>
+          <span class="summary-text">{CAMPAIGN_PROJECT.statusNotice}</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Nội dung xem trước</span>
+          <span class="summary-text">4 góc chơi, sản phẩm tham khảo và dự toán minh bạch</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 1: Buổi chơi có lựa chọn (4 góc chơi) -->
   <section class="section section-activities" aria-labelledby="activities-heading">
     <div class="container">
       <div class="section-header">
@@ -95,13 +118,13 @@ const featuredProducts = [
 
       <div class="section-footer-note">
         <p>
-          * Ghi chú bản xem trước: Hoạt động hướng đến sự gần gũi, kết nối tinh thần; không tuyên bố tác động trị liệu và không đặt chỉ tiêu sản xuất cho các em nhỏ.
+          * Ghi chú bản xem trước: Ảnh minh họa đạo cụ, không phải ảnh hoạt động của dự án. Mẫu chuồn chuồn, tượng và nhạc cụ thực tế chờ xác nhận; ảnh bóng không thể hiện bộ bowling. Hoạt động hướng đến sự gần gũi, kết nối tinh thần; không tuyên bố tác động trị liệu và không đặt chỉ tiêu sản xuất cho các em nhỏ.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- Section 2: Sản phẩm gây quỹ dự kiến -->
+  <!-- Section 2: Sản phẩm gây quỹ dự kiến (3 sản phẩm) -->
   <section class="section section-soft section-products" aria-labelledby="products-heading">
     <div class="container">
       <div class="section-header">
@@ -117,10 +140,9 @@ const featuredProducts = [
 
       <div class="products-grid">
         {
-          featuredProducts.map(({ product, illustrationType }) => (
+          featuredProducts.map(({ product }) => (
             <ProductCard
               product={product}
-              illustrationType={illustrationType}
             />
           ))
         }
@@ -137,34 +159,8 @@ const featuredProducts = [
     </div>
   </section>
 
-  <!-- Section 3: Hành trình dự kiến -->
-  <section class="section section-stages" aria-labelledby="stages-heading">
-    <div class="container">
-      <div class="section-header">
-        <h2 id="stages-heading">Hành trình dự kiến</h2>
-        <p>
-          Bốn giai đoạn kế hoạch được nhóm vạch ra để triển khai dự án từng bước bài bản, minh bạch và có trách nhiệm.
-        </p>
-      </div>
-
-      <div class="stages-grid">
-        {
-          CAMPAIGN_PROJECT.plannedStages.map((stage) => (
-            <StageCard stage={stage} />
-          ))
-        }
-      </div>
-
-      <div class="section-footer-note">
-        <p>
-          * Ghi chú: Các giai đoạn dự kiến, lịch thực hiện chờ xác nhận.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Section 4: Minh bạch từ kế hoạch đến thực tế -->
-  <section class="section section-soft section-transparency" aria-labelledby="transparency-heading">
+  <!-- Section 3: Minh bạch từ kế hoạch đến thực tế (Chuyển lên trước Hành trình) -->
+  <section class="section section-transparency" aria-labelledby="transparency-heading">
     <div class="container">
       <div class="transparency-card">
         <div class="transparency-header">
@@ -219,59 +215,83 @@ const featuredProducts = [
     </div>
   </section>
 
-  <!-- Section 5: Về nhóm Lăng Kính -->
-  <section class="section section-team" aria-labelledby="team-heading">
+  <!-- Section 4: Hành trình dự kiến (4 giai đoạn) -->
+  <section class="section section-soft section-stages" aria-labelledby="stages-heading">
     <div class="container">
-      <div class="team-layout">
-        <div class="team-info">
-          <h2 id="team-heading">Về nhóm Lăng Kính</h2>
-          <p class="lead">
+      <div class="section-header">
+        <h2 id="stages-heading">Hành trình dự kiến</h2>
+        <p>
+          Bốn giai đoạn kế hoạch được nhóm vạch ra để triển khai dự án từng bước bài bản, minh bạch và có trách nhiệm.
+        </p>
+      </div>
+
+      <div class="stages-grid">
+        {
+          CAMPAIGN_PROJECT.plannedStages.map((stage) => (
+            <StageCard stage={stage} />
+          ))
+        }
+      </div>
+
+      <div class="section-footer-note">
+        <p>
+          * Ghi chú: Các giai đoạn dự kiến, lịch thực hiện chờ xác nhận.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 5: Khối hai cột "Nhóm thực hiện và cách đồng hành" -->
+  <section class="section section-group-support" aria-labelledby="group-support-heading">
+    <div class="container">
+      <div class="section-header">
+        <h2 id="group-support-heading">Nhóm thực hiện &amp; Cách đồng hành</h2>
+        <p>
+          Thông tin tóm tắt về đội ngũ thực hiện dự án và các phương thức đồng hành cùng Mái ấm.
+        </p>
+      </div>
+
+      <div class="home-group-support-grid">
+        <!-- Cột 1: Nhóm thực hiện -->
+        <div class="group-support-card card">
+          <div class="badge-row">
+            <span class="status-badge">Nhóm thực hiện</span>
+          </div>
+          <h3>Về nhóm {TEAM_INFO.name}</h3>
+          <p>
             {TEAM_INFO.description}
           </p>
           <p class="team-meta-text">
             Lớp {TEAM_INFO.classId} &bull; {TEAM_INFO.course} &bull; {TEAM_INFO.size} sinh viên
           </p>
-          <div class="team-actions">
+          <p class="text-xs text-muted">
+            Tên, hình ảnh và phân công chi tiết của 7 thành viên chờ được xác nhận và cho phép công bố.
+          </p>
+          <div class="group-support-actions">
             <a href="/ve-nhom" class="btn btn-secondary">
               Tìm hiểu thêm về nhóm
             </a>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Section 6: Đồng hành đúng nhu cầu -->
-  <section class="section section-soft section-support" aria-labelledby="support-heading">
-    <div class="container">
-      <div class="section-header">
-        <h2 id="support-heading">Đồng hành đúng nhu cầu</h2>
-        <p>
-          Dự án ưu tiên tiếp nhận sự hỗ trợ thiết thực, đúng nhu cầu thực tế của Mái ấm Thánh Tâm Xuy Xá.
-        </p>
-      </div>
-
-      <div class="support-grid">
-        {
-          SUPPORT_METHODS.map((method) => (
-            <div class="support-card card">
-              <h3 class="support-title">{method.title}</h3>
-              <p class="support-desc">{method.description}</p>
-              <div class="support-status">
-                <span>{method.statusText}</span>
-              </div>
-            </div>
-          ))
-        }
-      </div>
-
-      <div class="section-action-center">
-        <a href="/dong-hanh" class="btn btn-primary">
-          Tìm hiểu cách đồng hành
-        </a>
-        <p class="action-note">
-          Kênh tiếp nhận và thông tin liên hệ chính thức đang được nhóm cập nhật và đối soát.
-        </p>
+        <!-- Cột 2: Cách đồng hành -->
+        <div class="group-support-card card">
+          <div class="badge-row">
+            <span class="status-badge">Đồng hành</span>
+          </div>
+          <h3>Đồng hành đúng nhu cầu</h3>
+          <p>
+            Dự án ưu tiên tiếp nhận sự hỗ trợ thiết thực, đúng nhu cầu thực tế của Mái ấm qua 3 phương thức: hỗ trợ vật tư thiết yếu, tìm hiểu sản phẩm gây quỹ và lan tỏa thông điệp an toàn.
+          </p>
+          <p class="text-xs text-muted">
+            Kênh tiếp nhận và thông tin liên hệ chính thức đang chờ đối soát; bản xem trước chưa mở nhận đơn hoặc đóng góp trực tuyến.
+          </p>
+          <div class="group-support-actions">
+            <a href="/dong-hanh" class="btn btn-primary">
+              Cách đồng hành &rarr;
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -403,70 +423,91 @@ const featuredProducts = [
     display: flex;
   }
 
-  /* Team Layout */
-  .team-layout {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
+  /* Quick Summary Section */
+  .section-summary {
+    padding: var(--space-4) 0;
   }
 
-  .team-info {
+  .quick-summary-bar {
+    background-color: var(--color-surface-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-4) var(--space-6);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-4);
+  }
+
+  .summary-item {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    gap: 2px;
+  }
+
+  .summary-label {
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-secondary);
+  }
+
+  .summary-text {
+    font-size: 0.9375rem;
+    color: var(--color-text-primary);
+    line-height: 1.4;
+  }
+
+  /* Two Column Group & Support Section */
+  .home-group-support-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6);
+  }
+
+  .group-support-card {
+    background-color: var(--color-surface-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
     gap: var(--space-3);
+    height: 100%;
+  }
+
+  .group-support-card h3 {
+    font-size: 1.375rem;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .group-support-card p {
+    font-size: 0.9375rem;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+    margin: 0;
   }
 
   .team-meta-text {
     font-size: var(--font-size-sm);
     color: var(--color-text-secondary);
-    margin-top: var(--space-1);
     font-weight: 500;
+    margin: 0;
   }
 
-  .team-actions {
-    margin-top: var(--space-3);
-    display: flex;
-    justify-content: center;
-  }
-
-  /* Support Grid */
-  .support-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-6);
-  }
-
-  .support-card {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-    padding: var(--space-5);
-  }
-
-  .support-title {
-    font-size: 1.25rem;
-    color: var(--color-text-primary);
-  }
-
-  .support-desc {
-    font-size: 0.9375rem;
-    line-height: 1.5;
-    color: var(--color-text-secondary);
-    flex-grow: 1;
-  }
-
-  .support-status {
-    border-top: 1px solid var(--color-border-subtle);
-    padding-top: var(--space-2);
-    font-size: var(--font-size-sm);
-    color: var(--color-text-muted);
-    font-style: normal;
+  .group-support-actions {
+    margin-top: auto;
+    padding-top: var(--space-3);
   }
 
   /* Responsive Adjustments */
   @media (max-width: 1023px) {
+    .quick-summary-bar {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-4);
+    }
+
     .activities-grid {
       grid-template-columns: repeat(2, 1fr);
     }
@@ -483,13 +524,15 @@ const featuredProducts = [
       grid-template-columns: 1fr;
       gap: var(--space-6);
     }
-
-    .support-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
   }
 
   @media (max-width: 767px) {
+    .quick-summary-bar {
+      grid-template-columns: 1fr;
+      gap: var(--space-3);
+      padding: var(--space-4);
+    }
+
     .activities-grid {
       grid-template-columns: 1fr;
       gap: var(--space-4);
@@ -505,19 +548,14 @@ const featuredProducts = [
       gap: var(--space-4);
     }
 
-    .support-grid {
+    .home-group-support-grid {
       grid-template-columns: 1fr;
       gap: var(--space-4);
     }
 
-    .support-card {
+    .group-support-card {
       padding: var(--space-4);
       gap: var(--space-2);
-    }
-
-    .support-desc {
-      font-size: 0.875rem;
-      line-height: 1.45;
     }
 
     .data-list li {

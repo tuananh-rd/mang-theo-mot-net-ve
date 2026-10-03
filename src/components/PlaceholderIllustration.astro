@@ -22,6 +22,7 @@ interface Props {
   context?: 'hero' | 'activity' | 'product';
   loading?: 'lazy' | 'eager';
   fetchpriority?: 'high' | 'low' | 'auto';
+  conciseCaption?: boolean;
 }
 
 const {
@@ -31,6 +32,7 @@ const {
   context = 'product',
   loading,
   fetchpriority,
+  conciseCaption = false,
 } = Astro.props;
 
 let stockItem: StockIllustration | undefined = undefined;
@@ -49,7 +51,21 @@ if (type === 'hero') {
 const isHero = type === 'hero';
 const imgLoading = loading || (isHero ? 'eager' : 'lazy');
 const imgFetchPriority = fetchpriority || (isHero ? 'high' : 'auto');
-const finalCaption = caption || (stockItem ? stockItem.caption : 'Minh họa cho bản xem trước — chưa phải ảnh thật');
+
+const conciseLabels: Record<string, string> = {
+  'chuon-chuon': 'Minh họa họa cụ',
+  'to-tuong': 'Minh họa cọ và màu vẽ',
+  hat: 'Minh họa trống lắc',
+  'tro-choi': 'Minh họa bóng',
+};
+
+const defaultCaption = stockItem
+  ? conciseCaption && conciseLabels[type]
+    ? conciseLabels[type]
+    : stockItem.caption
+  : 'Minh họa cho bản xem trước — chưa phải ảnh thật';
+
+const finalCaption = caption || defaultCaption;
 ---
 
 <figure class:list={['illustration-wrapper', `ratio-${ratio.replace(':', '-')}`]}>

@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import FaqAccordion from '../components/FaqAccordion.astro';
 import {
   SUPPORT_WORKFLOW,
   SUPPORT_FAQS,
@@ -50,10 +51,10 @@ import {
           Nhóm Lăng Kính hướng đến việc kết nối những tấm lòng đồng hành với nhu cầu thiết thực tại Mái ấm Thánh Tâm Xuy Xá. Mọi sự hỗ trợ đều được lên kế hoạch chu đáo, minh bạch và tôn trọng quyền riêng tư của các em.
         </p>
 
-        <!-- Notice Box -->
-        <div class="support-section-notice">
+        <!-- Notice Box (Rõ ràng việc có thể xem trước gì) -->
+        <div class="support-section-notice" role="note">
           <p>
-            <strong>Lưu ý:</strong> {OFFICIAL_CONTACT.notice}
+            <strong>Hướng dẫn đồng hành:</strong> Hiện bạn có thể xem nhu cầu dự kiến, sản phẩm và dự toán; kênh tiếp nhận chính thức chưa xác nhận. {OFFICIAL_CONTACT.notice}
           </p>
         </div>
       </div>
@@ -92,7 +93,7 @@ import {
             </p>
           </div>
           <div class="method-action">
-            <a href="/minh-bach" class="btn btn-secondary btn-sm">
+            <a href="/minh-bach" class="method-text-link">
               Xem dự toán chi tiết &rarr;
             </a>
           </div>
@@ -114,7 +115,7 @@ import {
             </p>
           </div>
           <div class="method-action">
-            <a href="/san-pham" class="btn btn-primary btn-sm">
+            <a href="/san-pham" class="method-text-link">
               Xem kế hoạch sản phẩm &rarr;
             </a>
           </div>
@@ -136,7 +137,7 @@ import {
             </p>
           </div>
           <div class="method-action">
-            <a href="/du-an/mang-theo-mot-net-ve" class="btn btn-secondary btn-sm">
+            <a href="/du-an/mang-theo-mot-net-ve" class="method-text-link">
               Tìm hiểu câu chuyện &rarr;
             </a>
           </div>
@@ -145,42 +146,7 @@ import {
     </div>
   </section>
 
-  <!-- Section 2: Quy trình tiếp nhận dự kiến -->
-  <section class="section" aria-labelledby="workflow-heading">
-    <div class="container">
-      <div class="section-header">
-        <div class="badge-wrap">
-          <span class="status-badge">Kế hoạch phối hợp</span>
-        </div>
-        <h2 id="workflow-heading" class="section-title">
-          Quy trình tiếp nhận dự kiến
-        </h2>
-        <p class="section-subtitle">
-          Ba bước tiếp nhận hỗ trợ chặt chẽ, đảm bảo món quà trao tặng đúng người và đúng thời điểm.
-        </p>
-      </div>
-
-      <div class="workflow-grid">
-        {
-          SUPPORT_WORKFLOW.map((item) => (
-            <div class="workflow-card card">
-              <div class="workflow-step-badge">{item.step}</div>
-              <h3 class="workflow-title">{item.title}</h3>
-              <p class="workflow-desc">{item.description}</p>
-            </div>
-          ))
-        }
-      </div>
-
-      <div class="workflow-note card">
-        <p>
-          <strong>Lưu ý:</strong> Quy trình trên nằm trong đề xuất kế hoạch của nhóm Lăng Kính; các bước tiếp nhận và danh mục nhu cầu thực tế sẽ được triển khai sau khi đạt được sự thống nhất cùng Mái ấm.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Section 3: Kênh liên hệ chính thức -->
+  <!-- Section 2: Kênh liên hệ chính thức (Trước quy trình) -->
   <section class="section section-soft" aria-labelledby="contact-heading">
     <div class="container">
       <div class="section-header">
@@ -219,6 +185,41 @@ import {
     </div>
   </section>
 
+  <!-- Section 3: Quy trình tiếp nhận dự kiến -->
+  <section class="section" aria-labelledby="workflow-heading">
+    <div class="container">
+      <div class="section-header">
+        <div class="badge-wrap">
+          <span class="status-badge">Kế hoạch phối hợp</span>
+        </div>
+        <h2 id="workflow-heading" class="section-title">
+          Quy trình tiếp nhận dự kiến
+        </h2>
+        <p class="section-subtitle">
+          Ba bước tiếp nhận hỗ trợ chặt chẽ, đảm bảo món quà trao tặng đúng người và đúng thời điểm.
+        </p>
+      </div>
+
+      <div class="workflow-grid">
+        {
+          SUPPORT_WORKFLOW.map((item) => (
+            <div class="workflow-card card">
+              <div class="workflow-step-badge">{item.step}</div>
+              <h3 class="workflow-title">{item.title}</h3>
+              <p class="workflow-desc">{item.description}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="workflow-note card">
+        <p>
+          <strong>Lưu ý:</strong> Quy trình trên nằm trong đề xuất kế hoạch của nhóm Lăng Kính; các bước tiếp nhận và danh mục nhu cầu thực tế sẽ được triển khai sau khi đạt được sự thống nhất cùng Mái ấm.
+        </p>
+      </div>
+    </div>
+  </section>
+
   <!-- Section 4: FAQs -->
   <section class="section" aria-labelledby="support-faq-heading">
     <div class="container">
@@ -234,21 +235,7 @@ import {
         </p>
       </div>
 
-      <div class="faq-list">
-        {
-          SUPPORT_FAQS.map((faq) => (
-            <details class="faq-item card">
-              <summary class="faq-question">
-                <span>{faq.question}</span>
-                <span class="faq-icon" aria-hidden="true">+</span>
-              </summary>
-              <div class="faq-answer">
-                <p>{faq.answer}</p>
-              </div>
-            </details>
-          ))
-        }
-      </div>
+      <FaqAccordion faqs={SUPPORT_FAQS} />
     </div>
   </section>
 
@@ -266,11 +253,8 @@ import {
           <a href="/minh-bach" class="btn btn-primary">
             Xem minh bạch thu chi &rarr;
           </a>
-          <a href="/ve-nhom" class="btn btn-secondary">
-            Tìm hiểu nhóm Lăng Kính
-          </a>
-          <a href="/du-an/mang-theo-mot-net-ve" class="btn btn-secondary">
-            Xem câu chuyện dự án
+          <a href="/san-pham" class="btn btn-secondary">
+            Xem kế hoạch sản phẩm
           </a>
         </div>
       </div>
@@ -383,12 +367,12 @@ import {
 
   /* Section Headers */
   .section-header {
-    text-align: center;
-    max-width: 680px;
-    margin: 0 auto var(--space-8);
+    text-align: left;
+    max-width: 720px;
+    margin: 0 0 var(--space-8);
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     gap: var(--space-2);
   }
 
@@ -476,6 +460,21 @@ import {
   .method-action {
     margin-top: auto;
     padding-top: var(--space-2);
+  }
+
+  .method-text-link {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-text-accent);
+    text-decoration: underline;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: var(--space-2) 0;
+  }
+
+  .method-text-link:hover {
+    color: var(--color-accent-hover);
   }
 
   .btn-sm {
@@ -698,6 +697,14 @@ import {
 
     .workflow-grid {
       grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .support-lead,
+    .contact-notice-text,
+    .navigation-cta-desc {
+      text-align: left;
     }
   }
 

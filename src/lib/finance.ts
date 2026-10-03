@@ -9,6 +9,13 @@
 
 import type { Product, PlannedExpenseItem, FinanceScenario, QuantitativeFact } from '../data/campaign';
 
+export interface ExpenseCategoryGroup {
+  category: string;
+  sourceRef: string;
+  subtotal: number | null;
+  items: PlannedExpenseItem[];
+}
+
 /**
  * Tính tổng dự toán chi từ danh sách các khoản chi dự kiến.
  * Nếu bất kỳ khoản nào có giá trị null, ném lỗi thay vì tự coi là 0.
@@ -20,6 +27,60 @@ export function sumPlannedExpenses(items: PlannedExpenseItem[]): number {
     }
     return sum + item.amount.value;
   }, 0);
+}
+
+/**
+ * Phân nhóm các khoản chi dự toán theo hạng mục xuất hiện trong dữ liệu đầu vào.
+ * - Tự động dẫn xuất danh sách nhóm từ category của từng khoản mục, bảo toàn thứ tự xuất hiện đầu tiên.
+ * - Dẫn xuất sourceRef của nhóm từ sourceRef của khoản mục đầu tiên trong nhóm đó.
+ * - Mỗi khoản mục đầu vào thuộc đúng một nhóm duy nhất; không tạo nhóm rỗng (no empty fabricated groups).
+ * - Tính tổng phụ (subtotal) cho từng nhóm trực tiếp từ dữ liệu khoản mục.
+ * - Nếu bất kỳ khoản nào trong nhóm có giá trị null hoặc undefined, bảo vệ an toàn
+ *   bằng cách trả về subtotal: null (unknown amount) thay vì tự gán 0 hay crash.
+ */
+export function groupPlannedExpensesByCategory(
+  items: PlannedExpenseItem[]
+): ExpenseCategoryGroup[] {
+  const groupsMap = new Map<
+    string,
+    {
+      category: string;
+      sourceRef: string;
+      items: PlannedExpenseItem[];
+    }
+  >();
+
+  for (const item of items) {
+    const category = item.category || 'Khác';
+    if (!groupsMap.has(category)) {
+      const sourceRef = item.amount?.sourceRef || '';
+      groupsMap.set(category, {
+        category,
+        sourceRef,
+        items: [],
+      });
+    }
+    groupsMap.get(category)!.items.push(item);
+  }
+
+  const result: ExpenseCategoryGroup[] = [];
+  for (const group of groupsMap.values()) {
+    const hasUnknown = group.items.some(
+      (item) => item.amount.value === null || item.amount.value === undefined
+    );
+    const subtotal = hasUnknown
+      ? null
+      : group.items.reduce((sum, item) => sum + (item.amount.value ?? 0), 0);
+
+    result.push({
+      category: group.category,
+      sourceRef: group.sourceRef,
+      subtotal,
+      items: group.items,
+    });
+  }
+
+  return result;
 }
 
 /**

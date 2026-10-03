@@ -27,6 +27,7 @@ import {
   formatProductPrice,
   formatScenarioBalance,
   calculateFoodReconciliation,
+  groupPlannedExpensesByCategory,
 } from '../src/lib/finance.ts';
 
 describe('Kiểm thử logic tài chính và tính toán (Task C01)', () => {
@@ -462,4 +463,152 @@ describe('Kiểm thử đối chiếu doanh thu ẩm thực và kế hoạch (Ta
     assert.equal(dynamicRecon.unallocatedGap, 550000);
   });
 });
+
+describe('Kiểm thử phân nhóm chi phí dự toán (Task C03)', () => {
+  test('groupPlannedExpensesByCategory phân đúng 3 nhóm từ PLANNED_EXPENSES với tổng phụ dẫn xuất động', () => {
+    const groups = groupPlannedExpensesByCategory(PLANNED_EXPENSES);
+    assert.equal(groups.length, 3, 'Phải có đúng 3 nhóm chi phí từ PLANNED_EXPENSES.');
+
+    const [group1, group2, group3] = groups;
+
+    // Nhóm 1
+    assert.equal(group1.category, 'Nguyên liệu gây quỹ');
+    assert.equal(group1.sourceRef, 'proposal:page-24');
+    assert.equal(group1.items.length, 9);
+    assert.equal(group1.subtotal, 2245000);
+
+    // Nhóm 2
+    assert.equal(group2.category, 'Vật tư workshop & quà tặng');
+    assert.equal(group2.sourceRef, 'proposal:page-25');
+    assert.equal(group2.items.length, 7);
+    assert.equal(group2.subtotal, 1560000);
+
+    // Nhóm 3
+    assert.equal(group3.category, 'Truyền thông & Di chuyển');
+    assert.equal(group3.sourceRef, 'proposal:page-26');
+    assert.equal(group3.items.length, 3);
+    assert.equal(group3.subtotal, 1130000);
+
+    // Tổng 3 nhóm
+    assert.equal(
+      group1.subtotal + group2.subtotal + group3.subtotal,
+      4935000,
+      'Tổng 3 nhóm phải bằng 4.935.000đ.'
+    );
+    assert.equal(
+      group1.subtotal + group2.subtotal + group3.subtotal,
+      sumPlannedExpenses(PLANNED_EXPENSES)
+    );
+
+    // Kiểm tra tính toàn vẹn: mỗi khoản mục thuộc đúng 1 nhóm duy nhất
+    const allGroupedItemIds = groups.flatMap((g) => g.items.map((i) => i.id));
+    assert.equal(allGroupedItemIds.length, PLANNED_EXPENSES.length);
+    assert.deepEqual(allGroupedItemIds, PLANNED_EXPENSES.map((i) => i.id));
+  });
+
+  test('groupPlannedExpensesByCategory tự động nhận diện danh mục mới/thay đổi (new/varied category), bảo toàn thứ tự xuất hiện', () => {
+    const customItems = [
+      {
+        id: 'new-cat-1',
+        category: 'Chi phí đóng gói & bao bì mới',
+        title: 'Bao bì sinh thái',
+        calculationText: '50 × 5.000đ',
+        amount: { value: 250000, unit: 'đ', kind: 'planned', verification: 'unverified', sourceRef: 'custom:page-1', updatedAt: null, publicApproval: 'pending' },
+        note: '',
+        isEstimated: false,
+      },
+      {
+        id: 'workshop-1',
+        category: 'Vật tư workshop & quà tặng',
+        title: 'Giấy vẽ màu nước',
+        calculationText: '10 tập × 30.000đ',
+        amount: { value: 300000, unit: 'đ', kind: 'planned', verification: 'unverified', sourceRef: 'proposal:page-25', updatedAt: null, publicApproval: 'pending' },
+        note: '',
+        isEstimated: false,
+      },
+      {
+        id: 'new-cat-2',
+        category: 'Chi phí đóng gói & bao bì mới',
+        title: 'Băng dính giấy',
+        calculationText: '5 cuộn × 10.000đ',
+        amount: { value: 50000, unit: 'đ', kind: 'planned', verification: 'unverified', sourceRef: 'custom:page-1', updatedAt: null, publicApproval: 'pending' },
+        note: '',
+        isEstimated: false,
+      },
+      {
+        id: 'logistics-1',
+        category: 'Vận chuyển ngoại thành',
+        title: 'Xe chở vật tư',
+        calculationText: '1 chuyến × 400.000đ',
+        amount: { value: 400000, unit: 'đ', kind: 'planned', verification: 'unverified', sourceRef: 'logistics:receipt', updatedAt: null, publicApproval: 'pending' },
+        note: '',
+        isEstimated: false,
+      },
+    ];
+
+    const groups = groupPlannedExpensesByCategory(customItems);
+    assert.equal(groups.length, 3, 'Phải có đúng 3 nhóm từ dữ liệu đầu vào (không tạo nhóm rỗng).');
+
+    // Thứ tự nhóm bảo toàn theo xuất hiện đầu tiên:
+    // 1: Chi phí đóng gói & bao bì mới
+    // 2: Vật tư workshop & quà tặng
+    // 3: Vận chuyển ngoại thành
+    assert.equal(groups[0].category, 'Chi phí đóng gói & bao bì mới');
+    assert.equal(groups[0].sourceRef, 'custom:page-1');
+    assert.equal(groups[0].items.length, 2);
+    assert.equal(groups[0].subtotal, 300000); // 250k + 50k
+
+    assert.equal(groups[1].category, 'Vật tư workshop & quà tặng');
+    assert.equal(groups[1].sourceRef, 'proposal:page-25');
+    assert.equal(groups[1].items.length, 1);
+    assert.equal(groups[1].subtotal, 300000);
+
+    assert.equal(groups[2].category, 'Vận chuyển ngoại thành');
+    assert.equal(groups[2].sourceRef, 'logistics:receipt');
+    assert.equal(groups[2].items.length, 1);
+    assert.equal(groups[2].subtotal, 400000);
+
+    // Tổng các nhóm bằng tổng toàn bộ chi phí
+    const totalGrouped = groups.reduce((sum, g) => sum + g.subtotal, 0);
+    assert.equal(totalGrouped, sumPlannedExpenses(customItems));
+  });
+
+  test('groupPlannedExpensesByCategory bảo vệ an toàn khi có khoản mục unknown (subtotal = null, không crash)', () => {
+    const mockItemsWithNull = [
+      {
+        id: 'mock-known',
+        category: 'Nguyên liệu gây quỹ',
+        title: 'Mock known',
+        calculationText: '300k',
+        amount: { value: 300000, unit: 'đ', kind: 'planned', verification: 'unverified', sourceRef: 'p24', updatedAt: null, publicApproval: 'pending' },
+        note: '',
+        isEstimated: false,
+      },
+      {
+        id: 'mock-unknown',
+        category: 'Nguyên liệu gây quỹ',
+        title: 'Mock unknown',
+        calculationText: 'Chưa rõ',
+        amount: { value: null, unit: 'đ', kind: 'planned', verification: 'unverified', sourceRef: 'p24', updatedAt: null, publicApproval: 'pending' },
+        note: '',
+        isEstimated: false,
+      },
+      {
+        id: 'mock-workshop',
+        category: 'Vật tư workshop & quà tặng',
+        title: 'Workshop',
+        calculationText: '200k',
+        amount: { value: 200000, unit: 'đ', kind: 'planned', verification: 'unverified', sourceRef: 'p25', updatedAt: null, publicApproval: 'pending' },
+        note: '',
+        isEstimated: false,
+      },
+    ];
+
+    const groups = groupPlannedExpensesByCategory(mockItemsWithNull);
+    assert.equal(groups.length, 2, 'Chỉ trả về 2 nhóm có dữ liệu đầu vào (không tạo nhóm rỗng).');
+    assert.equal(groups[0].subtotal, null, 'Nhóm chứa khoản unknown phải có subtotal: null');
+    assert.equal(groups[1].subtotal, 200000, 'Nhóm không chứa khoản unknown vẫn tính đúng subtotal');
+  });
+});
+
 
