@@ -1,0 +1,14 @@
+﻿{
+    "task":  "C03",
+    "baseline":  "673ba03ceb47df18f84f3362c8124d603e3dc7cf",
+    "appBaseline":  "221eafa73661cb822b3f8017b7fe1bf367106349",
+    "channel":  "Orca terminal",
+    "version":  "1.4.219",
+    "runtime":  "ddbdaf39-537d-4532-99e0-f7f964e33084",
+    "handle":  "term_59fb45bd-ac6c-45f8-bfd0-06875596b4bc",
+    "incarnation":  "1d87903c-0d73-4b91-948d-52c28fd4b35b",
+    "modelObserved":  "Gemini3.8Flash/high",
+    "receipt":  "input_accepted/provider unsupported; actual Read/Bash observed",
+    "implementation":  "in progress, ACK being verified",
+    "startedAt":  "2026-10-03T13:11:41.8800399Z"
+}

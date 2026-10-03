@@ -1,0 +1,70 @@
+[
+  {
+    "file": "src/components/FaqAccordion.astro",
+    "token": "--color-border-hover"
+  },
+  {
+    "file": "src/components/FaqAccordion.astro",
+    "token": "--color-brand-primary"
+  },
+  {
+    "file": "src/components/FaqAccordion.astro",
+    "token": "--shadow-sm"
+  },
+  {
+    "file": "src/components/FaqAccordion.astro",
+    "token": "--color-brand-primary"
+  },
+  {
+    "file": "src/components/FaqAccordion.astro",
+    "token": "--radius-full"
+  },
+  {
+    "file": "src/components/FaqAccordion.astro",
+    "token": "--color-brand-primary"
+  },
+  {
+    "file": "src/components/ProductCard.astro",
+    "token": "--shadow-sm"
+  },
+  {
+    "file": "src/components/ProductCard.astro",
+    "token": "--radius-full"
+  },
+  {
+    "file": "src/pages/san-pham.astro",
+    "token": "--color-brand-primary"
+  },
+  {
+    "file": "src/pages/san-pham.astro",
+    "token": "--radius-full"
+  },
+  {
+    "file": "src/pages/san-pham.astro",
+    "token": "--radius-full"
+  },
+  {
+    "file": "src/pages/san-pham.astro",
+    "token": "--color-brand-primary"
+  },
+  {
+    "file": "src/pages/san-pham.astro",
+    "token": "--color-brand-hover"
+  },
+  {
+    "file": "src/pages/san-pham.astro",
+    "token": "--radius-full"
+  },
+  {
+    "file": "src/pages/san-pham.astro",
+    "token": "--color-brand-primary"
+  },
+  {
+    "file": "src/pages/san-pham.astro",
+    "token": "--color-brand-primary"
+  },
+  {
+    "file": "src/pages/san-pham.astro",
+    "token": "--color-brand-primary"
+  }
+]

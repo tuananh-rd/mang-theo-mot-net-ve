@@ -1,0 +1,1262 @@
+{
+  "task": "C03",
+  "timestamp": "2026-10-03T13:45:51.107Z",
+  "targetServer": "http://127.0.0.1:4322",
+  "assertions": [
+    {
+      "description": "home status 200 on direct load",
+      "pass": true
+    },
+    {
+      "description": "home status 200/304 on reload",
+      "pass": true
+    },
+    {
+      "description": "project status 200 on direct load",
+      "pass": true
+    },
+    {
+      "description": "project status 200/304 on reload",
+      "pass": true
+    },
+    {
+      "description": "team status 200 on direct load",
+      "pass": true
+    },
+    {
+      "description": "team status 200/304 on reload",
+      "pass": true
+    },
+    {
+      "description": "product status 200 on direct load",
+      "pass": true
+    },
+    {
+      "description": "product status 200/304 on reload",
+      "pass": true
+    },
+    {
+      "description": "transparency status 200 on direct load",
+      "pass": true
+    },
+    {
+      "description": "transparency status 200/304 on reload",
+      "pass": true
+    },
+    {
+      "description": "support status 200 on direct load",
+      "pass": true
+    },
+    {
+      "description": "support status 200/304 on reload",
+      "pass": true
+    },
+    {
+      "description": "404 status 200 on direct load",
+      "pass": true
+    },
+    {
+      "description": "404 status 200/304 on reload",
+      "pass": true
+    },
+    {
+      "description": "Illustration a01.webp status 200/304",
+      "pass": true
+    },
+    {
+      "description": "Illustration a02.webp status 200/304",
+      "pass": true
+    },
+    {
+      "description": "Illustration a03.webp status 200/304",
+      "pass": true
+    },
+    {
+      "description": "Illustration a04.webp status 200/304",
+      "pass": true
+    },
+    {
+      "description": "Illustration a05.webp status 200/304",
+      "pass": true
+    },
+    {
+      "description": "Screenshot home-mobile-375-full.png exists and valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot home-tablet-768-full.png exists and valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot home-desktop-1440-full.png exists and valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot du-an-mobile-375-full.png exists and valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot du-an-tablet-768-full.png exists and valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot du-an-desktop-1440-full.png exists and valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot ve-nhom-mobile-375-full.png exists and valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot ve-nhom-tablet-768-full.png exists and valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot ve-nhom-desktop-1440-full.png exists and valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot san-pham-mobile-375-full.png exists and valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot san-pham-tablet-768-full.png exists and valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot san-pham-desktop-1440-full.png exists and valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot minh-bach-mobile-375-full.png exists and valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot minh-bach-tablet-768-full.png exists and valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot minh-bach-desktop-1440-full.png exists and valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot dong-hanh-mobile-375-full.png exists and valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot dong-hanh-tablet-768-full.png exists and valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot dong-hanh-desktop-1440-full.png exists and valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot 404-mobile-375-full.png exists and valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot 404-tablet-768-full.png exists and valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot 404-desktop-1440-full.png exists and valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot san-pham-breakpoint-900-full.png valid",
+      "pass": true
+    },
+    {
+      "description": "Screenshot san-pham-breakpoint-1024-full.png valid",
+      "pass": true
+    },
+    {
+      "description": "Mobile menu toggle aria-expanded is true",
+      "pass": true
+    },
+    {
+      "description": "Mobile menu closes on Escape",
+      "pass": true
+    },
+    {
+      "description": "san-pham-375-details-open screenshot created",
+      "pass": true
+    },
+    {
+      "description": "minh-bach-375-grouped-expenses screenshot created",
+      "pass": true
+    },
+    {
+      "description": "minh-bach-375-compact-ledger screenshot created",
+      "pass": true
+    },
+    {
+      "description": "Actual ledger height < 500px on mobile (significantly compact vs >900px)",
+      "pass": false,
+      "details": 699.15625
+    },
+    {
+      "description": "Header desktop CTA text is \"Cách đồng hành\" (P13)",
+      "pass": false,
+      "details": {
+        "skipLinkHref": "#main-content"
+      }
+    },
+    {
+      "description": "Header desktop CTA href is \"/dong-hanh\"",
+      "pass": false,
+      "details": {
+        "skipLinkHref": "#main-content"
+      }
+    },
+    {
+      "description": "Header mobile CTA text is \"Cách đồng hành\"",
+      "pass": false,
+      "details": {
+        "skipLinkHref": "#main-content"
+      }
+    },
+    {
+      "description": "Header mobile CTA href is \"/dong-hanh\"",
+      "pass": false,
+      "details": {
+        "skipLinkHref": "#main-content"
+      }
+    },
+    {
+      "description": "Skip to content link points to #main-content",
+      "pass": true
+    },
+    {
+      "description": "San-pham has 2 craft cards in craft grid",
+      "pass": false,
+      "details": {
+        "craftCount": 0,
+        "foodCount": 0,
+        "totalProductCards": 7,
+        "hasMobileDetails": true,
+        "mobileDetailsClosedByDefault": true,
+        "summaryRowsCount": 7,
+        "faqsCount": 0,
+        "allCardsHavePriceTag": true,
+        "allCardsHaveStatus": true
+      }
+    },
+    {
+      "description": "San-pham has 5 food cards in food grid",
+      "pass": false,
+      "details": {
+        "craftCount": 0,
+        "foodCount": 0,
+        "totalProductCards": 7,
+        "hasMobileDetails": true,
+        "mobileDetailsClosedByDefault": true,
+        "summaryRowsCount": 7,
+        "faqsCount": 0,
+        "allCardsHavePriceTag": true,
+        "allCardsHaveStatus": true
+      }
+    },
+    {
+      "description": "San-pham has 7 total product cards unified with ProductCard component",
+      "pass": true
+    },
+    {
+      "description": "San-pham summary table under 1024 is wrapped in details and closed by default",
+      "pass": true
+    },
+    {
+      "description": "San-pham summary table has 7 rows when opened",
+      "pass": true
+    },
+    {
+      "description": "San-pham has 5 FAQ items using FaqAccordion",
+      "pass": false,
+      "details": {
+        "craftCount": 0,
+        "foodCount": 0,
+        "totalProductCards": 7,
+        "hasMobileDetails": true,
+        "mobileDetailsClosedByDefault": true,
+        "summaryRowsCount": 7,
+        "faqsCount": 0,
+        "allCardsHavePriceTag": true,
+        "allCardsHaveStatus": true
+      }
+    },
+    {
+      "description": "All product cards have price value and status badge with \"Chưa xác nhận\"",
+      "pass": true
+    },
+    {
+      "description": "Minh-bach has 3 KPI cards at the top (Chi 4.935.000, Thu 6.700.000, Dư +1.765.000)",
+      "pass": false,
+      "details": []
+    },
+    {
+      "description": "Minh-bach has reconciliation alert banner linking to #doi-chieu-do-an",
+      "pass": false,
+      "details": {
+        "kpiValues": [],
+        "hasAlertBanner": false,
+        "desktopSubtotals": [
+          "2.245.000đ",
+          "1.560.000đ",
+          "1.130.000đ"
+        ],
+        "mobileDetails": [
+          {
+            "open": true,
+            "summaryTitle": "Nguyên liệu gây quỹ",
+            "summarySubtotal": "2.245.000đ"
+          },
+          {
+            "open": true,
+            "summaryTitle": "Vật tư workshop & quà tặng",
+            "summarySubtotal": "1.560.000đ"
+          },
+          {
+            "open": true,
+            "summaryTitle": "Truyền thông & Di chuyển",
+            "summarySubtotal": "1.130.000đ"
+          }
+        ],
+        "actualRows": [
+          {
+            "title": "1. Tiền thực nhận",
+            "val": "Chưa xác nhận"
+          },
+          {
+            "title": "2. Chi tiền thực trả",
+            "val": "Chưa xác nhận"
+          },
+          {
+            "title": "3. Số dư tiền thực tế",
+            "val": "Chưa xác nhận"
+          },
+          {
+            "title": "4. Hiện vật tiếp nhận & bàn giao",
+            "val": "Chưa xác nhận"
+          },
+          {
+            "title": "5. Chứng từ & Hóa đơn",
+            "val": "Chưa xác nhận"
+          }
+        ],
+        "hasContingencyCard": false
+      }
+    },
+    {
+      "description": "Minh-bach planned expenses table has 3 category subtotals (2.245.000, 1.560.000, 1.130.000)",
+      "pass": true
+    },
+    {
+      "description": "Minh-bach mobile details have summary with title and subtotal visible even when collapsed",
+      "pass": true
+    },
+    {
+      "description": "Minh-bach actual ledger is compact with exactly 5 rows and all values null / \"Chưa xác nhận\"",
+      "pass": true
+    },
+    {
+      "description": "Minh-bach has contingency card (Phương án dự phòng & quản trị rủi ro)",
+      "pass": false,
+      "details": {
+        "kpiValues": [],
+        "hasAlertBanner": false,
+        "desktopSubtotals": [
+          "2.245.000đ",
+          "1.560.000đ",
+          "1.130.000đ"
+        ],
+        "mobileDetails": [
+          {
+            "open": true,
+            "summaryTitle": "Nguyên liệu gây quỹ",
+            "summarySubtotal": "2.245.000đ"
+          },
+          {
+            "open": true,
+            "summaryTitle": "Vật tư workshop & quà tặng",
+            "summarySubtotal": "1.560.000đ"
+          },
+          {
+            "open": true,
+            "summaryTitle": "Truyền thông & Di chuyển",
+            "summarySubtotal": "1.130.000đ"
+          }
+        ],
+        "actualRows": [
+          {
+            "title": "1. Tiền thực nhận",
+            "val": "Chưa xác nhận"
+          },
+          {
+            "title": "2. Chi tiền thực trả",
+            "val": "Chưa xác nhận"
+          },
+          {
+            "title": "3. Số dư tiền thực tế",
+            "val": "Chưa xác nhận"
+          },
+          {
+            "title": "4. Hiện vật tiếp nhận & bàn giao",
+            "val": "Chưa xác nhận"
+          },
+          {
+            "title": "5. Chứng từ & Hóa đơn",
+            "val": "Chưa xác nhận"
+          }
+        ],
+        "hasContingencyCard": false
+      }
+    },
+    {
+      "description": "Home has quick summary bar with 4 key points",
+      "pass": false,
+      "details": {
+        "sections": [
+          "hero-section",
+          "section-summary",
+          "section section-activities",
+          "section section-soft section-products",
+          "section section-transparency",
+          "section section-soft section-stages",
+          "section section-group-support"
+        ],
+        "quickSummaryCount": 0,
+        "hasGroupSupportBlock": false
+      }
+    },
+    {
+      "description": "Home has combined 2-column block for Group & Support",
+      "pass": false,
+      "details": {
+        "sections": [
+          "hero-section",
+          "section-summary",
+          "section section-activities",
+          "section section-soft section-products",
+          "section section-transparency",
+          "section section-soft section-stages",
+          "section section-group-support"
+        ],
+        "quickSummaryCount": 0,
+        "hasGroupSupportBlock": false
+      }
+    },
+    {
+      "description": "Du-an H1 is \"Dự án Mang Theo Một Nét Vẽ\"",
+      "pass": true
+    },
+    {
+      "description": "Du-an hero uses 4-item editorial summary card instead of duplicating Home A01 hero image",
+      "pass": true
+    },
+    {
+      "description": "Du-an has qualitative objectives and safety section",
+      "pass": true
+    },
+    {
+      "description": "Du-an section order is timeline (stages) -> compact updates -> resources (2 lines + Finance link)",
+      "pass": true
+    },
+    {
+      "description": "Ve-nhom hero does not duplicate logo image",
+      "pass": true
+    },
+    {
+      "description": "Ve-nhom personnel section has 1 concise sentence about 7 students pending confirmation",
+      "pass": true
+    },
+    {
+      "description": "Ve-nhom does not contain fake or empty member cards",
+      "pass": true
+    },
+    {
+      "description": "Ve-nhom has 5 work areas and 5 principles",
+      "pass": true
+    },
+    {
+      "description": "Dong-hanh hero notice clarifies preview scope and unconfirmed channels",
+      "pass": false,
+      "details": null
+    },
+    {
+      "description": "Dong-hanh has 3 methods with text links inside cards",
+      "pass": false,
+      "details": {
+        "methodCardsCount": 3,
+        "textLinksCount": 0,
+        "primaryCtasCount": 3,
+        "faqsCount": 0,
+        "contactIdx": 2,
+        "workflowIdx": 3,
+        "contactBeforeWorkflow": true
+      }
+    },
+    {
+      "description": "Dong-hanh places compact unconfirmed contact section before workflow",
+      "pass": true
+    },
+    {
+      "description": "Dong-hanh has 1 primary CTA at the bottom",
+      "pass": false,
+      "details": 3
+    },
+    {
+      "description": "Dong-hanh has FAQs using FaqAccordion",
+      "pass": false,
+      "details": 0
+    },
+    {
+      "description": "Standee note mentions proposed / borrowed standee status unconfirmed (trang 26)",
+      "pass": false,
+      "details": ""
+    },
+    {
+      "description": "San-pham 375px height (7805px) reduced significantly vs 9612px",
+      "pass": true
+    },
+    {
+      "description": "Minh-bach 375px height (11273px) reduced significantly vs 12366px",
+      "pass": false,
+      "details": 11273
+    },
+    {
+      "description": "No horizontal scroll on home at 375px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on home at 414px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on home at 768px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on home at 900px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on home at 1024px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on home at 1440px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on du-an at 375px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on du-an at 414px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on du-an at 768px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on du-an at 900px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on du-an at 1024px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on du-an at 1440px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on ve-nhom at 375px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on ve-nhom at 414px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on ve-nhom at 768px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on ve-nhom at 900px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on ve-nhom at 1024px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on ve-nhom at 1440px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on san-pham at 375px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on san-pham at 414px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on san-pham at 768px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on san-pham at 900px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on san-pham at 1024px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on san-pham at 1440px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on minh-bach at 375px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on minh-bach at 414px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on minh-bach at 768px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on minh-bach at 900px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on minh-bach at 1024px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on minh-bach at 1440px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on dong-hanh at 375px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on dong-hanh at 414px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on dong-hanh at 768px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on dong-hanh at 900px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on dong-hanh at 1024px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on dong-hanh at 1440px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on 404 at 375px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on 404 at 414px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on 404 at 768px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on 404 at 900px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on 404 at 1024px",
+      "pass": true
+    },
+    {
+      "description": "No horizontal scroll on 404 at 1440px",
+      "pass": true
+    },
+    {
+      "description": "No content text < 14px on / at 375px",
+      "pass": true
+    },
+    {
+      "description": "No content text < 14px on /san-pham at 375px",
+      "pass": true
+    },
+    {
+      "description": "No content text < 14px on /minh-bach at 375px",
+      "pass": true
+    },
+    {
+      "description": "No content text < 14px on /du-an/mang-theo-mot-net-ve at 375px",
+      "pass": true
+    },
+    {
+      "description": "No content text < 14px on /dong-hanh at 375px",
+      "pass": true
+    },
+    {
+      "description": "No content text < 14px on /ve-nhom at 375px",
+      "pass": true
+    }
+  ],
+  "screenshots": [
+    {
+      "page": "home",
+      "viewport": "mobile-375",
+      "fileName": "home-mobile-375-full.png",
+      "dims": {
+        "width": 375,
+        "height": 9424
+      }
+    },
+    {
+      "page": "home",
+      "viewport": "tablet-768",
+      "fileName": "home-tablet-768-full.png",
+      "dims": {
+        "width": 768,
+        "height": 7254
+      }
+    },
+    {
+      "page": "home",
+      "viewport": "desktop-1440",
+      "fileName": "home-desktop-1440-full.png",
+      "dims": {
+        "width": 1440,
+        "height": 5431
+      }
+    },
+    {
+      "page": "du-an",
+      "viewport": "mobile-375",
+      "fileName": "du-an-mobile-375-full.png",
+      "dims": {
+        "width": 375,
+        "height": 7461
+      }
+    },
+    {
+      "page": "du-an",
+      "viewport": "tablet-768",
+      "fileName": "du-an-tablet-768-full.png",
+      "dims": {
+        "width": 768,
+        "height": 5789
+      }
+    },
+    {
+      "page": "du-an",
+      "viewport": "desktop-1440",
+      "fileName": "du-an-desktop-1440-full.png",
+      "dims": {
+        "width": 1440,
+        "height": 4698
+      }
+    },
+    {
+      "page": "ve-nhom",
+      "viewport": "mobile-375",
+      "fileName": "ve-nhom-mobile-375-full.png",
+      "dims": {
+        "width": 375,
+        "height": 4899
+      }
+    },
+    {
+      "page": "ve-nhom",
+      "viewport": "tablet-768",
+      "fileName": "ve-nhom-tablet-768-full.png",
+      "dims": {
+        "width": 768,
+        "height": 3968
+      }
+    },
+    {
+      "page": "ve-nhom",
+      "viewport": "desktop-1440",
+      "fileName": "ve-nhom-desktop-1440-full.png",
+      "dims": {
+        "width": 1440,
+        "height": 3517
+      }
+    },
+    {
+      "page": "san-pham",
+      "viewport": "mobile-375",
+      "fileName": "san-pham-mobile-375-full.png",
+      "dims": {
+        "width": 375,
+        "height": 7805
+      }
+    },
+    {
+      "page": "san-pham",
+      "viewport": "tablet-768",
+      "fileName": "san-pham-tablet-768-full.png",
+      "dims": {
+        "width": 768,
+        "height": 5778
+      }
+    },
+    {
+      "page": "san-pham",
+      "viewport": "desktop-1440",
+      "fileName": "san-pham-desktop-1440-full.png",
+      "dims": {
+        "width": 1440,
+        "height": 5968
+      }
+    },
+    {
+      "page": "minh-bach",
+      "viewport": "mobile-375",
+      "fileName": "minh-bach-mobile-375-full.png",
+      "dims": {
+        "width": 375,
+        "height": 11273
+      }
+    },
+    {
+      "page": "minh-bach",
+      "viewport": "tablet-768",
+      "fileName": "minh-bach-tablet-768-full.png",
+      "dims": {
+        "width": 768,
+        "height": 8962
+      }
+    },
+    {
+      "page": "minh-bach",
+      "viewport": "desktop-1440",
+      "fileName": "minh-bach-desktop-1440-full.png",
+      "dims": {
+        "width": 1440,
+        "height": 8048
+      }
+    },
+    {
+      "page": "dong-hanh",
+      "viewport": "mobile-375",
+      "fileName": "dong-hanh-mobile-375-full.png",
+      "dims": {
+        "width": 375,
+        "height": 6173
+      }
+    },
+    {
+      "page": "dong-hanh",
+      "viewport": "tablet-768",
+      "fileName": "dong-hanh-tablet-768-full.png",
+      "dims": {
+        "width": 768,
+        "height": 5258
+      }
+    },
+    {
+      "page": "dong-hanh",
+      "viewport": "desktop-1440",
+      "fileName": "dong-hanh-desktop-1440-full.png",
+      "dims": {
+        "width": 1440,
+        "height": 4259
+      }
+    },
+    {
+      "page": "404",
+      "viewport": "mobile-375",
+      "fileName": "404-mobile-375-full.png",
+      "dims": {
+        "width": 375,
+        "height": 1413
+      }
+    },
+    {
+      "page": "404",
+      "viewport": "tablet-768",
+      "fileName": "404-tablet-768-full.png",
+      "dims": {
+        "width": 768,
+        "height": 1170
+      }
+    },
+    {
+      "page": "404",
+      "viewport": "desktop-1440",
+      "fileName": "404-desktop-1440-full.png",
+      "dims": {
+        "width": 1440,
+        "height": 1125
+      }
+    },
+    {
+      "page": "san-pham",
+      "viewport": "breakpoint-900",
+      "fileName": "san-pham-breakpoint-900-full.png",
+      "dims": {
+        "width": 900,
+        "height": 5818
+      }
+    },
+    {
+      "page": "san-pham",
+      "viewport": "breakpoint-1024",
+      "fileName": "san-pham-breakpoint-1024-full.png",
+      "dims": {
+        "width": 1024,
+        "height": 6098
+      }
+    },
+    {
+      "page": "home",
+      "viewport": "mobile-375-menu-open",
+      "fileName": "mobile-375-menu-open.png",
+      "dims": {
+        "width": 375,
+        "height": 667
+      }
+    },
+    {
+      "page": "san-pham",
+      "viewport": "mobile-375-details-open",
+      "fileName": "san-pham-375-details-open.png",
+      "dims": {
+        "width": 343,
+        "height": 4048
+      }
+    },
+    {
+      "page": "minh-bach",
+      "viewport": "mobile-375-grouped-expenses",
+      "fileName": "minh-bach-375-grouped-expenses.png",
+      "dims": {
+        "width": 343,
+        "height": 3057
+      }
+    },
+    {
+      "page": "minh-bach",
+      "viewport": "mobile-375-compact-ledger",
+      "fileName": "minh-bach-375-compact-ledger.png",
+      "dims": {
+        "width": 343,
+        "height": 699
+      }
+    }
+  ],
+  "cropScreenshots": [
+    "crop-hero-desktop-1440.png",
+    "crop-hero-mobile-375.png",
+    "crop-a02-chuonchuon-desktop.png",
+    "crop-a03-hat-desktop.png",
+    "crop-a02-chuonchuon-mobile-375.png",
+    "crop-reconciliation-card-desktop.png",
+    "crop-reconciliation-card-mobile-375.png"
+  ],
+  "heightMeasurements": {
+    "home-375": 9424,
+    "du-an-375": 7461,
+    "ve-nhom-375": 4899,
+    "san-pham-375": 7805,
+    "minh-bach-375": 11273,
+    "dong-hanh-375": 6173,
+    "404-375": 1413
+  },
+  "actualLedgerHeight": 699.15625,
+  "heightComparison": {
+    "sanPham": {
+      "baselineC01": 9612,
+      "currentC03": 7805,
+      "reductionPercent": "18.80%"
+    },
+    "minhBach": {
+      "baselineC01": 12366,
+      "currentC03": 11273,
+      "reductionPercent": "8.84%"
+    }
+  },
+  "endedAt": "2026-10-03T13:48:02.739Z",
+  "totalAssertions": 132,
+  "passedAssertions": 113,
+  "failedAssertions": [
+    {
+      "description": "Actual ledger height < 500px on mobile (significantly compact vs >900px)",
+      "pass": false,
+      "details": 699.15625
+    },
+    {
+      "description": "Header desktop CTA text is \"Cách đồng hành\" (P13)",
+      "pass": false,
+      "details": {
+        "skipLinkHref": "#main-content"
+      }
+    },
+    {
+      "description": "Header desktop CTA href is \"/dong-hanh\"",
+      "pass": false,
+      "details": {
+        "skipLinkHref": "#main-content"
+      }
+    },
+    {
+      "description": "Header mobile CTA text is \"Cách đồng hành\"",
+      "pass": false,
+      "details": {
+        "skipLinkHref": "#main-content"
+      }
+    },
+    {
+      "description": "Header mobile CTA href is \"/dong-hanh\"",
+      "pass": false,
+      "details": {
+        "skipLinkHref": "#main-content"
+      }
+    },
+    {
+      "description": "San-pham has 2 craft cards in craft grid",
+      "pass": false,
+      "details": {
+        "craftCount": 0,
+        "foodCount": 0,
+        "totalProductCards": 7,
+        "hasMobileDetails": true,
+        "mobileDetailsClosedByDefault": true,
+        "summaryRowsCount": 7,
+        "faqsCount": 0,
+        "allCardsHavePriceTag": true,
+        "allCardsHaveStatus": true
+      }
+    },
+    {
+      "description": "San-pham has 5 food cards in food grid",
+      "pass": false,
+      "details": {
+        "craftCount": 0,
+        "foodCount": 0,
+        "totalProductCards": 7,
+        "hasMobileDetails": true,
+        "mobileDetailsClosedByDefault": true,
+        "summaryRowsCount": 7,
+        "faqsCount": 0,
+        "allCardsHavePriceTag": true,
+        "allCardsHaveStatus": true
+      }
+    },
+    {
+      "description": "San-pham has 5 FAQ items using FaqAccordion",
+      "pass": false,
+      "details": {
+        "craftCount": 0,
+        "foodCount": 0,
+        "totalProductCards": 7,
+        "hasMobileDetails": true,
+        "mobileDetailsClosedByDefault": true,
+        "summaryRowsCount": 7,
+        "faqsCount": 0,
+        "allCardsHavePriceTag": true,
+        "allCardsHaveStatus": true
+      }
+    },
+    {
+      "description": "Minh-bach has 3 KPI cards at the top (Chi 4.935.000, Thu 6.700.000, Dư +1.765.000)",
+      "pass": false,
+      "details": []
+    },
+    {
+      "description": "Minh-bach has reconciliation alert banner linking to #doi-chieu-do-an",
+      "pass": false,
+      "details": {
+        "kpiValues": [],
+        "hasAlertBanner": false,
+        "desktopSubtotals": [
+          "2.245.000đ",
+          "1.560.000đ",
+          "1.130.000đ"
+        ],
+        "mobileDetails": [
+          {
+            "open": true,
+            "summaryTitle": "Nguyên liệu gây quỹ",
+            "summarySubtotal": "2.245.000đ"
+          },
+          {
+            "open": true,
+            "summaryTitle": "Vật tư workshop & quà tặng",
+            "summarySubtotal": "1.560.000đ"
+          },
+          {
+            "open": true,
+            "summaryTitle": "Truyền thông & Di chuyển",
+            "summarySubtotal": "1.130.000đ"
+          }
+        ],
+        "actualRows": [
+          {
+            "title": "1. Tiền thực nhận",
+            "val": "Chưa xác nhận"
+          },
+          {
+            "title": "2. Chi tiền thực trả",
+            "val": "Chưa xác nhận"
+          },
+          {
+            "title": "3. Số dư tiền thực tế",
+            "val": "Chưa xác nhận"
+          },
+          {
+            "title": "4. Hiện vật tiếp nhận & bàn giao",
+            "val": "Chưa xác nhận"
+          },
+          {
+            "title": "5. Chứng từ & Hóa đơn",
+            "val": "Chưa xác nhận"
+          }
+        ],
+        "hasContingencyCard": false
+      }
+    },
+    {
+      "description": "Minh-bach has contingency card (Phương án dự phòng & quản trị rủi ro)",
+      "pass": false,
+      "details": {
+        "kpiValues": [],
+        "hasAlertBanner": false,
+        "desktopSubtotals": [
+          "2.245.000đ",
+          "1.560.000đ",
+          "1.130.000đ"
+        ],
+        "mobileDetails": [
+          {
+            "open": true,
+            "summaryTitle": "Nguyên liệu gây quỹ",
+            "summarySubtotal": "2.245.000đ"
+          },
+          {
+            "open": true,
+            "summaryTitle": "Vật tư workshop & quà tặng",
+            "summarySubtotal": "1.560.000đ"
+          },
+          {
+            "open": true,
+            "summaryTitle": "Truyền thông & Di chuyển",
+            "summarySubtotal": "1.130.000đ"
+          }
+        ],
+        "actualRows": [
+          {
+            "title": "1. Tiền thực nhận",
+            "val": "Chưa xác nhận"
+          },
+          {
+            "title": "2. Chi tiền thực trả",
+            "val": "Chưa xác nhận"
+          },
+          {
+            "title": "3. Số dư tiền thực tế",
+            "val": "Chưa xác nhận"
+          },
+          {
+            "title": "4. Hiện vật tiếp nhận & bàn giao",
+            "val": "Chưa xác nhận"
+          },
+          {
+            "title": "5. Chứng từ & Hóa đơn",
+            "val": "Chưa xác nhận"
+          }
+        ],
+        "hasContingencyCard": false
+      }
+    },
+    {
+      "description": "Home has quick summary bar with 4 key points",
+      "pass": false,
+      "details": {
+        "sections": [
+          "hero-section",
+          "section-summary",
+          "section section-activities",
+          "section section-soft section-products",
+          "section section-transparency",
+          "section section-soft section-stages",
+          "section section-group-support"
+        ],
+        "quickSummaryCount": 0,
+        "hasGroupSupportBlock": false
+      }
+    },
+    {
+      "description": "Home has combined 2-column block for Group & Support",
+      "pass": false,
+      "details": {
+        "sections": [
+          "hero-section",
+          "section-summary",
+          "section section-activities",
+          "section section-soft section-products",
+          "section section-transparency",
+          "section section-soft section-stages",
+          "section section-group-support"
+        ],
+        "quickSummaryCount": 0,
+        "hasGroupSupportBlock": false
+      }
+    },
+    {
+      "description": "Dong-hanh hero notice clarifies preview scope and unconfirmed channels",
+      "pass": false,
+      "details": null
+    },
+    {
+      "description": "Dong-hanh has 3 methods with text links inside cards",
+      "pass": false,
+      "details": {
+        "methodCardsCount": 3,
+        "textLinksCount": 0,
+        "primaryCtasCount": 3,
+        "faqsCount": 0,
+        "contactIdx": 2,
+        "workflowIdx": 3,
+        "contactBeforeWorkflow": true
+      }
+    },
+    {
+      "description": "Dong-hanh has 1 primary CTA at the bottom",
+      "pass": false,
+      "details": 3
+    },
+    {
+      "description": "Dong-hanh has FAQs using FaqAccordion",
+      "pass": false,
+      "details": 0
+    },
+    {
+      "description": "Standee note mentions proposed / borrowed standee status unconfirmed (trang 26)",
+      "pass": false,
+      "details": ""
+    },
+    {
+      "description": "Minh-bach 375px height (11273px) reduced significantly vs 12366px",
+      "pass": false,
+      "details": 11273
+    }
+  ]
+}

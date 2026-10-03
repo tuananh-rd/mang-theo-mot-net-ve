@@ -1,0 +1,280 @@
+{
+  "task": "C03",
+  "target": "Implement professional content layout according to filtered Claude review (P1-P16, N1-N7)",
+  "baseSHA": "673ba03ceb47df18f84f3362c8124d603e3dc7cf",
+  "baseAppSHA": "221eafa73661cb822b3f8017b7fe1bf367106349",
+  "finalAppSHA": "22ba02649134eed791c9f9ec46ad6e91d7d9ec94",
+  "appCommits": [
+    {
+      "sha": "92f1c4f45c1d307cde0a4cb801d658b9f5395b06",
+      "message": "feat(c03): implement professional content layout according to filtered review"
+    },
+    {
+      "sha": "22ba02649134eed791c9f9ec46ad6e91d7d9ec94",
+      "message": "fix(c03): resolve undefined CSS tokens, restore keyboard focus and align layout"
+    }
+  ],
+  "nodeVersion": "v24.19.0",
+  "astroVersion": "7.3.5",
+  "checkStatus": {
+    "errors": 0,
+    "warnings": 0,
+    "hints": 0,
+    "filesChecked": 72
+  },
+  "testStatus": {
+    "passed": 27,
+    "failed": 0,
+    "suites": 5,
+    "file": "tests/finance.test.mjs"
+  },
+  "browserAuditStatus": {
+    "note": "Preserved inherited harness results as known limitations per coordinator note; Codex will conduct independent browser/visual QA.",
+    "screenshotsCount": 34,
+    "pngFiles": [
+      "404-desktop-1440-full.png",
+      "404-mobile-375-full.png",
+      "404-tablet-768-full.png",
+      "crop-a02-chuonchuon-desktop.png",
+      "crop-a02-chuonchuon-mobile-375.png",
+      "crop-a03-hat-desktop.png",
+      "crop-hero-desktop-1440.png",
+      "crop-hero-mobile-375.png",
+      "crop-reconciliation-card-desktop.png",
+      "crop-reconciliation-card-mobile-375.png",
+      "dong-hanh-desktop-1440-full.png",
+      "dong-hanh-mobile-375-full.png",
+      "dong-hanh-tablet-768-full.png",
+      "du-an-desktop-1440-full.png",
+      "du-an-mobile-375-full.png",
+      "du-an-tablet-768-full.png",
+      "home-desktop-1440-full.png",
+      "home-mobile-375-full.png",
+      "home-tablet-768-full.png",
+      "minh-bach-375-compact-ledger.png",
+      "minh-bach-375-grouped-expenses.png",
+      "minh-bach-desktop-1440-full.png",
+      "minh-bach-mobile-375-full.png",
+      "minh-bach-tablet-768-full.png",
+      "mobile-375-menu-open.png",
+      "san-pham-375-details-open.png",
+      "san-pham-breakpoint-1024-full.png",
+      "san-pham-breakpoint-900-full.png",
+      "san-pham-desktop-1440-full.png",
+      "san-pham-mobile-375-full.png",
+      "san-pham-tablet-768-full.png",
+      "ve-nhom-desktop-1440-full.png",
+      "ve-nhom-mobile-375-full.png",
+      "ve-nhom-tablet-768-full.png"
+    ]
+  },
+  "previewService": {
+    "host": "127.0.0.1",
+    "port": 4322,
+    "pid": 25960,
+    "status": "RUNNING",
+    "claudePreviewUntouched": {
+      "host": "127.0.0.1",
+      "port": 4321,
+      "pid": 21616
+    }
+  },
+  "distFileCount": 24,
+  "distHashes": {
+    "404.html": {
+      "size": 9344,
+      "sha256": "6f1912818c19b0c38dbf0ee6802d2d24e9cfed73671d14929dc96498a2082a6f"
+    },
+    "dong-hanh/index.html": {
+      "size": 26660,
+      "sha256": "393c66e6feeb95b7985e1ac25c2aeb2c1d7e0c7c44d058cd4b4f461a2aef55ee"
+    },
+    "du-an/mang-theo-mot-net-ve/index.html": {
+      "size": 31330,
+      "sha256": "0d70d82936f1fac170382d137e5efc29514767aa68e84a1ab541bbe9e5c60e68"
+    },
+    "favicon.svg": {
+      "size": 703,
+      "sha256": "cf5a6109d12aead474ccee95fd51643e1988adc2364bb1349e3c3e4e6d564051"
+    },
+    "images/apple-touch-icon.png": {
+      "size": 6141,
+      "sha256": "1f17e268aaf9672ade06b400cc5348a3126c9201b7135bd7e3723d992da20e10"
+    },
+    "images/favicon-32x32.png": {
+      "size": 1263,
+      "sha256": "a960c351d4ca5d3fb258edf561b23e67e22a599a969a53f8fbf793f7103b3087"
+    },
+    "images/illustrations/a01.webp": {
+      "size": 100518,
+      "sha256": "a9fa9016a999b7adab3f52f8d942c0b2f3606326003a2ef42a6c7c28bdc2f3f1"
+    },
+    "images/illustrations/a02.webp": {
+      "size": 30248,
+      "sha256": "8db997d57ec418468478f940cde866e14ef970c3221b6f3978d6c2af4fb7e535"
+    },
+    "images/illustrations/a03.webp": {
+      "size": 89352,
+      "sha256": "4f0050853707213fafed52296fa75ef62f1519352a9a5c30a0be45cba435c5a7"
+    },
+    "images/illustrations/a04.webp": {
+      "size": 67214,
+      "sha256": "17c3fefd7484603a82dd9cb1cabf0122ce856c58e4977874179d2519df1ec61a"
+    },
+    "images/illustrations/a05.webp": {
+      "size": 101026,
+      "sha256": "8d8f4d8bbaa692295eb81b34858b8cdc2e454c82bd8bb610e84c1a33dcb9407f"
+    },
+    "images/logo_lang_kinh_2048.png": {
+      "size": 78915,
+      "sha256": "06f63ac9d41c079827d794b13ffec468ea30be7b818755b4ba96bc819f7facbc"
+    },
+    "images/logo_option5_horizontal.png": {
+      "size": 37399,
+      "sha256": "e078e7ea7bd8debae74d2c573fe4391fd55aee57a167ca4eb63534b17ee56db9"
+    },
+    "index.html": {
+      "size": 44883,
+      "sha256": "71db99deeab09d430ce69ba0ebff2b36ab319acbe0f5f89ab1ee7f7efeb5faf2"
+    },
+    "minh-bach/index.html": {
+      "size": 71772,
+      "sha256": "a4e72762253048048e8bd81207dc8f4ded4153175dfa14d74c3d3af77f92c200"
+    },
+    "san-pham/index.html": {
+      "size": 64837,
+      "sha256": "95066f766ca08663404c1226baaae38f5b4bab1744a486ea59f707dbb4b873fe"
+    },
+    "ve-nhom/index.html": {
+      "size": 18032,
+      "sha256": "ba373b10a1cc90d382fe7308cdeec3f3a6c7b8f9af42b9850fe2ebc4ac33233a"
+    },
+    "_astro/dong-hanh.C7BLKpEx.css": {
+      "size": 8617,
+      "sha256": "9c2584cf18674eebc400d3c49928328cbfc893b8f0c393f85f87ca421df0f529"
+    },
+    "_astro/index.JLHXnGO9.css": {
+      "size": 7563,
+      "sha256": "03074431a87e75ba94656ecf53c0246895d7ad0ee0380f39c301776e7b65fcba"
+    },
+    "_astro/Layout.Bk1kzqyo.css": {
+      "size": 13457,
+      "sha256": "6a9c3d539bb5d6b77504a5c063800b39159a82eff8124c55bea1dc8e00555900"
+    },
+    "_astro/mang-theo-mot-net-ve.B7jKZXLI.css": {
+      "size": 7370,
+      "sha256": "07337c8dd331f069a34c33c67d0dce909de8e6e9eddcc9402e116480f6a1a9ad"
+    },
+    "_astro/minh-bach.DKHsXwdz.css": {
+      "size": 22656,
+      "sha256": "4639869ef2bfdb6695cac630678fa7ce14eac081dabf5f9c7e62e3e1383d59f4"
+    },
+    "_astro/san-pham.DFb8KobG.css": {
+      "size": 8658,
+      "sha256": "95d894aea4dac6fb83685654be957d7e13efac7ed156901888e6cfe5fa510e55"
+    },
+    "_astro/ve-nhom.DufoQg0T.css": {
+      "size": 6114,
+      "sha256": "8162285220e330cfa79c3d69a498a4dee51eea1449a2873baa3e1b72ef672456"
+    }
+  },
+  "distFiles": {
+    "404.html": {
+      "size": 9344,
+      "sha256": "6f1912818c19b0c38dbf0ee6802d2d24e9cfed73671d14929dc96498a2082a6f"
+    },
+    "_astro\\Layout.Bk1kzqyo.css": {
+      "size": 13457,
+      "sha256": "6a9c3d539bb5d6b77504a5c063800b39159a82eff8124c55bea1dc8e00555900"
+    },
+    "_astro\\dong-hanh.C7BLKpEx.css": {
+      "size": 8617,
+      "sha256": "9c2584cf18674eebc400d3c49928328cbfc893b8f0c393f85f87ca421df0f529"
+    },
+    "_astro\\index.JLHXnGO9.css": {
+      "size": 7563,
+      "sha256": "03074431a87e75ba94656ecf53c0246895d7ad0ee0380f39c301776e7b65fcba"
+    },
+    "_astro\\mang-theo-mot-net-ve.B7jKZXLI.css": {
+      "size": 7370,
+      "sha256": "07337c8dd331f069a34c33c67d0dce909de8e6e9eddcc9402e116480f6a1a9ad"
+    },
+    "_astro\\minh-bach.DKHsXwdz.css": {
+      "size": 22656,
+      "sha256": "4639869ef2bfdb6695cac630678fa7ce14eac081dabf5f9c7e62e3e1383d59f4"
+    },
+    "_astro\\san-pham.CcoUJ781.css": {
+      "size": 9447,
+      "sha256": "be8949eef524c2751ab6ec7fef378a71a0a31ad1f54d594151deeaa7d9bd279f"
+    },
+    "_astro\\ve-nhom.DufoQg0T.css": {
+      "size": 6114,
+      "sha256": "8162285220e330cfa79c3d69a498a4dee51eea1449a2873baa3e1b72ef672456"
+    },
+    "dong-hanh\\index.html": {
+      "size": 26660,
+      "sha256": "393c66e6feeb95b7985e1ac25c2aeb2c1d7e0c7c44d058cd4b4f461a2aef55ee"
+    },
+    "du-an\\mang-theo-mot-net-ve\\index.html": {
+      "size": 31330,
+      "sha256": "0d70d82936f1fac170382d137e5efc29514767aa68e84a1ab541bbe9e5c60e68"
+    },
+    "favicon.svg": {
+      "size": 703,
+      "sha256": "cf5a6109d12aead474ccee95fd51643e1988adc2364bb1349e3c3e4e6d564051"
+    },
+    "images\\apple-touch-icon.png": {
+      "size": 6141,
+      "sha256": "1f17e268aaf9672ade06b400cc5348a3126c9201b7135bd7e3723d992da20e10"
+    },
+    "images\\favicon-32x32.png": {
+      "size": 1263,
+      "sha256": "a960c351d4ca5d3fb258edf561b23e67e22a599a969a53f8fbf793f7103b3087"
+    },
+    "images\\illustrations\\a01.webp": {
+      "size": 100518,
+      "sha256": "a9fa9016a999b7adab3f52f8d942c0b2f3606326003a2ef42a6c7c28bdc2f3f1"
+    },
+    "images\\illustrations\\a02.webp": {
+      "size": 30248,
+      "sha256": "8db997d57ec418468478f940cde866e14ef970c3221b6f3978d6c2af4fb7e535"
+    },
+    "images\\illustrations\\a03.webp": {
+      "size": 89352,
+      "sha256": "4f0050853707213fafed52296fa75ef62f1519352a9a5c30a0be45cba435c5a7"
+    },
+    "images\\illustrations\\a04.webp": {
+      "size": 67214,
+      "sha256": "17c3fefd7484603a82dd9cb1cabf0122ce856c58e4977874179d2519df1ec61a"
+    },
+    "images\\illustrations\\a05.webp": {
+      "size": 101026,
+      "sha256": "8d8f4d8bbaa692295eb81b34858b8cdc2e454c82bd8bb610e84c1a33dcb9407f"
+    },
+    "images\\logo_lang_kinh_2048.png": {
+      "size": 78915,
+      "sha256": "06f63ac9d41c079827d794b13ffec468ea30be7b818755b4ba96bc819f7facbc"
+    },
+    "images\\logo_option5_horizontal.png": {
+      "size": 37399,
+      "sha256": "e078e7ea7bd8debae74d2c573fe4391fd55aee57a167ca4eb63534b17ee56db9"
+    },
+    "index.html": {
+      "size": 44883,
+      "sha256": "71db99deeab09d430ce69ba0ebff2b36ab319acbe0f5f89ab1ee7f7efeb5faf2"
+    },
+    "minh-bach\\index.html": {
+      "size": 71772,
+      "sha256": "a4e72762253048048e8bd81207dc8f4ded4153175dfa14d74c3d3af77f92c200"
+    },
+    "san-pham\\index.html": {
+      "size": 64925,
+      "sha256": "94178b74fba92bc342a6eba8f79eb424faa61d9bc046c7dfbafbde5ffcfd8360"
+    },
+    "ve-nhom\\index.html": {
+      "size": 18032,
+      "sha256": "ba373b10a1cc90d382fe7308cdeec3f3a6c7b8f9af42b9850fe2ebc4ac33233a"
+    }
+  },
+  "distUpdatedAt": "2026-10-03T14:41:09.165Z"
+}

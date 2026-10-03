@@ -1,0 +1,243 @@
+{
+  "sha": "952d7539a02e4a24d36416ba8d666cccd48aa822",
+  "checks": [
+    {
+      "name": "Approved external source /",
+      "pass": true,
+      "value": "https://www.pexels.com/photo/watercolors-and-paintbrushes-6925031/"
+    },
+    {
+      "name": "Approved external source /",
+      "pass": true,
+      "value": "https://www.pexels.com/photo/paintbrush-and-paints-5412102/"
+    },
+    {
+      "name": "Approved external source /",
+      "pass": true,
+      "value": "https://www.pexels.com/photo/watercolors-and-paintbrushes-6925031/"
+    },
+    {
+      "name": "Approved external source /",
+      "pass": true,
+      "value": "https://www.pexels.com/photo/close-up-shot-of-a-person-playing-tambourine-7285222/"
+    },
+    {
+      "name": "Approved external source /",
+      "pass": true,
+      "value": "https://www.pexels.com/photo/heap-of-colorful-balls-12405327/"
+    },
+    {
+      "name": "Approved external source /du-an/mang-theo-mot-net-ve",
+      "pass": true,
+      "value": "https://www.pexels.com/photo/paintbrush-and-paints-5412102/"
+    },
+    {
+      "name": "Approved external source /du-an/mang-theo-mot-net-ve",
+      "pass": true,
+      "value": "https://www.pexels.com/photo/watercolors-and-paintbrushes-6925031/"
+    },
+    {
+      "name": "Approved external source /du-an/mang-theo-mot-net-ve",
+      "pass": true,
+      "value": "https://www.pexels.com/photo/close-up-shot-of-a-person-playing-tambourine-7285222/"
+    },
+    {
+      "name": "Approved external source /du-an/mang-theo-mot-net-ve",
+      "pass": true,
+      "value": "https://www.pexels.com/photo/heap-of-colorful-balls-12405327/"
+    },
+    {
+      "name": "Approved external source /san-pham",
+      "pass": true,
+      "value": "https://www.pexels.com/photo/photograph-of-cream-puffs-on-a-white-plate-7730442/"
+    },
+    {
+      "name": "Internal destination /#main-content",
+      "pass": true,
+      "value": 200
+    },
+    {
+      "name": "Anchor exists /#main-content",
+      "pass": true,
+      "value": "main-content"
+    },
+    {
+      "name": "Internal destination /",
+      "pass": true,
+      "value": 200
+    },
+    {
+      "name": "Internal destination /du-an/mang-theo-mot-net-ve",
+      "pass": true,
+      "value": 200
+    },
+    {
+      "name": "Internal destination /san-pham",
+      "pass": true,
+      "value": 200
+    },
+    {
+      "name": "Internal destination /minh-bach",
+      "pass": true,
+      "value": 200
+    },
+    {
+      "name": "Internal destination /ve-nhom",
+      "pass": true,
+      "value": 200
+    },
+    {
+      "name": "Internal destination /dong-hanh",
+      "pass": true,
+      "value": 200
+    },
+    {
+      "name": "Internal destination /minh-bach#doi-chieu-do-an",
+      "pass": true,
+      "value": 200
+    },
+    {
+      "name": "Anchor exists /minh-bach#doi-chieu-do-an",
+      "pass": true,
+      "value": "doi-chieu-do-an"
+    },
+    {
+      "name": "Internal destination /du-an/mang-theo-mot-net-ve#main-content",
+      "pass": true,
+      "value": 200
+    },
+    {
+      "name": "Anchor exists /du-an/mang-theo-mot-net-ve#main-content",
+      "pass": true,
+      "value": "main-content"
+    },
+    {
+      "name": "Internal destination /du-an/mang-theo-mot-net-ve#muc-tieu",
+      "pass": true,
+      "value": 200
+    },
+    {
+      "name": "Anchor exists /du-an/mang-theo-mot-net-ve#muc-tieu",
+      "pass": true,
+      "value": "muc-tieu"
+    },
+    {
+      "name": "Internal destination /du-an/mang-theo-mot-net-ve#buoi-choi",
+      "pass": true,
+      "value": 200
+    },
+    {
+      "name": "Anchor exists /du-an/mang-theo-mot-net-ve#buoi-choi",
+      "pass": true,
+      "value": "buoi-choi"
+    },
+    {
+      "name": "Internal destination /san-pham#main-content",
+      "pass": true,
+      "value": 200
+    },
+    {
+      "name": "Anchor exists /san-pham#main-content",
+      "pass": true,
+      "value": "main-content"
+    },
+    {
+      "name": "Internal destination /minh-bach#main-content",
+      "pass": true,
+      "value": 200
+    },
+    {
+      "name": "Anchor exists /minh-bach#main-content",
+      "pass": true,
+      "value": "main-content"
+    },
+    {
+      "name": "Internal destination /ve-nhom#main-content",
+      "pass": true,
+      "value": 200
+    },
+    {
+      "name": "Anchor exists /ve-nhom#main-content",
+      "pass": true,
+      "value": "main-content"
+    },
+    {
+      "name": "Internal destination /dong-hanh#main-content",
+      "pass": true,
+      "value": 200
+    },
+    {
+      "name": "Anchor exists /dong-hanh#main-content",
+      "pass": true,
+      "value": "main-content"
+    },
+    {
+      "name": "Finance FAQ present",
+      "pass": true,
+      "value": 4
+    },
+    {
+      "name": "FAQ keyboard opens",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "FAQ keyboard closes",
+      "pass": true,
+      "value": null
+    }
+  ],
+  "external": [
+    {
+      "href": "https://www.pexels.com/photo/watercolors-and-paintbrushes-6925031/",
+      "target": "_blank",
+      "rel": "noreferrer noopener"
+    },
+    {
+      "href": "https://www.pexels.com/photo/paintbrush-and-paints-5412102/",
+      "target": "_blank",
+      "rel": "noreferrer noopener"
+    },
+    {
+      "href": "https://www.pexels.com/photo/watercolors-and-paintbrushes-6925031/",
+      "target": "_blank",
+      "rel": "noreferrer noopener"
+    },
+    {
+      "href": "https://www.pexels.com/photo/close-up-shot-of-a-person-playing-tambourine-7285222/",
+      "target": "_blank",
+      "rel": "noreferrer noopener"
+    },
+    {
+      "href": "https://www.pexels.com/photo/heap-of-colorful-balls-12405327/",
+      "target": "_blank",
+      "rel": "noreferrer noopener"
+    },
+    {
+      "href": "https://www.pexels.com/photo/paintbrush-and-paints-5412102/",
+      "target": "_blank",
+      "rel": "noreferrer noopener"
+    },
+    {
+      "href": "https://www.pexels.com/photo/watercolors-and-paintbrushes-6925031/",
+      "target": "_blank",
+      "rel": "noreferrer noopener"
+    },
+    {
+      "href": "https://www.pexels.com/photo/close-up-shot-of-a-person-playing-tambourine-7285222/",
+      "target": "_blank",
+      "rel": "noreferrer noopener"
+    },
+    {
+      "href": "https://www.pexels.com/photo/heap-of-colorful-balls-12405327/",
+      "target": "_blank",
+      "rel": "noreferrer noopener"
+    },
+    {
+      "href": "https://www.pexels.com/photo/photograph-of-cream-puffs-on-a-white-plate-7730442/",
+      "target": "_blank",
+      "rel": "noreferrer noopener"
+    }
+  ],
+  "failed": []
+}

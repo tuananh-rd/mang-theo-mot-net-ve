@@ -1,0 +1,970 @@
+{
+  "sha": "952d7539a02e4a24d36416ba8d666cccd48aa822",
+  "checks": [
+    {
+      "name": "Approved photo count home375",
+      "pass": true,
+      "value": 5
+    },
+    {
+      "name": "Loaded photos and descriptive alt home375",
+      "pass": true,
+      "value": [
+        {
+          "src": "/images/illustrations/a01.webp",
+          "alt": "Bảng màu nước và các loại cọ vẽ đặt trên bàn",
+          "loaded": true,
+          "caption": "Ảnh minh họa họa cụ — chưa phải ảnh chuẩn bị hoặc hoạt động của dự án\nẢnh: Pavel Danilyuk / Pexels",
+          "position": "50% 40%",
+          "fit": "cover",
+          "w": 341,
+          "h": 150,
+          "source": "https://www.pexels.com/photo/watercolors-and-paintbrushes-6925031/"
+        },
+        {
+          "src": "/images/illustrations/a02.webp",
+          "alt": "Màu vẽ và cọ trên nền màu pastel",
+          "loaded": true,
+          "caption": "Minh họa họa cụ\nẢnh: Kaboompics (Karola G) / Pexels",
+          "position": "50% 90%",
+          "fit": "cover",
+          "w": 307,
+          "h": 165,
+          "source": "https://www.pexels.com/photo/paintbrush-and-paints-5412102/"
+        },
+        {
+          "src": "/images/illustrations/a01.webp",
+          "alt": "Bảng màu nước và cọ vẽ cho hoạt động tô màu",
+          "loaded": true,
+          "caption": "Minh họa cọ và màu vẽ\nẢnh: Pavel Danilyuk / Pexels",
+          "position": "50% 50%",
+          "fit": "cover",
+          "w": 307,
+          "h": 165,
+          "source": "https://www.pexels.com/photo/watercolors-and-paintbrushes-6925031/"
+        },
+        {
+          "src": "/images/illustrations/a03.webp",
+          "alt": "Trống lắc màu vàng",
+          "loaded": true,
+          "caption": "Minh họa trống lắc\nẢnh: Kaboompics (Karola G) / Pexels",
+          "position": "50% 50%",
+          "fit": "cover",
+          "w": 307,
+          "h": 165,
+          "source": "https://www.pexels.com/photo/close-up-shot-of-a-person-playing-tambourine-7285222/"
+        },
+        {
+          "src": "/images/illustrations/a04.webp",
+          "alt": "Những quả bóng nhựa nhiều màu sắc",
+          "loaded": true,
+          "caption": "Minh họa bóng\nẢnh: RDNE Stock project / Pexels",
+          "position": "50% 50%",
+          "fit": "cover",
+          "w": 307,
+          "h": 165,
+          "source": "https://www.pexels.com/photo/heap-of-colorful-balls-12405327/"
+        }
+      ]
+    },
+    {
+      "name": "Context captions and credits home375",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "Approved photo count project375",
+      "pass": true,
+      "value": 4
+    },
+    {
+      "name": "Loaded photos and descriptive alt project375",
+      "pass": true,
+      "value": [
+        {
+          "src": "/images/illustrations/a02.webp",
+          "alt": "Màu vẽ và cọ trên nền màu pastel",
+          "loaded": true,
+          "caption": "Minh họa họa cụ\nẢnh: Kaboompics (Karola G) / Pexels",
+          "position": "50% 90%",
+          "fit": "cover",
+          "w": 307,
+          "h": 165,
+          "source": "https://www.pexels.com/photo/paintbrush-and-paints-5412102/"
+        },
+        {
+          "src": "/images/illustrations/a01.webp",
+          "alt": "Bảng màu nước và cọ vẽ cho hoạt động tô màu",
+          "loaded": true,
+          "caption": "Minh họa cọ và màu vẽ\nẢnh: Pavel Danilyuk / Pexels",
+          "position": "50% 50%",
+          "fit": "cover",
+          "w": 307,
+          "h": 165,
+          "source": "https://www.pexels.com/photo/watercolors-and-paintbrushes-6925031/"
+        },
+        {
+          "src": "/images/illustrations/a03.webp",
+          "alt": "Trống lắc màu vàng",
+          "loaded": true,
+          "caption": "Minh họa trống lắc\nẢnh: Kaboompics (Karola G) / Pexels",
+          "position": "50% 50%",
+          "fit": "cover",
+          "w": 307,
+          "h": 165,
+          "source": "https://www.pexels.com/photo/close-up-shot-of-a-person-playing-tambourine-7285222/"
+        },
+        {
+          "src": "/images/illustrations/a04.webp",
+          "alt": "Những quả bóng nhựa nhiều màu sắc",
+          "loaded": true,
+          "caption": "Minh họa bóng\nẢnh: RDNE Stock project / Pexels",
+          "position": "50% 50%",
+          "fit": "cover",
+          "w": 307,
+          "h": 165,
+          "source": "https://www.pexels.com/photo/heap-of-colorful-balls-12405327/"
+        }
+      ]
+    },
+    {
+      "name": "Context captions and credits project375",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "Approved photo count products375",
+      "pass": true,
+      "value": 1
+    },
+    {
+      "name": "Loaded photos and descriptive alt products375",
+      "pass": true,
+      "value": [
+        {
+          "src": "/images/illustrations/a05.webp",
+          "alt": "Bánh su kem trên đĩa trắng",
+          "loaded": true,
+          "caption": "Ảnh minh họa bánh trên đĩa — không phải hộp/khẩu phần bán của nhóm; trà không thuộc cam kết sản phẩm\nẢnh: Ali Rashidi / Pexels",
+          "position": "50% 80%",
+          "fit": "cover",
+          "w": 307,
+          "h": 165,
+          "source": "https://www.pexels.com/photo/photograph-of-cream-puffs-on-a-white-plate-7730442/"
+        }
+      ]
+    },
+    {
+      "name": "Context captions and credits products375",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "Cream puffs not sale portion 375",
+      "pass": true,
+      "value": [
+        "Ảnh minh họa bánh trên đĩa — không phải hộp/khẩu phần bán của nhóm; trà không thuộc cam kết sản phẩm\nẢnh: Ali Rashidi / Pexels"
+      ]
+    },
+    {
+      "name": "Approved photo count home1440",
+      "pass": true,
+      "value": 5
+    },
+    {
+      "name": "Loaded photos and descriptive alt home1440",
+      "pass": true,
+      "value": [
+        {
+          "src": "/images/illustrations/a01.webp",
+          "alt": "Bảng màu nước và các loại cọ vẽ đặt trên bàn",
+          "loaded": true,
+          "caption": "Ảnh minh họa họa cụ — chưa phải ảnh chuẩn bị hoặc hoạt động của dự án\nẢnh: Pavel Danilyuk / Pexels",
+          "position": "50% 40%",
+          "fit": "cover",
+          "w": 600.1875,
+          "h": 450.140625,
+          "source": "https://www.pexels.com/photo/watercolors-and-paintbrushes-6925031/"
+        },
+        {
+          "src": "/images/illustrations/a02.webp",
+          "alt": "Màu vẽ và cọ trên nền màu pastel",
+          "loaded": true,
+          "caption": "Minh họa họa cụ\nẢnh: Kaboompics (Karola G) / Pexels",
+          "position": "50% 90%",
+          "fit": "cover",
+          "w": 226,
+          "h": 169.5,
+          "source": "https://www.pexels.com/photo/paintbrush-and-paints-5412102/"
+        },
+        {
+          "src": "/images/illustrations/a01.webp",
+          "alt": "Bảng màu nước và cọ vẽ cho hoạt động tô màu",
+          "loaded": true,
+          "caption": "Minh họa cọ và màu vẽ\nẢnh: Pavel Danilyuk / Pexels",
+          "position": "50% 50%",
+          "fit": "cover",
+          "w": 226,
+          "h": 169.5,
+          "source": "https://www.pexels.com/photo/watercolors-and-paintbrushes-6925031/"
+        },
+        {
+          "src": "/images/illustrations/a03.webp",
+          "alt": "Trống lắc màu vàng",
+          "loaded": true,
+          "caption": "Minh họa trống lắc\nẢnh: Kaboompics (Karola G) / Pexels",
+          "position": "50% 50%",
+          "fit": "cover",
+          "w": 226,
+          "h": 169.5,
+          "source": "https://www.pexels.com/photo/close-up-shot-of-a-person-playing-tambourine-7285222/"
+        },
+        {
+          "src": "/images/illustrations/a04.webp",
+          "alt": "Những quả bóng nhựa nhiều màu sắc",
+          "loaded": true,
+          "caption": "Minh họa bóng\nẢnh: RDNE Stock project / Pexels",
+          "position": "50% 50%",
+          "fit": "cover",
+          "w": 226,
+          "h": 169.5,
+          "source": "https://www.pexels.com/photo/heap-of-colorful-balls-12405327/"
+        }
+      ]
+    },
+    {
+      "name": "Context captions and credits home1440",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "Approved photo count project1440",
+      "pass": true,
+      "value": 4
+    },
+    {
+      "name": "Loaded photos and descriptive alt project1440",
+      "pass": true,
+      "value": [
+        {
+          "src": "/images/illustrations/a02.webp",
+          "alt": "Màu vẽ và cọ trên nền màu pastel",
+          "loaded": true,
+          "caption": "Minh họa họa cụ\nẢnh: Kaboompics (Karola G) / Pexels",
+          "position": "50% 90%",
+          "fit": "cover",
+          "w": 226,
+          "h": 169.5,
+          "source": "https://www.pexels.com/photo/paintbrush-and-paints-5412102/"
+        },
+        {
+          "src": "/images/illustrations/a01.webp",
+          "alt": "Bảng màu nước và cọ vẽ cho hoạt động tô màu",
+          "loaded": true,
+          "caption": "Minh họa cọ và màu vẽ\nẢnh: Pavel Danilyuk / Pexels",
+          "position": "50% 50%",
+          "fit": "cover",
+          "w": 226,
+          "h": 169.5,
+          "source": "https://www.pexels.com/photo/watercolors-and-paintbrushes-6925031/"
+        },
+        {
+          "src": "/images/illustrations/a03.webp",
+          "alt": "Trống lắc màu vàng",
+          "loaded": true,
+          "caption": "Minh họa trống lắc\nẢnh: Kaboompics (Karola G) / Pexels",
+          "position": "50% 50%",
+          "fit": "cover",
+          "w": 226,
+          "h": 169.5,
+          "source": "https://www.pexels.com/photo/close-up-shot-of-a-person-playing-tambourine-7285222/"
+        },
+        {
+          "src": "/images/illustrations/a04.webp",
+          "alt": "Những quả bóng nhựa nhiều màu sắc",
+          "loaded": true,
+          "caption": "Minh họa bóng\nẢnh: RDNE Stock project / Pexels",
+          "position": "50% 50%",
+          "fit": "cover",
+          "w": 226,
+          "h": 169.5,
+          "source": "https://www.pexels.com/photo/heap-of-colorful-balls-12405327/"
+        }
+      ]
+    },
+    {
+      "name": "Context captions and credits project1440",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "Approved photo count products1440",
+      "pass": true,
+      "value": 1
+    },
+    {
+      "name": "Loaded photos and descriptive alt products1440",
+      "pass": true,
+      "value": [
+        {
+          "src": "/images/illustrations/a05.webp",
+          "alt": "Bánh su kem trên đĩa trắng",
+          "loaded": true,
+          "caption": "Ảnh minh họa bánh trên đĩa — không phải hộp/khẩu phần bán của nhóm; trà không thuộc cam kết sản phẩm\nẢnh: Ali Rashidi / Pexels",
+          "position": "50% 80%",
+          "fit": "cover",
+          "w": 334.671875,
+          "h": 188.25,
+          "source": "https://www.pexels.com/photo/photograph-of-cream-puffs-on-a-white-plate-7730442/"
+        }
+      ]
+    },
+    {
+      "name": "Context captions and credits products1440",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "Cream puffs not sale portion 1440",
+      "pass": true,
+      "value": [
+        "Ảnh minh họa bánh trên đĩa — không phải hộp/khẩu phần bán của nhóm; trà không thuộc cam kết sản phẩm\nẢnh: Ali Rashidi / Pexels"
+      ]
+    },
+    {
+      "name": "Product table/cards fit 375",
+      "pass": true,
+      "value": {
+        "visible": false,
+        "tw": 0,
+        "cw": 0,
+        "sw": 375
+      }
+    },
+    {
+      "name": "Product table/cards fit 768",
+      "pass": true,
+      "value": {
+        "visible": false,
+        "tw": 0,
+        "cw": 0,
+        "sw": 768
+      }
+    },
+    {
+      "name": "Product table/cards fit 900",
+      "pass": true,
+      "value": {
+        "visible": false,
+        "tw": 0,
+        "cw": 0,
+        "sw": 900
+      }
+    },
+    {
+      "name": "Product table/cards fit 1024",
+      "pass": true,
+      "value": {
+        "visible": true,
+        "tw": 926,
+        "cw": 926,
+        "sw": 1024
+      }
+    },
+    {
+      "name": "Product table/cards fit 1440",
+      "pass": true,
+      "value": {
+        "visible": true,
+        "tw": 1102,
+        "cw": 1102,
+        "sw": 1440
+      }
+    },
+    {
+      "name": "Revenue reconciliation explicit",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "Plan totals retained",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "External credit links protected",
+      "pass": true,
+      "value": [
+        {
+          "href": "#main-content",
+          "blank": false,
+          "rel": ""
+        },
+        {
+          "href": "/",
+          "blank": false,
+          "rel": ""
+        },
+        {
+          "href": "/",
+          "blank": false,
+          "rel": ""
+        },
+        {
+          "href": "/du-an/mang-theo-mot-net-ve",
+          "blank": false,
+          "rel": ""
+        },
+        {
+          "href": "/san-pham",
+          "blank": false,
+          "rel": ""
+        },
+        {
+          "href": "/minh-bach",
+          "blank": false,
+          "rel": ""
+        },
+        {
+          "href": "/ve-nhom",
+          "blank": false,
+          "rel": ""
+        },
+        {
+          "href": "/dong-hanh",
+          "blank": false,
+          "rel": ""
+        },
+        {
+          "href": "/",
+          "blank": false,
+          "rel": ""
+        },
+        {
+          "href": "/du-an/mang-theo-mot-net-ve",
+          "blank": false,
+          "rel": ""
+        },
+        {
+          "href": "/san-pham",
+          "blank": false,
+          "rel": ""
+        },
+        {
+          "href": "/minh-bach",
+          "blank": false,
+          "rel": ""
+        },
+        {
+          "href": "/ve-nhom",
+          "blank": false,
+          "rel": ""
+        },
+        {
+          "href": "/dong-hanh",
+          "blank": false,
+          "rel": ""
+        },
+        {
+          "href": "/",
+          "blank": false,
+          "rel": ""
+        },
+        {
+          "href": "#doi-chieu-do-an",
+          "blank": false,
+          "rel": ""
+        },
+        {
+          "href": "/dong-hanh",
+          "blank": false,
+          "rel": ""
+        },
+        {
+          "href": "/du-an/mang-theo-mot-net-ve",
+          "blank": false,
+          "rel": ""
+        },
+        {
+          "href": "/",
+          "blank": false,
+          "rel": ""
+        },
+        {
+          "href": "/du-an/mang-theo-mot-net-ve",
+          "blank": false,
+          "rel": ""
+        },
+        {
+          "href": "/san-pham",
+          "blank": false,
+          "rel": ""
+        },
+        {
+          "href": "/minh-bach",
+          "blank": false,
+          "rel": ""
+        },
+        {
+          "href": "/ve-nhom",
+          "blank": false,
+          "rel": ""
+        },
+        {
+          "href": "/dong-hanh",
+          "blank": false,
+          "rel": ""
+        }
+      ]
+    },
+    {
+      "name": "No restricted embedded source dist/404.html",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "No inline source/commercial assets dist/404.html",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "No restricted embedded source dist/dong-hanh/index.html",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "No inline source/commercial assets dist/dong-hanh/index.html",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "No restricted embedded source dist/du-an/mang-theo-mot-net-ve/index.html",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "No inline source/commercial assets dist/du-an/mang-theo-mot-net-ve/index.html",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "No restricted embedded source dist/favicon.svg",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "No restricted embedded source dist/images/apple-touch-icon.png",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "No restricted embedded source dist/images/favicon-32x32.png",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "No restricted embedded source dist/images/illustrations/a01.webp",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "No restricted embedded source dist/images/illustrations/a02.webp",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "No restricted embedded source dist/images/illustrations/a03.webp",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "No restricted embedded source dist/images/illustrations/a04.webp",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "No restricted embedded source dist/images/illustrations/a05.webp",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "No restricted embedded source dist/images/logo_lang_kinh_2048.png",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "No restricted embedded source dist/images/logo_option5_horizontal.png",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "No restricted embedded source dist/index.html",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "No inline source/commercial assets dist/index.html",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "No restricted embedded source dist/minh-bach/index.html",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "No inline source/commercial assets dist/minh-bach/index.html",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "No restricted embedded source dist/san-pham/index.html",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "No inline source/commercial assets dist/san-pham/index.html",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "No restricted embedded source dist/ve-nhom/index.html",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "No inline source/commercial assets dist/ve-nhom/index.html",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "No restricted embedded source dist/_astro/dong-hanh.C7BLKpEx.css",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "No inline source/commercial assets dist/_astro/dong-hanh.C7BLKpEx.css",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "No restricted embedded source dist/_astro/index.JLHXnGO9.css",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "No inline source/commercial assets dist/_astro/index.JLHXnGO9.css",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "No restricted embedded source dist/_astro/Layout.Bk1kzqyo.css",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "No inline source/commercial assets dist/_astro/Layout.Bk1kzqyo.css",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "No restricted embedded source dist/_astro/mang-theo-mot-net-ve.B7jKZXLI.css",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "No inline source/commercial assets dist/_astro/mang-theo-mot-net-ve.B7jKZXLI.css",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "No restricted embedded source dist/_astro/minh-bach.DKHsXwdz.css",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "No inline source/commercial assets dist/_astro/minh-bach.DKHsXwdz.css",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "No restricted embedded source dist/_astro/san-pham.CcoUJ781.css",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "No inline source/commercial assets dist/_astro/san-pham.CcoUJ781.css",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "No restricted embedded source dist/_astro/ve-nhom.DufoQg0T.css",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "No inline source/commercial assets dist/_astro/ve-nhom.DufoQg0T.css",
+      "pass": true,
+      "value": null
+    }
+  ],
+  "views": [
+    {
+      "name": "home",
+      "w": 375,
+      "photos": [
+        {
+          "src": "/images/illustrations/a01.webp",
+          "alt": "Bảng màu nước và các loại cọ vẽ đặt trên bàn",
+          "loaded": true,
+          "caption": "Ảnh minh họa họa cụ — chưa phải ảnh chuẩn bị hoặc hoạt động của dự án\nẢnh: Pavel Danilyuk / Pexels",
+          "position": "50% 40%",
+          "fit": "cover",
+          "w": 341,
+          "h": 150,
+          "source": "https://www.pexels.com/photo/watercolors-and-paintbrushes-6925031/"
+        },
+        {
+          "src": "/images/illustrations/a02.webp",
+          "alt": "Màu vẽ và cọ trên nền màu pastel",
+          "loaded": true,
+          "caption": "Minh họa họa cụ\nẢnh: Kaboompics (Karola G) / Pexels",
+          "position": "50% 90%",
+          "fit": "cover",
+          "w": 307,
+          "h": 165,
+          "source": "https://www.pexels.com/photo/paintbrush-and-paints-5412102/"
+        },
+        {
+          "src": "/images/illustrations/a01.webp",
+          "alt": "Bảng màu nước và cọ vẽ cho hoạt động tô màu",
+          "loaded": true,
+          "caption": "Minh họa cọ và màu vẽ\nẢnh: Pavel Danilyuk / Pexels",
+          "position": "50% 50%",
+          "fit": "cover",
+          "w": 307,
+          "h": 165,
+          "source": "https://www.pexels.com/photo/watercolors-and-paintbrushes-6925031/"
+        },
+        {
+          "src": "/images/illustrations/a03.webp",
+          "alt": "Trống lắc màu vàng",
+          "loaded": true,
+          "caption": "Minh họa trống lắc\nẢnh: Kaboompics (Karola G) / Pexels",
+          "position": "50% 50%",
+          "fit": "cover",
+          "w": 307,
+          "h": 165,
+          "source": "https://www.pexels.com/photo/close-up-shot-of-a-person-playing-tambourine-7285222/"
+        },
+        {
+          "src": "/images/illustrations/a04.webp",
+          "alt": "Những quả bóng nhựa nhiều màu sắc",
+          "loaded": true,
+          "caption": "Minh họa bóng\nẢnh: RDNE Stock project / Pexels",
+          "position": "50% 50%",
+          "fit": "cover",
+          "w": 307,
+          "h": 165,
+          "source": "https://www.pexels.com/photo/heap-of-colorful-balls-12405327/"
+        }
+      ]
+    },
+    {
+      "name": "project",
+      "w": 375,
+      "photos": [
+        {
+          "src": "/images/illustrations/a02.webp",
+          "alt": "Màu vẽ và cọ trên nền màu pastel",
+          "loaded": true,
+          "caption": "Minh họa họa cụ\nẢnh: Kaboompics (Karola G) / Pexels",
+          "position": "50% 90%",
+          "fit": "cover",
+          "w": 307,
+          "h": 165,
+          "source": "https://www.pexels.com/photo/paintbrush-and-paints-5412102/"
+        },
+        {
+          "src": "/images/illustrations/a01.webp",
+          "alt": "Bảng màu nước và cọ vẽ cho hoạt động tô màu",
+          "loaded": true,
+          "caption": "Minh họa cọ và màu vẽ\nẢnh: Pavel Danilyuk / Pexels",
+          "position": "50% 50%",
+          "fit": "cover",
+          "w": 307,
+          "h": 165,
+          "source": "https://www.pexels.com/photo/watercolors-and-paintbrushes-6925031/"
+        },
+        {
+          "src": "/images/illustrations/a03.webp",
+          "alt": "Trống lắc màu vàng",
+          "loaded": true,
+          "caption": "Minh họa trống lắc\nẢnh: Kaboompics (Karola G) / Pexels",
+          "position": "50% 50%",
+          "fit": "cover",
+          "w": 307,
+          "h": 165,
+          "source": "https://www.pexels.com/photo/close-up-shot-of-a-person-playing-tambourine-7285222/"
+        },
+        {
+          "src": "/images/illustrations/a04.webp",
+          "alt": "Những quả bóng nhựa nhiều màu sắc",
+          "loaded": true,
+          "caption": "Minh họa bóng\nẢnh: RDNE Stock project / Pexels",
+          "position": "50% 50%",
+          "fit": "cover",
+          "w": 307,
+          "h": 165,
+          "source": "https://www.pexels.com/photo/heap-of-colorful-balls-12405327/"
+        }
+      ]
+    },
+    {
+      "name": "products",
+      "w": 375,
+      "photos": [
+        {
+          "src": "/images/illustrations/a05.webp",
+          "alt": "Bánh su kem trên đĩa trắng",
+          "loaded": true,
+          "caption": "Ảnh minh họa bánh trên đĩa — không phải hộp/khẩu phần bán của nhóm; trà không thuộc cam kết sản phẩm\nẢnh: Ali Rashidi / Pexels",
+          "position": "50% 80%",
+          "fit": "cover",
+          "w": 307,
+          "h": 165,
+          "source": "https://www.pexels.com/photo/photograph-of-cream-puffs-on-a-white-plate-7730442/"
+        }
+      ]
+    },
+    {
+      "name": "home",
+      "w": 1440,
+      "photos": [
+        {
+          "src": "/images/illustrations/a01.webp",
+          "alt": "Bảng màu nước và các loại cọ vẽ đặt trên bàn",
+          "loaded": true,
+          "caption": "Ảnh minh họa họa cụ — chưa phải ảnh chuẩn bị hoặc hoạt động của dự án\nẢnh: Pavel Danilyuk / Pexels",
+          "position": "50% 40%",
+          "fit": "cover",
+          "w": 600.1875,
+          "h": 450.140625,
+          "source": "https://www.pexels.com/photo/watercolors-and-paintbrushes-6925031/"
+        },
+        {
+          "src": "/images/illustrations/a02.webp",
+          "alt": "Màu vẽ và cọ trên nền màu pastel",
+          "loaded": true,
+          "caption": "Minh họa họa cụ\nẢnh: Kaboompics (Karola G) / Pexels",
+          "position": "50% 90%",
+          "fit": "cover",
+          "w": 226,
+          "h": 169.5,
+          "source": "https://www.pexels.com/photo/paintbrush-and-paints-5412102/"
+        },
+        {
+          "src": "/images/illustrations/a01.webp",
+          "alt": "Bảng màu nước và cọ vẽ cho hoạt động tô màu",
+          "loaded": true,
+          "caption": "Minh họa cọ và màu vẽ\nẢnh: Pavel Danilyuk / Pexels",
+          "position": "50% 50%",
+          "fit": "cover",
+          "w": 226,
+          "h": 169.5,
+          "source": "https://www.pexels.com/photo/watercolors-and-paintbrushes-6925031/"
+        },
+        {
+          "src": "/images/illustrations/a03.webp",
+          "alt": "Trống lắc màu vàng",
+          "loaded": true,
+          "caption": "Minh họa trống lắc\nẢnh: Kaboompics (Karola G) / Pexels",
+          "position": "50% 50%",
+          "fit": "cover",
+          "w": 226,
+          "h": 169.5,
+          "source": "https://www.pexels.com/photo/close-up-shot-of-a-person-playing-tambourine-7285222/"
+        },
+        {
+          "src": "/images/illustrations/a04.webp",
+          "alt": "Những quả bóng nhựa nhiều màu sắc",
+          "loaded": true,
+          "caption": "Minh họa bóng\nẢnh: RDNE Stock project / Pexels",
+          "position": "50% 50%",
+          "fit": "cover",
+          "w": 226,
+          "h": 169.5,
+          "source": "https://www.pexels.com/photo/heap-of-colorful-balls-12405327/"
+        }
+      ]
+    },
+    {
+      "name": "project",
+      "w": 1440,
+      "photos": [
+        {
+          "src": "/images/illustrations/a02.webp",
+          "alt": "Màu vẽ và cọ trên nền màu pastel",
+          "loaded": true,
+          "caption": "Minh họa họa cụ\nẢnh: Kaboompics (Karola G) / Pexels",
+          "position": "50% 90%",
+          "fit": "cover",
+          "w": 226,
+          "h": 169.5,
+          "source": "https://www.pexels.com/photo/paintbrush-and-paints-5412102/"
+        },
+        {
+          "src": "/images/illustrations/a01.webp",
+          "alt": "Bảng màu nước và cọ vẽ cho hoạt động tô màu",
+          "loaded": true,
+          "caption": "Minh họa cọ và màu vẽ\nẢnh: Pavel Danilyuk / Pexels",
+          "position": "50% 50%",
+          "fit": "cover",
+          "w": 226,
+          "h": 169.5,
+          "source": "https://www.pexels.com/photo/watercolors-and-paintbrushes-6925031/"
+        },
+        {
+          "src": "/images/illustrations/a03.webp",
+          "alt": "Trống lắc màu vàng",
+          "loaded": true,
+          "caption": "Minh họa trống lắc\nẢnh: Kaboompics (Karola G) / Pexels",
+          "position": "50% 50%",
+          "fit": "cover",
+          "w": 226,
+          "h": 169.5,
+          "source": "https://www.pexels.com/photo/close-up-shot-of-a-person-playing-tambourine-7285222/"
+        },
+        {
+          "src": "/images/illustrations/a04.webp",
+          "alt": "Những quả bóng nhựa nhiều màu sắc",
+          "loaded": true,
+          "caption": "Minh họa bóng\nẢnh: RDNE Stock project / Pexels",
+          "position": "50% 50%",
+          "fit": "cover",
+          "w": 226,
+          "h": 169.5,
+          "source": "https://www.pexels.com/photo/heap-of-colorful-balls-12405327/"
+        }
+      ]
+    },
+    {
+      "name": "products",
+      "w": 1440,
+      "photos": [
+        {
+          "src": "/images/illustrations/a05.webp",
+          "alt": "Bánh su kem trên đĩa trắng",
+          "loaded": true,
+          "caption": "Ảnh minh họa bánh trên đĩa — không phải hộp/khẩu phần bán của nhóm; trà không thuộc cam kết sản phẩm\nẢnh: Ali Rashidi / Pexels",
+          "position": "50% 80%",
+          "fit": "cover",
+          "w": 334.671875,
+          "h": 188.25,
+          "source": "https://www.pexels.com/photo/photograph-of-cream-puffs-on-a-white-plate-7730442/"
+        }
+      ]
+    }
+  ],
+  "failed": []
+}

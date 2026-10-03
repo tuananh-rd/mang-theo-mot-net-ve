@@ -1,4 +1,9 @@
-﻿# Bàn giao tiếp nối Brain — 02/10/2026
+# Bàn giao tiếp nối Brain — 02/10/2026
+
+Cập nhật 03/10/2026: **C03 DONE; RC03 PASS cho preview local** tại app `952d7539a02e4a24d36416ba8d666cccd48aa822`, baseline `673ba03`, nhánh `task/c03-content-layout`. Đã sửa phân cấp/nhóm nội dung sáu trang theo review Claude, FAQ, bảng mobile và focus; check/27tests/build exit0, 21captures tại375/768/1440 và kiểm ảnh/link/menu/bundle đạt. Preview hiện tại http://127.0.0.1:4322/ — loopback PID25960. Antigravity và Claude HOLD; chưa public/T05. Khoản chênh đồ ăn550.000đ và dữ liệu chưa xác nhận được giữ đúng trạng thái.
+
+[Review C03](../docs/reviews/RC03-952d753.md) · [Thông tin/ảnh nhóm cần gửi](../docs/group-content-request.md). Các mốc dưới đây là lịch sử, không thay trạng thái hiện tại.
+
 
 Cập nhật sau RV-C02-CLAUDE: chủ dự án yêu cầu review bố cục chuyên nghiệp/dễ nhận biết và nội dung thiếu. Claude Opus5.5 hiện có đã hoàn tất tại app221eafa, preview4322 giữ nguyên; [báo cáo](ui-content-review-claude-c02.md), [Codex phân loại](../docs/reviews/RV-C02-claude-triage.md), [bằng chứng](../docs/evidence/Claude-C02/dispatch.md). Không sửa app hoặc giao implementation sau review. Ưu tiên giảm lặp mobile Sản phẩm, tóm tắt tài chính, phân biệt hero hai trang và nhóm nội dung. Nội dung mới phải là kế hoạch, giữ quyền lựa chọn và ảnh minh họa có ngữ cảnh. Claude term_0ed92721-b76e-4572-bca8-370f3a754e85 và Antigravity term_59fb45bd-ac6c-45f8-bfd0-06875596b4bc đều HOLD; re-list/show/read trước thao tác lần sau. Claude4321 đã dừng do memory; không khởi động lại. T05/public chưa giao.
 

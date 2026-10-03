@@ -1,0 +1,543 @@
+{
+  "sha": "92f1c4f45c1d307cde0a4cb801d658b9f5395b06",
+  "checks": [
+    {
+      "name": "Exactly seven shared catalog cards 375",
+      "pass": true,
+      "value": {
+        "cards": 7,
+        "planOpen": false,
+        "planVisible": true,
+        "visibleRows": 7,
+        "sw": 375
+      }
+    },
+    {
+      "name": "Plan table default responsive visibility 375",
+      "pass": false,
+      "value": {
+        "cards": 7,
+        "planOpen": false,
+        "planVisible": true,
+        "visibleRows": 7,
+        "sw": 375
+      }
+    },
+    {
+      "name": "No page overflow default 375",
+      "pass": true,
+      "value": 375
+    },
+    {
+      "name": "Keyboard opens complete plan 375",
+      "pass": true,
+      "value": {
+        "open": true,
+        "rows": 7,
+        "columns": 5,
+        "sw": 375,
+        "scrolling": true,
+        "focusable": true,
+        "label": "Bảng tổng hợp kế hoạch 7 sản phẩm",
+        "hint": "Xem bảng tổng hợp kế hoạch (đầy đủ 7 món)\nMở để xem chi tiết\n↓\n\n↔\nCuộn ngang để xem đầy đủ 5 cột thông tin kế hoạch\n\nSản phẩm\tGiá tham khảo\tSố lượng\tNguồn gốc / Ghi chú\tTrạng thái\nChuồn chuồn tre 12 cm kèm đế\nPhôi tre mộc; nguồn gốc trang trí chưa xác nhận\n\t40.000đ/bộ\t30 bộ bán dự kiến\tPhôi tre mộc; nguồn gốc trang trí chưa xác nhận. Dự kiến trong 40 phôi chuẩn bị, 10 chiếc để lại Mái ấm làm quà.\tChưa xác nhận\nMóc khóa Lăng Kính\nNhóm Lăng Kính chuẩn bị và hoàn thiện mẫu\n\t10.000đ/chiếc\t100 chiếc dự kiến\tNhóm sinh viên Lăng Kính chuẩn bị và hoàn thiện mẫu theo kế hoạch; mẫu và nguồn trang trí chưa chốt. Quyền sở hữu và sử dụng hình ảnh tách biệt, chưa có sự đồng ý hợp lệ thì không dùng tranh trẻ em.\tChưa xác nhận\nSet đồ ăn gây quỹ\nĐề xuất kế hoạch ẩm thực sinh viên\n\t79.000đ/set\tChưa xác nhận\tMục tiêu ẩm thực là con số giả định trong đề xuất (trang 18), chưa có bảng phân bổ số lượng từng loại và còn khoảng chênh đối chiếu so với số lượng set giả định. Chỉ triển khai sau khi chốt địa điểm, quy trình an toàn và lịch nhận; hiện tại chưa mở bán.\tChưa xác nhận\nCombo 5 nem vỏ giòn\nĐề xuất ẩm thực gây quỹ\n\t40.000đ/set\tChưa xác nhận\tGiá tham khảo trong đề xuất. Chưa có phân bổ số lượng bán cụ thể; chỉ triển khai khi có quy trình an toàn thực phẩm.\tChưa xác nhận\nCombo 5 nem xù\nĐề xuất ẩm thực gây quỹ\n\t40.000đ/set\tChưa xác nhận\tGiá tham khảo trong đề xuất. Chưa có phân bổ số lượng bán cụ thể.\tChưa xác nhận\nCombo 5 nem phô mai\nĐề xuất ẩm thực gây quỹ\n\t60.000đ/set\tChưa xác nhận\tGiá tham khảo trong đề xuất. Chưa có phân bổ số lượng bán cụ thể.\tChưa xác nhận\nBánh su kem\nĐề xuất ẩm thực gây quỹ\n\t20.000đ/hộp\tChưa xác nhận\tGiá tham khảo trong đề xuất. Chưa có phân bổ số lượng bán cụ thể.\tChưa xác nhận\n\nGhi chú: Toàn bộ số lượng và mức giá trên thuộc kịch bản dự toán ban đầu trong đề xuất dự án. Số lượng tồn kho thực tế chưa được xác nhận."
+      }
+    },
+    {
+      "name": "Expanded plan accessible within page 375",
+      "pass": true,
+      "value": {
+        "open": true,
+        "rows": 7,
+        "columns": 5,
+        "sw": 375,
+        "scrolling": true,
+        "focusable": true,
+        "label": "Bảng tổng hợp kế hoạch 7 sản phẩm",
+        "hint": "Xem bảng tổng hợp kế hoạch (đầy đủ 7 món)\nMở để xem chi tiết\n↓\n\n↔\nCuộn ngang để xem đầy đủ 5 cột thông tin kế hoạch\n\nSản phẩm\tGiá tham khảo\tSố lượng\tNguồn gốc / Ghi chú\tTrạng thái\nChuồn chuồn tre 12 cm kèm đế\nPhôi tre mộc; nguồn gốc trang trí chưa xác nhận\n\t40.000đ/bộ\t30 bộ bán dự kiến\tPhôi tre mộc; nguồn gốc trang trí chưa xác nhận. Dự kiến trong 40 phôi chuẩn bị, 10 chiếc để lại Mái ấm làm quà.\tChưa xác nhận\nMóc khóa Lăng Kính\nNhóm Lăng Kính chuẩn bị và hoàn thiện mẫu\n\t10.000đ/chiếc\t100 chiếc dự kiến\tNhóm sinh viên Lăng Kính chuẩn bị và hoàn thiện mẫu theo kế hoạch; mẫu và nguồn trang trí chưa chốt. Quyền sở hữu và sử dụng hình ảnh tách biệt, chưa có sự đồng ý hợp lệ thì không dùng tranh trẻ em.\tChưa xác nhận\nSet đồ ăn gây quỹ\nĐề xuất kế hoạch ẩm thực sinh viên\n\t79.000đ/set\tChưa xác nhận\tMục tiêu ẩm thực là con số giả định trong đề xuất (trang 18), chưa có bảng phân bổ số lượng từng loại và còn khoảng chênh đối chiếu so với số lượng set giả định. Chỉ triển khai sau khi chốt địa điểm, quy trình an toàn và lịch nhận; hiện tại chưa mở bán.\tChưa xác nhận\nCombo 5 nem vỏ giòn\nĐề xuất ẩm thực gây quỹ\n\t40.000đ/set\tChưa xác nhận\tGiá tham khảo trong đề xuất. Chưa có phân bổ số lượng bán cụ thể; chỉ triển khai khi có quy trình an toàn thực phẩm.\tChưa xác nhận\nCombo 5 nem xù\nĐề xuất ẩm thực gây quỹ\n\t40.000đ/set\tChưa xác nhận\tGiá tham khảo trong đề xuất. Chưa có phân bổ số lượng bán cụ thể.\tChưa xác nhận\nCombo 5 nem phô mai\nĐề xuất ẩm thực gây quỹ\n\t60.000đ/set\tChưa xác nhận\tGiá tham khảo trong đề xuất. Chưa có phân bổ số lượng bán cụ thể.\tChưa xác nhận\nBánh su kem\nĐề xuất ẩm thực gây quỹ\n\t20.000đ/hộp\tChưa xác nhận\tGiá tham khảo trong đề xuất. Chưa có phân bổ số lượng bán cụ thể.\tChưa xác nhận\n\nGhi chú: Toàn bộ số lượng và mức giá trên thuộc kịch bản dự toán ban đầu trong đề xuất dự án. Số lượng tồn kho thực tế chưa được xác nhận."
+      }
+    },
+    {
+      "name": "Space closes plan 375",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "Exactly seven shared catalog cards 768",
+      "pass": true,
+      "value": {
+        "cards": 7,
+        "planOpen": false,
+        "planVisible": true,
+        "visibleRows": 7,
+        "sw": 768
+      }
+    },
+    {
+      "name": "Plan table default responsive visibility 768",
+      "pass": false,
+      "value": {
+        "cards": 7,
+        "planOpen": false,
+        "planVisible": true,
+        "visibleRows": 7,
+        "sw": 768
+      }
+    },
+    {
+      "name": "No page overflow default 768",
+      "pass": true,
+      "value": 768
+    },
+    {
+      "name": "Keyboard opens complete plan 768",
+      "pass": true,
+      "value": {
+        "open": true,
+        "rows": 7,
+        "columns": 5,
+        "sw": 768,
+        "scrolling": false,
+        "focusable": true,
+        "label": "Bảng tổng hợp kế hoạch 7 sản phẩm",
+        "hint": "Xem bảng tổng hợp kế hoạch (đầy đủ 7 món)\nMở để xem chi tiết\n↓\n\n↔\nCuộn ngang để xem đầy đủ 5 cột thông tin kế hoạch\n\nSản phẩm\tGiá tham khảo\tSố lượng\tNguồn gốc / Ghi chú\tTrạng thái\nChuồn chuồn tre 12 cm kèm đế\nPhôi tre mộc; nguồn gốc trang trí chưa xác nhận\n\t40.000đ/bộ\t30 bộ bán dự kiến\tPhôi tre mộc; nguồn gốc trang trí chưa xác nhận. Dự kiến trong 40 phôi chuẩn bị, 10 chiếc để lại Mái ấm làm quà.\tChưa xác nhận\nMóc khóa Lăng Kính\nNhóm Lăng Kính chuẩn bị và hoàn thiện mẫu\n\t10.000đ/chiếc\t100 chiếc dự kiến\tNhóm sinh viên Lăng Kính chuẩn bị và hoàn thiện mẫu theo kế hoạch; mẫu và nguồn trang trí chưa chốt. Quyền sở hữu và sử dụng hình ảnh tách biệt, chưa có sự đồng ý hợp lệ thì không dùng tranh trẻ em.\tChưa xác nhận\nSet đồ ăn gây quỹ\nĐề xuất kế hoạch ẩm thực sinh viên\n\t79.000đ/set\tChưa xác nhận\tMục tiêu ẩm thực là con số giả định trong đề xuất (trang 18), chưa có bảng phân bổ số lượng từng loại và còn khoảng chênh đối chiếu so với số lượng set giả định. Chỉ triển khai sau khi chốt địa điểm, quy trình an toàn và lịch nhận; hiện tại chưa mở bán.\tChưa xác nhận\nCombo 5 nem vỏ giòn\nĐề xuất ẩm thực gây quỹ\n\t40.000đ/set\tChưa xác nhận\tGiá tham khảo trong đề xuất. Chưa có phân bổ số lượng bán cụ thể; chỉ triển khai khi có quy trình an toàn thực phẩm.\tChưa xác nhận\nCombo 5 nem xù\nĐề xuất ẩm thực gây quỹ\n\t40.000đ/set\tChưa xác nhận\tGiá tham khảo trong đề xuất. Chưa có phân bổ số lượng bán cụ thể.\tChưa xác nhận\nCombo 5 nem phô mai\nĐề xuất ẩm thực gây quỹ\n\t60.000đ/set\tChưa xác nhận\tGiá tham khảo trong đề xuất. Chưa có phân bổ số lượng bán cụ thể.\tChưa xác nhận\nBánh su kem\nĐề xuất ẩm thực gây quỹ\n\t20.000đ/hộp\tChưa xác nhận\tGiá tham khảo trong đề xuất. Chưa có phân bổ số lượng bán cụ thể.\tChưa xác nhận\n\nGhi chú: Toàn bộ số lượng và mức giá trên thuộc kịch bản dự toán ban đầu trong đề xuất dự án. Số lượng tồn kho thực tế chưa được xác nhận."
+      }
+    },
+    {
+      "name": "Expanded plan accessible within page 768",
+      "pass": true,
+      "value": {
+        "open": true,
+        "rows": 7,
+        "columns": 5,
+        "sw": 768,
+        "scrolling": false,
+        "focusable": true,
+        "label": "Bảng tổng hợp kế hoạch 7 sản phẩm",
+        "hint": "Xem bảng tổng hợp kế hoạch (đầy đủ 7 món)\nMở để xem chi tiết\n↓\n\n↔\nCuộn ngang để xem đầy đủ 5 cột thông tin kế hoạch\n\nSản phẩm\tGiá tham khảo\tSố lượng\tNguồn gốc / Ghi chú\tTrạng thái\nChuồn chuồn tre 12 cm kèm đế\nPhôi tre mộc; nguồn gốc trang trí chưa xác nhận\n\t40.000đ/bộ\t30 bộ bán dự kiến\tPhôi tre mộc; nguồn gốc trang trí chưa xác nhận. Dự kiến trong 40 phôi chuẩn bị, 10 chiếc để lại Mái ấm làm quà.\tChưa xác nhận\nMóc khóa Lăng Kính\nNhóm Lăng Kính chuẩn bị và hoàn thiện mẫu\n\t10.000đ/chiếc\t100 chiếc dự kiến\tNhóm sinh viên Lăng Kính chuẩn bị và hoàn thiện mẫu theo kế hoạch; mẫu và nguồn trang trí chưa chốt. Quyền sở hữu và sử dụng hình ảnh tách biệt, chưa có sự đồng ý hợp lệ thì không dùng tranh trẻ em.\tChưa xác nhận\nSet đồ ăn gây quỹ\nĐề xuất kế hoạch ẩm thực sinh viên\n\t79.000đ/set\tChưa xác nhận\tMục tiêu ẩm thực là con số giả định trong đề xuất (trang 18), chưa có bảng phân bổ số lượng từng loại và còn khoảng chênh đối chiếu so với số lượng set giả định. Chỉ triển khai sau khi chốt địa điểm, quy trình an toàn và lịch nhận; hiện tại chưa mở bán.\tChưa xác nhận\nCombo 5 nem vỏ giòn\nĐề xuất ẩm thực gây quỹ\n\t40.000đ/set\tChưa xác nhận\tGiá tham khảo trong đề xuất. Chưa có phân bổ số lượng bán cụ thể; chỉ triển khai khi có quy trình an toàn thực phẩm.\tChưa xác nhận\nCombo 5 nem xù\nĐề xuất ẩm thực gây quỹ\n\t40.000đ/set\tChưa xác nhận\tGiá tham khảo trong đề xuất. Chưa có phân bổ số lượng bán cụ thể.\tChưa xác nhận\nCombo 5 nem phô mai\nĐề xuất ẩm thực gây quỹ\n\t60.000đ/set\tChưa xác nhận\tGiá tham khảo trong đề xuất. Chưa có phân bổ số lượng bán cụ thể.\tChưa xác nhận\nBánh su kem\nĐề xuất ẩm thực gây quỹ\n\t20.000đ/hộp\tChưa xác nhận\tGiá tham khảo trong đề xuất. Chưa có phân bổ số lượng bán cụ thể.\tChưa xác nhận\n\nGhi chú: Toàn bộ số lượng và mức giá trên thuộc kịch bản dự toán ban đầu trong đề xuất dự án. Số lượng tồn kho thực tế chưa được xác nhận."
+      }
+    },
+    {
+      "name": "Space closes plan 768",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "Exactly seven shared catalog cards 900",
+      "pass": true,
+      "value": {
+        "cards": 7,
+        "planOpen": false,
+        "planVisible": true,
+        "visibleRows": 7,
+        "sw": 900
+      }
+    },
+    {
+      "name": "Plan table default responsive visibility 900",
+      "pass": false,
+      "value": {
+        "cards": 7,
+        "planOpen": false,
+        "planVisible": true,
+        "visibleRows": 7,
+        "sw": 900
+      }
+    },
+    {
+      "name": "No page overflow default 900",
+      "pass": true,
+      "value": 900
+    },
+    {
+      "name": "Keyboard opens complete plan 900",
+      "pass": true,
+      "value": {
+        "open": true,
+        "rows": 7,
+        "columns": 5,
+        "sw": 900,
+        "scrolling": false,
+        "focusable": true,
+        "label": "Bảng tổng hợp kế hoạch 7 sản phẩm",
+        "hint": "Xem bảng tổng hợp kế hoạch (đầy đủ 7 món)\nMở để xem chi tiết\n↓\n\n↔\nCuộn ngang để xem đầy đủ 5 cột thông tin kế hoạch\n\nSản phẩm\tGiá tham khảo\tSố lượng\tNguồn gốc / Ghi chú\tTrạng thái\nChuồn chuồn tre 12 cm kèm đế\nPhôi tre mộc; nguồn gốc trang trí chưa xác nhận\n\t40.000đ/bộ\t30 bộ bán dự kiến\tPhôi tre mộc; nguồn gốc trang trí chưa xác nhận. Dự kiến trong 40 phôi chuẩn bị, 10 chiếc để lại Mái ấm làm quà.\tChưa xác nhận\nMóc khóa Lăng Kính\nNhóm Lăng Kính chuẩn bị và hoàn thiện mẫu\n\t10.000đ/chiếc\t100 chiếc dự kiến\tNhóm sinh viên Lăng Kính chuẩn bị và hoàn thiện mẫu theo kế hoạch; mẫu và nguồn trang trí chưa chốt. Quyền sở hữu và sử dụng hình ảnh tách biệt, chưa có sự đồng ý hợp lệ thì không dùng tranh trẻ em.\tChưa xác nhận\nSet đồ ăn gây quỹ\nĐề xuất kế hoạch ẩm thực sinh viên\n\t79.000đ/set\tChưa xác nhận\tMục tiêu ẩm thực là con số giả định trong đề xuất (trang 18), chưa có bảng phân bổ số lượng từng loại và còn khoảng chênh đối chiếu so với số lượng set giả định. Chỉ triển khai sau khi chốt địa điểm, quy trình an toàn và lịch nhận; hiện tại chưa mở bán.\tChưa xác nhận\nCombo 5 nem vỏ giòn\nĐề xuất ẩm thực gây quỹ\n\t40.000đ/set\tChưa xác nhận\tGiá tham khảo trong đề xuất. Chưa có phân bổ số lượng bán cụ thể; chỉ triển khai khi có quy trình an toàn thực phẩm.\tChưa xác nhận\nCombo 5 nem xù\nĐề xuất ẩm thực gây quỹ\n\t40.000đ/set\tChưa xác nhận\tGiá tham khảo trong đề xuất. Chưa có phân bổ số lượng bán cụ thể.\tChưa xác nhận\nCombo 5 nem phô mai\nĐề xuất ẩm thực gây quỹ\n\t60.000đ/set\tChưa xác nhận\tGiá tham khảo trong đề xuất. Chưa có phân bổ số lượng bán cụ thể.\tChưa xác nhận\nBánh su kem\nĐề xuất ẩm thực gây quỹ\n\t20.000đ/hộp\tChưa xác nhận\tGiá tham khảo trong đề xuất. Chưa có phân bổ số lượng bán cụ thể.\tChưa xác nhận\n\nGhi chú: Toàn bộ số lượng và mức giá trên thuộc kịch bản dự toán ban đầu trong đề xuất dự án. Số lượng tồn kho thực tế chưa được xác nhận."
+      }
+    },
+    {
+      "name": "Expanded plan accessible within page 900",
+      "pass": true,
+      "value": {
+        "open": true,
+        "rows": 7,
+        "columns": 5,
+        "sw": 900,
+        "scrolling": false,
+        "focusable": true,
+        "label": "Bảng tổng hợp kế hoạch 7 sản phẩm",
+        "hint": "Xem bảng tổng hợp kế hoạch (đầy đủ 7 món)\nMở để xem chi tiết\n↓\n\n↔\nCuộn ngang để xem đầy đủ 5 cột thông tin kế hoạch\n\nSản phẩm\tGiá tham khảo\tSố lượng\tNguồn gốc / Ghi chú\tTrạng thái\nChuồn chuồn tre 12 cm kèm đế\nPhôi tre mộc; nguồn gốc trang trí chưa xác nhận\n\t40.000đ/bộ\t30 bộ bán dự kiến\tPhôi tre mộc; nguồn gốc trang trí chưa xác nhận. Dự kiến trong 40 phôi chuẩn bị, 10 chiếc để lại Mái ấm làm quà.\tChưa xác nhận\nMóc khóa Lăng Kính\nNhóm Lăng Kính chuẩn bị và hoàn thiện mẫu\n\t10.000đ/chiếc\t100 chiếc dự kiến\tNhóm sinh viên Lăng Kính chuẩn bị và hoàn thiện mẫu theo kế hoạch; mẫu và nguồn trang trí chưa chốt. Quyền sở hữu và sử dụng hình ảnh tách biệt, chưa có sự đồng ý hợp lệ thì không dùng tranh trẻ em.\tChưa xác nhận\nSet đồ ăn gây quỹ\nĐề xuất kế hoạch ẩm thực sinh viên\n\t79.000đ/set\tChưa xác nhận\tMục tiêu ẩm thực là con số giả định trong đề xuất (trang 18), chưa có bảng phân bổ số lượng từng loại và còn khoảng chênh đối chiếu so với số lượng set giả định. Chỉ triển khai sau khi chốt địa điểm, quy trình an toàn và lịch nhận; hiện tại chưa mở bán.\tChưa xác nhận\nCombo 5 nem vỏ giòn\nĐề xuất ẩm thực gây quỹ\n\t40.000đ/set\tChưa xác nhận\tGiá tham khảo trong đề xuất. Chưa có phân bổ số lượng bán cụ thể; chỉ triển khai khi có quy trình an toàn thực phẩm.\tChưa xác nhận\nCombo 5 nem xù\nĐề xuất ẩm thực gây quỹ\n\t40.000đ/set\tChưa xác nhận\tGiá tham khảo trong đề xuất. Chưa có phân bổ số lượng bán cụ thể.\tChưa xác nhận\nCombo 5 nem phô mai\nĐề xuất ẩm thực gây quỹ\n\t60.000đ/set\tChưa xác nhận\tGiá tham khảo trong đề xuất. Chưa có phân bổ số lượng bán cụ thể.\tChưa xác nhận\nBánh su kem\nĐề xuất ẩm thực gây quỹ\n\t20.000đ/hộp\tChưa xác nhận\tGiá tham khảo trong đề xuất. Chưa có phân bổ số lượng bán cụ thể.\tChưa xác nhận\n\nGhi chú: Toàn bộ số lượng và mức giá trên thuộc kịch bản dự toán ban đầu trong đề xuất dự án. Số lượng tồn kho thực tế chưa được xác nhận."
+      }
+    },
+    {
+      "name": "Space closes plan 900",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "Exactly seven shared catalog cards 1024",
+      "pass": true,
+      "value": {
+        "cards": 7,
+        "planOpen": false,
+        "planVisible": false,
+        "visibleRows": 7,
+        "sw": 1024
+      }
+    },
+    {
+      "name": "Plan table default responsive visibility 1024",
+      "pass": true,
+      "value": {
+        "cards": 7,
+        "planOpen": false,
+        "planVisible": false,
+        "visibleRows": 7,
+        "sw": 1024
+      }
+    },
+    {
+      "name": "No page overflow default 1024",
+      "pass": true,
+      "value": 1024
+    },
+    {
+      "name": "Exactly seven shared catalog cards 1440",
+      "pass": true,
+      "value": {
+        "cards": 7,
+        "planOpen": false,
+        "planVisible": false,
+        "visibleRows": 7,
+        "sw": 1440
+      }
+    },
+    {
+      "name": "Plan table default responsive visibility 1440",
+      "pass": true,
+      "value": {
+        "cards": 7,
+        "planOpen": false,
+        "planVisible": false,
+        "visibleRows": 7,
+        "sw": 1440
+      }
+    },
+    {
+      "name": "No page overflow default 1440",
+      "pass": true,
+      "value": 1440
+    },
+    {
+      "name": "FAQ native and collapsed products",
+      "pass": true,
+      "value": 5
+    },
+    {
+      "name": "FAQ Enter shows answer products",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "FAQ Space closes products",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "FAQ native and collapsed finance",
+      "pass": true,
+      "value": 4
+    },
+    {
+      "name": "FAQ Enter shows answer finance",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "FAQ Space closes finance",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "FAQ native and collapsed support",
+      "pass": true,
+      "value": 4
+    },
+    {
+      "name": "FAQ Enter shows answer support",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "FAQ Space closes support",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "Three budget groups on mobile",
+      "pass": true,
+      "value": 3
+    },
+    {
+      "name": "Closed subtotal remains visible",
+      "pass": true,
+      "value": "Nguyên liệu gây quỹ\n(9 khoản)\n2.245.000đ"
+    },
+    {
+      "name": "Group keyboard restores items",
+      "pass": true,
+      "value": "Nguyên liệu gây quỹ\n(9 khoản)\n2.245.000đ"
+    },
+    {
+      "name": "Closed subtotal remains visible",
+      "pass": true,
+      "value": "Vật tư workshop & quà tặng\n(7 khoản)\n1.560.000đ"
+    },
+    {
+      "name": "Group keyboard restores items",
+      "pass": true,
+      "value": "Vật tư workshop & quà tặng\n(7 khoản)\n1.560.000đ"
+    },
+    {
+      "name": "Closed subtotal remains visible",
+      "pass": true,
+      "value": "Truyền thông & Di chuyển\n(3 khoản)\n1.130.000đ"
+    },
+    {
+      "name": "Group keyboard restores items",
+      "pass": true,
+      "value": "Truyền thông & Di chuyển\n(3 khoản)\n1.130.000đ"
+    },
+    {
+      "name": "Five actual fields remain explicitly unknown",
+      "pass": true,
+      "value": [
+        "1. Tiền thực nhận\nChờ đối soát\n\nGồm doanh thu bán hàng thực tế và tài trợ tiền mặt thực nhận.\n\nChưa xác nhận",
+        "2. Chi tiền thực trả\nChờ đối soát\n\nKế hoạch chi trả các khoản vật tư và vận hành; số chi thực tế chờ đối soát.\n\nChưa xác nhận",
+        "3. Số dư tiền thực tế\nChờ đối soát\n\nSố dư đầu kỳ + tiền thực nhận − chi tiền thực trả; số liệu phát sinh chờ đối soát.\n\nChưa xác nhận",
+        "4. Hiện vật tiếp nhận & bàn giao\nSổ riêng\n\nTheo dõi riêng trong sổ hiện vật theo kế hoạch, không quy đổi gộp vào tiền mặt.\n\nChưa xác nhận",
+        "5. Chứng từ & Hóa đơn\nLưu trữ nội bộ\n\nKế hoạch lưu trữ đầy đủ hóa đơn, chứng từ; công bố bản biên tập bảo vệ riêng tư sau khi được duyệt.\n\nChưa xác nhận"
+      ]
+    },
+    {
+      "name": "Unique project title",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "Only four activity photos on project",
+      "pass": true,
+      "value": null
+    },
+    {
+      "name": "Header action describes information",
+      "pass": true,
+      "value": null
+    }
+  ],
+  "observations": [
+    {
+      "name": "finance",
+      "headings": [
+        {
+          "text": "Doanh thu kịch bản và phân tích số dư",
+          "y": 1421.578125
+        },
+        {
+          "text": "Cơ cấu doanh thu kịch bản bán đủ hàng (6.700.000đ)",
+          "y": 1599.359375
+        },
+        {
+          "text": "Đối chiếu mục tiêu doanh thu ẩm thực trong đề xuất",
+          "y": 2210
+        },
+        {
+          "text": "Kịch bản cơ sở (chưa tính tài trợ)",
+          "y": 2990.546875
+        },
+        {
+          "text": "Lưu ý quan trọng về các kịch bản tài chính",
+          "y": 3275.1875
+        },
+        {
+          "text": "Dự toán chi phí kế hoạch",
+          "y": 4105.015625
+        },
+        {
+          "text": "Nem Trần Công Châu",
+          "y": 4389.796875
+        },
+        {
+          "text": "Bột chiên xù",
+          "y": 4498.78125
+        },
+        {
+          "text": "Hộp đựng thức ăn",
+          "y": 4607.765625
+        },
+        {
+          "text": "Xiên que",
+          "y": 4716.75
+        },
+        {
+          "text": "Phô mai",
+          "y": 4825.734375
+        },
+        {
+          "text": "Khoai tây",
+          "y": 4934.71875
+        },
+        {
+          "text": "Dầu ăn",
+          "y": 5115.875
+        },
+        {
+          "text": "Nước uống tặng thêm",
+          "y": 5201.265625
+        },
+        {
+          "text": "Bánh su kem",
+          "y": 5329.84375
+        },
+        {
+          "text": "Chuồn chuồn tre 12cm",
+          "y": 5606.8125
+        },
+        {
+          "text": "Chân đế",
+          "y": 5735.390625
+        },
+        {
+          "text": "Tượng tô 10cm",
+          "y": 5863.96875
+        },
+        {
+          "text": "Bóng cho trò chơi",
+          "y": 6012.140625
+        },
+        {
+          "text": "Màu vẽ sáu màu",
+          "y": 6140.71875
+        },
+        {
+          "text": "Móc khóa",
+          "y": 6269.296875
+        },
+        {
+          "text": "Bánh kẹo/quà",
+          "y": 6397.875
+        },
+        {
+          "text": "Truyền thông trực tiếp (standee, bánh kẹo tặng)",
+          "y": 6674.84375
+        },
+        {
+          "text": "Di chuyển buổi 1 — thuê xe",
+          "y": 6843.8125
+        },
+        {
+          "text": "Di chuyển buổi 2 — xe máy",
+          "y": 6993.1875
+        },
+        {
+          "text": "Báo cáo thực tế và nguyên tắc quản trị",
+          "y": 7426.53125
+        },
+        {
+          "text": "Công thức dòng tiền chuẩn xác",
+          "y": 8571.390625
+        },
+        {
+          "text": "Tách bạch tiền mặt và hiện vật",
+          "y": 8744.171875
+        },
+        {
+          "text": "Đối soát chéo hai thành viên",
+          "y": 8916.953125
+        },
+        {
+          "text": "Biên tập chứng từ bảo vệ riêng tư",
+          "y": 9089.734375
+        },
+        {
+          "text": "Phương án dự phòng và quản trị rủi ro",
+          "y": 9262.515625
+        },
+        {
+          "text": "Câu hỏi thường gặp về tài chính",
+          "y": 9504.1875
+        },
+        {
+          "text": "Tìm hiểu thêm về chiến dịch",
+          "y": 10154.96875
+        },
+        {
+          "text": "Lăng Kính",
+          "y": 10537.15625
+        },
+        {
+          "text": "Danh mục trang",
+          "y": 10684.15625
+        },
+        {
+          "text": "Lưu ý bản xem trước",
+          "y": 11028.953125
+        }
+      ],
+      "height": 11297
+    },
+    {
+      "name": "home",
+      "headings": [
+        "Buổi chơi có lựa chọn",
+        "Sản phẩm gây quỹ dự kiến",
+        "Minh bạch từ kế hoạch đến thực tế",
+        "Hành trình dự kiến",
+        "Nhóm thực hiện & Cách đồng hành",
+        "Lăng Kính"
+      ]
+    }
+  ],
+  "failed": [
+    {
+      "name": "Plan table default responsive visibility 375",
+      "pass": false,
+      "value": {
+        "cards": 7,
+        "planOpen": false,
+        "planVisible": true,
+        "visibleRows": 7,
+        "sw": 375
+      }
+    },
+    {
+      "name": "Plan table default responsive visibility 768",
+      "pass": false,
+      "value": {
+        "cards": 7,
+        "planOpen": false,
+        "planVisible": true,
+        "visibleRows": 7,
+        "sw": 768
+      }
+    },
+    {
+      "name": "Plan table default responsive visibility 900",
+      "pass": false,
+      "value": {
+        "cards": 7,
+        "planOpen": false,
+        "planVisible": true,
+        "visibleRows": 7,
+        "sw": 900
+      }
+    }
+  ]
+}

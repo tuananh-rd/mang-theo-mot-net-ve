@@ -1,0 +1,380 @@
+{
+  "sha": "952d7539a02e4a24d36416ba8d666cccd48aa822",
+  "time": "2026-10-03T14:53:56.849Z",
+  "checks": [
+    {
+      "name": "Source group arithmetic",
+      "pass": true,
+      "observed": [
+        {
+          "page": 24,
+          "amounts": [
+            960000,
+            120000,
+            40000,
+            60000,
+            140000,
+            75000,
+            250000,
+            200000,
+            400000
+          ],
+          "total": 2245000
+        },
+        {
+          "page": 25,
+          "amounts": [
+            400000,
+            300000,
+            80000,
+            20000,
+            120000,
+            300000,
+            340000
+          ],
+          "total": 1560000
+        },
+        {
+          "page": 26,
+          "amounts": [
+            60000,
+            750000,
+            320000
+          ],
+          "total": 1130000
+        }
+      ]
+    },
+    {
+      "name": "Source total arithmetic",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "Source revenue/balance arithmetic",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "Exact supplied asset logo_option5_horizontal.png",
+      "pass": true,
+      "observed": "e078e7ea7bd8debae74d2c573fe4391fd55aee57a167ca4eb63534b17ee56db9"
+    },
+    {
+      "name": "Exact supplied asset logo_lang_kinh_2048.png",
+      "pass": true,
+      "observed": "06f63ac9d41c079827d794b13ffec468ea30be7b818755b4ba96bc819f7facbc"
+    },
+    {
+      "name": "No raw/private document files",
+      "pass": true,
+      "observed": []
+    },
+    {
+      "name": "Bundle privacy dist\\404.html",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "No stale catalogue dist\\404.html",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "Preview robots dist\\404.html",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "Bundle privacy dist\\dong-hanh\\index.html",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "No stale catalogue dist\\dong-hanh\\index.html",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "Preview robots dist\\dong-hanh\\index.html",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "Bundle privacy dist\\du-an\\mang-theo-mot-net-ve\\index.html",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "No stale catalogue dist\\du-an\\mang-theo-mot-net-ve\\index.html",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "Preview robots dist\\du-an\\mang-theo-mot-net-ve\\index.html",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "Bundle privacy dist\\favicon.svg",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "Bundle privacy dist\\index.html",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "No stale catalogue dist\\index.html",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "Preview robots dist\\index.html",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "Bundle privacy dist\\minh-bach\\index.html",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "No stale catalogue dist\\minh-bach\\index.html",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "Preview robots dist\\minh-bach\\index.html",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "Bundle privacy dist\\san-pham\\index.html",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "No stale catalogue dist\\san-pham\\index.html",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "Preview robots dist\\san-pham\\index.html",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "Bundle privacy dist\\ve-nhom\\index.html",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "No stale catalogue dist\\ve-nhom\\index.html",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "Preview robots dist\\ve-nhom\\index.html",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "Bundle privacy dist\\_astro\\dong-hanh.C7BLKpEx.css",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "Bundle privacy dist\\_astro\\index.JLHXnGO9.css",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "Bundle privacy dist\\_astro\\Layout.Bk1kzqyo.css",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "Bundle privacy dist\\_astro\\mang-theo-mot-net-ve.B7jKZXLI.css",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "Bundle privacy dist\\_astro\\minh-bach.DKHsXwdz.css",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "Bundle privacy dist\\_astro\\san-pham.CcoUJ781.css",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "Bundle privacy dist\\_astro\\ve-nhom.DufoQg0T.css",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "Seven emitted HTML pages",
+      "pass": true,
+      "observed": [
+        "dist\\404.html",
+        "dist\\dong-hanh\\index.html",
+        "dist\\du-an\\mang-theo-mot-net-ve\\index.html",
+        "dist\\index.html",
+        "dist\\minh-bach\\index.html",
+        "dist\\san-pham\\index.html",
+        "dist\\ve-nhom\\index.html"
+      ]
+    },
+    {
+      "name": "App committed clean",
+      "pass": true,
+      "observed": ""
+    },
+    {
+      "name": "Worker changed only app/assets/tests",
+      "pass": true,
+      "observed": [
+        "src/components/ActivityCard.astro",
+        "src/components/FaqAccordion.astro",
+        "src/components/Header.astro",
+        "src/components/PlaceholderIllustration.astro",
+        "src/components/ProductCard.astro",
+        "src/data/campaign.ts",
+        "src/lib/finance.ts",
+        "src/pages/dong-hanh.astro",
+        "src/pages/du-an/mang-theo-mot-net-ve.astro",
+        "src/pages/index.astro",
+        "src/pages/minh-bach.astro",
+        "src/pages/san-pham.astro",
+        "src/pages/ve-nhom.astro",
+        "tests/finance.test.mjs"
+      ]
+    }
+  ],
+  "files": [
+    {
+      "path": "dist\\404.html",
+      "bytes": 9344,
+      "sha256": "6f1912818c19b0c38dbf0ee6802d2d24e9cfed73671d14929dc96498a2082a6f"
+    },
+    {
+      "path": "dist\\dong-hanh\\index.html",
+      "bytes": 26660,
+      "sha256": "393c66e6feeb95b7985e1ac25c2aeb2c1d7e0c7c44d058cd4b4f461a2aef55ee"
+    },
+    {
+      "path": "dist\\du-an\\mang-theo-mot-net-ve\\index.html",
+      "bytes": 31330,
+      "sha256": "0d70d82936f1fac170382d137e5efc29514767aa68e84a1ab541bbe9e5c60e68"
+    },
+    {
+      "path": "dist\\favicon.svg",
+      "bytes": 703,
+      "sha256": "cf5a6109d12aead474ccee95fd51643e1988adc2364bb1349e3c3e4e6d564051"
+    },
+    {
+      "path": "dist\\images\\apple-touch-icon.png",
+      "bytes": 6141,
+      "sha256": "1f17e268aaf9672ade06b400cc5348a3126c9201b7135bd7e3723d992da20e10"
+    },
+    {
+      "path": "dist\\images\\favicon-32x32.png",
+      "bytes": 1263,
+      "sha256": "a960c351d4ca5d3fb258edf561b23e67e22a599a969a53f8fbf793f7103b3087"
+    },
+    {
+      "path": "dist\\images\\illustrations\\a01.webp",
+      "bytes": 100518,
+      "sha256": "a9fa9016a999b7adab3f52f8d942c0b2f3606326003a2ef42a6c7c28bdc2f3f1"
+    },
+    {
+      "path": "dist\\images\\illustrations\\a02.webp",
+      "bytes": 30248,
+      "sha256": "8db997d57ec418468478f940cde866e14ef970c3221b6f3978d6c2af4fb7e535"
+    },
+    {
+      "path": "dist\\images\\illustrations\\a03.webp",
+      "bytes": 89352,
+      "sha256": "4f0050853707213fafed52296fa75ef62f1519352a9a5c30a0be45cba435c5a7"
+    },
+    {
+      "path": "dist\\images\\illustrations\\a04.webp",
+      "bytes": 67214,
+      "sha256": "17c3fefd7484603a82dd9cb1cabf0122ce856c58e4977874179d2519df1ec61a"
+    },
+    {
+      "path": "dist\\images\\illustrations\\a05.webp",
+      "bytes": 101026,
+      "sha256": "8d8f4d8bbaa692295eb81b34858b8cdc2e454c82bd8bb610e84c1a33dcb9407f"
+    },
+    {
+      "path": "dist\\images\\logo_lang_kinh_2048.png",
+      "bytes": 78915,
+      "sha256": "06f63ac9d41c079827d794b13ffec468ea30be7b818755b4ba96bc819f7facbc"
+    },
+    {
+      "path": "dist\\images\\logo_option5_horizontal.png",
+      "bytes": 37399,
+      "sha256": "e078e7ea7bd8debae74d2c573fe4391fd55aee57a167ca4eb63534b17ee56db9"
+    },
+    {
+      "path": "dist\\index.html",
+      "bytes": 44883,
+      "sha256": "71db99deeab09d430ce69ba0ebff2b36ab319acbe0f5f89ab1ee7f7efeb5faf2"
+    },
+    {
+      "path": "dist\\minh-bach\\index.html",
+      "bytes": 71772,
+      "sha256": "a4e72762253048048e8bd81207dc8f4ded4153175dfa14d74c3d3af77f92c200"
+    },
+    {
+      "path": "dist\\san-pham\\index.html",
+      "bytes": 64925,
+      "sha256": "94178b74fba92bc342a6eba8f79eb424faa61d9bc046c7dfbafbde5ffcfd8360"
+    },
+    {
+      "path": "dist\\ve-nhom\\index.html",
+      "bytes": 18032,
+      "sha256": "ba373b10a1cc90d382fe7308cdeec3f3a6c7b8f9af42b9850fe2ebc4ac33233a"
+    },
+    {
+      "path": "dist\\_astro\\dong-hanh.C7BLKpEx.css",
+      "bytes": 8617,
+      "sha256": "9c2584cf18674eebc400d3c49928328cbfc893b8f0c393f85f87ca421df0f529"
+    },
+    {
+      "path": "dist\\_astro\\index.JLHXnGO9.css",
+      "bytes": 7563,
+      "sha256": "03074431a87e75ba94656ecf53c0246895d7ad0ee0380f39c301776e7b65fcba"
+    },
+    {
+      "path": "dist\\_astro\\Layout.Bk1kzqyo.css",
+      "bytes": 13457,
+      "sha256": "6a9c3d539bb5d6b77504a5c063800b39159a82eff8124c55bea1dc8e00555900"
+    },
+    {
+      "path": "dist\\_astro\\mang-theo-mot-net-ve.B7jKZXLI.css",
+      "bytes": 7370,
+      "sha256": "07337c8dd331f069a34c33c67d0dce909de8e6e9eddcc9402e116480f6a1a9ad"
+    },
+    {
+      "path": "dist\\_astro\\minh-bach.DKHsXwdz.css",
+      "bytes": 22656,
+      "sha256": "4639869ef2bfdb6695cac630678fa7ce14eac081dabf5f9c7e62e3e1383d59f4"
+    },
+    {
+      "path": "dist\\_astro\\san-pham.CcoUJ781.css",
+      "bytes": 9447,
+      "sha256": "be8949eef524c2751ab6ec7fef378a71a0a31ad1f54d594151deeaa7d9bd279f"
+    },
+    {
+      "path": "dist\\_astro\\ve-nhom.DufoQg0T.css",
+      "bytes": 6114,
+      "sha256": "8162285220e330cfa79c3d69a498a4dee51eea1449a2873baa3e1b72ef672456"
+    }
+  ],
+  "failed": []
+}

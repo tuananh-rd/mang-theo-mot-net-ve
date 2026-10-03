@@ -1,0 +1,1969 @@
+{
+  "sha": "92f1c4f45c1d307cde0a4cb801d658b9f5395b06",
+  "base": "http://127.0.0.1:4322",
+  "startedAt": "2026-10-03T14:04:56.028Z",
+  "pages": [
+    {
+      "name": "home",
+      "route": "/",
+      "vw": 375,
+      "status": 200,
+      "shot": "docs/evidence/C03/reviewer-home-375-full.png",
+      "title": "Trang chủ | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "scrollW": 375,
+      "height": 9424,
+      "headerH": 65,
+      "h1": [
+        "Mang Theo Một Nét Vẽ"
+      ],
+      "current": [
+        "Trang chủ",
+        "Trang chủ"
+      ],
+      "small": [],
+      "smallCount": 0,
+      "low": [],
+      "lowCount": 0,
+      "over": [],
+      "imgs": [
+        {
+          "src": "/images/logo_lang_kinh_2048.png",
+          "alt": "",
+          "w": 32,
+          "h": 32,
+          "nat": "2048x2048",
+          "fit": "contain",
+          "position": "50% 50%",
+          "ok": true
+        },
+        {
+          "src": "/images/illustrations/a01.webp",
+          "alt": "Bảng màu nước và các loại cọ vẽ đặt trên bàn",
+          "w": 341,
+          "h": 150,
+          "nat": "1600x1068",
+          "fit": "cover",
+          "position": "50% 40%",
+          "ok": true
+        },
+        {
+          "src": "/images/illustrations/a02.webp",
+          "alt": "Màu vẽ và cọ trên nền màu pastel",
+          "w": 307,
+          "h": 165,
+          "nat": "1067x1600",
+          "fit": "cover",
+          "position": "50% 90%",
+          "ok": true
+        },
+        {
+          "src": "/images/illustrations/a01.webp",
+          "alt": "Bảng màu nước và cọ vẽ cho hoạt động tô màu",
+          "w": 307,
+          "h": 165,
+          "nat": "1600x1068",
+          "fit": "cover",
+          "position": "50% 50%",
+          "ok": true
+        },
+        {
+          "src": "/images/illustrations/a03.webp",
+          "alt": "Trống lắc màu vàng",
+          "w": 307,
+          "h": 165,
+          "nat": "1600x1067",
+          "fit": "cover",
+          "position": "50% 50%",
+          "ok": true
+        },
+        {
+          "src": "/images/illustrations/a04.webp",
+          "alt": "Những quả bóng nhựa nhiều màu sắc",
+          "w": 307,
+          "h": 165,
+          "nat": "1600x1067",
+          "fit": "cover",
+          "position": "50% 50%",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_lang_kinh_2048.png",
+          "alt": "",
+          "w": 38,
+          "h": 38,
+          "nat": "2048x2048",
+          "fit": "contain",
+          "position": "50% 50%",
+          "ok": true
+        }
+      ],
+      "figures": 8,
+      "longCenteredParagraphs": [],
+      "sectionAlignment": [
+        {
+          "className": "section-header",
+          "align": "start",
+          "h2": "Buổi chơi có lựa chọn"
+        },
+        {
+          "className": "section-header",
+          "align": "start",
+          "h2": "Sản phẩm gây quỹ dự kiến"
+        },
+        {
+          "className": "section-header",
+          "align": "start",
+          "h2": "Hành trình dự kiến"
+        },
+        {
+          "className": "section-header",
+          "align": "start",
+          "h2": "Nhóm thực hiện & Cách đồng hành"
+        }
+      ],
+      "tables": []
+    },
+    {
+      "name": "project",
+      "route": "/du-an/mang-theo-mot-net-ve",
+      "vw": 375,
+      "status": 200,
+      "shot": "docs/evidence/C03/reviewer-project-375-full.png",
+      "title": "Câu chuyện dự án | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "scrollW": 375,
+      "height": 7461,
+      "headerH": 65,
+      "h1": [
+        "Dự án Mang Theo Một Nét Vẽ"
+      ],
+      "current": [
+        "Dự án",
+        "Dự án",
+        "Dự án"
+      ],
+      "small": [],
+      "smallCount": 0,
+      "low": [],
+      "lowCount": 0,
+      "over": [],
+      "imgs": [
+        {
+          "src": "/images/logo_lang_kinh_2048.png",
+          "alt": "",
+          "w": 32,
+          "h": 32,
+          "nat": "2048x2048",
+          "fit": "contain",
+          "position": "50% 50%",
+          "ok": true
+        },
+        {
+          "src": "/images/illustrations/a02.webp",
+          "alt": "Màu vẽ và cọ trên nền màu pastel",
+          "w": 307,
+          "h": 165,
+          "nat": "1067x1600",
+          "fit": "cover",
+          "position": "50% 90%",
+          "ok": true
+        },
+        {
+          "src": "/images/illustrations/a01.webp",
+          "alt": "Bảng màu nước và cọ vẽ cho hoạt động tô màu",
+          "w": 307,
+          "h": 165,
+          "nat": "1600x1068",
+          "fit": "cover",
+          "position": "50% 50%",
+          "ok": true
+        },
+        {
+          "src": "/images/illustrations/a03.webp",
+          "alt": "Trống lắc màu vàng",
+          "w": 307,
+          "h": 165,
+          "nat": "1600x1067",
+          "fit": "cover",
+          "position": "50% 50%",
+          "ok": true
+        },
+        {
+          "src": "/images/illustrations/a04.webp",
+          "alt": "Những quả bóng nhựa nhiều màu sắc",
+          "w": 307,
+          "h": 165,
+          "nat": "1600x1067",
+          "fit": "cover",
+          "position": "50% 50%",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_lang_kinh_2048.png",
+          "alt": "",
+          "w": 38,
+          "h": 38,
+          "nat": "2048x2048",
+          "fit": "contain",
+          "position": "50% 50%",
+          "ok": true
+        }
+      ],
+      "figures": 4,
+      "longCenteredParagraphs": [
+        {
+          "className": "empty-desc",
+          "text": "Kế hoạch, lịch trình chi tiết và báo cáo hoạt động sẽ được cập nhật sau khi hoàn tất đối soát và đượ"
+        },
+        {
+          "className": "resources-desc",
+          "text": "Theo đề xuất, nhóm sinh viên dự kiến phụ trách chuẩn bị vật tư các góc chơi, hoàn thiện quà lưu niệm"
+        }
+      ],
+      "sectionAlignment": [
+        {
+          "className": "section-header",
+          "align": "start",
+          "h2": "Mục tiêu & Nguyên tắc an toàn"
+        },
+        {
+          "className": "section-header",
+          "align": "start",
+          "h2": "Câu chuyện từ đề xuất"
+        },
+        {
+          "className": "section-header",
+          "align": "start",
+          "h2": "Buổi chơi có nhiều lựa chọn"
+        },
+        {
+          "className": "section-header",
+          "align": "start",
+          "h2": "Hành trình dự kiến của dự án"
+        },
+        {
+          "className": "section-header",
+          "align": "start",
+          "h2": "Cập nhật và kết quả"
+        }
+      ],
+      "tables": []
+    },
+    {
+      "name": "products",
+      "route": "/san-pham",
+      "vw": 375,
+      "status": 200,
+      "shot": "docs/evidence/C03/reviewer-products-375-full.png",
+      "title": "Sản phẩm gây quỹ dự kiến | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "scrollW": 375,
+      "height": 7805,
+      "headerH": 65,
+      "h1": [
+        "Sản phẩm gây quỹ dự kiến"
+      ],
+      "current": [
+        "Sản phẩm",
+        "Sản phẩm",
+        "Sản phẩm"
+      ],
+      "small": [],
+      "smallCount": 0,
+      "low": [],
+      "lowCount": 0,
+      "over": [
+        "TABLE.plan-table mobile-expanded-tab",
+        "THEAD.",
+        "TR.",
+        "TH.",
+        "TH.",
+        "TH.",
+        "TBODY.",
+        "TR."
+      ],
+      "imgs": [
+        {
+          "src": "/images/logo_lang_kinh_2048.png",
+          "alt": "",
+          "w": 32,
+          "h": 32,
+          "nat": "2048x2048",
+          "fit": "contain",
+          "position": "50% 50%",
+          "ok": true
+        },
+        {
+          "src": "/images/illustrations/a05.webp",
+          "alt": "Bánh su kem trên đĩa trắng",
+          "w": 307,
+          "h": 165,
+          "nat": "1062x1600",
+          "fit": "cover",
+          "position": "50% 80%",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_lang_kinh_2048.png",
+          "alt": "",
+          "w": 38,
+          "h": 38,
+          "nat": "2048x2048",
+          "fit": "contain",
+          "position": "50% 50%",
+          "ok": true
+        }
+      ],
+      "figures": 7,
+      "longCenteredParagraphs": [],
+      "sectionAlignment": [
+        {
+          "className": "section-header",
+          "align": "start",
+          "h2": "Sản phẩm trong kế hoạch đề xuất"
+        },
+        {
+          "className": "section-header",
+          "align": "start",
+          "h2": "Bảng tổng hợp kế hoạch số lượng"
+        },
+        {
+          "className": "section-header",
+          "align": "start",
+          "h2": "Hỏi đáp về sản phẩm và gây quỹ"
+        }
+      ],
+      "tables": [
+        {
+          "w": 0,
+          "parentW": 0,
+          "parentOverflow": "auto"
+        },
+        {
+          "w": 581,
+          "parentW": 309,
+          "parentOverflow": "auto"
+        }
+      ]
+    },
+    {
+      "name": "finance",
+      "route": "/minh-bach",
+      "vw": 375,
+      "status": 200,
+      "shot": "docs/evidence/C03/reviewer-finance-375-full.png",
+      "title": "Minh bạch thu chi | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "scrollW": 375,
+      "height": 8844,
+      "headerH": 65,
+      "h1": [
+        "Minh bạch thu chi"
+      ],
+      "current": [
+        "Minh bạch",
+        "Minh bạch",
+        "Minh bạch"
+      ],
+      "small": [],
+      "smallCount": 0,
+      "low": [
+        {
+          "tag": "SPAN",
+          "cls": "mobile-sub-sep",
+          "cr": 1.35,
+          "fs": 14,
+          "t": "•"
+        },
+        {
+          "tag": "SPAN",
+          "cls": "mobile-sub-sep",
+          "cr": 1.35,
+          "fs": 14,
+          "t": "•"
+        },
+        {
+          "tag": "SPAN",
+          "cls": "mobile-sub-sep",
+          "cr": 1.35,
+          "fs": 14,
+          "t": "•"
+        },
+        {
+          "tag": "SPAN",
+          "cls": "mobile-sub-sep",
+          "cr": 1.35,
+          "fs": 14,
+          "t": "•"
+        },
+        {
+          "tag": "SPAN",
+          "cls": "mobile-sub-sep",
+          "cr": 1.35,
+          "fs": 14,
+          "t": "•"
+        },
+        {
+          "tag": "SPAN",
+          "cls": "mobile-sub-sep",
+          "cr": 1.35,
+          "fs": 14,
+          "t": "•"
+        },
+        {
+          "tag": "SPAN",
+          "cls": "mobile-sub-sep",
+          "cr": 1.35,
+          "fs": 14,
+          "t": "•"
+        },
+        {
+          "tag": "SPAN",
+          "cls": "mobile-sub-sep",
+          "cr": 1.35,
+          "fs": 14,
+          "t": "•"
+        },
+        {
+          "tag": "SPAN",
+          "cls": "mobile-sub-sep",
+          "cr": 1.35,
+          "fs": 14,
+          "t": "•"
+        },
+        {
+          "tag": "SPAN",
+          "cls": "mobile-sub-sep",
+          "cr": 1.35,
+          "fs": 14,
+          "t": "•"
+        },
+        {
+          "tag": "SPAN",
+          "cls": "mobile-sub-sep",
+          "cr": 1.35,
+          "fs": 14,
+          "t": "•"
+        },
+        {
+          "tag": "SPAN",
+          "cls": "mobile-sub-sep",
+          "cr": 1.35,
+          "fs": 14,
+          "t": "•"
+        },
+        {
+          "tag": "SPAN",
+          "cls": "mobile-sub-sep",
+          "cr": 1.35,
+          "fs": 14,
+          "t": "•"
+        },
+        {
+          "tag": "SPAN",
+          "cls": "mobile-sub-sep",
+          "cr": 1.35,
+          "fs": 14,
+          "t": "•"
+        },
+        {
+          "tag": "SPAN",
+          "cls": "mobile-sub-sep",
+          "cr": 1.35,
+          "fs": 14,
+          "t": "•"
+        }
+      ],
+      "lowCount": 19,
+      "over": [],
+      "imgs": [
+        {
+          "src": "/images/logo_lang_kinh_2048.png",
+          "alt": "",
+          "w": 32,
+          "h": 32,
+          "nat": "2048x2048",
+          "fit": "contain",
+          "position": "50% 50%",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_lang_kinh_2048.png",
+          "alt": "",
+          "w": 38,
+          "h": 38,
+          "nat": "2048x2048",
+          "fit": "contain",
+          "position": "50% 50%",
+          "ok": true
+        }
+      ],
+      "figures": 0,
+      "longCenteredParagraphs": [
+        {
+          "className": "mobile-total-note",
+          "text": "Dẫn xuất từ 3 nhóm dự toán trong đề xuất ban đầu (trang 24, 25, 26); không phải chi phí thực tế đã t"
+        }
+      ],
+      "sectionAlignment": [
+        {
+          "className": "section-header",
+          "align": "left",
+          "h2": "Doanh thu kịch bản và phân tích số dư"
+        },
+        {
+          "className": "section-header",
+          "align": "left",
+          "h2": "Dự toán chi phí kế hoạch"
+        },
+        {
+          "className": "section-header",
+          "align": "left",
+          "h2": "Báo cáo thực tế và nguyên tắc quản trị"
+        },
+        {
+          "className": "section-header",
+          "align": "left",
+          "h2": "Câu hỏi thường gặp về tài chính"
+        }
+      ],
+      "tables": [
+        {
+          "w": 0,
+          "parentW": 0,
+          "parentOverflow": "auto"
+        },
+        {
+          "w": 0,
+          "parentW": 0,
+          "parentOverflow": "auto"
+        }
+      ]
+    },
+    {
+      "name": "team",
+      "route": "/ve-nhom",
+      "vw": 375,
+      "status": 200,
+      "shot": "docs/evidence/C03/reviewer-team-375-full.png",
+      "title": "Về nhóm Lăng Kính | Mang Theo Một Nét Vẽ",
+      "scrollW": 375,
+      "height": 4899,
+      "headerH": 65,
+      "h1": [
+        "Về nhóm Lăng Kính"
+      ],
+      "current": [
+        "Về nhóm",
+        "Về nhóm",
+        "Về nhóm"
+      ],
+      "small": [],
+      "smallCount": 0,
+      "low": [],
+      "lowCount": 0,
+      "over": [],
+      "imgs": [
+        {
+          "src": "/images/logo_lang_kinh_2048.png",
+          "alt": "",
+          "w": 32,
+          "h": 32,
+          "nat": "2048x2048",
+          "fit": "contain",
+          "position": "50% 50%",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_lang_kinh_2048.png",
+          "alt": "",
+          "w": 38,
+          "h": 38,
+          "nat": "2048x2048",
+          "fit": "contain",
+          "position": "50% 50%",
+          "ok": true
+        }
+      ],
+      "figures": 0,
+      "longCenteredParagraphs": [
+        {
+          "className": "team-mission-lead",
+          "text": "Kết nối một buổi vui chơi có lựa chọn với việc hỗ trợ hiện vật theo đúng nhu cầu thực tế tại Mái ấm "
+        },
+        {
+          "className": "members-desc",
+          "text": "Nhóm gồm 7 sinh viên lớp AI2015, học phần SSG105 (Kỹ năng làm việc nhóm), Đại học FPT Hà Nội. Tên, h"
+        }
+      ],
+      "sectionAlignment": [
+        {
+          "className": "section-header",
+          "align": "left",
+          "h2": "Cách nhóm phối hợp thực hiện"
+        },
+        {
+          "className": "section-header",
+          "align": "left",
+          "h2": "5 nguyên tắc cốt lõi của nhóm"
+        }
+      ],
+      "tables": []
+    },
+    {
+      "name": "support",
+      "route": "/dong-hanh",
+      "vw": 375,
+      "status": 200,
+      "shot": "docs/evidence/C03/reviewer-support-375-full.png",
+      "title": "Đồng hành cùng dự án | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "scrollW": 375,
+      "height": 6173,
+      "headerH": 65,
+      "h1": [
+        "Đồng hành cùng dự án"
+      ],
+      "current": [
+        "Cách đồng hành",
+        "Cách đồng hành",
+        "Đồng hành"
+      ],
+      "small": [],
+      "smallCount": 0,
+      "low": [],
+      "lowCount": 0,
+      "over": [],
+      "imgs": [
+        {
+          "src": "/images/logo_lang_kinh_2048.png",
+          "alt": "",
+          "w": 32,
+          "h": 32,
+          "nat": "2048x2048",
+          "fit": "contain",
+          "position": "50% 50%",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_lang_kinh_2048.png",
+          "alt": "",
+          "w": 38,
+          "h": 38,
+          "nat": "2048x2048",
+          "fit": "contain",
+          "position": "50% 50%",
+          "ok": true
+        }
+      ],
+      "figures": 0,
+      "longCenteredParagraphs": [],
+      "sectionAlignment": [
+        {
+          "className": "section-header",
+          "align": "left",
+          "h2": "Ba phương thức đồng hành dự kiến"
+        },
+        {
+          "className": "section-header",
+          "align": "left",
+          "h2": "Kênh liên hệ chính thức"
+        },
+        {
+          "className": "section-header",
+          "align": "left",
+          "h2": "Quy trình tiếp nhận dự kiến"
+        },
+        {
+          "className": "section-header",
+          "align": "left",
+          "h2": "Câu hỏi thường gặp về đồng hành"
+        }
+      ],
+      "tables": []
+    },
+    {
+      "name": "404",
+      "route": "/reviewer-c01-khong-co",
+      "vw": 375,
+      "status": 404,
+      "shot": "docs/evidence/C03/reviewer-404-375-full.png",
+      "title": "Không tìm thấy trang (404) | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "scrollW": 375,
+      "height": 1413,
+      "headerH": 65,
+      "h1": [
+        "Không tìm thấy trang"
+      ],
+      "current": [],
+      "small": [],
+      "smallCount": 0,
+      "low": [],
+      "lowCount": 0,
+      "over": [],
+      "imgs": [
+        {
+          "src": "/images/logo_lang_kinh_2048.png",
+          "alt": "",
+          "w": 32,
+          "h": 32,
+          "nat": "2048x2048",
+          "fit": "contain",
+          "position": "50% 50%",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_lang_kinh_2048.png",
+          "alt": "",
+          "w": 38,
+          "h": 38,
+          "nat": "2048x2048",
+          "fit": "contain",
+          "position": "50% 50%",
+          "ok": true
+        }
+      ],
+      "figures": 0,
+      "longCenteredParagraphs": [
+        {
+          "className": "error-desc",
+          "text": "Đường dẫn bạn vừa truy cập không tồn tại hoặc đã được thay đổi trong bản xem trước."
+        }
+      ],
+      "sectionAlignment": [],
+      "tables": []
+    },
+    {
+      "name": "home",
+      "route": "/",
+      "vw": 768,
+      "status": 304,
+      "shot": "docs/evidence/C03/reviewer-home-768-full.png",
+      "title": "Trang chủ | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "scrollW": 768,
+      "height": 7254,
+      "headerH": 65,
+      "h1": [
+        "Mang Theo Một Nét Vẽ"
+      ],
+      "current": [
+        "Trang chủ",
+        "Trang chủ"
+      ],
+      "small": [],
+      "smallCount": 0,
+      "low": [],
+      "lowCount": 0,
+      "over": [],
+      "imgs": [
+        {
+          "src": "/images/logo_lang_kinh_2048.png",
+          "alt": "",
+          "w": 38,
+          "h": 38,
+          "nat": "2048x2048",
+          "fit": "contain",
+          "position": "50% 50%",
+          "ok": true
+        },
+        {
+          "src": "/images/illustrations/a01.webp",
+          "alt": "Bảng màu nước và các loại cọ vẽ đặt trên bàn",
+          "w": 558,
+          "h": 419,
+          "nat": "1600x1068",
+          "fit": "cover",
+          "position": "50% 40%",
+          "ok": true
+        },
+        {
+          "src": "/images/illustrations/a02.webp",
+          "alt": "Màu vẽ và cọ trên nền màu pastel",
+          "w": 304,
+          "h": 228,
+          "nat": "1067x1600",
+          "fit": "cover",
+          "position": "50% 90%",
+          "ok": true
+        },
+        {
+          "src": "/images/illustrations/a01.webp",
+          "alt": "Bảng màu nước và cọ vẽ cho hoạt động tô màu",
+          "w": 304,
+          "h": 228,
+          "nat": "1600x1068",
+          "fit": "cover",
+          "position": "50% 50%",
+          "ok": true
+        },
+        {
+          "src": "/images/illustrations/a03.webp",
+          "alt": "Trống lắc màu vàng",
+          "w": 304,
+          "h": 228,
+          "nat": "1600x1067",
+          "fit": "cover",
+          "position": "50% 50%",
+          "ok": true
+        },
+        {
+          "src": "/images/illustrations/a04.webp",
+          "alt": "Những quả bóng nhựa nhiều màu sắc",
+          "w": 304,
+          "h": 228,
+          "nat": "1600x1067",
+          "fit": "cover",
+          "position": "50% 50%",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_lang_kinh_2048.png",
+          "alt": "",
+          "w": 38,
+          "h": 38,
+          "nat": "2048x2048",
+          "fit": "contain",
+          "position": "50% 50%",
+          "ok": true
+        }
+      ],
+      "figures": 8,
+      "longCenteredParagraphs": [],
+      "sectionAlignment": [
+        {
+          "className": "section-header",
+          "align": "start",
+          "h2": "Buổi chơi có lựa chọn"
+        },
+        {
+          "className": "section-header",
+          "align": "start",
+          "h2": "Sản phẩm gây quỹ dự kiến"
+        },
+        {
+          "className": "section-header",
+          "align": "start",
+          "h2": "Hành trình dự kiến"
+        },
+        {
+          "className": "section-header",
+          "align": "start",
+          "h2": "Nhóm thực hiện & Cách đồng hành"
+        }
+      ],
+      "tables": []
+    },
+    {
+      "name": "project",
+      "route": "/du-an/mang-theo-mot-net-ve",
+      "vw": 768,
+      "status": 304,
+      "shot": "docs/evidence/C03/reviewer-project-768-full.png",
+      "title": "Câu chuyện dự án | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "scrollW": 768,
+      "height": 5789,
+      "headerH": 65,
+      "h1": [
+        "Dự án Mang Theo Một Nét Vẽ"
+      ],
+      "current": [
+        "Dự án",
+        "Dự án",
+        "Dự án"
+      ],
+      "small": [],
+      "smallCount": 0,
+      "low": [],
+      "lowCount": 0,
+      "over": [],
+      "imgs": [
+        {
+          "src": "/images/logo_lang_kinh_2048.png",
+          "alt": "",
+          "w": 38,
+          "h": 38,
+          "nat": "2048x2048",
+          "fit": "contain",
+          "position": "50% 50%",
+          "ok": true
+        },
+        {
+          "src": "/images/illustrations/a02.webp",
+          "alt": "Màu vẽ và cọ trên nền màu pastel",
+          "w": 304,
+          "h": 228,
+          "nat": "1067x1600",
+          "fit": "cover",
+          "position": "50% 90%",
+          "ok": true
+        },
+        {
+          "src": "/images/illustrations/a01.webp",
+          "alt": "Bảng màu nước và cọ vẽ cho hoạt động tô màu",
+          "w": 304,
+          "h": 228,
+          "nat": "1600x1068",
+          "fit": "cover",
+          "position": "50% 50%",
+          "ok": true
+        },
+        {
+          "src": "/images/illustrations/a03.webp",
+          "alt": "Trống lắc màu vàng",
+          "w": 304,
+          "h": 228,
+          "nat": "1600x1067",
+          "fit": "cover",
+          "position": "50% 50%",
+          "ok": true
+        },
+        {
+          "src": "/images/illustrations/a04.webp",
+          "alt": "Những quả bóng nhựa nhiều màu sắc",
+          "w": 304,
+          "h": 228,
+          "nat": "1600x1067",
+          "fit": "cover",
+          "position": "50% 50%",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_lang_kinh_2048.png",
+          "alt": "",
+          "w": 38,
+          "h": 38,
+          "nat": "2048x2048",
+          "fit": "contain",
+          "position": "50% 50%",
+          "ok": true
+        }
+      ],
+      "figures": 4,
+      "longCenteredParagraphs": [
+        {
+          "className": "resources-desc",
+          "text": "Theo đề xuất, nhóm sinh viên dự kiến phụ trách chuẩn bị vật tư các góc chơi, hoàn thiện quà lưu niệm"
+        }
+      ],
+      "sectionAlignment": [
+        {
+          "className": "section-header",
+          "align": "start",
+          "h2": "Mục tiêu & Nguyên tắc an toàn"
+        },
+        {
+          "className": "section-header",
+          "align": "start",
+          "h2": "Câu chuyện từ đề xuất"
+        },
+        {
+          "className": "section-header",
+          "align": "start",
+          "h2": "Buổi chơi có nhiều lựa chọn"
+        },
+        {
+          "className": "section-header",
+          "align": "start",
+          "h2": "Hành trình dự kiến của dự án"
+        },
+        {
+          "className": "section-header",
+          "align": "start",
+          "h2": "Cập nhật và kết quả"
+        }
+      ],
+      "tables": []
+    },
+    {
+      "name": "products",
+      "route": "/san-pham",
+      "vw": 768,
+      "status": 304,
+      "shot": "docs/evidence/C03/reviewer-products-768-full.png",
+      "title": "Sản phẩm gây quỹ dự kiến | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "scrollW": 768,
+      "height": 5778,
+      "headerH": 65,
+      "h1": [
+        "Sản phẩm gây quỹ dự kiến"
+      ],
+      "current": [
+        "Sản phẩm",
+        "Sản phẩm",
+        "Sản phẩm"
+      ],
+      "small": [],
+      "smallCount": 0,
+      "low": [],
+      "lowCount": 0,
+      "over": [],
+      "imgs": [
+        {
+          "src": "/images/logo_lang_kinh_2048.png",
+          "alt": "",
+          "w": 38,
+          "h": 38,
+          "nat": "2048x2048",
+          "fit": "contain",
+          "position": "50% 50%",
+          "ok": true
+        },
+        {
+          "src": "/images/illustrations/a05.webp",
+          "alt": "Bánh su kem trên đĩa trắng",
+          "w": 314,
+          "h": 177,
+          "nat": "1062x1600",
+          "fit": "cover",
+          "position": "50% 80%",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_lang_kinh_2048.png",
+          "alt": "",
+          "w": 38,
+          "h": 38,
+          "nat": "2048x2048",
+          "fit": "contain",
+          "position": "50% 50%",
+          "ok": true
+        }
+      ],
+      "figures": 7,
+      "longCenteredParagraphs": [],
+      "sectionAlignment": [
+        {
+          "className": "section-header",
+          "align": "start",
+          "h2": "Sản phẩm trong kế hoạch đề xuất"
+        },
+        {
+          "className": "section-header",
+          "align": "start",
+          "h2": "Bảng tổng hợp kế hoạch số lượng"
+        },
+        {
+          "className": "section-header",
+          "align": "start",
+          "h2": "Hỏi đáp về sản phẩm và gây quỹ"
+        }
+      ],
+      "tables": [
+        {
+          "w": 0,
+          "parentW": 0,
+          "parentOverflow": "auto"
+        },
+        {
+          "w": 670,
+          "parentW": 670,
+          "parentOverflow": "auto"
+        }
+      ]
+    },
+    {
+      "name": "finance",
+      "route": "/minh-bach",
+      "vw": 768,
+      "status": 304,
+      "shot": "docs/evidence/C03/reviewer-finance-768-full.png",
+      "title": "Minh bạch thu chi | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "scrollW": 768,
+      "height": 8962,
+      "headerH": 65,
+      "h1": [
+        "Minh bạch thu chi"
+      ],
+      "current": [
+        "Minh bạch",
+        "Minh bạch",
+        "Minh bạch"
+      ],
+      "small": [],
+      "smallCount": 0,
+      "low": [],
+      "lowCount": 0,
+      "over": [],
+      "imgs": [
+        {
+          "src": "/images/logo_lang_kinh_2048.png",
+          "alt": "",
+          "w": 38,
+          "h": 38,
+          "nat": "2048x2048",
+          "fit": "contain",
+          "position": "50% 50%",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_lang_kinh_2048.png",
+          "alt": "",
+          "w": 38,
+          "h": 38,
+          "nat": "2048x2048",
+          "fit": "contain",
+          "position": "50% 50%",
+          "ok": true
+        }
+      ],
+      "figures": 0,
+      "longCenteredParagraphs": [],
+      "sectionAlignment": [
+        {
+          "className": "section-header",
+          "align": "left",
+          "h2": "Doanh thu kịch bản và phân tích số dư"
+        },
+        {
+          "className": "section-header",
+          "align": "left",
+          "h2": "Dự toán chi phí kế hoạch"
+        },
+        {
+          "className": "section-header",
+          "align": "left",
+          "h2": "Báo cáo thực tế và nguyên tắc quản trị"
+        },
+        {
+          "className": "section-header",
+          "align": "left",
+          "h2": "Câu hỏi thường gặp về tài chính"
+        }
+      ],
+      "tables": [
+        {
+          "w": 718,
+          "parentW": 720,
+          "parentOverflow": "auto"
+        },
+        {
+          "w": 718,
+          "parentW": 720,
+          "parentOverflow": "auto"
+        }
+      ]
+    },
+    {
+      "name": "team",
+      "route": "/ve-nhom",
+      "vw": 768,
+      "status": 304,
+      "shot": "docs/evidence/C03/reviewer-team-768-full.png",
+      "title": "Về nhóm Lăng Kính | Mang Theo Một Nét Vẽ",
+      "scrollW": 768,
+      "height": 3968,
+      "headerH": 65,
+      "h1": [
+        "Về nhóm Lăng Kính"
+      ],
+      "current": [
+        "Về nhóm",
+        "Về nhóm",
+        "Về nhóm"
+      ],
+      "small": [],
+      "smallCount": 0,
+      "low": [],
+      "lowCount": 0,
+      "over": [],
+      "imgs": [
+        {
+          "src": "/images/logo_lang_kinh_2048.png",
+          "alt": "",
+          "w": 38,
+          "h": 38,
+          "nat": "2048x2048",
+          "fit": "contain",
+          "position": "50% 50%",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_lang_kinh_2048.png",
+          "alt": "",
+          "w": 38,
+          "h": 38,
+          "nat": "2048x2048",
+          "fit": "contain",
+          "position": "50% 50%",
+          "ok": true
+        }
+      ],
+      "figures": 0,
+      "longCenteredParagraphs": [
+        {
+          "className": "team-intro-text",
+          "text": "Lăng Kính là nhóm gồm 7 sinh viên lớp AI2015, học phần SSG105 (Kỹ năng làm việc nhóm), Đại học FPT H"
+        },
+        {
+          "className": "members-desc",
+          "text": "Nhóm gồm 7 sinh viên lớp AI2015, học phần SSG105 (Kỹ năng làm việc nhóm), Đại học FPT Hà Nội. Tên, h"
+        }
+      ],
+      "sectionAlignment": [
+        {
+          "className": "section-header",
+          "align": "left",
+          "h2": "Cách nhóm phối hợp thực hiện"
+        },
+        {
+          "className": "section-header",
+          "align": "left",
+          "h2": "5 nguyên tắc cốt lõi của nhóm"
+        }
+      ],
+      "tables": []
+    },
+    {
+      "name": "support",
+      "route": "/dong-hanh",
+      "vw": 768,
+      "status": 304,
+      "shot": "docs/evidence/C03/reviewer-support-768-full.png",
+      "title": "Đồng hành cùng dự án | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "scrollW": 768,
+      "height": 5258,
+      "headerH": 65,
+      "h1": [
+        "Đồng hành cùng dự án"
+      ],
+      "current": [
+        "Cách đồng hành",
+        "Cách đồng hành",
+        "Đồng hành"
+      ],
+      "small": [],
+      "smallCount": 0,
+      "low": [],
+      "lowCount": 0,
+      "over": [],
+      "imgs": [
+        {
+          "src": "/images/logo_lang_kinh_2048.png",
+          "alt": "",
+          "w": 38,
+          "h": 38,
+          "nat": "2048x2048",
+          "fit": "contain",
+          "position": "50% 50%",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_lang_kinh_2048.png",
+          "alt": "",
+          "w": 38,
+          "h": 38,
+          "nat": "2048x2048",
+          "fit": "contain",
+          "position": "50% 50%",
+          "ok": true
+        }
+      ],
+      "figures": 0,
+      "longCenteredParagraphs": [],
+      "sectionAlignment": [
+        {
+          "className": "section-header",
+          "align": "left",
+          "h2": "Ba phương thức đồng hành dự kiến"
+        },
+        {
+          "className": "section-header",
+          "align": "left",
+          "h2": "Kênh liên hệ chính thức"
+        },
+        {
+          "className": "section-header",
+          "align": "left",
+          "h2": "Quy trình tiếp nhận dự kiến"
+        },
+        {
+          "className": "section-header",
+          "align": "left",
+          "h2": "Câu hỏi thường gặp về đồng hành"
+        }
+      ],
+      "tables": []
+    },
+    {
+      "name": "404",
+      "route": "/reviewer-c01-khong-co",
+      "vw": 768,
+      "status": 404,
+      "shot": "docs/evidence/C03/reviewer-404-768-full.png",
+      "title": "Không tìm thấy trang (404) | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "scrollW": 768,
+      "height": 1170,
+      "headerH": 65,
+      "h1": [
+        "Không tìm thấy trang"
+      ],
+      "current": [],
+      "small": [],
+      "smallCount": 0,
+      "low": [],
+      "lowCount": 0,
+      "over": [],
+      "imgs": [
+        {
+          "src": "/images/logo_lang_kinh_2048.png",
+          "alt": "",
+          "w": 38,
+          "h": 38,
+          "nat": "2048x2048",
+          "fit": "contain",
+          "position": "50% 50%",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_lang_kinh_2048.png",
+          "alt": "",
+          "w": 38,
+          "h": 38,
+          "nat": "2048x2048",
+          "fit": "contain",
+          "position": "50% 50%",
+          "ok": true
+        }
+      ],
+      "figures": 0,
+      "longCenteredParagraphs": [],
+      "sectionAlignment": [],
+      "tables": []
+    },
+    {
+      "name": "home",
+      "route": "/",
+      "vw": 1440,
+      "status": 304,
+      "shot": "docs/evidence/C03/reviewer-home-1440-full.png",
+      "title": "Trang chủ | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "scrollW": 1440,
+      "height": 5431,
+      "headerH": 81,
+      "h1": [
+        "Mang Theo Một Nét Vẽ"
+      ],
+      "current": [
+        "Trang chủ",
+        "Trang chủ"
+      ],
+      "small": [],
+      "smallCount": 0,
+      "low": [],
+      "lowCount": 0,
+      "over": [],
+      "imgs": [
+        {
+          "src": "/images/logo_lang_kinh_2048.png",
+          "alt": "",
+          "w": 38,
+          "h": 38,
+          "nat": "2048x2048",
+          "fit": "contain",
+          "position": "50% 50%",
+          "ok": true
+        },
+        {
+          "src": "/images/illustrations/a01.webp",
+          "alt": "Bảng màu nước và các loại cọ vẽ đặt trên bàn",
+          "w": 600,
+          "h": 450,
+          "nat": "1600x1068",
+          "fit": "cover",
+          "position": "50% 40%",
+          "ok": true
+        },
+        {
+          "src": "/images/illustrations/a02.webp",
+          "alt": "Màu vẽ và cọ trên nền màu pastel",
+          "w": 226,
+          "h": 170,
+          "nat": "1067x1600",
+          "fit": "cover",
+          "position": "50% 90%",
+          "ok": true
+        },
+        {
+          "src": "/images/illustrations/a01.webp",
+          "alt": "Bảng màu nước và cọ vẽ cho hoạt động tô màu",
+          "w": 226,
+          "h": 170,
+          "nat": "1600x1068",
+          "fit": "cover",
+          "position": "50% 50%",
+          "ok": true
+        },
+        {
+          "src": "/images/illustrations/a03.webp",
+          "alt": "Trống lắc màu vàng",
+          "w": 226,
+          "h": 170,
+          "nat": "1600x1067",
+          "fit": "cover",
+          "position": "50% 50%",
+          "ok": true
+        },
+        {
+          "src": "/images/illustrations/a04.webp",
+          "alt": "Những quả bóng nhựa nhiều màu sắc",
+          "w": 226,
+          "h": 170,
+          "nat": "1600x1067",
+          "fit": "cover",
+          "position": "50% 50%",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_lang_kinh_2048.png",
+          "alt": "",
+          "w": 38,
+          "h": 38,
+          "nat": "2048x2048",
+          "fit": "contain",
+          "position": "50% 50%",
+          "ok": true
+        }
+      ],
+      "figures": 8,
+      "longCenteredParagraphs": [],
+      "sectionAlignment": [
+        {
+          "className": "section-header",
+          "align": "start",
+          "h2": "Buổi chơi có lựa chọn"
+        },
+        {
+          "className": "section-header",
+          "align": "start",
+          "h2": "Sản phẩm gây quỹ dự kiến"
+        },
+        {
+          "className": "section-header",
+          "align": "start",
+          "h2": "Hành trình dự kiến"
+        },
+        {
+          "className": "section-header",
+          "align": "start",
+          "h2": "Nhóm thực hiện & Cách đồng hành"
+        }
+      ],
+      "tables": []
+    },
+    {
+      "name": "project",
+      "route": "/du-an/mang-theo-mot-net-ve",
+      "vw": 1440,
+      "status": 304,
+      "shot": "docs/evidence/C03/reviewer-project-1440-full.png",
+      "title": "Câu chuyện dự án | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "scrollW": 1440,
+      "height": 4698,
+      "headerH": 81,
+      "h1": [
+        "Dự án Mang Theo Một Nét Vẽ"
+      ],
+      "current": [
+        "Dự án",
+        "Dự án",
+        "Dự án"
+      ],
+      "small": [],
+      "smallCount": 0,
+      "low": [],
+      "lowCount": 0,
+      "over": [],
+      "imgs": [
+        {
+          "src": "/images/logo_lang_kinh_2048.png",
+          "alt": "",
+          "w": 38,
+          "h": 38,
+          "nat": "2048x2048",
+          "fit": "contain",
+          "position": "50% 50%",
+          "ok": true
+        },
+        {
+          "src": "/images/illustrations/a02.webp",
+          "alt": "Màu vẽ và cọ trên nền màu pastel",
+          "w": 226,
+          "h": 170,
+          "nat": "1067x1600",
+          "fit": "cover",
+          "position": "50% 90%",
+          "ok": true
+        },
+        {
+          "src": "/images/illustrations/a01.webp",
+          "alt": "Bảng màu nước và cọ vẽ cho hoạt động tô màu",
+          "w": 226,
+          "h": 170,
+          "nat": "1600x1068",
+          "fit": "cover",
+          "position": "50% 50%",
+          "ok": true
+        },
+        {
+          "src": "/images/illustrations/a03.webp",
+          "alt": "Trống lắc màu vàng",
+          "w": 226,
+          "h": 170,
+          "nat": "1600x1067",
+          "fit": "cover",
+          "position": "50% 50%",
+          "ok": true
+        },
+        {
+          "src": "/images/illustrations/a04.webp",
+          "alt": "Những quả bóng nhựa nhiều màu sắc",
+          "w": 226,
+          "h": 170,
+          "nat": "1600x1067",
+          "fit": "cover",
+          "position": "50% 50%",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_lang_kinh_2048.png",
+          "alt": "",
+          "w": 38,
+          "h": 38,
+          "nat": "2048x2048",
+          "fit": "contain",
+          "position": "50% 50%",
+          "ok": true
+        }
+      ],
+      "figures": 4,
+      "longCenteredParagraphs": [
+        {
+          "className": "resources-desc",
+          "text": "Theo đề xuất, nhóm sinh viên dự kiến phụ trách chuẩn bị vật tư các góc chơi, hoàn thiện quà lưu niệm"
+        }
+      ],
+      "sectionAlignment": [
+        {
+          "className": "section-header",
+          "align": "start",
+          "h2": "Mục tiêu & Nguyên tắc an toàn"
+        },
+        {
+          "className": "section-header",
+          "align": "start",
+          "h2": "Câu chuyện từ đề xuất"
+        },
+        {
+          "className": "section-header",
+          "align": "start",
+          "h2": "Buổi chơi có nhiều lựa chọn"
+        },
+        {
+          "className": "section-header",
+          "align": "start",
+          "h2": "Hành trình dự kiến của dự án"
+        },
+        {
+          "className": "section-header",
+          "align": "start",
+          "h2": "Cập nhật và kết quả"
+        }
+      ],
+      "tables": []
+    },
+    {
+      "name": "products",
+      "route": "/san-pham",
+      "vw": 1440,
+      "status": 304,
+      "shot": "docs/evidence/C03/reviewer-products-1440-full.png",
+      "title": "Sản phẩm gây quỹ dự kiến | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "scrollW": 1440,
+      "height": 5968,
+      "headerH": 81,
+      "h1": [
+        "Sản phẩm gây quỹ dự kiến"
+      ],
+      "current": [
+        "Sản phẩm",
+        "Sản phẩm",
+        "Sản phẩm"
+      ],
+      "small": [],
+      "smallCount": 0,
+      "low": [],
+      "lowCount": 0,
+      "over": [],
+      "imgs": [
+        {
+          "src": "/images/logo_lang_kinh_2048.png",
+          "alt": "",
+          "w": 38,
+          "h": 38,
+          "nat": "2048x2048",
+          "fit": "contain",
+          "position": "50% 50%",
+          "ok": true
+        },
+        {
+          "src": "/images/illustrations/a05.webp",
+          "alt": "Bánh su kem trên đĩa trắng",
+          "w": 335,
+          "h": 188,
+          "nat": "1062x1600",
+          "fit": "cover",
+          "position": "50% 80%",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_lang_kinh_2048.png",
+          "alt": "",
+          "w": 38,
+          "h": 38,
+          "nat": "2048x2048",
+          "fit": "contain",
+          "position": "50% 50%",
+          "ok": true
+        }
+      ],
+      "figures": 7,
+      "longCenteredParagraphs": [],
+      "sectionAlignment": [
+        {
+          "className": "section-header",
+          "align": "start",
+          "h2": "Sản phẩm trong kế hoạch đề xuất"
+        },
+        {
+          "className": "section-header",
+          "align": "start",
+          "h2": "Bảng tổng hợp kế hoạch số lượng"
+        },
+        {
+          "className": "section-header",
+          "align": "start",
+          "h2": "Hỏi đáp về sản phẩm và gây quỹ"
+        }
+      ],
+      "tables": [
+        {
+          "w": 1102,
+          "parentW": 1102,
+          "parentOverflow": "auto"
+        },
+        {
+          "w": 0,
+          "parentW": 0,
+          "parentOverflow": "auto"
+        }
+      ]
+    },
+    {
+      "name": "finance",
+      "route": "/minh-bach",
+      "vw": 1440,
+      "status": 304,
+      "shot": "docs/evidence/C03/reviewer-finance-1440-full.png",
+      "title": "Minh bạch thu chi | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "scrollW": 1440,
+      "height": 8048,
+      "headerH": 81,
+      "h1": [
+        "Minh bạch thu chi"
+      ],
+      "current": [
+        "Minh bạch",
+        "Minh bạch",
+        "Minh bạch"
+      ],
+      "small": [],
+      "smallCount": 0,
+      "low": [],
+      "lowCount": 0,
+      "over": [],
+      "imgs": [
+        {
+          "src": "/images/logo_lang_kinh_2048.png",
+          "alt": "",
+          "w": 38,
+          "h": 38,
+          "nat": "2048x2048",
+          "fit": "contain",
+          "position": "50% 50%",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_lang_kinh_2048.png",
+          "alt": "",
+          "w": 38,
+          "h": 38,
+          "nat": "2048x2048",
+          "fit": "contain",
+          "position": "50% 50%",
+          "ok": true
+        }
+      ],
+      "figures": 0,
+      "longCenteredParagraphs": [],
+      "sectionAlignment": [
+        {
+          "className": "section-header",
+          "align": "left",
+          "h2": "Doanh thu kịch bản và phân tích số dư"
+        },
+        {
+          "className": "section-header",
+          "align": "left",
+          "h2": "Dự toán chi phí kế hoạch"
+        },
+        {
+          "className": "section-header",
+          "align": "left",
+          "h2": "Báo cáo thực tế và nguyên tắc quản trị"
+        },
+        {
+          "className": "section-header",
+          "align": "left",
+          "h2": "Câu hỏi thường gặp về tài chính"
+        }
+      ],
+      "tables": [
+        {
+          "w": 1150,
+          "parentW": 1152,
+          "parentOverflow": "auto"
+        },
+        {
+          "w": 1150,
+          "parentW": 1152,
+          "parentOverflow": "auto"
+        }
+      ]
+    },
+    {
+      "name": "team",
+      "route": "/ve-nhom",
+      "vw": 1440,
+      "status": 304,
+      "shot": "docs/evidence/C03/reviewer-team-1440-full.png",
+      "title": "Về nhóm Lăng Kính | Mang Theo Một Nét Vẽ",
+      "scrollW": 1440,
+      "height": 3517,
+      "headerH": 81,
+      "h1": [
+        "Về nhóm Lăng Kính"
+      ],
+      "current": [
+        "Về nhóm",
+        "Về nhóm",
+        "Về nhóm"
+      ],
+      "small": [],
+      "smallCount": 0,
+      "low": [],
+      "lowCount": 0,
+      "over": [],
+      "imgs": [
+        {
+          "src": "/images/logo_lang_kinh_2048.png",
+          "alt": "",
+          "w": 38,
+          "h": 38,
+          "nat": "2048x2048",
+          "fit": "contain",
+          "position": "50% 50%",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_lang_kinh_2048.png",
+          "alt": "",
+          "w": 38,
+          "h": 38,
+          "nat": "2048x2048",
+          "fit": "contain",
+          "position": "50% 50%",
+          "ok": true
+        }
+      ],
+      "figures": 0,
+      "longCenteredParagraphs": [
+        {
+          "className": "team-intro-text",
+          "text": "Lăng Kính là nhóm gồm 7 sinh viên lớp AI2015, học phần SSG105 (Kỹ năng làm việc nhóm), Đại học FPT H"
+        },
+        {
+          "className": "members-desc",
+          "text": "Nhóm gồm 7 sinh viên lớp AI2015, học phần SSG105 (Kỹ năng làm việc nhóm), Đại học FPT Hà Nội. Tên, h"
+        }
+      ],
+      "sectionAlignment": [
+        {
+          "className": "section-header",
+          "align": "left",
+          "h2": "Cách nhóm phối hợp thực hiện"
+        },
+        {
+          "className": "section-header",
+          "align": "left",
+          "h2": "5 nguyên tắc cốt lõi của nhóm"
+        }
+      ],
+      "tables": []
+    },
+    {
+      "name": "support",
+      "route": "/dong-hanh",
+      "vw": 1440,
+      "status": 304,
+      "shot": "docs/evidence/C03/reviewer-support-1440-full.png",
+      "title": "Đồng hành cùng dự án | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "scrollW": 1440,
+      "height": 4259,
+      "headerH": 81,
+      "h1": [
+        "Đồng hành cùng dự án"
+      ],
+      "current": [
+        "Cách đồng hành",
+        "Cách đồng hành",
+        "Đồng hành"
+      ],
+      "small": [],
+      "smallCount": 0,
+      "low": [],
+      "lowCount": 0,
+      "over": [],
+      "imgs": [
+        {
+          "src": "/images/logo_lang_kinh_2048.png",
+          "alt": "",
+          "w": 38,
+          "h": 38,
+          "nat": "2048x2048",
+          "fit": "contain",
+          "position": "50% 50%",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_lang_kinh_2048.png",
+          "alt": "",
+          "w": 38,
+          "h": 38,
+          "nat": "2048x2048",
+          "fit": "contain",
+          "position": "50% 50%",
+          "ok": true
+        }
+      ],
+      "figures": 0,
+      "longCenteredParagraphs": [],
+      "sectionAlignment": [
+        {
+          "className": "section-header",
+          "align": "left",
+          "h2": "Ba phương thức đồng hành dự kiến"
+        },
+        {
+          "className": "section-header",
+          "align": "left",
+          "h2": "Kênh liên hệ chính thức"
+        },
+        {
+          "className": "section-header",
+          "align": "left",
+          "h2": "Quy trình tiếp nhận dự kiến"
+        },
+        {
+          "className": "section-header",
+          "align": "left",
+          "h2": "Câu hỏi thường gặp về đồng hành"
+        }
+      ],
+      "tables": []
+    },
+    {
+      "name": "404",
+      "route": "/reviewer-c01-khong-co",
+      "vw": 1440,
+      "status": 404,
+      "shot": "docs/evidence/C03/reviewer-404-1440-full.png",
+      "title": "Không tìm thấy trang (404) | Mang Theo Một Nét Vẽ — Lăng Kính",
+      "scrollW": 1440,
+      "height": 1125,
+      "headerH": 81,
+      "h1": [
+        "Không tìm thấy trang"
+      ],
+      "current": [],
+      "small": [],
+      "smallCount": 0,
+      "low": [],
+      "lowCount": 0,
+      "over": [],
+      "imgs": [
+        {
+          "src": "/images/logo_lang_kinh_2048.png",
+          "alt": "",
+          "w": 38,
+          "h": 38,
+          "nat": "2048x2048",
+          "fit": "contain",
+          "position": "50% 50%",
+          "ok": true
+        },
+        {
+          "src": "/images/logo_lang_kinh_2048.png",
+          "alt": "",
+          "w": 38,
+          "h": 38,
+          "nat": "2048x2048",
+          "fit": "contain",
+          "position": "50% 50%",
+          "ok": true
+        }
+      ],
+      "figures": 0,
+      "longCenteredParagraphs": [],
+      "sectionAlignment": [],
+      "tables": []
+    }
+  ],
+  "errors": [
+    "375 console Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "768 console Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "1440 console Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "failed": [],
+  "external": [],
+  "menu": {
+    "afterOpen": {
+      "expanded": "true",
+      "hidden": false,
+      "label": "Đóng menu điều hướng",
+      "links": [
+        "Trang chủ",
+        "Dự án",
+        "Sản phẩm*",
+        "Minh bạch",
+        "Về nhóm",
+        "Cách đồng hành"
+      ]
+    },
+    "shot": "docs/evidence/C03/reviewer-menu-375.png",
+    "afterEsc": {
+      "expanded": "false",
+      "focus": "mobile-nav-toggle"
+    }
+  },
+  "keyboard": {
+    "home1440": [
+      "Chuyển đến nội dung chính | outline solid 3px rgb(247, 201, 72)",
+      "Lăng KínhMang Theo Một Nét Vẽ | outline solid 2px rgb(23, 78, 166)",
+      "Trang chủ | outline solid 2px rgb(23, 78, 166)",
+      "Dự án | outline solid 2px rgb(23, 78, 166)",
+      "Sản phẩm | outline solid 2px rgb(23, 78, 166)",
+      "Minh bạch | outline solid 2px rgb(23, 78, 166)",
+      "Về nhóm | outline solid 2px rgb(23, 78, 166)",
+      "Cách đồng hành | outline solid 2px rgb(23, 78, 166)",
+      "Khám phá dự án | outline solid 2px rgb(23, 78, 166)"
+    ]
+  },
+  "browser": "Chrome/154.0.8037.93",
+  "finishedAt": "2026-10-03T14:05:44.775Z"
+}

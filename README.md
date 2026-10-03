@@ -1,4 +1,9 @@
-﻿# Mang Theo Một Nét Vẽ
+# Mang Theo Một Nét Vẽ
+
+Cập nhật 03/10/2026: **C03 DONE; RC03 PASS cho preview local** tại app `952d7539a02e4a24d36416ba8d666cccd48aa822`, baseline `673ba03`, nhánh `task/c03-content-layout`. Đã sửa phân cấp/nhóm nội dung sáu trang theo review Claude, FAQ, bảng mobile và focus; check/27tests/build exit0, 21captures tại375/768/1440 và kiểm ảnh/link/menu/bundle đạt. Preview hiện tại http://127.0.0.1:4322/ — loopback PID25960. Antigravity và Claude HOLD; chưa public/T05. Khoản chênh đồ ăn550.000đ và dữ liệu chưa xác nhận được giữ đúng trạng thái.
+
+[Review C03](docs/reviews/RC03-952d753.md) · [Thông tin/ảnh nhóm cần gửi](docs/group-content-request.md). Các mốc dưới đây là lịch sử, không thay trạng thái hiện tại.
+
 
 Cập nhật 03/10/2026: **C02 DONE; RC02 PASS cho preview local** tại app `221eafa73661cb822b3f8017b7fe1bf367106349`, baseline `5cdc624`, nhánh `task/c02-images-content`. Đã bổ sung A01–A05 có nhãn minh họa, đồng bộ nội dung và ghi rõ khoản chênh đồ ăn 550.000đ cần xác nhận. Check, 24 tests và build đạt; đủ sáu trang đã xem ở 375/768/1440px, menu/FAQ/link/ảnh/bundle đã kiểm. Preview hiện tại: http://127.0.0.1:4322/ — loopback PID 25960. Worker HOLD; không T05 hoặc deploy public.
 
@@ -29,7 +34,7 @@ npm.cmd run build
 npm.cmd run preview -- --host 127.0.0.1 --port 4322
 ```
 
-Mở `http://127.0.0.1:4321/`. Preview chỉ bind loopback, mọi trang có noindex/nofollow. Sáu route và 404 hoạt động; thông tin liên hệ, nhu cầu và actual chưa xác nhận nên chưa bật nhận đơn/tiền. Dừng server bằng Ctrl+C ở terminal giữ server. `npm.cmd run dev -- --host 127.0.0.1` dùng khi worker phát triển; review dùng bản build. Không serve gốc repository hoặc share public từ bước này.
+Mở `http://127.0.0.1:4322/`. Preview chỉ bind loopback, mọi trang có noindex/nofollow. Sáu route và 404 hoạt động; thông tin liên hệ, nhu cầu và actual chưa xác nhận nên chưa bật nhận đơn/tiền. Dừng server bằng Ctrl+C ở terminal giữ server. `npm.cmd run dev -- --host 127.0.0.1` dùng khi worker phát triển; review dùng bản build. Không serve gốc repository hoặc share public từ bước này.
 
 Ứng dụng dùng Astro static, TypeScript strict và CSS thuần. Nội dung chọn lọc nằm ở `src/data/campaign.ts`; cập nhật theo task của Antigravity, giữ giá tham khảo/planned tách actual và unknown=null. Chỉ thêm ảnh public sau khi xác nhận quyền; giữ hồ sơ gốc, chứng từ thô và evidence review ngoài public/dist. Hosting/deploy chưa được chọn hoặc thực hiện.
 

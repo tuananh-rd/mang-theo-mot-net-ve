@@ -1,0 +1,116 @@
+{
+  "sha": "952d7539a02e4a24d36416ba8d666cccd48aa822",
+  "checkedAt": "2026-10-03T15:00:29.778Z",
+  "reports": [
+    {
+      "file": "reviewer-checks-952d753.json",
+      "sha": "952d7539a02e4a24d36416ba8d666cccd48aa822",
+      "shaNote": null,
+      "checks": null,
+      "modifiedAt": "2026-10-03T14:44:22.441Z",
+      "hash": "d2249a80132c878dd1875ed3d415bfe9418715495e833d083b16400eb8e37908"
+    },
+    {
+      "file": "reviewer-finance-952d753.json",
+      "sha": "952d7539a02e4a24d36416ba8d666cccd48aa822",
+      "shaNote": null,
+      "checks": 8,
+      "modifiedAt": "2026-10-03T14:53:57.752Z",
+      "hash": "4223be38a8de36a8c839ae6437793729db42ac17c976e90718ad71b12a5fddf1"
+    },
+    {
+      "file": "reviewer-audit-952d753.json",
+      "sha": "952d7539a02e4a24d36416ba8d666cccd48aa822",
+      "shaNote": null,
+      "checks": 38,
+      "modifiedAt": "2026-10-03T14:53:56.992Z",
+      "hash": "1e64ef90faa62e1123fb278731674b708838471ac8e0a8adff9f885e1f000c82"
+    },
+    {
+      "file": "reviewer-serve-952d753.json",
+      "sha": "952d7539a02e4a24d36416ba8d666cccd48aa822",
+      "shaNote": null,
+      "checks": 24,
+      "modifiedAt": "2026-10-03T14:53:57.524Z",
+      "hash": "f7fce9042c54b0c254af6633bdcd64f70d13d8512b937cc75b1209901ca73981"
+    },
+    {
+      "file": "reviewer-tokens-952d753.json",
+      "sha": "952d7539a02e4a24d36416ba8d666cccd48aa822",
+      "shaNote": null,
+      "checks": null,
+      "modifiedAt": "2026-10-03T14:53:57.851Z",
+      "hash": "e0caa5518c3d17700311085d73752e1a71f00de6919bfc182c25b5b06f970092"
+    },
+    {
+      "file": "reviewer-focus-952d753.json",
+      "sha": "952d7539a02e4a24d36416ba8d666cccd48aa822",
+      "shaNote": null,
+      "checks": 5,
+      "modifiedAt": "2026-10-03T14:54:03.163Z",
+      "hash": "d0d24c8fec5fc2861d6c97d157414e0a5920eb68e6bb772e170e9ed3ab4eaee6"
+    },
+    {
+      "file": "reviewer-layout.json",
+      "sha": "952d7539a02e4a24d36416ba8d666cccd48aa822",
+      "shaNote": null,
+      "checks": 50,
+      "modifiedAt": "2026-10-03T14:56:35.619Z",
+      "hash": "108e132e079c7574780d2ff3bc7e41fbc077ec0aba91f749323ecb097aed73b9"
+    },
+    {
+      "file": "reviewer-images.json",
+      "sha": "952d7539a02e4a24d36416ba8d666cccd48aa822",
+      "shaNote": null,
+      "checks": 66,
+      "modifiedAt": "2026-10-03T14:56:50.146Z",
+      "hash": "55bd2b8931918f1043ebcbada1a34015ca38311bac3a66c565281c240f4ed4a1"
+    },
+    {
+      "file": "reviewer-links.json",
+      "sha": "952d7539a02e4a24d36416ba8d666cccd48aa822",
+      "shaNote": null,
+      "checks": 37,
+      "modifiedAt": "2026-10-03T14:57:16.164Z",
+      "hash": "c1bd750c0b1cad028c4a32f6ae98bcfc606bf5ef3a0ca88fd66e5ee24cff163f"
+    },
+    {
+      "file": "reviewer-navigation.json",
+      "sha": null,
+      "shaNote": "Navigation ran in final app QA batch at952d753 before documentation commit",
+      "checks": 20,
+      "modifiedAt": "2026-10-03T14:57:29.023Z",
+      "hash": "f9f9c6dfc0e30e70f17211eb1ab9709c7786c94e0cae8466ba3ae93ddbc63a93"
+    },
+    {
+      "file": "reviewer-mobile-table-952d753.json",
+      "sha": "952d7539a02e4a24d36416ba8d666cccd48aa822",
+      "shaNote": null,
+      "checks": 9,
+      "modifiedAt": "2026-10-03T14:53:58.458Z",
+      "hash": "af73815e701fa71614baf0cfa326f701940c4ee5aef5516cfbacbbbd70e2951e"
+    },
+    {
+      "file": "reviewer-capture.json",
+      "sha": "952d7539a02e4a24d36416ba8d666cccd48aa822",
+      "shaNote": null,
+      "checks": null,
+      "modifiedAt": "2026-10-03T14:56:22.984Z",
+      "hash": "5bc71dc141d00e2862d35a997dfb701f7644bcac99128a9610857de62c08a092"
+    }
+  ],
+  "jsonFilesValidated": 59,
+  "changedDistSince22ba026": [
+    "dist\\san-pham\\index.html",
+    "dist\\_astro\\san-pham.CcoUJ781.css"
+  ],
+  "workerFinalSHA": "952d7539a02e4a24d36416ba8d666cccd48aa822",
+  "workerInventoryKey": [
+    "distFileCount",
+    "distUpdatedAt",
+    "distHashes"
+  ],
+  "appDirty": "",
+  "capturePages": 21,
+  "expected404Console": 3
+}

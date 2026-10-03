@@ -1,0 +1,62 @@
+﻿{
+  "id": "f2f5d638-e27d-4c15-aa5e-6500fc8449b0",
+  "ok": true,
+  "result": {
+    "terminal": {
+      "handle": "term_59fb45bd-ac6c-45f8-bfd0-06875596b4bc",
+      "status": "running",
+      "tail": [
+        "  • Cấu hình bảng mobile:",
+        "      • Bổ sung class tương ứng cho các thẻ <th>: .col-name, .col-price, .col-qty, .col-notes, .col-status.",
+        "      • Thiết lập .mobile-expanded-table với min-width: 960px; width: 960px; table-layout: fixed; (nằm trong ngưỡng tối ưu",
+        "      900–1000px).",
+        "  • Phân bổ cột ghi chú & nội dung:",
+        "      • Cột .col-notes rộng 330px (min-width: 280px), line-height: 1.55; word-break: normal; overflow-wrap: break-word; — loại bỏ",
+        "      hoàn toàn tình trạng vỡ chữ/ngắt từ, đảm bảo dòng văn bản thoáng và dễ đọc.",
+        "      • Phân bổ các cột khác: .col-name: 220px, .col-price: 130px, .col-qty: 120px, .col-status: 160px.",
+        "  • Nghiệm thu đo lường thực tế:",
+        "      • Chiều cao hàng lớn nhất: 241.88px tại 375px/768px/900px (thấp hơn nhiều so với ngưỡng an toàn < 320px).",
+        "      • Tràn trang (Horizontal Overflow): document.documentElement.scrollWidth === 375px ở viewport 375px (không tràn trang). Toàn",
+        "      bộ chiều rộng bảng được gói trong container .table-responsive có nhãn và chỉ dẫn cuộn.",
+        "      • Tương tác bàn phím: Vùng cuộn nhận focus rõ ràng với viền xanh outline: 3px solid var(--color-focus), cuộn ngang được đầy",
+        "      đủ tới cột cuối cùng (scrollLeft: 651px).",
+        "      • Tính nguyên vẹn: #mobile-plan-details mặc định đóng (defaultClosed: true). Bảng desktop trên breakpoint > 1024px giữ",
+        "      nguyên, không bị ảnh hưởng.",
+        "      • Ảnh chụp kiểm chứng:",
+        "          • san-pham-375-details-open.png (bảng khi vừa mở)",
+        "          • san-pham-375-details-scrolled.png (bảng sau khi cuộn ngang sang các cột cuối)",
+        "  ──────",
+        "  ### 3. Kết quả Kiểm tra Kỹ thuật",
+        "   Lệnh kiểm tra                      |           Kết quả            | Chi tiết",
+        "  ------------------------------------|------------------------------|------------------------------------------------------------",
+        "   npm run check                      |        PASS (Exit 0)         | 0 errors, 0 warnings, 0 hints trên 74 files Astro/TS.",
+        "   node --test tests/finance.test.mjs |        PASS (Exit 0)         | 27/27 tests PASS trên 5 test suites.",
+        "   npm run build                      |        PASS (Exit 0)         | Build thành công 7/7 static routes (24 files trong dist/).",
+        "  • Log raw thực tế: raw-worker-check-test-build.log",
+        "  • Metadata & Hashes dist/: check-build-metadata.json",
+        "  • Báo cáo bàn giao: handoff-report.md",
+        "  ──────",
+        "  │ Important",
+        "  │ Trạng thái: Toàn bộ công việc code và kiểm tra của Task C03 đã hoàn tất. Ứng dụng ở trạng thái HOLD tại commit",
+        "  │ 952d7539a02e4a24d36416ba8d666cccd48aa822; máy chủ preview 4322 tiếp tục hoạt động để Codex thực hiện review độc lập.",
+        "                                                                                                    2 artifacts · /artifact to review",
+        "─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────",
+        ">",
+        "─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────",
+        "  ● [16:00:32] npx.cmd astro preview --host 127.0.0.1 --port 4322 --ignore-lock running",
+        "─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────",
+        "? for shortcuts                                                                          Gemini 3.8 Flash · high · 1 task(s) · /tasks"
+      ],
+      "truncated": true,
+      "limited": true,
+      "oldestCursor": "413059",
+      "nextCursor": "415059",
+      "latestCursor": "415059",
+      "returnedLineCount": 40,
+      "source": "screen"
+    }
+  },
+  "_meta": {
+    "runtimeId": "ddbdaf39-537d-4532-99e0-f7f964e33084"
+  }
+}

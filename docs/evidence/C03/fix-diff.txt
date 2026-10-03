@@ -1,0 +1,328 @@
+﻿diff --git a/src/components/FaqAccordion.astro b/src/components/FaqAccordion.astro
+index 442a2a7..c41b73b 100644
+--- a/src/components/FaqAccordion.astro
++++ b/src/components/FaqAccordion.astro
+@@ -60,12 +60,12 @@ const items = propItems || propFaqs || [];
+   }
+ 
+   .faq-item:hover {
+-    border-color: var(--color-border-hover);
++    border-color: #9aa5b1;
+   }
+ 
+   .faq-item[open] {
+-    border-color: var(--color-brand-primary);
+-    box-shadow: var(--shadow-sm);
++    border-color: var(--color-focus);
++    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+   }
+ 
+   .faq-question {
+@@ -86,8 +86,9 @@ const items = propItems || propFaqs || [];
+     display: none;
+   }
+ 
++  .faq-question:focus,
+   .faq-question:focus-visible {
+-    outline: 2px solid var(--color-brand-primary);
++    outline: 3px solid var(--color-focus);
+     outline-offset: -2px;
+     background-color: var(--color-canvas-soft);
+   }
+@@ -104,7 +105,7 @@ const items = propItems || propFaqs || [];
+     justify-content: center;
+     width: 28px;
+     height: 28px;
+-    border-radius: var(--radius-full);
++    border-radius: var(--radius-pill);
+     background-color: var(--color-canvas-soft);
+     color: var(--color-text-secondary);
+     flex-shrink: 0;
+@@ -115,13 +116,15 @@ const items = propItems || propFaqs || [];
+     transition: transform var(--transition-fast);
+   }
+ 
+-  .faq-item[open] .chevron-svg {
++  .faq-item[open] .chevron-svg,
++  details[open] .chevron-svg {
+     transform: rotate(180deg);
+   }
+ 
+-  .faq-item[open] .faq-icon {
+-    background-color: var(--color-brand-primary);
+-    color: #ffffff;
++  .faq-item[open] .faq-icon,
++  details[open] .faq-icon {
++    background-color: var(--color-focus) !important;
++    color: #ffffff !important;
+   }
+ 
+   .faq-answer {
+diff --git a/src/components/ProductCard.astro b/src/components/ProductCard.astro
+index fc11e02..3a9233a 100644
+--- a/src/components/ProductCard.astro
++++ b/src/components/ProductCard.astro
+@@ -100,7 +100,7 @@ const statusLabel = getSaleStatusLabel(product.saleStatus);
+   }
+ 
+   .product-card:hover {
+-    box-shadow: var(--shadow-sm);
++    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+   }
+ 
+   .card-visual {
+@@ -136,7 +136,7 @@ const statusLabel = getSaleStatusLabel(product.saleStatus);
+     border: 1px solid #fed7aa;
+     font-size: 0.875rem;
+     padding: 2px 8px;
+-    border-radius: var(--radius-full);
++    border-radius: var(--radius-pill);
+     white-space: nowrap;
+     flex-shrink: 0;
+   }
+diff --git a/src/pages/du-an/mang-theo-mot-net-ve.astro b/src/pages/du-an/mang-theo-mot-net-ve.astro
+index a64360a..9bc33d7 100644
+--- a/src/pages/du-an/mang-theo-mot-net-ve.astro
++++ b/src/pages/du-an/mang-theo-mot-net-ve.astro
+@@ -222,10 +222,13 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
+   <!-- Section 6: Nguồn lực và minh bạch (2 dòng + link Minh bạch) -->
+   <section class="section section-soft" aria-labelledby="resources-heading">
+     <div class="container">
++      <div class="section-header">
++        <span class="section-kicker">Quản lý nguồn quỹ</span>
++        <h2 id="resources-heading">Nguồn lực và nguyên tắc minh bạch</h2>
++      </div>
++
+       <div class="resources-layout">
+         <div class="resources-content">
+-          <span class="section-kicker">Quản lý nguồn quỹ</span>
+-          <h2 id="resources-heading">Nguồn lực và nguyên tắc minh bạch</h2>
+           <p class="resources-desc">
+             Theo đề xuất, nhóm sinh viên dự kiến phụ trách chuẩn bị vật tư các góc chơi, hoàn thiện quà lưu niệm và phương án ẩm thực gây quỹ; nguồn lực được dự kiến theo dõi và đối soát độc lập giữa tiền mặt và hiện vật. Chi tiết dự toán 19 khoản và cơ cấu số dư được công khai minh bạch tại trang Minh bạch.
+           </p>
+@@ -491,18 +494,20 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
+     line-height: var(--line-height-sm);
+   }
+ 
++  /* Resources */
+   /* Resources */
+   .resources-layout {
+     max-width: 800px;
+-    margin: 0 auto;
+-    text-align: center;
++    margin: 0;
++    text-align: left;
+   }
+ 
+   .resources-content {
+     display: flex;
+     flex-direction: column;
+-    align-items: center;
++    align-items: flex-start;
+     gap: var(--space-3);
++    text-align: left;
+   }
+ 
+   .resources-desc {
+@@ -510,6 +515,7 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
+     line-height: 1.6;
+     color: var(--color-text-secondary);
+     max-width: 65ch;
++    text-align: left;
+   }
+ 
+   .resources-actions {
+@@ -561,6 +567,11 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
+     .stages-grid {
+       grid-template-columns: repeat(2, 1fr);
+     }
++
++    .empty-desc,
++    .resources-desc {
++      text-align: left;
++    }
+   }
+ 
+   @media (max-width: 767px) {
+@@ -625,6 +636,13 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
+ 
+     .empty-state-card {
+       padding: var(--space-5);
++      align-items: flex-start;
++      text-align: left;
++    }
++
++    .empty-desc,
++    .resources-desc {
++      text-align: left;
+     }
+   }
+ </style>
+diff --git a/src/pages/minh-bach.astro b/src/pages/minh-bach.astro
+index 2492643..07d7f37 100644
+--- a/src/pages/minh-bach.astro
++++ b/src/pages/minh-bach.astro
+@@ -1754,7 +1754,7 @@ const baseBalanceDisplay = formatScenarioBalance(baseScenarioResult);
+       display: flex;
+       flex-direction: column;
+       gap: var(--space-2);
+-      text-align: center;
++      text-align: left;
+     }
+ 
+     .mobile-total-header {
+@@ -1762,12 +1762,14 @@ const baseBalanceDisplay = formatScenarioBalance(baseScenarioResult);
+       font-weight: 700;
+       color: var(--color-text-secondary);
+       text-transform: uppercase;
++      text-align: left;
+     }
+ 
+     .mobile-total-amount {
+       font-size: 1.75rem;
+       font-weight: 800;
+       color: var(--color-text-accent);
++      text-align: left;
+     }
+ 
+     .mobile-total-note {
+@@ -1775,6 +1777,7 @@ const baseBalanceDisplay = formatScenarioBalance(baseScenarioResult);
+       color: var(--color-text-muted);
+       margin: 0;
+       line-height: 1.4;
++      text-align: left;
+     }
+ 
+     /* Mobile Scenario Cards */
+diff --git a/src/pages/san-pham.astro b/src/pages/san-pham.astro
+index e22445f..88dcf72 100644
+--- a/src/pages/san-pham.astro
++++ b/src/pages/san-pham.astro
+@@ -303,7 +303,7 @@ const foodProducts = PRODUCTS.filter((p) => p.category === 'food');
+   }
+ 
+   .breadcrumb-link:hover {
+-    color: var(--color-brand-primary);
++    color: var(--color-focus);
+     text-decoration: underline;
+   }
+ 
+@@ -343,7 +343,7 @@ const foodProducts = PRODUCTS.filter((p) => p.category === 'food');
+     color: var(--color-text-secondary);
+     background-color: var(--color-canvas-soft);
+     padding: 4px 12px;
+-    border-radius: var(--radius-full);
++    border-radius: var(--radius-pill);
+     border: 1px solid var(--color-border-subtle);
+     font-weight: 500;
+   }
+@@ -416,7 +416,7 @@ const foodProducts = PRODUCTS.filter((p) => p.category === 'food');
+     background-color: #fff7ed;
+     border: 1px solid #fed7aa;
+     padding: 3px 10px;
+-    border-radius: var(--radius-full);
++    border-radius: var(--radius-pill);
+     font-weight: 500;
+   }
+ 
+@@ -428,13 +428,13 @@ const foodProducts = PRODUCTS.filter((p) => p.category === 'food');
+   }
+ 
+   .food-reconcile-link {
+-    color: var(--color-brand-primary);
++    color: var(--color-focus);
+     font-weight: 600;
+     text-decoration: underline;
+   }
+ 
+   .food-reconcile-link:hover {
+-    color: var(--color-brand-hover);
++    color: var(--color-text-primary);
+   }
+ 
+   /* Products Grids */
+@@ -520,7 +520,7 @@ const foodProducts = PRODUCTS.filter((p) => p.category === 'food');
+   .plan-status-badge {
+     display: inline-block;
+     padding: 3px 8px;
+-    border-radius: var(--radius-full);
++    border-radius: var(--radius-pill);
+     font-size: 0.875rem;
+     font-weight: 600;
+     background-color: #fff7ed;
+@@ -576,8 +576,9 @@ const foodProducts = PRODUCTS.filter((p) => p.category === 'food');
+     display: none;
+   }
+ 
++  .plan-mobile-summary:focus,
+   .plan-mobile-summary:focus-visible {
+-    outline: 2px solid var(--color-brand-primary);
++    outline: 3px solid var(--color-focus);
+     outline-offset: -2px;
+   }
+ 
+@@ -588,7 +589,7 @@ const foodProducts = PRODUCTS.filter((p) => p.category === 'food');
+ 
+   .summary-badge {
+     font-size: 0.875rem;
+-    color: var(--color-brand-primary);
++    color: var(--color-text-accent);
+     font-weight: 600;
+   }
+ 
+@@ -618,8 +619,9 @@ const foodProducts = PRODUCTS.filter((p) => p.category === 'food');
+     gap: var(--space-2);
+   }
+ 
++  .table-responsive:focus,
+   .table-responsive:focus-visible {
+-    outline: 2px solid var(--color-brand-primary);
++    outline: 3px solid var(--color-focus);
+     outline-offset: -2px;
+   }
+ 
+diff --git a/src/pages/ve-nhom.astro b/src/pages/ve-nhom.astro
+index 3f56539..ac23884 100644
+--- a/src/pages/ve-nhom.astro
++++ b/src/pages/ve-nhom.astro
+@@ -396,6 +396,19 @@ import { TEAM_INFO, TEAM_PRINCIPLES, TEAM_COORDINATION } from '../data/campaign'
+ 
+   /* Responsive */
+   @media (max-width: 1023px) {
++    .team-mission-lead {
++      text-align: left;
++    }
++
++    .members-notice-card {
++      align-items: flex-start;
++      text-align: left;
++    }
++
++    .members-desc {
++      text-align: left;
++    }
++
+     .principles-grid {
+       grid-template-columns: repeat(2, 1fr);
+     }
+@@ -419,6 +432,7 @@ import { TEAM_INFO, TEAM_PRINCIPLES, TEAM_COORDINATION } from '../data/campaign'
+     .team-mission-lead {
+       font-size: 1.125rem;
+       line-height: 1.35;
++      text-align: left;
+     }
+ 
+     .team-hero-content {
+@@ -446,6 +460,12 @@ import { TEAM_INFO, TEAM_PRINCIPLES, TEAM_COORDINATION } from '../data/campaign'
+     .coordination-card,
+     .members-notice-card {
+       padding: var(--space-4) !important;
++      align-items: flex-start;
++      text-align: left;
++    }
++
++    .members-desc {
++      text-align: left;
+     }
+ 
+     .team-bottom-actions {

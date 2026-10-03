@@ -1,0 +1,54 @@
+{
+  "sha": "22ba02649134eed791c9f9ec46ad6e91d7d9ec94",
+  "checks": [
+    {
+      "name": "/san-pham .faq-question",
+      "pass": true,
+      "value": {
+        "outline": "rgb(23, 78, 166) solid 3px",
+        "background": "rgb(255, 248, 232)",
+        "focus": true,
+        "open": true
+      }
+    },
+    {
+      "name": "/minh-bach .faq-question",
+      "pass": true,
+      "value": {
+        "outline": "rgb(23, 78, 166) solid 3px",
+        "background": "rgb(255, 248, 232)",
+        "focus": true,
+        "open": true
+      }
+    },
+    {
+      "name": "/dong-hanh .faq-question",
+      "pass": true,
+      "value": {
+        "outline": "rgb(23, 78, 166) solid 3px",
+        "background": "rgb(255, 248, 232)",
+        "focus": true,
+        "open": true
+      }
+    },
+    {
+      "name": "/san-pham #mobile-plan-details summary",
+      "pass": true,
+      "value": {
+        "outline": "rgb(23, 78, 166) solid 3px",
+        "background": "rgb(255, 248, 232)",
+        "focus": true,
+        "open": true
+      }
+    },
+    {
+      "name": "Expanded table scroll region",
+      "pass": true,
+      "value": {
+        "outline": "rgb(23, 78, 166) solid 3px",
+        "focus": true
+      }
+    }
+  ],
+  "failed": []
+}

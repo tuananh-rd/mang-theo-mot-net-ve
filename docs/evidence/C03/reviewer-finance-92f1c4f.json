@@ -1,0 +1,75 @@
+{
+  "sha": "92f1c4f45c1d307cde0a4cb801d658b9f5395b06",
+  "time": "2026-10-03T14:03:05.845Z",
+  "checks": [
+    {
+      "name": "19 source expense labels and amounts",
+      "pass": true,
+      "observed": "All source rows matched independently by label+amount+page"
+    },
+    {
+      "name": "Budget and craft independently calculated",
+      "pass": true,
+      "observed": {
+        "expense": 4935000,
+        "craft": 2200000
+      }
+    },
+    {
+      "name": "Food quantities unknown and old SKUs removed",
+      "pass": true,
+      "observed": "Unknown food quantity cannot be silently omitted in full SKU aggregation"
+    },
+    {
+      "name": "Combined food hypothesis propagates unknown",
+      "pass": true,
+      "observed": "Known hypothesis totals6700000; unknown remains null; source metadata retained"
+    },
+    {
+      "name": "Only base hypothetical scenario",
+      "pass": true,
+      "observed": {
+        "scenarioId": "chua-tinh-tai-tro",
+        "title": "Kịch bản cơ sở (chưa tính tài trợ)",
+        "inKindReplacement": 0,
+        "remainingCashExpense": 4935000,
+        "projectedRevenue": 6700000,
+        "projectedBalance": 1765000,
+        "isDeficit": false,
+        "balanceText": "Dư 1.765.000đ"
+      }
+    },
+    {
+      "name": "Actual and contact stay unknown",
+      "pass": true,
+      "observed": "All actual quantitative fields and contact unknown"
+    },
+    {
+      "name": "Category grouping preserves every source row and totals",
+      "pass": true,
+      "observed": [
+        {
+          "category": "Nguyên liệu gây quỹ",
+          "total": 2245000,
+          "count": 9
+        },
+        {
+          "category": "Vật tư workshop & quà tặng",
+          "total": 1560000,
+          "count": 7
+        },
+        {
+          "category": "Truyền thông & Di chuyển",
+          "total": 1130000,
+          "count": 3
+        }
+      ]
+    },
+    {
+      "name": "New categories cannot disappear or fabricate zero groups",
+      "pass": true,
+      "observed": "Novel labels retained, no empty groups, unknown subtotal stays null"
+    }
+  ],
+  "failed": []
+}

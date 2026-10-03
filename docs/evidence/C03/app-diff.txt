@@ -1,0 +1,4027 @@
+﻿diff --git a/src/components/ActivityCard.astro b/src/components/ActivityCard.astro
+index f5dab84..993e795 100644
+--- a/src/components/ActivityCard.astro
++++ b/src/components/ActivityCard.astro
+@@ -15,6 +15,7 @@ const { activity, illustrationType } = Astro.props;
+     <PlaceholderIllustration
+       type={illustrationType}
+       context="activity"
++      conciseCaption={true}
+       ratio="4:3"
+     />
+   </div>
+diff --git a/src/components/FaqAccordion.astro b/src/components/FaqAccordion.astro
+new file mode 100644
+index 0000000..442a2a7
+--- /dev/null
++++ b/src/components/FaqAccordion.astro
+@@ -0,0 +1,161 @@
++---
++export interface FaqItem {
++  question: string;
++  answer: string;
++}
++
++interface Props {
++  items?: FaqItem[];
++  faqs?: FaqItem[];
++  idPrefix?: string;
++}
++
++const { items: propItems, faqs: propFaqs, idPrefix = 'faq' } = Astro.props;
++const items = propItems || propFaqs || [];
++---
++
++<div class="faq-accordion-list">
++  {
++    items.map((faq, index) => (
++      <details class="faq-item card" id={`${idPrefix}-${index}`}>
++        <summary class="faq-question">
++          <span class="faq-q-text">{faq.question}</span>
++          <span class="faq-icon" aria-hidden="true">
++            <svg
++              class="chevron-svg"
++              width="18"
++              height="18"
++              viewBox="0 0 24 24"
++              fill="none"
++              stroke="currentColor"
++              stroke-width="2.5"
++              stroke-linecap="round"
++              stroke-linejoin="round"
++            >
++              <polyline points="6 9 12 15 18 9"></polyline>
++            </svg>
++          </span>
++        </summary>
++        <div class="faq-answer">
++          <p>{faq.answer}</p>
++        </div>
++      </details>
++    ))
++  }
++</div>
++
++<style>
++  .faq-accordion-list {
++    display: flex;
++    flex-direction: column;
++    gap: var(--space-3);
++  }
++
++  .faq-item {
++    border: 1px solid var(--color-border);
++    border-radius: var(--radius-md);
++    background-color: var(--color-surface-card);
++    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
++    overflow: hidden;
++  }
++
++  .faq-item:hover {
++    border-color: var(--color-border-hover);
++  }
++
++  .faq-item[open] {
++    border-color: var(--color-brand-primary);
++    box-shadow: var(--shadow-sm);
++  }
++
++  .faq-question {
++    display: flex;
++    justify-content: space-between;
++    align-items: center;
++    gap: var(--space-3);
++    padding: var(--space-4);
++    cursor: pointer;
++    font-size: 1rem;
++    font-weight: 600;
++    color: var(--color-text-primary);
++    list-style: none;
++    user-select: none;
++  }
++
++  .faq-question::-webkit-details-marker {
++    display: none;
++  }
++
++  .faq-question:focus-visible {
++    outline: 2px solid var(--color-brand-primary);
++    outline-offset: -2px;
++    background-color: var(--color-canvas-soft);
++  }
++
++  .faq-q-text {
++    flex: 1;
++    text-align: left;
++    line-height: 1.4;
++  }
++
++  .faq-icon {
++    display: inline-flex;
++    align-items: center;
++    justify-content: center;
++    width: 28px;
++    height: 28px;
++    border-radius: var(--radius-full);
++    background-color: var(--color-canvas-soft);
++    color: var(--color-text-secondary);
++    flex-shrink: 0;
++    transition: transform var(--transition-fast), background-color var(--transition-fast), color var(--transition-fast);
++  }
++
++  .chevron-svg {
++    transition: transform var(--transition-fast);
++  }
++
++  .faq-item[open] .chevron-svg {
++    transform: rotate(180deg);
++  }
++
++  .faq-item[open] .faq-icon {
++    background-color: var(--color-brand-primary);
++    color: #ffffff;
++  }
++
++  .faq-answer {
++    padding: 0 var(--space-4) var(--space-4);
++    border-top: 1px solid var(--color-border-subtle);
++    padding-top: var(--space-3);
++  }
++
++  .faq-answer p {
++    margin: 0;
++    font-size: 0.9375rem;
++    line-height: 1.6;
++    color: var(--color-text-secondary);
++    text-align: left;
++  }
++
++  @media (max-width: 767px) {
++    .faq-accordion-list {
++      gap: 8px;
++    }
++
++    .faq-question {
++      padding: var(--space-3);
++      font-size: 0.9375rem;
++    }
++
++    .faq-answer {
++      padding: 0 var(--space-3) var(--space-3);
++      padding-top: var(--space-2);
++    }
++
++    .faq-answer p {
++      font-size: 0.875rem;
++      line-height: 1.5;
++    }
++  }
++</style>
+diff --git a/src/components/Header.astro b/src/components/Header.astro
+index c15b030..7d23868 100644
+--- a/src/components/Header.astro
++++ b/src/components/Header.astro
+@@ -56,7 +56,7 @@ const navItems = [
+         class:list={['btn', 'btn-primary', 'cta-btn', { 'is-active': isDongHanh }]}
+         aria-current={isDongHanh ? 'page' : undefined}
+       >
+-        Đồng hành
++        Cách đồng hành
+       </a>
+     </nav>
+ 
+@@ -106,7 +106,7 @@ const navItems = [
+             class:list={['btn', 'btn-primary', 'btn-block', { 'is-active': isDongHanh }]}
+             aria-current={isDongHanh ? 'page' : undefined}
+           >
+-            Đồng hành cùng dự án
++            Cách đồng hành
+           </a>
+         </div>
+       </nav>
+diff --git a/src/components/PlaceholderIllustration.astro b/src/components/PlaceholderIllustration.astro
+index a2716b5..3eac02b 100644
+--- a/src/components/PlaceholderIllustration.astro
++++ b/src/components/PlaceholderIllustration.astro
+@@ -22,6 +22,7 @@ interface Props {
+   context?: 'hero' | 'activity' | 'product';
+   loading?: 'lazy' | 'eager';
+   fetchpriority?: 'high' | 'low' | 'auto';
++  conciseCaption?: boolean;
+ }
+ 
+ const {
+@@ -31,6 +32,7 @@ const {
+   context = 'product',
+   loading,
+   fetchpriority,
++  conciseCaption = false,
+ } = Astro.props;
+ 
+ let stockItem: StockIllustration | undefined = undefined;
+@@ -49,7 +51,21 @@ if (type === 'hero') {
+ const isHero = type === 'hero';
+ const imgLoading = loading || (isHero ? 'eager' : 'lazy');
+ const imgFetchPriority = fetchpriority || (isHero ? 'high' : 'auto');
+-const finalCaption = caption || (stockItem ? stockItem.caption : 'Minh họa cho bản xem trước — chưa phải ảnh thật');
++
++const conciseLabels: Record<string, string> = {
++  'chuon-chuon': 'Minh họa họa cụ',
++  'to-tuong': 'Minh họa cọ và màu vẽ',
++  hat: 'Minh họa trống lắc',
++  'tro-choi': 'Minh họa bóng',
++};
++
++const defaultCaption = stockItem
++  ? conciseCaption && conciseLabels[type]
++    ? conciseLabels[type]
++    : stockItem.caption
++  : 'Minh họa cho bản xem trước — chưa phải ảnh thật';
++
++const finalCaption = caption || defaultCaption;
+ ---
+ 
+ <figure class:list={['illustration-wrapper', `ratio-${ratio.replace(':', '-')}`]}>
+diff --git a/src/components/ProductCard.astro b/src/components/ProductCard.astro
+index 9dfda69..fc11e02 100644
+--- a/src/components/ProductCard.astro
++++ b/src/components/ProductCard.astro
+@@ -1,55 +1,89 @@
+ ---
+ import PlaceholderIllustration from './PlaceholderIllustration.astro';
+ import type { Product } from '../data/campaign';
+-import { formatProductPrice } from '../lib/finance';
++import { formatProductPrice, formatProductQuantity } from '../lib/finance';
+ 
+ interface Props {
+   product: Product;
+-  illustrationType:
+-    | 'chuon-chuon'
+-    | 'moc-khoa'
+-    | 'set-do-an'
+-    | 'combo-nem'
+-    | 'combo-nem-gion'
+-    | 'combo-nem-xu'
+-    | 'combo-nem-pho-mai'
+-    | 'banh-su-kem'
+-    | 'tui-but'
+-    | 'tui-vai';
++  ratio?: '4:3' | '16:9' | '1:1';
+ }
+ 
+-const { product, illustrationType } = Astro.props;
++const { product, ratio = '16:9' } = Astro.props;
++
++const getIllustrationType = (id: string) => {
++  if (id === 'chuon-chuon-tre-kem-de') return 'chuon-chuon' as const;
++  if (id === 'moc-khoa') return 'moc-khoa' as const;
++  if (id === 'set-do-an') return 'set-do-an' as const;
++  if (id === 'combo-nem-gion') return 'combo-nem-gion' as const;
++  if (id === 'combo-nem-xu') return 'combo-nem-xu' as const;
++  if (id === 'combo-nem-pho-mai') return 'combo-nem-pho-mai' as const;
++  if (id === 'banh-su-kem') return 'banh-su-kem' as const;
++  return 'chuon-chuon' as const;
++};
++
++const illType = getIllustrationType(product.id);
++const getSaleStatusLabel = (status: string | null | undefined): string => {
++  switch (status) {
++    case 'unconfirmed':
++      return 'Chưa xác nhận';
++    case 'draft':
++      return 'Bản thảo';
++    case 'available':
++      return 'Đang mở bán';
++    case 'sold_out':
++      return 'Đã hết';
++    case 'paused':
++      return 'Tạm dừng';
++    default:
++      return 'Chưa xác nhận';
++  }
++};
++const statusLabel = getSaleStatusLabel(product.saleStatus);
+ ---
+ 
+-<article class="product-card card">
++<article class="product-card card" id={`product-${product.id}`}>
+   <div class="card-visual">
+     <PlaceholderIllustration
+-      type={illustrationType}
+-      ratio="4:3"
+-      caption={`Minh họa: ${product.name}`}
++      type={illType}
++      ratio={ratio}
++      context="product"
++      caption={product.id === 'banh-su-kem' ? undefined : `Minh họa: ${product.name}`}
+     />
+   </div>
+ 
+   <div class="card-body">
+-    <h3 class="product-name">{product.name}</h3>
++    <div class="card-header-row">
++      <h3 class="product-name">{product.name}</h3>
++      <span class="status-badge status-badge-warning">{statusLabel}</span>
++    </div>
+ 
+     <div class="price-box">
+-      <span class="price-label">Giá tham khảo trong đề xuất:</span>
+-      <strong class="price-val">
+-        {formatProductPrice(product)}
+-      </strong>
++      <span class="price-label">Giá tham khảo đề xuất:</span>
++      <strong class="price-val">{formatProductPrice(product)}</strong>
+     </div>
+ 
+     <p class="product-desc">{product.description}</p>
+ 
+-    <div class="product-meta">
+-      <p class="origin-info">
+-        <strong>Nguồn gốc:</strong> {product.originText}
+-      </p>
+-      <p class="notes-info">
+-        {product.notes}
+-      </p>
++    <div class="product-meta-grid">
++      <div class="meta-row">
++        <span class="meta-label">Số lượng kế hoạch:</span>
++        <span class="meta-val">{formatProductQuantity(product)}</span>
++      </div>
++      <div class="meta-row">
++        <span class="meta-label">Trạng thái bán:</span>
++        <span class="meta-val meta-val-status">{statusLabel}</span>
++      </div>
++      <div class="meta-row">
++        <span class="meta-label">Nguồn gốc:</span>
++        <span class="meta-val">{product.originText}</span>
++      </div>
+     </div>
++
++    {product.notes && (
++      <p class="product-notes">
++        <span class="notes-label">Ghi chú:</span> {product.notes}
++      </p>
++    )}
+   </div>
+ </article>
+ 
+@@ -58,38 +92,69 @@ const { product, illustrationType } = Astro.props;
+     height: 100%;
+     display: flex;
+     flex-direction: column;
+-    padding: var(--space-5);
++    padding: var(--space-4);
+     background-color: var(--color-surface-card);
++    border: 1px solid var(--color-border);
++    border-radius: var(--radius-md);
++    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
++  }
++
++  .product-card:hover {
++    box-shadow: var(--shadow-sm);
+   }
+ 
+   .card-visual {
+-    margin-bottom: var(--space-4);
++    margin-bottom: var(--space-3);
++    width: 100%;
+   }
+ 
+   .card-body {
+     display: flex;
+     flex-direction: column;
+     flex-grow: 1;
+-    gap: var(--space-3);
++    gap: var(--space-2);
++  }
++
++  .card-header-row {
++    display: flex;
++    justify-content: space-between;
++    align-items: flex-start;
++    gap: var(--space-2);
+   }
+ 
+   .product-name {
+-    font-size: 1.25rem;
++    font-size: 1.125rem;
++    font-weight: 700;
+     color: var(--color-text-primary);
++    margin: 0;
++    line-height: 1.35;
++  }
++
++  .status-badge-warning {
++    background-color: #fff7ed;
++    color: #c2410c;
++    border: 1px solid #fed7aa;
++    font-size: 0.875rem;
++    padding: 2px 8px;
++    border-radius: var(--radius-full);
++    white-space: nowrap;
++    flex-shrink: 0;
+   }
+ 
+   .price-box {
+     display: flex;
+     flex-direction: column;
+-    background-color: #fffdf5;
+-    padding: var(--space-3);
++    background-color: var(--color-canvas-soft);
++    padding: 8px 12px;
+     border-radius: var(--radius-sm);
+     border-left: 3px solid var(--color-accent);
++    gap: 2px;
++    margin: 2px 0;
+   }
+ 
+   .price-label {
+-    font-size: var(--font-size-sm);
+-    color: var(--color-text-muted);
++    font-size: 0.875rem;
++    color: var(--color-text-secondary);
+   }
+ 
+   .price-val {
+@@ -98,59 +163,72 @@ const { product, illustrationType } = Astro.props;
+     font-weight: 700;
+   }
+ 
+-  .price-unit {
+-    font-size: 0.875rem;
+-    font-weight: 500;
+-    color: var(--color-text-secondary);
+-  }
+-
+   .product-desc {
+     font-size: 0.9375rem;
+-    line-height: 1.5;
+     color: var(--color-text-secondary);
+-    flex-grow: 1;
++    line-height: 1.5;
++    margin: 0;
+   }
+ 
+-  .product-meta {
+-    border-top: 1px solid var(--color-border-subtle);
+-    padding-top: var(--space-3);
++  .product-meta-grid {
+     display: flex;
+     flex-direction: column;
+-    gap: var(--space-1);
++    gap: 4px;
++    background-color: var(--color-canvas-soft);
++    border-radius: var(--radius-sm);
++    padding: 8px 12px;
++    margin-top: auto;
+   }
+ 
+-  .origin-info {
+-    font-size: var(--font-size-sm);
+-    line-height: var(--line-height-sm);
+-    color: var(--color-text-secondary);
++  .meta-row {
++    display: flex;
++    justify-content: space-between;
++    align-items: baseline;
++    gap: var(--space-2);
++    font-size: 0.875rem;
++  }
++
++  .meta-label {
++    color: var(--color-text-muted);
++    font-weight: 500;
++    flex-shrink: 0;
++  }
++
++  .meta-val {
++    color: var(--color-text-primary);
++    font-weight: 600;
++    text-align: right;
++  }
++
++  .meta-val-status {
++    color: #c2410c;
+   }
+ 
+-  .notes-info {
+-    font-size: var(--font-size-sm);
+-    line-height: var(--line-height-sm);
++  .product-notes {
++    font-size: 0.875rem;
+     color: var(--color-text-muted);
+-    font-style: normal;
++    line-height: 1.4;
++    margin: 4px 0 0;
++    border-top: 1px dashed var(--color-border-subtle);
++    padding-top: 6px;
++  }
++
++  .notes-label {
++    font-weight: 600;
++    color: var(--color-text-secondary);
+   }
+ 
+   @media (max-width: 767px) {
+     .product-card {
+-      padding: var(--space-4);
+-    }
+-    .card-visual {
+-      margin-bottom: var(--space-3);
++      padding: var(--space-3);
+     }
+-    .card-visual :global(.illustration-wrapper .svg-container) {
+-      aspect-ratio: 16 / 9 !important;
+-      max-height: 165px !important;
+-      overflow: hidden !important;
+-    }
+-    .card-visual :global(.illustration-wrapper .illustration-svg) {
+-      max-height: 100% !important;
+-      object-fit: contain !important;
++
++    .product-name {
++      font-size: 1.0625rem;
+     }
++
+     .product-desc {
+       font-size: 0.875rem;
+-      line-height: 1.45;
+     }
+   }
+ </style>
+diff --git a/src/data/campaign.ts b/src/data/campaign.ts
+index 8a03065..97c38ac 100644
+--- a/src/data/campaign.ts
++++ b/src/data/campaign.ts
+@@ -833,7 +833,7 @@ export const PLANNED_EXPENSES: PlannedExpenseItem[] = [
+       updatedAt: null,
+       publicApproval: 'pending',
+     },
+-    note: 'Khoản dự kiến theo đề xuất trang 26, chưa xác nhận triển khai',
++    note: 'Theo đề xuất, khoản này dự kiến dành cho đồ tặng nếu sử dụng bộ standee mượn; tình trạng mượn cần xác nhận (trang 26)',
+     isEstimated: false,
+   },
+   {
+diff --git a/src/lib/finance.ts b/src/lib/finance.ts
+index 2465d60..a51c684 100644
+--- a/src/lib/finance.ts
++++ b/src/lib/finance.ts
+@@ -9,6 +9,13 @@
+ 
+ import type { Product, PlannedExpenseItem, FinanceScenario, QuantitativeFact } from '../data/campaign';
+ 
++export interface ExpenseCategoryGroup {
++  category: string;
++  sourceRef: string;
++  subtotal: number | null;
++  items: PlannedExpenseItem[];
++}
++
+ /**
+  * Tính tổng dự toán chi từ danh sách các khoản chi dự kiến.
+  * Nếu bất kỳ khoản nào có giá trị null, ném lỗi thay vì tự coi là 0.
+@@ -22,6 +29,60 @@ export function sumPlannedExpenses(items: PlannedExpenseItem[]): number {
+   }, 0);
+ }
+ 
++/**
++ * Phân nhóm các khoản chi dự toán theo hạng mục xuất hiện trong dữ liệu đầu vào.
++ * - Tự động dẫn xuất danh sách nhóm từ category của từng khoản mục, bảo toàn thứ tự xuất hiện đầu tiên.
++ * - Dẫn xuất sourceRef của nhóm từ sourceRef của khoản mục đầu tiên trong nhóm đó.
++ * - Mỗi khoản mục đầu vào thuộc đúng một nhóm duy nhất; không tạo nhóm rỗng (no empty fabricated groups).
++ * - Tính tổng phụ (subtotal) cho từng nhóm trực tiếp từ dữ liệu khoản mục.
++ * - Nếu bất kỳ khoản nào trong nhóm có giá trị null hoặc undefined, bảo vệ an toàn
++ *   bằng cách trả về subtotal: null (unknown amount) thay vì tự gán 0 hay crash.
++ */
++export function groupPlannedExpensesByCategory(
++  items: PlannedExpenseItem[]
++): ExpenseCategoryGroup[] {
++  const groupsMap = new Map<
++    string,
++    {
++      category: string;
++      sourceRef: string;
++      items: PlannedExpenseItem[];
++    }
++  >();
++
++  for (const item of items) {
++    const category = item.category || 'Khác';
++    if (!groupsMap.has(category)) {
++      const sourceRef = item.amount?.sourceRef || '';
++      groupsMap.set(category, {
++        category,
++        sourceRef,
++        items: [],
++      });
++    }
++    groupsMap.get(category)!.items.push(item);
++  }
++
++  const result: ExpenseCategoryGroup[] = [];
++  for (const group of groupsMap.values()) {
++    const hasUnknown = group.items.some(
++      (item) => item.amount.value === null || item.amount.value === undefined
++    );
++    const subtotal = hasUnknown
++      ? null
++      : group.items.reduce((sum, item) => sum + (item.amount.value ?? 0), 0);
++
++    result.push({
++      category: group.category,
++      sourceRef: group.sourceRef,
++      subtotal,
++      items: group.items,
++    });
++  }
++
++  return result;
++}
++
+ /**
+  * Tính doanh thu giả định cho từng sản phẩm theo công thức:
+  * Doanh thu = Giá tham khảo × Số lượng dự kiến.
+diff --git a/src/pages/dong-hanh.astro b/src/pages/dong-hanh.astro
+index 173c852..b7dbf26 100644
+--- a/src/pages/dong-hanh.astro
++++ b/src/pages/dong-hanh.astro
+@@ -1,5 +1,6 @@
+ ---
+ import Layout from '../layouts/Layout.astro';
++import FaqAccordion from '../components/FaqAccordion.astro';
+ import {
+   SUPPORT_WORKFLOW,
+   SUPPORT_FAQS,
+@@ -50,10 +51,10 @@ import {
+           Nhóm Lăng Kính hướng đến việc kết nối những tấm lòng đồng hành với nhu cầu thiết thực tại Mái ấm Thánh Tâm Xuy Xá. Mọi sự hỗ trợ đều được lên kế hoạch chu đáo, minh bạch và tôn trọng quyền riêng tư của các em.
+         </p>
+ 
+-        <!-- Notice Box -->
+-        <div class="support-section-notice">
++        <!-- Notice Box (Rõ ràng việc có thể xem trước gì) -->
++        <div class="support-section-notice" role="note">
+           <p>
+-            <strong>Lưu ý:</strong> {OFFICIAL_CONTACT.notice}
++            <strong>Hướng dẫn đồng hành:</strong> Hiện bạn có thể xem nhu cầu dự kiến, sản phẩm và dự toán; kênh tiếp nhận chính thức chưa xác nhận. {OFFICIAL_CONTACT.notice}
+           </p>
+         </div>
+       </div>
+@@ -92,7 +93,7 @@ import {
+             </p>
+           </div>
+           <div class="method-action">
+-            <a href="/minh-bach" class="btn btn-secondary btn-sm">
++            <a href="/minh-bach" class="method-text-link">
+               Xem dự toán chi tiết &rarr;
+             </a>
+           </div>
+@@ -114,7 +115,7 @@ import {
+             </p>
+           </div>
+           <div class="method-action">
+-            <a href="/san-pham" class="btn btn-primary btn-sm">
++            <a href="/san-pham" class="method-text-link">
+               Xem kế hoạch sản phẩm &rarr;
+             </a>
+           </div>
+@@ -136,7 +137,7 @@ import {
+             </p>
+           </div>
+           <div class="method-action">
+-            <a href="/du-an/mang-theo-mot-net-ve" class="btn btn-secondary btn-sm">
++            <a href="/du-an/mang-theo-mot-net-ve" class="method-text-link">
+               Tìm hiểu câu chuyện &rarr;
+             </a>
+           </div>
+@@ -145,42 +146,7 @@ import {
+     </div>
+   </section>
+ 
+-  <!-- Section 2: Quy trình tiếp nhận dự kiến -->
+-  <section class="section" aria-labelledby="workflow-heading">
+-    <div class="container">
+-      <div class="section-header">
+-        <div class="badge-wrap">
+-          <span class="status-badge">Kế hoạch phối hợp</span>
+-        </div>
+-        <h2 id="workflow-heading" class="section-title">
+-          Quy trình tiếp nhận dự kiến
+-        </h2>
+-        <p class="section-subtitle">
+-          Ba bước tiếp nhận hỗ trợ chặt chẽ, đảm bảo món quà trao tặng đúng người và đúng thời điểm.
+-        </p>
+-      </div>
+-
+-      <div class="workflow-grid">
+-        {
+-          SUPPORT_WORKFLOW.map((item) => (
+-            <div class="workflow-card card">
+-              <div class="workflow-step-badge">{item.step}</div>
+-              <h3 class="workflow-title">{item.title}</h3>
+-              <p class="workflow-desc">{item.description}</p>
+-            </div>
+-          ))
+-        }
+-      </div>
+-
+-      <div class="workflow-note card">
+-        <p>
+-          <strong>Lưu ý:</strong> Quy trình trên nằm trong đề xuất kế hoạch của nhóm Lăng Kính; các bước tiếp nhận và danh mục nhu cầu thực tế sẽ được triển khai sau khi đạt được sự thống nhất cùng Mái ấm.
+-        </p>
+-      </div>
+-    </div>
+-  </section>
+-
+-  <!-- Section 3: Kênh liên hệ chính thức -->
++  <!-- Section 2: Kênh liên hệ chính thức (Trước quy trình) -->
+   <section class="section section-soft" aria-labelledby="contact-heading">
+     <div class="container">
+       <div class="section-header">
+@@ -219,6 +185,41 @@ import {
+     </div>
+   </section>
+ 
++  <!-- Section 3: Quy trình tiếp nhận dự kiến -->
++  <section class="section" aria-labelledby="workflow-heading">
++    <div class="container">
++      <div class="section-header">
++        <div class="badge-wrap">
++          <span class="status-badge">Kế hoạch phối hợp</span>
++        </div>
++        <h2 id="workflow-heading" class="section-title">
++          Quy trình tiếp nhận dự kiến
++        </h2>
++        <p class="section-subtitle">
++          Ba bước tiếp nhận hỗ trợ chặt chẽ, đảm bảo món quà trao tặng đúng người và đúng thời điểm.
++        </p>
++      </div>
++
++      <div class="workflow-grid">
++        {
++          SUPPORT_WORKFLOW.map((item) => (
++            <div class="workflow-card card">
++              <div class="workflow-step-badge">{item.step}</div>
++              <h3 class="workflow-title">{item.title}</h3>
++              <p class="workflow-desc">{item.description}</p>
++            </div>
++          ))
++        }
++      </div>
++
++      <div class="workflow-note card">
++        <p>
++          <strong>Lưu ý:</strong> Quy trình trên nằm trong đề xuất kế hoạch của nhóm Lăng Kính; các bước tiếp nhận và danh mục nhu cầu thực tế sẽ được triển khai sau khi đạt được sự thống nhất cùng Mái ấm.
++        </p>
++      </div>
++    </div>
++  </section>
++
+   <!-- Section 4: FAQs -->
+   <section class="section" aria-labelledby="support-faq-heading">
+     <div class="container">
+@@ -234,21 +235,7 @@ import {
+         </p>
+       </div>
+ 
+-      <div class="faq-list">
+-        {
+-          SUPPORT_FAQS.map((faq) => (
+-            <details class="faq-item card">
+-              <summary class="faq-question">
+-                <span>{faq.question}</span>
+-                <span class="faq-icon" aria-hidden="true">+</span>
+-              </summary>
+-              <div class="faq-answer">
+-                <p>{faq.answer}</p>
+-              </div>
+-            </details>
+-          ))
+-        }
+-      </div>
++      <FaqAccordion faqs={SUPPORT_FAQS} />
+     </div>
+   </section>
+ 
+@@ -266,11 +253,8 @@ import {
+           <a href="/minh-bach" class="btn btn-primary">
+             Xem minh bạch thu chi &rarr;
+           </a>
+-          <a href="/ve-nhom" class="btn btn-secondary">
+-            Tìm hiểu nhóm Lăng Kính
+-          </a>
+-          <a href="/du-an/mang-theo-mot-net-ve" class="btn btn-secondary">
+-            Xem câu chuyện dự án
++          <a href="/san-pham" class="btn btn-secondary">
++            Xem kế hoạch sản phẩm
+           </a>
+         </div>
+       </div>
+@@ -383,12 +367,12 @@ import {
+ 
+   /* Section Headers */
+   .section-header {
+-    text-align: center;
+-    max-width: 680px;
+-    margin: 0 auto var(--space-8);
++    text-align: left;
++    max-width: 720px;
++    margin: 0 0 var(--space-8);
+     display: flex;
+     flex-direction: column;
+-    align-items: center;
++    align-items: flex-start;
+     gap: var(--space-2);
+   }
+ 
+@@ -478,6 +462,21 @@ import {
+     padding-top: var(--space-2);
+   }
+ 
++  .method-text-link {
++    font-size: 0.9375rem;
++    font-weight: 600;
++    color: var(--color-text-accent);
++    text-decoration: underline;
++    display: inline-flex;
++    align-items: center;
++    gap: 4px;
++    padding: var(--space-2) 0;
++  }
++
++  .method-text-link:hover {
++    color: var(--color-accent-hover);
++  }
++
+   .btn-sm {
+     padding: var(--space-2) var(--space-4);
+     font-size: 0.875rem;
+@@ -701,6 +700,14 @@ import {
+     }
+   }
+ 
++  @media (max-width: 768px) {
++    .support-lead,
++    .contact-notice-text,
++    .navigation-cta-desc {
++      text-align: left;
++    }
++  }
++
+   @media (max-width: 480px) {
+     .support-hero-card {
+       padding: var(--space-5);
+diff --git a/src/pages/du-an/mang-theo-mot-net-ve.astro b/src/pages/du-an/mang-theo-mot-net-ve.astro
+index 0f7fdad..a64360a 100644
+--- a/src/pages/du-an/mang-theo-mot-net-ve.astro
++++ b/src/pages/du-an/mang-theo-mot-net-ve.astro
+@@ -1,6 +1,5 @@
+ ---
+ import Layout from '../../layouts/Layout.astro';
+-import PlaceholderIllustration from '../../components/PlaceholderIllustration.astro';
+ import ActivityCard from '../../components/ActivityCard.astro';
+ import StageCard from '../../components/StageCard.astro';
+ import { CAMPAIGN_PROJECT } from '../../data/campaign';
+@@ -30,17 +29,17 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
+     </div>
+   </div>
+ 
+-  <!-- Hero Section -->
++  <!-- Hero Section (Dạng biên tập, thay ảnh trùng bằng tóm tắt 4 thông tin cốt lõi) -->
+   <section class="project-hero" aria-labelledby="project-heading">
+     <div class="container">
+       <div class="project-hero-grid">
+         <div class="project-hero-content">
+           <div class="badge-row">
+-            <span class="status-badge">Bản xem trước — nội dung đề xuất</span>
++            <span class="status-badge">Đề xuất — chưa có xác nhận chính thức</span>
+           </div>
+ 
+           <h1 id="project-heading" class="project-title">
+-            {CAMPAIGN_PROJECT.title}
++            Dự án Mang Theo Một Nét Vẽ
+           </h1>
+ 
+           <p class="project-slogan">
+@@ -48,60 +47,100 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
+           </p>
+ 
+           <p class="project-intro">
+-            {CAMPAIGN_PROJECT.summary}
++            Dự án học phần SSG105 của nhóm Lăng Kính (Đại học FPT Hà Nội), đề xuất kết nối một buổi vui chơi an toàn, có lựa chọn với việc hỗ trợ hiện vật theo nhu cầu thực tế của Mái ấm.
+           </p>
+ 
+-          <div class="project-meta-box">
+-            <p class="meta-item">
+-              <strong>Địa điểm dự kiến:</strong> {CAMPAIGN_PROJECT.location}
+-            </p>
+-            <p class="meta-item">
+-              <strong>Trạng thái thực tế:</strong> {CAMPAIGN_PROJECT.statusNotice}
+-            </p>
+-          </div>
+-
+           <div class="project-hero-actions">
+-            <a href="/san-pham" class="btn btn-primary">
+-              Xem sản phẩm gây quỹ
++            <a href="#muc-tieu" class="btn btn-primary">
++              Mục tiêu &amp; An toàn
+             </a>
+             <a href="#buoi-choi" class="btn btn-secondary">
+-              Xem các góc hoạt động
++              Xem 4 góc hoạt động
+             </a>
+           </div>
+         </div>
+ 
+-        <div class="project-hero-visual">
+-          <PlaceholderIllustration
+-            type="hero"
+-            ratio="4:3"
+-          />
++        <div class="project-hero-editorial">
++          <div class="project-core-summary card">
++            <h2 class="core-summary-title">4 thông tin cốt lõi đề xuất</h2>
++            <ul class="core-summary-list">
++              <li>
++                <strong>Nơi dự kiến:</strong>
++                <span>{CAMPAIGN_PROJECT.location}</span>
++              </li>
++              <li>
++                <strong>Người tham gia:</strong>
++                <span>Do Mái ấm xác nhận theo điều kiện thực tế của cơ sở</span>
++              </li>
++              <li>
++                <strong>Kế hoạch:</strong>
++                <span>2 buổi tại Mái ấm với 4 góc chơi có lựa chọn</span>
++              </li>
++              <li>
++                <strong>Trạng thái:</strong>
++                <span>Đề xuất dự án — chưa có xác nhận chính thức</span>
++              </li>
++            </ul>
++          </div>
++        </div>
++      </div>
++    </div>
++  </section>
++
++  <!-- Section 1: Mục tiêu và nguyên tắc an toàn (N1, N2, N3) -->
++  <section id="muc-tieu" class="section section-soft" aria-labelledby="objectives-heading">
++    <div class="container">
++      <div class="section-header">
++        <span class="section-kicker">Định hướng cốt lõi</span>
++        <h2 id="objectives-heading">Mục tiêu &amp; Nguyên tắc an toàn</h2>
++        <p class="section-lead">
++          Các nguyên tắc đề xuất nhằm bảo đảm buổi chơi an toàn, vừa sức và tôn trọng trọn vẹn quyền lựa chọn của từng người tham gia.
++        </p>
++      </div>
++
++      <div class="objectives-grid">
++        <div class="objective-card card">
++          <div class="badge-row">
++            <span class="status-badge">Mục tiêu đề xuất</span>
++          </div>
++          <h3 class="objective-title">Buổi chơi theo lựa chọn</h3>
++          <p class="objective-text">
++            Theo đề xuất, nhóm hướng đến một buổi chơi có lựa chọn và hỗ trợ hiện vật đúng nhu cầu. Mỗi người có thể tham gia theo khả năng, quan sát hoặc nghỉ; không có chỉ tiêu sản phẩm dành cho trẻ. Nhóm dự kiến hoàn thiện, kiểm tra sản phẩm và theo dõi làm/bán/tồn trước khi công bố thu chi.
++          </p>
++        </div>
++
++        <div class="objective-card card">
++          <div class="badge-row">
++            <span class="status-badge">An toàn &amp; Phối hợp</span>
++          </div>
++          <h3 class="objective-title">An toàn, phối hợp &amp; Quyền cơ sở</h3>
++          <p class="objective-text">
++            Lịch, không gian, vật liệu và hoạt động dự kiến cần được thống nhất với Mái ấm trước khi tổ chức. Nhóm dự kiến kiểm tra cạnh và chi tiết nhỏ, điều chỉnh trò chơi nhẹ phù hợp; người chăm sóc hỗ trợ lựa chọn và điều kiện an toàn. Người tham gia vẫn có quyền chọn hoạt động, quan sát hoặc nghỉ. Phương án bowling dự kiến có thể điều chỉnh lăn bóng hoặc chuyền bóng nhẹ không tính điểm loại trừ.
++          </p>
+         </div>
+       </div>
+     </div>
+   </section>
+ 
+-  <!-- Section 1: Câu chuyện từ đề xuất -->
++  <!-- Section 2: Câu chuyện từ đề xuất (Rút 1 đoạn) -->
+   <section class="section section-story" aria-labelledby="story-heading">
+     <div class="container">
+       <div class="story-wrapper">
+         <div class="section-header">
+-          <span class="section-kicker">Kế hoạch dự kiến</span>
++          <span class="section-kicker">Bối cảnh hình thành</span>
+           <h2 id="story-heading">Câu chuyện từ đề xuất</h2>
+         </div>
+ 
+         <div class="story-prose">
+           <p>
+-            Trong đề xuất ban đầu, sau khi lắng nghe những góp ý từ người chăm sóc tại Mái ấm Thánh Tâm Xuy Xá, nhóm Lăng Kính dự kiến điều chỉnh các hoạt động để tạo ra một không gian có nhiều góc vui chơi khác nhau. Mục tiêu là giúp mỗi em nhỏ và người tham gia đều có quyền tự do lựa chọn cách trải nghiệm phù hợp nhất với thể trạng, tâm trạng và sở thích riêng.
+-          </p>
+-          <p>
+-            Tại các góc chơi, người tham gia có thể thỏa sức chọn màu vẽ, tô tượng, hòa giọng ca hát, lăn bóng nhẹ nhàng hoặc chỉ đơn giản là ngồi quan sát và nghỉ ngơi trong sự tôn trọng. Song song đó, các thành viên nhóm chịu trách nhiệm chuẩn bị họa cụ an toàn, trực tiếp hoàn thiện các sản phẩm lưu niệm gây quỹ và bảo đảm quá trình đối soát nguồn lực diễn ra minh bạch, rõ ràng.
++            Xuất phát từ mong muốn mang lại niềm vui nhẹ nhàng và thiết thực, nhóm Lăng Kính lên ý tưởng tổ chức một không gian vui chơi có nhiều góc hoạt động tại Mái ấm Thánh Tâm Xuy Xá. Mỗi góc chơi được bố trí để người tham gia tự do lựa chọn trải nghiệm phù hợp với thể trạng và sở thích riêng — từ tô tượng, trang trí chuồn chuồn tre mộc, ca hát đến trò chơi vận động nhẹ — trong khi nhóm sinh viên dự kiến tự chịu trách nhiệm chuẩn bị vật tư, trực tiếp hoàn thiện hàng lưu niệm gây quỹ và quản lý thu chi minh bạch sau đối soát.
+           </p>
+         </div>
+       </div>
+     </div>
+   </section>
+ 
+-  <!-- Section 2: Buổi chơi có lựa chọn -->
++  <!-- Section 3: Buổi chơi có lựa chọn (4 góc chơi) -->
+   <section id="buoi-choi" class="section section-soft" aria-labelledby="activities-heading">
+     <div class="container">
+       <div class="section-header">
+@@ -125,13 +164,13 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
+ 
+       <div class="section-footer-note">
+         <p>
+-          Lưu ý: Hoạt động tô tượng là trải nghiệm vui chơi tại chỗ cho các em, không phải hàng hoá mang đi bán gây quỹ. Mọi kế hoạch gây quỹ qua sản phẩm và thực đơn ẩm thực đều đang ở trạng thái chuẩn bị, chưa mở bán và chưa phân bổ số lượng bán cụ thể; xem chi tiết tại <a href="/minh-bach#doi-chieu-do-an" class="text-accent underline font-medium">đối chiếu mục tiêu ẩm thực trên trang Minh bạch</a>.
++          * Ghi chú: Ảnh minh họa đạo cụ, không phải ảnh hoạt động của dự án. Mẫu chuồn chuồn, tượng và nhạc cụ thực tế chờ xác nhận; ảnh bóng không thể hiện bộ bowling. Hoạt động tô tượng là trải nghiệm vui chơi tại chỗ cho các em, không phải hàng hoá mang đi bán gây quỹ.
+         </p>
+       </div>
+     </div>
+   </section>
+ 
+-  <!-- Section 3: Hành trình dự kiến -->
++  <!-- Section 4: Hành trình dự kiến -->
+   <section class="section section-stages" aria-labelledby="stages-heading">
+     <div class="container">
+       <div class="section-header">
+@@ -158,27 +197,7 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
+     </div>
+   </section>
+ 
+-  <!-- Section 4: Nguồn lực và minh bạch -->
+-  <section class="section section-soft" aria-labelledby="resources-heading">
+-    <div class="container">
+-      <div class="resources-layout">
+-        <div class="resources-content">
+-          <span class="section-kicker">Quản lý nguồn quỹ</span>
+-          <h2 id="resources-heading">Nguồn lực và nguyên tắc minh bạch</h2>
+-          <p class="resources-desc">
+-            Theo đề xuất, nhóm sinh viên phụ trách chuẩn bị vật tư cho buổi chơi, hoàn thiện móc khóa lưu niệm, chuồn chuồn tre mộc và chuẩn bị phương án ẩm thực gây quỹ theo kế hoạch; nguồn gốc trang trí chuồn chuồn tre chờ xác nhận. Kế hoạch dự kiến tách bạch chi phí trải nghiệm với nguồn thu bán hàng; tiền và hiện vật hỗ trợ sẽ được lưu trữ chứng từ và đối soát cẩn trọng trước khi công bố.
+-          </p>
+-          <div class="resources-actions">
+-            <a href="/minh-bach" class="btn btn-secondary">
+-              Xem nguyên tắc minh bạch thu chi
+-            </a>
+-          </div>
+-        </div>
+-      </div>
+-    </div>
+-  </section>
+-
+-  <!-- Section 5: Cập nhật và kết quả -->
++  <!-- Section 5: Cập nhật và kết quả (Compact updates) -->
+   <section class="section section-updates" aria-labelledby="updates-heading">
+     <div class="container">
+       <div class="section-header">
+@@ -188,7 +207,7 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
+ 
+       <div class="empty-state-card card">
+         <div class="empty-badge">
+-          <span class="status-badge">Chờ xác nhận</span>
++          <span class="status-badge">Chưa xác nhận</span>
+         </div>
+         <h3 class="empty-title">
+           Chưa có cập nhật thực tế được xác nhận. Kết quả và báo cáo sẽ được công bố sau khi đối soát và được phép.
+@@ -199,6 +218,26 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
+       </div>
+     </div>
+   </section>
++
++  <!-- Section 6: Nguồn lực và minh bạch (2 dòng + link Minh bạch) -->
++  <section class="section section-soft" aria-labelledby="resources-heading">
++    <div class="container">
++      <div class="resources-layout">
++        <div class="resources-content">
++          <span class="section-kicker">Quản lý nguồn quỹ</span>
++          <h2 id="resources-heading">Nguồn lực và nguyên tắc minh bạch</h2>
++          <p class="resources-desc">
++            Theo đề xuất, nhóm sinh viên dự kiến phụ trách chuẩn bị vật tư các góc chơi, hoàn thiện quà lưu niệm và phương án ẩm thực gây quỹ; nguồn lực được dự kiến theo dõi và đối soát độc lập giữa tiền mặt và hiện vật. Chi tiết dự toán 19 khoản và cơ cấu số dư được công khai minh bạch tại trang Minh bạch.
++          </p>
++          <div class="resources-actions">
++            <a href="/minh-bach" class="btn btn-secondary">
++              Xem minh bạch thu chi &rarr;
++            </a>
++          </div>
++        </div>
++      </div>
++    </div>
++  </section>
+ </Layout>
+ 
+ <style>
+@@ -286,31 +325,100 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
+     color: var(--color-text-secondary);
+   }
+ 
+-  .project-meta-box {
+-    background-color: var(--color-canvas-soft);
+-    border-left: 4px solid var(--color-accent);
+-    padding: var(--space-3) var(--space-4);
+-    border-radius: var(--radius-sm);
++  .project-hero-actions {
++    display: flex;
++    gap: var(--space-4);
++    margin-top: var(--space-2);
++    flex-wrap: wrap;
++  }
++
++  /* Editorial Hero Summary Card */
++  .project-hero-editorial {
++    width: 100%;
++  }
++
++  .project-core-summary {
++    background-color: var(--color-surface-card);
++    border: 1px solid var(--color-border);
++    border-radius: var(--radius-lg);
++    padding: var(--space-6);
+     display: flex;
+     flex-direction: column;
+-    gap: var(--space-1);
++    gap: var(--space-4);
+   }
+ 
+-  .meta-item {
+-    font-size: var(--font-size-sm);
+-    color: var(--color-text-secondary);
++  .core-summary-title {
++    font-size: 1.125rem;
++    font-weight: 700;
++    color: var(--color-text-primary);
+     margin: 0;
++    padding-bottom: var(--space-2);
++    border-bottom: 2px solid var(--color-text-accent);
+   }
+ 
+-  .project-hero-actions {
++  .core-summary-list {
++    list-style: none;
++    padding: 0;
++    margin: 0;
+     display: flex;
+-    gap: var(--space-4);
+-    margin-top: var(--space-2);
+-    flex-wrap: wrap;
++    flex-direction: column;
++    gap: var(--space-3);
+   }
+ 
+-  .project-hero-visual {
+-    width: 100%;
++  .core-summary-list li {
++    display: flex;
++    flex-direction: column;
++    gap: 2px;
++    font-size: 0.9375rem;
++    border-bottom: 1px dashed var(--color-border-subtle);
++    padding-bottom: var(--space-2);
++  }
++
++  .core-summary-list li:last-child {
++    border-bottom: none;
++    padding-bottom: 0;
++  }
++
++  .core-summary-list strong {
++    font-size: 0.875rem;
++    text-transform: uppercase;
++    letter-spacing: 0.05em;
++    color: var(--color-text-secondary);
++  }
++
++  .core-summary-list span {
++    color: var(--color-text-primary);
++    line-height: 1.45;
++  }
++
++  /* Objectives Grid */
++  .objectives-grid {
++    display: grid;
++    grid-template-columns: 1fr 1fr;
++    gap: var(--space-6);
++  }
++
++  .objective-card {
++    background-color: var(--color-surface-card);
++    border: 1px solid var(--color-border);
++    border-radius: var(--radius-md);
++    padding: var(--space-6);
++    display: flex;
++    flex-direction: column;
++    gap: var(--space-3);
++  }
++
++  .objective-title {
++    font-size: 1.25rem;
++    color: var(--color-text-primary);
++    margin: 0;
++  }
++
++  .objective-text {
++    font-size: 0.9375rem;
++    line-height: 1.6;
++    color: var(--color-text-secondary);
++    margin: 0;
+   }
+ 
+   /* Section Story */
+@@ -442,10 +550,8 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
+       gap: var(--space-8);
+     }
+ 
+-    .project-hero-visual {
+-      max-width: 560px;
+-      margin-left: auto;
+-      margin-right: auto;
++    .objectives-grid {
++      grid-template-columns: 1fr;
+     }
+ 
+     .activities-grid {
+@@ -468,15 +574,9 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
+       gap: var(--space-4);
+     }
+ 
+-    .project-hero-visual {
+-      order: -1;
+-      max-width: 100%;
+-    }
+-
+-    .project-hero-visual :global(.illustration-wrapper .svg-container) {
+-      height: 150px;
+-      max-height: 150px !important;
+-      aspect-ratio: auto !important;
++    .objectives-grid {
++      grid-template-columns: 1fr;
++      gap: var(--space-4);
+     }
+ 
+     .project-hero-content {
+@@ -496,6 +596,11 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
+     .project-intro {
+       font-size: 0.9375rem;
+       line-height: 1.45;
++      text-align: left;
++    }
++
++    .story-prose {
++      text-align: left;
+     }
+ 
+     .project-hero-actions {
+diff --git a/src/pages/index.astro b/src/pages/index.astro
+index ad7e2fe..1901ded 100644
+--- a/src/pages/index.astro
++++ b/src/pages/index.astro
+@@ -7,7 +7,6 @@ import StageCard from '../components/StageCard.astro';
+ import {
+   CAMPAIGN_PROJECT,
+   PRODUCTS,
+-  SUPPORT_METHODS,
+   TEAM_INFO,
+   FINANCE_OVERVIEW,
+   PLANNED_EXPENSES,
+@@ -72,7 +71,31 @@ const featuredProducts = [
+   <!-- Hero Section -->
+   <Hero />
+ 
+-  <!-- Section 1: Buổi chơi có lựa chọn -->
++  <!-- Quick Summary Section -->
++  <section class="section-summary" aria-label="Tóm tắt nhanh dự án">
++    <div class="container">
++      <div class="quick-summary-bar card">
++        <div class="summary-item">
++          <span class="summary-label">Nhóm thực hiện</span>
++          <span class="summary-text">Nhóm Lăng Kính (7 sinh viên, lớp {TEAM_INFO.classId}, ĐH FPT)</span>
++        </div>
++        <div class="summary-item">
++          <span class="summary-label">Địa điểm dự kiến</span>
++          <span class="summary-text">{CAMPAIGN_PROJECT.location}</span>
++        </div>
++        <div class="summary-item">
++          <span class="summary-label">Trạng thái</span>
++          <span class="summary-text">{CAMPAIGN_PROJECT.statusNotice}</span>
++        </div>
++        <div class="summary-item">
++          <span class="summary-label">Nội dung xem trước</span>
++          <span class="summary-text">4 góc chơi, sản phẩm tham khảo và dự toán minh bạch</span>
++        </div>
++      </div>
++    </div>
++  </section>
++
++  <!-- Section 1: Buổi chơi có lựa chọn (4 góc chơi) -->
+   <section class="section section-activities" aria-labelledby="activities-heading">
+     <div class="container">
+       <div class="section-header">
+@@ -95,13 +118,13 @@ const featuredProducts = [
+ 
+       <div class="section-footer-note">
+         <p>
+-          * Ghi chú bản xem trước: Hoạt động hướng đến sự gần gũi, kết nối tinh thần; không tuyên bố tác động trị liệu và không đặt chỉ tiêu sản xuất cho các em nhỏ.
++          * Ghi chú bản xem trước: Ảnh minh họa đạo cụ, không phải ảnh hoạt động của dự án. Mẫu chuồn chuồn, tượng và nhạc cụ thực tế chờ xác nhận; ảnh bóng không thể hiện bộ bowling. Hoạt động hướng đến sự gần gũi, kết nối tinh thần; không tuyên bố tác động trị liệu và không đặt chỉ tiêu sản xuất cho các em nhỏ.
+         </p>
+       </div>
+     </div>
+   </section>
+ 
+-  <!-- Section 2: Sản phẩm gây quỹ dự kiến -->
++  <!-- Section 2: Sản phẩm gây quỹ dự kiến (3 sản phẩm) -->
+   <section class="section section-soft section-products" aria-labelledby="products-heading">
+     <div class="container">
+       <div class="section-header">
+@@ -117,10 +140,9 @@ const featuredProducts = [
+ 
+       <div class="products-grid">
+         {
+-          featuredProducts.map(({ product, illustrationType }) => (
++          featuredProducts.map(({ product }) => (
+             <ProductCard
+               product={product}
+-              illustrationType={illustrationType}
+             />
+           ))
+         }
+@@ -137,34 +159,8 @@ const featuredProducts = [
+     </div>
+   </section>
+ 
+-  <!-- Section 3: Hành trình dự kiến -->
+-  <section class="section section-stages" aria-labelledby="stages-heading">
+-    <div class="container">
+-      <div class="section-header">
+-        <h2 id="stages-heading">Hành trình dự kiến</h2>
+-        <p>
+-          Bốn giai đoạn kế hoạch được nhóm vạch ra để triển khai dự án từng bước bài bản, minh bạch và có trách nhiệm.
+-        </p>
+-      </div>
+-
+-      <div class="stages-grid">
+-        {
+-          CAMPAIGN_PROJECT.plannedStages.map((stage) => (
+-            <StageCard stage={stage} />
+-          ))
+-        }
+-      </div>
+-
+-      <div class="section-footer-note">
+-        <p>
+-          * Ghi chú: Các giai đoạn dự kiến, lịch thực hiện chờ xác nhận.
+-        </p>
+-      </div>
+-    </div>
+-  </section>
+-
+-  <!-- Section 4: Minh bạch từ kế hoạch đến thực tế -->
+-  <section class="section section-soft section-transparency" aria-labelledby="transparency-heading">
++  <!-- Section 3: Minh bạch từ kế hoạch đến thực tế (Chuyển lên trước Hành trình) -->
++  <section class="section section-transparency" aria-labelledby="transparency-heading">
+     <div class="container">
+       <div class="transparency-card">
+         <div class="transparency-header">
+@@ -219,62 +215,86 @@ const featuredProducts = [
+     </div>
+   </section>
+ 
+-  <!-- Section 5: Về nhóm Lăng Kính -->
+-  <section class="section section-team" aria-labelledby="team-heading">
+-    <div class="container">
+-      <div class="team-layout">
+-        <div class="team-info">
+-          <h2 id="team-heading">Về nhóm Lăng Kính</h2>
+-          <p class="lead">
+-            {TEAM_INFO.description}
+-          </p>
+-          <p class="team-meta-text">
+-            Lớp {TEAM_INFO.classId} &bull; {TEAM_INFO.course} &bull; {TEAM_INFO.size} sinh viên
+-          </p>
+-          <div class="team-actions">
+-            <a href="/ve-nhom" class="btn btn-secondary">
+-              Tìm hiểu thêm về nhóm
+-            </a>
+-          </div>
+-        </div>
+-      </div>
+-    </div>
+-  </section>
+-
+-  <!-- Section 6: Đồng hành đúng nhu cầu -->
+-  <section class="section section-soft section-support" aria-labelledby="support-heading">
++  <!-- Section 4: Hành trình dự kiến (4 giai đoạn) -->
++  <section class="section section-soft section-stages" aria-labelledby="stages-heading">
+     <div class="container">
+       <div class="section-header">
+-        <h2 id="support-heading">Đồng hành đúng nhu cầu</h2>
++        <h2 id="stages-heading">Hành trình dự kiến</h2>
+         <p>
+-          Dự án ưu tiên tiếp nhận sự hỗ trợ thiết thực, đúng nhu cầu thực tế của Mái ấm Thánh Tâm Xuy Xá.
++          Bốn giai đoạn kế hoạch được nhóm vạch ra để triển khai dự án từng bước bài bản, minh bạch và có trách nhiệm.
+         </p>
+       </div>
+ 
+-      <div class="support-grid">
++      <div class="stages-grid">
+         {
+-          SUPPORT_METHODS.map((method) => (
+-            <div class="support-card card">
+-              <h3 class="support-title">{method.title}</h3>
+-              <p class="support-desc">{method.description}</p>
+-              <div class="support-status">
+-                <span>{method.statusText}</span>
+-              </div>
+-            </div>
++          CAMPAIGN_PROJECT.plannedStages.map((stage) => (
++            <StageCard stage={stage} />
+           ))
+         }
+       </div>
+ 
+-      <div class="section-action-center">
+-        <a href="/dong-hanh" class="btn btn-primary">
+-          Tìm hiểu cách đồng hành
+-        </a>
+-        <p class="action-note">
+-          Kênh tiếp nhận và thông tin liên hệ chính thức đang được nhóm cập nhật và đối soát.
++      <div class="section-footer-note">
++        <p>
++          * Ghi chú: Các giai đoạn dự kiến, lịch thực hiện chờ xác nhận.
+         </p>
+       </div>
+     </div>
+   </section>
++
++  <!-- Section 5: Khối hai cột "Nhóm thực hiện và cách đồng hành" -->
++  <section class="section section-group-support" aria-labelledby="group-support-heading">
++    <div class="container">
++      <div class="section-header">
++        <h2 id="group-support-heading">Nhóm thực hiện &amp; Cách đồng hành</h2>
++        <p>
++          Thông tin tóm tắt về đội ngũ thực hiện dự án và các phương thức đồng hành cùng Mái ấm.
++        </p>
++      </div>
++
++      <div class="home-group-support-grid">
++        <!-- Cột 1: Nhóm thực hiện -->
++        <div class="group-support-card card">
++          <div class="badge-row">
++            <span class="status-badge">Nhóm thực hiện</span>
++          </div>
++          <h3>Về nhóm {TEAM_INFO.name}</h3>
++          <p>
++            {TEAM_INFO.description}
++          </p>
++          <p class="team-meta-text">
++            Lớp {TEAM_INFO.classId} &bull; {TEAM_INFO.course} &bull; {TEAM_INFO.size} sinh viên
++          </p>
++          <p class="text-xs text-muted">
++            Tên, hình ảnh và phân công chi tiết của 7 thành viên chờ được xác nhận và cho phép công bố.
++          </p>
++          <div class="group-support-actions">
++            <a href="/ve-nhom" class="btn btn-secondary">
++              Tìm hiểu thêm về nhóm
++            </a>
++          </div>
++        </div>
++
++        <!-- Cột 2: Cách đồng hành -->
++        <div class="group-support-card card">
++          <div class="badge-row">
++            <span class="status-badge">Đồng hành</span>
++          </div>
++          <h3>Đồng hành đúng nhu cầu</h3>
++          <p>
++            Dự án ưu tiên tiếp nhận sự hỗ trợ thiết thực, đúng nhu cầu thực tế của Mái ấm qua 3 phương thức: hỗ trợ vật tư thiết yếu, tìm hiểu sản phẩm gây quỹ và lan tỏa thông điệp an toàn.
++          </p>
++          <p class="text-xs text-muted">
++            Kênh tiếp nhận và thông tin liên hệ chính thức đang chờ đối soát; bản xem trước chưa mở nhận đơn hoặc đóng góp trực tuyến.
++          </p>
++          <div class="group-support-actions">
++            <a href="/dong-hanh" class="btn btn-primary">
++              Cách đồng hành &rarr;
++            </a>
++          </div>
++        </div>
++      </div>
++    </div>
++  </section>
+ </Layout>
+ 
+ <style>
+@@ -403,70 +423,91 @@ const featuredProducts = [
+     display: flex;
+   }
+ 
+-  /* Team Layout */
+-  .team-layout {
+-    max-width: 800px;
+-    margin: 0 auto;
+-    text-align: center;
++  /* Quick Summary Section */
++  .section-summary {
++    padding: var(--space-4) 0;
++  }
++
++  .quick-summary-bar {
++    background-color: var(--color-surface-card);
++    border: 1px solid var(--color-border);
++    border-radius: var(--radius-md);
++    padding: var(--space-4) var(--space-6);
++    display: grid;
++    grid-template-columns: repeat(4, 1fr);
++    gap: var(--space-4);
+   }
+ 
+-  .team-info {
++  .summary-item {
+     display: flex;
+     flex-direction: column;
+-    align-items: center;
+-    gap: var(--space-3);
++    gap: 2px;
+   }
+ 
+-  .team-meta-text {
+-    font-size: var(--font-size-sm);
++  .summary-label {
++    font-size: 0.875rem;
++    font-weight: 700;
++    text-transform: uppercase;
++    letter-spacing: 0.05em;
+     color: var(--color-text-secondary);
+-    margin-top: var(--space-1);
+-    font-weight: 500;
+   }
+ 
+-  .team-actions {
+-    margin-top: var(--space-3);
+-    display: flex;
+-    justify-content: center;
++  .summary-text {
++    font-size: 0.9375rem;
++    color: var(--color-text-primary);
++    line-height: 1.4;
+   }
+ 
+-  /* Support Grid */
+-  .support-grid {
++  /* Two Column Group & Support Section */
++  .home-group-support-grid {
+     display: grid;
+-    grid-template-columns: repeat(3, 1fr);
++    grid-template-columns: 1fr 1fr;
+     gap: var(--space-6);
+   }
+ 
+-  .support-card {
+-    height: 100%;
++  .group-support-card {
++    background-color: var(--color-surface-card);
++    border: 1px solid var(--color-border);
++    border-radius: var(--radius-lg);
++    padding: var(--space-6);
+     display: flex;
+     flex-direction: column;
+     gap: var(--space-3);
+-    padding: var(--space-5);
++    height: 100%;
+   }
+ 
+-  .support-title {
+-    font-size: 1.25rem;
++  .group-support-card h3 {
++    font-size: 1.375rem;
+     color: var(--color-text-primary);
++    margin: 0;
+   }
+ 
+-  .support-desc {
++  .group-support-card p {
+     font-size: 0.9375rem;
+-    line-height: 1.5;
+     color: var(--color-text-secondary);
+-    flex-grow: 1;
++    line-height: 1.5;
++    margin: 0;
+   }
+ 
+-  .support-status {
+-    border-top: 1px solid var(--color-border-subtle);
+-    padding-top: var(--space-2);
++  .team-meta-text {
+     font-size: var(--font-size-sm);
+-    color: var(--color-text-muted);
+-    font-style: normal;
++    color: var(--color-text-secondary);
++    font-weight: 500;
++    margin: 0;
++  }
++
++  .group-support-actions {
++    margin-top: auto;
++    padding-top: var(--space-3);
+   }
+ 
+   /* Responsive Adjustments */
+   @media (max-width: 1023px) {
++    .quick-summary-bar {
++      grid-template-columns: repeat(2, 1fr);
++      gap: var(--space-4);
++    }
++
+     .activities-grid {
+       grid-template-columns: repeat(2, 1fr);
+     }
+@@ -483,13 +524,15 @@ const featuredProducts = [
+       grid-template-columns: 1fr;
+       gap: var(--space-6);
+     }
+-
+-    .support-grid {
+-      grid-template-columns: repeat(2, 1fr);
+-    }
+   }
+ 
+   @media (max-width: 767px) {
++    .quick-summary-bar {
++      grid-template-columns: 1fr;
++      gap: var(--space-3);
++      padding: var(--space-4);
++    }
++
+     .activities-grid {
+       grid-template-columns: 1fr;
+       gap: var(--space-4);
+@@ -505,21 +548,16 @@ const featuredProducts = [
+       gap: var(--space-4);
+     }
+ 
+-    .support-grid {
++    .home-group-support-grid {
+       grid-template-columns: 1fr;
+       gap: var(--space-4);
+     }
+ 
+-    .support-card {
++    .group-support-card {
+       padding: var(--space-4);
+       gap: var(--space-2);
+     }
+ 
+-    .support-desc {
+-      font-size: 0.875rem;
+-      line-height: 1.45;
+-    }
+-
+     .data-list li {
+       flex-direction: column;
+       align-items: flex-start;
+diff --git a/src/pages/minh-bach.astro b/src/pages/minh-bach.astro
+index aafc44f..2492643 100644
+--- a/src/pages/minh-bach.astro
++++ b/src/pages/minh-bach.astro
+@@ -1,5 +1,6 @@
+ ---
+ import Layout from '../layouts/Layout.astro';
++import FaqAccordion from '../components/FaqAccordion.astro';
+ import {
+   PLANNED_EXPENSES,
+   PRODUCTS,
+@@ -14,10 +15,13 @@ import {
+   calculateCombinedPlannedRevenue,
+   calculateScenario,
+   calculateFoodReconciliation,
++  groupPlannedExpensesByCategory,
++  formatScenarioBalance,
+   formatVND,
+ } from '../lib/finance';
+ 
+ const totalPlannedExpense = sumPlannedExpenses(PLANNED_EXPENSES);
++const expenseGroups = groupPlannedExpensesByCategory(PLANNED_EXPENSES);
+ const craftRevenue = calculateCraftRevenue(PRODUCTS);
+ const foodAssumption = FINANCE_OVERVIEW.foodPlannedRevenueAssumption.value;
+ const totalPlannedRevenue = calculateCombinedPlannedRevenue(craftRevenue, foodAssumption);
+@@ -47,6 +51,12 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
+     result,
+   };
+ });
++
++const baseScenario = FINANCE_SCENARIOS.find((s) => s.id === 'chua-tinh-tai-tro') || FINANCE_SCENARIOS[0];
++const baseScenarioResult = baseScenario
++  ? calculateScenario(baseScenario, totalPlannedRevenue, totalPlannedExpense)
++  : null;
++const baseBalanceDisplay = formatScenarioBalance(baseScenarioResult);
+ ---
+ 
+ <Layout
+@@ -88,10 +98,10 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
+           Kế hoạch dự toán ngân sách, doanh thu kịch bản bán đủ hàng và các nguyên tắc quản trị tài chính minh bạch cho chiến dịch tại Mái ấm Thánh Tâm Xuy Xá.
+         </p>
+ 
+-        <!-- Highlights Grid -->
++        <!-- Highlights Grid (3 KPI kế hoạch / giả định) -->
+         <div class="highlights-grid" role="region" aria-label="Các chỉ số kế hoạch nổi bật">
+           <div class="highlight-card">
+-            <span class="highlight-label">Chi dự kiến</span>
++            <span class="highlight-label">Chi dự kiến (kế hoạch)</span>
+             <span class="highlight-value">{formatVND(totalPlannedExpense)}</span>
+             <p class="highlight-condition">
+               Dự toán 19 khoản chi phí nguyên vật liệu, vật tư góc chơi, quà tặng và di chuyển theo đề xuất (trang 24, 25, 26).
+@@ -99,14 +109,34 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
+           </div>
+ 
+           <div class="highlight-card">
+-            <span class="highlight-label">Doanh thu kịch bản</span>
++            <span class="highlight-label">Doanh thu kịch bản (giả định)</span>
+             <span class="highlight-value">{formatVND(totalPlannedRevenue)}</span>
+             <p class="highlight-condition">
+-              Gồm {formatVND(craftRevenue)} từ 2 sản phẩm thủ công (bán đủ kế hoạch) và {formatVND(foodAssumption)} giả định mục tiêu ẩm thực (trang 18). Trạng thái mở bán chưa được xác nhận; bản xem trước chưa nhận đơn/tiền.
++              Gồm {formatVND(craftRevenue)} thủ công (bán đủ kế hoạch) và {formatVND(foodAssumption)} ẩm thực giả định (trang 18).
++            </p>
++          </div>
++
++          <div class="highlight-card">
++            <span class="highlight-label">Số dư giả định (kịch bản cơ sở)</span>
++            <span class:list={['highlight-value', baseBalanceDisplay.diffClass === 'diff-positive' ? 'text-positive' : baseBalanceDisplay.diffClass === 'diff-negative' ? 'text-negative' : '']}>
++              {baseBalanceDisplay.text}
++            </span>
++            <p class="highlight-condition">
++              Số dư mô phỏng khi chưa tính tài trợ hiện vật, dựa trên giả định bán hết sản phẩm theo giá tham khảo.
+             </p>
+           </div>
+         </div>
+ 
++        <!-- Cảnh báo dẫn xuất chênh 550.000đ và link đối chiếu -->
++        <div class="transparency-gap-alert" role="note">
++          <p class="gap-alert-text">
++            <strong>Lưu ý đối soát mục tiêu ẩm thực:</strong> Hồ sơ đề xuất ghi mục tiêu ẩm thực <strong>{formatVND(foodReconciliation.targetFoodRevenue)}</strong> (trang 18) nhưng số set giả định tính theo đơn giá SKU là <strong>{formatVND(foodReconciliation.setsCalculatedRevenue)}</strong> ({foodReconciliation.hypotheticalSets} set &times; {formatVND(foodReconciliation.setUnitPrice)}). Khoản chênh <strong>{foodReconciliation.unallocatedGap !== null ? formatVND(foodReconciliation.unallocatedGap) : ''}</strong> chưa có bảng phân bổ số lượng chi tiết từng món.
++          </p>
++          <a href="#doi-chieu-do-an" class="gap-alert-link">
++            Xem bảng đối chiếu ẩm thực &darr;
++          </a>
++        </div>
++
+         <!-- Section Notice -->
+         <div class="transparency-notice">
+           <p>
+@@ -117,116 +147,8 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
+     </div>
+   </section>
+ 
+-  <!-- Section 1: Dự toán chi -->
+-  <section class="section section-soft" aria-labelledby="expenses-heading">
+-    <div class="container">
+-      <div class="section-header">
+-        <div class="badge-wrap">
+-          <span class="status-badge">Ngân sách dự kiến</span>
+-        </div>
+-        <h2 id="expenses-heading" class="section-title">
+-          Dự toán chi phí kế hoạch
+-        </h2>
+-        <p class="section-subtitle">
+-          Tổng hợp 19 khoản mục dự toán chi phí chuẩn bị vật tư các góc chơi, quà tặng, nguyên liệu và di chuyển theo đề xuất (trang 24, 25, 26).
+-        </p>
+-      </div>
+-
+-      <!-- Desktop & Tablet Table View -->
+-      <div class="table-wrap desktop-only">
+-        <table class="data-table">
+-          <caption class="sr-only">Bảng chi tiết các khoản dự toán chi phí kế hoạch</caption>
+-          <thead>
+-            <tr>
+-              <th scope="col">Khoản dự toán</th>
+-              <th scope="col">Phân loại</th>
+-              <th scope="col" class="text-right">Thành tiền</th>
+-              <th scope="col">Ghi chú kế hoạch</th>
+-            </tr>
+-          </thead>
+-          <tbody>
+-            {
+-              PLANNED_EXPENSES.map((item) => (
+-                <tr>
+-                  <td>
+-                    <strong>{item.title}</strong>
+-                    <div class="text-xs text-muted">{item.calculationText}</div>
+-                  </td>
+-                  <td>
+-                    <span class="category-tag">{item.category}</span>
+-                  </td>
+-                  <td class="text-right font-medium">
+-                    {formatVND(item.amount.value)}
+-                  </td>
+-                  <td class="text-muted">
+-                    {item.note}
+-                    {item.isEstimated && (
+-                      <span class="estimated-tag">Chi phí giả định</span>
+-                    )}
+-                  </td>
+-                </tr>
+-              ))
+-            }
+-          </tbody>
+-          <tfoot>
+-            <tr class="total-row">
+-              <th scope="row" colspan="2">Tổng dự toán chi</th>
+-              <td class="text-right font-bold text-accent">
+-                {formatVND(totalPlannedExpense)}
+-              </td>
+-              <td class="text-muted">Dẫn xuất từ 19 khoản mục dự toán, không phải chi phí thực tế</td>
+-            </tr>
+-          </tfoot>
+-        </table>
+-      </div>
+-
+-      <!-- Mobile List View (Không cuộn ngang) -->
+-      <div class="mobile-only mobile-expense-list" aria-label="Danh sách khoản dự toán chi trên di động">
+-        {
+-          PLANNED_EXPENSES.map((item) => (
+-            <div class="mobile-expense-card card">
+-              <div class="mobile-expense-top">
+-                <div class="mobile-expense-main">
+-                  <h3 class="mobile-expense-title">{item.title}</h3>
+-                  <span class="mobile-expense-cat">{item.category}</span>
+-                </div>
+-                <div class="mobile-expense-val-col">
+-                  <span class="mobile-expense-val text-accent font-bold">
+-                    {formatVND(item.amount.value)}
+-                  </span>
+-                  {item.isEstimated && (
+-                    <span class="estimated-tag">Chi phí giả định</span>
+-                  )}
+-                </div>
+-              </div>
+-              <div class="mobile-expense-sub text-muted">
+-                {item.calculationText && (
+-                  <span class="mobile-expense-calc">{item.calculationText}</span>
+-                )}
+-                {item.calculationText && item.note && (
+-                  <span class="mobile-sub-sep" aria-hidden="true">&bull;</span>
+-                )}
+-                {item.note && (
+-                  <span class="mobile-expense-note">{item.note}</span>
+-                )}
+-              </div>
+-            </div>
+-          ))
+-        }
+-
+-        <div class="mobile-total-card card">
+-          <div class="mobile-total-header">Tổng dự toán chi kế hoạch</div>
+-          <div class="mobile-total-amount">{formatVND(totalPlannedExpense)}</div>
+-          <p class="mobile-total-note">
+-            Dẫn xuất từ tổng 19 khoản mục chi theo đề xuất ban đầu; không phải chi phí thực tế đã thanh toán.
+-          </p>
+-        </div>
+-      </div>
+-    </div>
+-  </section>
+-
+-  <!-- Section 2: Doanh thu giả định và kịch bản -->
+-  <section class="section" aria-labelledby="scenarios-heading">
++  <!-- Section 1: Doanh thu kịch bản và phân tích số dư -->
++  <section class="section section-soft" aria-labelledby="scenarios-heading">
+     <div class="container">
+       <div class="section-header">
+         <div class="badge-wrap">
+@@ -407,6 +329,162 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
+     </div>
+   </section>
+ 
++  <!-- Section 2: Dự toán chi phí kế hoạch (19 khoản phân theo 3 nhóm) -->
++  <section class="section" aria-labelledby="expenses-heading">
++    <div class="container">
++      <div class="section-header">
++        <div class="badge-wrap">
++          <span class="status-badge">Ngân sách dự kiến</span>
++        </div>
++        <h2 id="expenses-heading" class="section-title">
++          Dự toán chi phí kế hoạch
++        </h2>
++        <p class="section-subtitle">
++          Tổng hợp 19 khoản mục dự toán chi phí chuẩn bị vật tư các góc chơi, quà tặng, nguyên liệu và di chuyển theo đề xuất (trang 24, 25, 26), phân thành 3 nhóm có tổng phụ tính toán trực tiếp từ dữ liệu.
++        </p>
++      </div>
++
++      <!-- Desktop & Tablet Table View (Phân nhóm có subtotal) -->
++      <div class="table-wrap desktop-only">
++        <table class="data-table">
++          <caption class="sr-only">Bảng chi tiết các khoản dự toán chi phí kế hoạch theo 3 nhóm</caption>
++          <thead>
++            <tr>
++              <th scope="col">Khoản dự toán</th>
++              <th scope="col">Phân loại</th>
++              <th scope="col" class="text-right">Thành tiền</th>
++              <th scope="col">Ghi chú kế hoạch</th>
++            </tr>
++          </thead>
++          {
++            expenseGroups.map((group) => (
++              <tbody class="expense-group-body">
++                <tr class="group-header-row">
++                  <th colspan="2" scope="colgroup" class="group-header-cell">
++                    <span class="group-header-badge">{group.category}</span>
++                    <span class="group-header-ref text-xs text-muted">({group.sourceRef.replace('proposal:page-', 'hồ sơ trang ')})</span>
++                  </th>
++                  <td class="text-right font-bold group-header-subtotal">
++                    {formatVND(group.subtotal)}
++                  </td>
++                  <td class="text-muted text-xs group-header-note">
++                    Tổng phụ {group.items.length} khoản
++                  </td>
++                </tr>
++                {
++                  group.items.map((item) => (
++                    <tr>
++                      <td>
++                        <strong>{item.title}</strong>
++                        <div class="text-xs text-muted">{item.calculationText}</div>
++                      </td>
++                      <td>
++                        <span class="category-tag">{item.category}</span>
++                      </td>
++                      <td class="text-right font-medium">
++                        {formatVND(item.amount.value)}
++                      </td>
++                      <td class="text-muted">
++                        {item.note}
++                        {item.isEstimated && (
++                          <span class="estimated-tag">Chi phí giả định</span>
++                        )}
++                      </td>
++                    </tr>
++                  ))
++                }
++              </tbody>
++            ))
++          }
++          <tfoot>
++            <tr class="total-row">
++              <th scope="row" colspan="2">Tổng dự toán chi kế hoạch (19 khoản)</th>
++              <td class="text-right font-bold text-accent">
++                {formatVND(totalPlannedExpense)}
++              </td>
++              <td class="text-muted">Dẫn xuất từ 19 khoản mục dự toán trong đề xuất, không phải chi phí thực tế</td>
++            </tr>
++          </tfoot>
++        </table>
++      </div>
++
++      <!-- Mobile Grouped List View (Collapsible details với subtotal nhìn thấy khi đóng) -->
++      <div class="mobile-only mobile-expense-grouped-container" aria-label="Danh sách khoản dự toán chi trên di động phân theo nhóm">
++        {
++          expenseGroups.map((group) => (
++            <details class="mobile-expense-group-card card">
++              <summary class="mobile-group-summary">
++                <div class="group-summary-left">
++                  <span class="group-summary-title">{group.category}</span>
++                  <span class="group-summary-count text-xs text-muted">({group.items.length} khoản)</span>
++                </div>
++                <div class="group-summary-right font-bold text-accent">
++                  <span class="group-subtotal-val">{formatVND(group.subtotal)}</span>
++                  <span class="group-expand-cue" aria-hidden="true">
++                    <svg
++                      class="chevron-svg"
++                      width="16"
++                      height="16"
++                      viewBox="0 0 24 24"
++                      fill="none"
++                      stroke="currentColor"
++                      stroke-width="2.5"
++                      stroke-linecap="round"
++                      stroke-linejoin="round"
++                    >
++                      <polyline points="6 9 12 15 18 9"></polyline>
++                    </svg>
++                  </span>
++                </div>
++              </summary>
++
++              <div class="group-items-list">
++                {
++                  group.items.map((item) => (
++                    <div class="mobile-expense-item">
++                      <div class="mobile-expense-top">
++                        <div class="mobile-expense-main">
++                          <h3 class="mobile-expense-title">{item.title}</h3>
++                        </div>
++                        <div class="mobile-expense-val-col">
++                          <span class="mobile-expense-val text-accent font-bold">
++                            {formatVND(item.amount.value)}
++                          </span>
++                          {item.isEstimated && (
++                            <span class="estimated-tag">Giả định</span>
++                          )}
++                        </div>
++                      </div>
++                      <div class="mobile-expense-sub text-muted">
++                        {item.calculationText && (
++                          <span class="mobile-expense-calc">{item.calculationText}</span>
++                        )}
++                        {item.calculationText && item.note && (
++                          <span class="mobile-sub-sep" aria-hidden="true">&bull;</span>
++                        )}
++                        {item.note && (
++                          <span class="mobile-expense-note">{item.note}</span>
++                        )}
++                      </div>
++                    </div>
++                  ))
++                }
++              </div>
++            </details>
++          ))
++        }
++
++        <div class="mobile-total-card card">
++          <div class="mobile-total-header">Tổng dự toán chi kế hoạch (19 khoản)</div>
++          <div class="mobile-total-amount">{formatVND(totalPlannedExpense)}</div>
++          <p class="mobile-total-note">
++            Dẫn xuất từ 3 nhóm dự toán trong đề xuất ban đầu (trang 24, 25, 26); không phải chi phí thực tế đã thanh toán.
++          </p>
++        </div>
++      </div>
++    </div>
++  </section>
++
+   <!-- Section 3: Báo cáo thực tế và nguyên tắc quản trị -->
+   <section class="section section-soft" aria-labelledby="actual-governance-heading">
+     <div class="container">
+@@ -418,55 +496,65 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
+           Báo cáo thực tế và nguyên tắc quản trị
+         </h2>
+         <p class="section-subtitle">
+-          Khung theo dõi dòng tiền thực tế và 4 nguyên tắc quản trị tài chính minh bạch của nhóm Lăng Kính.
++          Thông tin thu chi thực tế sẽ được cập nhật sau khi đối soát và được phép công bố.
+         </p>
+       </div>
+ 
+-      <!-- Actual Ledger Grid (Tất cả hiển thị chưa xác nhận rõ ràng, không in null) -->
+-      <div class="actual-ledger-grid" role="region" aria-label="Khung theo dõi số liệu thực tế">
+-        <div class="actual-card card">
+-          <div class="actual-card-header">
+-            <span class="actual-label">Tiền thực nhận</span>
+-            <span class="actual-tag">Chờ đối soát</span>
++      <!-- Actual Ledger Compact (5 dòng gọn gàng, giữ null và chữ "Chưa xác nhận") -->
++      <div class="actual-ledger-compact card" role="region" aria-label="Sổ theo dõi thực tế">
++        <div class="actual-row">
++          <div class="actual-col-main">
++            <div class="actual-col-title">
++              <strong>1. Tiền thực nhận</strong>
++              <span class="actual-tag">Chờ đối soát</span>
++            </div>
++            <p class="actual-col-desc">Gồm doanh thu bán hàng thực tế và tài trợ tiền mặt thực nhận.</p>
+           </div>
+-          <div class="actual-value">{formatVND(ACTUAL_FINANCE.actualCashReceived.value)}</div>
+-          <p class="actual-desc">Gồm doanh thu bán hàng thực tế và tài trợ tiền mặt thực nhận.</p>
++          <div class="actual-col-val">{formatVND(ACTUAL_FINANCE.actualCashReceived.value)}</div>
+         </div>
+ 
+-        <div class="actual-card card">
+-          <div class="actual-card-header">
+-            <span class="actual-label">Chi tiền thực trả</span>
+-            <span class="actual-tag">Chờ đối soát</span>
++        <div class="actual-row">
++          <div class="actual-col-main">
++            <div class="actual-col-title">
++              <strong>2. Chi tiền thực trả</strong>
++              <span class="actual-tag">Chờ đối soát</span>
++            </div>
++            <p class="actual-col-desc">Kế hoạch chi trả các khoản vật tư và vận hành; số chi thực tế chờ đối soát.</p>
+           </div>
+-          <div class="actual-value">{formatVND(ACTUAL_FINANCE.actualCashSpent.value)}</div>
+-          <p class="actual-desc">Kế hoạch chi trả các khoản vật tư và vận hành theo đề xuất; số chi thực tế chờ đối soát.</p>
++          <div class="actual-col-val">{formatVND(ACTUAL_FINANCE.actualCashSpent.value)}</div>
+         </div>
+ 
+-        <div class="actual-card card">
+-          <div class="actual-card-header">
+-            <span class="actual-label">Số dư tiền thực tế</span>
+-            <span class="actual-tag">Chờ đối soát</span>
++        <div class="actual-row">
++          <div class="actual-col-main">
++            <div class="actual-col-title">
++              <strong>3. Số dư tiền thực tế</strong>
++              <span class="actual-tag">Chờ đối soát</span>
++            </div>
++            <p class="actual-col-desc">Số dư đầu kỳ + tiền thực nhận − chi tiền thực trả; số liệu phát sinh chờ đối soát.</p>
+           </div>
+-          <div class="actual-value">{formatVND(ACTUAL_FINANCE.actualCashBalance.value)}</div>
+-          <p class="actual-desc">Số dư đầu kỳ + tiền thực nhận − chi tiền thực trả; số dư đầu kỳ và số liệu phát sinh đều chưa được xác nhận.</p>
++          <div class="actual-col-val">{formatVND(ACTUAL_FINANCE.actualCashBalance.value)}</div>
+         </div>
+ 
+-        <div class="actual-card card">
+-          <div class="actual-card-header">
+-            <span class="actual-label">Hiện vật tiếp nhận & bàn giao</span>
+-            <span class="actual-tag">Sổ riêng</span>
++        <div class="actual-row">
++          <div class="actual-col-main">
++            <div class="actual-col-title">
++              <strong>4. Hiện vật tiếp nhận &amp; bàn giao</strong>
++              <span class="actual-tag">Sổ riêng</span>
++            </div>
++            <p class="actual-col-desc">Theo dõi riêng trong sổ hiện vật theo kế hoạch, không quy đổi gộp vào tiền mặt.</p>
+           </div>
+-          <div class="actual-value">Chưa xác nhận</div>
+-          <p class="actual-desc">Theo dõi riêng trong sổ hiện vật theo kế hoạch, không quy đổi gộp vào tiền mặt.</p>
++          <div class="actual-col-val">Chưa xác nhận</div>
+         </div>
+ 
+-        <div class="actual-card card">
+-          <div class="actual-card-header">
+-            <span class="actual-label">Chứng từ & Hóa đơn</span>
+-            <span class="actual-tag">Lưu trữ nội bộ</span>
++        <div class="actual-row">
++          <div class="actual-col-main">
++            <div class="actual-col-title">
++              <strong>5. Chứng từ &amp; Hóa đơn</strong>
++              <span class="actual-tag">Lưu trữ nội bộ</span>
++            </div>
++            <p class="actual-col-desc">Kế hoạch lưu trữ đầy đủ hóa đơn, chứng từ; công bố bản biên tập bảo vệ riêng tư sau khi được duyệt.</p>
+           </div>
+-          <div class="actual-value">Chưa xác nhận</div>
+-          <p class="actual-desc">Kế hoạch lưu trữ đầy đủ hóa đơn, chứng từ phục vụ đối soát; công bố bản biên tập bảo vệ riêng tư sau khi được cấp quyền.</p>
++          <div class="actual-col-val">Chưa xác nhận</div>
+         </div>
+       </div>
+ 
+@@ -480,7 +568,7 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
+         </p>
+       </div>
+ 
+-      <!-- 4 Governance Principles -->
++      <!-- Governance Principles & Contingency Grid -->
+       <div class="principles-grid">
+         <div class="principle-card card">
+           <div class="principle-number">01</div>
+@@ -513,11 +601,19 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
+             Báo cáo tài chính và chứng từ gốc sau đối soát sẽ được biên tập che các thông tin cá nhân nhạy cảm trước khi công bố công khai theo quyền hạn được duyệt.
+           </p>
+         </div>
++
++        <div class="principle-card card principle-card-wide">
++          <div class="principle-number">05</div>
++          <h3 class="principle-title">Phương án dự phòng và quản trị rủi ro</h3>
++          <p class="principle-desc">
++            Theo đề xuất, khi chưa đủ điều kiện phối hợp và kinh phí, nhóm cần điều chỉnh kế hoạch trước khi mua sắm lớn hoặc mở bán. Hàng tồn và thu chi được dự kiến theo dõi riêng; việc mua quà dựa trên số dư thực tế sau đối soát và nhu cầu được xác nhận.
++          </p>
++        </div>
+       </div>
+     </div>
+   </section>
+ 
+-  <!-- Section 4: FAQs -->
++  <!-- Section 4: FAQs (Dùng FaqAccordion) -->
+   <section class="section" aria-labelledby="transparency-faq-heading">
+     <div class="container">
+       <div class="section-header">
+@@ -532,21 +628,7 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
+         </p>
+       </div>
+ 
+-      <div class="faq-list">
+-        {
+-          TRANSPARENCY_FAQS.map((faq) => (
+-            <details class="faq-item card">
+-              <summary class="faq-question">
+-                <span>{faq.question}</span>
+-                <span class="faq-icon" aria-hidden="true">+</span>
+-              </summary>
+-              <div class="faq-answer">
+-                <p>{faq.answer}</p>
+-              </div>
+-            </details>
+-          ))
+-        }
+-      </div>
++      <FaqAccordion faqs={TRANSPARENCY_FAQS} />
+     </div>
+   </section>
+ 
+@@ -562,7 +644,7 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
+         </p>
+         <div class="navigation-cta-actions">
+           <a href="/dong-hanh" class="btn btn-primary">
+-            Đồng hành cùng dự án &rarr;
++            Cách đồng hành &rarr;
+           </a>
+           <a href="/du-an/mang-theo-mot-net-ve" class="btn btn-secondary">
+             Xem chi tiết câu chuyện dự án
+@@ -657,7 +739,7 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
+   /* Highlights Grid */
+   .highlights-grid {
+     display: grid;
+-    grid-template-columns: repeat(2, 1fr);
++    grid-template-columns: repeat(3, 1fr);
+     gap: var(--space-4);
+   }
+ 
+@@ -672,7 +754,7 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
+   }
+ 
+   .highlight-label {
+-    font-size: 0.9375rem;
++    font-size: 0.875rem;
+     font-weight: 600;
+     color: var(--color-text-secondary);
+     text-transform: uppercase;
+@@ -680,12 +762,16 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
+   }
+ 
+   .highlight-value {
+-    font-size: 2rem;
++    font-size: 1.875rem;
+     font-weight: 800;
+     color: var(--color-text-accent);
+     line-height: 1.15;
+   }
+ 
++  .text-positive {
++    color: #15803d !important;
++  }
++
+   .highlight-condition {
+     font-size: 0.875rem;
+     color: var(--color-text-secondary);
+@@ -693,6 +779,40 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
+     margin: 0;
+   }
+ 
++  /* Gap Alert */
++  .transparency-gap-alert {
++    background-color: #fffaf0;
++    border: 1px solid #fed7aa;
++    border-left: 4px solid #f97316;
++    border-radius: var(--radius-sm);
++    padding: var(--space-4);
++    display: flex;
++    flex-direction: column;
++    gap: var(--space-2);
++  }
++
++  .gap-alert-text {
++    font-size: 0.9375rem;
++    color: var(--color-text-primary);
++    line-height: 1.5;
++    margin: 0;
++  }
++
++  .gap-alert-link {
++    display: inline-flex;
++    align-items: center;
++    gap: 4px;
++    color: #c2410c;
++    font-weight: 600;
++    font-size: 0.9375rem;
++    text-decoration: underline;
++    width: fit-content;
++  }
++
++  .gap-alert-link:hover {
++    color: #9a3412;
++  }
++
+   .transparency-notice {
+     background-color: var(--color-canvas-soft);
+     border: 1px solid var(--color-border);
+@@ -708,14 +828,46 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
+     margin: 0;
+   }
+ 
++  /* Table Group Header */
++  .group-header-row {
++    background-color: #f1f5f9;
++    border-top: 2px solid var(--color-border);
++    border-bottom: 1px solid var(--color-border);
++  }
++
++  .group-header-cell {
++    padding: var(--space-3) var(--space-5);
++    text-align: left;
++  }
++
++  .group-header-badge {
++    font-size: 1rem;
++    font-weight: 700;
++    color: var(--color-text-primary);
++  }
++
++  .group-header-ref {
++    margin-left: var(--space-2);
++    font-weight: normal;
++  }
++
++  .group-header-subtotal {
++    font-size: 1.0625rem;
++    color: var(--color-text-accent);
++  }
++
++  .group-header-note {
++    font-style: italic;
++  }
++
+   /* Section Headers */
+   .section-header {
+-    text-align: center;
+-    max-width: 680px;
+-    margin: 0 auto var(--space-8);
++    text-align: left;
++    max-width: 720px;
++    margin: 0 0 var(--space-8);
+     display: flex;
+     flex-direction: column;
+-    align-items: center;
++    align-items: flex-start;
+     gap: var(--space-2);
+   }
+ 
+@@ -1047,54 +1199,69 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
+     line-height: 1.55;
+   }
+ 
+-  /* Actual Ledger Grid */
+-  .actual-ledger-grid {
+-    display: grid;
+-    grid-template-columns: repeat(3, 1fr);
+-    gap: var(--space-4);
++  /* Compact Actual Ledger */
++  .actual-ledger-compact {
++    padding: var(--space-3) var(--space-6);
++    background-color: var(--color-surface-card);
++    border: 1px solid var(--color-border);
++    border-radius: var(--radius-md);
+     margin-bottom: var(--space-6);
++    display: flex;
++    flex-direction: column;
+   }
+ 
+-  .actual-card {
+-    padding: var(--space-5);
++  .actual-row {
++    display: flex;
++    justify-content: space-between;
++    align-items: center;
++    padding: var(--space-4) 0;
++    border-bottom: 1px solid var(--color-border-subtle);
++    gap: var(--space-4);
++  }
++
++  .actual-row:last-child {
++    border-bottom: none;
++  }
++
++  .actual-col-main {
+     display: flex;
+     flex-direction: column;
+-    gap: var(--space-2);
++    gap: 4px;
++    flex: 1;
+   }
+ 
+-  .actual-card-header {
++  .actual-col-title {
+     display: flex;
+-    justify-content: space-between;
+     align-items: center;
+     gap: var(--space-2);
+   }
+ 
+-  .actual-label {
+-    font-size: 0.875rem;
+-    font-weight: 600;
+-    color: var(--color-text-secondary);
++  .actual-col-title strong {
++    font-size: 0.9375rem;
++    color: var(--color-text-primary);
+   }
+ 
+-  .actual-tag {
++  .actual-col-desc {
+     font-size: 0.875rem;
+-    padding: 2px 6px;
+-    background-color: var(--color-canvas-soft);
+-    border: 1px solid var(--color-border);
+-    border-radius: var(--radius-sm);
+     color: var(--color-text-muted);
++    line-height: 1.45;
++    margin: 0;
+   }
+ 
+-  .actual-value {
+-    font-size: 1.375rem;
++  .actual-col-val {
++    font-size: 1.0625rem;
+     font-weight: 700;
+     color: var(--color-text-primary);
++    white-space: nowrap;
+   }
+ 
+-  .actual-desc {
++  .actual-tag {
+     font-size: 0.875rem;
++    padding: 2px 8px;
++    background-color: var(--color-canvas-soft);
++    border: 1px solid var(--color-border);
++    border-radius: var(--radius-sm);
+     color: var(--color-text-muted);
+-    line-height: 1.45;
+-    margin: 0;
+   }
+ 
+   .ledger-empty-notice {
+@@ -1118,6 +1285,10 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
+     gap: var(--space-4);
+   }
+ 
++  .principle-card-wide {
++    grid-column: 1 / -1;
++  }
++
+   .principle-card {
+     padding: var(--space-6);
+     display: flex;
+@@ -1250,6 +1421,94 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
+     border-width: 0;
+   }
+ 
++  /* Mobile Grouped Expenses */
++  .mobile-expense-grouped-container {
++    display: flex;
++    flex-direction: column;
++    gap: var(--space-3);
++  }
++
++  .mobile-expense-group-card {
++    padding: 0;
++    overflow: hidden;
++    border: 1px solid var(--color-border);
++    border-radius: var(--radius-md);
++    background-color: var(--color-surface-card);
++  }
++
++  .mobile-group-summary {
++    padding: var(--space-3) var(--space-4);
++    background-color: var(--color-canvas-soft);
++    border-bottom: 1px solid var(--color-border-subtle);
++    cursor: pointer;
++    display: flex;
++    justify-content: space-between;
++    align-items: center;
++    gap: var(--space-2);
++    list-style: none;
++    user-select: none;
++  }
++
++  .mobile-group-summary::-webkit-details-marker {
++    display: none;
++  }
++
++  .mobile-group-summary:focus-visible {
++    outline: 2px solid var(--color-focus);
++    outline-offset: -2px;
++  }
++
++  .group-summary-left {
++    display: flex;
++    align-items: center;
++    gap: var(--space-2);
++    flex-wrap: wrap;
++  }
++
++  .group-summary-title {
++    font-size: 0.9375rem;
++    font-weight: 700;
++    color: var(--color-text-primary);
++  }
++
++  .group-summary-right {
++    font-size: 1rem;
++    white-space: nowrap;
++    display: inline-flex;
++    align-items: center;
++    gap: var(--space-2);
++  }
++
++  .group-expand-cue {
++    display: inline-flex;
++    align-items: center;
++    justify-content: center;
++    color: var(--color-text-muted);
++    transition: transform var(--transition-fast, 0.2s ease);
++  }
++
++  .mobile-expense-group-card[open] .group-expand-cue {
++    transform: rotate(180deg);
++  }
++
++  .group-items-list {
++    display: flex;
++    flex-direction: column;
++    padding: 0 var(--space-3);
++  }
++
++  .mobile-expense-item {
++    padding: var(--space-3) 0;
++    border-bottom: 1px solid var(--color-border-subtle);
++    display: flex;
++    flex-direction: column;
++    gap: 4px;
++  }
++
++  .mobile-expense-item:last-child {
++    border-bottom: none;
++  }
++
+   /* Responsive Display Rules */
+   .desktop-only {
+     display: block;
+@@ -1297,13 +1556,19 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
+       gap: var(--space-2) !important;
+     }
+ 
+-    .actual-ledger-grid {
+-      grid-template-columns: 1fr;
+-      gap: var(--space-2);
++    .actual-row {
++      flex-direction: column !important;
++      align-items: flex-start !important;
++      gap: 4px !important;
++      padding: var(--space-3) 0 !important;
+     }
+ 
+-    .actual-card {
+-      padding: var(--space-2) var(--space-3) !important;
++    .actual-col-val {
++      color: var(--color-text-accent) !important;
++    }
++
++    .principle-card-wide {
++      grid-column: auto !important;
+     }
+ 
+     .ledger-empty-notice {
+@@ -1554,6 +1819,10 @@ const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
+       margin: 0;
+       line-height: 1.4;
+     }
++
++    .navigation-cta-desc {
++      text-align: left;
++    }
+   }
+ 
+   @media (max-width: 480px) {
+diff --git a/src/pages/san-pham.astro b/src/pages/san-pham.astro
+index eef1a6f..e22445f 100644
+--- a/src/pages/san-pham.astro
++++ b/src/pages/san-pham.astro
+@@ -1,23 +1,12 @@
+ ---
+ import Layout from '../layouts/Layout.astro';
+ import ProductCard from '../components/ProductCard.astro';
+-import PlaceholderIllustration from '../components/PlaceholderIllustration.astro';
++import FaqAccordion from '../components/FaqAccordion.astro';
+ import { PRODUCTS, PRODUCT_FAQS } from '../data/campaign';
+ import { formatProductPrice, formatProductQuantity } from '../lib/finance';
+ 
+ const craftProducts = PRODUCTS.filter((p) => p.category === 'craft');
+ const foodProducts = PRODUCTS.filter((p) => p.category === 'food');
+-
+-const getIllustrationType = (id: string) => {
+-  if (id === 'chuon-chuon-tre-kem-de') return 'chuon-chuon' as const;
+-  if (id === 'moc-khoa') return 'moc-khoa' as const;
+-  if (id === 'set-do-an') return 'set-do-an' as const;
+-  if (id === 'combo-nem-gion') return 'combo-nem-gion' as const;
+-  if (id === 'combo-nem-xu') return 'combo-nem-xu' as const;
+-  if (id === 'combo-nem-pho-mai') return 'combo-nem-pho-mai' as const;
+-  if (id === 'banh-su-kem') return 'banh-su-kem' as const;
+-  return 'chuon-chuon' as const;
+-};
+ ---
+ 
+ <Layout
+@@ -48,6 +37,7 @@ const getIllustrationType = (id: string) => {
+       <div class="products-hero-card">
+         <div class="badge-row">
+           <span class="status-badge">Kế hoạch gây quỹ</span>
++          <span class="status-summary-pill">7 món &bull; Giá tham khảo &bull; Chưa mở bán</span>
+         </div>
+ 
+         <h1 id="products-heading" class="products-title">
+@@ -61,7 +51,7 @@ const getIllustrationType = (id: string) => {
+         <!-- Notice Box Quan Trọng -->
+         <div class="product-section-notice">
+           <p>
+-            <strong>Lưu ý:</strong> Trạng thái mở bán chưa được xác nhận. Bản xem trước chưa nhận đơn/tiền.
++            <strong>Lưu ý:</strong> Trạng thái mở bán chưa được xác nhận. Bản xem trước nhằm lấy ý kiến đóng góp cho đề xuất dự án, chưa nhận đơn hàng hoặc tiền ủng hộ.
+           </p>
+         </div>
+       </div>
+@@ -75,59 +65,42 @@ const getIllustrationType = (id: string) => {
+         <span class="section-kicker">Danh mục đề xuất</span>
+         <h2 id="catalog-heading">Sản phẩm trong kế hoạch đề xuất</h2>
+         <p class="section-lead">
+-          Kế hoạch gây quỹ gồm 2 sản phẩm lưu niệm thủ công và thực đơn ẩm thực sinh viên dự kiến nhằm bù đắp chi phí vật tư và tạo nguồn lực trao tặng.
++          Kế hoạch gây quỹ gồm 2 sản phẩm lưu niệm thủ công và 5 món ẩm thực sinh viên dự kiến nhằm bù đắp chi phí vật tư và tạo nguồn lực trao tặng.
+         </p>
+       </div>
+ 
++      <!-- Group 1: Thủ công (2 cột desktop) -->
+       <div class="catalog-group">
+-        <h3 class="catalog-subheading">1. Sản phẩm lưu niệm thủ công</h3>
++        <div class="group-title-row">
++          <h3 class="catalog-subheading">1. Sản phẩm lưu niệm thủ công</h3>
++          <span class="group-badge">2 sản phẩm &bull; Nhóm Lăng Kính hoàn thiện mẫu</span>
++        </div>
+         <div class="products-grid products-grid-craft">
+           {
+             craftProducts.map((product) => (
+-              <ProductCard
+-                product={product}
+-                illustrationType={getIllustrationType(product.id)}
+-              />
++              <ProductCard product={product} ratio="16:9" />
+             ))
+           }
+         </div>
+       </div>
+ 
++      <!-- Group 2: Thực đơn ẩm thực (3 cột desktop) -->
+       <div class="catalog-group food-catalog-group">
+         <div class="food-group-header">
+-          <h3 class="catalog-subheading">2. Thực đơn ẩm thực gây quỹ dự kiến</h3>
+-          <span class="food-condition-badge">
+-            Chỉ triển khai khi chốt địa điểm, an toàn & lịch nhận
+-          </span>
++          <div class="group-title-row">
++            <h3 class="catalog-subheading">2. Thực đơn ẩm thực gây quỹ dự kiến</h3>
++            <span class="food-condition-badge">
++              Chỉ triển khai khi chốt địa điểm, an toàn &amp; lịch nhận
++            </span>
++          </div>
+         </div>
+         <p class="food-group-desc">
+           Mục tiêu doanh thu ẩm thực là con số giả định trong đề xuất (trang 18), chưa có bảng phân bổ số lượng chi tiết cho từng món và còn khoảng chênh khi đối chiếu với số set đồ ăn giả định (xem <a href="/minh-bach#doi-chieu-do-an" class="food-reconcile-link">bảng đối chiếu chi tiết tại trang Minh bạch</a>). Dưới đây là các mức giá tham khảo theo từng món và combo trong đề xuất dự án (trang 24):
+         </p>
+-        <div class="food-items-grid">
++        <div class="products-grid products-grid-food">
+           {
+-            foodProducts.map((p) => (
+-              <div class="food-item-card card">
+-                <div class="food-card-visual">
+-                  <PlaceholderIllustration
+-                    type={getIllustrationType(p.id)}
+-                    ratio="16:9"
+-                    caption={p.id === 'banh-su-kem' ? undefined : `Minh họa: ${p.name}`}
+-                  />
+-                </div>
+-                <div class="food-card-body">
+-                  <div class="food-card-top">
+-                    <h4 class="food-name">{p.name}</h4>
+-                    <span class="food-price">{formatProductPrice(p)}</span>
+-                  </div>
+-                  <p class="food-desc">{p.description}</p>
+-                  <div class="food-meta">
+-                    <span class="food-qty-label">Số lượng kế hoạch:</span>
+-                    <span class="food-qty-val">
+-                      {p.plannedQuantity.value !== null ? formatProductQuantity(p) : 'Chưa xác định'}
+-                    </span>
+-                  </div>
+-                </div>
+-              </div>
++            foodProducts.map((product) => (
++              <ProductCard product={product} ratio="16:9" />
+             ))
+           }
+         </div>
+@@ -146,16 +119,17 @@ const getIllustrationType = (id: string) => {
+         </p>
+       </div>
+ 
+-      <!-- Desktop/Tablet Table view -->
++      <!-- Desktop Table view (>= 1024px) -->
+       <div class="table-container card table-desktop">
+         <div class="table-responsive">
+           <table class="plan-table">
++            <caption class="sr-only">Bảng tổng hợp kế hoạch số lượng và giá tham khảo 7 sản phẩm</caption>
+             <thead>
+               <tr>
+                 <th scope="col">Sản phẩm</th>
+                 <th scope="col">Giá tham khảo</th>
+                 <th scope="col">Số lượng kế hoạch</th>
+-                <th scope="col">Nguồn gốc & Ghi chú</th>
++                <th scope="col">Nguồn gốc &amp; Ghi chú</th>
+                 <th scope="col">Trạng thái bán</th>
+               </tr>
+             </thead>
+@@ -177,7 +151,7 @@ const getIllustrationType = (id: string) => {
+                     </td>
+                     <td class="col-status">
+                       <span class="plan-status-badge">
+-                        {p.saleStatus === 'unconfirmed' ? 'Chờ xác nhận' : p.saleStatus}
++                        {p.saleStatus === 'unconfirmed' ? 'Chưa xác nhận' : p.saleStatus}
+                       </span>
+                     </td>
+                   </tr>
+@@ -194,44 +168,72 @@ const getIllustrationType = (id: string) => {
+         </div>
+       </div>
+ 
+-      <!-- Mobile Vertical Cards view (không cần cuộn ngang) -->
+-      <div class="plan-mobile-list">
+-        {
+-          PRODUCTS.map((p) => (
+-            <div class="plan-mobile-card card">
+-              <div class="plan-mobile-header">
+-                <h3 class="plan-mobile-title">{p.name}</h3>
+-                <span class="plan-status-badge">
+-                  {p.saleStatus === 'unconfirmed' ? 'Chờ xác nhận' : p.saleStatus}
+-                </span>
+-              </div>
+-              <div class="plan-mobile-details">
+-                <div class="plan-mobile-row">
+-                  <span class="row-label">Số lượng kế hoạch:</span>
+-                  <strong class="row-val row-val-accent">
+-                    {formatProductQuantity(p)}
+-                  </strong>
+-                </div>
+-                <div class="plan-mobile-row">
+-                  <span class="row-label">Giá tham khảo trong đề xuất:</span>
+-                  <span class="row-val">
+-                    {formatProductPrice(p)}
+-                  </span>
+-                </div>
+-                <div class="plan-mobile-row">
+-                  <span class="row-label">Kế hoạch & Nguồn gốc:</span>
+-                  <span class="row-val-notes">{p.planNotes || p.notes}</span>
+-                </div>
+-              </div>
++      <!-- Mobile/Tablet Collapsible Details (< 1024px) -->
++      <div class="table-mobile-collapse-wrap">
++        <details class="plan-mobile-details card" id="mobile-plan-details">
++          <summary class="plan-mobile-summary">
++            <span class="summary-text">Xem bảng tổng hợp kế hoạch (đầy đủ 7 món)</span>
++            <span class="summary-badge">Mở để xem chi tiết</span>
++            <span class="summary-icon" aria-hidden="true">&darr;</span>
++          </summary>
++
++          <div class="plan-mobile-content">
++            <p class="table-scroll-hint" id="mobile-table-scroll-hint">
++              <span aria-hidden="true">&harr;</span> Cuộn ngang để xem đầy đủ 5 cột thông tin kế hoạch
++            </p>
++            <div
++              class="table-responsive"
++              tabindex="0"
++              role="region"
++              aria-label="Bảng tổng hợp kế hoạch 7 sản phẩm"
++              aria-describedby="mobile-table-scroll-hint"
++            >
++              <table class="plan-table mobile-expanded-table">
++                <thead>
++                  <tr>
++                    <th scope="col">Sản phẩm</th>
++                    <th scope="col">Giá tham khảo</th>
++                    <th scope="col">Số lượng</th>
++                    <th scope="col">Nguồn gốc / Ghi chú</th>
++                    <th scope="col">Trạng thái</th>
++                  </tr>
++                </thead>
++                <tbody>
++                  {
++                    PRODUCTS.map((p) => (
++                      <tr>
++                        <td class="col-name">
++                          <strong>{p.name}</strong>
++                          <span class="col-subnote">{p.originText}</span>
++                        </td>
++                        <td class="col-price">
++                          {formatProductPrice(p)}
++                        </td>
++                        <td class="col-qty">
++                          {formatProductQuantity(p)}
++                        </td>
++                        <td class="col-notes">
++                          {p.planNotes || p.notes}
++                        </td>
++                        <td class="col-status">
++                          <span class="plan-status-badge">
++                            {p.saleStatus === 'unconfirmed' ? 'Chưa xác nhận' : p.saleStatus}
++                          </span>
++                        </td>
++                      </tr>
++                    ))
++                  }
++                </tbody>
++              </table>
+             </div>
+-          ))
+-        }
+ 
+-        <div class="table-disclaimer">
+-          <p>
+-            Ghi chú: Toàn bộ số lượng và mức giá trên thuộc kịch bản dự toán ban đầu trong đề xuất dự án. Số lượng tồn kho thực tế chưa được xác nhận.
+-          </p>
+-        </div>
++            <div class="table-disclaimer">
++              <p>
++                Ghi chú: Toàn bộ số lượng và mức giá trên thuộc kịch bản dự toán ban đầu trong đề xuất dự án. Số lượng tồn kho thực tế chưa được xác nhận.
++              </p>
++            </div>
++          </div>
++        </details>
+       </div>
+     </div>
+   </section>
+@@ -247,35 +249,41 @@ const getIllustrationType = (id: string) => {
+         </p>
+       </div>
+ 
+-      <div class="faq-list">
+-        {
+-          PRODUCT_FAQS.map((faq) => (
+-            <div class="faq-item card">
+-              <h3 class="faq-question">{faq.question}</h3>
+-              <p class="faq-answer">{faq.answer}</p>
+-            </div>
+-          ))
+-        }
++      <div class="faq-wrap">
++        <FaqAccordion items={PRODUCT_FAQS} idPrefix="product-faq" />
+       </div>
++    </div>
++  </section>
+ 
+-      <div class="products-bottom-actions">
+-        <a href="/du-an/mang-theo-mot-net-ve" class="btn btn-primary">
+-          Khám phá câu chuyện dự án
+-        </a>
+-        <a href="/minh-bach" class="btn btn-secondary">
+-          Xem nguyên tắc minh bạch thu chi
+-        </a>
++  <!-- Section 4: CTA điều hướng -->
++  <section class="section section-cta" aria-labelledby="products-cta-heading">
++    <div class="container">
++      <div class="products-cta-card card">
++        <h2 id="products-cta-heading" class="cta-title">
++          Tìm hiểu thêm về chiến dịch
++        </h2>
++        <p class="cta-desc">
++          Khám phá nguyên tắc minh bạch tài chính dự toán hoặc tìm hiểu các phương thức đồng hành cùng Mái ấm.
++        </p>
++        <div class="cta-actions">
++          <a href="/dong-hanh" class="btn btn-primary">
++            Cách đồng hành &rarr;
++          </a>
++          <a href="/minh-bach" class="btn btn-secondary">
++            Xem dự toán minh bạch
++          </a>
++        </div>
+       </div>
+     </div>
+   </section>
+ </Layout>
+ 
+ <style>
+-  /* Breadcrumb */
++  /* Breadcrumb Bar */
+   .breadcrumb-bar {
+-    background-color: var(--color-canvas-soft);
+-    border-bottom: 1px solid var(--color-border-subtle);
+-    padding: var(--space-2) 0;
++    background-color: var(--color-surface-card);
++    border-bottom: 1px solid var(--color-border);
++    padding: var(--space-3) 0;
+   }
+ 
+   .breadcrumb-list {
+@@ -283,21 +291,19 @@ const getIllustrationType = (id: string) => {
+     align-items: center;
+     gap: var(--space-2);
+     list-style: none;
+-    margin: 0;
+     padding: 0;
+-    font-size: var(--font-size-sm);
++    margin: 0;
++    font-size: 0.9375rem;
++    flex-wrap: wrap;
+   }
+ 
+   .breadcrumb-link {
+     color: var(--color-text-secondary);
+     text-decoration: none;
+-    min-height: 44px;
+-    display: inline-flex;
+-    align-items: center;
+   }
+ 
+   .breadcrumb-link:hover {
+-    color: var(--color-text-primary);
++    color: var(--color-brand-primary);
+     text-decoration: underline;
+   }
+ 
+@@ -310,72 +316,67 @@ const getIllustrationType = (id: string) => {
+     font-weight: 600;
+   }
+ 
+-  /* Products Hero */
++  /* Hero Section */
+   .products-hero {
+-    padding-top: var(--space-10);
+-    padding-bottom: var(--space-8);
+-    background-color: var(--color-canvas);
++    padding: var(--space-8) 0 var(--space-6);
+   }
+ 
+   .products-hero-card {
+-    max-width: 820px;
+-    margin: 0 auto;
+-    text-align: center;
++    background-color: var(--color-surface-card);
++    border: 1px solid var(--color-border);
++    border-radius: var(--radius-lg);
++    padding: var(--space-8);
+     display: flex;
+     flex-direction: column;
+-    align-items: center;
+     gap: var(--space-4);
+   }
+ 
+   .badge-row {
+-    margin-bottom: var(--space-1);
+-  }
+-
+-  .products-title {
+-    font-size: var(--font-size-h1);
+-    line-height: var(--line-height-h1);
+-    color: var(--color-text-primary);
+-    text-wrap: balance;
++    display: flex;
++    align-items: center;
++    gap: var(--space-3);
++    flex-wrap: wrap;
+   }
+ 
+-  .products-lead {
+-    font-size: var(--font-size-body);
+-    line-height: var(--line-height-body);
++  .status-summary-pill {
++    font-size: 0.875rem;
+     color: var(--color-text-secondary);
+-    max-width: 65ch;
++    background-color: var(--color-canvas-soft);
++    padding: 4px 12px;
++    border-radius: var(--radius-full);
++    border: 1px solid var(--color-border-subtle);
++    font-weight: 500;
+   }
+ 
+-  /* Section Kicker & Lead */
+-  .section-kicker {
+-    display: inline-block;
+-    font-size: var(--font-size-sm);
+-    font-weight: 600;
+-    color: var(--color-text-accent);
+-    text-transform: uppercase;
+-    letter-spacing: 0.05em;
+-    margin-bottom: var(--space-1);
++  .products-title {
++    font-size: clamp(1.75rem, 4vw, 2.5rem);
++    font-weight: 800;
++    color: var(--color-text-primary);
++    line-height: 1.25;
++    margin: 0;
+   }
+ 
+-  .section-lead {
++  .products-lead {
+     font-size: 1.125rem;
+     color: var(--color-text-secondary);
+-    line-height: 1.5;
++    line-height: 1.6;
++    margin: 0;
++    max-width: 800px;
+   }
+ 
+-  /* Product Section Notice */
+   .product-section-notice {
++    background-color: #fffdf5;
++    border: 1px solid #fef3c7;
++    border-left: 4px solid var(--color-accent);
++    border-radius: var(--radius-sm);
+     padding: var(--space-3) var(--space-4);
+-    background-color: var(--color-canvas-soft);
+-    border: 1px solid var(--color-border-subtle);
+-    border-radius: var(--radius-md);
+-    font-size: var(--font-size-sm);
+-    color: var(--color-text-secondary);
+-    max-width: 600px;
+-    margin: 0 auto;
+   }
+ 
+   .product-section-notice p {
+     margin: 0;
++    font-size: 0.9375rem;
++    color: var(--color-text-secondary);
++    line-height: 1.5;
+   }
+ 
+   /* Catalog Groups */
+@@ -383,415 +384,342 @@ const getIllustrationType = (id: string) => {
+     margin-bottom: var(--space-8);
+   }
+ 
+-  .catalog-subheading {
+-    font-size: 1.25rem;
+-    font-weight: 700;
+-    color: var(--color-text-primary);
+-    margin-bottom: var(--space-4);
+-  }
+-
+-  .food-catalog-group {
+-    margin-top: var(--space-6);
++  .catalog-group:last-child {
++    margin-bottom: 0;
+   }
+ 
+-  .food-group-header {
++  .group-title-row {
+     display: flex;
+-    align-items: center;
+     justify-content: space-between;
++    align-items: baseline;
+     flex-wrap: wrap;
+-    gap: var(--space-3);
+-    margin-bottom: var(--space-2);
++    gap: var(--space-2);
++    margin-bottom: var(--space-4);
+   }
+ 
+-  .food-group-header .catalog-subheading {
+-    margin-bottom: 0;
++  .catalog-subheading {
++    font-size: 1.25rem;
++    font-weight: 700;
++    color: var(--color-text-primary);
++    margin: 0;
++  }
++
++  .group-badge {
++    font-size: 0.875rem;
++    color: var(--color-text-muted);
++    font-weight: 500;
+   }
+ 
+   .food-condition-badge {
+-    display: inline-block;
+-    font-size: var(--font-size-sm);
+-    font-weight: 600;
+-    padding: 3px 12px;
+-    background-color: #fff8e6;
+-    color: #8c5b00;
+-    border: 1px solid #ffd591;
+-    border-radius: var(--radius-pill);
++    font-size: 0.875rem;
++    color: #c2410c;
++    background-color: #fff7ed;
++    border: 1px solid #fed7aa;
++    padding: 3px 10px;
++    border-radius: var(--radius-full);
++    font-weight: 500;
+   }
+ 
+   .food-group-desc {
+     font-size: 0.9375rem;
+     color: var(--color-text-secondary);
+-    line-height: 1.5;
+-    margin-bottom: var(--space-5);
+-    max-width: 75ch;
++    line-height: 1.6;
++    margin: 0 0 var(--space-4);
+   }
+ 
+   .food-reconcile-link {
+-    color: var(--color-text-accent);
+-    text-decoration: underline;
++    color: var(--color-brand-primary);
+     font-weight: 600;
++    text-decoration: underline;
+   }
+ 
+   .food-reconcile-link:hover {
+-    color: var(--color-accent-hover);
++    color: var(--color-brand-hover);
+   }
+ 
+-  /* Products Grid */
++  /* Products Grids */
+   .products-grid {
+     display: grid;
+-    grid-template-columns: repeat(3, 1fr);
+-    gap: var(--space-6);
++    gap: var(--space-5);
+   }
+ 
++  /* Craft Grid: 2 columns desktop */
+   .products-grid-craft {
+     grid-template-columns: repeat(2, 1fr);
+-    max-width: 800px;
+   }
+ 
+-  /* Food Items Grid */
+-  .food-items-grid {
+-    display: grid;
++  /* Food Grid: 3 columns desktop, 2 columns tablet */
++  .products-grid-food {
+     grid-template-columns: repeat(3, 1fr);
+-    gap: var(--space-5);
+   }
+ 
+-  .food-item-card {
+-    display: flex;
+-    flex-direction: column;
++  /* Table Container */
++  .table-container {
++    background-color: var(--color-surface-card);
++    border: 1px solid var(--color-border);
++    border-radius: var(--radius-md);
+     overflow: hidden;
+-    height: 100%;
+   }
+ 
+-  .food-card-visual {
+-    background-color: var(--color-canvas-soft);
+-    border-bottom: 1px solid var(--color-border-subtle);
++  .table-responsive {
++    overflow-x: auto;
++    -webkit-overflow-scrolling: touch;
+   }
+ 
+-  .food-card-body {
+-    padding: var(--space-4);
+-    display: flex;
+-    flex-direction: column;
+-    flex-grow: 1;
+-    gap: var(--space-2);
++  .plan-table {
++    width: 100%;
++    border-collapse: collapse;
++    font-size: 0.9375rem;
++    text-align: left;
+   }
+ 
+-  .food-card-top {
+-    display: flex;
+-    justify-content: space-between;
+-    align-items: baseline;
+-    gap: var(--space-2);
++  .plan-table th,
++  .plan-table td {
++    padding: var(--space-4);
++    border-bottom: 1px solid var(--color-border);
+   }
+ 
+-  .food-name {
+-    font-size: 1.0625rem;
++  .plan-table th {
++    background-color: var(--color-canvas-soft);
+     font-weight: 700;
+     color: var(--color-text-primary);
+-    margin: 0;
+   }
+ 
+-  .food-price {
+-    font-size: 1.0625rem;
+-    font-weight: 700;
++  .col-name {
++    min-width: 160px;
++  }
++
++  .col-subnote {
++    display: block;
++    font-size: 0.875rem;
++    color: var(--color-text-muted);
++    font-weight: normal;
++    margin-top: 2px;
++  }
++
++  .col-price {
++    white-space: nowrap;
+     color: var(--color-text-accent);
++    font-weight: 600;
++  }
++
++  .col-qty {
+     white-space: nowrap;
+   }
+ 
+-  .food-desc {
+-    font-size: var(--font-size-sm);
++  .col-notes {
++    font-size: 0.875rem;
+     color: var(--color-text-secondary);
+     line-height: 1.5;
+-    margin: 0;
+-    flex-grow: 1;
+   }
+ 
+-  .food-meta {
+-    display: flex;
+-    justify-content: space-between;
+-    align-items: center;
+-    padding-top: var(--space-2);
+-    border-top: 1px dashed var(--color-border-subtle);
+-    font-size: var(--font-size-sm);
++  .col-status {
++    white-space: nowrap;
+   }
+ 
+-  .food-qty-label {
+-    color: var(--color-text-muted);
++  .plan-status-badge {
++    display: inline-block;
++    padding: 3px 8px;
++    border-radius: var(--radius-full);
++    font-size: 0.875rem;
++    font-weight: 600;
++    background-color: #fff7ed;
++    color: #c2410c;
++    border: 1px solid #fed7aa;
+   }
+ 
+-  .food-qty-val {
+-    color: var(--color-text-secondary);
+-    font-weight: 500;
++  .table-disclaimer {
++    padding: var(--space-3) var(--space-4);
++    background-color: var(--color-canvas-soft);
++    border-top: 1px solid var(--color-border-subtle);
+   }
+ 
+-  /* Plan Table */
+-  .table-container {
+-    padding: var(--space-6);
+-    background-color: var(--color-surface-card);
++  .table-disclaimer p {
++    margin: 0;
++    font-size: 0.875rem;
++    color: var(--color-text-muted);
++    line-height: 1.5;
+   }
+ 
+-  .table-responsive {
+-    overflow-x: auto;
+-    width: 100%;
+-    -webkit-overflow-scrolling: touch;
++  /* Responsive Display Rules for Table (< 1024px collapsible) */
++  .table-desktop {
++    display: block;
+   }
+ 
+-  .plan-table {
+-    width: 100%;
+-    border-collapse: collapse;
+-    text-align: left;
+-    font-size: 0.9375rem;
++  .table-mobile-collapse-wrap {
++    display: none;
+   }
+ 
+-  .plan-table th {
+-    background-color: var(--color-canvas-soft);
+-    color: var(--color-text-primary);
+-    font-weight: 700;
+-    padding: var(--space-3) var(--space-4);
+-    border-bottom: 2px solid var(--color-border);
+-    white-space: nowrap;
++  .plan-mobile-details {
++    background-color: var(--color-surface-card);
++    border: 1px solid var(--color-border);
++    border-radius: var(--radius-md);
++    overflow: hidden;
+   }
+ 
+-  .plan-table td {
++  .plan-mobile-summary {
++    display: flex;
++    justify-content: space-between;
++    align-items: center;
++    gap: var(--space-3);
+     padding: var(--space-4);
+-    border-bottom: 1px solid var(--color-border-subtle);
+-    vertical-align: top;
+-    line-height: 1.5;
+-  }
+-
+-  .col-name {
++    cursor: pointer;
++    font-size: 1rem;
++    font-weight: 700;
+     color: var(--color-text-primary);
+-    min-width: 180px;
++    list-style: none;
++    user-select: none;
++    background-color: var(--color-canvas-soft);
+   }
+ 
+-  .col-price {
+-    font-weight: 700;
+-    color: var(--color-text-accent);
+-    white-space: nowrap;
++  .plan-mobile-summary::-webkit-details-marker {
++    display: none;
+   }
+ 
+-  .col-qty {
+-    white-space: nowrap;
+-    color: var(--color-text-secondary);
++  .plan-mobile-summary:focus-visible {
++    outline: 2px solid var(--color-brand-primary);
++    outline-offset: -2px;
+   }
+ 
+-  .col-notes {
+-    font-size: var(--font-size-sm);
+-    color: var(--color-text-secondary);
+-    min-width: 240px;
++  .summary-text {
++    flex: 1;
++    text-align: left;
+   }
+ 
+-  .col-status {
+-    white-space: nowrap;
++  .summary-badge {
++    font-size: 0.875rem;
++    color: var(--color-brand-primary);
++    font-weight: 600;
+   }
+ 
+-  .plan-status-badge {
+-    display: inline-block;
+-    font-size: var(--font-size-sm);
+-    font-weight: 500;
+-    padding: 2px 10px;
+-    background-color: var(--color-canvas-soft);
++  .summary-icon {
++    font-size: 1.125rem;
+     color: var(--color-text-muted);
+-    border: 1px solid var(--color-border);
+-    border-radius: var(--radius-pill);
++    transition: transform var(--transition-fast);
+   }
+ 
+-  .table-disclaimer {
+-    margin-top: var(--space-4);
+-    border-top: 1px dashed var(--color-border-subtle);
+-    padding-top: var(--space-3);
++  .plan-mobile-details[open] .summary-icon {
++    transform: rotate(180deg);
+   }
+ 
+-  .plan-mobile-list {
+-    display: none;
++  .plan-mobile-content {
++    border-top: 1px solid var(--color-border);
+   }
+ 
+-  .table-disclaimer p {
+-    font-size: var(--font-size-sm);
++  .table-scroll-hint {
++    padding: var(--space-2) var(--space-4);
++    font-size: 0.875rem;
+     color: var(--color-text-muted);
+-    line-height: var(--line-height-sm);
++    background-color: var(--color-canvas-soft);
++    border-bottom: 1px solid var(--color-border-subtle);
+     margin: 0;
++    display: flex;
++    align-items: center;
++    gap: var(--space-2);
+   }
+ 
+-  /* FAQ List */
+-  .faq-list {
+-    display: flex;
+-    flex-direction: column;
+-    gap: var(--space-4);
+-    max-width: 820px;
++  .table-responsive:focus-visible {
++    outline: 2px solid var(--color-brand-primary);
++    outline-offset: -2px;
++  }
++
++  .mobile-expanded-table th,
++  .mobile-expanded-table td {
++    padding: var(--space-3) var(--space-2);
++    font-size: 0.875rem;
++  }
++
++  /* FAQ Wrap */
++  .faq-wrap {
++    max-width: 860px;
+     margin: 0 auto;
+   }
+ 
+-  .faq-item {
+-    padding: var(--space-5);
++  /* CTA Section */
++  .products-cta-card {
++    background-color: var(--color-surface-card);
++    border: 1px solid var(--color-border);
++    border-radius: var(--radius-lg);
++    padding: var(--space-8);
++    text-align: center;
+     display: flex;
+     flex-direction: column;
+-    gap: var(--space-2);
++    align-items: center;
++    gap: var(--space-3);
+   }
+ 
+-  .faq-question {
+-    font-size: 1.125rem;
++  .cta-title {
++    font-size: 1.5rem;
++    font-weight: 700;
+     color: var(--color-text-primary);
++    margin: 0;
+   }
+ 
+-  .faq-answer {
+-    font-size: 0.9375rem;
+-    line-height: 1.6;
++  .cta-desc {
++    font-size: 1rem;
+     color: var(--color-text-secondary);
++    max-width: 600px;
+     margin: 0;
+   }
+ 
+-  .products-bottom-actions {
++  .cta-actions {
+     display: flex;
+-    justify-content: center;
+-    gap: var(--space-4);
+-    margin-top: var(--space-8);
++    gap: var(--space-3);
++    margin-top: var(--space-2);
+     flex-wrap: wrap;
++    justify-content: center;
+   }
+ 
+-  /* Responsive */
++  /* Responsive Breakpoints */
+   @media (max-width: 1023px) {
+-    .products-grid {
+-      grid-template-columns: repeat(2, 1fr);
+-    }
+-
+-    .food-items-grid {
+-      grid-template-columns: repeat(2, 1fr);
+-    }
+-
+-    /* M2: Switch to card view for tablets <= 1023px, full table for >= 1024px */
+     .table-desktop {
+       display: none !important;
+     }
+ 
+-    .plan-mobile-list {
+-      display: flex;
+-      flex-direction: column;
+-      gap: var(--space-4);
+-    }
+-
+-    .plan-mobile-card {
+-      padding: var(--space-5);
+-      display: flex;
+-      flex-direction: column;
+-      gap: var(--space-3);
+-    }
+-
+-    .plan-mobile-header {
+-      display: flex;
+-      justify-content: space-between;
+-      align-items: flex-start;
+-      gap: var(--space-2);
+-      border-bottom: 1px solid var(--color-border-subtle);
+-      padding-bottom: var(--space-2);
+-    }
+-
+-    .plan-mobile-title {
+-      font-size: 1.125rem;
+-      color: var(--color-text-primary);
+-      margin: 0;
+-    }
+-
+-    .plan-mobile-details {
+-      display: flex;
+-      flex-direction: column;
+-      gap: var(--space-2);
+-    }
+-
+-    .plan-mobile-row {
+-      display: flex;
+-      flex-direction: column;
+-      gap: 2px;
+-      font-size: var(--font-size-sm);
+-    }
+-
+-    .row-label {
+-      color: var(--color-text-muted);
++    .table-mobile-collapse-wrap {
++      display: block !important;
+     }
+ 
+-    .row-val {
+-      color: var(--color-text-primary);
+-      font-weight: 500;
+-    }
+-
+-    .row-val-accent {
+-      color: var(--color-text-accent);
+-      font-size: 1rem;
+-      font-weight: 700;
+-    }
+-
+-    .row-val-notes {
+-      color: var(--color-text-secondary);
+-      line-height: var(--line-height-sm);
++    .products-grid-food {
++      grid-template-columns: repeat(2, 1fr);
+     }
+   }
+ 
+   @media (max-width: 767px) {
+     .products-hero {
+-      padding-top: var(--space-6);
+-      padding-bottom: var(--space-6);
+-    }
+-
+-    .products-title {
+-      font-size: 2rem;
+-      line-height: 1.15;
+-    }
+-
+-    .products-lead {
+-      font-size: 0.9375rem;
+-      line-height: 1.45;
++      padding: var(--space-4) 0;
+     }
+ 
+-    .products-grid {
+-      grid-template-columns: 1fr;
+-      gap: var(--space-4);
++    .products-hero-card {
++      padding: var(--space-4);
++      gap: var(--space-3);
+     }
+ 
+-    .products-grid-craft {
++    .products-grid-craft,
++    .products-grid-food {
+       grid-template-columns: 1fr;
++      gap: var(--space-3);
+     }
+ 
+-    .food-group-header {
+-      flex-direction: column;
+-      align-items: flex-start;
+-      gap: var(--space-2);
+-    }
+-
+-    /* L5: Xếp tên và giá theo chiều dọc ở mobile để tên không bị ép */
+-    .food-card-top {
+-      flex-direction: column;
++    .products-cta-card {
++      padding: var(--space-5) var(--space-4);
++      text-align: left;
+       align-items: flex-start;
+-      gap: 4px;
+-    }
+-
+-    .food-items-grid {
+-      grid-template-columns: 1fr;
+-      gap: var(--space-4);
+     }
+ 
+-    .plan-mobile-card {
+-      padding: var(--space-4) !important;
++    .products-lead,
++    .cta-desc {
++      text-align: left;
+     }
+ 
+-    .table-container {
+-      padding: var(--space-4) !important;
+-    }
+-
+-    .plan-table th,
+-    .plan-table td {
+-      padding: var(--space-2) var(--space-3);
+-    }
+-
+-    .faq-item {
+-      padding: var(--space-4) !important;
+-    }
+-
+-    .products-bottom-actions {
++    .cta-actions {
++      width: 100%;
+       flex-direction: column;
+-      gap: var(--space-2);
+-      margin-top: var(--space-6);
+     }
+ 
+-    .products-bottom-actions .btn {
++    .cta-actions .btn {
+       width: 100%;
++      text-align: center;
+     }
+   }
+ </style>
+diff --git a/src/pages/ve-nhom.astro b/src/pages/ve-nhom.astro
+index de08f7e..3f56539 100644
+--- a/src/pages/ve-nhom.astro
++++ b/src/pages/ve-nhom.astro
+@@ -25,7 +25,7 @@ import { TEAM_INFO, TEAM_PRINCIPLES, TEAM_COORDINATION } from '../data/campaign'
+     </div>
+   </div>
+ 
+-  <!-- Header / Hero Section -->
++  <!-- Header / Hero Section (Bỏ logo lặp, giữ nhận diện header/footer) -->
+   <section class="team-hero" aria-labelledby="team-heading">
+     <div class="container">
+       <div class="team-hero-card">
+@@ -33,16 +33,6 @@ import { TEAM_INFO, TEAM_PRINCIPLES, TEAM_COORDINATION } from '../data/campaign'
+           <span class="status-badge">Thông tin nhóm thực hiện</span>
+         </div>
+ 
+-        <div class="team-logo-banner">
+-          <img
+-            src="/images/logo_option5_horizontal.png"
+-            alt="Logo nhóm Lăng Kính"
+-            class="team-card-logo"
+-            width="1419"
+-            height="587"
+-          />
+-        </div>
+-
+         <h1 id="team-heading" class="team-title">
+           Về nhóm {TEAM_INFO.name}
+         </h1>
+@@ -62,35 +52,25 @@ import { TEAM_INFO, TEAM_PRINCIPLES, TEAM_COORDINATION } from '../data/campaign'
+     </div>
+   </section>
+ 
+-  <!-- Section 1: Nguyên tắc hoạt động -->
+-  <section class="section section-soft" aria-labelledby="principles-heading">
++  <!-- Section 1: Nhân sự thực hiện (Gọn gàng, không tạo card rỗng) -->
++  <section class="section section-soft section-roster" aria-labelledby="members-heading">
+     <div class="container">
+-      <div class="section-header center-header">
+-        <span class="section-kicker">Cam kết trách nhiệm</span>
+-        <h2 id="principles-heading">5 nguyên tắc cốt lõi của nhóm</h2>
+-        <p class="section-lead">
+-          Các định hướng nhất quán trong đề xuất, làm kim chỉ nam xuyên suốt từ khâu xây dựng ý tưởng đến chuẩn bị và triển khai dự kiến.
+-        </p>
+-      </div>
+-
+-      <div class="principles-grid">
+-        {
+-          TEAM_PRINCIPLES.map((principle, index) => (
+-            <div class="principle-card card">
+-              <span class="principle-num">0{index + 1}</span>
+-              <h3 class="principle-title">{principle.title}</h3>
+-              <p class="principle-desc">{principle.description}</p>
+-            </div>
+-          ))
+-        }
++      <div class="members-notice-wrapper">
++        <div class="members-notice-card card">
++          <span class="section-kicker">Nhân sự thực hiện</span>
++          <h2 id="members-heading" class="members-title">Thành viên nhóm Lăng Kính</h2>
++          <p class="members-desc">
++            Nhóm gồm 7 sinh viên lớp AI2015, học phần SSG105 (Kỹ năng làm việc nhóm), Đại học FPT Hà Nội. Tên, hình ảnh và phân công chi tiết chờ được xác nhận và cho phép công bố.
++          </p>
++        </div>
+       </div>
+     </div>
+   </section>
+ 
+-  <!-- Section 2: Cách nhóm phối hợp -->
++  <!-- Section 2: Cách nhóm phối hợp (5 nhóm việc dự kiến) -->
+   <section class="section" aria-labelledby="coordination-heading">
+     <div class="container">
+-      <div class="section-header center-header">
++      <div class="section-header">
+         <span class="section-kicker">Kế hoạch làm việc nhóm</span>
+         <h2 id="coordination-heading">Cách nhóm phối hợp thực hiện</h2>
+         <p class="section-lead">
+@@ -112,7 +92,7 @@ import { TEAM_INFO, TEAM_PRINCIPLES, TEAM_COORDINATION } from '../data/campaign'
+         }
+       </div>
+ 
+-      <div class="section-footer-note center-text">
++      <div class="section-footer-note">
+         <p>
+           Các nhóm việc trên là mô tả phân công trách nhiệm trong đề xuất học phần; không phải chức danh nhân sự hay thông tin liên hệ công khai đã xác nhận.
+         </p>
+@@ -120,31 +100,47 @@ import { TEAM_INFO, TEAM_PRINCIPLES, TEAM_COORDINATION } from '../data/campaign'
+     </div>
+   </section>
+ 
+-  <!-- Section 3: Thành viên nhóm -->
+-  <section class="section section-soft" aria-labelledby="members-heading">
++  <!-- Section 3: 5 nguyên tắc cốt lõi của nhóm -->
++  <section class="section section-soft" aria-labelledby="principles-heading">
+     <div class="container">
+-      <div class="members-notice-wrapper">
+-        <div class="members-notice-card card">
+-          <span class="section-kicker">Nhân sự thực hiện</span>
+-          <h2 id="members-heading" class="members-title">Thành viên nhóm Lăng Kính</h2>
+-          <p class="members-desc">
+-            Nhóm gồm 7 sinh viên lớp AI2015, học phần SSG105 (Kỹ năng làm việc nhóm), Đại học FPT Hà Nội. Tên, hình ảnh và phân công chi tiết sẽ bổ sung sau khi được xác nhận và cho phép công bố.
+-          </p>
+-          <div class="notice-info-box">
+-            <p>
+-              Thông tin thành viên sẽ được cập nhật đầy đủ ngay khi có sự phê duyệt công bố chính thức.
+-            </p>
+-          </div>
+-        </div>
++      <div class="section-header">
++        <span class="section-kicker">Cam kết trách nhiệm</span>
++        <h2 id="principles-heading">5 nguyên tắc cốt lõi của nhóm</h2>
++        <p class="section-lead">
++          Các định hướng nhất quán trong đề xuất, làm kim chỉ nam xuyên suốt từ khâu xây dựng ý tưởng đến chuẩn bị và triển khai dự kiến.
++        </p>
+       </div>
+ 
+-      <div class="team-bottom-actions">
+-        <a href="/du-an/mang-theo-mot-net-ve" class="btn btn-primary">
+-          Khám phá dự án
+-        </a>
+-        <a href="/san-pham" class="btn btn-secondary">
+-          Xem sản phẩm gây quỹ
+-        </a>
++      <div class="principles-grid">
++        {
++          TEAM_PRINCIPLES.map((principle, index) => (
++            <div class="principle-card card">
++              <span class="principle-num">0{index + 1}</span>
++              <h3 class="principle-title">{principle.title}</h3>
++              <p class="principle-desc">{principle.description}</p>
++            </div>
++          ))
++        }
++      </div>
++    </div>
++  </section>
++
++  <!-- Section 4: CTA cuối trang -->
++  <section class="section team-cta-section" aria-labelledby="team-cta-heading">
++    <div class="container">
++      <div class="team-cta-card card">
++        <h2 id="team-cta-heading">Khám phá hoạt động &amp; Sản phẩm</h2>
++        <p>
++          Tìm hiểu thêm về câu chuyện dự án và 4 góc hoạt động tại Mái ấm, hoặc xem danh mục sản phẩm gây quỹ theo đề xuất.
++        </p>
++        <div class="team-bottom-actions">
++          <a href="/du-an/mang-theo-mot-net-ve" class="btn btn-primary">
++            Khám phá dự án &rarr;
++          </a>
++          <a href="/san-pham" class="btn btn-secondary">
++            Xem sản phẩm gây quỹ
++          </a>
++        </div>
+       </div>
+     </div>
+   </section>
+@@ -211,20 +207,6 @@ import { TEAM_INFO, TEAM_PRINCIPLES, TEAM_COORDINATION } from '../data/campaign'
+     margin-bottom: var(--space-1);
+   }
+ 
+-  .team-logo-banner {
+-    display: flex;
+-    justify-content: center;
+-    margin: var(--space-2) 0;
+-  }
+-
+-  .team-card-logo {
+-    height: 52px;
+-    width: auto;
+-    max-width: 220px;
+-    object-fit: contain;
+-    display: block;
+-  }
+-
+   .team-title {
+     font-size: var(--font-size-h1);
+     line-height: var(--line-height-h1);
+@@ -256,14 +238,9 @@ import { TEAM_INFO, TEAM_PRINCIPLES, TEAM_COORDINATION } from '../data/campaign'
+   }
+ 
+   /* Section Headers */
+-  .center-header {
+-    text-align: center;
+-    margin-left: auto;
+-    margin-right: auto;
+-  }
+-
+-  .center-text {
+-    text-align: center;
++  .section-header {
++    text-align: left;
++    margin-bottom: var(--space-8);
+   }
+ 
+   .section-kicker {
+@@ -281,7 +258,8 @@ import { TEAM_INFO, TEAM_PRINCIPLES, TEAM_COORDINATION } from '../data/campaign'
+     color: var(--color-text-secondary);
+     line-height: 1.5;
+     max-width: 65ch;
+-    margin: 0 auto;
++    margin: 0;
++    text-align: left;
+   }
+ 
+   /* Principles Grid */
+@@ -443,9 +421,15 @@ import { TEAM_INFO, TEAM_PRINCIPLES, TEAM_COORDINATION } from '../data/campaign'
+       line-height: 1.35;
+     }
+ 
++    .team-hero-content {
++      align-items: flex-start;
++      text-align: left;
++    }
++
+     .team-intro-text {
+       font-size: 0.9375rem;
+       line-height: 1.45;
++      text-align: left;
+     }
+ 
+     .principles-grid {
+diff --git a/tests/finance.test.mjs b/tests/finance.test.mjs
+index 4680a04..6f1f5e2 100644
+--- a/tests/finance.test.mjs
++++ b/tests/finance.test.mjs
+@@ -27,6 +27,7 @@ import {
+   formatProductPrice,
+   formatScenarioBalance,
+   calculateFoodReconciliation,
++  groupPlannedExpensesByCategory,
+ } from '../src/lib/finance.ts';
+ 
+ describe('Kiểm thử logic tài chính và tính toán (Task C01)', () => {
+@@ -463,3 +464,151 @@ describe('Kiểm thử đối chiếu doanh thu ẩm thực và kế hoạch (Ta
+   });
+ });
+ 
++describe('Kiểm thử phân nhóm chi phí dự toán (Task C03)', () => {
++  test('groupPlannedExpensesByCategory phân đúng 3 nhóm từ PLANNED_EXPENSES với tổng phụ dẫn xuất động', () => {
++    const groups = groupPlannedExpensesByCategory(PLANNED_EXPENSES);
++    assert.equal(groups.length, 3, 'Phải có đúng 3 nhóm chi phí từ PLANNED_EXPENSES.');
++
++    const [group1, group2, group3] = groups;
++
++    // Nhóm 1
++    assert.equal(group1.category, 'Nguyên liệu gây quỹ');
++    assert.equal(group1.sourceRef, 'proposal:page-24');
++    assert.equal(group1.items.length, 9);
++    assert.equal(group1.subtotal, 2245000);
++
++    // Nhóm 2
++    assert.equal(group2.category, 'Vật tư workshop & quà tặng');
++    assert.equal(group2.sourceRef, 'proposal:page-25');
++    assert.equal(group2.items.length, 7);
++    assert.equal(group2.subtotal, 1560000);
++
++    // Nhóm 3
++    assert.equal(group3.category, 'Truyền thông & Di chuyển');
++    assert.equal(group3.sourceRef, 'proposal:page-26');
++    assert.equal(group3.items.length, 3);
++    assert.equal(group3.subtotal, 1130000);
++
++    // Tổng 3 nhóm
++    assert.equal(
++      group1.subtotal + group2.subtotal + group3.subtotal,
++      4935000,
++      'Tổng 3 nhóm phải bằng 4.935.000đ.'
++    );
++    assert.equal(
++      group1.subtotal + group2.subtotal + group3.subtotal,
++      sumPlannedExpenses(PLANNED_EXPENSES)
++    );
++
++    // Kiểm tra tính toàn vẹn: mỗi khoản mục thuộc đúng 1 nhóm duy nhất
++    const allGroupedItemIds = groups.flatMap((g) => g.items.map((i) => i.id));
++    assert.equal(allGroupedItemIds.length, PLANNED_EXPENSES.length);
++    assert.deepEqual(allGroupedItemIds, PLANNED_EXPENSES.map((i) => i.id));
++  });
++
++  test('groupPlannedExpensesByCategory tự động nhận diện danh mục mới/thay đổi (new/varied category), bảo toàn thứ tự xuất hiện', () => {
++    const customItems = [
++      {
++        id: 'new-cat-1',
++        category: 'Chi phí đóng gói & bao bì mới',
++        title: 'Bao bì sinh thái',
++        calculationText: '50 × 5.000đ',
++        amount: { value: 250000, unit: 'đ', kind: 'planned', verification: 'unverified', sourceRef: 'custom:page-1', updatedAt: null, publicApproval: 'pending' },
++        note: '',
++        isEstimated: false,
++      },
++      {
++        id: 'workshop-1',
++        category: 'Vật tư workshop & quà tặng',
++        title: 'Giấy vẽ màu nước',
++        calculationText: '10 tập × 30.000đ',
++        amount: { value: 300000, unit: 'đ', kind: 'planned', verification: 'unverified', sourceRef: 'proposal:page-25', updatedAt: null, publicApproval: 'pending' },
++        note: '',
++        isEstimated: false,
++      },
++      {
++        id: 'new-cat-2',
++        category: 'Chi phí đóng gói & bao bì mới',
++        title: 'Băng dính giấy',
++        calculationText: '5 cuộn × 10.000đ',
++        amount: { value: 50000, unit: 'đ', kind: 'planned', verification: 'unverified', sourceRef: 'custom:page-1', updatedAt: null, publicApproval: 'pending' },
++        note: '',
++        isEstimated: false,
++      },
++      {
++        id: 'logistics-1',
++        category: 'Vận chuyển ngoại thành',
++        title: 'Xe chở vật tư',
++        calculationText: '1 chuyến × 400.000đ',
++        amount: { value: 400000, unit: 'đ', kind: 'planned', verification: 'unverified', sourceRef: 'logistics:receipt', updatedAt: null, publicApproval: 'pending' },
++        note: '',
++        isEstimated: false,
++      },
++    ];
++
++    const groups = groupPlannedExpensesByCategory(customItems);
++    assert.equal(groups.length, 3, 'Phải có đúng 3 nhóm từ dữ liệu đầu vào (không tạo nhóm rỗng).');
++
++    // Thứ tự nhóm bảo toàn theo xuất hiện đầu tiên:
++    // 1: Chi phí đóng gói & bao bì mới
++    // 2: Vật tư workshop & quà tặng
++    // 3: Vận chuyển ngoại thành
++    assert.equal(groups[0].category, 'Chi phí đóng gói & bao bì mới');
++    assert.equal(groups[0].sourceRef, 'custom:page-1');
++    assert.equal(groups[0].items.length, 2);
++    assert.equal(groups[0].subtotal, 300000); // 250k + 50k
++
++    assert.equal(groups[1].category, 'Vật tư workshop & quà tặng');
++    assert.equal(groups[1].sourceRef, 'proposal:page-25');
++    assert.equal(groups[1].items.length, 1);
++    assert.equal(groups[1].subtotal, 300000);
++
++    assert.equal(groups[2].category, 'Vận chuyển ngoại thành');
++    assert.equal(groups[2].sourceRef, 'logistics:receipt');
++    assert.equal(groups[2].items.length, 1);
++    assert.equal(groups[2].subtotal, 400000);
++
++    // Tổng các nhóm bằng tổng toàn bộ chi phí
++    const totalGrouped = groups.reduce((sum, g) => sum + g.subtotal, 0);
++    assert.equal(totalGrouped, sumPlannedExpenses(customItems));
++  });
++
++  test('groupPlannedExpensesByCategory bảo vệ an toàn khi có khoản mục unknown (subtotal = null, không crash)', () => {
++    const mockItemsWithNull = [
++      {
++        id: 'mock-known',
++        category: 'Nguyên liệu gây quỹ',
++        title: 'Mock known',
++        calculationText: '300k',
++        amount: { value: 300000, unit: 'đ', kind: 'planned', verification: 'unverified', sourceRef: 'p24', updatedAt: null, publicApproval: 'pending' },
++        note: '',
++        isEstimated: false,
++      },
++      {
++        id: 'mock-unknown',
++        category: 'Nguyên liệu gây quỹ',
++        title: 'Mock unknown',
++        calculationText: 'Chưa rõ',
++        amount: { value: null, unit: 'đ', kind: 'planned', verification: 'unverified', sourceRef: 'p24', updatedAt: null, publicApproval: 'pending' },
++        note: '',
++        isEstimated: false,
++      },
++      {
++        id: 'mock-workshop',
++        category: 'Vật tư workshop & quà tặng',
++        title: 'Workshop',
++        calculationText: '200k',
++        amount: { value: 200000, unit: 'đ', kind: 'planned', verification: 'unverified', sourceRef: 'p25', updatedAt: null, publicApproval: 'pending' },
++        note: '',
++        isEstimated: false,
++      },
++    ];
++
++    const groups = groupPlannedExpensesByCategory(mockItemsWithNull);
++    assert.equal(groups.length, 2, 'Chỉ trả về 2 nhóm có dữ liệu đầu vào (không tạo nhóm rỗng).');
++    assert.equal(groups[0].subtotal, null, 'Nhóm chứa khoản unknown phải có subtotal: null');
++    assert.equal(groups[1].subtotal, 200000, 'Nhóm không chứa khoản unknown vẫn tính đúng subtotal');
++  });
++});
++
++

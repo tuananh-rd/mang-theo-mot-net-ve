@@ -1,0 +1,223 @@
+{
+  "sha": "952d7539a02e4a24d36416ba8d666cccd48aa822",
+  "time": "2026-10-03T14:53:57.106Z",
+  "checks": [
+    {
+      "file": "dist\\404.html",
+      "urlPath": "/c01-no-such-route",
+      "status": 404,
+      "expectedStatus": 404,
+      "expected": "6f1912818c19b0c38dbf0ee6802d2d24e9cfed73671d14929dc96498a2082a6f",
+      "actual": "6f1912818c19b0c38dbf0ee6802d2d24e9cfed73671d14929dc96498a2082a6f",
+      "pass": true
+    },
+    {
+      "file": "dist\\dong-hanh\\index.html",
+      "urlPath": "/dong-hanh",
+      "status": 200,
+      "expectedStatus": 200,
+      "expected": "393c66e6feeb95b7985e1ac25c2aeb2c1d7e0c7c44d058cd4b4f461a2aef55ee",
+      "actual": "393c66e6feeb95b7985e1ac25c2aeb2c1d7e0c7c44d058cd4b4f461a2aef55ee",
+      "pass": true
+    },
+    {
+      "file": "dist\\du-an\\mang-theo-mot-net-ve\\index.html",
+      "urlPath": "/du-an/mang-theo-mot-net-ve",
+      "status": 200,
+      "expectedStatus": 200,
+      "expected": "0d70d82936f1fac170382d137e5efc29514767aa68e84a1ab541bbe9e5c60e68",
+      "actual": "0d70d82936f1fac170382d137e5efc29514767aa68e84a1ab541bbe9e5c60e68",
+      "pass": true
+    },
+    {
+      "file": "dist\\favicon.svg",
+      "urlPath": "/favicon.svg",
+      "status": 200,
+      "expectedStatus": 200,
+      "expected": "cf5a6109d12aead474ccee95fd51643e1988adc2364bb1349e3c3e4e6d564051",
+      "actual": "cf5a6109d12aead474ccee95fd51643e1988adc2364bb1349e3c3e4e6d564051",
+      "pass": true
+    },
+    {
+      "file": "dist\\images\\apple-touch-icon.png",
+      "urlPath": "/images/apple-touch-icon.png",
+      "status": 200,
+      "expectedStatus": 200,
+      "expected": "1f17e268aaf9672ade06b400cc5348a3126c9201b7135bd7e3723d992da20e10",
+      "actual": "1f17e268aaf9672ade06b400cc5348a3126c9201b7135bd7e3723d992da20e10",
+      "pass": true
+    },
+    {
+      "file": "dist\\images\\favicon-32x32.png",
+      "urlPath": "/images/favicon-32x32.png",
+      "status": 200,
+      "expectedStatus": 200,
+      "expected": "a960c351d4ca5d3fb258edf561b23e67e22a599a969a53f8fbf793f7103b3087",
+      "actual": "a960c351d4ca5d3fb258edf561b23e67e22a599a969a53f8fbf793f7103b3087",
+      "pass": true
+    },
+    {
+      "file": "dist\\images\\illustrations\\a01.webp",
+      "urlPath": "/images/illustrations/a01.webp",
+      "status": 200,
+      "expectedStatus": 200,
+      "expected": "a9fa9016a999b7adab3f52f8d942c0b2f3606326003a2ef42a6c7c28bdc2f3f1",
+      "actual": "a9fa9016a999b7adab3f52f8d942c0b2f3606326003a2ef42a6c7c28bdc2f3f1",
+      "pass": true
+    },
+    {
+      "file": "dist\\images\\illustrations\\a02.webp",
+      "urlPath": "/images/illustrations/a02.webp",
+      "status": 200,
+      "expectedStatus": 200,
+      "expected": "8db997d57ec418468478f940cde866e14ef970c3221b6f3978d6c2af4fb7e535",
+      "actual": "8db997d57ec418468478f940cde866e14ef970c3221b6f3978d6c2af4fb7e535",
+      "pass": true
+    },
+    {
+      "file": "dist\\images\\illustrations\\a03.webp",
+      "urlPath": "/images/illustrations/a03.webp",
+      "status": 200,
+      "expectedStatus": 200,
+      "expected": "4f0050853707213fafed52296fa75ef62f1519352a9a5c30a0be45cba435c5a7",
+      "actual": "4f0050853707213fafed52296fa75ef62f1519352a9a5c30a0be45cba435c5a7",
+      "pass": true
+    },
+    {
+      "file": "dist\\images\\illustrations\\a04.webp",
+      "urlPath": "/images/illustrations/a04.webp",
+      "status": 200,
+      "expectedStatus": 200,
+      "expected": "17c3fefd7484603a82dd9cb1cabf0122ce856c58e4977874179d2519df1ec61a",
+      "actual": "17c3fefd7484603a82dd9cb1cabf0122ce856c58e4977874179d2519df1ec61a",
+      "pass": true
+    },
+    {
+      "file": "dist\\images\\illustrations\\a05.webp",
+      "urlPath": "/images/illustrations/a05.webp",
+      "status": 200,
+      "expectedStatus": 200,
+      "expected": "8d8f4d8bbaa692295eb81b34858b8cdc2e454c82bd8bb610e84c1a33dcb9407f",
+      "actual": "8d8f4d8bbaa692295eb81b34858b8cdc2e454c82bd8bb610e84c1a33dcb9407f",
+      "pass": true
+    },
+    {
+      "file": "dist\\images\\logo_lang_kinh_2048.png",
+      "urlPath": "/images/logo_lang_kinh_2048.png",
+      "status": 200,
+      "expectedStatus": 200,
+      "expected": "06f63ac9d41c079827d794b13ffec468ea30be7b818755b4ba96bc819f7facbc",
+      "actual": "06f63ac9d41c079827d794b13ffec468ea30be7b818755b4ba96bc819f7facbc",
+      "pass": true
+    },
+    {
+      "file": "dist\\images\\logo_option5_horizontal.png",
+      "urlPath": "/images/logo_option5_horizontal.png",
+      "status": 200,
+      "expectedStatus": 200,
+      "expected": "e078e7ea7bd8debae74d2c573fe4391fd55aee57a167ca4eb63534b17ee56db9",
+      "actual": "e078e7ea7bd8debae74d2c573fe4391fd55aee57a167ca4eb63534b17ee56db9",
+      "pass": true
+    },
+    {
+      "file": "dist\\index.html",
+      "urlPath": "/",
+      "status": 200,
+      "expectedStatus": 200,
+      "expected": "71db99deeab09d430ce69ba0ebff2b36ab319acbe0f5f89ab1ee7f7efeb5faf2",
+      "actual": "71db99deeab09d430ce69ba0ebff2b36ab319acbe0f5f89ab1ee7f7efeb5faf2",
+      "pass": true
+    },
+    {
+      "file": "dist\\minh-bach\\index.html",
+      "urlPath": "/minh-bach",
+      "status": 200,
+      "expectedStatus": 200,
+      "expected": "a4e72762253048048e8bd81207dc8f4ded4153175dfa14d74c3d3af77f92c200",
+      "actual": "a4e72762253048048e8bd81207dc8f4ded4153175dfa14d74c3d3af77f92c200",
+      "pass": true
+    },
+    {
+      "file": "dist\\san-pham\\index.html",
+      "urlPath": "/san-pham",
+      "status": 200,
+      "expectedStatus": 200,
+      "expected": "94178b74fba92bc342a6eba8f79eb424faa61d9bc046c7dfbafbde5ffcfd8360",
+      "actual": "94178b74fba92bc342a6eba8f79eb424faa61d9bc046c7dfbafbde5ffcfd8360",
+      "pass": true
+    },
+    {
+      "file": "dist\\ve-nhom\\index.html",
+      "urlPath": "/ve-nhom",
+      "status": 200,
+      "expectedStatus": 200,
+      "expected": "ba373b10a1cc90d382fe7308cdeec3f3a6c7b8f9af42b9850fe2ebc4ac33233a",
+      "actual": "ba373b10a1cc90d382fe7308cdeec3f3a6c7b8f9af42b9850fe2ebc4ac33233a",
+      "pass": true
+    },
+    {
+      "file": "dist\\_astro\\dong-hanh.C7BLKpEx.css",
+      "urlPath": "/_astro/dong-hanh.C7BLKpEx.css",
+      "status": 200,
+      "expectedStatus": 200,
+      "expected": "9c2584cf18674eebc400d3c49928328cbfc893b8f0c393f85f87ca421df0f529",
+      "actual": "9c2584cf18674eebc400d3c49928328cbfc893b8f0c393f85f87ca421df0f529",
+      "pass": true
+    },
+    {
+      "file": "dist\\_astro\\index.JLHXnGO9.css",
+      "urlPath": "/_astro/index.JLHXnGO9.css",
+      "status": 200,
+      "expectedStatus": 200,
+      "expected": "03074431a87e75ba94656ecf53c0246895d7ad0ee0380f39c301776e7b65fcba",
+      "actual": "03074431a87e75ba94656ecf53c0246895d7ad0ee0380f39c301776e7b65fcba",
+      "pass": true
+    },
+    {
+      "file": "dist\\_astro\\Layout.Bk1kzqyo.css",
+      "urlPath": "/_astro/Layout.Bk1kzqyo.css",
+      "status": 200,
+      "expectedStatus": 200,
+      "expected": "6a9c3d539bb5d6b77504a5c063800b39159a82eff8124c55bea1dc8e00555900",
+      "actual": "6a9c3d539bb5d6b77504a5c063800b39159a82eff8124c55bea1dc8e00555900",
+      "pass": true
+    },
+    {
+      "file": "dist\\_astro\\mang-theo-mot-net-ve.B7jKZXLI.css",
+      "urlPath": "/_astro/mang-theo-mot-net-ve.B7jKZXLI.css",
+      "status": 200,
+      "expectedStatus": 200,
+      "expected": "07337c8dd331f069a34c33c67d0dce909de8e6e9eddcc9402e116480f6a1a9ad",
+      "actual": "07337c8dd331f069a34c33c67d0dce909de8e6e9eddcc9402e116480f6a1a9ad",
+      "pass": true
+    },
+    {
+      "file": "dist\\_astro\\minh-bach.DKHsXwdz.css",
+      "urlPath": "/_astro/minh-bach.DKHsXwdz.css",
+      "status": 200,
+      "expectedStatus": 200,
+      "expected": "4639869ef2bfdb6695cac630678fa7ce14eac081dabf5f9c7e62e3e1383d59f4",
+      "actual": "4639869ef2bfdb6695cac630678fa7ce14eac081dabf5f9c7e62e3e1383d59f4",
+      "pass": true
+    },
+    {
+      "file": "dist\\_astro\\san-pham.CcoUJ781.css",
+      "urlPath": "/_astro/san-pham.CcoUJ781.css",
+      "status": 200,
+      "expectedStatus": 200,
+      "expected": "be8949eef524c2751ab6ec7fef378a71a0a31ad1f54d594151deeaa7d9bd279f",
+      "actual": "be8949eef524c2751ab6ec7fef378a71a0a31ad1f54d594151deeaa7d9bd279f",
+      "pass": true
+    },
+    {
+      "file": "dist\\_astro\\ve-nhom.DufoQg0T.css",
+      "urlPath": "/_astro/ve-nhom.DufoQg0T.css",
+      "status": 200,
+      "expectedStatus": 200,
+      "expected": "8162285220e330cfa79c3d69a498a4dee51eea1449a2873baa3e1b72ef672456",
+      "actual": "8162285220e330cfa79c3d69a498a4dee51eea1449a2873baa3e1b72ef672456",
+      "pass": true
+    }
+  ],
+  "failed": []
+}

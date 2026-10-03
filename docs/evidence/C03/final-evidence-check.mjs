@@ -1,0 +1,18 @@
+import fs from 'node:fs';
+import crypto from 'node:crypto';
+import {execFileSync} from 'node:child_process';
+const dir='docs/evidence/C03',sha=execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();
+const read=n=>{const b=fs.readFileSync(`${dir}/${n}`);return JSON.parse(b.toString(b[0]===255&&b[1]===254?'utf16le':'utf8').replace(/^\uFEFF/,''));};
+const names=['reviewer-checks-952d753.json','reviewer-finance-952d753.json','reviewer-audit-952d753.json','reviewer-serve-952d753.json','reviewer-tokens-952d753.json','reviewer-focus-952d753.json','reviewer-layout.json','reviewer-images.json','reviewer-links.json','reviewer-navigation.json','reviewer-mobile-table-952d753.json','reviewer-capture.json'];
+const reports=names.map(n=>{const r=read(n);if(r.sha&&r.sha!==sha)throw Error(`Stale ${n}`);if(r.failed?.length||r.checks?.some(c=>c.pass===false)||r.commands?.some(c=>c.exitCode!==0)||r.pass===false)throw Error(`Failed ${n}`);return {file:n,sha:r.sha??null,shaNote:r.sha?null:'Navigation ran in final app QA batch at952d753 before documentation commit',checks:r.checks?.length??null,modifiedAt:fs.statSync(`${dir}/${n}`).mtime.toISOString(),hash:crypto.createHash('sha256').update(fs.readFileSync(`${dir}/${n}`)).digest('hex')};});
+const capture=read('reviewer-capture.json');if(capture.pages.length!==21||capture.errors.length||capture.failed.length||capture.external.length||capture.pages.some(p=>p.lowCount||p.smallCount||p.over.length||p.scrollW>p.vw))throw Error('Capture failed');
+const inventory=read('reviewer-audit-952d753.json').files;
+const worker=read('worker-metadata-952d753-corrected.json');
+const workerInventory=worker.distInventory??worker.distFiles??worker.distHashes??worker.distFileHashes;
+if(worker.finalAppSHA!==sha||inventory.some(f=>workerInventory[f.path.replace(/^dist[\\/]/,'')]?.sha256!==f.sha256))throw Error('Worker corrected inventory mismatch');
+const previous=read('reviewer-audit-22ba026.json').files;
+const changed=inventory.filter(f=>previous.find(p=>p.path===f.path)?.sha256!==f.sha256).map(f=>f.path);
+const appDirty=execFileSync('git',['status','--porcelain','--','src','public','tests','package.json','package-lock.json','astro.config.mjs','tsconfig.json'],{encoding:'utf8'}).trim();if(appDirty)throw Error('App dirty');
+const jsonFiles=fs.readdirSync(dir).filter(n=>n.endsWith('.json'));for(const n of jsonFiles)read(n);
+const out={sha,checkedAt:new Date().toISOString(),reports,jsonFilesValidated:jsonFiles.length,changedDistSince22ba026:changed,workerFinalSHA:worker.finalAppSHA,workerInventoryKey:Object.keys(worker).filter(k=>/dist/i.test(k)),appDirty,capturePages:21,expected404Console:capture.expected404Console?.length??0};
+fs.writeFileSync(`${dir}/final-qa-index.json`,JSON.stringify(out,null,2));console.log(JSON.stringify(out));

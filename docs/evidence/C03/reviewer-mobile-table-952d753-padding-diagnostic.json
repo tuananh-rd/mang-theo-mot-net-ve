@@ -1,0 +1,336 @@
+{
+  "sha": "952d7539a02e4a24d36416ba8d666cccd48aa822",
+  "checks": [
+    {
+      "name": "Expanded rows readable 375",
+      "pass": true,
+      "value": {
+        "width": 960,
+        "rows": 7,
+        "columns": 5,
+        "heights": [
+          116.5625,
+          133.4375,
+          155.125,
+          90.0625,
+          71.78125,
+          71.78125,
+          71.78125
+        ],
+        "notesWidths": [
+          330,
+          330,
+          330,
+          330,
+          330,
+          330,
+          330
+        ],
+        "overflowCells": [
+          {
+            "text": "30 bộ bán dự kiến",
+            "client": 120,
+            "scroll": 124
+          }
+        ],
+        "pageWidth": 375
+      }
+    },
+    {
+      "name": "No cell text overlap 375",
+      "pass": false,
+      "value": [
+        {
+          "text": "30 bộ bán dự kiến",
+          "client": 120,
+          "scroll": 124
+        }
+      ]
+    },
+    {
+      "name": "Keyboard reaches last columns 375",
+      "pass": true,
+      "value": {
+        "left": 651,
+        "max": 651,
+        "active": true,
+        "outline": "rgb(23, 78, 166) solid 3px",
+        "pageWidth": 375
+      }
+    },
+    {
+      "name": "Expanded rows readable 768",
+      "pass": true,
+      "value": {
+        "width": 960,
+        "rows": 7,
+        "columns": 5,
+        "heights": [
+          116.5625,
+          133.4375,
+          155.125,
+          90.0625,
+          71.78125,
+          71.78125,
+          71.78125
+        ],
+        "notesWidths": [
+          330,
+          330,
+          330,
+          330,
+          330,
+          330,
+          330
+        ],
+        "overflowCells": [
+          {
+            "text": "30 bộ bán dự kiến",
+            "client": 120,
+            "scroll": 124
+          }
+        ],
+        "pageWidth": 768
+      }
+    },
+    {
+      "name": "No cell text overlap 768",
+      "pass": false,
+      "value": [
+        {
+          "text": "30 bộ bán dự kiến",
+          "client": 120,
+          "scroll": 124
+        }
+      ]
+    },
+    {
+      "name": "Keyboard reaches last columns 768",
+      "pass": true,
+      "value": {
+        "left": 290,
+        "max": 290,
+        "active": true,
+        "outline": "rgb(23, 78, 166) solid 3px",
+        "pageWidth": 768
+      }
+    },
+    {
+      "name": "Expanded rows readable 900",
+      "pass": true,
+      "value": {
+        "width": 960,
+        "rows": 7,
+        "columns": 5,
+        "heights": [
+          116.5625,
+          133.4375,
+          155.125,
+          90.0625,
+          71.78125,
+          71.78125,
+          71.78125
+        ],
+        "notesWidths": [
+          330,
+          330,
+          330,
+          330,
+          330,
+          330,
+          330
+        ],
+        "overflowCells": [
+          {
+            "text": "30 bộ bán dự kiến",
+            "client": 120,
+            "scroll": 124
+          }
+        ],
+        "pageWidth": 900
+      }
+    },
+    {
+      "name": "No cell text overlap 900",
+      "pass": false,
+      "value": [
+        {
+          "text": "30 bộ bán dự kiến",
+          "client": 120,
+          "scroll": 124
+        }
+      ]
+    },
+    {
+      "name": "Keyboard reaches last columns 900",
+      "pass": true,
+      "value": {
+        "left": 158,
+        "max": 158,
+        "active": true,
+        "outline": "rgb(23, 78, 166) solid 3px",
+        "pageWidth": 900
+      }
+    }
+  ],
+  "views": [
+    {
+      "w": 375,
+      "metrics": {
+        "width": 960,
+        "rows": 7,
+        "columns": 5,
+        "heights": [
+          116.5625,
+          133.4375,
+          155.125,
+          90.0625,
+          71.78125,
+          71.78125,
+          71.78125
+        ],
+        "notesWidths": [
+          330,
+          330,
+          330,
+          330,
+          330,
+          330,
+          330
+        ],
+        "overflowCells": [
+          {
+            "text": "30 bộ bán dự kiến",
+            "client": 120,
+            "scroll": 124
+          }
+        ],
+        "pageWidth": 375
+      },
+      "scrolled": {
+        "left": 651,
+        "max": 651,
+        "active": true,
+        "outline": "rgb(23, 78, 166) solid 3px",
+        "pageWidth": 375
+      }
+    },
+    {
+      "w": 768,
+      "metrics": {
+        "width": 960,
+        "rows": 7,
+        "columns": 5,
+        "heights": [
+          116.5625,
+          133.4375,
+          155.125,
+          90.0625,
+          71.78125,
+          71.78125,
+          71.78125
+        ],
+        "notesWidths": [
+          330,
+          330,
+          330,
+          330,
+          330,
+          330,
+          330
+        ],
+        "overflowCells": [
+          {
+            "text": "30 bộ bán dự kiến",
+            "client": 120,
+            "scroll": 124
+          }
+        ],
+        "pageWidth": 768
+      },
+      "scrolled": {
+        "left": 290,
+        "max": 290,
+        "active": true,
+        "outline": "rgb(23, 78, 166) solid 3px",
+        "pageWidth": 768
+      }
+    },
+    {
+      "w": 900,
+      "metrics": {
+        "width": 960,
+        "rows": 7,
+        "columns": 5,
+        "heights": [
+          116.5625,
+          133.4375,
+          155.125,
+          90.0625,
+          71.78125,
+          71.78125,
+          71.78125
+        ],
+        "notesWidths": [
+          330,
+          330,
+          330,
+          330,
+          330,
+          330,
+          330
+        ],
+        "overflowCells": [
+          {
+            "text": "30 bộ bán dự kiến",
+            "client": 120,
+            "scroll": 124
+          }
+        ],
+        "pageWidth": 900
+      },
+      "scrolled": {
+        "left": 158,
+        "max": 158,
+        "active": true,
+        "outline": "rgb(23, 78, 166) solid 3px",
+        "pageWidth": 900
+      }
+    }
+  ],
+  "failed": [
+    {
+      "name": "No cell text overlap 375",
+      "pass": false,
+      "value": [
+        {
+          "text": "30 bộ bán dự kiến",
+          "client": 120,
+          "scroll": 124
+        }
+      ]
+    },
+    {
+      "name": "No cell text overlap 768",
+      "pass": false,
+      "value": [
+        {
+          "text": "30 bộ bán dự kiến",
+          "client": 120,
+          "scroll": 124
+        }
+      ]
+    },
+    {
+      "name": "No cell text overlap 900",
+      "pass": false,
+      "value": [
+        {
+          "text": "30 bộ bán dự kiến",
+          "client": 120,
+          "scroll": 124
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,290 @@
+﻿{
+    "sha":  "952d7539a02e4a24d36416ba8d666cccd48aa822",
+    "shaAfter":  "952d7539a02e4a24d36416ba8d666cccd48aa822",
+    "startedAt":  "2026-10-03T14:44:04.8567341Z",
+    "finishedAt":  "2026-10-03T14:44:17.9020100Z",
+    "commands":  [
+                     {
+                         "command":  "npm.cmd run check",
+                         "exitCode":  0,
+                         "startedAt":  "2026-10-03T14:44:04.9796919Z",
+                         "finishedAt":  "2026-10-03T14:44:15.4023674Z",
+                         "rawLog":  "C:\\Users\\tuana\\Documents\\Codex\\2026-10-02\\t\\outputs\\mang-theo-mot-net-ve\\docs\\evidence\\C03\\reviewer-952d753-check.log"
+                     },
+                     {
+                         "command":  "node --test tests/finance.test.mjs",
+                         "exitCode":  0,
+                         "startedAt":  "2026-10-03T14:44:15.4115737Z",
+                         "finishedAt":  "2026-10-03T14:44:15.6162095Z",
+                         "rawLog":  "C:\\Users\\tuana\\Documents\\Codex\\2026-10-02\\t\\outputs\\mang-theo-mot-net-ve\\docs\\evidence\\C03\\reviewer-952d753-test.log"
+                     },
+                     {
+                         "command":  "npm.cmd run build",
+                         "exitCode":  0,
+                         "startedAt":  "2026-10-03T14:44:15.6171688Z",
+                         "finishedAt":  "2026-10-03T14:44:17.4622931Z",
+                         "rawLog":  "C:\\Users\\tuana\\Documents\\Codex\\2026-10-02\\t\\outputs\\mang-theo-mot-net-ve\\docs\\evidence\\C03\\reviewer-952d753-build.log"
+                     }
+                 ],
+    "node":  "v24.19.0",
+    "npm":  "11.17.0",
+    "astro":  "7.3.5",
+    "packageHash":  "d973d845f877c0f515cb8ccc33cb971f0eb003ba17dc2157d7ff189d91f742c9",
+    "lockfileHash":  "ff3aa78d6644ec76e50748e34a2f502b578be8b80ed52391a7d7b9f03d487058",
+    "distBefore":  [
+                       {
+                           "path":  "dist\\404.html",
+                           "bytes":  9344,
+                           "sha256":  "6f1912818c19b0c38dbf0ee6802d2d24e9cfed73671d14929dc96498a2082a6f"
+                       },
+                       {
+                           "path":  "dist\\favicon.svg",
+                           "bytes":  703,
+                           "sha256":  "cf5a6109d12aead474ccee95fd51643e1988adc2364bb1349e3c3e4e6d564051"
+                       },
+                       {
+                           "path":  "dist\\index.html",
+                           "bytes":  44883,
+                           "sha256":  "71db99deeab09d430ce69ba0ebff2b36ab319acbe0f5f89ab1ee7f7efeb5faf2"
+                       },
+                       {
+                           "path":  "dist\\dong-hanh\\index.html",
+                           "bytes":  26660,
+                           "sha256":  "393c66e6feeb95b7985e1ac25c2aeb2c1d7e0c7c44d058cd4b4f461a2aef55ee"
+                       },
+                       {
+                           "path":  "dist\\du-an\\mang-theo-mot-net-ve\\index.html",
+                           "bytes":  31330,
+                           "sha256":  "0d70d82936f1fac170382d137e5efc29514767aa68e84a1ab541bbe9e5c60e68"
+                       },
+                       {
+                           "path":  "dist\\images\\apple-touch-icon.png",
+                           "bytes":  6141,
+                           "sha256":  "1f17e268aaf9672ade06b400cc5348a3126c9201b7135bd7e3723d992da20e10"
+                       },
+                       {
+                           "path":  "dist\\images\\favicon-32x32.png",
+                           "bytes":  1263,
+                           "sha256":  "a960c351d4ca5d3fb258edf561b23e67e22a599a969a53f8fbf793f7103b3087"
+                       },
+                       {
+                           "path":  "dist\\images\\logo_lang_kinh_2048.png",
+                           "bytes":  78915,
+                           "sha256":  "06f63ac9d41c079827d794b13ffec468ea30be7b818755b4ba96bc819f7facbc"
+                       },
+                       {
+                           "path":  "dist\\images\\logo_option5_horizontal.png",
+                           "bytes":  37399,
+                           "sha256":  "e078e7ea7bd8debae74d2c573fe4391fd55aee57a167ca4eb63534b17ee56db9"
+                       },
+                       {
+                           "path":  "dist\\images\\illustrations\\a01.webp",
+                           "bytes":  100518,
+                           "sha256":  "a9fa9016a999b7adab3f52f8d942c0b2f3606326003a2ef42a6c7c28bdc2f3f1"
+                       },
+                       {
+                           "path":  "dist\\images\\illustrations\\a02.webp",
+                           "bytes":  30248,
+                           "sha256":  "8db997d57ec418468478f940cde866e14ef970c3221b6f3978d6c2af4fb7e535"
+                       },
+                       {
+                           "path":  "dist\\images\\illustrations\\a03.webp",
+                           "bytes":  89352,
+                           "sha256":  "4f0050853707213fafed52296fa75ef62f1519352a9a5c30a0be45cba435c5a7"
+                       },
+                       {
+                           "path":  "dist\\images\\illustrations\\a04.webp",
+                           "bytes":  67214,
+                           "sha256":  "17c3fefd7484603a82dd9cb1cabf0122ce856c58e4977874179d2519df1ec61a"
+                       },
+                       {
+                           "path":  "dist\\images\\illustrations\\a05.webp",
+                           "bytes":  101026,
+                           "sha256":  "8d8f4d8bbaa692295eb81b34858b8cdc2e454c82bd8bb610e84c1a33dcb9407f"
+                       },
+                       {
+                           "path":  "dist\\minh-bach\\index.html",
+                           "bytes":  71772,
+                           "sha256":  "a4e72762253048048e8bd81207dc8f4ded4153175dfa14d74c3d3af77f92c200"
+                       },
+                       {
+                           "path":  "dist\\san-pham\\index.html",
+                           "bytes":  64925,
+                           "sha256":  "94178b74fba92bc342a6eba8f79eb424faa61d9bc046c7dfbafbde5ffcfd8360"
+                       },
+                       {
+                           "path":  "dist\\ve-nhom\\index.html",
+                           "bytes":  18032,
+                           "sha256":  "ba373b10a1cc90d382fe7308cdeec3f3a6c7b8f9af42b9850fe2ebc4ac33233a"
+                       },
+                       {
+                           "path":  "dist\\_astro\\dong-hanh.C7BLKpEx.css",
+                           "bytes":  8617,
+                           "sha256":  "9c2584cf18674eebc400d3c49928328cbfc893b8f0c393f85f87ca421df0f529"
+                       },
+                       {
+                           "path":  "dist\\_astro\\index.JLHXnGO9.css",
+                           "bytes":  7563,
+                           "sha256":  "03074431a87e75ba94656ecf53c0246895d7ad0ee0380f39c301776e7b65fcba"
+                       },
+                       {
+                           "path":  "dist\\_astro\\Layout.Bk1kzqyo.css",
+                           "bytes":  13457,
+                           "sha256":  "6a9c3d539bb5d6b77504a5c063800b39159a82eff8124c55bea1dc8e00555900"
+                       },
+                       {
+                           "path":  "dist\\_astro\\mang-theo-mot-net-ve.B7jKZXLI.css",
+                           "bytes":  7370,
+                           "sha256":  "07337c8dd331f069a34c33c67d0dce909de8e6e9eddcc9402e116480f6a1a9ad"
+                       },
+                       {
+                           "path":  "dist\\_astro\\minh-bach.DKHsXwdz.css",
+                           "bytes":  22656,
+                           "sha256":  "4639869ef2bfdb6695cac630678fa7ce14eac081dabf5f9c7e62e3e1383d59f4"
+                       },
+                       {
+                           "path":  "dist\\_astro\\san-pham.CcoUJ781.css",
+                           "bytes":  9447,
+                           "sha256":  "be8949eef524c2751ab6ec7fef378a71a0a31ad1f54d594151deeaa7d9bd279f"
+                       },
+                       {
+                           "path":  "dist\\_astro\\ve-nhom.DufoQg0T.css",
+                           "bytes":  6114,
+                           "sha256":  "8162285220e330cfa79c3d69a498a4dee51eea1449a2873baa3e1b72ef672456"
+                       }
+                   ],
+    "distAfter":  [
+                      {
+                          "path":  "dist\\404.html",
+                          "bytes":  9344,
+                          "sha256":  "6f1912818c19b0c38dbf0ee6802d2d24e9cfed73671d14929dc96498a2082a6f"
+                      },
+                      {
+                          "path":  "dist\\favicon.svg",
+                          "bytes":  703,
+                          "sha256":  "cf5a6109d12aead474ccee95fd51643e1988adc2364bb1349e3c3e4e6d564051"
+                      },
+                      {
+                          "path":  "dist\\index.html",
+                          "bytes":  44883,
+                          "sha256":  "71db99deeab09d430ce69ba0ebff2b36ab319acbe0f5f89ab1ee7f7efeb5faf2"
+                      },
+                      {
+                          "path":  "dist\\dong-hanh\\index.html",
+                          "bytes":  26660,
+                          "sha256":  "393c66e6feeb95b7985e1ac25c2aeb2c1d7e0c7c44d058cd4b4f461a2aef55ee"
+                      },
+                      {
+                          "path":  "dist\\du-an\\mang-theo-mot-net-ve\\index.html",
+                          "bytes":  31330,
+                          "sha256":  "0d70d82936f1fac170382d137e5efc29514767aa68e84a1ab541bbe9e5c60e68"
+                      },
+                      {
+                          "path":  "dist\\images\\apple-touch-icon.png",
+                          "bytes":  6141,
+                          "sha256":  "1f17e268aaf9672ade06b400cc5348a3126c9201b7135bd7e3723d992da20e10"
+                      },
+                      {
+                          "path":  "dist\\images\\favicon-32x32.png",
+                          "bytes":  1263,
+                          "sha256":  "a960c351d4ca5d3fb258edf561b23e67e22a599a969a53f8fbf793f7103b3087"
+                      },
+                      {
+                          "path":  "dist\\images\\logo_lang_kinh_2048.png",
+                          "bytes":  78915,
+                          "sha256":  "06f63ac9d41c079827d794b13ffec468ea30be7b818755b4ba96bc819f7facbc"
+                      },
+                      {
+                          "path":  "dist\\images\\logo_option5_horizontal.png",
+                          "bytes":  37399,
+                          "sha256":  "e078e7ea7bd8debae74d2c573fe4391fd55aee57a167ca4eb63534b17ee56db9"
+                      },
+                      {
+                          "path":  "dist\\images\\illustrations\\a01.webp",
+                          "bytes":  100518,
+                          "sha256":  "a9fa9016a999b7adab3f52f8d942c0b2f3606326003a2ef42a6c7c28bdc2f3f1"
+                      },
+                      {
+                          "path":  "dist\\images\\illustrations\\a02.webp",
+                          "bytes":  30248,
+                          "sha256":  "8db997d57ec418468478f940cde866e14ef970c3221b6f3978d6c2af4fb7e535"
+                      },
+                      {
+                          "path":  "dist\\images\\illustrations\\a03.webp",
+                          "bytes":  89352,
+                          "sha256":  "4f0050853707213fafed52296fa75ef62f1519352a9a5c30a0be45cba435c5a7"
+                      },
+                      {
+                          "path":  "dist\\images\\illustrations\\a04.webp",
+                          "bytes":  67214,
+                          "sha256":  "17c3fefd7484603a82dd9cb1cabf0122ce856c58e4977874179d2519df1ec61a"
+                      },
+                      {
+                          "path":  "dist\\images\\illustrations\\a05.webp",
+                          "bytes":  101026,
+                          "sha256":  "8d8f4d8bbaa692295eb81b34858b8cdc2e454c82bd8bb610e84c1a33dcb9407f"
+                      },
+                      {
+                          "path":  "dist\\minh-bach\\index.html",
+                          "bytes":  71772,
+                          "sha256":  "a4e72762253048048e8bd81207dc8f4ded4153175dfa14d74c3d3af77f92c200"
+                      },
+                      {
+                          "path":  "dist\\san-pham\\index.html",
+                          "bytes":  64925,
+                          "sha256":  "94178b74fba92bc342a6eba8f79eb424faa61d9bc046c7dfbafbde5ffcfd8360"
+                      },
+                      {
+                          "path":  "dist\\ve-nhom\\index.html",
+                          "bytes":  18032,
+                          "sha256":  "ba373b10a1cc90d382fe7308cdeec3f3a6c7b8f9af42b9850fe2ebc4ac33233a"
+                      },
+                      {
+                          "path":  "dist\\_astro\\dong-hanh.C7BLKpEx.css",
+                          "bytes":  8617,
+                          "sha256":  "9c2584cf18674eebc400d3c49928328cbfc893b8f0c393f85f87ca421df0f529"
+                      },
+                      {
+                          "path":  "dist\\_astro\\index.JLHXnGO9.css",
+                          "bytes":  7563,
+                          "sha256":  "03074431a87e75ba94656ecf53c0246895d7ad0ee0380f39c301776e7b65fcba"
+                      },
+                      {
+                          "path":  "dist\\_astro\\Layout.Bk1kzqyo.css",
+                          "bytes":  13457,
+                          "sha256":  "6a9c3d539bb5d6b77504a5c063800b39159a82eff8124c55bea1dc8e00555900"
+                      },
+                      {
+                          "path":  "dist\\_astro\\mang-theo-mot-net-ve.B7jKZXLI.css",
+                          "bytes":  7370,
+                          "sha256":  "07337c8dd331f069a34c33c67d0dce909de8e6e9eddcc9402e116480f6a1a9ad"
+                      },
+                      {
+                          "path":  "dist\\_astro\\minh-bach.DKHsXwdz.css",
+                          "bytes":  22656,
+                          "sha256":  "4639869ef2bfdb6695cac630678fa7ce14eac081dabf5f9c7e62e3e1383d59f4"
+                      },
+                      {
+                          "path":  "dist\\_astro\\san-pham.CcoUJ781.css",
+                          "bytes":  9447,
+                          "sha256":  "be8949eef524c2751ab6ec7fef378a71a0a31ad1f54d594151deeaa7d9bd279f"
+                      },
+                      {
+                          "path":  "dist\\_astro\\ve-nhom.DufoQg0T.css",
+                          "bytes":  6114,
+                          "sha256":  "8162285220e330cfa79c3d69a498a4dee51eea1449a2873baa3e1b72ef672456"
+                      }
+                  ],
+    "changedOutputs":  [
+
+                       ],
+    "outputCountUnchanged":  true,
+    "appStatus":  "",
+    "listener":  [
+                     {
+                         "LocalAddress":  "127.0.0.1",
+                         "LocalPort":  4322,
+                         "OwningProcess":  25960
+                     }
+                 ]
+}
