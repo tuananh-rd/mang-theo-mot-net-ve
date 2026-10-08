@@ -24,11 +24,11 @@ const summaryItems = [
   },
   {
     label: 'Quy mô hoạt động',
-    value: '2 buổi dự kiến với 4 góc chơi có lựa chọn (chưa chốt ngày)',
+    value: '2 buổi dự kiến với 4 góc chơi (buổi 1: 180 phút, buổi 2: 30–45 phút)',
   },
   {
-    label: 'Tình trạng đề xuất',
-    value: 'Kế hoạch học phần — chờ thống nhất chính thức',
+    label: 'Lộ trình đề xuất',
+    value: 'Kế hoạch 5 tuần (tuần 5–9); đề xuất có chỗ ghi 4 tuần cần thống nhất',
     chip: {
       kind: 'cho-xac-nhan' as const,
       label: 'Chờ xác nhận',
@@ -102,7 +102,7 @@ const anchorNavItems = [
           </div>
           <h3 class="objective-title">Buổi chơi theo lựa chọn</h3>
           <p class="objective-text">
-            Theo đề xuất, nhóm hướng đến một buổi chơi có lựa chọn và hỗ trợ hiện vật đúng nhu cầu. Mỗi người có thể tham gia theo khả năng, quan sát hoặc nghỉ; không có chỉ tiêu sản phẩm dành cho trẻ. Nhóm dự kiến hoàn thiện, kiểm tra sản phẩm và theo dõi làm/bán/tồn trước khi công bố thu chi.
+            Theo đề xuất, nhóm hướng đến một buổi chơi có lựa chọn và hỗ trợ hiện vật đúng nhu cầu. Mỗi em nhỏ tham gia hoàn toàn theo sở thích, có thể trải nghiệm, quan sát hoặc nghỉ ngơi; không đặt bất kỳ chỉ tiêu sản phẩm nào cho trẻ. Nhóm sinh viên phụ trách hoàn thiện sản phẩm gây quỹ và đối soát dòng tiền minh bạch. Kế hoạch chia sẻ tại campus (thời lượng 45–60 phút, tối thiểu 25 sinh viên ngoài nhóm) là hoạt động đề xuất chờ giảng viên phê duyệt theo học phần; việc đến thăm Mái ấm chỉ dành cho các thành viên nằm trong danh sách được cơ sở chấp thuận trước.
           </p>
         </div>
 
@@ -113,7 +113,7 @@ const anchorNavItems = [
           </div>
           <h3 class="objective-title">An toàn, phối hợp &amp; Quyền cơ sở</h3>
           <p class="objective-text">
-            Lịch, không gian, vật liệu và hoạt động dự kiến cần được thống nhất với Mái ấm trước khi tổ chức. Nhóm dự kiến kiểm tra cạnh và chi tiết nhỏ, điều chỉnh trò chơi nhẹ phù hợp; người chăm sóc hỗ trợ lựa chọn và điều kiện an toàn. Người tham gia vẫn có quyền chọn hoạt động, quan sát hoặc nghỉ. Phương án bowling dự kiến có thể điều chỉnh lăn bóng hoặc chuyền bóng nhẹ không tính điểm loại trừ.
+            Lịch, không gian, vật liệu và hoạt động dự kiến cần được thống nhất với Mái ấm trước khi tổ chức. Nhóm dự kiến kiểm tra cạnh và chi tiết nhỏ, điều chỉnh trò chơi nhẹ phù hợp; người chăm sóc hỗ trợ lựa chọn và điều kiện an toàn. Người tham gia luôn có quyền chọn hoạt động, quan sát hoặc nghỉ ngơi; cơ sở có quyền rút ngắn chương trình bất cứ lúc nào để bảo đảm sức khỏe cho các em.
           </p>
         </div>
       </div>
@@ -131,7 +131,7 @@ const anchorNavItems = [
 
         <div class="story-prose">
           <p>
-            Xuất phát từ mong muốn mang lại niềm vui nhẹ nhàng và thiết thực, nhóm Lăng Kính lên ý tưởng tổ chức một không gian vui chơi có nhiều góc hoạt động tại Mái ấm Thánh Tâm Xuy Xá. Mỗi góc chơi được bố trí để người tham gia tự do lựa chọn trải nghiệm phù hợp với thể trạng và sở thích riêng — từ tô tượng, trang trí chuồn chuồn tre mộc, ca hát đến trò chơi vận động nhẹ — trong khi nhóm sinh viên dự kiến tự chịu trách nhiệm chuẩn bị vật tư, trực tiếp hoàn thiện hàng lưu niệm gây quỹ và quản lý thu chi minh bạch sau đối soát.
+            Xuất phát từ mong muốn mang lại niềm vui nhẹ nhàng và thiết thực, nhóm Lăng Kính lên ý tưởng tổ chức một không gian vui chơi có nhiều góc hoạt động tại Mái ấm Thánh Tâm Xuy Xá. Mỗi góc chơi được bố trí để người tham gia tự do lựa chọn trải nghiệm phù hợp với thể trạng và sở thích riêng — từ vẽ tranh, tô tượng, trang trí chuồn chuồn tre mộc, ca hát đến trò chơi vận động nhẹ — trong khi nhóm sinh viên tự chịu trách nhiệm chuẩn bị vật tư, trực tiếp hoàn thiện hàng lưu niệm gây quỹ và quản lý thu chi minh bạch sau đối soát.
           </p>
         </div>
       </div>
@@ -172,10 +172,10 @@ const anchorNavItems = [
   <section id="giai-doan" class="section section-stages" aria-labelledby="stages-heading">
     <div class="container">
       <div class="section-header">
-        <span class="eyebrow">Lộ trình 4 giai đoạn</span>
+        <span class="eyebrow">Lộ trình triển khai</span>
         <h2 id="stages-heading">Hành trình dự kiến của dự án</h2>
         <p class="section-lead">
-          Đề xuất dự kiến 4 tuần, với 2 buổi tại Mái ấm; lịch cụ thể chờ xác nhận.
+          Kế hoạch chính gồm 5 tuần (tuần 5 đến tuần 9 theo học phần SSG105), với 2 buổi tại Mái ấm (buổi 1 workshop dự kiến 180 phút có 2 lần nghỉ 15 phút; buổi 2 trao tặng 30–45 phút); lưu ý trong đề xuất có chỗ còn ghi 4 tuần cần thống nhất chính thức.
         </p>
       </div>
 
@@ -189,7 +189,7 @@ const anchorNavItems = [
 
       <div class="timeline-note-box">
         <p class="timeline-note-text">
-          Quy trình trao tặng và lịch trình cụ thể phụ thuộc vào sự thống nhất chính thức với đại diện Mái ấm; đề xuất dự kiến theo dõi phản hồi 7–10 ngày sau bàn giao hiện vật và không tự ý ấn định ngày tháng hay đánh dấu hoàn thành trước khi được kiểm chứng.
+          Lịch trình chi tiết và quy trình trao tặng phụ thuộc vào sự thống nhất cùng đại diện Mái ấm; đề xuất dự kiến theo dõi phản hồi 7–10 ngày sau bàn giao hiện vật và không tự ý ấn định ngày tháng hay đánh dấu hoàn thành trước khi được kiểm chứng.
         </p>
       </div>
     </div>
@@ -210,6 +210,15 @@ const anchorNavItems = [
         <p class="empty-desc">
           Chưa có cập nhật thực tế được xác nhận; kết quả và báo cáo sẽ được công bố sau khi đối soát và được phép.
         </p>
+        <div class="evaluation-summary-box">
+          <p class="evaluation-title"><strong>Khung đánh giá kết quả theo đề xuất:</strong></p>
+          <ul class="evaluation-list">
+            <li>Dữ liệu tham gia tự nguyện của các em (quyền quan sát hoặc nghỉ ngơi không tính là thất bại chỉ tiêu).</li>
+            <li>Phản hồi từ người chăm sóc tại Mái ấm và biên bản bàn giao quà tặng đúng danh mục nhu cầu.</li>
+            <li>Báo cáo đối soát thu chi độc lập giữa tiền mặt và hiện vật sau chiến dịch.</li>
+            <li>Chỉ tiêu truyền thông kế hoạch: 8 bài đăng, 300 người theo dõi, 200 lượt tương tác, 3.000–4.000 lượt tiếp cận (có thể trùng lặp); chưa có dữ liệu thực tế nên chưa ghi nhận thành tích.</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
@@ -225,7 +234,7 @@ const anchorNavItems = [
       <div class="resources-layout">
         <div class="resources-content">
           <p class="resources-desc">
-            Theo đề xuất, nhóm sinh viên dự kiến phụ trách chuẩn bị vật tư các góc chơi, hoàn thiện quà lưu niệm và phương án ẩm thực gây quỹ; nguồn lực được dự kiến theo dõi và đối soát độc lập giữa tiền mặt và hiện vật. Chi tiết dự toán 19 khoản và cơ cấu số dư được công khai minh bạch tại trang Minh bạch.
+            Theo đề xuất, nhóm sinh viên dự kiến phụ trách chuẩn bị vật tư các góc chơi, hoàn thiện quà lưu niệm và phương án ẩm thực gây quỹ; nguồn lực được dự kiến theo dõi và đối soát độc lập giữa tiền mặt và hiện vật. Chi tiết dự toán 24 khoản và cơ cấu số dư được công khai minh bạch tại trang Minh bạch.
           </p>
           <div class="resources-actions">
             <a href="/minh-bach" class="btn btn-secondary">
@@ -396,6 +405,33 @@ const anchorNavItems = [
     line-height: var(--line-height-body);
     color: var(--ink-2);
     margin: 0;
+  }
+
+  .evaluation-summary-box {
+    margin-top: var(--space-4);
+    text-align: left;
+    width: 100%;
+    background-color: var(--color-surface-card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: var(--space-4);
+  }
+
+  .evaluation-title {
+    font-size: var(--font-size-small);
+    color: var(--ink);
+    margin-bottom: var(--space-2);
+  }
+
+  .evaluation-list {
+    margin: 0;
+    padding-left: var(--space-5);
+    font-size: var(--font-size-small);
+    line-height: 1.6;
+    color: var(--ink-2);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
   }
 
   /* Resources Section */

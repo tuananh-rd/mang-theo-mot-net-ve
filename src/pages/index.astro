@@ -17,6 +17,7 @@ import {
 import {
   sumPlannedExpenses,
   calculateCraftRevenue,
+  calculateFoodRevenue,
   calculateCombinedPlannedRevenue,
   calculateScenario,
   formatVND,
@@ -25,14 +26,8 @@ import {
 
 const totalPlannedExpense = sumPlannedExpenses(PLANNED_EXPENSES);
 const craftPlannedRevenue = calculateCraftRevenue(PRODUCTS);
-const foodPlannedAssumption = FINANCE_OVERVIEW.foodPlannedRevenueAssumption;
-const totalPlannedRevenue = calculateCombinedPlannedRevenue(craftPlannedRevenue, foodPlannedAssumption);
-
-const formatInSentence = (name: string) => (name ? name.charAt(0).toLowerCase() + name.slice(1) : '');
-const craftProducts = PRODUCTS.filter((p) => p.category === 'craft');
-const craftSummaryText = craftProducts
-  .map((p) => `${p.plannedQuantity.value} ${formatInSentence(p.name)}`)
-  .join(' và ');
+const foodPlannedRevenue = calculateFoodRevenue(PRODUCTS);
+const totalPlannedRevenue = calculateCombinedPlannedRevenue(craftPlannedRevenue, foodPlannedRevenue);
 
 const baseScenario = FINANCE_SCENARIOS.find((s) => s.id === 'chua-tinh-tai-tro');
 const baseScenarioResult = baseScenario
@@ -143,10 +138,10 @@ const featuredProducts = [
           </p>
         </div>
 
-        <!-- Lưu ý đối soát 550.000đ -->
+        <!-- Lưu ý đối chiếu ẩm thực C06 -->
         <div class="product-section-notice" role="note">
           <p>
-            <strong>Lưu ý đối soát ẩm thực:</strong> Kịch bản ẩm thực 4.500.000₫ trong đề xuất có chênh lệch 550.000₫ so với mức tính 50 set × 79.000₫ (3.950.000₫). Xem <a href="/minh-bach#doi-chieu-do-an" class="transparency-link">bảng đối soát chi tiết tại trang Minh bạch</a>.
+            <strong>Lưu ý đối chiếu ẩm thực:</strong> Kế hoạch ẩm thực cơ sở gồm 50 set đồ ăn và 50 hộp bánh su kem ({formatVND(foodPlannedRevenue)}) đã giải thích cơ cấu so với dự toán cũ. Ba combo nem (60 suất/món theo đề xuất) chưa tính vào kịch bản cơ sở do cần đối chiếu số lượng nguyên liệu bổ sung hay thay thế; lãi từng nhóm sản phẩm đang chờ thống nhất phân bổ chi phí nội bộ. Xem <a href="/minh-bach#doi-chieu-do-an" class="transparency-link">đối chiếu chi tiết tại trang Minh bạch</a>.
           </p>
         </div>
 
@@ -155,21 +150,21 @@ const featuredProducts = [
             <h3 class="col-title">Dự toán kế hoạch trong đề xuất</h3>
             <ul class="data-list">
               <li>
-                <span>Tổng chi phí dự toán (19 khoản):</span>
+                <span>Tổng chi phí dự toán ({PLANNED_EXPENSES.length} khoản):</span>
                 <span class="data-val-group">
                   <strong>{formatVND(totalPlannedExpense)}</strong>
                   <StatusChip kind="ke-hoach" label="Kế hoạch" />
                 </span>
               </li>
               <li>
-                <span>Doanh thu kịch bản giả định:</span>
+                <span>Doanh thu kịch bản cơ sở:</span>
                 <span class="data-val-group">
                   <strong>{formatVND(totalPlannedRevenue)}</strong>
                   <StatusChip kind="gia-dinh" label="Giả định" />
                 </span>
               </li>
               <li>
-                <span>Chênh lệch giả định (khi chưa có tài trợ):</span>
+                <span>Số dư kịch bản cơ sở (trước quà):</span>
                 <span class="data-val-group">
                   <span class={balanceDisplay.diffClass}>{balanceDisplay.text}</span>
                   <StatusChip kind="gia-dinh" label="Giả định" />
@@ -177,7 +172,7 @@ const featuredProducts = [
               </li>
             </ul>
             <p class="transparency-sub">
-              * Kịch bản giả định: Thủ công {formatVND(craftPlannedRevenue)} (bán đủ {craftSummaryText}) + đồ ăn {formatVND(foodPlannedAssumption.value)} (mục tiêu giả định trong hồ sơ đề xuất, chưa phân bổ số lượng bán từng món; xem <a href="/minh-bach#doi-chieu-do-an" class="transparency-link">đối chiếu chi tiết tại trang Minh bạch</a>).
+              * Kịch bản cơ sở: Thủ công {formatVND(craftPlannedRevenue)} (30 chuồn chuồn tre kèm đế và 100 móc khóa) + ẩm thực {formatVND(foodPlannedRevenue)} (50 set đồ ăn và 50 hộp bánh su kem) = {formatVND(totalPlannedRevenue)}. Chi phí dự toán 24 khoản là {formatVND(totalPlannedExpense)}, số dư trước quà là {balanceDisplay.text}. Toàn bộ số dư dự kiến dùng hỗ trợ hiện vật theo nhu cầu thực tế của Mái ấm (xem <a href="/minh-bach#doi-chieu-do-an" class="transparency-link">đối chiếu chi tiết tại trang Minh bạch</a>).
             </p>
           </div>
 

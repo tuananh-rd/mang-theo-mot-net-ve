@@ -14,9 +14,11 @@ import {
 import {
   sumPlannedExpenses,
   calculateCraftRevenue,
-  calculateCombinedPlannedRevenue,
+  calculateFoodRevenue,
+  calculateBaseRevenue,
   calculateScenario,
   calculateFoodReconciliation,
+  calculateCraftReconciliation,
   groupPlannedExpensesByCategory,
   formatScenarioBalance,
   formatVND,
@@ -25,17 +27,54 @@ import {
 const totalPlannedExpense = sumPlannedExpenses(PLANNED_EXPENSES);
 const expenseGroups = groupPlannedExpensesByCategory(PLANNED_EXPENSES);
 const craftRevenue = calculateCraftRevenue(PRODUCTS);
-const foodAssumption = FINANCE_OVERVIEW.foodPlannedRevenueAssumption.value;
-const totalPlannedRevenue = calculateCombinedPlannedRevenue(craftRevenue, foodAssumption);
+const foodRevenue = calculateFoodRevenue(PRODUCTS);
+const totalPlannedRevenue = calculateBaseRevenue(PRODUCTS);
 
 const setDoAn = PRODUCTS.find((p) => p.id === 'set-do-an');
+const banhSuKem = PRODUCTS.find((p) => p.id === 'banh-su-kem');
+const foodExpensesGroup = expenseGroups.find((g) => g.category === 'Nguyên liệu gây quỹ');
+const foodExpensesTotal = foodExpensesGroup?.subtotal ?? null;
+
 const foodReconciliation = calculateFoodReconciliation(
-  FINANCE_OVERVIEW.foodHypotheticalSets,
+  setDoAn?.plannedQuantity,
   setDoAn?.referencePrice,
   FINANCE_OVERVIEW.foodPlannedRevenueAssumption,
   craftRevenue,
-  totalPlannedExpense
+  totalPlannedExpense,
+  banhSuKem?.plannedQuantity,
+  banhSuKem?.referencePrice,
+  foodExpensesTotal,
+  FINANCE_OVERVIEW.foodProfitQuote
 );
+
+const chuonTre = PRODUCTS.find((p) => p.id === 'chuon-chuon-tre-kem-de');
+const mocKhoa = PRODUCTS.find((p) => p.id === 'moc-khoa');
+const workshopExpensesGroup = expenseGroups.find((g) => g.category === 'Vật tư workshop & quà tặng');
+const workshopExpensesTotal = workshopExpensesGroup?.subtotal ?? null;
+
+const craftReconciliation = calculateCraftReconciliation(
+  chuonTre?.plannedQuantity,
+  chuonTre?.referencePrice,
+  mocKhoa?.plannedQuantity,
+  mocKhoa?.referencePrice,
+  workshopExpensesTotal,
+  FINANCE_OVERVIEW.craftProfitQuote
+);
+
+const totalCombinedExpenses =
+  foodReconciliation.foodExpensesTotal !== null && craftReconciliation.workshopExpensesTotal !== null
+    ? foodReconciliation.foodExpensesTotal + craftReconciliation.workshopExpensesTotal
+    : null;
+
+const totalCombinedRevenueMinusExpenses =
+  foodReconciliation.foodRevenueMinusExpenses !== null && craftReconciliation.craftRevenueMinusExpenses !== null
+    ? foodReconciliation.foodRevenueMinusExpenses + craftReconciliation.craftRevenueMinusExpenses
+    : null;
+
+const totalCombinedProfitQuote =
+  foodReconciliation.foodProfitQuote !== null && craftReconciliation.craftProfitQuote !== null
+    ? foodReconciliation.foodProfitQuote + craftReconciliation.craftProfitQuote
+    : null;
 
 const formatInSentence = (name: string) => (name ? name.charAt(0).toLowerCase() + name.slice(1) : '');
 const craftProducts = PRODUCTS.filter((p) => p.category === 'craft');
@@ -45,6 +84,11 @@ const craftFormulaText = craftProducts
 const craftSummaryText = craftProducts
   .map((p) => `${p.plannedQuantity.value} ${formatInSentence(p.name)}`)
   .join(' và ');
+
+const baseFoodProducts = PRODUCTS.filter((p) => p.category === 'food' && p.isBaseRevenueItem !== false);
+const foodFormulaText = baseFoodProducts
+  .map((p) => `${p.plannedQuantity.value} ${formatInSentence(p.name)} × ${formatVND(p.referencePrice.value)}`)
+  .join(' + ');
 
 const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
   const result = calculateScenario(scenario, totalPlannedRevenue, totalPlannedExpense);
@@ -68,15 +112,15 @@ const breadcrumbs = [
 const summaryItems = [
   {
     label: 'Tổng dự toán chi',
-    value: `${formatVND(totalPlannedExpense)} (19 khoản mục theo 3 nhóm)`,
+    value: `${formatVND(totalPlannedExpense)} (${PLANNED_EXPENSES.length} khoản mục theo 3 nhóm)`,
     chip: {
       kind: 'ke-hoach' as const,
       label: 'Kế hoạch',
     },
   },
   {
-    label: 'Thu kịch bản giả định',
-    value: `${formatVND(totalPlannedRevenue)} (thủ công + ẩm thực)`,
+    label: 'Thu kịch bản cơ sở',
+    value: `${formatVND(totalPlannedRevenue)} (thủ công + ẩm thực cơ sở)`,
     chip: {
       kind: 'gia-dinh' as const,
       label: 'Giả định',
@@ -117,12 +161,12 @@ const summaryItems = [
     title="Minh bạch thu chi"
     titleId="transparency-heading"
     lead="Kế hoạch dự toán ngân sách, doanh thu kịch bản bán đủ hàng và các nguyên tắc quản trị tài chính minh bạch cho chiến dịch tại Mái ấm Thánh Tâm Xuy Xá."
-    description="Toàn bộ số liệu dưới đây thuộc hồ sơ đề xuất dự án, phân định rõ ràng giữa kế hoạch dự toán và thực tế thực hiện. Website chưa tiếp nhận giao dịch tiền mặt, đơn đặt hàng hay tài trợ trực tuyến."
+    description="Toàn bộ số liệu dưới đây thuộc hồ sơ đề xuất dự án Final, phân định rõ ràng giữa kế hoạch dự toán và thực tế thực hiện. Website chưa tiếp nhận giao dịch tiền mặt, đơn đặt hàng hay tài trợ trực tuyến."
     summaryTitle="Tóm tắt kế hoạch"
     summaryItems={summaryItems}
   />
 
-  <!-- Top Highlights: 3 KPI Cards + Cảnh báo 550.000đ + Chú giải trạng thái -->
+  <!-- Top Highlights: 3 KPI Cards + Cảnh báo đối chiếu + Chú giải trạng thái -->
   <section class="section section-highlights" aria-label="Các chỉ số kế hoạch nổi bật">
     <div class="container">
       <!-- Highlights Grid (3 KPI kế hoạch / giả định) -->
@@ -134,18 +178,18 @@ const summaryItems = [
           </div>
           <span class="highlight-value">{formatVND(totalPlannedExpense)}</span>
           <p class="highlight-condition">
-            Dự toán 19 khoản chi phí nguyên vật liệu, vật tư góc chơi, quà tặng và di chuyển theo đề xuất (trang 24, 25, 26).
+            Dự toán {PLANNED_EXPENSES.length} khoản chi phí nguyên vật liệu, vật tư workshop, quà tặng và di chuyển theo đề xuất Final (trang 29, 30, 31).
           </p>
         </div>
 
         <div class="highlight-card">
           <div class="highlight-header">
-            <span class="highlight-label">Doanh thu kịch bản (giả định)</span>
+            <span class="highlight-label">Doanh thu kịch bản (cơ sở)</span>
             <StatusChip kind="gia-dinh" label="Giả định" />
           </div>
           <span class="highlight-value">{formatVND(totalPlannedRevenue)}</span>
           <p class="highlight-condition">
-            Gồm {formatVND(craftRevenue)} thủ công (bán đủ kế hoạch) và {formatVND(foodAssumption)} ẩm thực giả định (trang 18).
+            Gồm {formatVND(craftRevenue)} thủ công (bán đủ kế hoạch) và {formatVND(foodRevenue)} ẩm thực cơ sở (50 set đồ ăn + 50 bánh su kem).
           </p>
         </div>
 
@@ -158,18 +202,18 @@ const summaryItems = [
             {baseBalanceDisplay.text}
           </span>
           <p class="highlight-condition">
-            Số dư mô phỏng khi chưa tính tài trợ hiện vật, dựa trên giả định bán hết sản phẩm theo giá tham khảo.
+            Số dư mô phỏng khi chưa tính tài trợ hiện vật, dựa trên giả định bán đủ sản phẩm cơ sở theo giá tham khảo (trước khi mua quà tặng).
           </p>
         </div>
       </div>
 
-      <!-- Cảnh báo dẫn xuất chênh 550.000đ và link đối chiếu -->
+      <!-- Cảnh báo đối chiếu cơ cấu ẩm thực & phân bổ lợi nhuận C06 -->
       <div class="transparency-gap-alert" role="note">
         <p class="gap-alert-text">
-          <strong>Lưu ý đối soát mục tiêu ẩm thực:</strong> Hồ sơ đề xuất ghi mục tiêu ẩm thực <strong>{formatVND(foodReconciliation.targetFoodRevenue)}</strong> (trang 18) nhưng số set giả định tính theo đơn giá SKU là <strong>{formatVND(foodReconciliation.setsCalculatedRevenue)}</strong> ({foodReconciliation.hypotheticalSets} set &times; {formatVND(foodReconciliation.setUnitPrice)}). Khoản chênh <strong>{foodReconciliation.unallocatedGap !== null ? formatVND(foodReconciliation.unallocatedGap) : ''}</strong> chưa có bảng phân bổ số lượng chi tiết từng món.
+          <strong>Lưu ý đối chiếu cơ cấu ẩm thực &amp; phân bổ lợi nhuận đề xuất Final:</strong> Kế hoạch ẩm thực cơ sở gồm 50 set đồ ăn và 50 hộp bánh su kem ({formatVND(foodRevenue)}) đã giải thích trọn vẹn cơ cấu so với dự toán cũ. Ba combo nem (60 suất/món theo đề xuất) chưa tính vào kịch bản cơ sở do cần đối chiếu số lượng bổ sung hay thay thế; lãi từng nhóm sản phẩm trong hồ sơ có khoản chênh 400.000đ đang chờ thống nhất phân bổ chi phí nội bộ. Tổng số dư kịch bản toàn dự án (+1.680.000đ) vẫn khớp hoàn toàn giữa các phương pháp tính.
         </p>
         <a href="#doi-chieu-do-an" class="gap-alert-link">
-          Xem bảng đối chiếu ẩm thực &darr;
+          Xem bảng đối chiếu ẩm thực &amp; lợi nhuận chi tiết &darr;
         </a>
       </div>
 
@@ -179,7 +223,7 @@ const summaryItems = [
         <div class="legend-items">
           <div class="legend-item">
             <StatusChip kind="ke-hoach" label="Kế hoạch" />
-            <span class="legend-desc">Dự toán 19 khoản chi phí trong đề xuất</span>
+            <span class="legend-desc">Dự toán {PLANNED_EXPENSES.length} khoản chi phí trong đề xuất</span>
           </div>
           <div class="legend-item">
             <StatusChip kind="gia-dinh" label="Giả định" />
@@ -197,23 +241,23 @@ const summaryItems = [
     </div>
   </section>
 
-  <!-- Section 1 (LEDGER FIRST): Dự toán chi phí chi tiết (19 khoản mục) -->
+  <!-- Section 1 (LEDGER FIRST): Dự toán chi phí chi tiết (24 khoản mục) -->
   <section class="section section-soft" aria-labelledby="expenses-heading">
     <div class="container">
       <div class="section-header">
         <span class="eyebrow">Dự toán ngân sách</span>
         <h2 id="expenses-heading" class="section-title">
-          Dự toán chi phí chi tiết (19 khoản mục)
+          Dự toán chi phí chi tiết ({PLANNED_EXPENSES.length} khoản mục)
         </h2>
         <p class="section-subtitle">
-          Danh mục chi tiết 19 khoản mục chi phí được chia thành 3 nhóm phục vụ buổi chơi và hoạt động tại Mái ấm.
+          Danh mục chi tiết {PLANNED_EXPENSES.length} khoản mục chi phí được chia thành 3 nhóm phục vụ buổi chơi và hoạt động tại Mái ấm theo đề xuất Final.
         </p>
       </div>
 
       <!-- Desktop Table View (>= 768px) -->
       <div class="table-wrap desktop-only">
         <table class="data-table">
-          <caption class="sr-only">Bảng phân bổ 19 khoản mục chi phí dự toán kế hoạch theo 3 nhóm</caption>
+          <caption class="sr-only">Bảng phân bổ {PLANNED_EXPENSES.length} khoản mục chi phí dự toán kế hoạch theo 3 nhóm</caption>
           <thead>
             <tr>
               <th scope="col">Khoản mục</th>
@@ -263,11 +307,11 @@ const summaryItems = [
           }
           <tfoot>
             <tr class="total-row">
-              <th scope="row" colspan="2">Tổng dự toán chi kế hoạch (19 khoản)</th>
+              <th scope="row" colspan="2">Tổng dự toán chi kế hoạch ({PLANNED_EXPENSES.length} khoản)</th>
               <td class="text-right font-bold text-accent">
                 {formatVND(totalPlannedExpense)}
               </td>
-              <td class="text-muted">Dẫn xuất từ 19 khoản mục dự toán trong đề xuất, không phải chi phí thực tế</td>
+              <td class="text-muted">Dẫn xuất từ {PLANNED_EXPENSES.length} khoản mục dự toán trong đề xuất Final (trang 29, 30, 31), không phải chi phí thực tế</td>
             </tr>
           </tfoot>
         </table>
@@ -340,10 +384,10 @@ const summaryItems = [
         }
 
         <div class="mobile-total-card card">
-          <div class="mobile-total-header">Tổng dự toán chi kế hoạch (19 khoản)</div>
+          <div class="mobile-total-header">Tổng dự toán chi kế hoạch ({PLANNED_EXPENSES.length} khoản)</div>
           <div class="mobile-total-amount">{formatVND(totalPlannedExpense)}</div>
           <p class="mobile-total-note">
-            Dẫn xuất từ 3 nhóm dự toán trong đề xuất ban đầu (trang 24, 25, 26); không phải chi phí thực tế đã thanh toán.
+            Dẫn xuất từ 3 nhóm dự toán trong đề xuất Final (trang 29, 30, 31); không phải chi phí thực tế đã thanh toán.
           </p>
         </div>
       </div>
@@ -370,71 +414,139 @@ const summaryItems = [
           <div class="formula-part">
             <span class="formula-part-title">1. Sản phẩm lưu niệm thủ công:</span>
             <p class="formula-expression">{craftFormulaText} = <strong>{formatVND(craftRevenue)}</strong></p>
-            <p class="formula-subnote">Giả định bán đủ {craftSummaryText} theo giá tham khảo trong đề xuất.</p>
+            <p class="formula-subnote">Giả định bán đủ {craftSummaryText} theo giá tham khảo trong đề xuất Final (trang 30).</p>
           </div>
           <div class="formula-part">
-            <span class="formula-part-title">2. Phương án ẩm thực sinh viên (giả định):</span>
-            <p class="formula-expression">Mục tiêu doanh thu trong đề xuất (trang 18) = <strong>{formatVND(foodAssumption)}</strong></p>
-            <p class="formula-subnote">Mục tiêu giả định trong đề xuất; chưa có bảng phân bổ số lượng từng món (xem mục đối chiếu ẩm thực bên dưới).</p>
+            <span class="formula-part-title">2. Phương án ẩm thực sinh viên cơ sở:</span>
+            <p class="formula-expression">{foodFormulaText} = <strong>{formatVND(foodRevenue)}</strong></p>
+            <p class="formula-subnote">Gồm 50 set đồ ăn (79.000đ/set) và 50 hộp bánh su kem (20.000đ/hộp) theo đề xuất Final (trang 29). Chưa gộp 3 combo nem vào doanh thu cơ sở do cần đối chiếu số lượng bổ sung hay thay thế (xem mục đối chiếu ẩm thực bên dưới).</p>
           </div>
         </div>
         <div class="formula-total">
-          <span>Tổng doanh thu kịch bản kết hợp:</span>
-          <strong>{formatVND(craftRevenue)} (thủ công) + {formatVND(foodAssumption)} (ẩm thực giả định) = {formatVND(totalPlannedRevenue)}</strong>
+          <span>Tổng doanh thu kịch bản cơ sở kết hợp:</span>
+          <strong>{formatVND(craftRevenue)} (thủ công) + {formatVND(foodRevenue)} (ẩm thực cơ sở) = {formatVND(totalPlannedRevenue)}</strong>
         </div>
         <p class="formula-note">
           Doanh thu giả định tính trên giả thiết hoàn thành mục tiêu đề xuất và bán theo mức giá tham khảo. Trạng thái mở bán hiện chưa được xác nhận; bản xem trước chưa nhận đơn hoặc tiền.
         </p>
       </div>
 
-      <!-- Food Reconciliation Card (#doi-chieu-do-an) -->
+      <!-- Food & Profit Reconciliation Card (#doi-chieu-do-an) -->
       <div id="doi-chieu-do-an" class="reconciliation-card card">
         <div class="reconciliation-header">
           <div class="badge-wrap">
-            <span class="eyebrow">Đối chiếu kế hoạch đề xuất</span>
+            <span class="eyebrow">Đối chiếu kế hoạch đề xuất Final</span>
           </div>
-          <h3 class="reconciliation-title">Đối chiếu mục tiêu doanh thu ẩm thực trong đề xuất</h3>
+          <h3 class="reconciliation-title">Đối chiếu cơ cấu ẩm thực và phân bổ lợi nhuận</h3>
         </div>
 
         <p class="reconciliation-lead">
-          Hồ sơ đề xuất ghi nhận mục tiêu ẩm thực là <strong>{formatVND(foodReconciliation.targetFoodRevenue)}</strong> (trang 18), đồng thời nêu kế hoạch tương đương <strong>{foodReconciliation.hypotheticalSets ? `${foodReconciliation.hypotheticalSets} set` : 'set'}</strong> đồ ăn (trang 12) theo giá tham khảo <strong>{formatVND(foodReconciliation.setUnitPrice)}/set</strong> (trang 24):
+          Hồ sơ đề xuất Final (trang 29–32) xác định doanh thu ẩm thực cơ sở là <strong>{formatVND(foodRevenue)}</strong> (50 set đồ ăn và 50 hộp bánh su kem). Dưới đây là phân tích đối chiếu chi tiết về cơ cấu ẩm thực, lưu ý về combo và khoản chênh lệch phân bổ chi phí 400.000đ giữa các nhóm sản phẩm:
         </p>
 
-        <div class="reconciliation-grid">
-          <div class="reconcile-item">
-            <span class="reconcile-label">Doanh thu từ {foodReconciliation.hypotheticalSets ? `${foodReconciliation.hypotheticalSets} set` : 'set'} giả định</span>
-            <span class="reconcile-val">{foodReconciliation.hypotheticalSets ? `${foodReconciliation.hypotheticalSets} set × ` : ''}{formatVND(foodReconciliation.setUnitPrice)} = <strong>{formatVND(foodReconciliation.setsCalculatedRevenue)}</strong></span>
-            <span class="reconcile-note">Dẫn xuất từ số set giả định (trang 12) và giá SKU set đồ ăn (trang 24).</span>
-          </div>
+        <!-- Phần 1: Cơ cấu ẩm thực cơ sở -->
+        <div class="reconciliation-sub-block">
+          <h4 class="reconciliation-sub-title">1. Cơ cấu doanh thu ẩm thực cơ sở ({formatVND(foodRevenue)})</h4>
+          <div class="reconciliation-grid">
+            <div class="reconcile-item">
+              <span class="reconcile-label">Set đồ ăn sinh viên (50 set)</span>
+              <span class="reconcile-val">{foodReconciliation.hypotheticalSets} set &times; {formatVND(foodReconciliation.setUnitPrice)} = <strong>{formatVND(foodReconciliation.setsCalculatedRevenue)}</strong></span>
+              <span class="reconcile-note">50 set đồ ăn (2 nem rán, 2 nem xù, 2 nem phô mai, dưa chuột, khoai tây, nước uống).</span>
+            </div>
 
-          <div class="reconcile-item">
-            <span class="reconcile-label">Mục tiêu ghi trong đề xuất</span>
-            <span class="reconcile-val"><strong>{formatVND(foodReconciliation.targetFoodRevenue)}</strong></span>
-            <span class="reconcile-note">Chỉ tiêu tổng ẩm thực tại bảng mục tiêu tài chính (trang 18).</span>
-          </div>
+            <div class="reconcile-item">
+              <span class="reconcile-label">Bánh su kem (50 hộp)</span>
+              <span class="reconcile-val">{foodReconciliation.suKemQuantity} hộp &times; {formatVND(foodReconciliation.suKemUnitPrice)} = <strong>{formatVND(foodReconciliation.suKemCalculatedRevenue)}</strong></span>
+              <span class="reconcile-note">50 hộp bánh su kem giá tham khảo 20.000đ/hộp (trang 29).</span>
+            </div>
 
-          <div class="reconcile-item reconcile-gap">
-            <span class="reconcile-label">Khoản chênh chưa phân bổ</span>
-            <span class="reconcile-val font-bold text-accent">{formatVND(foodReconciliation.targetFoodRevenue)} − {formatVND(foodReconciliation.setsCalculatedRevenue)} = <strong>{formatVND(foodReconciliation.unallocatedGap)}</strong></span>
-            <span class="reconcile-note">Hồ sơ chưa có bảng phân bổ số lượng chi tiết để giải thích khoản chênh {foodReconciliation.unallocatedGap !== null ? formatVND(foodReconciliation.unallocatedGap) : ''}.</span>
+            <div class="reconcile-item reconcile-total-item">
+              <span class="reconcile-label">Tổng doanh thu ẩm thực cơ sở</span>
+              <span class="reconcile-val font-bold text-accent"><strong>{formatVND(foodRevenue)}</strong></span>
+              <span class="reconcile-note">Đã giải thích đầy đủ cơ cấu doanh thu ẩm thực cơ sở; không còn khoản chênh chưa rõ nguồn.</span>
+            </div>
           </div>
         </div>
 
-        <div class="reconciliation-analysis">
-          <p class="reconciliation-analysis-title">
-            <strong>Phân tích đối soát minh bạch:</strong>
+        <!-- Phần 2: Lưu ý về 3 Combo nem -->
+        <div class="reconciliation-notice-box">
+          <p>
+            <strong>Lưu ý về 3 combo nem trong đề xuất (trang 29):</strong> Hồ sơ đề xuất liệt kê 3 combo (combo nem giòn 40k, combo nem xù 40k, combo nem phô mai 60k) với số lượng ghi nhận 60 suất/món. Tuy nhiên, định mức nguyên liệu mua vào (300 chiếc nem Công Châu) chỉ đủ cho 50 set đồ ăn đầy đủ (50 &times; 6 nem = 300 nem). Chưa có bảng phân bổ nguyên liệu độc lập để xác định 3 combo này là sản lượng làm thêm hay là phương án bán lẻ thay thế cho set đồ ăn. Để đảm bảo tính thận trọng và không tự ý nhân doanh thu kịch bản, <em>3 combo nem không được gộp vào doanh thu kịch bản cơ sở</em>.
           </p>
-          <ul class="reconciliation-list">
-            <li>
-              Hồ sơ đề xuất đưa ra các mức giá tham khảo cho thực đơn (set đồ ăn, combo nem, bánh su kem) nhưng <em>chưa có bảng số lượng × giá từng món</em> để giải thích phần chênh lệch {foodReconciliation.unallocatedGap !== null ? formatVND(foodReconciliation.unallocatedGap) : ''}.
-            </li>
-            <li>
-              Cần làm rõ set đồ ăn và các phần combo nem / bánh su kem có bị trùng lặp khẩu phần hay không trước khi có thể chốt kế hoạch phát hành chính thức.
-            </li>
-            <li>
-              Kịch bản cơ sở hiện tại giữ nguyên <strong>{formatVND(totalPlannedRevenue)}</strong> doanh thu và <strong>+{formatVND(FINANCE_OVERVIEW.unfundedProjectedBalance)}</strong> số dư giả định, được dán nhãn kế hoạch chưa kiểm chứng cơ cấu bán. Không tự ý phân bổ khoản chênh {foodReconciliation.unallocatedGap !== null ? formatVND(foodReconciliation.unallocatedGap) : ''} cho các combo nem hay bánh su kem khi chưa có quyết định từ nhóm.
-            </li>
-          </ul>
+        </div>
+
+        <!-- Phần 3: Phân tích chênh lệch lợi nhuận từng nhóm (khoản lệch 400.000đ) -->
+        <div class="reconciliation-sub-block">
+          <h4 class="reconciliation-sub-title">2. Đối chiếu phân bổ lợi nhuận từng nhóm sản phẩm (khoản lệch 400.000đ)</h4>
+          <p class="reconciliation-text">
+            Hồ sơ đề xuất Final ghi nhận ước tính lãi đồ ăn là <strong>{formatVND(FINANCE_OVERVIEW.foodProfitQuote)}</strong> (trang 30) và lãi thủ công là <strong>{formatVND(FINANCE_OVERVIEW.craftProfitQuote)}</strong> (trang 31). Khi so sánh với mức doanh thu kịch bản trừ chi phí theo danh mục từng nhóm dự toán, xuất hiện khoản chênh lệch 400.000đ giữa hai nhóm:
+          </p>
+
+          <div class="table-wrap">
+            <table class="data-table">
+              <caption class="sr-only">Bảng đối chiếu phân bổ lợi nhuận giữa trích dẫn đề xuất và tính toán theo nhóm chi phí</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Nhóm hoạt động</th>
+                  <th scope="col" class="text-right">Doanh thu cơ sở</th>
+                  <th scope="col" class="text-right">Chi phí theo nhóm</th>
+                  <th scope="col" class="text-right">Doanh thu − Chi phí</th>
+                  <th scope="col" class="text-right">Lãi ghi trong đề xuất</th>
+                  <th scope="col" class="text-right">Chênh lệch</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Ẩm thực gây quỹ</strong></td>
+                  <td class="text-right">{formatVND(foodRevenue)}</td>
+                  <td class="text-right">{formatVND(foodReconciliation.foodExpensesTotal)}</td>
+                  <td class="text-right font-medium">{formatVND(foodReconciliation.foodRevenueMinusExpenses)}</td>
+                  <td class="text-right font-bold">{formatVND(foodReconciliation.foodProfitQuote)}</td>
+                  <td class="text-right text-muted">−400.000đ (trừ 2 lần chi phí su kem)</td>
+                </tr>
+                <tr>
+                  <td><strong>Sản phẩm thủ công</strong></td>
+                  <td class="text-right">{formatVND(craftRevenue)}</td>
+                  <td class="text-right">{formatVND(craftReconciliation.workshopExpensesTotal)}</td>
+                  <td class="text-right font-medium">{formatVND(craftReconciliation.craftRevenueMinusExpenses)}</td>
+                  <td class="text-right font-bold">{formatVND(craftReconciliation.craftProfitQuote)}</td>
+                  <td class="text-right text-muted">+400.000đ (chưa tách quà &amp; vật tư)</td>
+                </tr>
+                <tr class="total-row">
+                  <th scope="row">Tổng 2 nhóm sản phẩm</th>
+                  <td class="text-right font-bold">{formatVND(totalPlannedRevenue)}</td>
+                  <td class="text-right font-bold">{formatVND(totalCombinedExpenses)}</td>
+                  <td class="text-right font-bold">{formatVND(totalCombinedRevenueMinusExpenses)}</td>
+                  <td class="text-right font-bold text-accent">{formatVND(totalCombinedProfitQuote)}</td>
+                  <td class="text-right font-bold">0đ (khớp 2.810.000đ)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="reconciliation-analysis">
+            <p class="reconciliation-analysis-title">
+              <strong>Đối chiếu số liệu và sự trùng khớp của số dư kịch bản tổng thể:</strong>
+            </p>
+            <ul class="reconciliation-list">
+              <li>
+                <strong>Ở nhóm ẩm thực:</strong> Chi phí mua bánh su kem (400.000đ cho 50 hộp) đã nằm trong tổng 14 khoản nguyên liệu ({formatVND(foodReconciliation.foodExpensesTotal)}). Trong trích dẫn lãi đồ ăn của đề xuất (trang 30), số lãi ghi nhận là {formatVND(foodReconciliation.foodProfitQuote)} thay vì mức doanh thu trừ chi phí nhóm ({formatVND(foodReconciliation.foodRevenueMinusExpenses)}), phản ánh khoản chênh 400.000đ tương ứng với chi phí su kem.
+              </li>
+              <li>
+                <strong>Ở nhóm thủ công:</strong> Chi phí nhóm 2 ({formatVND(craftReconciliation.workshopExpensesTotal)}) bao gồm cả vật tư workshop, dụng cụ trò chơi và quà tặng Mái ấm. Đề xuất ghi nhận lãi thủ công {formatVND(craftReconciliation.craftProfitQuote)} (trang 31) so với mức lấy doanh thu trừ toàn bộ chi phí nhóm là {formatVND(craftReconciliation.craftRevenueMinusExpenses)} (chênh lệch 400.000đ). Phân bổ chi phí cụ thể giữa hàng bán và vật tư buổi chơi chưa được giải quyết trong hồ sơ, do đó khoản chênh này không phải là lợi nhuận sản phẩm đã được phê duyệt.
+              </li>
+              <li>
+                <strong>Số dư kịch bản tổng thể trước quà tặng trùng khớp:</strong> Dù tính theo các con số lãi trích dẫn trong đề xuất hay theo công thức giả định (doanh thu kịch bản trừ toàn bộ chi phí dự toán), kết quả số dư kịch bản trước quà tặng đều cho cùng một giá trị <strong>+{formatVND(FINANCE_OVERVIEW.unfundedProjectedBalance)}</strong>:
+                <br />
+                &bull; <em>Cách 1 (theo số trích dẫn đề xuất):</em> Lãi đồ ăn ghi nhận ({formatVND(foodReconciliation.foodProfitQuote)}) + Lãi thủ công ghi nhận ({formatVND(craftReconciliation.craftProfitQuote)}) − Chi phí truyền thông &amp; di chuyển ({formatVND(1130000)}) = <strong>+{formatVND(FINANCE_OVERVIEW.unfundedProjectedBalance)}</strong>.
+                <br />
+                &bull; <em>Cách 2 (doanh thu kịch bản trừ toàn bộ chi phí dự toán):</em> Tổng thu kịch bản cơ sở ({formatVND(totalPlannedRevenue)}) − Tổng {PLANNED_EXPENSES.length} khoản chi ({formatVND(totalPlannedExpense)}) = <strong>+{formatVND(FINANCE_OVERVIEW.unfundedProjectedBalance)}</strong>.
+              </li>
+              <li>
+                Các phép tính trên là số liệu mô phỏng giả định dựa trên việc bán đủ hàng theo giá tham khảo; chi phí chưa được phê duyệt phân bổ chi tiết cho từng sản phẩm riêng lẻ.
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
 
@@ -504,6 +616,12 @@ const summaryItems = [
             </div>
           ))
         }
+      </div>
+
+      <div class="scenarios-note card">
+        <p>
+          <strong>Lưu ý điều kiện tài chính trước buổi 1 (trang 32):</strong> Các kịch bản trên hoàn toàn là giả định mô phỏng, chưa có cam kết tài trợ hay doanh thu thực tế. Trường hợp nguồn thu bán hàng chưa đạt hoặc chưa có tài trợ cam kết trước buổi 1, nhóm không tạm ứng tiền cá nhân; quy mô mua sắm nguyên vật liệu được điều chỉnh về mức tối thiểu an toàn và xin ý kiến chấp thuận của giảng viên / nhóm trước khi triển khai.
+        </p>
       </div>
     </div>
   </section>
@@ -605,21 +723,21 @@ const summaryItems = [
       </div>
 
       <div class="governance-two-cols">
-        <!-- Cột 1: 4 Nguyên tắc quản trị dòng tiền -->
+        <!-- Cột 1: 4 Nguyên tắc quản trị dòng tiền & Quỹ dự án -->
         <div class="governance-col card">
-          <h3 class="governance-col-title">Nguyên tắc quản trị dòng tiền</h3>
+          <h3 class="governance-col-title">Nguyên tắc quản trị dòng tiền &amp; Quỹ dự án</h3>
           <ul class="governance-list">
             <li>
-              <strong>Công thức dòng tiền chuẩn xác:</strong> Số dư tiền = Số dư đầu kỳ + Doanh thu thực nhận + Tài trợ tiền thực nhận − Chi tiền thực trả. Hàng tồn kho và đơn chưa thanh toán không được ghi nhận là doanh thu đã thu.
+              <strong>Công thức quỹ khả dụng trước mua quà:</strong> Quỹ khả dụng = Thu tiền thực nhận − Chi tiền thực trả − Chi phí còn phải trả − Tiền khách đã trả cho các đơn chưa hoàn tất. Hàng tồn kho, đơn chưa thanh toán và hiện vật tài trợ không được coi là tiền quỹ tự do; mỗi khoản chi chỉ thanh toán một lần duy nhất.
             </li>
             <li>
-              <strong>Tách bạch tiền mặt và hiện vật:</strong> Theo đề xuất, tiền mặt và hiện vật dự kiến được quản lý trong hai hệ thống sổ sách độc lập; không gộp giá trị ước tính của hiện vật vào số dư tiền mặt của chiến dịch.
+              <strong>Công thức số dư sau bàn giao:</strong> Số dư cuối kỳ = Toàn bộ thu tiền thực nhận − Toàn bộ chi phí thực tế (bao gồm quà tặng đã mua) − Nghĩa vụ tài chính còn lại. Số dư chỉ được chốt sau khi hoàn tất nghiệm thu và bàn giao quà tặng tại Mái ấm.
             </li>
             <li>
-              <strong>Đối soát chéo hai thành viên:</strong> Theo đề xuất, mọi khoản thu chi dự kiến được đối soát độc lập bởi hai thành viên phụ trách tài chính nhằm giảm rủi ro và tăng tính khách quan.
+              <strong>Tách bạch tiền mặt và hiện vật:</strong> Tiền mặt và hiện vật được quản lý trong hai hệ thống sổ sách độc lập; tuyệt đối không gộp giá trị ước tính của hiện vật vào số dư tiền mặt của chiến dịch.
             </li>
             <li>
-              <strong>Biên tập chứng từ bảo vệ riêng tư:</strong> Báo cáo tài chính và chứng từ gốc sau đối soát dự kiến sẽ được biên tập che các thông tin cá nhân nhạy cảm trước khi công bố công khai.
+              <strong>Đối soát chéo hai thành viên:</strong> Theo đề xuất, mọi khoản thu chi dự kiến được đối soát độc lập bởi hai thành viên phụ trách tài chính nhằm giảm rủi ro và tăng tính khách quan; chứng từ gốc được biên tập che thông tin riêng tư trước khi công bố.
             </li>
           </ul>
         </div>
@@ -629,16 +747,19 @@ const summaryItems = [
           <h3 class="governance-col-title">Phương án dự phòng &amp; Ứng phó rủi ro</h3>
           <ul class="governance-list">
             <li>
+              <strong>Trường hợp thiếu kinh phí trước buổi 1 (trang 32):</strong> Khi nguồn thu bán hàng chưa rõ hoặc chưa có cam kết tài trợ, nhóm không tạm ứng tiền cá nhân; thành viên chủ động điều chỉnh danh mục vật tư về mức tối thiểu an toàn và xin ý kiến phê duyệt của giảng viên / nhóm trước khi triển khai.
+            </li>
+            <li>
               <strong>Rủi ro bán hàng chậm hơn dự kiến:</strong> Ưu tiên bảo toàn vốn chuẩn bị đạo cụ và quà tặng thiết yếu; điều chỉnh quy mô mua sắm nếu doanh số chưa đạt mục tiêu.
             </li>
             <li>
               <strong>Rủi ro biến động thời tiết / địa điểm:</strong> Có phương án chuyển đổi hoạt động trong nhà, ưu tiên an toàn và sức khỏe của các em nhỏ tại Mái ấm.
             </li>
             <li>
-              <strong>Rủi ro chi phí phát sinh:</strong> Quỹ dự phòng trong đề xuất chỉ giải ngân khi có sự đồng thuận của nhóm và lý do chính đáng được ghi nhận.
+              <strong>Rủi ro chi phí phát sinh:</strong> Chi phí phát sinh ngoài dự toán 24 khoản chỉ giải ngân khi có sự đồng thuận của nhóm và lý do chính đáng được ghi nhận.
             </li>
             <li>
-              <strong>Quy tắc giải ngân quà tặng:</strong> Việc mua sắm quà tặng cho các em dựa trên số dư thực tế sau đối soát và danh mục nhu cầu do đại diện Mái ấm xác nhận.
+              <strong>Quy tắc giải ngân quà tặng:</strong> Việc mua sắm quà tặng cho các em dựa trên số dư thực tế sau đối soát và danh mục nhu cầu do đại diện Mái ấm xác nhận; không cam kết tài trợ vượt quá nguồn lực thực tế.
             </li>
           </ul>
         </div>
@@ -1148,11 +1269,50 @@ const summaryItems = [
     margin-bottom: var(--space-4);
   }
 
+  .reconciliation-sub-block {
+    margin-bottom: var(--space-6);
+  }
+
+  .reconciliation-sub-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0 0 var(--space-3);
+  }
+
+  .reconciliation-text {
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    color: var(--ink-2);
+    margin-bottom: var(--space-3);
+  }
+
+  .reconciliation-notice-box {
+    background-color: var(--surface-alt);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--brand);
+    border-radius: var(--radius-sm);
+    padding: var(--space-4) var(--space-5);
+    font-size: var(--font-size-small);
+    line-height: 1.55;
+    color: var(--ink);
+    margin-bottom: var(--space-6);
+  }
+
+  .reconciliation-notice-box p {
+    margin: 0;
+  }
+
   .reconciliation-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: var(--space-4);
-    margin-bottom: var(--space-6);
+    margin-bottom: var(--space-4);
+  }
+
+  .reconcile-total-item {
+    background-color: #f8fafc;
+    border-color: #94a3b8;
   }
 
   .reconcile-item {
@@ -1226,6 +1386,22 @@ const summaryItems = [
     background-color: #fee2e2;
     border-radius: var(--radius-pill);
     font-size: var(--font-size-small);
+  }
+
+  .scenarios-note {
+    background-color: var(--surface-alt);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--line-strong);
+    padding: var(--space-4) var(--space-5);
+    font-size: var(--font-size-small);
+    line-height: 1.5;
+    color: var(--ink-2);
+    margin-top: var(--space-4);
+    margin-bottom: var(--space-6);
+  }
+
+  .scenarios-note p {
+    margin: 0;
   }
 
   /* Actual Cashflow (5 Rows) */
