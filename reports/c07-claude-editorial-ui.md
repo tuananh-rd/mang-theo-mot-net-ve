@@ -2,7 +2,74 @@
 
 - **Người thực hiện:** Claude Opus 5.5 (`claude-opus-5-5`), người viết code duy nhất của C07 theo `docs/task-specs/C07.md`. Antigravity HOLD; không tạo worker; không giao lại.
 - **Ngày:** 08/10/2026. **Nhánh** `task/c07-claude-editorial-ui`, tạo từ HEAD đã kiểm.
-- **Baseline** `80ff81b37356d345aead982f0bab20266cc9e5c5` → vòng 1 `be7ae45` → **app final `fe0415fc706fba2b6fcf70cbda92e69bf54fd31d`** (vòng 2).
+- **Baseline** `80ff81b37356d345aead982f0bab20266cc9e5c5` → vòng 1 `be7ae45` → vòng 2 `fe0415f` → **app final `f62057d1a0b793fe33e0374adfe5a037e4ca4b6a`** (vòng 3).
+
+## Vòng 3 — nội dung dễ hiểu, bỏ gây quỹ đồ ăn, thêm trang Ủng hộ có QR và sao kê
+
+**Yêu cầu của chủ dự án:**
+
+- Nội dung đang khó hiểu và rời rạc; cần sắp xếp để người đọc hiểu ngay dự án là gì, làm gì.
+- Bỏ phần gây quỹ bằng đồ ăn.
+- Không công khai giá nhập hàng.
+- Thêm mục ủng hộ có QR tài khoản ngân hàng và sao kê người ủng hộ, để mọi người ủng hộ online minh bạch.
+
+**Đã làm:**
+
+| Trang | Thay đổi |
+|---|---|
+| Trang chủ | Hero một câu: "Bảy sinh viên Đại học FPT Hà Nội sẽ tổ chức một buổi vui chơi sáng tạo cho các em tại Mái ấm Thánh Tâm Xuy Xá, và gây quỹ để tặng những vật phẩm Mái ấm đang cần"; nút chính **Ủng hộ dự án**. Dải 4 ô: ai thực hiện / dành cho / thời gian / trạng thái. **"Ba việc, một mục tiêu"**: Gây quỹ → Một buổi chơi tại Mái ấm → Trao quà đúng nhu cầu. Bốn góc chơi. Dải ủng hộ nền tối có tổng đã nhận và số lượt (lấy từ sao kê). Nhóm + quà lưu niệm. Bỏ bảng tài chính và lộ trình khỏi trang chủ |
+| Ủng hộ (`/dong-hanh`, menu "Ủng hộ" nổi bật) | Khối chuyển khoản: QR, ngân hàng, số tài khoản và nội dung chuyển khoản `MTMNV <tên>`, có nút sao chép. Bốn bước "Khoản ủng hộ của bạn đi đâu". **Bảng sao kê** gồm tổng đã nhận, số lượt, ngày đối soát gần nhất, danh sách mới nhất trước (ngày, tên hiển thị, mã giao dịch rút gọn, số tiền), ô tìm tên/mã. Mục "Bạn cũng có thể" và 4 FAQ |
+| Quà lưu niệm (`/san-pham`) | Chỉ còn chuồn chuồn tre và móc khóa; bỏ toàn bộ đồ ăn và combo |
+| Minh bạch | 4 ô: ủng hộ đã nhận / dự kiến chi cho buổi chơi 2.990.000đ (tổng 2 nhóm vật tư-quà và di chuyển-ấn phẩm) / đã chi thực tế (chưa xác nhận) / đã trao cho Mái ấm (chưa xác nhận). Dòng tiền 4 bước, cam kết, nội dung báo cáo cuối. **Không còn đơn giá, cách tính hay danh sách khoản mua**; bỏ nhóm nguyên liệu đồ ăn, doanh thu 7.150.000đ, các kịch bản tài trợ |
+| Dự án, Về nhóm | Chặng "Gây quỹ" đổi thành ủng hộ trực tuyến + quà lưu niệm (nguồn PDF tr.6 có nêu gây quỹ qua website/landing page). Mảng việc "Hậu cần và chương trình" bỏ ý an toàn thực phẩm. CTA cuối dẫn tới Ủng hộ |
+
+**Ủng hộ chạy bằng dữ liệu, không tự tạo thông tin:**
+
+- Kênh ủng hộ được điều khiển bởi `DONATION_ACCOUNT` và `DONATIONS` trong `src/data/campaign.ts`.
+- Hiện kênh ở trạng thái `pending`, nên trang hiển thị khung "Mã QR sẽ hiển thị tại đây", các trường "Sẽ công bố", tổng "Chưa mở" và sao kê trống có giải thích.
+- Không có số tài khoản, ảnh QR hay người ủng hộ nào được tạo ra.
+- `src/lib/donations.ts` có 6 test:
+  - Chỉ mở kênh khi `status: 'active'` và có đủ ngân hàng, số tài khoản, chủ tài khoản, ảnh QR.
+  - Khi chưa mở, tổng là `null` chứ không phải 0đ.
+  - Mỗi dòng sao kê phải có ngày hợp lệ, số tiền nguyên dương và tên không trống.
+
+**Đã kiểm trạng thái "đã mở" bằng dữ liệu thử ngoài repo** (`donation-active-test/`):
+
+- Tôi sao lưu file dữ liệu, điền giá trị ghi rõ THỬ NGHIỆM, build ra thư mục tạm ngoài repo, rồi khôi phục file (sha256 khớp bản gốc).
+- Bản thử được phục vụ qua request interception, không mở server.
+- Kết quả: QR hiển thị, 2 nút sao chép, sao kê 3 dòng sắp mới nhất trước, tổng 350.000đ với 3 lượt khớp ở cả trang chủ, ô tìm lọc đúng, không tràn ngang ở 375 và 1440.
+
+**Để mở nhận ủng hộ, nhóm cần cung cấp:**
+
+1. Tên ngân hàng, số tài khoản, tên chủ tài khoản. Nên là tài khoản dành riêng cho dự án để sao kê sạch.
+2. Ảnh QR xuất từ app ngân hàng, đặt vào `public/images/ung-ho/qr.png`.
+3. Xác nhận tiền tố nội dung chuyển khoản (`MTMNV` là đề xuất của tôi).
+4. Đồng ý công khai tên người ủng hộ theo cách họ ghi, hoặc "Ẩn danh".
+
+Sau đó sửa `status: 'active'` và điền các trường. Mỗi lần đối soát, thêm dòng vào `DONATIONS`, cập nhật `ledgerUpdatedAt` rồi build lại.
+
+Sao kê tự động theo thời gian thực cần một dịch vụ webhook ngân hàng và backend. Việc này nằm ngoài stack tĩnh hiện tại và chưa làm.
+
+**Kiểm tra vòng 3** (trên `f62057d` đã commit sạch):
+
+| Lệnh | Exit | Kết quả |
+|---|---|---|
+| `npm.cmd ci` | 0 | cài theo lockfile |
+| `npm.cmd run check` | 0 | 0 lỗi |
+| `node --test tests/finance.test.mjs tests/donations.test.mjs` | 0 | 39/39 |
+| `npm.cmd run build` | 0 | 7 trang, 21 file |
+| audit bundle | 0 | 17/17 |
+| QA trình duyệt | 0 | 237/237 |
+
+- **Audit bundle** thêm các kiểm tra: không còn nội dung đồ ăn; không có đơn giá dạng "a × bđ"; không có ảnh QR, số tài khoản hay nút sao chép khi chưa mở; sao kê không có dòng nào.
+- **QA trình duyệt** thêm kiểm tra trang Ủng hộ ở trạng thái chờ.
+- **Preview** `http://127.0.0.1:4322/` (PID 28852) phục vụ đúng bản build của `f62057d`.
+
+**Ghi chú phạm vi:** dữ liệu dự toán đầy đủ (24 khoản, đồ ăn, kịch bản) và các test tài chính cũ vẫn giữ trong `src/data` và `src/lib`, chỉ không hiển thị nữa, để truy vết về hồ sơ.
+
+**Trạng thái: HOLD.**
+
+---
 
 ## Vòng 2 — lọc nội dung cho website giới thiệu và nâng cấp hiệu ứng
 

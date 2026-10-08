@@ -4,7 +4,7 @@
   "branch": "task/c07-claude-editorial-ui",
   "baselineSha": "80ff81b37356d345aead982f0bab20266cc9e5c5",
   "round1AppSha": "be7ae45e4147bacdee64c35374b052eaa343a49a",
-  "finalAppSha": "fe0415fc706fba2b6fcf70cbda92e69bf54fd31d",
+  "finalAppSha": "f62057d1a0b793fe33e0374adfe5a037e4ca4b6a",
   "round2Request": "Chủ dự án: website để giới thiệu, không nhét hết nội dung docs (báo cáo giảng viên); duyệt lại nội dung, sửa luôn, nâng cấp hiệu ứng/animation chuyên nghiệp.",
   "appDiff": "src/ and tests/ only; package.json, package-lock.json, astro.config.mjs, tsconfig.json, public/ unchanged; no new dependency, font or image",
   "source": {
@@ -18,15 +18,50 @@
     "bind": "127.0.0.1",
     "pid": 28852,
     "kind": "existing static server serving dist/ (not started or stopped by Claude)",
-    "servesFinalBuild": "audit-bundle.json: 20/20 served bodies byte-identical to dist built from fe0415f"
+    "servesFinalBuild": "audit-bundle.json: 21/21 served bodies byte-identical to dist built from f62057d"
   },
   "commands": [
-    { "cmd": "npm.cmd ci", "exit": 0, "log": "logs/npm-ci.log" },
-    { "cmd": "npm.cmd run check", "exit": 0, "result": "0 errors, 0 warnings, 0 hints", "log": "logs/check.log" },
-    { "cmd": "node --test tests/finance.test.mjs", "exit": 0, "result": "33 tests, 0 fail", "log": "logs/test.log" },
-    { "cmd": "npm.cmd run build", "exit": 0, "result": "7 pages, 20 files in dist", "log": "logs/build.log" },
-    { "cmd": "node docs/evidence/C07/claude/audit-bundle.mjs", "exit": 0, "result": "15/15 checks", "output": "audit-bundle.json" },
-    { "cmd": "node docs/evidence/C07/claude/qa-browser.mjs <evidenceDir> <repo>", "exit": 0, "result": "239/239 checks", "output": "qa-results.json, screens/" }
+    {
+      "cmd": "npm.cmd ci",
+      "exit": 0,
+      "log": "logs/npm-ci.log"
+    },
+    {
+      "cmd": "npm.cmd run check",
+      "exit": 0,
+      "result": "0 errors, 0 warnings",
+      "log": "logs/check.log"
+    },
+    {
+      "cmd": "node --test tests/finance.test.mjs tests/donations.test.mjs",
+      "exit": 0,
+      "result": "39 tests, 0 fail",
+      "log": "logs/test.log"
+    },
+    {
+      "cmd": "npm.cmd run build",
+      "exit": 0,
+      "result": "7 pages, 21 files in dist",
+      "log": "logs/build.log"
+    },
+    {
+      "cmd": "node docs/evidence/C07/claude/audit-bundle.mjs",
+      "exit": 0,
+      "result": "17/17 checks",
+      "output": "audit-bundle.json"
+    },
+    {
+      "cmd": "node docs/evidence/C07/claude/qa-browser.mjs <evidenceDir> <repo>",
+      "exit": 0,
+      "result": "237/237 checks",
+      "output": "qa-results.json, screens/"
+    },
+    {
+      "cmd": "donation-active-test/active-check.mjs (test build outside repo, served by request interception)",
+      "exit": 0,
+      "result": "QR, 2 copy buttons, ledger 3 rows newest first, totals 350.000đ/3, search filters, no overflow at 375/1440",
+      "output": "donation-active-test/"
+    }
   ],
   "browser": "Chrome/154.0.8037.98 headless via puppeteer-core resolved from the existing Antigravity scratch node_modules (not an app dependency); 375/768 with mobile+touch emulation, 1440 desktop",
   "screens": "screens/: 21 full-page (6 routes + 404 x 375/768/1440), menu-375-open, sticky-header-375/1440, FAQ/disclosure open states, focus-1440. Full-page shots set .site-header to position:relative only during capture, because Chrome paints a sticky header in the middle of a full-page image.",
@@ -35,11 +70,16 @@
     "Round 1: finance@768 scenario table overflow fixed in app (be7ae45); skip-link check waited for transition; evidence screenshots retaken after icon transitions.",
     "Round 2: first motion implementation tagged blocks after first paint, so below-fold blocks flashed visible then faded out (opacity 1->0 transition). Fixed in app: blocks are hidden by CSS selectors from first paint under html.motion; JS only adds is-revealed.",
     "Round 2: IntersectionObserver missed blocks skipped by a fast jump (End key/anchor). Fixed in app: reveal by scroll position (rAF), revealing every block above 94% of the viewport; beforeprint reveals all; a 2.5s failsafe removes html.motion if the script never runs.",
-    "Round 2: QA scroll loop was smoothed by html{scroll-behavior:smooth}, leaving full-page shots blank; QA now scrolls with behavior:'instant'. App unchanged for this item."
+    "Round 2: QA scroll loop was smoothed by html{scroll-behavior:smooth}, leaving full-page shots blank; QA now scrolls with behavior:'instant'. App unchanged for this item.",
+    "Round 3: link check failed on same-page hash links (puppeteer goto returns null for same-document navigation); QA now loads the path and checks the anchor id. App unchanged.",
+    "Round 3: audit flagged the legitimate label \"Số tài khoản\" and an inline-script selector string; patterns narrowed to real account numbers/QR markup and rendered table markup."
   ],
   "notVerified": [
     "Real devices, Safari/Firefox (view transitions and ::details-content animate only in supporting browsers; others fall back to instant changes), screen readers; full WCAG audit",
     "Public hosting/deploy (not in scope; not done)"
   ],
-  "status": "HOLD"
+  "status": "HOLD",
+  "round2AppSha": "fe0415fc706fba2b6fcf70cbda92e69bf54fd31d",
+  "round3Request": "Chủ dự án: nội dung khó hiểu, rời rạc; cần sắp xếp để người đọc hiểu ngay dự án là gì, làm gì. Bỏ gây quỹ bằng đồ ăn, không công khai giá nhập hàng. Thêm mục ủng hộ có QR tài khoản ngân hàng và sao kê người donate, minh bạch online.",
+  "donationActiveTest": "Để kiểm trạng thái đã mở mà không đưa dữ liệu giả vào repo: sao lưu src/data/campaign.ts, điền dữ liệu ghi rõ THỬ NGHIỆM, build ra thư mục scratch ngoài repo, khôi phục file (sha256 khớp bản gốc), rồi phục vụ bản thử qua request interception của puppeteer (không mở server). Ảnh trong donation-active-test/ là dữ liệu thử, không phải giao dịch thật."
 }

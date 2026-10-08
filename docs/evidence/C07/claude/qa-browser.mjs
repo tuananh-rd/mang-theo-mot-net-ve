@@ -66,7 +66,8 @@ const ctx=await b.newPage();
 for(const [href,from] of allLinks){
   if(/^https?:/.test(href)){check(`external link allowed ${href}`, /pexels\.com/.test(href), [...from]);continue}
   const url=new URL(href,base+[...from][0]);
-  const res=await ctx.goto(url.href,{waitUntil:'domcontentloaded'});
+  // Tải trang không kèm hash (điều hướng cùng tài liệu trả về null), rồi kiểm phần tử neo
+  const res=await ctx.goto(url.origin+url.pathname,{waitUntil:'domcontentloaded'});
   let ok=res.status()===200;
   if(url.hash){ok=ok&&await ctx.evaluate(id=>!!document.getElementById(decodeURIComponent(id)),url.hash.slice(1))}
   check(`link ${href}`, ok, {status:res.status(),from:[...from]});
@@ -101,7 +102,7 @@ await ctx.close();
   await p.close();
 }
 // FAQ + disclosures by keyboard, tables at mobile
-for(const [n,r,sel] of [['products','/san-pham','.faq-item'],['finance','/minh-bach','.faq-item'],['support','/dong-hanh','.faq-item'],['finance-ledger','/minh-bach','details.ledger-group'],['finance-scenarios','/minh-bach','details.scenarios']]){
+for(const [n,r,sel] of [['products','/san-pham','.faq-item'],['finance','/minh-bach','.faq-item'],['support','/dong-hanh','.faq-item']]){
   for(const w of [375,1440]){
     const p=await b.newPage();await p.setViewport({width:w,height:900,isMobile:w<1024,hasTouch:w<1024});await p.goto(base+r,{waitUntil:'networkidle0'});
     const count=await p.$$eval(sel,e=>e.length);
@@ -150,6 +151,16 @@ for(const [label,setup] of [['no-js',async p=>p.setJavaScriptEnabled(false)],['r
     check(`${label} ${n}: all content visible without motion`, !st.motion&&st.invisible===0&&st.count>0, st);
     await p.close();
   }
+}
+// Trang Ủng hộ: khi tài khoản chưa kích hoạt không được có ảnh QR, số tài khoản hay nút sao chép
+{
+  const p=await b.newPage();await p.setViewport({width:1440,height:900});await p.goto(base+'/dong-hanh',{waitUntil:'networkidle0'});
+  const st=await p.evaluate(()=>({qrImg:document.querySelectorAll('.donate-qr img').length,placeholder:!!document.querySelector('.qr-placeholder'),copy:document.querySelectorAll('.copy-btn').length,accountNumber:!!document.querySelector('.account-number'),ledgerEmpty:!!document.querySelector('.ledger-empty'),rows:document.querySelectorAll('.donor-table tbody tr').length,total:document.querySelector('.ledger-stats dd')?.textContent.trim()}));
+  check('donation pending: no QR image, account number or copy button; placeholder shown', st.qrImg===0&&st.placeholder&&st.copy===0&&!st.accountNumber, st);
+  check('donation ledger: empty state, no fabricated rows, total shows not-open', st.ledgerEmpty&&st.rows===0&&st.total==='Chưa mở', st);
+  await p.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));await new Promise(r=>setTimeout(r,900));
+  await p.screenshot({path:`${shotDir}/donate-1440-fold.png`});
+  await p.close();
 }
 await b.close();
 check('no console errors (excluding intentional 404)', out.console.filter(c=>!(c.page==='404'&&/404/.test(c.text))).length===0, out.console);

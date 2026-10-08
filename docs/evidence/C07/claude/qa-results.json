@@ -1,8 +1,8 @@
 {
- "headSha": "fe0415fc706fba2b6fcf70cbda92e69bf54fd31d",
+ "headSha": "f62057d1a0b793fe33e0374adfe5a037e4ca4b6a",
  "appTreeClean": true,
  "base": "http://127.0.0.1:4322",
- "startedAt": "2026-10-08T12:56:25.532Z",
+ "startedAt": "2026-10-08T13:14:54.675Z",
  "pages": [
   {
    "n": "home",
@@ -11,7 +11,7 @@
    "robots": "noindex, nofollow",
    "scrollW": 375,
    "vw": 375,
-   "height": 5923,
+   "height": 4866,
    "h1": [
     "Mang Theo Một Nét Vẽ"
    ],
@@ -32,8 +32,8 @@
      "src": "/images/illustrations/a01.webp",
      "alt": "Bảng màu nước và các loại cọ vẽ đặt trên bàn",
      "ok": true,
-     "w": 333,
-     "h": 187.3125,
+     "w": 332.9990234375,
+     "h": 187.31201171875,
      "nw": 1600,
      "nh": 1068,
      "fit": "cover"
@@ -50,7 +50,7 @@
     }
    ],
    "forms": 0,
-   "textSample": 3042,
+   "textSample": 2310,
    "status": 200
   },
   {
@@ -60,7 +60,7 @@
    "robots": "noindex, nofollow",
    "scrollW": 768,
    "vw": 768,
-   "height": 4995,
+   "height": 4346,
    "h1": [
     "Mang Theo Một Nét Vẽ"
    ],
@@ -81,8 +81,8 @@
      "src": "/images/illustrations/a01.webp",
      "alt": "Bảng màu nước và các loại cọ vẽ đặt trên bàn",
      "ok": true,
-     "w": 558,
-     "h": 418.5,
+     "w": 557.999267578125,
+     "h": 418.4994201660156,
      "nw": 1600,
      "nh": 1068,
      "fit": "cover"
@@ -99,7 +99,7 @@
     }
    ],
    "forms": 0,
-   "textSample": 3042,
+   "textSample": 2310,
    "status": 200
   },
   {
@@ -109,7 +109,7 @@
    "robots": "noindex, nofollow",
    "scrollW": 1440,
    "vw": 1440,
-   "height": 3785,
+   "height": 3272,
    "h1": [
     "Mang Theo Một Nét Vẽ"
    ],
@@ -130,8 +130,8 @@
      "src": "/images/illustrations/a01.webp",
      "alt": "Bảng màu nước và các loại cọ vẽ đặt trên bàn",
      "ok": true,
-     "w": 591.46875,
-     "h": 443.59375,
+     "w": 591.4683837890625,
+     "h": 443.593505859375,
      "nw": 1600,
      "nh": 1068,
      "fit": "cover"
@@ -148,7 +148,7 @@
     }
    ],
    "forms": 0,
-   "textSample": 3042,
+   "textSample": 2319,
    "status": 200
   },
   {
@@ -187,7 +187,7 @@
     }
    ],
    "forms": 0,
-   "textSample": 3598,
+   "textSample": 3608,
    "status": 200
   },
   {
@@ -197,7 +197,7 @@
    "robots": "noindex, nofollow",
    "scrollW": 768,
    "vw": 768,
-   "height": 4750,
+   "height": 4826,
    "h1": [
     "Một buổi chơi có lựa chọn"
    ],
@@ -226,7 +226,7 @@
     }
    ],
    "forms": 0,
-   "textSample": 3598,
+   "textSample": 3608,
    "status": 200
   },
   {
@@ -265,17 +265,17 @@
     }
    ],
    "forms": 0,
-   "textSample": 3598,
+   "textSample": 3608,
    "status": 200
   },
   {
    "n": "products",
    "w": 375,
-   "title": "Sản phẩm gây quỹ | Mang Theo Một Nét Vẽ — Lăng Kính",
+   "title": "Quà lưu niệm gây quỹ | Mang Theo Một Nét Vẽ — Lăng Kính",
    "robots": "noindex, nofollow",
    "scrollW": 375,
    "vw": 375,
-   "height": 4490,
+   "height": 3499,
    "h1": [
     "Mua một món, góp một phần quà"
    ],
@@ -304,17 +304,17 @@
     }
    ],
    "forms": 0,
-   "textSample": 1989,
+   "textSample": 1402,
    "status": 200
   },
   {
    "n": "products",
    "w": 768,
-   "title": "Sản phẩm gây quỹ | Mang Theo Một Nét Vẽ — Lăng Kính",
+   "title": "Quà lưu niệm gây quỹ | Mang Theo Một Nét Vẽ — Lăng Kính",
    "robots": "noindex, nofollow",
    "scrollW": 768,
    "vw": 768,
-   "height": 3847,
+   "height": 3054,
    "h1": [
     "Mua một món, góp một phần quà"
    ],
@@ -343,17 +343,17 @@
     }
    ],
    "forms": 0,
-   "textSample": 1989,
+   "textSample": 1402,
    "status": 200
   },
   {
    "n": "products",
    "w": 1440,
-   "title": "Sản phẩm gây quỹ | Mang Theo Một Nét Vẽ — Lăng Kính",
+   "title": "Quà lưu niệm gây quỹ | Mang Theo Một Nét Vẽ — Lăng Kính",
    "robots": "noindex, nofollow",
    "scrollW": 1440,
    "vw": 1440,
-   "height": 3582,
+   "height": 2815,
    "h1": [
     "Mua một món, góp một phần quà"
    ],
@@ -382,7 +382,7 @@
     }
    ],
    "forms": 0,
-   "textSample": 1989,
+   "textSample": 1402,
    "status": 200
   },
   {
@@ -392,7 +392,7 @@
    "robots": "noindex, nofollow",
    "scrollW": 375,
    "vw": 375,
-   "height": 5599,
+   "height": 4754,
    "h1": [
     "Minh bạch thu chi"
    ],
@@ -421,7 +421,7 @@
     }
    ],
    "forms": 0,
-   "textSample": 2477,
+   "textSample": 2080,
    "status": 200
   },
   {
@@ -431,7 +431,7 @@
    "robots": "noindex, nofollow",
    "scrollW": 768,
    "vw": 768,
-   "height": 4930,
+   "height": 4061,
    "h1": [
     "Minh bạch thu chi"
    ],
@@ -460,7 +460,7 @@
     }
    ],
    "forms": 0,
-   "textSample": 2477,
+   "textSample": 2080,
    "status": 200
   },
   {
@@ -470,7 +470,7 @@
    "robots": "noindex, nofollow",
    "scrollW": 1440,
    "vw": 1440,
-   "height": 4001,
+   "height": 3606,
    "h1": [
     "Minh bạch thu chi"
    ],
@@ -499,7 +499,7 @@
     }
    ],
    "forms": 0,
-   "textSample": 2477,
+   "textSample": 2080,
    "status": 200
   },
   {
@@ -538,7 +538,7 @@
     }
    ],
    "forms": 0,
-   "textSample": 1702,
+   "textSample": 1713,
    "status": 200
   },
   {
@@ -577,7 +577,7 @@
     }
    ],
    "forms": 0,
-   "textSample": 1702,
+   "textSample": 1713,
    "status": 200
   },
   {
@@ -616,19 +616,19 @@
     }
    ],
    "forms": 0,
-   "textSample": 1702,
+   "textSample": 1713,
    "status": 200
   },
   {
    "n": "support",
    "w": 375,
-   "title": "Cách đồng hành cùng dự án | Mang Theo Một Nét Vẽ — Lăng Kính",
+   "title": "Ủng hộ dự án | Mang Theo Một Nét Vẽ — Lăng Kính",
    "robots": "noindex, nofollow",
    "scrollW": 375,
    "vw": 375,
-   "height": 4243,
+   "height": 5271,
    "h1": [
-    "Cùng mang quà đúng nhu cầu"
+    "Ủng hộ một buổi chơi, một món quà"
    ],
    "small": [],
    "low": [],
@@ -655,19 +655,19 @@
     }
    ],
    "forms": 0,
-   "textSample": 1841,
+   "textSample": 2021,
    "status": 200
   },
   {
    "n": "support",
    "w": 768,
-   "title": "Cách đồng hành cùng dự án | Mang Theo Một Nét Vẽ — Lăng Kính",
+   "title": "Ủng hộ dự án | Mang Theo Một Nét Vẽ — Lăng Kính",
    "robots": "noindex, nofollow",
    "scrollW": 768,
    "vw": 768,
-   "height": 3794,
+   "height": 4562,
    "h1": [
-    "Cùng mang quà đúng nhu cầu"
+    "Ủng hộ một buổi chơi, một món quà"
    ],
    "small": [],
    "low": [],
@@ -694,19 +694,19 @@
     }
    ],
    "forms": 0,
-   "textSample": 1841,
+   "textSample": 2021,
    "status": 200
   },
   {
    "n": "support",
    "w": 1440,
-   "title": "Cách đồng hành cùng dự án | Mang Theo Một Nét Vẽ — Lăng Kính",
+   "title": "Ủng hộ dự án | Mang Theo Một Nét Vẽ — Lăng Kính",
    "robots": "noindex, nofollow",
    "scrollW": 1440,
    "vw": 1440,
-   "height": 2881,
+   "height": 3972,
    "h1": [
-    "Cùng mang quà đúng nhu cầu"
+    "Ủng hộ một buổi chơi, một món quà"
    ],
    "small": [],
    "low": [],
@@ -733,7 +733,7 @@
     }
    ],
    "forms": 0,
-   "textSample": 1841,
+   "textSample": 2021,
    "status": 200
   },
   {
@@ -1547,7 +1547,7 @@
    "name": "support@375 one h1",
    "pass": true,
    "detail": [
-    "Cùng mang quà đúng nhu cầu"
+    "Ủng hộ một buổi chơi, một món quà"
    ]
   },
   {
@@ -1592,7 +1592,7 @@
    "name": "support@768 one h1",
    "pass": true,
    "detail": [
-    "Cùng mang quà đúng nhu cầu"
+    "Ủng hộ một buổi chơi, một món quà"
    ]
   },
   {
@@ -1637,7 +1637,7 @@
    "name": "support@1440 one h1",
    "pass": true,
    "detail": [
-    "Cùng mang quà đúng nhu cầu"
+    "Ủng hộ một buổi chơi, một món quà"
    ]
   },
   {
@@ -1923,12 +1923,13 @@
    ]
   },
   {
-   "name": "link /minh-bach#expenses-heading",
+   "name": "link /dong-hanh#sao-ke",
    "pass": true,
    "detail": {
     "status": 200,
     "from": [
-     "/dong-hanh"
+     "/",
+     "/minh-bach"
     ]
    }
   },
@@ -2065,10 +2066,10 @@
    }
   },
   {
-   "name": "support@375 keyboard open/close (3 items)",
+   "name": "support@375 keyboard open/close (4 items)",
    "pass": true,
    "detail": {
-    "count": 3,
+    "count": 4,
     "opened": true,
     "closedAgain": true,
     "focusVisible": true,
@@ -2076,54 +2077,10 @@
    }
   },
   {
-   "name": "support@1440 keyboard open/close (3 items)",
+   "name": "support@1440 keyboard open/close (4 items)",
    "pass": true,
    "detail": {
-    "count": 3,
-    "opened": true,
-    "closedAgain": true,
-    "focusVisible": true,
-    "ov": true
-   }
-  },
-  {
-   "name": "finance-ledger@375 keyboard open/close (3 items)",
-   "pass": true,
-   "detail": {
-    "count": 3,
-    "opened": true,
-    "closedAgain": true,
-    "focusVisible": true,
-    "ov": true
-   }
-  },
-  {
-   "name": "finance-ledger@1440 keyboard open/close (3 items)",
-   "pass": true,
-   "detail": {
-    "count": 3,
-    "opened": true,
-    "closedAgain": true,
-    "focusVisible": true,
-    "ov": true
-   }
-  },
-  {
-   "name": "finance-scenarios@375 keyboard open/close (1 items)",
-   "pass": true,
-   "detail": {
-    "count": 1,
-    "opened": true,
-    "closedAgain": true,
-    "focusVisible": true,
-    "ov": true
-   }
-  },
-  {
-   "name": "finance-scenarios@1440 keyboard open/close (1 items)",
-   "pass": true,
-   "detail": {
-    "count": 1,
+    "count": 4,
     "opened": true,
     "closedAgain": true,
     "focusVisible": true,
@@ -2136,7 +2093,7 @@
    "detail": {
     "sw": 375,
     "cw": 375,
-    "h": 5923
+    "h": 4866
    }
   },
   {
@@ -2145,7 +2102,7 @@
    "detail": {
     "sw": 768,
     "cw": 768,
-    "h": 4995
+    "h": 4346
    }
   },
   {
@@ -2154,7 +2111,7 @@
    "detail": {
     "sw": 1024,
     "cw": 1024,
-    "h": 3868
+    "h": 3280
    }
   },
   {
@@ -2172,7 +2129,7 @@
    "detail": {
     "sw": 768,
     "cw": 768,
-    "h": 4750
+    "h": 4826
    }
   },
   {
@@ -2190,7 +2147,7 @@
    "detail": {
     "sw": 375,
     "cw": 375,
-    "h": 4490
+    "h": 3499
    }
   },
   {
@@ -2199,7 +2156,7 @@
    "detail": {
     "sw": 768,
     "cw": 768,
-    "h": 3847
+    "h": 3054
    }
   },
   {
@@ -2208,7 +2165,7 @@
    "detail": {
     "sw": 1024,
     "cw": 1024,
-    "h": 3634
+    "h": 2815
    }
   },
   {
@@ -2217,7 +2174,7 @@
    "detail": {
     "sw": 375,
     "cw": 375,
-    "h": 5603
+    "h": 4754
    }
   },
   {
@@ -2226,7 +2183,7 @@
    "detail": {
     "sw": 768,
     "cw": 768,
-    "h": 4934
+    "h": 4061
    }
   },
   {
@@ -2235,7 +2192,7 @@
    "detail": {
     "sw": 1024,
     "cw": 1024,
-    "h": 4051
+    "h": 3680
    }
   },
   {
@@ -2271,7 +2228,7 @@
    "detail": {
     "sw": 375,
     "cw": 375,
-    "h": 4261
+    "h": 5271
    }
   },
   {
@@ -2280,7 +2237,7 @@
    "detail": {
     "sw": 768,
     "cw": 768,
-    "h": 3794
+    "h": 4562
    }
   },
   {
@@ -2289,7 +2246,7 @@
    "detail": {
     "sw": 1024,
     "cw": 1024,
-    "h": 2933
+    "h": 3998
    }
   },
   {
@@ -2317,7 +2274,7 @@
      "w": "3px"
     },
     {
-     "t": "Sản phẩm",
+     "t": "Quà lưu niệm",
      "o": "solid",
      "w": "3px"
     },
@@ -2334,9 +2291,9 @@
    "detail": {
     "motion": true,
     "ready": true,
-    "hidden": 25,
+    "hidden": 17,
     "fadedBelow": 0,
-    "total": 28
+    "total": 20
    }
   },
   {
@@ -2363,9 +2320,9 @@
    "detail": {
     "motion": true,
     "ready": true,
-    "hidden": 20,
+    "hidden": 16,
     "fadedBelow": 0,
-    "total": 28
+    "total": 20
    }
   },
   {
@@ -2392,7 +2349,7 @@
    "detail": {
     "motion": false,
     "invisible": 0,
-    "count": 41
+    "count": 26
    }
   },
   {
@@ -2410,7 +2367,7 @@
    "detail": {
     "motion": false,
     "invisible": 0,
-    "count": 47
+    "count": 32
    }
   },
   {
@@ -2419,7 +2376,7 @@
    "detail": {
     "motion": false,
     "invisible": 0,
-    "count": 38
+    "count": 44
    }
   },
   {
@@ -2437,7 +2394,7 @@
    "detail": {
     "motion": false,
     "invisible": 0,
-    "count": 37
+    "count": 39
    }
   },
   {
@@ -2446,7 +2403,7 @@
    "detail": {
     "motion": false,
     "invisible": 0,
-    "count": 41
+    "count": 26
    }
   },
   {
@@ -2464,7 +2421,7 @@
    "detail": {
     "motion": false,
     "invisible": 0,
-    "count": 47
+    "count": 32
    }
   },
   {
@@ -2473,7 +2430,7 @@
    "detail": {
     "motion": false,
     "invisible": 0,
-    "count": 38
+    "count": 44
    }
   },
   {
@@ -2491,7 +2448,33 @@
    "detail": {
     "motion": false,
     "invisible": 0,
-    "count": 37
+    "count": 39
+   }
+  },
+  {
+   "name": "donation pending: no QR image, account number or copy button; placeholder shown",
+   "pass": true,
+   "detail": {
+    "qrImg": 0,
+    "placeholder": true,
+    "copy": 0,
+    "accountNumber": false,
+    "ledgerEmpty": true,
+    "rows": 0,
+    "total": "Chưa mở"
+   }
+  },
+  {
+   "name": "donation ledger: empty state, no fabricated rows, total shows not-open",
+   "pass": true,
+   "detail": {
+    "qrImg": 0,
+    "placeholder": true,
+    "copy": 0,
+    "accountNumber": false,
+    "ledgerEmpty": true,
+    "rows": 0,
+    "total": "Chưa mở"
    }
   },
   {
@@ -2552,10 +2535,10 @@
  "failed": [],
  "external": [],
  "browser": "Chrome/154.0.8037.98",
- "finishedAt": "2026-10-08T12:58:25.322Z",
+ "finishedAt": "2026-10-08T13:16:44.366Z",
  "summary": {
-  "total": 239,
-  "pass": 239,
+  "total": 237,
+  "pass": 237,
   "fail": []
  }
 }

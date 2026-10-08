@@ -21,10 +21,11 @@ const forbidden={
   memberNames:/Chí Trung|Ngọc Khoa|Như Huy|Bình Trọng|Anh Khoa|Hiển Lân|Tuấn Anh|Hà Phúc/,
   sensitiveCounts:/17 trẻ|6\/17|06 trẻ|6 em|khuyết tật|19 người thụ hưởng|35 lượt/,
   oldFinance:/4\.935\.000|4\.500\.000|550\.000|1\.765\.000|6\.700\.000/,
-  contact:/[\w.+-]+@[\w-]+\.[\w.]+|(?:\+84|0)\d{9,10}|facebook\.com|zalo|momo|STK|số tài khoản/i,
+  contact:/[\w.+-]+@[\w-]+\.[\w.]+|(?:\+84|0)\d{9,10}|facebook\.com|zalo|momo/i,
   rawSource:/Mang_Theo_Mot_Net_Ve_Final|\.pdf|proposal-pages|materials/i,
   unapprovedAssets:/a0(6|7|8|9)\.|a1(0|1)\./,
-  orderOrPayment:/<form|type="submit"|thanh toán ngay|đặt hàng ngay|chuyển khoản/i,
+  orderOrPayment:/<form|type="submit"|thanh toán ngay|đặt hàng ngay/i,
+  foodFundraising:/set đồ ăn|nem|su kem|thực phẩm|đồ ăn/i,
 };
 for(const [k,re] of Object.entries(forbidden)){
   const hits=text.flatMap(([f,t])=>{const m=t.match(new RegExp(re.source,re.flags.includes('g')?re.flags:re.flags+'g'));return m?[{f,m:[...new Set(m)].slice(0,5)}]:[]});
@@ -33,16 +34,18 @@ for(const [k,re] of Object.entries(forbidden)){
 check('no A06-A11 files in dist', !files.some(f=>/a0[6-9]|a1[01]/.test(path.basename(f))), files.filter(f=>/a0[6-9]|a1[01]/.test(path.basename(f))));
 const html=text.filter(([f])=>f.endsWith('.html'));
 check('every HTML has noindex,nofollow', html.every(([,t])=>t.includes('content="noindex, nofollow"')), html.length);
-const req=['5.470.000đ','7.150.000đ','+1.680.000đ','4.950.000đ','2.200.000đ'];
+const req=['2.990.000đ','1.860.000đ','1.130.000đ'];
 const fin=fs.readFileSync('dist/minh-bach/index.html','utf8');
 check('transparency page shows required planned figures', req.every(v=>fin.includes(v)), req.filter(v=>!fin.includes(v)));
-check('transparency page shows all 24 expense lines', (fin.match(/<th scope="row"[^>]*>/g)||[]).length>=24, (fin.match(/<th scope="row"[^>]*>/g)||[]).length);
 const prod=fs.readFileSync('dist/san-pham/index.html','utf8');
-check('combos shown only as optional, without revenue', ['Combo 5 nem vỏ giòn','Combo 5 nem xù','Combo 5 nem phô mai'].every(n=>prod.includes(n))&&prod.includes('Có thể bổ sung')&&!/Doanh thu/.test(prod), null);
-const internal=/trang \d+|đề xuất Final|chỉ tiêu học phần|SSG105|lượt tiếp cận|phấn đấu 4\.000|2\.070\.000|740\.000|2\.470\.000|bịt mắt|giảng viên/i;
+const donate=fs.readFileSync('dist/dong-hanh/index.html','utf8');
+check('donation pending: no QR image, account number or copy button in bundle', !/class="qr-img"|class="account-number"|class="copy-btn"/.test(donate)&&donate.includes('qr-placeholder')&&!files.some(f=>/ung-ho/.test(f)), null);
+check('donation ledger empty: no donor rows', !/class="[^"]*donor-table/.test(donate)&&donate.includes('ledger-empty'), null);
+check('no unit/purchase prices on public pages', !html.some(([,t])=>/\d+ × [\d.]+đ/.test(t.replace(/<[^>]+>/g,' '))), null);
+const internal=/trang \d+|đề xuất Final|chỉ tiêu học phần|SSG105|lượt tiếp cận|phấn đấu 4\.000|2\.070\.000|740\.000|2\.470\.000|5\.470\.000|7\.150\.000|bịt mắt|giảng viên/i;
 const internalHits=html.flatMap(([f,t])=>{const m=t.replace(/<[^>]+>/g,' ').match(new RegExp(internal.source,'gi'));return m?[{f,m:[...new Set(m)].slice(0,5)}]:[]});
 check('no course-report material on public pages', internalHits.length===0, internalHits);
-check('actual figures shown as unconfirmed', (fin.match(/Chưa xác nhận/g)||[]).length>=5, (fin.match(/Chưa xác nhận/g)||[]).length);
+check('actual spend and delivery shown as unconfirmed', (fin.match(/Chưa xác nhận/g)||[]).length>=2, (fin.match(/Chưa xác nhận/g)||[]).length);
 out.summary={files:files.length,total:out.checks.length,pass:out.checks.filter(c=>c.pass).length,fail:out.checks.filter(c=>!c.pass).map(c=>c.name)};
 fs.writeFileSync('docs/evidence/C07/claude/audit-bundle.json',JSON.stringify(out,null,1));
 console.log(JSON.stringify(out.summary,null,1));
