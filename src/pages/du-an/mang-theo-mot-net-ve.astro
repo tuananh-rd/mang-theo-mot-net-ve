@@ -38,11 +38,10 @@ const summaryItems = [
 
 const anchorNavItems = [
   { href: '#muc-tieu', label: '1. Mục tiêu & An toàn' },
-  { href: '#cau-chuyen', label: '2. Câu chuyện đề xuất' },
-  { href: '#buoi-choi', label: '3. Bốn góc chơi' },
-  { href: '#giai-doan', label: '4. Lộ trình triển khai' },
-  { href: '#cap-nhat', label: '5. Cập nhật kết quả' },
-  { href: '#nguon-luc', label: '6. Nguồn lực & Tài chính' },
+  { href: '#buoi-choi', label: '2. Bốn góc chơi' },
+  { href: '#giai-doan', label: '3. Hành trình triển khai' },
+  { href: '#cap-nhat', label: '4. Cập nhật kết quả' },
+  { href: '#nguon-luc', label: '5. Nguồn lực & Tài chính' },
 ];
 ---
 
@@ -208,11 +207,8 @@ const anchorNavItems = [
         <div class="empty-badge">
           <StatusChip kind="cho-xac-nhan" label="Chưa có dữ liệu" />
         </div>
-        <h3 class="empty-title">
-          Chưa có cập nhật thực tế được xác nhận. Kết quả và báo cáo sẽ được công bố sau khi đối soát và được phép.
-        </h3>
         <p class="empty-desc">
-          Kế hoạch, lịch trình chi tiết và báo cáo hoạt động sẽ được cập nhật sau khi hoàn tất đối soát và được phép công bố.
+          Chưa có cập nhật thực tế được xác nhận; kết quả và báo cáo sẽ được công bố sau khi đối soát và được phép.
         </p>
       </div>
     </div>
@@ -396,8 +392,8 @@ const anchorNavItems = [
   }
 
   .empty-desc {
-    font-size: var(--font-size-small);
-    line-height: 1.5;
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
     color: var(--ink-2);
     margin: 0;
   }

@@ -43,6 +43,8 @@ const { activity, illustrationType } = Astro.props;
     flex-direction: column;
     padding: var(--space-5);
     background-color: var(--color-surface-card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
     transition: transform var(--transition-fast), box-shadow var(--transition-fast);
   }
 
@@ -63,32 +65,37 @@ const { activity, illustrationType } = Astro.props;
 
   .activity-badge {
     display: inline-block;
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-small);
     font-weight: 600;
-    color: var(--color-badge-text);
-    background-color: var(--color-badge-bg);
+    color: var(--status-plan-text);
+    background-color: var(--status-plan-bg);
     padding: 2px 10px;
     border-radius: var(--radius-pill);
   }
 
   .card-title {
-    font-size: 1.25rem;
-    color: var(--color-text-primary);
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0;
   }
 
   .card-desc {
-    font-size: 0.9375rem;
-    line-height: 1.5;
-    color: var(--color-text-secondary);
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+    color: var(--ink-2);
+    margin: 0;
     flex-grow: 1;
   }
 
   .card-note {
-    font-size: var(--font-size-sm);
-    line-height: var(--line-height-sm);
-    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-small);
+    color: var(--ink-2);
     font-style: normal;
-    border-top: 1px solid var(--color-border-subtle);
+    border-top: 1px solid var(--line);
     padding-top: var(--space-2);
     margin-top: var(--space-2);
   }
@@ -96,22 +103,39 @@ const { activity, illustrationType } = Astro.props;
   @media (max-width: 767px) {
     .activity-card {
       padding: var(--space-4);
+      gap: var(--space-3);
     }
+
     .card-visual {
-      margin-bottom: var(--space-3);
+      margin-bottom: 0;
     }
+
+    /* Thu gọn ô minh họa placeholder trên mobile để không làm trang dài */
     .card-visual :global(.illustration-wrapper .svg-container) {
       aspect-ratio: 16 / 9 !important;
-      max-height: 165px !important;
+      max-height: 88px !important;
       overflow: hidden !important;
     }
+
     .card-visual :global(.illustration-wrapper .illustration-svg) {
       max-height: 100% !important;
       object-fit: contain !important;
     }
+
+    .card-title {
+      font-size: 1.125rem;
+      line-height: 1.4;
+    }
+
+    /* Giữ đúng chuẩn body16 và notes14 trên mobile */
     .card-desc {
-      font-size: 0.875rem;
-      line-height: 1.45;
+      font-size: var(--font-size-body);
+      line-height: var(--line-height-body);
+    }
+
+    .card-note {
+      font-size: var(--font-size-small);
+      line-height: var(--line-height-small);
     }
   }
 </style>

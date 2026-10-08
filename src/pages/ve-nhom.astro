@@ -115,17 +115,19 @@ const summaryItems = [
         </p>
       </div>
 
-      <div class="principles-grid">
+      <ol class="principles-ruled-list" role="list">
         {
           TEAM_PRINCIPLES.map((principle, index) => (
-            <div class="principle-card card">
+            <li class="principle-row">
               <span class="principle-num">0{index + 1}</span>
-              <h3 class="principle-title">{principle.title}</h3>
-              <p class="principle-desc">{principle.description}</p>
-            </div>
+              <div class="principle-content">
+                <h3 class="principle-title">{principle.title}</h3>
+                <p class="principle-desc">{principle.description}</p>
+              </div>
+            </li>
           ))
         }
-      </div>
+      </ol>
     </div>
   </section>
 
@@ -250,42 +252,72 @@ const summaryItems = [
     color: var(--ink-2);
   }
 
-  /* Principles Grid */
-  .principles-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-6);
-  }
-
-  .principle-card {
-    background-color: var(--color-surface-card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-md);
-    padding: var(--space-6);
+  /* Principles Numbered Ruled List */
+  .principles-ruled-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
-    gap: var(--space-3);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .principle-row {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: var(--space-6);
+    padding: var(--space-6) 0;
+    border-bottom: 1px solid var(--line);
+    align-items: baseline;
+  }
+
+  .principle-row:last-child {
+    border-bottom: none;
   }
 
   .principle-num {
-    font-size: var(--font-size-small);
-    font-weight: 700;
+    font-size: 1.25rem;
+    font-weight: 800;
     color: var(--brand);
     font-variant-numeric: tabular-nums;
   }
 
+  .principle-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
   .principle-title {
     font-size: 1.125rem;
+    font-weight: 700;
     line-height: 1.4;
     color: var(--ink);
     margin: 0;
   }
 
   .principle-desc {
-    font-size: 0.9375rem;
-    line-height: 1.6;
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
     color: var(--ink-2);
     margin: 0;
+  }
+
+  @media (max-width: 767px) {
+    .principle-row {
+      grid-template-columns: 48px 1fr;
+      gap: var(--space-3);
+      padding: var(--space-4) 0;
+    }
+
+    .principle-num {
+      font-size: 1.125rem;
+    }
+
+    .principle-title {
+      font-size: 1rem;
+    }
   }
 
   /* CTA Section */
