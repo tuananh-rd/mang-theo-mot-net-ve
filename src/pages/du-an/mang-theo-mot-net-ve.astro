@@ -3,62 +3,53 @@ import Layout from '../../layouts/Layout.astro';
 import PageHero from '../../components/PageHero.astro';
 import ActivityList from '../../components/ActivityList.astro';
 import Timeline from '../../components/Timeline.astro';
-import StatusChip from '../../components/StatusChip.astro';
-import Icon from '../../components/Icon.astro';
-import {
-  CAMPAIGN_PROJECT,
-  PROJECT_NEEDS,
-  SAFETY_PRACTICES,
-  WORKSHOP_AGENDA,
-  EVALUATION_CRITERIA,
-  COURSE_TARGETS,
-} from '../../data/campaign';
+import { CAMPAIGN_PROJECT, PROJECT_NEEDS, SAFETY_PRACTICES, PLAY_FLOW } from '../../data/campaign';
 
 const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Dự án' }];
 
 const summaryItems = [
-  { label: 'Địa điểm dự kiến', value: 'Mái ấm Thánh Tâm Xuy Xá (Mỹ Đức, Hà Nội)' },
-  { label: 'Người tham gia', value: 'Trẻ em và người cao tuổi tại Mái ấm; số người do Mái ấm quyết định' },
-  { label: 'Hai buổi tại Mái ấm', value: 'Buổi chơi khoảng 180 phút (tuần 8); buổi trao quà 30–45 phút (tuần 9)' },
+  { label: 'Địa điểm', value: 'Mái ấm Thánh Tâm Xuy Xá, Mỹ Đức, Hà Nội' },
+  { label: 'Người tham gia', value: 'Các em nhỏ và người cao tuổi tại Mái ấm' },
+  { label: 'Hai buổi gặp', value: 'Buổi chơi khoảng 180 phút; buổi trao quà 30–45 phút' },
   {
     label: 'Thời gian',
-    value: '5 tuần học phần, tuần 5–9',
-    chip: { kind: 'cho-xac-nhan' as const, label: 'Lịch chờ chốt' },
+    value: 'Khoảng 5 tuần',
+    chip: { kind: 'cho-xac-nhan' as const, label: 'Lịch đang chốt' },
   },
 ];
 ---
 
 <Layout
   title="Dự án"
-  description="Kế hoạch buổi chơi có lựa chọn tại Mái ấm Thánh Tâm Xuy Xá: bốn góc hoạt động, agenda dự kiến, nguyên tắc an toàn và lộ trình 5 tuần."
+  description="Mang Theo Một Nét Vẽ: một buổi chơi có lựa chọn tại Mái ấm Thánh Tâm Xuy Xá — bốn góc hoạt động, an toàn và lộ trình của dự án."
   currentPath="/du-an/mang-theo-mot-net-ve"
 >
   <PageHero
     breadcrumbs={breadcrumbs}
     eyebrow="Dự án"
-    chip={{ kind: 'cho-xac-nhan', label: 'Đề xuất, chờ Mái ấm xác nhận' }}
+    chip={{ kind: 'cho-xac-nhan', label: 'Chờ Mái ấm xác nhận' }}
     title="Một buổi chơi có lựa chọn"
     titleId="project-heading"
     lead={CAMPAIGN_PROJECT.slogan}
-    description="Nhóm Lăng Kính đề xuất một buổi vui chơi sáng tạo tại Mái ấm, được thiết kế để em nào cũng có thể tham gia theo khả năng của mình, và gây quỹ để trao những vật phẩm Mái ấm thực sự cần."
-    summaryTitle="Tóm tắt kế hoạch"
+    description="Một buổi vui chơi sáng tạo tại Mái ấm, được thiết kế để em nào cũng có thể tham gia theo cách của mình, cùng hoạt động gây quỹ để trao những vật phẩm Mái ấm thực sự cần."
+    summaryTitle="Thông tin chính"
     summaryItems={summaryItems}
   />
 
   <section class="section" aria-labelledby="why-heading">
     <div class="container">
       <div class="section-header">
-        <span class="eyebrow">Vì sao có dự án</span>
-        <h2 id="why-heading">Từ trao đổi với Mái ấm</h2>
+        <span class="eyebrow">Vì sao</span>
+        <h2 id="why-heading">Không phải em nào cũng chơi theo một cách</h2>
         <p>
-          Qua trao đổi trực tiếp với quản lý Mái ấm, nhóm ghi nhận các em ở nhiều độ tuổi, khả năng vận động và giao tiếp khác nhau, nên một hoạt động chung khó phù hợp với tất cả. Vì vậy nhóm mang chuồn chuồn tre, tượng tô, những bài hát quen và trò chơi nhẹ để mỗi em chọn cách vui chơi vừa sức.
+          Các em ở Mái ấm có độ tuổi, khả năng vận động và giao tiếp khác nhau, nên một hoạt động chung khó phù hợp với tất cả. Từ trao đổi với Mái ấm, nhóm xây dựng dự án quanh ba điều.
         </p>
       </div>
 
       <ol class="needs">
         {
           PROJECT_NEEDS.map((n, i) => (
-            <li class="need">
+            <li class="need lift">
               <span class="need-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
               <h3 class="need-title">{n.title}</h3>
               <p class="need-desc">{n.description}</p>
@@ -66,86 +57,55 @@ const summaryItems = [
           ))
         }
       </ol>
-      <p class="source-note">
-        Hoạt động giao lưu cộng đồng, không mang tính trị liệu. Nhóm không suy đoán thêm về mong muốn của từng em ngoài thông tin đã trao đổi với Mái ấm.
-      </p>
     </div>
   </section>
 
   <section class="section section-soft" aria-labelledby="corners-heading">
     <div class="container">
       <div class="section-header">
-        <span class="eyebrow">Buổi 1 · tuần 8</span>
+        <span class="eyebrow">Buổi chơi</span>
         <h2 id="corners-heading">Bốn góc hoạt động</h2>
-        <p>
-          Hai bàn sáng tạo, các trò chơi theo lượt và một góc nghỉ. Các em được chọn hoạt động, chuyển lượt hoặc nghỉ; không ai phải hoàn thành sản phẩm giống nhau.
-        </p>
+        <p>Các em chọn góc mình thích, đổi lượt hoặc nghỉ bất cứ lúc nào. Không ai phải hoàn thành sản phẩm giống nhau.</p>
       </div>
 
       <ActivityList activities={CAMPAIGN_PROJECT.activities} showNotes />
 
-      <div class="corners-extra">
-        <p class="note">
-          Tranh và đồ các em làm được giữ lại cho các em và Mái ấm. Nhóm chuẩn bị 20 phôi chuồn chuồn dành riêng cho Mái ấm; hàng bán gây quỹ do nhóm tự hoàn thiện.
-        </p>
-
-        <details class="disclosure">
-          <summary>
-            <span class="disclosure-label">
-              Agenda dự kiến 180 phút
-              <span class="disclosure-meta">150 phút hoạt động, 2 lần nghỉ 15 phút; có thể rút ngắn nếu các em mệt</span>
-            </span>
-            <span class="disclosure-aside">
-              <span class="disclosure-chevron"><Icon name="chevron" size={18} /></span>
-            </span>
-          </summary>
-          <div class="disclosure-body">
-            <table class="data-table agenda-table">
-              <caption class="sr-only">Agenda dự kiến của buổi chơi tại Mái ấm</caption>
-              <thead>
-                <tr>
-                  <th scope="col">Mốc thời gian</th>
-                  <th scope="col">Nội dung</th>
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  WORKSHOP_AGENDA.map((a) => (
-                    <tr>
-                      <th scope="row" class="agenda-time">{a.time}</th>
-                      <td>{a.content}</td>
-                    </tr>
-                  ))
-                }
-              </tbody>
-            </table>
-            <p class="source-note">
-              Theo đề xuất trang 12–13. Ngoài hai lần nghỉ chung, các em được nghỉ thêm theo nhu cầu; người điều phối điều chỉnh lượt cùng người chăm sóc.
-            </p>
-          </div>
-        </details>
-      </div>
+      <h3 class="flow-title">Buổi chơi diễn ra thế nào</h3>
+      <ol class="flow">
+        {
+          PLAY_FLOW.map((f, i) => (
+            <li class="flow-step">
+              <span class="flow-num" aria-hidden="true">{i + 1}</span>
+              <div>
+                <h4 class="flow-step-title">{f.title}</h4>
+                <p class="flow-step-desc">{f.description}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+      <p class="source-note">Khoảng 180 phút, có hai lần nghỉ chung; Mái ấm có thể rút ngắn khi các em mệt.</p>
     </div>
   </section>
 
   <section class="section" aria-labelledby="safety-heading">
     <div class="container">
       <div class="two-col">
-        <div>
+        <div class="reveal">
           <span class="eyebrow">An toàn</span>
-          <h2 id="safety-heading" class="safety-title">Chuẩn bị trước buổi chơi</h2>
+          <h2 id="safety-heading" class="col-title">Chuẩn bị kỹ trước buổi chơi</h2>
           <ul class="check-list">
             {SAFETY_PRACTICES.map((s) => <li>{s}</li>)}
           </ul>
         </div>
-        <div>
-          <span class="eyebrow">Quyền quyết định</span>
-          <h3 class="safety-title">Mái ấm duyệt trước mọi thứ</h3>
+        <div class="respect reveal">
+          <span class="eyebrow">Tôn trọng</span>
+          <h3 class="col-title col-title--sm">Mái ấm là người quyết định</h3>
           <p>
-            Lịch, chỗ chơi, bài hát, người chăm sóc, từng trò chơi và vật liệu, danh mục quà, quyền dùng sản phẩm và hình ảnh đều do Mái ấm duyệt. Không phát sinh hoạt động hay vật liệu chưa được cơ sở đồng ý.
+            Lịch, hoạt động, vật liệu, việc ghi hình và danh mục quà đều do Mái ấm duyệt trước. Người chăm sóc hướng dẫn cách hỗ trợ từng em.
           </p>
-          <p class="safety-p">
-            Người chăm sóc quyết định cách hỗ trợ từng em. Cộng tác viên chỉ tham gia khi Mái ấm đồng ý.
+          <p>
+            Tranh và đồ các em làm được giữ lại cho các em. Hàng bán gây quỹ do nhóm tự làm.
           </p>
         </div>
       </div>
@@ -156,56 +116,12 @@ const summaryItems = [
     <div class="container">
       <div class="section-header">
         <span class="eyebrow">Lộ trình</span>
-        <h2 id="timeline-heading">Bốn chặng trong 5 tuần</h2>
-        <p>Gây quỹ trước buổi chơi; quà được mua sau khi chốt quỹ và đối chiếu danh mục với Mái ấm.</p>
+        <h2 id="timeline-heading">Bốn chặng của dự án</h2>
       </div>
-
       <Timeline stages={CAMPAIGN_PROJECT.plannedStages} />
-
       <p class="source-note">
-        Tuần 5–9 là tuần của học phần, chưa phải ngày cụ thể. Một số phần của đề xuất còn ghi 4 tuần; nhóm sẽ thống nhất lịch chính thức. Phản hồi bổ sung sau 7–10 ngày, nếu có, được ghi thành cập nhật riêng.
+        Lịch cụ thể sẽ được công bố sau khi thống nhất với Mái ấm. Sau dự án, nhóm công bố hoạt động đã diễn ra, thu chi đã đối soát và vật phẩm đã trao.
       </p>
-    </div>
-  </section>
-
-  <section class="section" aria-labelledby="results-heading">
-    <div class="container">
-      <div class="section-header">
-        <span class="eyebrow">Kết quả</span>
-        <h2 id="results-heading">Cách nhóm sẽ đánh giá</h2>
-        <p class="results-status">
-          <StatusChip kind="cho-xac-nhan" label="Chưa có kết quả thực tế" />
-          <span>Kết quả chỉ được công bố sau hoạt động, kèm minh chứng. Chỉ tiêu thiếu dữ liệu ghi “chưa đủ cơ sở đánh giá”.</span>
-        </p>
-      </div>
-
-      <ul class="ruled-list">
-        {
-          EVALUATION_CRITERIA.map((c) => (
-            <li>
-              <h3 class="ruled-title">{c.title}</h3>
-              <p class="ruled-desc">{c.method}</p>
-            </li>
-          ))
-        }
-      </ul>
-
-      <details class="disclosure results-more">
-        <summary>
-          <span class="disclosure-label">
-            Chỉ tiêu học phần và truyền thông
-            <span class="disclosure-meta">Mục tiêu trong đề xuất, không phải thành tích</span>
-          </span>
-          <span class="disclosure-aside">
-            <span class="disclosure-chevron"><Icon name="chevron" size={18} /></span>
-          </span>
-        </summary>
-        <div class="disclosure-body">
-          <ul class="check-list">
-            {COURSE_TARGETS.map((t) => <li>{t}</li>)}
-          </ul>
-        </div>
-      </details>
     </div>
   </section>
 
@@ -213,11 +129,11 @@ const summaryItems = [
     <div class="container cta-band-inner">
       <div class="cta-band-text">
         <h2 id="project-cta-heading">Nguồn lực cho buổi chơi đến từ đâu?</h2>
-        <p>Dự toán 24 khoản, kịch bản doanh thu và những điểm còn cần làm rõ.</p>
+        <p>Sản phẩm gây quỹ và kế hoạch tài chính của dự án.</p>
       </div>
       <div class="cta-band-actions">
-        <a href="/minh-bach" class="btn btn-primary">Xem minh bạch thu chi</a>
-        <a href="/san-pham" class="link-arrow">Sản phẩm gây quỹ →</a>
+        <a href="/san-pham" class="btn btn-primary">Xem sản phẩm</a>
+        <a href="/minh-bach" class="link-arrow">Minh bạch thu chi <span class="arrow" aria-hidden="true">→</span></a>
       </div>
     </div>
   </section>
@@ -237,9 +153,10 @@ const summaryItems = [
     display: flex;
     flex-direction: column;
     gap: var(--space-2);
-    padding: var(--space-5);
+    padding: var(--space-6);
     border: 1px solid var(--line);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-lg);
+    background: #ffffff;
   }
 
   .need-num {
@@ -258,47 +175,72 @@ const summaryItems = [
     margin: 0;
   }
 
-  .corners-extra {
+  .flow-title {
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+    margin: var(--space-12) 0 var(--space-5);
+  }
+
+  .flow {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: var(--space-4);
-    margin-top: var(--space-10);
   }
 
-  .agenda-time {
-    white-space: nowrap;
-    font-variant-numeric: tabular-nums;
-    width: 140px;
+  .flow-step {
+    display: grid;
+    grid-template-columns: 36px minmax(0, 1fr);
+    gap: var(--space-3);
+    padding: var(--space-5);
+    background: #ffffff;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--line);
   }
 
-  .safety-title {
+  .flow-num {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-pill);
+    background: var(--brand-ink);
+    color: #ffffff;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .flow-step-title {
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+    margin: 0;
+  }
+
+  .flow-step-desc {
+    margin: 0;
+  }
+
+  .col-title {
     font-size: var(--font-size-h2);
     line-height: var(--line-height-h2);
     margin-bottom: var(--space-5);
   }
 
-  h3.safety-title {
+  .col-title--sm {
     font-size: var(--font-size-h3);
     line-height: var(--line-height-h3);
     margin-bottom: var(--space-3);
   }
 
-  .safety-p {
+  .respect p + p {
     margin-top: var(--space-3);
   }
 
-  .results-status {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--space-2) var(--space-3);
-  }
-
-  .results-more {
-    margin-top: var(--space-6);
-  }
-
   @media (max-width: 1023px) {
-    .needs {
+    .needs,
+    .flow {
       grid-template-columns: 1fr;
       gap: var(--space-3);
     }
@@ -317,18 +259,12 @@ const summaryItems = [
   }
 
   @media (max-width: 767px) {
-    .agenda-time {
-      width: 104px;
-      white-space: normal;
+    .flow-title {
+      margin-top: var(--space-10);
     }
 
-    .agenda-table th,
-    .agenda-table td {
-      padding: var(--space-2) var(--space-2);
-    }
-
-    .corners-extra {
-      margin-top: var(--space-8);
+    .flow-step {
+      padding: var(--space-4);
     }
   }
 </style>

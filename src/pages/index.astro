@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import ActivityList from '../components/ActivityList.astro';
 import KeyFigures from '../components/KeyFigures.astro';
-import ProductCatalog from '../components/ProductCatalog.astro';
+import ProductGrid from '../components/ProductGrid.astro';
 import Timeline from '../components/Timeline.astro';
 import StatusChip from '../components/StatusChip.astro';
 import { CAMPAIGN_PROJECT, PRODUCTS, TEAM_INFO, PLANNED_EXPENSES, FINANCE_SCENARIOS } from '../data/campaign';
@@ -26,19 +26,19 @@ const figures = [
     label: 'Chi dự toán',
     value: formatVND(totalPlannedExpense),
     chip: 'ke-hoach' as const,
-    note: `${PLANNED_EXPENSES.length} khoản: nguyên liệu, vật tư buổi chơi, quà, di chuyển.`,
+    note: 'Nguyên liệu, vật tư buổi chơi, quà và di chuyển.',
   },
   {
     label: 'Doanh thu nếu bán đủ',
     value: formatVND(totalPlannedRevenue),
     chip: 'gia-dinh' as const,
-    note: 'Theo giá tham khảo và số lượng kế hoạch của 4 mặt hàng cơ sở.',
+    note: 'Nếu bán hết theo giá tham khảo.',
   },
   {
     label: 'Còn lại trước khi mua quà',
     value: balance.text,
     chip: 'gia-dinh' as const,
-    note: 'Phép trừ kịch bản, chưa tính tài trợ; không phải số tiền đã có.',
+    note: 'Dự kiến dành mua quà; chưa phải số tiền đã có.',
   },
 ];
 ---
@@ -55,15 +55,15 @@ const figures = [
       <dl class="facts-strip">
         <div class="fact">
           <dt>Nhóm thực hiện</dt>
-          <dd>Lăng Kính · {TEAM_INFO.size} sinh viên lớp {TEAM_INFO.classId}</dd>
+          <dd>Lăng Kính · {TEAM_INFO.size} sinh viên FPT Hà Nội</dd>
         </div>
         <div class="fact">
           <dt>Địa điểm dự kiến</dt>
-          <dd>Mái ấm Thánh Tâm Xuy Xá; gây quỹ tại FPT Hòa Lạc</dd>
+          <dd>Mái ấm Thánh Tâm Xuy Xá, Hà Nội</dd>
         </div>
         <div class="fact">
           <dt>Thời gian</dt>
-          <dd>5 tuần học phần (tuần 5–9), 2 buổi tại Mái ấm</dd>
+          <dd>Khoảng 5 tuần · 2 buổi tại Mái ấm</dd>
         </div>
         <div class="fact">
           <dt>Trạng thái</dt>
@@ -79,14 +79,14 @@ const figures = [
         <span class="eyebrow">Buổi chơi</span>
         <h2 id="play-heading">Mỗi em chọn cách tham gia của mình</h2>
         <p>
-          Bốn góc hoạt động vừa sức. Các em có thể chơi, đổi góc, ngồi xem hoặc nghỉ bất cứ lúc nào; nhóm không đặt chỉ tiêu sản phẩm nào cho các em.
+          Bốn góc hoạt động vừa sức. Các em có thể chơi, đổi góc, ngồi xem hoặc nghỉ bất cứ lúc nào.
         </p>
       </div>
 
       <ActivityList activities={CAMPAIGN_PROJECT.activities} />
 
       <div class="section-actions">
-        <a href="/du-an/mang-theo-mot-net-ve" class="link-arrow">Xem kế hoạch buổi chơi →</a>
+        <a href="/du-an/mang-theo-mot-net-ve" class="link-arrow">Xem buổi chơi diễn ra thế nào <span class="arrow" aria-hidden="true">→</span></a>
       </div>
     </div>
   </section>
@@ -95,27 +95,22 @@ const figures = [
     <div class="container">
       <div class="section-header">
         <span class="eyebrow">Gây quỹ và minh bạch</span>
-        <h2 id="money-heading">Tiền gây quỹ được tính và dùng thế nào</h2>
+        <h2 id="money-heading">Mỗi món hàng góp vào một món quà</h2>
         <p>
-          Nhóm bán sản phẩm thủ công và đồ ăn tại FPT Hòa Lạc. Doanh thu trước hết bù chi phí; phần còn lại sau đối soát dùng mua hiện vật theo danh mục Mái ấm xác nhận.
+          Nhóm bán đồ thủ công và đồ ăn tại FPT Hòa Lạc. Sau khi trừ chi phí, phần còn lại dùng mua vật phẩm theo đúng danh mục Mái ấm cần.
         </p>
       </div>
 
-      <KeyFigures figures={figures} label="Ba con số kế hoạch chính" />
-      <p class="source-note">
-        Số liệu theo đề xuất Final (trang 29–32). Chưa có thu chi thực tế; website chưa nhận đơn hàng hay tiền.
-      </p>
+      <h3 class="block-title">Sản phẩm dự kiến</h3>
+      <ProductGrid products={PRODUCTS.filter((p) => p.isBaseRevenueItem !== false)} variant="compact" headingLevel="h4" />
 
-      <h3 class="block-title home-products-title">Sản phẩm dự kiến</h3>
-      <ProductCatalog
-        products={PRODUCTS.filter((p) => p.isBaseRevenueItem !== false)}
-        variant="summary"
-        caption="Bốn mặt hàng cơ sở với giá tham khảo, số lượng kế hoạch và doanh thu nếu bán đủ"
-      />
+      <h3 class="block-title home-figures-title">Kế hoạch tài chính</h3>
+      <KeyFigures figures={figures} label="Ba con số kế hoạch chính" />
+      <p class="source-note">Đây là số kế hoạch. Chưa có thu chi thực tế; website chưa nhận đơn hàng hay tiền.</p>
 
       <div class="section-actions">
         <a href="/minh-bach" class="btn btn-primary">Xem minh bạch thu chi</a>
-        <a href="/san-pham" class="link-arrow">Xem đủ 7 mặt hàng →</a>
+        <a href="/san-pham" class="link-arrow">Xem sản phẩm <span class="arrow" aria-hidden="true">→</span></a>
       </div>
     </div>
   </section>
@@ -124,15 +119,13 @@ const figures = [
     <div class="container">
       <div class="section-header">
         <span class="eyebrow">Lộ trình</span>
-        <h2 id="timeline-heading">Bốn chặng trong 5 tuần học phần</h2>
-        <p>Gây quỹ diễn ra trước buổi chơi; quà chỉ được mua sau khi chốt quỹ và đối chiếu danh mục với Mái ấm.</p>
+        <h2 id="timeline-heading">Bốn chặng của dự án</h2>
+        <p>Gây quỹ trước, buổi chơi sau; quà chỉ được mua khi đã chốt quỹ và đối chiếu danh mục với Mái ấm.</p>
       </div>
 
-      <Timeline stages={CAMPAIGN_PROJECT.plannedStages} showDescriptions={false} />
+      <Timeline stages={CAMPAIGN_PROJECT.plannedStages} />
 
-      <p class="source-note">
-        Tuần 5–9 là tuần của học phần, chưa phải ngày cụ thể. Một số phần của đề xuất còn ghi 4 tuần; nhóm sẽ thống nhất lịch chính thức với Mái ấm.
-      </p>
+      <p class="source-note">Lịch cụ thể sẽ được công bố sau khi thống nhất với Mái ấm.</p>
     </div>
   </section>
 
@@ -144,17 +137,17 @@ const figures = [
           <span class="eyebrow">Nhóm thực hiện</span>
           <h3 class="block-title">Lăng Kính — 7 sinh viên FPT Hà Nội</h3>
           <p>
-            Nhóm lớp {TEAM_INFO.classId}, học phần SSG105. Bảy vai trò từ điều phối, tài chính, hậu cần đến truyền thông; hai thành viên đối soát mọi khoản thu chi.
+            Bảy sinh viên lớp {TEAM_INFO.classId}, chia năm mảng việc từ điều phối, tài chính, hậu cần đến truyền thông. Hai thành viên đối soát mọi khoản thu chi.
           </p>
-          <a href="/ve-nhom" class="link-arrow">Về nhóm →</a>
+          <a href="/ve-nhom" class="link-arrow">Về nhóm <span class="arrow" aria-hidden="true">→</span></a>
         </div>
         <div class="home-col">
           <span class="eyebrow">Đồng hành</span>
           <h3 class="block-title">Hỗ trợ đúng thứ Mái ấm cần</h3>
           <p>
-            Vật tư theo danh mục được xác nhận, mua sản phẩm khi mở bán, hoặc chia sẻ câu chuyện dự án. Kênh liên hệ chính thức sẽ được công bố sau khi được duyệt.
+            Góp vật tư theo danh mục Mái ấm cần, mua sản phẩm khi mở bán, hoặc chia sẻ câu chuyện của dự án.
           </p>
-          <a href="/dong-hanh" class="link-arrow">Cách đồng hành →</a>
+          <a href="/dong-hanh" class="link-arrow">Cách đồng hành <span class="arrow" aria-hidden="true">→</span></a>
         </div>
       </div>
     </div>
@@ -202,7 +195,7 @@ const figures = [
     font-weight: 600;
   }
 
-  .home-products-title {
+  .home-figures-title {
     margin-top: var(--space-12);
   }
 
@@ -247,7 +240,7 @@ const figures = [
       border-top: 1px solid var(--line);
     }
 
-    .home-products-title {
+    .home-figures-title {
       margin-top: var(--space-10);
     }
   }

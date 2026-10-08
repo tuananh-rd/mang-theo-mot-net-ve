@@ -72,7 +72,7 @@ const hasPanel = summaryItems.length > 0 || Astro.slots.has('panel-extra');
 
     <div class:list={['page-hero-grid', { 'page-hero-grid--single': !hasPanel }]}>
       <!-- Cột chính bên trái: 7 cột desktop -->
-      <div class="page-hero-main">
+      <div class="page-hero-main enter">
         {(eyebrow || chip) && (
           <div class="page-hero-meta">
             {eyebrow && <span class="eyebrow">{eyebrow}</span>}
@@ -93,7 +93,7 @@ const hasPanel = summaryItems.length > 0 || Astro.slots.has('panel-extra');
 
       <!-- Panel Tóm tắt kế hoạch bên phải: 5 cột desktop -->
       {hasPanel && (
-      <aside class="page-hero-panel" aria-label={summaryTitle}>
+      <aside class="page-hero-panel enter-visual" aria-label={summaryTitle}>
         <div class="panel-card">
           <div class="panel-header">
             <p class="panel-title">{summaryTitle}</p>

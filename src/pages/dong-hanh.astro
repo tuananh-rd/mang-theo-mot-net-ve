@@ -11,69 +11,50 @@ const contactReady = OFFICIAL_CONTACT.status === 'confirmed' && (OFFICIAL_CONTAC
 const ways = [
   {
     tag: 'Hiện vật',
-    title: 'Hỗ trợ vật tư',
-    text: 'Vật tư buổi chơi, đồ ăn, hàng thủ công hoặc hậu cần, chỉ theo danh mục nhóm và Mái ấm đã thống nhất.',
-    link: { href: '/minh-bach#expenses-heading', label: 'Xem dự toán vật tư →' },
+    title: 'Góp vật tư',
+    text: 'Vật tư cho buổi chơi hoặc nguyên liệu gây quỹ, theo đúng danh mục nhóm và Mái ấm đã thống nhất.',
+    link: { href: '/minh-bach#expenses-heading', label: 'Xem chi phí dự kiến' },
   },
   {
     tag: 'Mua hàng',
     title: 'Mua sản phẩm gây quỹ',
-    text: 'Chuồn chuồn tre, móc khóa và đồ ăn do nhóm chuẩn bị, khi kế hoạch bán được duyệt và mở đặt hàng.',
-    link: { href: '/san-pham', label: 'Xem sản phẩm dự kiến →' },
+    text: 'Chuồn chuồn tre, móc khóa và đồ ăn do nhóm chuẩn bị, khi mở bán.',
+    link: { href: '/san-pham', label: 'Xem sản phẩm' },
   },
   {
     tag: 'Lan tỏa',
     title: 'Chia sẻ câu chuyện',
-    text: 'Chia sẻ nội dung chính thức của nhóm; không đăng ảnh hay chuyện riêng của các em khi chưa được phép.',
-    link: { href: '/du-an/mang-theo-mot-net-ve', label: 'Đọc về dự án →' },
+    text: 'Chia sẻ nội dung chính thức của nhóm để nhiều người biết đến dự án.',
+    link: { href: '/du-an/mang-theo-mot-net-ve', label: 'Đọc về dự án' },
   },
 ];
 ---
 
 <Layout
   title="Cách đồng hành cùng dự án"
-  description="Các cách đồng hành với dự án Mang Theo Một Nét Vẽ, nguyên tắc tiếp nhận hỗ trợ và tình trạng kênh liên hệ."
+  description="Các cách đồng hành cùng dự án Mang Theo Một Nét Vẽ và cách nhóm Lăng Kính tiếp nhận hỗ trợ."
   currentPath="/dong-hanh"
 >
   <PageHero
     breadcrumbs={breadcrumbs}
     eyebrow="Đồng hành"
-    title="Cách đồng hành cùng dự án"
+    title="Cùng mang quà đúng nhu cầu"
     titleId="support-heading"
-    lead="Hỗ trợ đúng thứ Mái ấm cần, ghi nhận minh bạch."
-    description="Nhóm chỉ tiếp nhận hỗ trợ khi danh mục nhu cầu và kênh liên hệ đã được xác nhận. Hiện website chưa nhận tiền, hiện vật hay đơn hàng."
-    summaryTitle="Hiện tại bạn có thể"
+    lead="Mỗi sự hỗ trợ đều đi đúng vào thứ Mái ấm cần, và được ghi nhận minh bạch."
+    description="Nhóm sẽ nhận hỗ trợ khi danh mục nhu cầu và kênh liên hệ được xác nhận. Hiện website chưa nhận tiền, hiện vật hay đơn hàng."
+    summaryTitle="Bạn có thể làm ngay"
   >
     <div slot="panel-extra" class="now">
       <ul class="now-list">
-        <li class="now-yes"><a href="/du-an/mang-theo-mot-net-ve">Tìm hiểu kế hoạch buổi chơi</a></li>
+        <li class="now-yes"><a href="/du-an/mang-theo-mot-net-ve">Tìm hiểu buổi chơi</a></li>
         <li class="now-yes"><a href="/san-pham">Xem sản phẩm và giá tham khảo</a></li>
-        <li class="now-yes"><a href="/minh-bach">Xem dự toán và cách dùng quỹ</a></li>
-        <li class="now-wait">Gửi hỗ trợ hoặc đặt hàng: chờ kênh chính thức</li>
+        <li class="now-yes"><a href="/minh-bach">Xem kế hoạch tài chính</a></li>
+        <li class="now-wait">Gửi hỗ trợ, đặt hàng: khi có kênh chính thức</li>
       </ul>
     </div>
   </PageHero>
 
-  <section class="section" aria-labelledby="contact-heading">
-    <div class="container">
-      <div class="contact">
-        <div>
-          <span class="eyebrow">Liên hệ</span>
-          <h2 id="contact-heading" class="contact-title">Kênh liên hệ chính thức</h2>
-        </div>
-        <div class="contact-status">
-          {contactReady ? (
-            <StatusChip kind="da-xac-nhan" label="Đã xác nhận" />
-          ) : (
-            <StatusChip kind="cho-xac-nhan" label="Chưa công bố" />
-          )}
-          <p>{OFFICIAL_CONTACT.notice} Không có tài khoản nhận tiền, mã QR hay biểu mẫu nào đang hoạt động thay mặt nhóm.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section-soft" aria-labelledby="ways-heading">
+  <section class="section" aria-labelledby="ways-heading">
     <div class="container">
       <div class="section-header">
         <span class="eyebrow">Ba cách</span>
@@ -82,11 +63,11 @@ const ways = [
       <ul class="ways">
         {
           ways.map((w) => (
-            <li class="way">
+            <li class="way lift">
               <span class="way-tag">{w.tag}</span>
               <h3 class="way-title">{w.title}</h3>
               <p class="way-text">{w.text}</p>
-              <a href={w.link.href} class="link-arrow">{w.link.label}</a>
+              <a href={w.link.href} class="link-arrow">{w.link.label} <span class="arrow" aria-hidden="true">→</span></a>
             </li>
           ))
         }
@@ -94,10 +75,10 @@ const ways = [
     </div>
   </section>
 
-  <section class="section" aria-labelledby="rules-heading">
+  <section class="section section-soft" aria-labelledby="rules-heading">
     <div class="container">
       <div class="two-col">
-        <div>
+        <div class="reveal">
           <span class="eyebrow">Quy trình</span>
           <h2 id="rules-heading" class="col-title">Nhóm tiếp nhận thế nào</h2>
           <ol class="steps">
@@ -114,22 +95,30 @@ const ways = [
             }
           </ol>
         </div>
-        <div>
-          <span class="eyebrow">Nguyên tắc</span>
-          <h3 class="col-title col-title--sm">Nguyên tắc vận động nguồn lực</h3>
+        <div class="reveal">
+          <span class="eyebrow">Cam kết</span>
+          <h3 class="col-title col-title--sm">Mỗi đóng góp đều rõ ràng</h3>
           <ul class="check-list">
             {SUPPORT_RULES.map((r) => <li>{r}</li>)}
           </ul>
+          <div class="contact">
+            {contactReady ? (
+              <StatusChip kind="da-xac-nhan" label="Kênh liên hệ đã xác nhận" />
+            ) : (
+              <StatusChip kind="cho-xac-nhan" label="Kênh liên hệ sắp công bố" />
+            )}
+            <p>Nhóm chưa có tài khoản nhận tiền, mã QR hay biểu mẫu nào đang hoạt động. Thông tin liên hệ sẽ được đăng tại đây khi được duyệt.</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section section-soft" aria-labelledby="support-faq-heading">
+  <section class="section" aria-labelledby="support-faq-heading">
     <div class="container narrow">
       <div class="section-header">
         <span class="eyebrow">Hỏi đáp</span>
-        <h2 id="support-faq-heading">Câu hỏi về đồng hành</h2>
+        <h2 id="support-faq-heading">Câu hỏi thường gặp</h2>
       </div>
       <FaqAccordion faqs={SUPPORT_FAQS} idPrefix="support-faq" />
     </div>
@@ -139,7 +128,7 @@ const ways = [
     <div class="container cta-band-inner">
       <div class="cta-band-text">
         <h2 id="support-cta-heading">Ai đứng sau dự án?</h2>
-        <p>Bảy sinh viên lớp AI2015 và cách nhóm phân công, đối soát.</p>
+        <p>Bảy sinh viên FPT Hà Nội và cách nhóm làm việc.</p>
       </div>
       <div class="cta-band-actions">
         <a href="/ve-nhom" class="btn btn-primary">Về nhóm Lăng Kính</a>
@@ -181,6 +170,10 @@ const ways = [
     align-items: center;
   }
 
+  .now-list a:hover {
+    color: var(--brand);
+  }
+
   .now-yes::before {
     content: "";
     position: absolute;
@@ -207,32 +200,6 @@ const ways = [
     height: 12px;
     border-radius: 50%;
     border: 2px solid var(--status-pending-text);
-  }
-
-  .contact {
-    display: grid;
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    gap: var(--space-6) var(--space-10);
-    align-items: start;
-    padding: var(--space-6);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-  }
-
-  .contact-title {
-    margin: 0;
-  }
-
-  .contact-status {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-    align-items: flex-start;
-  }
-
-  .contact-status p {
-    margin: 0;
-    color: var(--ink);
   }
 
   .ways {
@@ -310,6 +277,7 @@ const ways = [
     align-items: center;
     justify-content: center;
     font-variant-numeric: tabular-nums;
+    background: #ffffff;
   }
 
   .step-title {
@@ -322,20 +290,31 @@ const ways = [
     margin: 0;
   }
 
+  .contact {
+    margin-top: var(--space-6);
+    padding: var(--space-4) var(--space-5);
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+
+  .contact p {
+    margin: 0;
+  }
+
   @media (max-width: 1023px) {
     .ways {
       grid-template-columns: 1fr;
       gap: var(--space-4);
     }
-
-    .contact {
-      grid-template-columns: 1fr;
-    }
   }
 
   @media (max-width: 767px) {
-    .way,
-    .contact {
+    .way {
       padding: var(--space-4);
     }
   }

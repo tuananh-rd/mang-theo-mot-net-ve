@@ -1,94 +1,97 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/PageHero.astro';
-import ProductCatalog from '../components/ProductCatalog.astro';
+import ProductGrid from '../components/ProductGrid.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
 import { PRODUCTS, PRODUCT_FAQS, SALES_PLAN } from '../data/campaign';
-import { calculateBaseRevenue, formatVND } from '../lib/finance';
+import { formatProductPrice } from '../lib/finance';
 
-const baseRevenue = calculateBaseRevenue(PRODUCTS);
+const craft = PRODUCTS.filter((p) => p.category === 'craft');
+const food = PRODUCTS.filter((p) => p.category === 'food' && p.isBaseRevenueItem !== false);
+const combos = PRODUCTS.filter((p) => p.isBaseRevenueItem === false);
 
 const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Sản phẩm' }];
-
-const summaryItems = [
-  { label: 'Danh mục cơ sở', value: 'Chuồn chuồn tre, móc khóa, set đồ ăn, bánh su kem' },
-  { label: 'Giá tham khảo', value: '10.000đ – 79.000đ theo đề xuất' },
-  { label: 'Người hoàn thiện', value: 'Nhóm Lăng Kính; các em không có chỉ tiêu sản phẩm' },
-  {
-    label: 'Mở bán',
-    value: 'Chưa mở, chưa nhận đơn',
-    chip: { kind: 'cho-xac-nhan' as const, label: 'Chờ duyệt' },
-  },
-];
 ---
 
 <Layout
-  title="Sản phẩm gây quỹ dự kiến"
-  description="Giá tham khảo, số lượng kế hoạch và nguồn gốc các sản phẩm gây quỹ dự kiến của dự án Mang Theo Một Nét Vẽ."
+  title="Sản phẩm gây quỹ"
+  description="Chuồn chuồn tre, móc khóa và đồ ăn do nhóm Lăng Kính chuẩn bị để gây quỹ mua quà cho Mái ấm Thánh Tâm Xuy Xá."
   currentPath="/san-pham"
 >
   <PageHero
     breadcrumbs={breadcrumbs}
-    eyebrow="Gây quỹ"
+    eyebrow="Sản phẩm gây quỹ"
     chip={{ kind: 'cho-xac-nhan', label: 'Chưa mở bán' }}
-    title="Sản phẩm gây quỹ dự kiến"
+    title="Mua một món, góp một phần quà"
     titleId="products-heading"
-    lead="Đồ thủ công và đồ ăn do nhóm chuẩn bị, bán tại FPT Hòa Lạc để có quỹ mua quà cho Mái ấm."
-    description="Giá và số lượng dưới đây là kế hoạch trong đề xuất Final. Mẫu, giá chính thức và kênh đặt hàng sẽ được công bố khi kế hoạch bán được duyệt."
-    summaryTitle="Tóm tắt"
-    summaryItems={summaryItems}
+    lead="Đồ thủ công và đồ ăn do nhóm Lăng Kính tự chuẩn bị, bán tại FPT Hòa Lạc."
+    description="Giá dưới đây là giá tham khảo. Mẫu, giá chính thức và cách đặt hàng sẽ được công bố tại trang này khi mở bán."
   />
 
-  <section class="section" aria-labelledby="catalog-heading">
+  <section class="section" aria-labelledby="craft-heading">
     <div class="container">
       <div class="section-header">
-        <span class="eyebrow">Danh mục</span>
-        <h2 id="catalog-heading">Giá tham khảo và số lượng kế hoạch</h2>
-        <p>
-          Bốn mặt hàng cơ sở tạo nên kịch bản doanh thu {formatVND(baseRevenue)}. Ba combo nem có trong đề xuất nhưng chưa được tính, vì hồ sơ chưa nói rõ bán thêm hay thay cho set đồ ăn.
-        </p>
+        <span class="eyebrow">Đồ thủ công</span>
+        <h2 id="craft-heading">Quà lưu niệm</h2>
+        <p>Nhóm chuẩn bị 50 chuồn chuồn tre: 30 bộ kèm đế để bán, 20 chiếc để lại cho Mái ấm.</p>
       </div>
-
-      <ProductCatalog
-        products={PRODUCTS}
-        caption="Bảy mặt hàng gây quỹ: giá tham khảo, số lượng kế hoạch và doanh thu nếu bán đủ"
-      />
-
-      <p class="source-note">
-        Theo đề xuất Final, trang 29–31. Ảnh mẫu thật sẽ bổ sung khi nhóm hoàn thiện sản phẩm. Số lượng là kế hoạch, không phải hàng tồn hay số đã bán.
-      </p>
+      <ProductGrid products={craft} />
     </div>
   </section>
 
-  <section class="section section-soft" aria-labelledby="origin-heading">
+  <section class="section section-soft" aria-labelledby="food-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">Đồ ăn</span>
+        <h2 id="food-heading">Đồ ăn gây quỹ</h2>
+        <p>Làm theo đơn, bán theo đợt nhỏ và chỉ khi đáp ứng điều kiện an toàn thực phẩm.</p>
+      </div>
+      <ProductGrid products={food} />
+
+      <div class="combos reveal">
+        <p class="combos-title">Có thể bổ sung</p>
+        <ul class="combos-list">
+          {
+            combos.map((c) => (
+              <li>
+                <span>{c.name}</span>
+                <span class="combos-price">{formatProductPrice(c)}</span>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="combos-note">Các combo nem lẻ đang được cân nhắc; thực đơn chính thức sẽ công bố khi mở bán.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="buy-heading">
     <div class="container">
       <div class="two-col">
-        <div>
-          <span class="eyebrow">Nguồn gốc</span>
-          <h2 id="origin-heading" class="col-title">Ai làm và làm thế nào</h2>
-          <ul class="check-list">
-            <li>Nhóm Lăng Kính chuẩn bị và hoàn thiện mọi hàng bán; kiểm tra hình thức trước khi giao.</li>
-            <li>Chuẩn bị 50 phôi chuồn chuồn: 30 bộ kèm đế dành bán, 20 chiếc để lại Mái ấm theo sắp xếp của cơ sở.</li>
-            <li>Tranh của các em chỉ được in lên móc khóa khi có sự đồng ý phù hợp; nếu không, nhóm tự hoàn thiện.</li>
-            <li>Tượng tô là hoạt động chơi tại Mái ấm, không phải hàng bán.</li>
-          </ul>
-        </div>
-        <div>
-          <span class="eyebrow">Kế hoạch bán</span>
-          <h3 class="col-title">Khi nào và ở đâu</h3>
+        <div class="reveal">
+          <span class="eyebrow">Mua hàng</span>
+          <h2 id="buy-heading" class="col-title">Khi mở bán</h2>
           <ul class="check-list">
             {SALES_PLAN.map((s) => <li>{s}</li>)}
           </ul>
         </div>
+        <div class="reveal">
+          <span class="eyebrow">Nguồn gốc</span>
+          <h3 class="col-title col-title--sm">Ai làm sản phẩm</h3>
+          <ul class="check-list">
+            <li>Nhóm Lăng Kính chuẩn bị và hoàn thiện toàn bộ hàng bán, kiểm tra trước khi giao.</li>
+            <li>Các em ở Mái ấm không phải làm hàng. Tranh của các em chỉ được in lên móc khóa khi có sự đồng ý phù hợp.</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="section" aria-labelledby="faq-heading">
+  <section class="section section-soft" aria-labelledby="faq-heading">
     <div class="container narrow">
       <div class="section-header">
         <span class="eyebrow">Hỏi đáp</span>
-        <h2 id="faq-heading">Câu hỏi về sản phẩm</h2>
+        <h2 id="faq-heading">Câu hỏi thường gặp</h2>
       </div>
       <FaqAccordion items={PRODUCT_FAQS} idPrefix="product-faq" />
     </div>
@@ -97,25 +100,65 @@ const summaryItems = [
   <section class="cta-band" aria-labelledby="products-cta-heading">
     <div class="container cta-band-inner">
       <div class="cta-band-text">
-        <h2 id="products-cta-heading">Muốn biết tiền bán hàng dùng thế nào?</h2>
-        <p>Dự toán chi, phép tính số dư và những điểm còn cần làm rõ.</p>
+        <h2 id="products-cta-heading">Tiền bán hàng được dùng thế nào?</h2>
+        <p>Chi phí dự kiến và phần dành mua quà cho Mái ấm.</p>
       </div>
       <div class="cta-band-actions">
         <a href="/minh-bach" class="btn btn-primary">Xem minh bạch thu chi</a>
-        <a href="/dong-hanh" class="link-arrow">Cách đồng hành →</a>
+        <a href="/dong-hanh" class="link-arrow">Cách đồng hành <span class="arrow" aria-hidden="true">→</span></a>
       </div>
     </div>
   </section>
 </Layout>
 
 <style>
+  .combos {
+    margin-top: var(--space-6);
+    padding: var(--space-5) var(--space-6);
+    border: 1px dashed var(--line-strong);
+    border-radius: var(--radius-lg);
+  }
+
+  .combos-title {
+    margin: 0 0 var(--space-2);
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .combos-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .combos-list li {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink);
+  }
+
+  .combos-price {
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .combos-note {
+    margin: var(--space-3) 0 0;
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-small);
+  }
+
   .col-title {
     font-size: var(--font-size-h2);
     line-height: var(--line-height-h2);
     margin-bottom: var(--space-5);
   }
 
-  h3.col-title {
+  .col-title--sm {
     font-size: var(--font-size-h3);
     line-height: var(--line-height-h3);
     margin-bottom: var(--space-4);
@@ -123,5 +166,11 @@ const summaryItems = [
 
   .narrow > :global(*) {
     max-width: 880px;
+  }
+
+  @media (max-width: 767px) {
+    .combos {
+      padding: var(--space-4);
+    }
   }
 </style>

@@ -1,20 +1,21 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/PageHero.astro';
-import { TEAM_INFO, TEAM_PRINCIPLES, TEAM_ROLES, PARTNER_ROLES } from '../data/campaign';
+import { TEAM_INFO, TEAM_PRINCIPLES, TEAM_AREAS } from '../data/campaign';
 
 const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Về nhóm' }];
+const totalMembers = TEAM_AREAS.reduce((sum, a) => sum + a.members, 0);
 
 const summaryItems = [
   { label: 'Thành viên', value: `${TEAM_INFO.size} sinh viên lớp ${TEAM_INFO.classId}` },
-  { label: 'Học phần', value: 'SSG105 — Đại học FPT Hà Nội' },
-  { label: 'Đối soát tài chính', value: 'Hai thành viên kiểm tra chéo mọi khoản thu chi' },
+  { label: 'Trường', value: 'Đại học FPT Hà Nội' },
+  { label: 'Dự án', value: 'Mang Theo Một Nét Vẽ' },
 ];
 ---
 
 <Layout
   title="Về nhóm Lăng Kính"
-  description="Nhóm Lăng Kính: 7 sinh viên lớp AI2015, học phần SSG105, Đại học FPT Hà Nội — vai trò, nguyên tắc làm việc và cách phối hợp với Mái ấm."
+  description="Nhóm Lăng Kính: 7 sinh viên lớp AI2015, Đại học FPT Hà Nội — cách nhóm làm việc và những nguyên tắc nhóm giữ."
   currentPath="/ve-nhom"
 >
   <PageHero
@@ -22,40 +23,38 @@ const summaryItems = [
     eyebrow="Về nhóm"
     title="Nhóm Lăng Kính"
     titleId="team-heading"
-    lead="Bảy sinh viên FPT Hà Nội tổ chức một buổi chơi có lựa chọn và gây quỹ để hỗ trợ đúng nhu cầu của Mái ấm."
-    description="Nhóm chịu trách nhiệm chuẩn bị, hoàn thiện hàng gây quỹ, đối soát tài chính và báo cáo. Mái ấm phối hợp và quyết định cách hỗ trợ các em."
-    summaryTitle="Tóm tắt"
+    lead="Bảy sinh viên muốn mang đến một buổi chơi phù hợp và một món quà đúng nhu cầu."
+    description="Nhóm tự chuẩn bị buổi chơi, làm hàng gây quỹ, giữ sổ thu chi và báo cáo kết quả. Mái ấm đồng hành và quyết định cách hỗ trợ các em."
+    summaryTitle="Thông tin nhóm"
     summaryItems={summaryItems}
   />
 
-  <section class="section" aria-labelledby="roles-heading">
+  <section class="section" aria-labelledby="areas-heading">
     <div class="container">
       <div class="section-header">
-        <span class="eyebrow">Phân công</span>
-        <h2 id="roles-heading">Bảy vai trò trong nhóm</h2>
-        <p>
-          Hồ sơ dự án có danh sách thành viên và phân công. Tên, ảnh và vai trò của từng người sẽ hiển thị khi mỗi thành viên đồng ý công bố.
-        </p>
+        <span class="eyebrow">Cách nhóm làm việc</span>
+        <h2 id="areas-heading">{totalMembers} thành viên, năm mảng việc</h2>
+        <p>Tên và hình ảnh từng thành viên sẽ được giới thiệu khi mỗi người đồng ý công bố.</p>
       </div>
 
-      <ol class="roles">
+      <ul class="areas">
         {
-          TEAM_ROLES.map((r, i) => (
-            <li class="role">
-              <span class="role-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-              <h3 class="role-title">{r.role}</h3>
-              <p class="role-scope">{r.scope}</p>
+          TEAM_AREAS.map((a) => (
+            <li class="area lift">
+              <span class="area-count">{a.members} thành viên</span>
+              <h3 class="area-title">{a.title}</h3>
+              <p class="area-desc">{a.description}</p>
             </li>
           ))
         }
-      </ol>
+      </ul>
     </div>
   </section>
 
   <section class="section section-soft" aria-labelledby="principles-heading">
     <div class="container">
       <div class="section-header">
-        <span class="eyebrow">Cách làm việc</span>
+        <span class="eyebrow">Điều nhóm giữ</span>
         <h2 id="principles-heading">Năm nguyên tắc</h2>
       </div>
       <ul class="ruled-list">
@@ -71,101 +70,90 @@ const summaryItems = [
     </div>
   </section>
 
-  <section class="section" aria-labelledby="partners-heading">
-    <div class="container">
-      <div class="section-header">
-        <span class="eyebrow">Phối hợp</span>
-        <h2 id="partners-heading">Ai duyệt và hỗ trợ dự án</h2>
-        <p>Nhóm không tự quyết những việc thuộc quyền của Mái ấm hay giảng viên hướng dẫn.</p>
-      </div>
-      <ul class="ruled-list">
-        {
-          PARTNER_ROLES.map((p) => (
-            <li>
-              <h3 class="ruled-title">{p.partner}</h3>
-              <p class="ruled-desc">{p.responsibility}</p>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-  </section>
-
   <section class="cta-band" aria-labelledby="team-cta-heading">
     <div class="container cta-band-inner">
       <div class="cta-band-text">
         <h2 id="team-cta-heading">Nhóm sẽ tổ chức buổi chơi thế nào?</h2>
-        <p>Bốn góc hoạt động, agenda dự kiến và nguyên tắc an toàn.</p>
+        <p>Bốn góc hoạt động, cách chuẩn bị và lộ trình của dự án.</p>
       </div>
       <div class="cta-band-actions">
-        <a href="/du-an/mang-theo-mot-net-ve" class="btn btn-primary">Xem kế hoạch buổi chơi</a>
-        <a href="/dong-hanh" class="link-arrow">Cách đồng hành →</a>
+        <a href="/du-an/mang-theo-mot-net-ve" class="btn btn-primary">Xem dự án</a>
+        <a href="/dong-hanh" class="link-arrow">Cách đồng hành <span class="arrow" aria-hidden="true">→</span></a>
       </div>
     </div>
   </section>
 </Layout>
 
 <style>
-  .roles {
+  .areas {
     list-style: none;
     margin: 0;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: var(--space-4);
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: var(--space-5);
   }
 
-  .role {
+  .area {
+    grid-column: span 2;
     display: flex;
     flex-direction: column;
     gap: var(--space-2);
-    padding: var(--space-5);
+    padding: var(--space-6);
+    background: #ffffff;
     border: 1px solid var(--line);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-lg);
   }
 
-  .role-num {
-    font-weight: 700;
+  /* 3 + 2: hai thẻ cuối rộng hơn, không để ô trống */
+  .area:nth-child(4),
+  .area:nth-child(5) {
+    grid-column: span 3;
+  }
+
+  .area-count {
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-small);
+    font-weight: 600;
     color: var(--brand);
-    font-variant-numeric: tabular-nums;
   }
 
-  .role-title {
+  .area-title {
     font-size: var(--font-size-h3);
     line-height: var(--line-height-h3);
     margin: 0;
   }
 
-  .role-scope {
+  .area-desc {
     margin: 0;
   }
 
   @media (max-width: 1023px) {
-    .roles {
+    .areas {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .area,
+    .area:nth-child(4) {
+      grid-column: span 1;
+    }
+
+    .area:nth-child(5) {
+      grid-column: span 2;
     }
   }
 
   @media (max-width: 767px) {
-    .roles {
+    .areas {
       grid-template-columns: 1fr;
-      gap: 0;
-      border-top: 1px solid var(--line);
+      gap: var(--space-3);
     }
 
-    .role {
-      display: grid;
-      grid-template-columns: 36px minmax(0, 1fr);
-      column-gap: var(--space-3);
-      row-gap: 2px;
-      padding: var(--space-4) 0;
-      border: none;
-      border-bottom: 1px solid var(--line);
-      border-radius: 0;
-    }
-
-    .role-num {
-      grid-row: span 2;
+    .area,
+    .area:nth-child(4),
+    .area:nth-child(5) {
+      grid-column: auto;
+      padding: var(--space-4);
     }
   }
 </style>
