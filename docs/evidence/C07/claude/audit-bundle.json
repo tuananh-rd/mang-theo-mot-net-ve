@@ -1,25 +1,25 @@
 {
- "headSha": "f62057d1a0b793fe33e0374adfe5a037e4ca4b6a",
- "at": "2026-10-08T13:14:43.617Z",
+ "headSha": "99b2143ee43f55694bf3e232ec81a690cb743186",
+ "at": "2026-10-08T13:38:03.051Z",
  "files": [
   {
    "file": "/404.html",
-   "bytes": 11567,
-   "sha256": "efc8e6557df58e00607a7c7b8bbcbed5a2559a7b1ad6cfeb1752ca6344133a87",
+   "bytes": 12224,
+   "sha256": "539228277a9bb6204ea5758559b1186119a716a0562a952d2861108ba9b185e8",
    "served": 200,
    "servedMatch": true
   },
   {
    "file": "/dong-hanh/index.html",
-   "bytes": 32699,
-   "sha256": "2ab8eb9f494d9a51f0a3c6795e20717720ec61f6fc847fa7e159dea88cb963b1",
+   "bytes": 33235,
+   "sha256": "9a7c840769dbbbd685654b6d0b638b232a9ae3f6614f575370e3857e3757b107",
    "served": 200,
    "servedMatch": true
   },
   {
    "file": "/du-an/mang-theo-mot-net-ve/index.html",
-   "bytes": 37954,
-   "sha256": "2b616863df3a9503fd2cc369c2900ccb4794a17b584207a890c9b07d4ef22f80",
+   "bytes": 40239,
+   "sha256": "7e4ce5b37ead97fc7ff2bba33591f33a6544bbc9a47950e85b6d56042795b878",
    "served": 200,
    "servedMatch": true
   },
@@ -95,29 +95,29 @@
   },
   {
    "file": "/index.html",
-   "bytes": 27706,
-   "sha256": "e0e1fcda5e2518ce9b0eaa890c097559a5c766451c8e93f94dd4df41697ba491",
+   "bytes": 32694,
+   "sha256": "9f93263f0907b7e9bafeb918b5fe23d12ee715c29be5bd9dcf7a73ca14983bd4",
    "served": 200,
    "servedMatch": true
   },
   {
    "file": "/minh-bach/index.html",
-   "bytes": 31368,
-   "sha256": "4194ef095b578a8481b669f238db8bdfd83ac0485620b38fa25b512ea3b4e38c",
+   "bytes": 31942,
+   "sha256": "5029849d1ba3db16f1ac76a84bae561dc616e81dfe0e8bff31745c06eed137b7",
    "served": 200,
    "servedMatch": true
   },
   {
    "file": "/san-pham/index.html",
-   "bytes": 31871,
-   "sha256": "713ce9a6e83ef8f67413d677e934978d41681deac82a09ca5b56a9326ec73097",
+   "bytes": 32407,
+   "sha256": "6b0cbc121e19d3c8865c3fa9c0cb4dbfe588c282de101eadcdfea3524649bea4",
    "served": 200,
    "servedMatch": true
   },
   {
    "file": "/ve-nhom/index.html",
-   "bytes": 23637,
-   "sha256": "d9f4f6425a287979ff65293160d4cb5654a1f316c09402622a990b3dc7bf6ee9",
+   "bytes": 24509,
+   "sha256": "fe6148ee5c7bf6bbfd0bfb5e100af5e477945d696bdf864de529504fed00670f",
    "served": 200,
    "servedMatch": true
   },
@@ -129,16 +129,16 @@
    "servedMatch": true
   },
   {
-   "file": "/_astro/index.DRiBKjjG.css",
-   "bytes": 9821,
-   "sha256": "dc95d0d0c1e1aa1174c0aaa8d28255ec2bf0a191738660e01dc878f9e87aa572",
+   "file": "/_astro/index.B5tVbn-Y.css",
+   "bytes": 13911,
+   "sha256": "f351d19b99e539f61658dcf7c3d016df290a9346a364180147f0985d75ea2ab1",
    "served": 200,
    "servedMatch": true
   },
   {
-   "file": "/_astro/Layout.B00h0Yiq.css",
-   "bytes": 27382,
-   "sha256": "5bb5d826438edbed232a3b7cc359f8acff61f3dc515522c9f58cf8702fd268f9",
+   "file": "/_astro/Layout._1cJht4r.css",
+   "bytes": 29868,
+   "sha256": "ae1549649f3b6190f402eb5fc361d87635b3de39176272d055960428471dcec4",
    "served": 200,
    "servedMatch": true
   },

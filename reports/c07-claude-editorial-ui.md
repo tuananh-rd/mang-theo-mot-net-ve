@@ -2,9 +2,63 @@
 
 - **Người thực hiện:** Claude Opus 5.5 (`claude-opus-5-5`), người viết code duy nhất của C07 theo `docs/task-specs/C07.md`. Antigravity HOLD; không tạo worker; không giao lại.
 - **Ngày:** 08/10/2026. **Nhánh** `task/c07-claude-editorial-ui`, tạo từ HEAD đã kiểm.
-- **Baseline** `80ff81b37356d345aead982f0bab20266cc9e5c5` → vòng 1 `be7ae45` → vòng 2 `fe0415f` → **app final `f62057d1a0b793fe33e0374adfe5a037e4ca4b6a`** (vòng 3).
+- **Baseline** `80ff81b37356d345aead982f0bab20266cc9e5c5` → vòng 1 `be7ae45` → vòng 2 `fe0415f` → vòng 3 `f62057d` → **app final `99b2143ee43f55694bf3e232ec81a690cb743186`** (vòng 4).
 
-## Vòng 3 — nội dung dễ hiểu, bỏ gây quỹ đồ ăn, thêm trang Ủng hộ có QR và sao kê
+## Vòng 4 — UI và animation chuyên nghiệp, thân thiện hơn
+
+**Yêu cầu:** nâng cấp UI và animation thêm một lần, chuyên nghiệp và thân thiện hơn. Nội dung giữ nguyên như vòng 3.
+
+**Đã làm** (chỉ CSS/markup; không thêm thư viện, font hay ảnh):
+
+- **Màu và hình khối:**
+  - Bốn màu pastel cho bốn góc chơi: vàng, hồng, xanh trời, xanh lá. Chữ đậm trên nền pastel đều đạt tương phản 5,68–7,62:1.
+  - Bo góc mềm hơn (14/20/28px).
+  - Nền ấm `#fffcf6` cho hero và các dải kêu gọi.
+- **Hero trang chủ:**
+  - Gradient ấm rất nhẹ; nhãn "Dự án của nhóm Lăng Kính" dạng viên thuốc có icon.
+  - Nét cọ vàng tự vẽ dưới chữ "Một Nét Vẽ" và chuồn chuồn nét mảnh tự vẽ cạnh ảnh, mỗi hiệu ứng chạy một lần.
+  - Nhãn nổi "4 góc chơi · khoảng 180 phút" trên ảnh; nút "Ủng hộ dự án →" có mũi tên dịch nhẹ khi rê chuột.
+- **Thẻ:**
+  - Góc chơi có dải màu riêng, icon tròn theo màu, icon lắc nhẹ một lần khi rê chuột.
+  - "Ba việc, một mục tiêu" có icon màu và **mũi tên tròn vàng nối giữa các bước**.
+  - Dải ủng hộ nền tối có gradient nhẹ.
+- **Trang con:** đầu trang nền ấm, khung tóm tắt nổi có bóng; nhãn mục có gạch cọ vàng; dải kêu gọi cuối trang nền ấm.
+- **Footer** nền navy, viền ba màu (đỏ thẫm, vàng, xanh) trên cùng, link dịch nhẹ khi rê.
+- **FAQ:** dấu + xoay thành ×, khi mở có vạch đỏ thẫm bên trái và bóng nổi, dòng thoáng hơn.
+- **Tiện ích:**
+  - Thanh tiến trình đọc ở mép trên, dùng CSS scroll-driven; trình duyệt chưa hỗ trợ thì ẩn.
+  - Nút "Lên đầu trang" hiện sau khi cuộn 700px.
+  - Header dính, nền trắng mờ có blur.
+
+**Lỗi tìm và sửa trong vòng này:**
+
+1. Hiệu ứng hiện dần dùng `transform` nên đè mất hiệu ứng nhấc thẻ khi rê chuột. Đã chuyển sang `translate`/`scale` riêng.
+2. Câu hỏi FAQ khi đóng quá cao do kế thừa padding của `.card`. Đã đặt lại padding.
+3. Ảnh bằng chứng lúc đầu chụp giữa lúc hiệu ứng vẽ đang chạy. Script chụp nay chờ 2,6 giây; app không đổi cho mục này.
+
+**Kiểm tra** (trên `99b2143` đã commit sạch):
+
+| Lệnh | Exit | Kết quả |
+|---|---|---|
+| `npm.cmd ci` | 0 | cài theo lockfile |
+| `npm.cmd run check` | 0 | 0 lỗi |
+| `node --test tests/finance.test.mjs tests/donations.test.mjs` | 0 | 39/39 |
+| `npm.cmd run build` | 0 | 7 trang, 21 file |
+| audit bundle | 0 | 17/17 |
+| QA trình duyệt | 0 | 237/237 |
+
+- QA trình duyệt bao gồm tắt JS, bật giảm chuyển động, header dính và nhảy thẳng xuống cuối trang.
+- Có thêm ảnh viewport đã ổn định: `hero2-1440/375`, `proj-1440`, `faq-open-1440`.
+- Preview `http://127.0.0.1:4322/` (PID 28852) phục vụ đúng bản build.
+- Không chạy lại kiểm tra trạng thái "đã mở nhận ủng hộ" vì các component ủng hộ không đổi; vòng này chỉ đổi style chung.
+
+**Giới hạn:** thanh tiến trình, chuyển trang mượt và mở FAQ mượt chỉ thấy trên Chrome/Edge bản mới; trình duyệt khác chuyển tức thời. Chưa kiểm Safari/Firefox hay thiết bị thật.
+
+**Trạng thái: HOLD.**
+
+---
+
+## Vòng 3 (lịch sử, app `f62057d`) — nội dung dễ hiểu, bỏ gây quỹ đồ ăn, thêm trang Ủng hộ có QR và sao kê
 
 **Yêu cầu của chủ dự án:**
 

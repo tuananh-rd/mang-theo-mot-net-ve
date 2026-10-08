@@ -4,7 +4,7 @@
   "branch": "task/c07-claude-editorial-ui",
   "baselineSha": "80ff81b37356d345aead982f0bab20266cc9e5c5",
   "round1AppSha": "be7ae45e4147bacdee64c35374b052eaa343a49a",
-  "finalAppSha": "f62057d1a0b793fe33e0374adfe5a037e4ca4b6a",
+  "finalAppSha": "99b2143ee43f55694bf3e232ec81a690cb743186",
   "round2Request": "Chủ dự án: website để giới thiệu, không nhét hết nội dung docs (báo cáo giảng viên); duyệt lại nội dung, sửa luôn, nâng cấp hiệu ứng/animation chuyên nghiệp.",
   "appDiff": "src/ and tests/ only; package.json, package-lock.json, astro.config.mjs, tsconfig.json, public/ unchanged; no new dependency, font or image",
   "source": {
@@ -18,7 +18,7 @@
     "bind": "127.0.0.1",
     "pid": 28852,
     "kind": "existing static server serving dist/ (not started or stopped by Claude)",
-    "servesFinalBuild": "audit-bundle.json: 21/21 served bodies byte-identical to dist built from f62057d"
+    "servesFinalBuild": "audit-bundle.json: 21/21 served bodies byte-identical to dist built from 99b2143"
   },
   "commands": [
     {
@@ -64,7 +64,7 @@
     }
   ],
   "browser": "Chrome/154.0.8037.98 headless via puppeteer-core resolved from the existing Antigravity scratch node_modules (not an app dependency); 375/768 with mobile+touch emulation, 1440 desktop",
-  "screens": "screens/: 21 full-page (6 routes + 404 x 375/768/1440), menu-375-open, sticky-header-375/1440, FAQ/disclosure open states, focus-1440. Full-page shots set .site-header to position:relative only during capture, because Chrome paints a sticky header in the middle of a full-page image.",
+  "screens": "screens/: 21 full-page (6 routes + 404 x 375/768/1440), menu-375-open, sticky-header-375/1440, FAQ/disclosure open states, focus-1440. Full-page shots set .site-header to position:relative only during capture, because Chrome paints a sticky header in the middle of a full-page image. Round 4 adds settled viewport shots hero2-1440/hero2-375/proj-1440/faq-open-1440.",
   "heightComparison": "height-comparison.json (baseline, round 1, round 2; heights and word counts)",
   "diagnostics": [
     "Round 1: finance@768 scenario table overflow fixed in app (be7ae45); skip-link check waited for transition; evidence screenshots retaken after icon transitions.",
@@ -72,7 +72,8 @@
     "Round 2: IntersectionObserver missed blocks skipped by a fast jump (End key/anchor). Fixed in app: reveal by scroll position (rAF), revealing every block above 94% of the viewport; beforeprint reveals all; a 2.5s failsafe removes html.motion if the script never runs.",
     "Round 2: QA scroll loop was smoothed by html{scroll-behavior:smooth}, leaving full-page shots blank; QA now scrolls with behavior:'instant'. App unchanged for this item.",
     "Round 3: link check failed on same-page hash links (puppeteer goto returns null for same-document navigation); QA now loads the path and checks the anchor id. App unchanged.",
-    "Round 3: audit flagged the legitimate label \"Số tài khoản\" and an inline-script selector string; patterns narrowed to real account numbers/QR markup and rendered table markup."
+    "Round 3: audit flagged the legitimate label \"Số tài khoản\" and an inline-script selector string; patterns narrowed to real account numbers/QR markup and rendered table markup.",
+    "Round 4: reveal used transform, which overrode hover transform lifts (higher specificity); switched reveal to the independent translate/scale properties. FAQ rows inherited .card padding (too tall); padding reset. Evidence full-page shots now wait 2.6s so the one-time hero draw/sticker animations have finished."
   ],
   "notVerified": [
     "Real devices, Safari/Firefox (view transitions and ::details-content animate only in supporting browsers; others fall back to instant changes), screen readers; full WCAG audit",
@@ -81,5 +82,7 @@
   "status": "HOLD",
   "round2AppSha": "fe0415fc706fba2b6fcf70cbda92e69bf54fd31d",
   "round3Request": "Chủ dự án: nội dung khó hiểu, rời rạc; cần sắp xếp để người đọc hiểu ngay dự án là gì, làm gì. Bỏ gây quỹ bằng đồ ăn, không công khai giá nhập hàng. Thêm mục ủng hộ có QR tài khoản ngân hàng và sao kê người donate, minh bạch online.",
-  "donationActiveTest": "Để kiểm trạng thái đã mở mà không đưa dữ liệu giả vào repo: sao lưu src/data/campaign.ts, điền dữ liệu ghi rõ THỬ NGHIỆM, build ra thư mục scratch ngoài repo, khôi phục file (sha256 khớp bản gốc), rồi phục vụ bản thử qua request interception của puppeteer (không mở server). Ảnh trong donation-active-test/ là dữ liệu thử, không phải giao dịch thật."
+  "donationActiveTest": "Để kiểm trạng thái đã mở mà không đưa dữ liệu giả vào repo: sao lưu src/data/campaign.ts, điền dữ liệu ghi rõ THỬ NGHIỆM, build ra thư mục scratch ngoài repo, khôi phục file (sha256 khớp bản gốc), rồi phục vụ bản thử qua request interception của puppeteer (không mở server). Ảnh trong donation-active-test/ là dữ liệu thử, không phải giao dịch thật.",
+  "round3AppSha": "f62057d1a0b793fe33e0374adfe5a037e4ca4b6a",
+  "round4Request": "Chủ dự án: nâng cấp UI và animation một lần nữa, chuyên nghiệp và thân thiện hơn."
 }

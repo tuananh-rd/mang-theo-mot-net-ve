@@ -56,7 +56,7 @@ for(const [n,r] of routes)for(const [w,h,m] of vps){
   check(`${n}@${w} noindex`, d.robots==='noindex, nofollow', d.robots);
   check(`${n}@${w} no forms`, d.forms===0, d.forms);
   // Header sticky sẽ bị vẽ giữa ảnh khi chụp full-page; chỉ khi chụp ảnh full-page mới đặt lại position:relative.
-  await new Promise(r=>setTimeout(r,800));
+  await new Promise(r=>setTimeout(r,2600)); // chờ hiệu ứng vẽ nét/nhãn ở hero chạy xong (tối đa ~2,1s)
   await p.addStyleTag({content:'.site-header{position:relative !important}'});
   await p.screenshot({path:`${shotDir}/${n}-${w}-full.png`,fullPage:true});
   await p.close();
