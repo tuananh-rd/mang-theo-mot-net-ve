@@ -7,9 +7,10 @@ import { formatProductPrice, formatProductQuantity } from '../lib/finance';
 interface Props {
   product: Product;
   ratio?: '4:3' | '16:9' | '1:1';
+  layout?: 'vertical' | 'side';
 }
 
-const { product, ratio = '16:9' } = Astro.props;
+const { product, ratio = '16:9', layout = 'vertical' } = Astro.props;
 
 const getIllustrationType = (id: string) => {
   if (id === 'chuon-chuon-tre-kem-de') return 'chuon-chuon' as const;
@@ -26,7 +27,7 @@ const illType = getIllustrationType(product.id);
 const getSaleStatusLabel = (status: string | null | undefined): string => {
   switch (status) {
     case 'unconfirmed':
-      return 'Chưa xác nhận';
+      return 'Chờ xác nhận';
     case 'draft':
       return 'Bản thảo';
     case 'available':
@@ -36,13 +37,20 @@ const getSaleStatusLabel = (status: string | null | undefined): string => {
     case 'paused':
       return 'Tạm dừng';
     default:
-      return 'Chưa xác nhận';
+      return 'Chờ xác nhận';
   }
 };
 const statusLabel = getSaleStatusLabel(product.saleStatus);
 ---
 
-<article class="product-card card" id={`product-${product.id}`}>
+<article
+  class:list={[
+    'product-card',
+    'card',
+    { 'product-card-side': layout === 'side' },
+  ]}
+  id={`product-${product.id}`}
+>
   <div class="card-visual">
     <PlaceholderIllustration
       type={illType}
@@ -121,24 +129,24 @@ const statusLabel = getSaleStatusLabel(product.saleStatus);
 
   .product-name {
     font-size: var(--font-size-h3);
-    font-weight: 700;
+    line-height: var(--line-height-h3);
     color: var(--ink);
     margin: 0;
-    line-height: var(--line-height-h3);
+    font-weight: 700;
   }
 
   .price-row {
     display: flex;
-    align-items: baseline;
-    gap: var(--space-2);
-    margin: 2px 0;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 2px;
+    margin: var(--space-1) 0;
   }
 
   .price-val {
     font-size: var(--font-size-h3);
     font-weight: 700;
     color: var(--ink);
+    line-height: 1.2;
     font-variant-numeric: tabular-nums;
   }
 
@@ -149,61 +157,71 @@ const statusLabel = getSaleStatusLabel(product.saleStatus);
 
   .product-desc {
     font-size: var(--font-size-body);
-    color: var(--ink-2);
     line-height: var(--line-height-body);
+    color: var(--ink-2);
     margin: 0;
   }
 
   .product-meta-grid {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: var(--space-1);
     background-color: var(--surface-alt);
+    padding: var(--space-2) var(--space-3);
     border-radius: var(--radius-sm);
-    padding: 8px 12px;
-    margin-top: auto;
+    margin: var(--space-2) 0;
   }
 
   .meta-row {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
-    gap: var(--space-2);
     font-size: var(--font-size-small);
+    line-height: var(--line-height-small);
   }
 
   .meta-label {
     color: var(--ink-2);
-    font-weight: 500;
-    flex-shrink: 0;
   }
 
   .meta-val {
     color: var(--ink);
     font-weight: 600;
-    text-align: right;
   }
 
   .product-notes {
     font-size: var(--font-size-small);
     color: var(--ink-2);
+    margin: 0;
     line-height: 1.4;
-    margin: 4px 0 0;
     border-top: 1px dashed var(--line);
-    padding-top: 6px;
+    padding-top: var(--space-2);
   }
 
   .notes-label {
     font-weight: 600;
-    color: var(--ink);
+  }
+
+  /* Desktop Side Layout cho sản phẩm thủ công (ảnh trái chữ phải) */
+  @media (min-width: 1024px) {
+    .product-card-side {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: var(--space-5);
+      align-items: start;
+    }
+
+    .product-card-side .card-visual {
+      margin-bottom: 0;
+    }
   }
 
   @media (max-width: 767px) {
     .product-card {
       padding: var(--space-3);
     }
-
-    .price-row {
+    .card-header-row {
+      flex-direction: column;
+      align-items: flex-start;
       gap: var(--space-1);
     }
   }

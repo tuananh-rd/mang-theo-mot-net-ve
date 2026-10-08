@@ -72,13 +72,13 @@ const featuredProducts = [
   <!-- Hero Section -->
   <Hero />
 
-  <!-- Quick Summary Section -->
+  <!-- Quick Facts Strip: Dải thông tin có đường ngăn, tránh lồng card -->
   <section class="section-summary" aria-label="Tóm tắt nhanh dự án">
     <div class="container">
-      <div class="quick-summary-bar card">
+      <div class="quick-summary-strip" role="region" aria-label="4 thông tin cốt lõi">
         <div class="summary-item">
           <span class="summary-label">Nhóm thực hiện</span>
-          <span class="summary-text">Nhóm Lăng Kính (7 sinh viên, lớp {TEAM_INFO.classId}, ĐH FPT)</span>
+          <span class="summary-text">Nhóm Lăng Kính ({TEAM_INFO.size} sinh viên, lớp {TEAM_INFO.classId})</span>
         </div>
         <div class="summary-item">
           <span class="summary-label">Địa điểm dự kiến</span>
@@ -86,11 +86,13 @@ const featuredProducts = [
         </div>
         <div class="summary-item">
           <span class="summary-label">Trạng thái</span>
-          <StatusChip kind="cho-xac-nhan" label={CAMPAIGN_PROJECT.statusNotice} />
+          <div class="summary-chip-wrap">
+            <StatusChip kind="cho-xac-nhan" label={CAMPAIGN_PROJECT.statusNotice} />
+          </div>
         </div>
         <div class="summary-item">
           <span class="summary-label">Nội dung xem trước</span>
-          <span class="summary-text">4 góc chơi, sản phẩm tham khảo và dự toán minh bạch</span>
+          <span class="summary-text">4 góc chơi, 7 sản phẩm và dự toán minh bạch</span>
         </div>
       </div>
     </div>
@@ -100,6 +102,7 @@ const featuredProducts = [
   <section class="section section-activities" aria-labelledby="activities-heading">
     <div class="container">
       <div class="section-header">
+        <span class="eyebrow">Hoạt động buổi chơi</span>
         <h2 id="activities-heading">Buổi chơi có lựa chọn</h2>
         <p>
           Mỗi hoạt động được thiết kế để mang lại niềm vui vừa sức, an toàn. Người tham gia luôn có trọn vẹn quyền tự do lựa chọn tham gia góc chơi mình thích, quan sát bạn bè hoặc nghỉ ngơi.
@@ -119,58 +122,31 @@ const featuredProducts = [
 
       <div class="section-footer-note">
         <p>
-          * Ghi chú bản xem trước: Ảnh minh họa đạo cụ, không phải ảnh hoạt động của dự án. Mẫu chuồn chuồn, tượng và nhạc cụ thực tế chờ xác nhận; ảnh bóng không thể hiện bộ bowling. Hoạt động hướng đến sự gần gũi, kết nối tinh thần; không tuyên bố tác động trị liệu và không đặt chỉ tiêu sản xuất cho các em nhỏ.
+          * Ghi chú bản xem trước: Biểu tượng minh họa hoạt động dự kiến. Mẫu chuồn chuồn, tượng và nhạc cụ thực tế chờ xác nhận; tô tượng không phải sản phẩm bán gây quỹ. Hoạt động hướng đến sự gần gũi, kết nối tinh thần; không tuyên bố tác động trị liệu và không đặt chỉ tiêu sản xuất cho các em nhỏ.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- Section 2: Sản phẩm gây quỹ dự kiến (3 sản phẩm) -->
-  <section class="section section-soft section-products" aria-labelledby="products-heading">
-    <div class="container">
-      <div class="section-header">
-        <h2 id="products-heading">Sản phẩm gây quỹ dự kiến</h2>
-        <p>
-          Các sản phẩm lưu niệm thủ công được nhóm lên kế hoạch chuẩn bị nhằm gây quỹ mua quà tặng và vật phẩm thiết yếu theo danh mục xác nhận của Mái ấm.
-        </p>
-      </div>
-
-      <div class="product-section-notice" role="note">
-        <p><strong>Lưu ý:</strong> Trạng thái mở bán chưa được xác nhận. Bản xem trước chưa nhận đơn/tiền.</p>
-      </div>
-
-      <div class="products-grid">
-        {
-          featuredProducts.map(({ product }) => (
-            <ProductCard
-              product={product}
-            />
-          ))
-        }
-      </div>
-
-      <div class="section-action-center">
-        <a href="/san-pham" class="btn btn-secondary">
-          Xem chi tiết thông tin sản phẩm
-        </a>
-        <p class="action-note">
-          Mọi thông tin giá là số liệu tham khảo trong hồ sơ đề xuất dự án.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Section 3: Minh bạch từ kế hoạch đến thực tế (Chuyển lên trước Hành trình) -->
-  <section class="section section-transparency" aria-labelledby="transparency-heading">
+  <!-- Section 2: Minh bạch từ kế hoạch đến thực tế (Chuyển lên trước Sản phẩm và Hành trình) -->
+  <section class="section section-soft section-transparency" aria-labelledby="transparency-heading">
     <div class="container">
       <div class="transparency-card">
         <div class="transparency-header">
           <div class="badge-row">
+            <span class="eyebrow">Tài chính dự kiến</span>
             <StatusChip kind="ke-hoach" label="Nguyên tắc minh bạch" />
           </div>
           <h2 id="transparency-heading">Minh bạch từ kế hoạch đến thực tế</h2>
           <p class="transparency-status">
             <strong>{FINANCE_OVERVIEW.actualStatusNotice}</strong>
+          </p>
+        </div>
+
+        <!-- Lưu ý đối soát 550.000đ -->
+        <div class="product-section-notice" role="note">
+          <p>
+            <strong>Lưu ý đối soát ẩm thực:</strong> Kịch bản ẩm thực 4.500.000₫ trong đề xuất có chênh lệch 550.000₫ so với mức tính 50 set × 79.000₫ (3.950.000₫). Xem <a href="/minh-bach#doi-chieu-do-an" class="transparency-link">bảng đối soát chi tiết tại trang Minh bạch</a>.
           </p>
         </div>
 
@@ -225,10 +201,47 @@ const featuredProducts = [
     </div>
   </section>
 
+  <!-- Section 3: Sản phẩm gây quỹ dự kiến (3 sản phẩm + link đến 7 SKU) -->
+  <section class="section section-products" aria-labelledby="products-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">Gây quỹ dự kiến</span>
+        <h2 id="products-heading">Sản phẩm gây quỹ dự kiến</h2>
+        <p>
+          Các sản phẩm lưu niệm thủ công và suất ăn được nhóm lên kế hoạch chuẩn bị nhằm gây quỹ mua quà tặng và vật phẩm thiết yếu theo danh mục xác nhận của Mái ấm.
+        </p>
+      </div>
+
+      <div class="product-section-notice" role="note">
+        <p><strong>Lưu ý:</strong> Trạng thái mở bán chưa được xác nhận. Bản xem trước chưa nhận đơn hoặc tiền qua website.</p>
+      </div>
+
+      <div class="products-grid">
+        {
+          featuredProducts.map(({ product }) => (
+            <ProductCard
+              product={product}
+            />
+          ))
+        }
+      </div>
+
+      <div class="section-action-center">
+        <a href="/san-pham" class="btn btn-secondary">
+          Xem toàn bộ 7 sản phẩm gây quỹ
+        </a>
+        <p class="action-note">
+          Mọi thông tin giá là số liệu tham khảo trong hồ sơ đề xuất dự án.
+        </p>
+      </div>
+    </div>
+  </section>
+
   <!-- Section 4: Hành trình dự kiến (4 giai đoạn) -->
   <section class="section section-soft section-stages" aria-labelledby="stages-heading">
     <div class="container">
       <div class="section-header">
+        <span class="eyebrow">Lộ trình triển khai</span>
         <h2 id="stages-heading">Hành trình dự kiến</h2>
         <p>
           Bốn giai đoạn kế hoạch được nhóm vạch ra để triển khai dự án từng bước bài bản, minh bạch và có trách nhiệm.
@@ -245,7 +258,7 @@ const featuredProducts = [
 
       <div class="section-footer-note">
         <p>
-          * Ghi chú: Các giai đoạn dự kiến, lịch thực hiện chờ xác nhận.
+          * Ghi chú: Các giai đoạn dự kiến, lịch thực hiện chờ xác nhận. Lộ trình kế hoạch không đánh dấu hoàn thành trước khi diễn ra thực tế.
         </p>
       </div>
     </div>
@@ -255,6 +268,7 @@ const featuredProducts = [
   <section class="section section-group-support" aria-labelledby="group-support-heading">
     <div class="container">
       <div class="section-header">
+        <span class="eyebrow">Kết nối &amp; Hỗ trợ</span>
         <h2 id="group-support-heading">Nhóm thực hiện &amp; Cách đồng hành</h2>
         <p>
           Thông tin tóm tắt về đội ngũ thực hiện dự án và các phương thức đồng hành cùng Mái ấm.
@@ -263,9 +277,9 @@ const featuredProducts = [
 
       <div class="home-group-support-grid">
         <!-- Cột 1: Nhóm thực hiện -->
-        <div class="group-support-card card">
+        <div class="group-support-card">
           <div class="badge-row">
-            <span class="status-badge">Nhóm thực hiện</span>
+            <span class="eyebrow">Nhóm dự án</span>
           </div>
           <h3>Về nhóm {TEAM_INFO.name}</h3>
           <p>
@@ -285,9 +299,9 @@ const featuredProducts = [
         </div>
 
         <!-- Cột 2: Cách đồng hành -->
-        <div class="group-support-card card">
+        <div class="group-support-card">
           <div class="badge-row">
-            <span class="status-badge">Đồng hành</span>
+            <span class="eyebrow">Tham gia</span>
           </div>
           <h3>Đồng hành đúng nhu cầu</h3>
           <p>
@@ -308,6 +322,51 @@ const featuredProducts = [
 </Layout>
 
 <style>
+  /* Quick Summary Strip - Dải 4 cột có đường ngăn, nền surface-alt */
+  .section-summary {
+    padding: var(--space-4) 0;
+  }
+
+  .quick-summary-strip {
+    background-color: var(--surface-alt);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    overflow: hidden;
+  }
+
+  .summary-item {
+    padding: var(--space-4) var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    border-right: 1px solid var(--line);
+  }
+
+  .summary-item:last-child {
+    border-right: none;
+  }
+
+  .summary-label {
+    font-size: var(--font-size-small);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-2);
+  }
+
+  .summary-text {
+    font-size: 0.9375rem;
+    color: var(--ink);
+    line-height: 1.45;
+  }
+
+  .summary-chip-wrap {
+    display: inline-flex;
+    margin-top: 2px;
+  }
+
   /* Activities Grid */
   .activities-grid {
     display: grid;
@@ -317,8 +376,8 @@ const featuredProducts = [
 
   .section-footer-note {
     margin-top: var(--space-8);
-    font-size: var(--font-size-sm);
-    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+    color: var(--ink-2);
   }
 
   /* Products Grid */
@@ -338,8 +397,8 @@ const featuredProducts = [
   }
 
   .action-note {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+    color: var(--ink-2);
     max-width: 500px;
   }
 
@@ -353,7 +412,7 @@ const featuredProducts = [
   /* Transparency Panel */
   .transparency-card {
     background-color: var(--color-surface-card);
-    border: 1px solid var(--color-border);
+    border: 1px solid var(--line);
     border-radius: var(--radius-lg);
     padding: var(--space-8);
   }
@@ -364,11 +423,15 @@ const featuredProducts = [
 
   .transparency-header .badge-row {
     margin-bottom: var(--space-3);
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
   }
 
   .transparency-status {
     margin-top: var(--space-2);
-    color: var(--color-text-accent);
+    color: var(--brand);
     font-size: 1.125rem;
   }
 
@@ -378,13 +441,13 @@ const featuredProducts = [
     gap: var(--space-8);
     margin-bottom: var(--space-6);
     padding-bottom: var(--space-6);
-    border-bottom: 1px solid var(--color-border-subtle);
+    border-bottom: 1px solid var(--line);
   }
 
   .col-title {
     font-size: 1.125rem;
     margin-bottom: var(--space-4);
-    color: var(--color-text-primary);
+    color: var(--ink);
   }
 
   .data-list {
@@ -401,7 +464,7 @@ const featuredProducts = [
     justify-content: space-between;
     align-items: center;
     padding: var(--space-2) 0;
-    border-bottom: 1px dashed var(--color-border-subtle);
+    border-bottom: 1px dashed var(--line);
     font-size: 0.9375rem;
   }
 
@@ -414,64 +477,29 @@ const featuredProducts = [
   .diff-negative,
   .diff-positive,
   .diff-neutral {
-    color: var(--color-text-primary);
+    color: var(--ink);
     font-weight: 700;
   }
 
   .transparency-sub {
     font-size: 0.875rem;
-    color: var(--color-text-muted);
+    color: var(--ink-2);
     margin-top: var(--space-3);
     line-height: 1.5;
   }
 
   .transparency-link {
-    color: var(--color-text-accent);
+    color: var(--brand);
     text-decoration: underline;
     font-weight: 600;
   }
 
   .transparency-link:hover {
-    color: var(--color-accent-hover);
+    color: var(--ink);
   }
 
   .transparency-actions {
     display: flex;
-  }
-
-  /* Quick Summary Section */
-  .section-summary {
-    padding: var(--space-4) 0;
-  }
-
-  .quick-summary-bar {
-    background-color: var(--color-surface-card);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    padding: var(--space-4) var(--space-6);
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--space-4);
-  }
-
-  .summary-item {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  .summary-label {
-    font-size: 0.875rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--color-text-secondary);
-  }
-
-  .summary-text {
-    font-size: 0.9375rem;
-    color: var(--color-text-primary);
-    line-height: 1.4;
   }
 
   /* Two Column Group & Support Section */
@@ -483,7 +511,7 @@ const featuredProducts = [
 
   .group-support-card {
     background-color: var(--color-surface-card);
-    border: 1px solid var(--color-border);
+    border: 1px solid var(--line);
     border-radius: var(--radius-lg);
     padding: var(--space-6);
     display: flex;
@@ -494,20 +522,20 @@ const featuredProducts = [
 
   .group-support-card h3 {
     font-size: 1.375rem;
-    color: var(--color-text-primary);
+    color: var(--ink);
     margin: 0;
   }
 
   .group-support-card p {
     font-size: 0.9375rem;
-    color: var(--color-text-secondary);
+    color: var(--ink-2);
     line-height: 1.5;
     margin: 0;
   }
 
   .team-meta-text {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-secondary);
+    font-size: var(--font-size-small);
+    color: var(--ink-2);
     font-weight: 500;
     margin: 0;
   }
@@ -519,9 +547,17 @@ const featuredProducts = [
 
   /* Responsive Adjustments */
   @media (max-width: 1023px) {
-    .quick-summary-bar {
-      grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-4);
+    .quick-summary-strip {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .summary-item:nth-child(2) {
+      border-right: none;
+    }
+
+    .summary-item:nth-child(1),
+    .summary-item:nth-child(2) {
+      border-bottom: 1px solid var(--line);
     }
 
     .activities-grid {
@@ -543,10 +579,18 @@ const featuredProducts = [
   }
 
   @media (max-width: 767px) {
-    .quick-summary-bar {
+    .quick-summary-strip {
       grid-template-columns: 1fr;
-      gap: var(--space-3);
-      padding: var(--space-4);
+    }
+
+    .summary-item {
+      border-right: none !important;
+      border-bottom: 1px solid var(--line);
+      padding: var(--space-3) var(--space-4);
+    }
+
+    .summary-item:last-child {
+      border-bottom: none;
     }
 
     .activities-grid {

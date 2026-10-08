@@ -1,76 +1,83 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
 import ProductCard from '../components/ProductCard.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
-import StatusChip from '../components/StatusChip.astro';
 import { PRODUCTS, PRODUCT_FAQS } from '../data/campaign';
 import { formatProductPrice, formatProductQuantity } from '../lib/finance';
 
 const craftProducts = PRODUCTS.filter((p) => p.category === 'craft');
 const foodProducts = PRODUCTS.filter((p) => p.category === 'food');
+
+const breadcrumbs = [
+  { label: 'Trang chủ', href: '/' },
+  { label: 'Sản phẩm gây quỹ' },
+];
+
+const summaryItems = [
+  {
+    label: 'Quy mô danh mục',
+    value: '7 mặt hàng (2 thủ công, 5 ẩm thực)',
+  },
+  {
+    label: 'Khoảng giá tham khảo',
+    value: '10.000₫ – 79.000₫ trong đề xuất',
+  },
+  {
+    label: 'Tình trạng phát hành',
+    value: 'Chưa mở bán, chưa nhận đơn đặt trước',
+    chip: {
+      kind: 'cho-xac-nhan' as const,
+      label: 'Chưa mở bán',
+    },
+  },
+  {
+    label: 'Mục đích gây quỹ',
+    value: 'Bù đắp vật tư và tạo nguồn quà tặng thiết yếu',
+  },
+];
 ---
 
 <Layout
   title="Sản phẩm gây quỹ dự kiến"
-  description="Danh mục sản phẩm thủ công và thực đơn ẩm thực gây quỹ dự kiến trong chiến dịch Mang Theo Một Nét Vẽ."
+  description="Danh mục 7 sản phẩm thủ công và thực đơn ẩm thực gây quỹ dự kiến trong chiến dịch Mang Theo Một Nét Vẽ."
   currentPath="/san-pham"
 >
-  <!-- Breadcrumb -->
-  <div class="breadcrumb-bar">
-    <div class="container">
-      <nav class="breadcrumb" aria-label="Đường dẫn trang">
-        <ol class="breadcrumb-list">
-          <li class="breadcrumb-item">
-            <a href="/" class="breadcrumb-link">Trang chủ</a>
-          </li>
-          <li class="breadcrumb-separator" aria-hidden="true">&rsaquo;</li>
-          <li class="breadcrumb-item">
-            <span class="breadcrumb-current" aria-current="page">Sản phẩm</span>
-          </li>
-        </ol>
-      </nav>
-    </div>
-  </div>
+  <!-- Shared PageHero (7 cột trái / 5 cột phải panel Tóm tắt kế hoạch) -->
+  <PageHero
+    breadcrumbs={breadcrumbs}
+    eyebrow="Gây quỹ dự kiến"
+    chip={{
+      kind: 'cho-xac-nhan',
+      label: 'Chưa mở bán chính thức',
+    }}
+    title="Sản phẩm gây quỹ dự kiến"
+    titleId="products-heading"
+    lead="Kế hoạch 7 sản phẩm lưu niệm thủ công và thực đơn ẩm thực đề xuất nhằm bù đắp chi phí vật tư và tạo nguồn lực trao tặng."
+    description="Mọi mức giá từ 10.000₫ – 79.000₫ là số liệu tham khảo trong hồ sơ đề xuất. Nhóm sinh viên dự kiến tự hoàn thiện các món quà lưu niệm thủ công; phương án ẩm thực chỉ triển khai khi có địa điểm và điều kiện an toàn được duyệt."
+    summaryTitle="Tóm tắt kế hoạch"
+    summaryItems={summaryItems}
+  />
 
-  <!-- Header / Hero Section -->
-  <section class="products-hero" aria-labelledby="products-heading">
-    <div class="container">
-      <div class="products-hero-card">
-        <div class="badge-row">
-          <StatusChip kind="ke-hoach" label="Kế hoạch gây quỹ" />
-          <span class="status-summary-pill">7 món &bull; Giá tham khảo &bull; Chưa mở bán</span>
-        </div>
-
-        <h1 id="products-heading" class="products-title">
-          Sản phẩm gây quỹ dự kiến
-        </h1>
-
-        <p class="products-lead">
-          Các sản phẩm thủ công và phương án ẩm thực nằm trong kế hoạch gây quỹ của chiến dịch, nhằm bù đắp chi phí vật tư và tạo nguồn lực trao tặng theo nhu cầu thực tế.
-        </p>
-
-        <!-- Notice Box Quan Trọng -->
-        <div class="product-section-notice">
-          <p>
-            <strong>Lưu ý:</strong> Trạng thái mở bán chưa được xác nhận. Bản xem trước nhằm lấy ý kiến đóng góp cho đề xuất dự án, chưa nhận đơn hàng hoặc tiền ủng hộ.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Section 1: Danh mục sản phẩm -->
+  <!-- Section 1: Danh mục sản phẩm đề xuất -->
   <section class="section section-soft" aria-labelledby="catalog-heading">
     <div class="container">
       <div class="section-header">
-        <span class="section-kicker">Danh mục đề xuất</span>
+        <span class="eyebrow">Danh mục đề xuất</span>
         <h2 id="catalog-heading">Sản phẩm trong kế hoạch đề xuất</h2>
         <p class="section-lead">
           Kế hoạch gây quỹ gồm 2 sản phẩm lưu niệm thủ công và 5 món ẩm thực sinh viên dự kiến nhằm bù đắp chi phí vật tư và tạo nguồn lực trao tặng.
         </p>
       </div>
 
-      <!-- Group 1: Thủ công (2 cột desktop) -->
+      <!-- Notice chưa mở bán 1 lần duy nhất -->
+      <div class="product-section-notice" role="note">
+        <p>
+          <strong>Lưu ý:</strong> Trạng thái mở bán chưa được xác nhận. Bản xem trước nhằm lấy ý kiến đóng góp cho đề xuất dự án, website chưa nhận đơn hàng hoặc tiền ủng hộ.
+        </p>
+      </div>
+
+      <!-- Group 1: Thủ công (Desktop side-layout: ảnh trái chữ phải) -->
       <div class="catalog-group">
         <div class="group-title-row">
           <h3 class="catalog-subheading">1. Sản phẩm lưu niệm thủ công</h3>
@@ -79,13 +86,13 @@ const foodProducts = PRODUCTS.filter((p) => p.category === 'food');
         <div class="products-grid products-grid-craft">
           {
             craftProducts.map((product) => (
-              <ProductCard product={product} ratio="16:9" />
+              <ProductCard product={product} ratio="16:9" layout="side" />
             ))
           }
         </div>
       </div>
 
-      <!-- Group 2: Thực đơn ẩm thực (3 cột desktop) -->
+      <!-- Group 2: Thực đơn ẩm thực (Lưới 3+2 cân đối) -->
       <div class="catalog-group food-catalog-group">
         <div class="food-group-header">
           <div class="group-title-row">
@@ -96,7 +103,7 @@ const foodProducts = PRODUCTS.filter((p) => p.category === 'food');
           </div>
         </div>
         <p class="food-group-desc">
-          Mục tiêu doanh thu ẩm thực là con số giả định trong đề xuất (trang 18), chưa có bảng phân bổ số lượng chi tiết cho từng món và còn khoảng chênh khi đối chiếu với số set đồ ăn giả định (xem <a href="/minh-bach#doi-chieu-do-an" class="food-reconcile-link">bảng đối chiếu chi tiết tại trang Minh bạch</a>). Dưới đây là các mức giá tham khảo theo từng món và combo trong đề xuất dự án (trang 24):
+          Mục tiêu doanh thu ẩm thực là con số giả định trong đề xuất (trang 18), chưa có bảng phân bổ số lượng chi tiết cho từng món và còn khoảng chênh khi đối chiếu với số set đồ ăn giả định (xem <a href="/minh-bach#doi-chieu-do-an" class="food-reconcile-link">bảng đối chiếu chi tiết tại trang Minh bạch</a>). Dưới đây là các mức giá tham khảo theo từng món và combo trong đề xuất dự án:
         </p>
         <div class="products-grid products-grid-food">
           {
@@ -113,7 +120,7 @@ const foodProducts = PRODUCTS.filter((p) => p.category === 'food');
   <section class="section" aria-labelledby="quantity-plan-heading">
     <div class="container">
       <div class="section-header">
-        <span class="section-kicker">Kế hoạch phát hành</span>
+        <span class="eyebrow">Kế hoạch phát hành</span>
         <h2 id="quantity-plan-heading">Bảng tổng hợp kế hoạch số lượng</h2>
         <p class="section-lead">
           Số lượng dự kiến theo kịch bản dự toán đề xuất; tách bạch rõ ràng giữa kế hoạch chuẩn bị và thực tế phát hành.
@@ -243,7 +250,7 @@ const foodProducts = PRODUCTS.filter((p) => p.category === 'food');
   <section class="section section-soft" aria-labelledby="faq-heading">
     <div class="container">
       <div class="section-header">
-        <span class="section-kicker">Giải đáp thắc mắc</span>
+        <span class="eyebrow">Giải đáp thắc mắc</span>
         <h2 id="faq-heading">Hỏi đáp về sản phẩm và gây quỹ</h2>
         <p class="section-lead">
           Những câu hỏi thường gặp về định giá tham khảo, quá trình hoàn thiện và nguyên tắc sử dụng nguồn thu.
@@ -261,17 +268,17 @@ const foodProducts = PRODUCTS.filter((p) => p.category === 'food');
     <div class="container">
       <div class="products-cta-card card">
         <h2 id="products-cta-heading" class="cta-title">
-          Tìm hiểu thêm về chiến dịch
+          Muốn biết tiền bán hàng dùng thế nào?
         </h2>
         <p class="cta-desc">
-          Khám phá nguyên tắc minh bạch tài chính dự toán hoặc tìm hiểu các phương thức đồng hành cùng Mái ấm.
+          Xem chi tiết dự toán 19 khoản chi phí, kịch bản doanh thu và các nguyên tắc quản trị ngân quỹ minh bạch của chiến dịch.
         </p>
         <div class="cta-actions">
-          <a href="/dong-hanh" class="btn btn-primary">
-            Cách đồng hành &rarr;
+          <a href="/minh-bach" class="btn btn-primary">
+            Xem minh bạch thu chi &rarr;
           </a>
-          <a href="/minh-bach" class="btn btn-secondary">
-            Xem dự toán minh bạch
+          <a href="/dong-hanh" class="btn btn-secondary">
+            Tìm hiểu cách đồng hành
           </a>
         </div>
       </div>
@@ -280,109 +287,9 @@ const foodProducts = PRODUCTS.filter((p) => p.category === 'food');
 </Layout>
 
 <style>
-  /* Breadcrumb Bar */
-  .breadcrumb-bar {
-    background-color: var(--color-surface-card);
-    border-bottom: 1px solid var(--color-border);
-    padding: var(--space-3) 0;
-  }
-
-  .breadcrumb-list {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    font-size: 0.9375rem;
-    flex-wrap: wrap;
-  }
-
-  .breadcrumb-link {
-    color: var(--color-text-secondary);
-    text-decoration: none;
-  }
-
-  .breadcrumb-link:hover {
-    color: var(--color-focus);
-    text-decoration: underline;
-  }
-
-  .breadcrumb-separator {
-    color: var(--color-text-muted);
-  }
-
-  .breadcrumb-current {
-    color: var(--color-text-primary);
-    font-weight: 600;
-  }
-
-  /* Hero Section */
-  .products-hero {
-    padding: var(--space-8) 0 var(--space-6);
-  }
-
-  .products-hero-card {
-    background-color: var(--color-surface-card);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    padding: var(--space-8);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-  }
-
-  .badge-row {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    flex-wrap: wrap;
-  }
-
-  .status-summary-pill {
-    font-size: 0.875rem;
-    color: var(--color-text-secondary);
-    background-color: var(--color-canvas-soft);
-    padding: 4px 12px;
-    border-radius: var(--radius-pill);
-    border: 1px solid var(--color-border-subtle);
-    font-weight: 500;
-  }
-
-  .products-title {
-    font-size: var(--font-size-h1);
-    font-weight: 700;
-    color: var(--ink);
-    line-height: var(--line-height-h1);
-    margin: 0;
-  }
-
-  .products-lead {
-    font-size: 1.125rem;
-    color: var(--color-text-secondary);
-    line-height: 1.6;
-    margin: 0;
-    max-width: 800px;
-  }
-
-  .product-section-notice {
-    background-color: #fffdf5;
-    border: 1px solid #fef3c7;
-    border-left: 4px solid var(--color-accent);
-    border-radius: var(--radius-sm);
-    padding: var(--space-3) var(--space-4);
-  }
-
-  .product-section-notice p {
-    margin: 0;
-    font-size: 0.9375rem;
-    color: var(--color-text-secondary);
-    line-height: 1.5;
-  }
-
   /* Catalog Groups */
   .catalog-group {
-    margin-bottom: var(--space-8);
+    margin-bottom: var(--space-12);
   }
 
   .catalog-group:last-child {
@@ -391,158 +298,82 @@ const foodProducts = PRODUCTS.filter((p) => p.category === 'food');
 
   .group-title-row {
     display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    flex-wrap: wrap;
-    gap: var(--space-2);
+    align-items: center;
+    gap: var(--space-4);
     margin-bottom: var(--space-4);
+    flex-wrap: wrap;
   }
 
   .catalog-subheading {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--color-text-primary);
+    font-size: var(--font-size-h2);
+    line-height: var(--line-height-h2);
+    color: var(--ink);
     margin: 0;
   }
 
-  .group-badge {
-    font-size: 0.875rem;
-    color: var(--color-text-muted);
-    font-weight: 500;
+  .group-badge,
+  .food-condition-badge {
+    font-size: var(--font-size-small);
+    font-weight: 600;
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-pill);
+    background-color: var(--surface-alt);
+    border: 1px solid var(--line);
+    color: var(--ink-2);
   }
 
-  .food-condition-badge {
-    font-size: 0.875rem;
-    color: #c2410c;
-    background-color: #fff7ed;
-    border: 1px solid #fed7aa;
-    padding: 3px 10px;
-    border-radius: var(--radius-pill);
-    font-weight: 500;
+  .food-catalog-group {
+    border-top: 1px solid var(--line);
+    padding-top: var(--space-8);
   }
 
   .food-group-desc {
-    font-size: 0.9375rem;
-    color: var(--color-text-secondary);
-    line-height: 1.6;
-    margin: 0 0 var(--space-4);
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+    color: var(--ink-2);
+    margin-bottom: var(--space-6);
+    max-width: 900px;
   }
 
   .food-reconcile-link {
-    color: var(--color-focus);
-    font-weight: 600;
+    color: var(--brand);
     text-decoration: underline;
+    font-weight: 600;
   }
 
   .food-reconcile-link:hover {
-    color: var(--color-text-primary);
+    color: var(--ink);
   }
 
-  /* Products Grids */
-  .products-grid {
-    display: grid;
-    gap: var(--space-5);
-  }
-
-  /* Craft Grid: 2 columns desktop */
+  /* Craft Grid: 2 cột desktop (với side-layout ảnh trái chữ phải) */
   .products-grid-craft {
+    display: grid;
     grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
   }
 
-  /* Food Grid: 3 columns desktop, 2 columns tablet */
+  /* Food Grid: Lưới 3+2 cân đối trên desktop (6 tracks) */
   .products-grid-food {
-    grid-template-columns: repeat(3, 1fr);
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: var(--space-6);
   }
 
-  /* Table Container */
-  .table-container {
-    background-color: var(--color-surface-card);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    overflow: hidden;
+  .products-grid-food > :nth-child(1),
+  .products-grid-food > :nth-child(2),
+  .products-grid-food > :nth-child(3) {
+    grid-column: span 2;
   }
 
-  .table-responsive {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+  .products-grid-food > :nth-child(4) {
+    grid-column: 2 / span 2;
   }
 
-  .plan-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.9375rem;
-    text-align: left;
+  .products-grid-food > :nth-child(5) {
+    grid-column: 4 / span 2;
   }
 
-  .plan-table th,
-  .plan-table td {
-    padding: var(--space-4);
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .plan-table th {
-    background-color: var(--color-canvas-soft);
-    font-weight: 700;
-    color: var(--color-text-primary);
-  }
-
-  .col-name {
-    min-width: 160px;
-  }
-
-  .col-subnote {
-    display: block;
-    font-size: 0.875rem;
-    color: var(--color-text-muted);
-    font-weight: normal;
-    margin-top: 2px;
-  }
-
-  .col-price {
-    white-space: nowrap;
-    color: var(--color-text-accent);
-    font-weight: 600;
-  }
-
-  .col-qty {
-    white-space: nowrap;
-  }
-
-  .col-notes {
-    font-size: 0.875rem;
-    color: var(--color-text-secondary);
-    line-height: 1.5;
-  }
-
-  .col-status {
-    white-space: nowrap;
-  }
-
-  .plan-status-badge {
-    display: inline-block;
-    padding: 3px 8px;
-    border-radius: var(--radius-pill);
-    font-size: 0.875rem;
-    font-weight: 600;
-    background-color: #fff7ed;
-    color: #c2410c;
-    border: 1px solid #fed7aa;
-  }
-
-  .table-disclaimer {
-    padding: var(--space-3) var(--space-4);
-    background-color: var(--color-canvas-soft);
-    border-top: 1px solid var(--color-border-subtle);
-  }
-
-  .table-disclaimer p {
-    margin: 0;
-    font-size: 0.875rem;
-    color: var(--color-text-muted);
-    line-height: 1.5;
-  }
-
-  /* Responsive Display Rules for Table (< 1024px collapsible) */
+  /* Tables: Desktop Table view (>= 1024px) */
   .table-desktop {
     display: block;
   }
@@ -551,162 +382,179 @@ const foodProducts = PRODUCTS.filter((p) => p.category === 'food');
     display: none;
   }
 
+  .table-container {
+    padding: var(--space-6);
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .table-responsive:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  .plan-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+  }
+
+  .plan-table th,
+  .plan-table td {
+    padding: var(--space-3) var(--space-4);
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+
+  .plan-table th {
+    background-color: var(--surface-alt);
+    font-weight: 600;
+    color: var(--ink);
+    font-size: var(--font-size-small);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .col-price {
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+
+  .col-qty {
+    white-space: nowrap;
+  }
+
+  .col-notes {
+    color: var(--ink-2);
+    font-size: var(--font-size-small);
+    line-height: 1.5;
+  }
+
+  .col-subnote {
+    display: block;
+    font-size: var(--font-size-small);
+    color: var(--ink-2);
+    margin-top: 2px;
+  }
+
+  .plan-status-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    background-color: var(--status-pending-bg);
+    color: var(--status-pending-text);
+    border-radius: var(--radius-pill);
+    font-size: var(--font-size-small);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .table-disclaimer {
+    margin-top: var(--space-4);
+    padding-top: var(--space-3);
+    border-top: 1px dashed var(--line);
+  }
+
+  .table-disclaimer p {
+    font-size: var(--font-size-small);
+    color: var(--ink-2);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* Mobile Details Table */
   .plan-mobile-details {
-    background-color: var(--color-surface-card);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
+    padding: 0;
     overflow: hidden;
   }
 
   .plan-mobile-summary {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: var(--space-3);
-    padding: var(--space-4);
+    padding: var(--space-4) var(--space-5);
     cursor: pointer;
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--color-text-primary);
-    list-style: none;
-    user-select: none;
-    background-color: var(--color-canvas-soft);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    background-color: var(--surface-alt);
+    font-weight: 600;
+    color: var(--ink);
   }
 
-  .plan-mobile-summary::-webkit-details-marker {
-    display: none;
-  }
-
-  .plan-mobile-summary:focus,
   .plan-mobile-summary:focus-visible {
-    outline: 3px solid var(--color-focus);
+    outline: 3px solid var(--focus);
     outline-offset: -2px;
   }
 
   .summary-text {
-    flex: 1;
-    text-align: left;
+    font-size: var(--font-size-body);
   }
 
   .summary-badge {
-    font-size: 0.875rem;
-    color: var(--color-text-accent);
-    font-weight: 600;
+    font-size: var(--font-size-small);
+    color: var(--ink-2);
+    margin-left: auto;
   }
 
   .summary-icon {
-    font-size: 1.125rem;
-    color: var(--color-text-muted);
     transition: transform var(--transition-fast);
   }
 
-  .plan-mobile-details[open] .summary-icon {
+  details[open] .summary-icon {
     transform: rotate(180deg);
   }
 
   .plan-mobile-content {
-    border-top: 1px solid var(--color-border);
+    padding: var(--space-4);
   }
 
   .table-scroll-hint {
-    padding: var(--space-2) var(--space-4);
-    font-size: 0.875rem;
-    color: var(--color-text-muted);
-    background-color: var(--color-canvas-soft);
-    border-bottom: 1px solid var(--color-border-subtle);
-    margin: 0;
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-  }
-
-  .table-responsive:focus,
-  .table-responsive:focus-visible {
-    outline: 3px solid var(--color-focus);
-    outline-offset: -2px;
+    font-size: var(--font-size-small);
+    color: var(--ink-2);
+    margin-bottom: var(--space-2);
+    font-style: italic;
   }
 
   .mobile-expanded-table {
-    min-width: 960px;
-    width: 960px;
-    table-layout: fixed;
+    min-width: 900px;
   }
 
-  .mobile-expanded-table th,
-  .mobile-expanded-table td {
-    padding: var(--space-3) var(--space-3);
-    font-size: 0.875rem;
-    vertical-align: top;
-  }
-
-  .mobile-expanded-table .col-name {
-    width: 220px;
-    min-width: 200px;
-  }
-
-  .mobile-expanded-table .col-price {
-    width: 130px;
-    min-width: 120px;
-    white-space: nowrap;
-  }
-
-  .mobile-expanded-table .col-qty {
-    width: 120px;
-    min-width: 110px;
-    white-space: nowrap;
-  }
-
-  .mobile-expanded-table .col-notes {
-    width: 330px;
-    min-width: 280px;
-    line-height: 1.55;
-    word-break: normal;
-    overflow-wrap: break-word;
-  }
-
-  .mobile-expanded-table .col-status {
-    width: 160px;
-    min-width: 140px;
-    white-space: nowrap;
-  }
-
-  /* FAQ Wrap */
+  /* FAQ & CTA */
   .faq-wrap {
-    max-width: 860px;
-    margin: 0 auto;
+    max-width: 800px;
   }
 
-  /* CTA Section */
   .products-cta-card {
-    background-color: var(--color-surface-card);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    padding: var(--space-8);
     text-align: center;
+    padding: var(--space-8);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--space-3);
+    gap: var(--space-4);
+    background-color: var(--surface-alt);
   }
 
   .cta-title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--color-text-primary);
+    font-size: var(--font-size-h2);
+    line-height: var(--line-height-h2);
+    color: var(--ink);
     margin: 0;
   }
 
   .cta-desc {
-    font-size: 1rem;
-    color: var(--color-text-secondary);
+    font-size: 1.0625rem;
+    color: var(--ink-2);
     max-width: 600px;
     margin: 0;
   }
 
   .cta-actions {
     display: flex;
-    gap: var(--space-3);
-    margin-top: var(--space-2);
+    gap: var(--space-4);
     flex-wrap: wrap;
     justify-content: center;
   }
@@ -714,53 +562,54 @@ const foodProducts = PRODUCTS.filter((p) => p.category === 'food');
   /* Responsive Breakpoints */
   @media (max-width: 1023px) {
     .table-desktop {
-      display: none !important;
+      display: none;
     }
 
     .table-mobile-collapse-wrap {
-      display: block !important;
+      display: block;
+    }
+
+    .products-grid-craft {
+      grid-template-columns: 1fr;
     }
 
     .products-grid-food {
       grid-template-columns: repeat(2, 1fr);
     }
+
+    .products-grid-food > :nth-child(1),
+    .products-grid-food > :nth-child(2),
+    .products-grid-food > :nth-child(3),
+    .products-grid-food > :nth-child(4) {
+      grid-column: span 1;
+    }
+
+    .products-grid-food > :nth-child(5) {
+      grid-column: span 2;
+      max-width: 480px;
+      margin: 0 auto;
+      width: 100%;
+    }
   }
 
   @media (max-width: 767px) {
-    .products-hero {
-      padding: var(--space-4) 0;
-    }
-
-    .products-hero-card {
-      padding: var(--space-4);
-      gap: var(--space-3);
-    }
-
-    .products-grid-craft,
     .products-grid-food {
       grid-template-columns: 1fr;
-      gap: var(--space-3);
     }
 
-    .products-cta-card {
-      padding: var(--space-5) var(--space-4);
-      text-align: left;
-      align-items: flex-start;
-    }
-
-    .products-lead,
-    .cta-desc {
-      text-align: left;
+    .products-grid-food > * {
+      grid-column: span 1 !important;
+      max-width: none !important;
+      margin: 0 !important;
     }
 
     .cta-actions {
-      width: 100%;
       flex-direction: column;
+      width: 100%;
     }
 
     .cta-actions .btn {
       width: 100%;
-      text-align: center;
     }
   }
 </style>

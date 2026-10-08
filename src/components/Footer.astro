@@ -12,6 +12,7 @@ const navLinks = [
 <footer class="site-footer">
   <div class="container footer-inner">
     <div class="footer-top">
+      <!-- Vùng 1: Thông tin nhóm & logo gốc -->
       <div class="footer-brand">
         <div class="footer-brand-header">
           <img
@@ -31,6 +32,7 @@ const navLinks = [
         </p>
       </div>
 
+      <!-- Vùng 2: Điều hướng trang -->
       <nav class="footer-nav" aria-label="Liên kết chân trang">
         <h3 class="footer-nav-title">Danh mục trang</h3>
         <ul class="footer-links">
@@ -46,40 +48,46 @@ const navLinks = [
         </ul>
       </nav>
 
+      <!-- Vùng 3: Trạng thái & giới hạn website -->
       <div class="footer-notes">
-        <h3 class="footer-nav-title">Lưu ý bản xem trước</h3>
-        <p class="footer-preview-text">
-          Bản xem trước phục vụ lấy ý kiến đóng góp cho đề xuất dự án. Kế hoạch, hình ảnh minh họa và kênh liên hệ chính thức đang chờ xác nhận; website chưa nhận giao dịch, đơn hàng hay tiền đóng góp.
-        </p>
+        <h3 class="footer-nav-title">Trạng thái website</h3>
+        <ul class="footer-status-list">
+          <li class="status-item">
+            <span class="status-bullet" aria-hidden="true">•</span>
+            <span>Bản xem trước</span>
+          </li>
+          <li class="status-item">
+            <span class="status-bullet" aria-hidden="true">•</span>
+            <span>Chưa nhận đơn hàng, tiền hay hiện vật qua website</span>
+          </li>
+          <li class="status-item">
+            <span class="status-bullet" aria-hidden="true">•</span>
+            <span>Kênh liên hệ: chờ xác nhận</span>
+          </li>
+        </ul>
       </div>
-    </div>
-
-    <div class="footer-bottom">
-      <p class="footer-status">
-        Mang Theo Một Nét Vẽ — Nhóm Lăng Kính (lớp AI2015, học phần SSG105, Đại học FPT Hà Nội).
-      </p>
     </div>
   </div>
 </footer>
 
 <style>
   .site-footer {
-    background-color: var(--color-canvas-soft);
-    border-top: 1px solid var(--color-border);
+    background-color: var(--surface-alt);
+    border-top: 1px solid var(--line);
     margin-top: auto;
-    padding-top: var(--space-14);
+    padding-top: var(--space-12);
     padding-bottom: var(--space-8);
   }
 
   .footer-inner {
     display: flex;
     flex-direction: column;
-    gap: var(--space-10);
+    gap: var(--space-8);
   }
 
   .footer-top {
     display: grid;
-    grid-template-columns: 1.5fr 1fr 1.5fr;
+    grid-template-columns: 1.4fr 1fr 1.6fr;
     gap: var(--space-8);
   }
 
@@ -101,27 +109,30 @@ const navLinks = [
   .footer-title {
     font-size: 1.25rem;
     font-weight: 700;
-    color: var(--color-text-primary);
+    color: var(--ink);
     margin: 0;
     line-height: 1.2;
   }
 
   .footer-desc {
     font-size: 0.9375rem;
+    line-height: 1.5;
+    color: var(--ink-2);
     margin-bottom: var(--space-3);
     max-width: 340px;
   }
 
   .footer-campaign {
     font-size: 0.9375rem;
-    color: var(--color-text-primary);
+    color: var(--ink);
+    margin: 0;
   }
 
   .footer-nav-title {
     font-size: 1rem;
     font-weight: 700;
-    margin-bottom: var(--space-4);
-    color: var(--color-text-primary);
+    margin-bottom: var(--space-3);
+    color: var(--ink);
   }
 
   .footer-links {
@@ -140,31 +151,43 @@ const navLinks = [
     padding: var(--space-1) 0;
     text-decoration: none;
     font-size: 0.9375rem;
-    color: var(--color-text-secondary);
+    color: var(--ink-2);
     transition: color var(--transition-fast);
   }
 
   .footer-link:hover {
-    color: var(--color-text-primary);
+    color: var(--ink);
     text-decoration: underline;
   }
 
-  .footer-preview-text {
-    font-size: var(--font-size-sm);
-    line-height: 1.6;
-    color: var(--color-text-secondary);
+  .footer-status-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
   }
 
-  .footer-bottom {
-    padding-top: var(--space-6);
-    border-top: 1px solid var(--color-border);
-    text-align: center;
+  .status-item {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--ink-2);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2);
   }
 
-  .footer-status {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-muted);
+  .status-item strong {
+    color: var(--ink);
   }
+
+  .status-bullet {
+    color: var(--brand);
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
 
   @media (max-width: 1023px) {
     .footer-top {
@@ -184,6 +207,11 @@ const navLinks = [
 
     .footer-notes {
       grid-column: span 1;
+    }
+
+    .site-footer {
+      padding-top: var(--space-8);
+      padding-bottom: var(--space-6);
     }
   }
 </style>

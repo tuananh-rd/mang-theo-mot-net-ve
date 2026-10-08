@@ -52,7 +52,7 @@ const items = propItems || propFaqs || [];
   }
 
   .faq-item {
-    border: 1px solid var(--color-border);
+    border: 1px solid var(--line);
     border-radius: var(--radius-md);
     background-color: var(--color-surface-card);
     transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
@@ -60,12 +60,14 @@ const items = propItems || propFaqs || [];
   }
 
   .faq-item:hover {
-    border-color: #9aa5b1;
+    border-color: var(--line-strong);
   }
 
+  /* Mở: border-left 4px màu brand để phân biệt rõ với focus blue */
   .faq-item[open] {
-    border-color: var(--color-focus);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    border-color: var(--line-strong);
+    border-left: 4px solid var(--brand);
+    box-shadow: var(--shadow-subtle);
   }
 
   .faq-question {
@@ -75,9 +77,9 @@ const items = propItems || propFaqs || [];
     gap: var(--space-3);
     padding: var(--space-4);
     cursor: pointer;
-    font-size: 1rem;
+    font-size: var(--font-size-body);
     font-weight: 600;
-    color: var(--color-text-primary);
+    color: var(--ink);
     list-style: none;
     user-select: none;
   }
@@ -86,17 +88,18 @@ const items = propItems || propFaqs || [];
     display: none;
   }
 
+  /* Focus: outline xanh 3px chuẩn tiếp cận */
   .faq-question:focus,
   .faq-question:focus-visible {
-    outline: 3px solid var(--color-focus);
+    outline: 3px solid var(--focus);
     outline-offset: -2px;
-    background-color: var(--color-canvas-soft);
+    background-color: var(--surface-alt);
   }
 
   .faq-q-text {
     flex: 1;
     text-align: left;
-    line-height: 1.4;
+    line-height: 1.45;
   }
 
   .faq-icon {
@@ -106,8 +109,8 @@ const items = propItems || propFaqs || [];
     width: 28px;
     height: 28px;
     border-radius: var(--radius-pill);
-    background-color: var(--color-canvas-soft);
-    color: var(--color-text-secondary);
+    background-color: var(--surface-alt);
+    color: var(--ink-2);
     flex-shrink: 0;
     transition: transform var(--transition-fast), background-color var(--transition-fast), color var(--transition-fast);
   }
@@ -123,21 +126,22 @@ const items = propItems || propFaqs || [];
 
   .faq-item[open] .faq-icon,
   details[open] .faq-icon {
-    background-color: var(--color-focus) !important;
+    background-color: var(--focus) !important;
     color: #ffffff !important;
   }
 
   .faq-answer {
     padding: 0 var(--space-4) var(--space-4);
-    border-top: 1px solid var(--color-border-subtle);
+    border-top: 1px solid var(--line);
     padding-top: var(--space-3);
   }
 
+  /* Câu trả lời chuẩn 16px body trên toàn bộ màn hình */
   .faq-answer p {
     margin: 0;
-    font-size: 0.9375rem;
-    line-height: 1.6;
-    color: var(--color-text-secondary);
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+    color: var(--ink-2);
     text-align: left;
   }
 
@@ -147,18 +151,17 @@ const items = propItems || propFaqs || [];
     }
 
     .faq-question {
-      padding: var(--space-3);
-      font-size: 0.9375rem;
+      padding: var(--space-3) var(--space-4);
     }
 
     .faq-answer {
-      padding: 0 var(--space-3) var(--space-3);
-      padding-top: var(--space-2);
+      padding: 0 var(--space-4) var(--space-4);
+      padding-top: var(--space-3);
     }
 
     .faq-answer p {
-      font-size: 0.875rem;
-      line-height: 1.5;
+      font-size: var(--font-size-body);
+      line-height: var(--line-height-body);
     }
   }
 </style>

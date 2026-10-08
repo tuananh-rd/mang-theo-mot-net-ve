@@ -1,11 +1,49 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import PageHero from '../../components/PageHero.astro';
 import ActivityCard from '../../components/ActivityCard.astro';
 import StageCard from '../../components/StageCard.astro';
 import StatusChip from '../../components/StatusChip.astro';
 import { CAMPAIGN_PROJECT } from '../../data/campaign';
 
 const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi'] as const;
+
+const breadcrumbs = [
+  { label: 'Trang chủ', href: '/' },
+  { label: 'Dự án' },
+];
+
+const summaryItems = [
+  {
+    label: 'Địa điểm dự kiến',
+    value: CAMPAIGN_PROJECT.location,
+  },
+  {
+    label: 'Người tham gia',
+    value: 'Do Mái ấm quyết định theo điều kiện thực tế của cơ sở',
+  },
+  {
+    label: 'Quy mô hoạt động',
+    value: '2 buổi dự kiến với 4 góc chơi có lựa chọn (chưa chốt ngày)',
+  },
+  {
+    label: 'Tình trạng đề xuất',
+    value: 'Kế hoạch học phần — chờ thống nhất chính thức',
+    chip: {
+      kind: 'cho-xac-nhan' as const,
+      label: 'Chờ xác nhận',
+    },
+  },
+];
+
+const anchorNavItems = [
+  { href: '#muc-tieu', label: '1. Mục tiêu & An toàn' },
+  { href: '#cau-chuyen', label: '2. Câu chuyện đề xuất' },
+  { href: '#buoi-choi', label: '3. Bốn góc chơi' },
+  { href: '#giai-doan', label: '4. Lộ trình triển khai' },
+  { href: '#cap-nhat', label: '5. Cập nhật kết quả' },
+  { href: '#nguon-luc', label: '6. Nguồn lực & Tài chính' },
+];
 ---
 
 <Layout
@@ -13,86 +51,44 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
   description="Câu chuyện đề xuất, các góc hoạt động vui chơi có lựa chọn và 4 giai đoạn dự kiến tại Mái ấm Thánh Tâm Xuy Xá."
   currentPath="/du-an/mang-theo-mot-net-ve"
 >
-  <!-- Breadcrumb -->
-  <div class="breadcrumb-bar">
+  <!-- Shared PageHero (7 cột trái / 5 cột phải panel Tóm tắt kế hoạch) -->
+  <PageHero
+    breadcrumbs={breadcrumbs}
+    eyebrow="Đề xuất hoạt động"
+    chip={{
+      kind: 'cho-xac-nhan',
+      label: 'Đề xuất — chưa có xác nhận chính thức',
+    }}
+    title="Dự án Mang Theo Một Nét Vẽ"
+    titleId="project-heading"
+    lead={CAMPAIGN_PROJECT.slogan}
+    description="Dự án học phần SSG105 của nhóm Lăng Kính (Đại học FPT Hà Nội), đề xuất kết nối một buổi vui chơi an toàn, có lựa chọn với việc hỗ trợ hiện vật theo nhu cầu thực tế của Mái ấm."
+    summaryTitle="Tóm tắt kế hoạch"
+    summaryItems={summaryItems}
+  />
+
+  <!-- Mục lục neo (5 mục link nhãn rõ ràng, cuộn ngang mobile) -->
+  <nav class="project-anchor-nav" aria-label="Mục lục các phần dự án">
     <div class="container">
-      <nav class="breadcrumb" aria-label="Đường dẫn trang">
-        <ol class="breadcrumb-list">
-          <li class="breadcrumb-item">
-            <a href="/" class="breadcrumb-link">Trang chủ</a>
-          </li>
-          <li class="breadcrumb-separator" aria-hidden="true">&rsaquo;</li>
-          <li class="breadcrumb-item">
-            <span class="breadcrumb-current" aria-current="page">Dự án</span>
-          </li>
-        </ol>
-      </nav>
+      <ul class="anchor-nav-list">
+        {
+          anchorNavItems.map((item) => (
+            <li>
+              <a href={item.href} class="anchor-nav-link">
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
     </div>
-  </div>
+  </nav>
 
-  <!-- Hero Section (Dạng biên tập, thay ảnh trùng bằng tóm tắt 4 thông tin cốt lõi) -->
-  <section class="project-hero" aria-labelledby="project-heading">
-    <div class="container">
-      <div class="project-hero-grid">
-        <div class="project-hero-content">
-          <div class="badge-row">
-            <StatusChip kind="cho-xac-nhan" label="Đề xuất — chưa có xác nhận chính thức" />
-          </div>
-
-          <h1 id="project-heading" class="project-title">
-            Dự án Mang Theo Một Nét Vẽ
-          </h1>
-
-          <p class="project-slogan">
-            {CAMPAIGN_PROJECT.slogan}
-          </p>
-
-          <p class="project-intro">
-            Dự án học phần SSG105 của nhóm Lăng Kính (Đại học FPT Hà Nội), đề xuất kết nối một buổi vui chơi an toàn, có lựa chọn với việc hỗ trợ hiện vật theo nhu cầu thực tế của Mái ấm.
-          </p>
-
-          <div class="project-hero-actions">
-            <a href="#muc-tieu" class="btn btn-primary">
-              Mục tiêu &amp; An toàn
-            </a>
-            <a href="#buoi-choi" class="btn btn-secondary">
-              Xem 4 góc hoạt động
-            </a>
-          </div>
-        </div>
-
-        <div class="project-hero-editorial">
-          <div class="project-core-summary card">
-            <p class="core-summary-title">4 thông tin cốt lõi đề xuất</p>
-            <ul class="core-summary-list">
-              <li>
-                <strong>Nơi dự kiến:</strong>
-                <span>{CAMPAIGN_PROJECT.location}</span>
-              </li>
-              <li>
-                <strong>Người tham gia:</strong>
-                <span>Do Mái ấm xác nhận theo điều kiện thực tế của cơ sở</span>
-              </li>
-              <li>
-                <strong>Kế hoạch:</strong>
-                <span>2 buổi tại Mái ấm với 4 góc chơi có lựa chọn</span>
-              </li>
-              <li>
-                <strong>Trạng thái:</strong>
-                <StatusChip kind="cho-xac-nhan" label="Đề xuất — chưa xác nhận" />
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Section 1: Mục tiêu và nguyên tắc an toàn (N1, N2, N3) -->
+  <!-- Section 1: Mục tiêu và nguyên tắc an toàn (2 cột list) -->
   <section id="muc-tieu" class="section section-soft" aria-labelledby="objectives-heading">
     <div class="container">
       <div class="section-header">
-        <span class="section-kicker">Định hướng cốt lõi</span>
+        <span class="eyebrow">Định hướng cốt lõi</span>
         <h2 id="objectives-heading">Mục tiêu &amp; Nguyên tắc an toàn</h2>
         <p class="section-lead">
           Các nguyên tắc đề xuất nhằm bảo đảm buổi chơi an toàn, vừa sức và tôn trọng trọn vẹn quyền lựa chọn của từng người tham gia.
@@ -100,9 +96,10 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
       </div>
 
       <div class="objectives-grid">
-        <div class="objective-card card">
+        <div class="objective-card">
           <div class="badge-row">
-            <span class="status-badge">Mục tiêu đề xuất</span>
+            <span class="eyebrow">Mục tiêu đề xuất</span>
+            <StatusChip kind="ke-hoach" label="Kế hoạch" />
           </div>
           <h3 class="objective-title">Buổi chơi theo lựa chọn</h3>
           <p class="objective-text">
@@ -110,9 +107,10 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
           </p>
         </div>
 
-        <div class="objective-card card">
+        <div class="objective-card">
           <div class="badge-row">
-            <span class="status-badge">An toàn &amp; Phối hợp</span>
+            <span class="eyebrow">An toàn &amp; Phối hợp</span>
+            <StatusChip kind="cho-xac-nhan" label="Chờ thống nhất" />
           </div>
           <h3 class="objective-title">An toàn, phối hợp &amp; Quyền cơ sở</h3>
           <p class="objective-text">
@@ -123,12 +121,12 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
     </div>
   </section>
 
-  <!-- Section 2: Câu chuyện từ đề xuất (Rút 1 đoạn) -->
-  <section class="section section-story" aria-labelledby="story-heading">
+  <!-- Section 2: Câu chuyện từ đề xuất (Cột 720px) -->
+  <section id="cau-chuyen" class="section section-story" aria-labelledby="story-heading">
     <div class="container">
       <div class="story-wrapper">
         <div class="section-header">
-          <span class="section-kicker">Bối cảnh hình thành</span>
+          <span class="eyebrow">Bối cảnh hình thành</span>
           <h2 id="story-heading">Câu chuyện từ đề xuất</h2>
         </div>
 
@@ -141,11 +139,11 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
     </div>
   </section>
 
-  <!-- Section 3: Buổi chơi có lựa chọn (4 góc chơi) -->
+  <!-- Section 3: Buổi chơi có nhiều lựa chọn (4 góc chơi) -->
   <section id="buoi-choi" class="section section-soft" aria-labelledby="activities-heading">
     <div class="container">
       <div class="section-header">
-        <span class="section-kicker">Không gian trải nghiệm</span>
+        <span class="eyebrow">Không gian trải nghiệm</span>
         <h2 id="activities-heading">Buổi chơi có nhiều lựa chọn</h2>
         <p class="section-lead">
           Không gian hoạt động tôn trọng quyền tham gia, quan sát hoặc nghỉ ngơi của từng người; không đặt chỉ tiêu sản xuất hay áp lực biểu diễn.
@@ -165,17 +163,17 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
 
       <div class="section-footer-note">
         <p>
-          * Ghi chú: Ảnh minh họa đạo cụ, không phải ảnh hoạt động của dự án. Mẫu chuồn chuồn, tượng và nhạc cụ thực tế chờ xác nhận; ảnh bóng không thể hiện bộ bowling. Hoạt động tô tượng là trải nghiệm vui chơi tại chỗ cho các em, không phải hàng hoá mang đi bán gây quỹ.
+          * Ghi chú bản xem trước: Biểu tượng minh họa hoạt động dự kiến. Mẫu chuồn chuồn, tượng và nhạc cụ thực tế chờ xác nhận; tô tượng là trải nghiệm tại chỗ cho các em, không phải hàng hoá mang đi bán gây quỹ.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- Section 4: Hành trình dự kiến -->
-  <section class="section section-stages" aria-labelledby="stages-heading">
+  <!-- Section 4: Hành trình dự kiến (4 giai đoạn) -->
+  <section id="giai-doan" class="section section-stages" aria-labelledby="stages-heading">
     <div class="container">
       <div class="section-header">
-        <span class="section-kicker">Lộ trình 4 giai đoạn</span>
+        <span class="eyebrow">Lộ trình 4 giai đoạn</span>
         <h2 id="stages-heading">Hành trình dự kiến của dự án</h2>
         <p class="section-lead">
           Đề xuất dự kiến 4 tuần, với 2 buổi tại Mái ấm; lịch cụ thể chờ xác nhận.
@@ -198,17 +196,17 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
     </div>
   </section>
 
-  <!-- Section 5: Cập nhật và kết quả (Compact updates) -->
-  <section class="section section-updates" aria-labelledby="updates-heading">
+  <!-- Section 5: Cập nhật rỗng planned -->
+  <section id="cap-nhat" class="section section-updates" aria-labelledby="updates-heading">
     <div class="container">
       <div class="section-header">
-        <span class="section-kicker">Báo cáo thực tế</span>
+        <span class="eyebrow">Báo cáo thực tế</span>
         <h2 id="updates-heading">Cập nhật và kết quả</h2>
       </div>
 
-      <div class="empty-state-card card">
+      <div class="empty-state-card">
         <div class="empty-badge">
-          <span class="status-badge">Chưa xác nhận</span>
+          <StatusChip kind="cho-xac-nhan" label="Chưa có dữ liệu" />
         </div>
         <h3 class="empty-title">
           Chưa có cập nhật thực tế được xác nhận. Kết quả và báo cáo sẽ được công bố sau khi đối soát và được phép.
@@ -220,11 +218,11 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
     </div>
   </section>
 
-  <!-- Section 6: Nguồn lực và minh bạch (2 dòng + link Minh bạch) -->
-  <section class="section section-soft" aria-labelledby="resources-heading">
+  <!-- Section 6: Nguồn lực & Tài chính -->
+  <section id="nguon-luc" class="section section-soft" aria-labelledby="resources-heading">
     <div class="container">
       <div class="section-header">
-        <span class="section-kicker">Quản lý nguồn quỹ</span>
+        <span class="eyebrow">Quản lý nguồn quỹ</span>
         <h2 id="resources-heading">Nguồn lực và nguyên tắc minh bạch</h2>
       </div>
 
@@ -237,6 +235,9 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
             <a href="/minh-bach" class="btn btn-secondary">
               Xem minh bạch thu chi &rarr;
             </a>
+            <a href="/san-pham" class="btn btn-primary">
+              Xem sản phẩm gây quỹ dự kiến
+            </a>
           </div>
         </div>
       </div>
@@ -245,157 +246,48 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
 </Layout>
 
 <style>
-  /* Breadcrumb */
-  .breadcrumb-bar {
-    background-color: var(--color-canvas-soft);
-    border-bottom: 1px solid var(--color-border-subtle);
-    padding: var(--space-2) 0;
+  /* Mục lục neo (Anchor Navigation Bar) */
+  .project-anchor-nav {
+    background-color: var(--surface-alt);
+    border-bottom: 1px solid var(--line);
+    padding: var(--space-3) 0;
+    position: sticky;
+    top: 0;
+    z-index: 10;
   }
 
-  .breadcrumb-list {
+  .anchor-nav-list {
     display: flex;
     align-items: center;
-    gap: var(--space-2);
+    gap: var(--space-3);
     list-style: none;
     margin: 0;
     padding: 0;
-    font-size: var(--font-size-sm);
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
   }
 
-  .breadcrumb-link {
-    color: var(--color-text-secondary);
-    text-decoration: none;
-    min-height: 44px;
+  .anchor-nav-link {
     display: inline-flex;
     align-items: center;
-  }
-
-  .breadcrumb-link:hover {
-    color: var(--color-text-primary);
-    text-decoration: underline;
-  }
-
-  .breadcrumb-separator {
-    color: var(--color-text-muted);
-  }
-
-  .breadcrumb-current {
-    color: var(--color-text-primary);
+    min-height: 40px;
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-pill);
+    font-size: var(--font-size-small);
     font-weight: 600;
-  }
-
-  /* Hero */
-  .project-hero {
-    padding-top: var(--space-10);
-    padding-bottom: var(--space-8);
-    background-color: var(--color-canvas);
-  }
-
-  .project-hero-grid {
-    display: grid;
-    grid-template-columns: 5fr 6fr;
-    gap: var(--space-12);
-    align-items: center;
-  }
-
-  .project-hero-content {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-  }
-
-  .badge-row {
-    margin-bottom: var(--space-1);
-  }
-
-  .project-title {
-    font-size: var(--font-size-h1);
-    line-height: var(--line-height-h1);
-    color: var(--color-text-primary);
-    text-wrap: balance;
-  }
-
-  .project-slogan {
-    font-size: 1.375rem;
-    font-weight: 600;
-    line-height: 1.4;
-    color: var(--color-text-accent);
-    text-wrap: balance;
-  }
-
-  .project-intro {
-    font-size: var(--font-size-body);
-    line-height: var(--line-height-body);
-    color: var(--color-text-secondary);
-  }
-
-  .project-hero-actions {
-    display: flex;
-    gap: var(--space-4);
-    margin-top: var(--space-2);
-    flex-wrap: wrap;
-  }
-
-  /* Editorial Hero Summary Card */
-  .project-hero-editorial {
-    width: 100%;
-  }
-
-  .project-core-summary {
-    background-color: var(--color-surface-card);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    padding: var(--space-6);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-  }
-
-  .core-summary-title {
-    font-size: 1.125rem;
-    font-weight: 700;
     color: var(--ink);
-    margin: 0;
-    padding-bottom: var(--space-2);
-    border-bottom: 2px solid var(--brand);
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: background-color var(--transition-fast), border-color var(--transition-fast);
   }
 
-  .core-summary-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
+  .anchor-nav-link:hover {
+    background-color: var(--color-canvas);
+    border-color: var(--line);
   }
 
-  .core-summary-list li {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    font-size: 0.9375rem;
-    border-bottom: 1px dashed var(--color-border-subtle);
-    padding-bottom: var(--space-2);
-  }
-
-  .core-summary-list li:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
-  }
-
-  .core-summary-list strong {
-    font-size: 0.875rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--color-text-secondary);
-  }
-
-  .core-summary-list span {
-    color: var(--color-text-primary);
-    line-height: 1.45;
-  }
-
-  /* Objectives Grid */
+  /* Objectives Grid (2 Cột List) */
   .objectives-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -404,7 +296,7 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
 
   .objective-card {
     background-color: var(--color-surface-card);
-    border: 1px solid var(--color-border);
+    border: 1px solid var(--line);
     border-radius: var(--radius-md);
     padding: var(--space-6);
     display: flex;
@@ -412,51 +304,41 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
     gap: var(--space-3);
   }
 
+  .objective-card .badge-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+
   .objective-title {
-    font-size: 1.25rem;
-    color: var(--color-text-primary);
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+    color: var(--ink);
     margin: 0;
   }
 
   .objective-text {
     font-size: 0.9375rem;
     line-height: 1.6;
-    color: var(--color-text-secondary);
+    color: var(--ink-2);
     margin: 0;
   }
 
-  /* Section Story */
+  /* Section Story (Cột 720px) */
   .story-wrapper {
-    max-width: 760px;
+    max-width: 720px;
     margin: 0 auto;
   }
 
-  .section-kicker {
-    display: inline-block;
-    font-size: var(--font-size-sm);
-    font-weight: 600;
-    color: var(--color-text-accent);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: var(--space-1);
-  }
-
-  .section-lead {
-    font-size: 1.125rem;
-    color: var(--color-text-secondary);
-    line-height: 1.5;
-  }
-
-  .story-prose {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
+  .story-prose p {
     font-size: 1.0625rem;
-    line-height: 1.7;
-    color: var(--color-text-secondary);
+    line-height: 1.8;
+    color: var(--ink);
+    margin: 0;
   }
 
-  /* Activities */
+  /* Activities Grid */
   .activities-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -465,15 +347,11 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
 
   .section-footer-note {
     margin-top: var(--space-8);
+    font-size: var(--font-size-small);
+    color: var(--ink-2);
   }
 
-  .section-footer-note p {
-    font-size: var(--font-size-sm) !important;
-    color: var(--color-text-muted);
-    margin: 0;
-  }
-
-  /* Stages */
+  /* Stages Grid */
   .stages-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -482,85 +360,74 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
 
   .timeline-note-box {
     margin-top: var(--space-6);
-    background-color: var(--color-canvas-soft);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    padding: var(--space-3) var(--space-4);
+    padding: var(--space-4);
+    background-color: var(--surface-alt);
+    border-left: 3px solid var(--line-strong);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   }
 
   .timeline-note-text {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-muted);
-    margin: 0;
-    line-height: var(--line-height-sm);
-  }
-
-  /* Resources */
-  /* Resources */
-  .resources-layout {
-    max-width: 800px;
-    margin: 0;
-    text-align: left;
-  }
-
-  .resources-content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-3);
-    text-align: left;
-  }
-
-  .resources-desc {
-    font-size: 1.0625rem;
+    font-size: var(--font-size-small);
     line-height: 1.6;
-    color: var(--color-text-secondary);
-    max-width: 65ch;
-    text-align: left;
+    color: var(--ink-2);
+    margin: 0;
   }
 
-  .resources-actions {
-    margin-top: var(--space-3);
-  }
-
-  /* Empty state */
+  /* Updates Section (Empty state) */
   .empty-state-card {
-    max-width: 760px;
-    margin: 0 auto;
+    background-color: var(--surface-alt);
+    border: 1px dashed var(--line-strong);
+    border-radius: var(--radius-md);
     padding: var(--space-8);
     text-align: center;
+    max-width: 640px;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: var(--space-3);
-    background-color: var(--color-surface-card);
   }
 
   .empty-title {
-    font-size: 1.25rem;
-    color: var(--color-text-primary);
-    max-width: 60ch;
-  }
-
-  .empty-desc {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-muted);
-    max-width: 55ch;
-    line-height: var(--line-height-sm);
+    font-size: 1.125rem;
+    line-height: 1.5;
+    color: var(--ink);
     margin: 0;
   }
 
-  /* Responsive */
-  @media (min-width: 768px) and (max-width: 1023px) {
-    .project-hero-grid {
-      grid-template-columns: 1fr;
-      gap: var(--space-8);
-    }
+  .empty-desc {
+    font-size: var(--font-size-small);
+    line-height: 1.5;
+    color: var(--ink-2);
+    margin: 0;
+  }
 
-    .objectives-grid {
-      grid-template-columns: 1fr;
-    }
+  /* Resources Section */
+  .resources-layout {
+    max-width: 760px;
+  }
 
+  .resources-desc {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--ink-2);
+    margin-bottom: var(--space-6);
+  }
+
+  .resources-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  /* Scroll Margin cho neo */
+  section[id] {
+    scroll-margin-top: 60px;
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 1023px) {
     .activities-grid {
       grid-template-columns: repeat(2, 1fr);
     }
@@ -568,77 +435,32 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
     .stages-grid {
       grid-template-columns: repeat(2, 1fr);
     }
-
-    .empty-desc,
-    .resources-desc {
-      text-align: left;
-    }
   }
 
   @media (max-width: 767px) {
-    .project-hero {
-      padding-top: var(--space-4);
-      padding-bottom: var(--space-6);
-    }
-
-    .project-hero-grid {
-      grid-template-columns: 1fr;
-      gap: var(--space-4);
-    }
-
     .objectives-grid {
       grid-template-columns: 1fr;
       gap: var(--space-4);
     }
 
-    .project-hero-content {
-      gap: var(--space-2);
+    .activities-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
     }
 
-    .project-slogan {
-      font-size: 1.125rem;
-      line-height: 1.35;
-    }
-
-    .project-intro {
-      font-size: 0.9375rem;
-      line-height: 1.45;
-      text-align: left;
+    .stages-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
     }
 
     .story-prose {
       text-align: left;
     }
 
-    .project-hero-actions {
+    .resources-actions {
       flex-direction: column;
-      gap: var(--space-2);
-      margin-top: var(--space-2);
-    }
-
-    .project-hero-actions .btn {
-      width: 100%;
-    }
-
-    .activities-grid {
-      grid-template-columns: 1fr;
-      gap: var(--space-4);
-    }
-
-    .stages-grid {
-      grid-template-columns: 1fr;
-      gap: var(--space-4);
-    }
-
-    .empty-state-card {
-      padding: var(--space-5);
-      align-items: flex-start;
-      text-align: left;
-    }
-
-    .empty-desc,
-    .resources-desc {
-      text-align: left;
+      align-items: stretch;
+      gap: var(--space-3);
     }
   }
 </style>
