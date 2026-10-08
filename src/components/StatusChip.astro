@@ -1,0 +1,96 @@
+---
+export type StatusChipKind = 'ke-hoach' | 'gia-dinh' | 'cho-xac-nhan' | 'can-lam-ro' | 'da-xac-nhan';
+
+interface Props {
+  kind: StatusChipKind;
+  label?: string;
+  class?: string;
+}
+
+const { kind, label, class: className = '' } = Astro.props;
+
+const defaultLabels: Record<StatusChipKind, string> = {
+  'ke-hoach': 'Kế hoạch',
+  'gia-dinh': 'Giả định',
+  'cho-xac-nhan': 'Chờ xác nhận',
+  'can-lam-ro': 'Cần làm rõ',
+  'da-xac-nhan': 'Đã xác nhận',
+};
+
+const displayLabel = label || defaultLabels[kind];
+---
+
+<span class={`status-chip status-chip--${kind} ${className}`.trim()}>
+  {kind === 'ke-hoach' && (
+    <svg class="status-chip__icon" width="12" height="12" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+      <path d="M8 0a8 8 0 1 0 8 8A8 8 0 0 0 8 0zm0 14.5A6.5 6.5 0 1 1 14.5 8 6.5 6.5 0 0 1 8 14.5z"/>
+      <path d="M7.5 4v4.25l3.25 1.95.75-1.23-2.5-1.5V4z"/>
+    </svg>
+  )}
+  {kind === 'gia-dinh' && (
+    <svg class="status-chip__icon" width="12" height="12" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+      <path d="M2 8c1.5-2.5 3.5-2.5 5 0s3.5 2.5 5 0v1.5c-1.5 2.5-3.5 2.5-5 0s-3.5-2.5-5 0z"/>
+    </svg>
+  )}
+  {kind === 'cho-xac-nhan' && (
+    <svg class="status-chip__icon" width="12" height="12" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+      <circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="2"/>
+    </svg>
+  )}
+  {kind === 'can-lam-ro' && (
+    <svg class="status-chip__icon" width="12" height="12" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+      <path d="M7.13 1.83a1 1 0 0 1 1.74 0l6.5 11.5a1 1 0 0 1-.87 1.49H1.5a1 1 0 0 1-.87-1.49zM8 5a.75.75 0 0 0-.75.75v3.5a.75.75 0 0 0 1.5 0v-3.5A.75.75 0 0 0 8 5zm0 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+    </svg>
+  )}
+  {kind === 'da-xac-nhan' && (
+    <svg class="status-chip__icon" width="12" height="12" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+      <circle cx="8" cy="8" r="6"/>
+    </svg>
+  )}
+  <span class="status-chip__label">{displayLabel}</span>
+</span>
+
+<style>
+  .status-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    border-radius: var(--radius-pill);
+    font-size: var(--font-size-small);
+    font-weight: 500;
+    line-height: var(--line-height-small);
+    width: fit-content;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+
+  .status-chip__icon {
+    flex-shrink: 0;
+  }
+
+  .status-chip--ke-hoach {
+    background-color: var(--status-plan-bg);
+    color: var(--status-plan-text);
+  }
+
+  .status-chip--gia-dinh {
+    background-color: var(--status-hypo-bg);
+    color: var(--status-hypo-text);
+  }
+
+  .status-chip--cho-xac-nhan {
+    background-color: var(--status-pending-bg);
+    color: var(--status-pending-text);
+  }
+
+  .status-chip--can-lam-ro {
+    background-color: var(--status-review-bg);
+    color: var(--status-review-text);
+  }
+
+  .status-chip--da-xac-nhan {
+    background-color: var(--status-confirmed-bg);
+    color: var(--status-confirmed-text);
+  }
+</style>

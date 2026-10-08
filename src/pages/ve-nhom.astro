@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import StatusChip from '../components/StatusChip.astro';
 import { TEAM_INFO, TEAM_PRINCIPLES, TEAM_COORDINATION } from '../data/campaign';
 ---
 
@@ -30,7 +31,7 @@ import { TEAM_INFO, TEAM_PRINCIPLES, TEAM_COORDINATION } from '../data/campaign'
     <div class="container">
       <div class="team-hero-card">
         <div class="badge-row">
-          <span class="status-badge">Thông tin nhóm thực hiện</span>
+          <StatusChip kind="ke-hoach" label="Thông tin nhóm thực hiện" />
         </div>
 
         <h1 id="team-heading" class="team-title">

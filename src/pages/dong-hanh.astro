@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
+import StatusChip from '../components/StatusChip.astro';
 import {
   SUPPORT_WORKFLOW,
   SUPPORT_FAQS,
@@ -35,8 +36,8 @@ import {
     <div class="container">
       <div class="support-hero-card">
         <div class="badge-row">
-          <span class="status-badge">Tiếp nhận có lựa chọn</span>
-          <span class="status-badge status-badge-neutral">Chưa mở tiếp nhận trực tuyến</span>
+          <StatusChip kind="ke-hoach" label="Tiếp nhận có lựa chọn" />
+          <StatusChip kind="cho-xac-nhan" label="Chưa mở tiếp nhận trực tuyến" />
         </div>
 
         <h1 id="support-heading" class="support-title">
@@ -163,7 +164,7 @@ import {
 
       <div class="contact-box card">
         <div class="contact-status-header">
-          <span class="contact-indicator" aria-hidden="true"></span>
+          <StatusChip kind="cho-xac-nhan" label="Chờ xác nhận" />
           <h3 class="contact-status-title">Thông báo trạng thái liên hệ</h3>
         </div>
 

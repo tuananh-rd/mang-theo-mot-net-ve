@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
+import StatusChip from '../components/StatusChip.astro';
 import {
   PLANNED_EXPENSES,
   PRODUCTS,
@@ -86,8 +87,8 @@ const baseBalanceDisplay = formatScenarioBalance(baseScenarioResult);
     <div class="container">
       <div class="transparency-hero-card">
         <div class="badge-row">
-          <span class="status-badge">Dự toán trong đề xuất</span>
-          <span class="status-badge status-badge-neutral">Chưa có số liệu thực tế được xác nhận</span>
+          <StatusChip kind="ke-hoach" label="Dự toán trong đề xuất" />
+          <StatusChip kind="cho-xac-nhan" label="Chưa có số liệu thực tế được xác nhận" />
         </div>
 
         <h1 id="transparency-heading" class="transparency-title">
@@ -101,7 +102,10 @@ const baseBalanceDisplay = formatScenarioBalance(baseScenarioResult);
         <!-- Highlights Grid (3 KPI kế hoạch / giả định) -->
         <div class="highlights-grid" role="region" aria-label="Các chỉ số kế hoạch nổi bật">
           <div class="highlight-card">
-            <span class="highlight-label">Chi dự kiến (kế hoạch)</span>
+            <div class="highlight-header">
+              <span class="highlight-label">Chi dự kiến (kế hoạch)</span>
+              <StatusChip kind="ke-hoach" label="Kế hoạch" />
+            </div>
             <span class="highlight-value">{formatVND(totalPlannedExpense)}</span>
             <p class="highlight-condition">
               Dự toán 19 khoản chi phí nguyên vật liệu, vật tư góc chơi, quà tặng và di chuyển theo đề xuất (trang 24, 25, 26).
@@ -109,7 +113,10 @@ const baseBalanceDisplay = formatScenarioBalance(baseScenarioResult);
           </div>
 
           <div class="highlight-card">
-            <span class="highlight-label">Doanh thu kịch bản (giả định)</span>
+            <div class="highlight-header">
+              <span class="highlight-label">Doanh thu kịch bản (giả định)</span>
+              <StatusChip kind="gia-dinh" label="Giả định" />
+            </div>
             <span class="highlight-value">{formatVND(totalPlannedRevenue)}</span>
             <p class="highlight-condition">
               Gồm {formatVND(craftRevenue)} thủ công (bán đủ kế hoạch) và {formatVND(foodAssumption)} ẩm thực giả định (trang 18).
@@ -117,8 +124,11 @@ const baseBalanceDisplay = formatScenarioBalance(baseScenarioResult);
           </div>
 
           <div class="highlight-card">
-            <span class="highlight-label">Số dư giả định (kịch bản cơ sở)</span>
-            <span class:list={['highlight-value', baseBalanceDisplay.diffClass === 'diff-positive' ? 'text-positive' : baseBalanceDisplay.diffClass === 'diff-negative' ? 'text-negative' : '']}>
+            <div class="highlight-header">
+              <span class="highlight-label">Số dư giả định (kịch bản cơ sở)</span>
+              <StatusChip kind="gia-dinh" label="Giả định" />
+            </div>
+            <span class="highlight-value">
               {baseBalanceDisplay.text}
             </span>
             <p class="highlight-condition">
@@ -753,6 +763,14 @@ const baseBalanceDisplay = formatScenarioBalance(baseScenarioResult);
     gap: var(--space-2);
   }
 
+  .highlight-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+
   .highlight-label {
     font-size: 0.875rem;
     font-weight: 600;
@@ -762,14 +780,15 @@ const baseBalanceDisplay = formatScenarioBalance(baseScenarioResult);
   }
 
   .highlight-value {
-    font-size: 1.875rem;
-    font-weight: 800;
-    color: var(--color-text-accent);
-    line-height: 1.15;
+    font-size: var(--font-size-num-xl);
+    font-weight: 700;
+    color: var(--ink);
+    line-height: var(--line-height-num-xl);
+    font-variant-numeric: tabular-nums;
   }
 
   .text-positive {
-    color: #15803d !important;
+    color: var(--ink);
   }
 
   .highlight-condition {
@@ -987,11 +1006,12 @@ const baseBalanceDisplay = formatScenarioBalance(baseScenarioResult);
   .badge-surplus {
     display: inline-block;
     padding: 4px 10px;
-    background-color: #DCFCE7;
-    color: #15803D;
+    background-color: var(--status-hypo-bg);
+    color: var(--status-hypo-text);
     border-radius: var(--radius-sm);
     font-size: 0.875rem;
     font-weight: 700;
+    font-variant-numeric: tabular-nums;
   }
 
   /* Formula Card */
@@ -1530,64 +1550,59 @@ const baseBalanceDisplay = formatScenarioBalance(baseScenarioResult);
     }
 
     .transparency-hero {
-      padding: var(--space-3) 0 !important;
+      padding: var(--space-6) 0;
     }
 
     .transparency-hero-card {
-      padding: var(--space-3) !important;
-      gap: var(--space-2) !important;
+      padding: var(--space-4);
+      gap: var(--space-3);
     }
 
     .highlight-card {
-      padding: var(--space-2) var(--space-3) !important;
-    }
-
-    .section {
-      padding-top: var(--space-3) !important;
-      padding-bottom: var(--space-3) !important;
+      padding: var(--space-3);
     }
 
     .section-header {
-      margin-bottom: var(--space-3) !important;
+      margin-bottom: var(--space-5);
     }
 
     .highlights-grid {
       grid-template-columns: 1fr;
-      gap: var(--space-2) !important;
+      gap: var(--space-3);
     }
 
     .actual-row {
-      flex-direction: column !important;
-      align-items: flex-start !important;
-      gap: 4px !important;
-      padding: var(--space-3) 0 !important;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+      padding: var(--space-3) 0;
     }
 
     .actual-col-val {
-      color: var(--color-text-accent) !important;
+      color: var(--ink);
     }
 
     .principle-card-wide {
-      grid-column: auto !important;
+      grid-column: auto;
     }
 
     .ledger-empty-notice {
-      padding: var(--space-3) !important;
-      margin-bottom: var(--space-3) !important;
+      padding: var(--space-4);
+      margin-bottom: var(--space-4);
     }
 
     .principles-grid {
       grid-template-columns: 1fr;
-      gap: var(--space-2);
+      gap: var(--space-3);
     }
 
     .principle-card {
-      padding: var(--space-2) var(--space-3) !important;
-      gap: 2px !important;
+      padding: var(--space-4);
+      gap: var(--space-2);
     }
 
     .principle-desc {
-      line-height: 1.35 !important;
+      line-height: 1.5;
     }
 
     .faq-list {
@@ -1595,7 +1610,7 @@ const baseBalanceDisplay = formatScenarioBalance(baseScenarioResult);
     }
 
     .faq-item {
-      padding: var(--space-2) var(--space-3) !important;
+      padding: var(--space-3);
     }
 
     .navigation-cta-section {

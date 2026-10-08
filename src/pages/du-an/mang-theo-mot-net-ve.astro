@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import ActivityCard from '../../components/ActivityCard.astro';
 import StageCard from '../../components/StageCard.astro';
+import StatusChip from '../../components/StatusChip.astro';
 import { CAMPAIGN_PROJECT } from '../../data/campaign';
 
 const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi'] as const;
@@ -35,7 +36,7 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
       <div class="project-hero-grid">
         <div class="project-hero-content">
           <div class="badge-row">
-            <span class="status-badge">Đề xuất — chưa có xác nhận chính thức</span>
+            <StatusChip kind="cho-xac-nhan" label="Đề xuất — chưa có xác nhận chính thức" />
           </div>
 
           <h1 id="project-heading" class="project-title">
@@ -62,7 +63,7 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
 
         <div class="project-hero-editorial">
           <div class="project-core-summary card">
-            <h2 class="core-summary-title">4 thông tin cốt lõi đề xuất</h2>
+            <p class="core-summary-title">4 thông tin cốt lõi đề xuất</p>
             <ul class="core-summary-list">
               <li>
                 <strong>Nơi dự kiến:</strong>
@@ -78,7 +79,7 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
               </li>
               <li>
                 <strong>Trạng thái:</strong>
-                <span>Đề xuất dự án — chưa có xác nhận chính thức</span>
+                <StatusChip kind="cho-xac-nhan" label="Đề xuất — chưa xác nhận" />
               </li>
             </ul>
           </div>
@@ -353,10 +354,10 @@ const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi']
   .core-summary-title {
     font-size: 1.125rem;
     font-weight: 700;
-    color: var(--color-text-primary);
+    color: var(--ink);
     margin: 0;
     padding-bottom: var(--space-2);
-    border-bottom: 2px solid var(--color-text-accent);
+    border-bottom: 2px solid var(--brand);
   }
 
   .core-summary-list {

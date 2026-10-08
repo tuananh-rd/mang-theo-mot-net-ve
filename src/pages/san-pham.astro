@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import ProductCard from '../components/ProductCard.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
+import StatusChip from '../components/StatusChip.astro';
 import { PRODUCTS, PRODUCT_FAQS } from '../data/campaign';
 import { formatProductPrice, formatProductQuantity } from '../lib/finance';
 
@@ -36,7 +37,7 @@ const foodProducts = PRODUCTS.filter((p) => p.category === 'food');
     <div class="container">
       <div class="products-hero-card">
         <div class="badge-row">
-          <span class="status-badge">Kế hoạch gây quỹ</span>
+          <StatusChip kind="ke-hoach" label="Kế hoạch gây quỹ" />
           <span class="status-summary-pill">7 món &bull; Giá tham khảo &bull; Chưa mở bán</span>
         </div>
 
@@ -349,10 +350,10 @@ const foodProducts = PRODUCTS.filter((p) => p.category === 'food');
   }
 
   .products-title {
-    font-size: clamp(1.75rem, 4vw, 2.5rem);
-    font-weight: 800;
-    color: var(--color-text-primary);
-    line-height: 1.25;
+    font-size: var(--font-size-h1);
+    font-weight: 700;
+    color: var(--ink);
+    line-height: var(--line-height-h1);
     margin: 0;
   }
 

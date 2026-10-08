@@ -7,6 +7,8 @@ import { CAMPAIGN_PROJECT } from '../data/campaign';
   <div class="container">
     <div class="hero-grid">
       <div class="hero-content">
+        <span class="eyebrow">Nhóm Lăng Kính · SSG105</span>
+
         <h1 id="hero-heading" class="hero-title">
           {CAMPAIGN_PROJECT.title}
         </h1>
@@ -41,8 +43,8 @@ import { CAMPAIGN_PROJECT } from '../data/campaign';
 
 <style>
   .hero-section {
-    padding-top: var(--space-10);
-    padding-bottom: var(--space-8);
+    padding-top: var(--space-12);
+    padding-bottom: var(--space-10);
     background-color: var(--color-canvas);
   }
 
@@ -60,32 +62,32 @@ import { CAMPAIGN_PROJECT } from '../data/campaign';
   }
 
   .hero-title {
-    font-size: var(--font-size-h1);
-    line-height: var(--line-height-h1);
-    color: var(--color-text-primary);
+    font-size: var(--font-size-display);
+    line-height: var(--line-height-display);
+    color: var(--ink);
     word-break: break-word;
     text-wrap: balance;
   }
 
   .hero-slogan {
-    font-size: 1.375rem;
+    font-size: 1.25rem;
     font-weight: 600;
     line-height: 1.4;
-    color: var(--color-text-accent);
+    color: var(--brand);
     text-wrap: balance;
   }
 
   .hero-summary {
     font-size: var(--font-size-body);
     line-height: var(--line-height-body);
-    color: var(--color-text-secondary);
+    color: var(--ink-2);
     max-width: 58ch;
   }
 
   .hero-actions {
     display: flex;
     gap: var(--space-4);
-    margin-top: var(--space-3);
+    margin-top: var(--space-2);
     flex-wrap: wrap;
   }
 
@@ -118,38 +120,39 @@ import { CAMPAIGN_PROJECT } from '../data/campaign';
 
   @media (max-width: 767px) {
     .hero-section {
-      padding-top: var(--space-4);
-      padding-bottom: var(--space-6);
+      padding-top: var(--space-6);
+      padding-bottom: var(--space-8);
     }
 
     .hero-grid {
       grid-template-columns: 1fr;
-      gap: var(--space-4);
+      gap: var(--space-6);
     }
 
+    /* P0-7: Mobile chữ trước ảnh (bỏ order: -1), H1 nằm đầu trang dưới header */
     .hero-visual {
-      order: -1;
       max-width: 100%;
+      margin-top: var(--space-2);
     }
 
     .hero-visual :global(.illustration-wrapper .svg-container) {
-      height: 150px;
-      max-height: 150px !important;
-      aspect-ratio: auto !important;
+      aspect-ratio: 16 / 9;
+      height: auto;
+      max-height: none;
     }
 
     .hero-visual :global(.illustration-caption) {
-      font-size: var(--font-size-sm);
-      padding: var(--space-1) var(--space-2);
+      font-size: var(--font-size-small);
+      padding: var(--space-2) var(--space-3);
     }
 
     .hero-content {
-      gap: var(--space-2);
+      gap: var(--space-3);
     }
 
     .hero-title {
-      font-size: 2rem;
-      line-height: 1.15;
+      font-size: var(--font-size-display);
+      line-height: var(--line-height-display);
     }
 
     .hero-slogan {
@@ -158,8 +161,8 @@ import { CAMPAIGN_PROJECT } from '../data/campaign';
     }
 
     .hero-summary {
-      font-size: 0.9375rem;
-      line-height: 1.45;
+      font-size: var(--font-size-body);
+      line-height: var(--line-height-body);
     }
 
     .hero-actions {
