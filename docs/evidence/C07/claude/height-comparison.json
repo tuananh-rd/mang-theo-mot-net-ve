@@ -1,153 +1,207 @@
 {
  "baselineSha": "80ff81b37356d345aead982f0bab20266cc9e5c5",
  "baselineCapturedAt": "2026-10-08T11:56:29.881Z",
- "finalSha": "be7ae45e4147bacdee64c35374b052eaa343a49a",
- "finalCapturedAt": "2026-10-08T12:20:30.965Z",
- "note": "before = preview baseline 80ff81b đo bằng Chrome154 trước khi sửa; after = qa-results.json tại be7ae45",
+ "note": "before = baseline 80ff81b; round1 = be7ae45 (biên tập lần 1); round2 = fe0415f (lọc nội dung công chúng + hiệu ứng). Words = số từ trong main đo bằng innerText.",
  "rows": [
   {
    "page": "home",
    "w": 375,
    "before": 10401,
-   "after": 6285,
    "wordsBefore": 1506,
-   "afterText": 3395
+   "afterText": 3395,
+   "round1_be7ae45": 6285,
+   "round2_fe0415f": 5923,
+   "wordsRound1": 746,
+   "wordsRound2": 673
   },
   {
    "page": "home",
    "w": 768,
    "before": 7755,
-   "after": 5068,
    "wordsBefore": 1506,
-   "afterText": 3404
+   "afterText": 3404,
+   "round1_be7ae45": 5068,
+   "round2_fe0415f": 4995,
+   "wordsRound1": 746,
+   "wordsRound2": 673
   },
   {
    "page": "home",
    "w": 1440,
    "before": 5838,
-   "after": 4006,
    "wordsBefore": 1506,
-   "afterText": 3404
+   "afterText": 3404,
+   "round1_be7ae45": 4006,
+   "round2_fe0415f": 3785,
+   "wordsRound1": 746,
+   "wordsRound2": 673
   },
   {
    "page": "project",
    "w": 375,
    "before": 8840,
-   "after": 7474,
    "wordsBefore": 1376,
-   "afterText": 5533
+   "afterText": 5533,
+   "round1_be7ae45": 7474,
+   "round2_fe0415f": 5922,
+   "wordsRound1": 1223,
+   "wordsRound2": 799
   },
   {
    "page": "project",
    "w": 768,
    "before": 6370,
-   "after": 5919,
    "wordsBefore": 1376,
-   "afterText": 5533
+   "afterText": 5533,
+   "round1_be7ae45": 5919,
+   "round2_fe0415f": 4750,
+   "wordsRound1": 1223,
+   "wordsRound2": 799
   },
   {
    "page": "project",
    "w": 1440,
    "before": 5452,
-   "after": 4838,
    "wordsBefore": 1376,
-   "afterText": 5533
+   "afterText": 5533,
+   "round1_be7ae45": 4838,
+   "round2_fe0415f": 3637,
+   "wordsRound1": 1223,
+   "wordsRound2": 799
   },
   {
    "page": "products",
    "w": 375,
    "before": 8946,
-   "after": 6055,
    "wordsBefore": 1056,
-   "afterText": 3536
+   "afterText": 3536,
+   "round1_be7ae45": 6055,
+   "round2_fe0415f": 4490,
+   "wordsRound1": 784,
+   "wordsRound2": 445
   },
   {
    "page": "products",
    "w": 768,
    "before": 7325,
-   "after": 4706,
    "wordsBefore": 1056,
-   "afterText": 3559
+   "afterText": 3559,
+   "round1_be7ae45": 4706,
+   "round2_fe0415f": 3847,
+   "wordsRound1": 784,
+   "wordsRound2": 445
   },
   {
    "page": "products",
    "w": 1440,
    "before": 6014,
-   "after": 3953,
    "wordsBefore": 1462,
-   "afterText": 3559
+   "afterText": 3559,
+   "round1_be7ae45": 3953,
+   "round2_fe0415f": 3582,
+   "wordsRound1": 784,
+   "wordsRound2": 445
   },
   {
    "page": "finance",
    "w": 375,
    "before": 15442,
-   "after": 7993,
    "wordsBefore": 2807,
-   "afterText": 4680
+   "afterText": 4680,
+   "round1_be7ae45": 7993,
+   "round2_fe0415f": 5599,
+   "wordsRound1": 996,
+   "wordsRound2": 555
   },
   {
    "page": "finance",
    "w": 768,
    "before": 13297,
-   "after": 6372,
    "wordsBefore": 3445,
-   "afterText": 4681
+   "afterText": 4681,
+   "round1_be7ae45": 6372,
+   "round2_fe0415f": 4930,
+   "wordsRound1": 996,
+   "wordsRound2": 555
   },
   {
    "page": "finance",
    "w": 1440,
    "before": 10610,
-   "after": 5295,
    "wordsBefore": 3445,
-   "afterText": 4681
+   "afterText": 4681,
+   "round1_be7ae45": 5295,
+   "round2_fe0415f": 4001,
+   "wordsRound1": 996,
+   "wordsRound2": 555
   },
   {
    "page": "team",
    "w": 375,
    "before": 5493,
-   "after": 4865,
    "wordsBefore": 856,
-   "afterText": 2995
+   "afterText": 2995,
+   "round1_be7ae45": 4865,
+   "round2_fe0415f": 3689,
+   "wordsRound1": 647,
+   "wordsRound2": 379
   },
   {
    "page": "team",
    "w": 768,
    "before": 4485,
-   "after": 4230,
    "wordsBefore": 856,
-   "afterText": 2995
+   "afterText": 2995,
+   "round1_be7ae45": 4230,
+   "round2_fe0415f": 2971,
+   "wordsRound1": 647,
+   "wordsRound2": 379
   },
   {
    "page": "team",
    "w": 1440,
    "before": 3929,
-   "after": 3317,
    "wordsBefore": 856,
-   "afterText": 2995
+   "afterText": 2995,
+   "round1_be7ae45": 3317,
+   "round2_fe0415f": 2388,
+   "wordsRound1": 647,
+   "wordsRound2": 379
   },
   {
    "page": "support",
    "w": 375,
    "before": 7639,
-   "after": 4808,
    "wordsBefore": 1005,
-   "afterText": 2322
+   "afterText": 2322,
+   "round1_be7ae45": 4808,
+   "round2_fe0415f": 4243,
+   "wordsRound1": 514,
+   "wordsRound2": 415
   },
   {
    "page": "support",
    "w": 768,
    "before": 6140,
-   "after": 4338,
    "wordsBefore": 1005,
-   "afterText": 2322
+   "afterText": 2322,
+   "round1_be7ae45": 4338,
+   "round2_fe0415f": 3794,
+   "wordsRound1": 514,
+   "wordsRound2": 415
   },
   {
    "page": "support",
    "w": 1440,
    "before": 4642,
-   "after": 3381,
    "wordsBefore": 1005,
-   "afterText": 2322
+   "afterText": 2322,
+   "round1_be7ae45": 3381,
+   "round2_fe0415f": 2881,
+   "wordsRound1": 514,
+   "wordsRound2": 415
   }
- ]
+ ],
+ "round2Sha": "fe0415fc706fba2b6fcf70cbda92e69bf54fd31d",
+ "round2CapturedAt": "2026-10-08T12:56:25.532Z"
 }

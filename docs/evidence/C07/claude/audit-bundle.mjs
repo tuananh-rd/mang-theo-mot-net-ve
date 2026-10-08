@@ -37,7 +37,11 @@ const req=['5.470.000đ','7.150.000đ','+1.680.000đ','4.950.000đ','2.200.000đ
 const fin=fs.readFileSync('dist/minh-bach/index.html','utf8');
 check('transparency page shows required planned figures', req.every(v=>fin.includes(v)), req.filter(v=>!fin.includes(v)));
 check('transparency page shows all 24 expense lines', (fin.match(/<th scope="row"[^>]*>/g)||[]).length>=24, (fin.match(/<th scope="row"[^>]*>/g)||[]).length);
-check('combos marked not counted on products page', (fs.readFileSync('dist/san-pham/index.html','utf8').match(/Không tính/g)||[]).length===3, null);
+const prod=fs.readFileSync('dist/san-pham/index.html','utf8');
+check('combos shown only as optional, without revenue', ['Combo 5 nem vỏ giòn','Combo 5 nem xù','Combo 5 nem phô mai'].every(n=>prod.includes(n))&&prod.includes('Có thể bổ sung')&&!/Doanh thu/.test(prod), null);
+const internal=/trang \d+|đề xuất Final|chỉ tiêu học phần|SSG105|lượt tiếp cận|phấn đấu 4\.000|2\.070\.000|740\.000|2\.470\.000|bịt mắt|giảng viên/i;
+const internalHits=html.flatMap(([f,t])=>{const m=t.replace(/<[^>]+>/g,' ').match(new RegExp(internal.source,'gi'));return m?[{f,m:[...new Set(m)].slice(0,5)}]:[]});
+check('no course-report material on public pages', internalHits.length===0, internalHits);
 check('actual figures shown as unconfirmed', (fin.match(/Chưa xác nhận/g)||[]).length>=5, (fin.match(/Chưa xác nhận/g)||[]).length);
 out.summary={files:files.length,total:out.checks.length,pass:out.checks.filter(c=>c.pass).length,fail:out.checks.filter(c=>!c.pass).map(c=>c.name)};
 fs.writeFileSync('docs/evidence/C07/claude/audit-bundle.json',JSON.stringify(out,null,1));

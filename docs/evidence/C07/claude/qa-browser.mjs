@@ -41,7 +41,8 @@ for(const [n,r] of routes)for(const [w,h,m] of vps){
   p.on('request',rq=>{if(!rq.url().startsWith(base)&&!rq.url().startsWith('data:'))out.external.push({page:n,url:rq.url()})});
   await p.setViewport({width:w,height:h,isMobile:m,hasTouch:m,deviceScaleFactor:1});
   const resp=await p.goto(base+r,{waitUntil:'networkidle0'});
-  await p.evaluate(async()=>{for(let y=0;y<document.body.scrollHeight;y+=500){scrollTo(0,y);await new Promise(r=>setTimeout(r,15))}scrollTo(0,0);await Promise.all([...document.images].map(i=>i.decode().catch(()=>{})))});
+  // cuộn tức thời (html có scroll-behavior: smooth)
+  await p.evaluate(async()=>{const go=y=>window.scrollTo({top:y,behavior:'instant'});for(let y=0;y<document.documentElement.scrollHeight;y+=400){go(y);await new Promise(r=>requestAnimationFrame(()=>setTimeout(r,30)))}go(0);await Promise.all([...document.images].map(i=>i.decode().catch(()=>{})))});
   const d=await p.evaluate(metrics);
   d.status=resp.status();
   out.pages.push({n,w,...d,links:undefined,ids:undefined});
@@ -54,6 +55,9 @@ for(const [n,r] of routes)for(const [w,h,m] of vps){
   check(`${n}@${w} images loaded, alt set, not distorted`, d.imgs.every(i=>i.ok&&typeof i.alt==='string'&&(i.fit==='cover'||i.fit==='contain'||Math.abs(i.w/i.h-i.nw/i.nh)<0.02)), d.imgs.map(i=>`${i.src}:${i.ok}:${i.fit}`));
   check(`${n}@${w} noindex`, d.robots==='noindex, nofollow', d.robots);
   check(`${n}@${w} no forms`, d.forms===0, d.forms);
+  // Header sticky sẽ bị vẽ giữa ảnh khi chụp full-page; chỉ khi chụp ảnh full-page mới đặt lại position:relative.
+  await new Promise(r=>setTimeout(r,800));
+  await p.addStyleTag({content:'.site-header{position:relative !important}'});
   await p.screenshot({path:`${shotDir}/${n}-${w}-full.png`,fullPage:true});
   await p.close();
 }
@@ -97,7 +101,7 @@ await ctx.close();
   await p.close();
 }
 // FAQ + disclosures by keyboard, tables at mobile
-for(const [n,r,sel] of [['products','/san-pham','.faq-item'],['finance','/minh-bach','.faq-item'],['support','/dong-hanh','.faq-item'],['finance-ledger','/minh-bach','details.ledger-group'],['finance-profit','/minh-bach','details.profit-detail'],['project-agenda','/du-an/mang-theo-mot-net-ve','details.disclosure']]){
+for(const [n,r,sel] of [['products','/san-pham','.faq-item'],['finance','/minh-bach','.faq-item'],['support','/dong-hanh','.faq-item'],['finance-ledger','/minh-bach','details.ledger-group'],['finance-scenarios','/minh-bach','details.scenarios']]){
   for(const w of [375,1440]){
     const p=await b.newPage();await p.setViewport({width:w,height:900,isMobile:w<1024,hasTouch:w<1024});await p.goto(base+r,{waitUntil:'networkidle0'});
     const count=await p.$$eval(sel,e=>e.length);
@@ -123,6 +127,30 @@ for(const [n,r] of routes.slice(0,6))for(const w of [375,768,1024]){const p=awai
   const rings=[];for(let i=0;i<6;i++){await p.keyboard.press('Tab');rings.push(await p.evaluate(()=>{const e=document.activeElement;const s=getComputedStyle(e);return {t:e.textContent.trim().slice(0,30),o:s.outlineStyle,w:s.outlineWidth}}))}
   check('desktop keyboard focus visible', rings.slice(1).every(r=>r.o!=='none'&&parseFloat(r.w)>=2), rings);
   await p.keyboard.press('Tab');await p.screenshot({path:`${shotDir}/focus-1440.png`});await p.close();}
+// Hiệu ứng: header dính, hiện dần khi cuộn, không JS, giảm chuyển động
+for(const w of [375,1440]){
+  const p=await b.newPage();await p.setViewport({width:w,height:800,isMobile:w<1024,hasTouch:w<1024});await p.goto(base+'/minh-bach',{waitUntil:'networkidle0'});
+  const before=await p.evaluate(()=>({motion:document.documentElement.classList.contains('motion'),ready:document.documentElement.classList.contains('motion-ready'),hidden:[...document.querySelectorAll('[data-reveal]')].filter(e=>e.getBoundingClientRect().top>innerHeight*1.2&&getComputedStyle(e).opacity==='0').length,fadedBelow:[...document.querySelectorAll('[data-reveal]')].filter(e=>e.getBoundingClientRect().top>innerHeight*1.2&&getComputedStyle(e).opacity!=='0').length,total:document.querySelectorAll('[data-reveal]').length}));
+  check(`motion@${w} enabled and below-fold blocks wait for scroll`, before.motion&&before.ready&&before.total>0&&before.hidden>0&&before.fadedBelow===0, before);
+  // Nhảy thẳng xuống cuối trang (như phím End): mọi khối đã vượt qua phải hiện
+  await p.evaluate(()=>window.scrollTo({top:document.documentElement.scrollHeight,behavior:'instant'}));
+  await new Promise(r=>setTimeout(r,1600)); // 640ms transition + tối đa 420ms trễ so le
+  const after=await p.evaluate(()=>({notRevealed:[...document.querySelectorAll('[data-reveal]')].filter(e=>!e.classList.contains('is-revealed')||parseFloat(getComputedStyle(e).opacity)<0.99).length,headerTop:Math.round(document.querySelector('.site-header').getBoundingClientRect().top),scrolled:document.querySelector('.site-header').classList.contains('is-scrolled')}));
+  check(`motion@${w} every block revealed after jumping to the end`, after.notRevealed===0, after);
+  check(`header@${w} sticks to top with shadow after scroll`, after.headerTop===0&&after.scrolled, after);
+  await p.evaluate(()=>window.scrollTo({top:1400,behavior:'instant'}));await new Promise(r=>setTimeout(r,400));
+  await p.screenshot({path:`${shotDir}/sticky-header-${w}.png`});
+  await p.close();
+}
+for(const [label,setup] of [['no-js',async p=>p.setJavaScriptEnabled(false)],['reduced-motion',async p=>p.emulateMediaFeatures([{name:'prefers-reduced-motion',value:'reduce'}])]]){
+  for(const [n,r] of routes.slice(0,6)){
+    const p=await b.newPage();await setup(p);await p.setViewport({width:1440,height:900});await p.goto(base+r,{waitUntil:'networkidle0'});
+    await new Promise(res=>setTimeout(res,300));
+    const st=await p.evaluate(()=>{const els=[...document.querySelectorAll('main h1, main h2, main p, main li, main .kf-item, main .faq-item')];return {motion:document.documentElement.classList.contains('motion'),invisible:els.filter(e=>{let x=e;while(x&&x!==document.body){if(parseFloat(getComputedStyle(x).opacity)<1)return true;x=x.parentElement}return false}).length,count:els.length}});
+    check(`${label} ${n}: all content visible without motion`, !st.motion&&st.invisible===0&&st.count>0, st);
+    await p.close();
+  }
+}
 await b.close();
 check('no console errors (excluding intentional 404)', out.console.filter(c=>!(c.page==='404'&&/404/.test(c.text))).length===0, out.console);
 check('no failed requests', out.failed.length===0, out.failed);

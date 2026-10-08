@@ -1,25 +1,25 @@
 {
- "headSha": "be7ae45e4147bacdee64c35374b052eaa343a49a",
- "at": "2026-10-08T12:18:43.438Z",
+ "headSha": "fe0415fc706fba2b6fcf70cbda92e69bf54fd31d",
+ "at": "2026-10-08T12:56:15.831Z",
  "files": [
   {
    "file": "/404.html",
-   "bytes": 9646,
-   "sha256": "a8bc7b4ceb546427e936ffacc7f02121f6b54234fdff04d2779ab61d81a3550a",
+   "bytes": 11577,
+   "sha256": "6f3a3fede2730916554e90b02b95d589b0761179a0f14e7f13b54826c0e67e37",
    "served": 200,
    "servedMatch": true
   },
   {
    "file": "/dong-hanh/index.html",
-   "bytes": 31897,
-   "sha256": "0f644bd22a58da716ce50c724c6950fba7a5aa9ff0989fddf9fc181e528542c3",
+   "bytes": 31750,
+   "sha256": "8885ca39583b27f73c0729b96322979135eee7edf38f68ac408021c029c1b687",
    "served": 200,
    "servedMatch": true
   },
   {
    "file": "/du-an/mang-theo-mot-net-ve/index.html",
-   "bytes": 44153,
-   "sha256": "7b6ed118c8bc6a9a87d710ca5ea0275a79430ccc3e849abbd6f0f5022d088e33",
+   "bytes": 37954,
+   "sha256": "83a9c824f49d4f5bdba222a33e5c586716176639c8906d33eeaea1fca8da7cad",
    "served": 200,
    "servedMatch": true
   },
@@ -95,50 +95,50 @@
   },
   {
    "file": "/index.html",
-   "bytes": 38398,
-   "sha256": "28b5a20d9514bcbb98a47c05f79e962609a96c5d6af5e14039312db7bc6ff423",
+   "bytes": 39611,
+   "sha256": "1967ab2e3ccebb929584b4eaf97c2287d9fc815ecd5a934bf00b53f9f8b4aff6",
    "served": 200,
    "servedMatch": true
   },
   {
    "file": "/minh-bach/index.html",
-   "bytes": 57243,
-   "sha256": "0afa57e3d05d9d9daccbf922cee45b734a48e9d9c0bbbc20b9e904734c3051fc",
+   "bytes": 50643,
+   "sha256": "c09839a6892d1e863a0f299bcbda7f00ef3100d370e5d3d9b9b47d3139c18302",
    "served": 200,
    "servedMatch": true
   },
   {
    "file": "/san-pham/index.html",
-   "bytes": 42813,
-   "sha256": "d4b74afc059db0e3fb375025e122861d1e9a606c0df6379a17238fc200d67a3b",
+   "bytes": 36305,
+   "sha256": "ef367b759c236c8875e780d1197b92122f1c2998423aad56ca490124b0afac15",
    "served": 200,
    "servedMatch": true
   },
   {
    "file": "/ve-nhom/index.html",
-   "bytes": 24522,
-   "sha256": "03349053164230c972482709f66ff015e6fa92e0f8af0811eb6cab553590f6f4",
+   "bytes": 23630,
+   "sha256": "919b02b29f58910bac1284b95f49c0ed38bb81664dd5398dea9a52f1a38a9d25",
    "served": 200,
    "servedMatch": true
   },
   {
-   "file": "/_astro/index.CJYTOOrA.css",
-   "bytes": 6333,
-   "sha256": "6918606b31a568361d64ec10e7bbafd045937b5513af74aaafabeef882fde6a9",
+   "file": "/_astro/index.DSf4Bi2Q.css",
+   "bytes": 6331,
+   "sha256": "3cb309df0da4679b6baab9c05ef068f766472ebca7f239431a728a188fb2a033",
    "served": 200,
    "servedMatch": true
   },
   {
-   "file": "/_astro/Layout.DtY-IPMs.css",
-   "bytes": 22098,
-   "sha256": "f07e9b3405af26ad30e889e8e1ddae4bc3108e2d63fa6ee7d9cc8ad2b778f685",
+   "file": "/_astro/Layout.BGqNMpte.css",
+   "bytes": 27258,
+   "sha256": "cd4af4938c4f3e983cdf40f59ba84a048914ecac15b02ead2936df6eb8b2b106",
    "served": 200,
    "servedMatch": true
   },
   {
-   "file": "/_astro/minh-bach.Ch0SFwtN.css",
-   "bytes": 5052,
-   "sha256": "c78c0b0e14c6aa65136cfda45fda5186e516eb1d719e7519f36ab11ef4740be0",
+   "file": "/_astro/minh-bach.ZMiRFqZD.css",
+   "bytes": 5374,
+   "sha256": "655af02446d5680598b806525b33ce1aaca96c7f8d5fd0e7fd87ba36ac474bf2",
    "served": 200,
    "servedMatch": true
   }
@@ -202,23 +202,28 @@
   {
    "name": "transparency page shows all 24 expense lines",
    "pass": true,
-   "detail": 33
+   "detail": 29
   },
   {
-   "name": "combos marked not counted on products page",
+   "name": "combos shown only as optional, without revenue",
    "pass": true,
    "detail": null
   },
   {
+   "name": "no course-report material on public pages",
+   "pass": true,
+   "detail": []
+  },
+  {
    "name": "actual figures shown as unconfirmed",
    "pass": true,
-   "detail": 6
+   "detail": 5
   }
  ],
  "summary": {
   "files": 20,
-  "total": 14,
-  "pass": 14,
+  "total": 15,
+  "pass": 15,
   "fail": []
  }
 }

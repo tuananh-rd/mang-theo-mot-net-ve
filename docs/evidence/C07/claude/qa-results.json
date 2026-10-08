@@ -1,8 +1,8 @@
 {
- "headSha": "be7ae45e4147bacdee64c35374b052eaa343a49a",
+ "headSha": "fe0415fc706fba2b6fcf70cbda92e69bf54fd31d",
  "appTreeClean": true,
  "base": "http://127.0.0.1:4322",
- "startedAt": "2026-10-08T12:20:30.965Z",
+ "startedAt": "2026-10-08T12:56:25.532Z",
  "pages": [
   {
    "n": "home",
@@ -11,7 +11,7 @@
    "robots": "noindex, nofollow",
    "scrollW": 375,
    "vw": 375,
-   "height": 6285,
+   "height": 5923,
    "h1": [
     "Mang Theo Một Nét Vẽ"
    ],
@@ -50,7 +50,7 @@
     }
    ],
    "forms": 0,
-   "textSample": 3395,
+   "textSample": 3042,
    "status": 200
   },
   {
@@ -60,7 +60,7 @@
    "robots": "noindex, nofollow",
    "scrollW": 768,
    "vw": 768,
-   "height": 5068,
+   "height": 4995,
    "h1": [
     "Mang Theo Một Nét Vẽ"
    ],
@@ -99,7 +99,7 @@
     }
    ],
    "forms": 0,
-   "textSample": 3404,
+   "textSample": 3042,
    "status": 200
   },
   {
@@ -109,7 +109,7 @@
    "robots": "noindex, nofollow",
    "scrollW": 1440,
    "vw": 1440,
-   "height": 4006,
+   "height": 3785,
    "h1": [
     "Mang Theo Một Nét Vẽ"
    ],
@@ -148,7 +148,7 @@
     }
    ],
    "forms": 0,
-   "textSample": 3404,
+   "textSample": 3042,
    "status": 200
   },
   {
@@ -158,7 +158,7 @@
    "robots": "noindex, nofollow",
    "scrollW": 375,
    "vw": 375,
-   "height": 7474,
+   "height": 5922,
    "h1": [
     "Một buổi chơi có lựa chọn"
    ],
@@ -187,7 +187,7 @@
     }
    ],
    "forms": 0,
-   "textSample": 5533,
+   "textSample": 3598,
    "status": 200
   },
   {
@@ -197,7 +197,7 @@
    "robots": "noindex, nofollow",
    "scrollW": 768,
    "vw": 768,
-   "height": 5919,
+   "height": 4750,
    "h1": [
     "Một buổi chơi có lựa chọn"
    ],
@@ -226,7 +226,7 @@
     }
    ],
    "forms": 0,
-   "textSample": 5533,
+   "textSample": 3598,
    "status": 200
   },
   {
@@ -236,7 +236,7 @@
    "robots": "noindex, nofollow",
    "scrollW": 1440,
    "vw": 1440,
-   "height": 4838,
+   "height": 3637,
    "h1": [
     "Một buổi chơi có lựa chọn"
    ],
@@ -265,19 +265,19 @@
     }
    ],
    "forms": 0,
-   "textSample": 5533,
+   "textSample": 3598,
    "status": 200
   },
   {
    "n": "products",
    "w": 375,
-   "title": "Sản phẩm gây quỹ dự kiến | Mang Theo Một Nét Vẽ — Lăng Kính",
+   "title": "Sản phẩm gây quỹ | Mang Theo Một Nét Vẽ — Lăng Kính",
    "robots": "noindex, nofollow",
    "scrollW": 375,
    "vw": 375,
-   "height": 6055,
+   "height": 4490,
    "h1": [
-    "Sản phẩm gây quỹ dự kiến"
+    "Mua một món, góp một phần quà"
    ],
    "small": [],
    "low": [],
@@ -304,19 +304,19 @@
     }
    ],
    "forms": 0,
-   "textSample": 3536,
+   "textSample": 1989,
    "status": 200
   },
   {
    "n": "products",
    "w": 768,
-   "title": "Sản phẩm gây quỹ dự kiến | Mang Theo Một Nét Vẽ — Lăng Kính",
+   "title": "Sản phẩm gây quỹ | Mang Theo Một Nét Vẽ — Lăng Kính",
    "robots": "noindex, nofollow",
    "scrollW": 768,
    "vw": 768,
-   "height": 4706,
+   "height": 3847,
    "h1": [
-    "Sản phẩm gây quỹ dự kiến"
+    "Mua một món, góp một phần quà"
    ],
    "small": [],
    "low": [],
@@ -343,19 +343,19 @@
     }
    ],
    "forms": 0,
-   "textSample": 3559,
+   "textSample": 1989,
    "status": 200
   },
   {
    "n": "products",
    "w": 1440,
-   "title": "Sản phẩm gây quỹ dự kiến | Mang Theo Một Nét Vẽ — Lăng Kính",
+   "title": "Sản phẩm gây quỹ | Mang Theo Một Nét Vẽ — Lăng Kính",
    "robots": "noindex, nofollow",
    "scrollW": 1440,
    "vw": 1440,
-   "height": 3953,
+   "height": 3582,
    "h1": [
-    "Sản phẩm gây quỹ dự kiến"
+    "Mua một món, góp một phần quà"
    ],
    "small": [],
    "low": [],
@@ -382,7 +382,7 @@
     }
    ],
    "forms": 0,
-   "textSample": 3559,
+   "textSample": 1989,
    "status": 200
   },
   {
@@ -392,7 +392,7 @@
    "robots": "noindex, nofollow",
    "scrollW": 375,
    "vw": 375,
-   "height": 7993,
+   "height": 5599,
    "h1": [
     "Minh bạch thu chi"
    ],
@@ -421,7 +421,7 @@
     }
    ],
    "forms": 0,
-   "textSample": 4680,
+   "textSample": 2477,
    "status": 200
   },
   {
@@ -431,7 +431,7 @@
    "robots": "noindex, nofollow",
    "scrollW": 768,
    "vw": 768,
-   "height": 6372,
+   "height": 4930,
    "h1": [
     "Minh bạch thu chi"
    ],
@@ -460,7 +460,7 @@
     }
    ],
    "forms": 0,
-   "textSample": 4681,
+   "textSample": 2477,
    "status": 200
   },
   {
@@ -470,7 +470,7 @@
    "robots": "noindex, nofollow",
    "scrollW": 1440,
    "vw": 1440,
-   "height": 5295,
+   "height": 4001,
    "h1": [
     "Minh bạch thu chi"
    ],
@@ -499,7 +499,7 @@
     }
    ],
    "forms": 0,
-   "textSample": 4681,
+   "textSample": 2477,
    "status": 200
   },
   {
@@ -509,7 +509,7 @@
    "robots": "noindex, nofollow",
    "scrollW": 375,
    "vw": 375,
-   "height": 4865,
+   "height": 3689,
    "h1": [
     "Nhóm Lăng Kính"
    ],
@@ -538,7 +538,7 @@
     }
    ],
    "forms": 0,
-   "textSample": 2995,
+   "textSample": 1702,
    "status": 200
   },
   {
@@ -548,7 +548,7 @@
    "robots": "noindex, nofollow",
    "scrollW": 768,
    "vw": 768,
-   "height": 4230,
+   "height": 2971,
    "h1": [
     "Nhóm Lăng Kính"
    ],
@@ -577,7 +577,7 @@
     }
    ],
    "forms": 0,
-   "textSample": 2995,
+   "textSample": 1702,
    "status": 200
   },
   {
@@ -587,7 +587,7 @@
    "robots": "noindex, nofollow",
    "scrollW": 1440,
    "vw": 1440,
-   "height": 3317,
+   "height": 2388,
    "h1": [
     "Nhóm Lăng Kính"
    ],
@@ -616,7 +616,7 @@
     }
    ],
    "forms": 0,
-   "textSample": 2995,
+   "textSample": 1702,
    "status": 200
   },
   {
@@ -626,9 +626,9 @@
    "robots": "noindex, nofollow",
    "scrollW": 375,
    "vw": 375,
-   "height": 4808,
+   "height": 4243,
    "h1": [
-    "Cách đồng hành cùng dự án"
+    "Cùng mang quà đúng nhu cầu"
    ],
    "small": [],
    "low": [],
@@ -655,7 +655,7 @@
     }
    ],
    "forms": 0,
-   "textSample": 2322,
+   "textSample": 1841,
    "status": 200
   },
   {
@@ -665,9 +665,9 @@
    "robots": "noindex, nofollow",
    "scrollW": 768,
    "vw": 768,
-   "height": 4338,
+   "height": 3794,
    "h1": [
-    "Cách đồng hành cùng dự án"
+    "Cùng mang quà đúng nhu cầu"
    ],
    "small": [],
    "low": [],
@@ -694,7 +694,7 @@
     }
    ],
    "forms": 0,
-   "textSample": 2322,
+   "textSample": 1841,
    "status": 200
   },
   {
@@ -704,9 +704,9 @@
    "robots": "noindex, nofollow",
    "scrollW": 1440,
    "vw": 1440,
-   "height": 3381,
+   "height": 2881,
    "h1": [
-    "Cách đồng hành cùng dự án"
+    "Cùng mang quà đúng nhu cầu"
    ],
    "small": [],
    "low": [],
@@ -733,7 +733,7 @@
     }
    ],
    "forms": 0,
-   "textSample": 2322,
+   "textSample": 1841,
    "status": 200
   },
   {
@@ -743,7 +743,7 @@
    "robots": "noindex, nofollow",
    "scrollW": 375,
    "vw": 375,
-   "height": 1393,
+   "height": 1370,
    "h1": [
     "Không tìm thấy trang"
    ],
@@ -1142,7 +1142,7 @@
    "name": "products@375 one h1",
    "pass": true,
    "detail": [
-    "Sản phẩm gây quỹ dự kiến"
+    "Mua một món, góp một phần quà"
    ]
   },
   {
@@ -1187,7 +1187,7 @@
    "name": "products@768 one h1",
    "pass": true,
    "detail": [
-    "Sản phẩm gây quỹ dự kiến"
+    "Mua một món, góp một phần quà"
    ]
   },
   {
@@ -1232,7 +1232,7 @@
    "name": "products@1440 one h1",
    "pass": true,
    "detail": [
-    "Sản phẩm gây quỹ dự kiến"
+    "Mua một món, góp một phần quà"
    ]
   },
   {
@@ -1547,7 +1547,7 @@
    "name": "support@375 one h1",
    "pass": true,
    "detail": [
-    "Cách đồng hành cùng dự án"
+    "Cùng mang quà đúng nhu cầu"
    ]
   },
   {
@@ -1592,7 +1592,7 @@
    "name": "support@768 one h1",
    "pass": true,
    "detail": [
-    "Cách đồng hành cùng dự án"
+    "Cùng mang quà đúng nhu cầu"
    ]
   },
   {
@@ -1637,7 +1637,7 @@
    "name": "support@1440 one h1",
    "pass": true,
    "detail": [
-    "Cách đồng hành cùng dự án"
+    "Cùng mang quà đúng nhu cầu"
    ]
   },
   {
@@ -2021,29 +2021,7 @@
    "detail": "http://127.0.0.1:4322/san-pham"
   },
   {
-   "name": "products@375 keyboard open/close (5 items)",
-   "pass": true,
-   "detail": {
-    "count": 5,
-    "opened": true,
-    "closedAgain": true,
-    "focusVisible": true,
-    "ov": true
-   }
-  },
-  {
-   "name": "products@1440 keyboard open/close (5 items)",
-   "pass": true,
-   "detail": {
-    "count": 5,
-    "opened": true,
-    "closedAgain": true,
-    "focusVisible": true,
-    "ov": true
-   }
-  },
-  {
-   "name": "finance@375 keyboard open/close (4 items)",
+   "name": "products@375 keyboard open/close (4 items)",
    "pass": true,
    "detail": {
     "count": 4,
@@ -2054,7 +2032,7 @@
    }
   },
   {
-   "name": "finance@1440 keyboard open/close (4 items)",
+   "name": "products@1440 keyboard open/close (4 items)",
    "pass": true,
    "detail": {
     "count": 4,
@@ -2065,10 +2043,10 @@
    }
   },
   {
-   "name": "support@375 keyboard open/close (4 items)",
+   "name": "finance@375 keyboard open/close (3 items)",
    "pass": true,
    "detail": {
-    "count": 4,
+    "count": 3,
     "opened": true,
     "closedAgain": true,
     "focusVisible": true,
@@ -2076,10 +2054,32 @@
    }
   },
   {
-   "name": "support@1440 keyboard open/close (4 items)",
+   "name": "finance@1440 keyboard open/close (3 items)",
    "pass": true,
    "detail": {
-    "count": 4,
+    "count": 3,
+    "opened": true,
+    "closedAgain": true,
+    "focusVisible": true,
+    "ov": true
+   }
+  },
+  {
+   "name": "support@375 keyboard open/close (3 items)",
+   "pass": true,
+   "detail": {
+    "count": 3,
+    "opened": true,
+    "closedAgain": true,
+    "focusVisible": true,
+    "ov": true
+   }
+  },
+  {
+   "name": "support@1440 keyboard open/close (3 items)",
+   "pass": true,
+   "detail": {
+    "count": 3,
     "opened": true,
     "closedAgain": true,
     "focusVisible": true,
@@ -2109,7 +2109,7 @@
    }
   },
   {
-   "name": "finance-profit@375 keyboard open/close (1 items)",
+   "name": "finance-scenarios@375 keyboard open/close (1 items)",
    "pass": true,
    "detail": {
     "count": 1,
@@ -2120,32 +2120,10 @@
    }
   },
   {
-   "name": "finance-profit@1440 keyboard open/close (1 items)",
+   "name": "finance-scenarios@1440 keyboard open/close (1 items)",
    "pass": true,
    "detail": {
     "count": 1,
-    "opened": true,
-    "closedAgain": true,
-    "focusVisible": true,
-    "ov": true
-   }
-  },
-  {
-   "name": "project-agenda@375 keyboard open/close (2 items)",
-   "pass": true,
-   "detail": {
-    "count": 2,
-    "opened": true,
-    "closedAgain": true,
-    "focusVisible": true,
-    "ov": true
-   }
-  },
-  {
-   "name": "project-agenda@1440 keyboard open/close (2 items)",
-   "pass": true,
-   "detail": {
-    "count": 2,
     "opened": true,
     "closedAgain": true,
     "focusVisible": true,
@@ -2158,7 +2136,7 @@
    "detail": {
     "sw": 375,
     "cw": 375,
-    "h": 6285
+    "h": 5923
    }
   },
   {
@@ -2167,7 +2145,7 @@
    "detail": {
     "sw": 768,
     "cw": 768,
-    "h": 5068
+    "h": 4995
    }
   },
   {
@@ -2176,7 +2154,7 @@
    "detail": {
     "sw": 1024,
     "cw": 1024,
-    "h": 4015
+    "h": 3868
    }
   },
   {
@@ -2185,7 +2163,7 @@
    "detail": {
     "sw": 375,
     "cw": 375,
-    "h": 9065
+    "h": 5922
    }
   },
   {
@@ -2194,7 +2172,7 @@
    "detail": {
     "sw": 768,
     "cw": 768,
-    "h": 6782
+    "h": 4750
    }
   },
   {
@@ -2203,7 +2181,7 @@
    "detail": {
     "sw": 1024,
     "cw": 1024,
-    "h": 5859
+    "h": 3843
    }
   },
   {
@@ -2212,7 +2190,7 @@
    "detail": {
     "sw": 375,
     "cw": 375,
-    "h": 7032
+    "h": 4490
    }
   },
   {
@@ -2221,7 +2199,7 @@
    "detail": {
     "sw": 768,
     "cw": 768,
-    "h": 5189
+    "h": 3847
    }
   },
   {
@@ -2230,7 +2208,7 @@
    "detail": {
     "sw": 1024,
     "cw": 1024,
-    "h": 4638
+    "h": 3634
    }
   },
   {
@@ -2239,7 +2217,7 @@
    "detail": {
     "sw": 375,
     "cw": 375,
-    "h": 12380
+    "h": 5603
    }
   },
   {
@@ -2248,7 +2226,7 @@
    "detail": {
     "sw": 768,
     "cw": 768,
-    "h": 8716
+    "h": 4934
    }
   },
   {
@@ -2257,7 +2235,7 @@
    "detail": {
     "sw": 1024,
     "cw": 1024,
-    "h": 7793
+    "h": 4051
    }
   },
   {
@@ -2266,7 +2244,7 @@
    "detail": {
     "sw": 375,
     "cw": 375,
-    "h": 4865
+    "h": 3689
    }
   },
   {
@@ -2275,7 +2253,7 @@
    "detail": {
     "sw": 768,
     "cw": 768,
-    "h": 4230
+    "h": 2971
    }
   },
   {
@@ -2284,7 +2262,7 @@
    "detail": {
     "sw": 1024,
     "cw": 1024,
-    "h": 3423
+    "h": 2544
    }
   },
   {
@@ -2293,7 +2271,7 @@
    "detail": {
     "sw": 375,
     "cw": 375,
-    "h": 5522
+    "h": 4261
    }
   },
   {
@@ -2302,7 +2280,7 @@
    "detail": {
     "sw": 768,
     "cw": 768,
-    "h": 4714
+    "h": 3794
    }
   },
   {
@@ -2311,7 +2289,7 @@
    "detail": {
     "sw": 1024,
     "cw": 1024,
-    "h": 3809
+    "h": 2933
    }
   },
   {
@@ -2349,6 +2327,172 @@
      "w": "3px"
     }
    ]
+  },
+  {
+   "name": "motion@375 enabled and below-fold blocks wait for scroll",
+   "pass": true,
+   "detail": {
+    "motion": true,
+    "ready": true,
+    "hidden": 25,
+    "fadedBelow": 0,
+    "total": 28
+   }
+  },
+  {
+   "name": "motion@375 every block revealed after jumping to the end",
+   "pass": true,
+   "detail": {
+    "notRevealed": 0,
+    "headerTop": 0,
+    "scrolled": true
+   }
+  },
+  {
+   "name": "header@375 sticks to top with shadow after scroll",
+   "pass": true,
+   "detail": {
+    "notRevealed": 0,
+    "headerTop": 0,
+    "scrolled": true
+   }
+  },
+  {
+   "name": "motion@1440 enabled and below-fold blocks wait for scroll",
+   "pass": true,
+   "detail": {
+    "motion": true,
+    "ready": true,
+    "hidden": 20,
+    "fadedBelow": 0,
+    "total": 28
+   }
+  },
+  {
+   "name": "motion@1440 every block revealed after jumping to the end",
+   "pass": true,
+   "detail": {
+    "notRevealed": 0,
+    "headerTop": 0,
+    "scrolled": true
+   }
+  },
+  {
+   "name": "header@1440 sticks to top with shadow after scroll",
+   "pass": true,
+   "detail": {
+    "notRevealed": 0,
+    "headerTop": 0,
+    "scrolled": true
+   }
+  },
+  {
+   "name": "no-js home: all content visible without motion",
+   "pass": true,
+   "detail": {
+    "motion": false,
+    "invisible": 0,
+    "count": 41
+   }
+  },
+  {
+   "name": "no-js project: all content visible without motion",
+   "pass": true,
+   "detail": {
+    "motion": false,
+    "invisible": 0,
+    "count": 54
+   }
+  },
+  {
+   "name": "no-js products: all content visible without motion",
+   "pass": true,
+   "detail": {
+    "motion": false,
+    "invisible": 0,
+    "count": 47
+   }
+  },
+  {
+   "name": "no-js finance: all content visible without motion",
+   "pass": true,
+   "detail": {
+    "motion": false,
+    "invisible": 0,
+    "count": 38
+   }
+  },
+  {
+   "name": "no-js team: all content visible without motion",
+   "pass": true,
+   "detail": {
+    "motion": false,
+    "invisible": 0,
+    "count": 31
+   }
+  },
+  {
+   "name": "no-js support: all content visible without motion",
+   "pass": true,
+   "detail": {
+    "motion": false,
+    "invisible": 0,
+    "count": 37
+   }
+  },
+  {
+   "name": "reduced-motion home: all content visible without motion",
+   "pass": true,
+   "detail": {
+    "motion": false,
+    "invisible": 0,
+    "count": 41
+   }
+  },
+  {
+   "name": "reduced-motion project: all content visible without motion",
+   "pass": true,
+   "detail": {
+    "motion": false,
+    "invisible": 0,
+    "count": 54
+   }
+  },
+  {
+   "name": "reduced-motion products: all content visible without motion",
+   "pass": true,
+   "detail": {
+    "motion": false,
+    "invisible": 0,
+    "count": 47
+   }
+  },
+  {
+   "name": "reduced-motion finance: all content visible without motion",
+   "pass": true,
+   "detail": {
+    "motion": false,
+    "invisible": 0,
+    "count": 38
+   }
+  },
+  {
+   "name": "reduced-motion team: all content visible without motion",
+   "pass": true,
+   "detail": {
+    "motion": false,
+    "invisible": 0,
+    "count": 31
+   }
+  },
+  {
+   "name": "reduced-motion support: all content visible without motion",
+   "pass": true,
+   "detail": {
+    "motion": false,
+    "invisible": 0,
+    "count": 37
+   }
   },
   {
    "name": "no console errors (excluding intentional 404)",
@@ -2408,10 +2552,10 @@
  "failed": [],
  "external": [],
  "browser": "Chrome/154.0.8037.98",
- "finishedAt": "2026-10-08T12:21:48.571Z",
+ "finishedAt": "2026-10-08T12:58:25.322Z",
  "summary": {
-  "total": 223,
-  "pass": 223,
+  "total": 239,
+  "pass": 239,
   "fail": []
  }
 }

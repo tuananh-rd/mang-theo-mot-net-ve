@@ -2,7 +2,97 @@
 
 - **Người thực hiện:** Claude Opus 5.5 (`claude-opus-5-5`), người viết code duy nhất của C07 theo `docs/task-specs/C07.md`. Antigravity HOLD; không tạo worker; không giao lại.
 - **Ngày:** 08/10/2026. **Nhánh** `task/c07-claude-editorial-ui`, tạo từ HEAD đã kiểm.
-- **Baseline** `80ff81b37356d345aead982f0bab20266cc9e5c5` (app sạch khi nhận) → **app final `be7ae45e4147bacdee64c35374b052eaa343a49a`**.
+- **Baseline** `80ff81b37356d345aead982f0bab20266cc9e5c5` → vòng 1 `be7ae45` → **app final `fe0415fc706fba2b6fcf70cbda92e69bf54fd31d`** (vòng 2).
+
+## Vòng 2 — lọc nội dung cho website giới thiệu và nâng cấp hiệu ứng
+
+**Yêu cầu của chủ dự án:** website dùng để giới thiệu, không phải để đưa hết nội dung docs (vốn là báo cáo cho giảng viên) lên. Cần duyệt lại nội dung, sửa luôn, rồi nâng cấp hiệu ứng và animation cho chuyên nghiệp hơn.
+
+**Tiêu chí tôi dùng để chọn nội dung:**
+
+1. Giữ thông tin người xem ngoài trường cần biết: dự án là gì, cho ai, buổi chơi ra sao, mua gì, tiền đi đâu, nhóm là ai, giúp bằng cách nào.
+2. Bỏ những phần chỉ phục vụ chấm điểm học phần: số trang hồ sơ, KPI truyền thông, thang đánh giá, agenda từng phút, danh sách ai duyệt, bảng đối soát lãi nội bộ, quy cách nguyên liệu, mức logo nhà tài trợ.
+3. Không giấu bất định: mọi số vẫn có nhãn Kế hoạch/Giả định; thu chi thực tế vẫn "Chưa xác nhận". Một câu ngắn nói rõ thực đơn combo và cách phân bổ chi phí đang được nhóm chốt.
+
+**Quyết định theo trang (vòng 2):**
+
+| Trang | Giữ / đổi | Bỏ khỏi trang công chúng (vẫn còn trong hồ sơ/docs) |
+|---|---|---|
+| Trang chủ | Hero (eyebrow đổi thành "Dự án của nhóm Lăng Kính"); dải thông tin; 4 góc chơi; **ô sản phẩm** (tên + giá) thay bảng doanh thu; 3 con số kế hoạch; lộ trình 4 chặng có mô tả ngắn; nhóm + đồng hành | Mã học phần, "tuần 5–9" (thay bằng "khoảng 5 tuần"), số trang nguồn, cột doanh thu từng mặt hàng |
+| Dự án | Vì sao (3 điều); 4 góc chơi; **"Buổi chơi diễn ra thế nào" 3 bước** thay agenda 10 dòng; an toàn (4 ý) + Mái ấm quyết định; lộ trình; một câu cam kết công bố kết quả sau dự án | Agenda từng phút, thang đánh giá kết quả, chỉ tiêu học phần/truyền thông, câu "không mang tính trị liệu" trong ghi chú nguồn |
+| Sản phẩm | **Thẻ trưng bày**: quà lưu niệm (2) và đồ ăn (2) với mô tả, giá tham khảo, số dự kiến; combo nem ở khung "Có thể bổ sung" chỉ kèm giá, không kèm doanh thu; "Khi mở bán"; "Ai làm sản phẩm"; 4 FAQ | Bảng doanh thu nếu bán đủ, tổng 7.150.000đ (chuyển hẳn về Minh bạch), lịch theo tuần học phần |
+| Minh bạch | 4 con số; phép tính; **"Tiền sẽ đi đâu" 4 bước** (mới); chi phí 3 nhóm (mở xem chi tiết; tên nhóm viết lại dễ hiểu; bỏ ghi chú chỉ lặp tên khoản); kịch bản tài trợ hiện vật thu vào phần mở rộng; "Báo cáo sau dự án" (4 ô chưa xác nhận) + 4 nguyên tắc; 3 FAQ | Bảng đối chiếu lãi 2.070.000/740.000 vs 2.470.000/340.000, danh sách "điểm hồ sơ chưa thống nhất", công thức kế toán, quy cách nguyên liệu |
+| Về nhóm | **7 thành viên, 5 mảng việc** (1+1+2+2+1, gom từ bảng 7 vai trò; lưới 3+2 không ô trống); 5 nguyên tắc viết ngắn | Danh sách ai duyệt (Mái ấm/giảng viên/nhà cung cấp), mã học phần |
+| Đồng hành | "Bạn có thể làm ngay"; 3 cách đồng hành; quy trình 3 bước; 3 cam kết; trạng thái liên hệ gộp vào cột cam kết; 3 FAQ | Quy định vận động nguồn lực của học phần, FAQ mức logo nhà tài trợ |
+
+Kết quả: số từ trong nội dung chính giảm thêm. Đo bằng Chrome 154, ba cột là baseline → vòng 1 → vòng 2:
+
+| Trang | Số từ | Chiều cao 1440px | Chiều cao 375px |
+|---|---|---|---|
+| Trang chủ | 1.506 → 746 → **673** | 5.838 → 4.006 → **3.785** | 10.401 → 6.285 → **5.923** |
+| Dự án | 1.376 → 1.223 → **799** | 5.452 → 4.838 → **3.637** | 8.840 → 7.474 → **5.922** |
+| Sản phẩm | 1.462 → 784 → **445** | 6.014 → 3.953 → **3.582** | 8.946 → 6.055 → **4.490** |
+| Minh bạch | 3.445 → 996 → **555** | 10.610 → 5.295 → **4.001** | 15.442 → 7.993 → **5.599** |
+| Về nhóm | 856 → 647 → **379** | 3.929 → 3.317 → **2.388** | 5.493 → 4.865 → **3.689** |
+| Đồng hành | 1.005 → 514 → **415** | 4.642 → 3.381 → **2.881** | 7.639 → 4.808 → **4.243** |
+
+Chi tiết ở `height-comparison.json`.
+
+**Hiệu ứng và animation** (`src/styles/motion.css`, script trong `Layout.astro`; không thêm thư viện):
+
+- **Hiện dần khi cuộn:** tiêu đề section, thẻ, danh sách, FAQ trượt lên 18px và mờ dần trong 640ms (easing `cubic-bezier(.22,1,.36,1)`), lệch nhau 70ms trong cùng nhóm.
+  - Khối được ẩn bằng CSS ngay từ lần vẽ đầu, nên không có hiện tượng chớp hiện rồi biến mất.
+  - Khối được hiện theo vị trí cuộn, nên nhảy nhanh bằng phím End hay link neo vẫn hiện đủ. Khi in trang thì hiện tất cả.
+- **Vào trang:** tiêu đề, mô tả và nút ở đầu trang hiện lần lượt; ảnh/panel phóng nhẹ từ 97%.
+- **Header dính** khi cuộn, có bóng mờ nhẹ khi trang đã cuộn; `scroll-padding-top` để link neo không bị header che.
+- **Chuyển trang mượt** giữa các route (CSS cross-document view transitions; header đứng yên, nội dung mờ chuyển).
+- **FAQ và phần mở rộng** mở/đóng mượt (`::details-content` + `interpolate-size`); chevron xoay.
+- **Hover:** nút nhấc 1px kèm bóng; thẻ (nhu cầu, sản phẩm, mảng việc, cách đồng hành, dòng tiền) nhấc 3px; icon sản phẩm đổi màu; mũi tên của link chữ dịch sang phải; gạch chân menu chạy từ giữa ra.
+- **Menu mobile** trượt xuống, các mục hiện lần lượt.
+- **An toàn cho người dùng:**
+  - Không có JS → hiệu ứng không bật, nội dung hiện đủ.
+  - Chọn giảm chuyển động (`prefers-reduced-motion`) → không có hiệu ứng.
+  - Script lỗi → sau 2,5 giây tự gỡ lớp hiệu ứng, nội dung vẫn hiện.
+  - Không có chuyển động lặp, không có số tiền chạy tăng.
+  - Trình duyệt chưa hỗ trợ view transitions hoặc `::details-content` thì chuyển tức thời như cũ.
+
+**Kiểm tra vòng 2** (trên `fe0415f` đã commit sạch):
+
+| Lệnh | Exit | Kết quả |
+|---|---|---|
+| `npm.cmd ci` | 0 | cài theo lockfile |
+| `npm.cmd run check` | 0 | 0 lỗi, 0 cảnh báo |
+| `node --test tests/finance.test.mjs` | 0 | 33/33 |
+| `npm.cmd run build` | 0 | 7 trang, 20 file |
+| `node docs/evidence/C07/claude/audit-bundle.mjs` | 0 | 15/15 |
+| `node docs/evidence/C07/claude/qa-browser.mjs …` | 0 | 239/239 |
+
+- **Audit bundle** có thêm một kiểm tra: không còn nội dung kiểu báo cáo trên trang công chúng (số trang, "đề xuất Final", SSG105, KPI tiếp cận, các số lãi nội bộ, "giảng viên"). Combo chỉ xuất hiện như mục tùy chọn, không có doanh thu.
+- **QA trình duyệt** có thêm các kiểm tra:
+  - Hiệu ứng bật và các khối dưới màn hình đầu chờ cuộn tới.
+  - Nhảy thẳng xuống cuối trang thì mọi khối đều hiện.
+  - Header dính top 0 và có bóng khi cuộn.
+  - Sáu trang đều hiện đủ nội dung khi tắt JS và khi bật giảm chuyển động.
+
+**Chẩn đoán trong vòng 2** (chi tiết trong `metadata.json`):
+
+1. Bản hiệu ứng đầu tiên làm các khối dưới màn hình chớp hiện rồi mờ đi. Đã sửa trong app.
+2. IntersectionObserver bỏ sót khối khi nhảy nhanh xuống cuối trang. Đã chuyển sang hiện theo vị trí cuộn, sửa trong app.
+3. Ảnh full-page bị trống vì `scroll-behavior: smooth` làm chậm lệnh cuộn của script chụp. Đã sửa script chụp; app không đổi.
+
+Khi chụp ảnh full-page, header được đặt `position: relative` chỉ trong lúc chụp, vì Chrome vẽ header sticky lơ lửng giữa ảnh. Riêng hành vi dính được chụp bằng ảnh viewport `sticky-header-375/1440.png`.
+
+**Preview:** `http://127.0.0.1:4322/`, PID 28852, chỉ bind 127.0.0.1, phục vụ bản build của `fe0415f` (20/20 file khớp byte). Không deploy, không push.
+
+**Giới hạn vòng 2:** hiệu ứng chuyển trang và mở/đóng mượt chỉ thấy trên trình duyệt hỗ trợ (đã kiểm Chrome 154). Chưa kiểm Safari/Firefox, thiết bị thật hay trình đọc màn hình.
+
+**Trạng thái: HOLD.**
+
+---
+
+# Vòng 1 (lịch sử, app `be7ae45`)
+
+Các mục dưới đây ghi lại vòng 1. Một số nội dung từ vòng 1 đã bị gỡ khỏi trang công chúng ở vòng 2 như bảng trên: agenda 10 dòng, thang đánh giá, chỉ tiêu học phần, bảng đối chiếu lãi, danh sách điểm cần làm rõ, bảng danh mục có doanh thu.
 - **Phạm vi diff app** (`git diff --stat 80ff81b be7ae45`): 20 file trong `src/` và `tests/`, +2.575/−4.163 dòng. Không đổi `package.json`, lockfile, `astro.config.mjs`, `tsconfig.json`, `public/`; không thêm dependency, font hay ảnh.
 - Các thay đổi tài liệu/evidence có sẵn (README, docs/*, reports/* do Codex sở hữu) được giữ nguyên, không stage, không commit, không reset.
 
