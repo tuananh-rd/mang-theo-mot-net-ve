@@ -1,0 +1,213 @@
+---
+import type { DonationAccount, DonationEntry } from '../data/campaign';
+import { isDonationOpen, summarizeDonations, sortDonationsNewestFirst, formatViDate } from '../lib/donations';
+import { formatVND } from '../lib/finance';
+
+interface Props {
+  account: DonationAccount;
+  entries: DonationEntry[];
+}
+
+const { account, entries } = Astro.props;
+const open = isDonationOpen(account);
+const summary = summarizeDonations(entries, open);
+const rows = sortDonationsNewestFirst(entries);
+---
+
+<div class="ledger-box">
+  <dl class="ledger-stats">
+    <div>
+      <dt>Tổng đã nhận</dt>
+      <dd>{summary.total === null ? 'Chưa mở' : formatVND(summary.total)}</dd>
+    </div>
+    <div>
+      <dt>Số lượt ủng hộ</dt>
+      <dd>{summary.count === null ? '—' : summary.count}</dd>
+    </div>
+    <div>
+      <dt>Đối soát gần nhất</dt>
+      <dd>{formatViDate(account.ledgerUpdatedAt)}</dd>
+    </div>
+  </dl>
+
+  {rows.length > 0 ? (
+    <>
+      <div class="ledger-search">
+        <label for="donor-search" class="search-label">Tìm khoản ủng hộ của bạn</label>
+        <input id="donor-search" type="search" class="search-input" placeholder="Nhập tên hoặc mã giao dịch" autocomplete="off" />
+      </div>
+      <table class="data-table data-table--stack donor-table">
+        <caption class="sr-only">Sao kê các khoản ủng hộ đã đối soát</caption>
+        <thead>
+          <tr>
+            <th scope="col">Ngày</th>
+            <th scope="col">Người ủng hộ</th>
+            <th scope="col">Mã giao dịch</th>
+            <th scope="col" class="num">Số tiền</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr data-search={`${r.donor} ${r.reference ?? ''}`.toLowerCase()}>
+              <td data-label="Ngày">{formatViDate(r.date)}</td>
+              <th scope="row">{r.donor}</th>
+              <td data-label="Mã giao dịch">{r.reference ?? '—'}</td>
+              <td class="num" data-label="Số tiền">{formatVND(r.amount)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <p class="no-match" hidden>Không tìm thấy khoản phù hợp. Khoản mới có thể chưa qua đối soát.</p>
+    </>
+  ) : (
+    <div class="ledger-empty">
+      <p class="ledger-empty-title">{open ? 'Chưa có khoản ủng hộ nào được ghi nhận' : 'Bảng sao kê sẽ bắt đầu khi mở nhận ủng hộ'}</p>
+      <p>
+        Mỗi khoản sẽ được ghi một dòng gồm ngày, tên hiển thị, mã giao dịch rút gọn và số tiền, sau khi hai thành viên tài chính đối chiếu với sao kê ngân hàng.
+      </p>
+    </div>
+  )}
+</div>
+
+<script>
+  const input = document.getElementById('donor-search') as HTMLInputElement | null;
+  if (input) {
+    const rows = Array.from(document.querySelectorAll<HTMLTableRowElement>('.donor-table tbody tr'));
+    const empty = document.querySelector<HTMLElement>('.no-match');
+    input.addEventListener('input', () => {
+      const q = input.value.trim().toLowerCase();
+      let shown = 0;
+      rows.forEach((row) => {
+        const match = !q || (row.dataset.search ?? '').includes(q);
+        row.hidden = !match;
+        if (match) shown++;
+      });
+      if (empty) empty.hidden = shown > 0;
+    });
+  }
+</script>
+
+<style>
+  .ledger-box {
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+  }
+
+  .ledger-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin: 0 0 var(--space-5);
+    border-bottom: 1px solid var(--line);
+    padding-bottom: var(--space-5);
+  }
+
+  .ledger-stats div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding-left: var(--space-5);
+    border-left: 1px solid var(--line);
+  }
+
+  .ledger-stats div:first-child {
+    padding-left: 0;
+    border-left: none;
+  }
+
+  .ledger-stats dt {
+    font-size: var(--font-size-small);
+    color: var(--ink-2);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .ledger-stats dd {
+    margin: 0;
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+    font-weight: 700;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .ledger-search {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    margin-bottom: var(--space-4);
+    max-width: 420px;
+  }
+
+  .search-label {
+    font-size: var(--font-size-small);
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .search-input {
+    min-height: 44px;
+    padding: 0 var(--space-3);
+    border: 1.5px solid var(--line-strong);
+    border-radius: var(--radius-sm);
+    font: inherit;
+    color: var(--ink);
+  }
+
+  .search-input:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  .ledger-empty {
+    padding: var(--space-6);
+    border: 2px dashed var(--line);
+    border-radius: var(--radius-md);
+    text-align: center;
+  }
+
+  .ledger-empty p {
+    margin: 0 auto;
+    max-width: 560px;
+  }
+
+  .ledger-empty-title {
+    font-weight: 700;
+    color: var(--ink) !important;
+    margin-bottom: var(--space-2) !important;
+  }
+
+  .no-match {
+    margin: var(--space-3) 0 0;
+  }
+
+  @media (max-width: 767px) {
+    .ledger-box {
+      padding: var(--space-4);
+    }
+
+    .ledger-stats {
+      grid-template-columns: 1fr;
+      gap: var(--space-3);
+    }
+
+    .ledger-stats div {
+      padding-left: 0;
+      border-left: none;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .ledger-stats dd {
+      font-size: var(--font-size-body);
+    }
+
+    .ledger-empty {
+      padding: var(--space-4);
+      text-align: left;
+    }
+  }
+</style>

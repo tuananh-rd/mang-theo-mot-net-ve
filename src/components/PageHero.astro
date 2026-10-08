@@ -10,7 +10,7 @@ interface SummaryItem {
   label: string;
   value: string;
   chip?: {
-    kind: 'ke-hoach' | 'gia-dinh' | 'cho-xac-nhan' | 'can-lam-ro';
+    kind: 'ke-hoach' | 'gia-dinh' | 'cho-xac-nhan' | 'can-lam-ro' | 'da-xac-nhan';
     label: string;
   };
 }
@@ -19,7 +19,7 @@ interface Props {
   breadcrumbs: BreadcrumbItem[];
   eyebrow?: string;
   chip?: {
-    kind: 'ke-hoach' | 'gia-dinh' | 'cho-xac-nhan' | 'can-lam-ro';
+    kind: 'ke-hoach' | 'gia-dinh' | 'cho-xac-nhan' | 'can-lam-ro' | 'da-xac-nhan';
     label: string;
   };
   title: string;

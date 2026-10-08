@@ -4,68 +4,38 @@ import PageHero from '../components/PageHero.astro';
 import ProductGrid from '../components/ProductGrid.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
 import { PRODUCTS, PRODUCT_FAQS, SALES_PLAN } from '../data/campaign';
-import { formatProductPrice } from '../lib/finance';
 
 const craft = PRODUCTS.filter((p) => p.category === 'craft');
-const food = PRODUCTS.filter((p) => p.category === 'food' && p.isBaseRevenueItem !== false);
-const combos = PRODUCTS.filter((p) => p.isBaseRevenueItem === false);
-
-const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Sản phẩm' }];
+const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Quà lưu niệm' }];
 ---
 
 <Layout
-  title="Sản phẩm gây quỹ"
-  description="Chuồn chuồn tre, móc khóa và đồ ăn do nhóm Lăng Kính chuẩn bị để gây quỹ mua quà cho Mái ấm Thánh Tâm Xuy Xá."
+  title="Quà lưu niệm gây quỹ"
+  description="Chuồn chuồn tre và móc khóa do nhóm Lăng Kính tự làm để gây quỹ tặng quà cho Mái ấm Thánh Tâm Xuy Xá."
   currentPath="/san-pham"
 >
   <PageHero
     breadcrumbs={breadcrumbs}
-    eyebrow="Sản phẩm gây quỹ"
+    eyebrow="Quà lưu niệm"
     chip={{ kind: 'cho-xac-nhan', label: 'Chưa mở bán' }}
     title="Mua một món, góp một phần quà"
     titleId="products-heading"
-    lead="Đồ thủ công và đồ ăn do nhóm Lăng Kính tự chuẩn bị, bán tại FPT Hòa Lạc."
-    description="Giá dưới đây là giá tham khảo. Mẫu, giá chính thức và cách đặt hàng sẽ được công bố tại trang này khi mở bán."
+    lead="Chuồn chuồn tre và móc khóa do nhóm Lăng Kính tự làm, bán tại FPT Hòa Lạc."
+    description="Tiền bán quà được ghi sổ cùng các khoản ủng hộ và dùng cho buổi chơi, quà tặng Mái ấm."
   />
 
   <section class="section" aria-labelledby="craft-heading">
     <div class="container">
       <div class="section-header">
-        <span class="eyebrow">Đồ thủ công</span>
-        <h2 id="craft-heading">Quà lưu niệm</h2>
-        <p>Nhóm chuẩn bị 50 chuồn chuồn tre: 30 bộ kèm đế để bán, 20 chiếc để lại cho Mái ấm.</p>
+        <span class="eyebrow">Sản phẩm</span>
+        <h2 id="craft-heading">Hai món quà nhỏ</h2>
+        <p>Nhóm chuẩn bị 50 chuồn chuồn tre: 30 bộ kèm đế để bán, 20 chiếc để lại cho các em tại Mái ấm.</p>
       </div>
       <ProductGrid products={craft} />
     </div>
   </section>
 
-  <section class="section section-soft" aria-labelledby="food-heading">
-    <div class="container">
-      <div class="section-header">
-        <span class="eyebrow">Đồ ăn</span>
-        <h2 id="food-heading">Đồ ăn gây quỹ</h2>
-        <p>Làm theo đơn, bán theo đợt nhỏ và chỉ khi đáp ứng điều kiện an toàn thực phẩm.</p>
-      </div>
-      <ProductGrid products={food} />
-
-      <div class="combos reveal">
-        <p class="combos-title">Có thể bổ sung</p>
-        <ul class="combos-list">
-          {
-            combos.map((c) => (
-              <li>
-                <span>{c.name}</span>
-                <span class="combos-price">{formatProductPrice(c)}</span>
-              </li>
-            ))
-          }
-        </ul>
-        <p class="combos-note">Các combo nem lẻ đang được cân nhắc; thực đơn chính thức sẽ công bố khi mở bán.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" aria-labelledby="buy-heading">
+  <section class="section section-soft" aria-labelledby="buy-heading">
     <div class="container">
       <div class="two-col">
         <div class="reveal">
@@ -87,7 +57,7 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Sản phẩm
     </div>
   </section>
 
-  <section class="section section-soft" aria-labelledby="faq-heading">
+  <section class="section" aria-labelledby="faq-heading">
     <div class="container narrow">
       <div class="section-header">
         <span class="eyebrow">Hỏi đáp</span>
@@ -100,58 +70,18 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Sản phẩm
   <section class="cta-band" aria-labelledby="products-cta-heading">
     <div class="container cta-band-inner">
       <div class="cta-band-text">
-        <h2 id="products-cta-heading">Tiền bán hàng được dùng thế nào?</h2>
-        <p>Chi phí dự kiến và phần dành mua quà cho Mái ấm.</p>
+        <h2 id="products-cta-heading">Chưa mua được quà? Bạn vẫn có thể góp sức</h2>
+        <p>Ủng hộ qua chuyển khoản, sao kê công khai từng khoản.</p>
       </div>
       <div class="cta-band-actions">
-        <a href="/minh-bach" class="btn btn-primary">Xem minh bạch thu chi</a>
-        <a href="/dong-hanh" class="link-arrow">Cách đồng hành <span class="arrow" aria-hidden="true">→</span></a>
+        <a href="/dong-hanh" class="btn btn-primary">Ủng hộ dự án</a>
+        <a href="/minh-bach" class="link-arrow">Xem minh bạch <span class="arrow" aria-hidden="true">→</span></a>
       </div>
     </div>
   </section>
 </Layout>
 
 <style>
-  .combos {
-    margin-top: var(--space-6);
-    padding: var(--space-5) var(--space-6);
-    border: 1px dashed var(--line-strong);
-    border-radius: var(--radius-lg);
-  }
-
-  .combos-title {
-    margin: 0 0 var(--space-2);
-    font-weight: 700;
-    color: var(--ink);
-  }
-
-  .combos-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .combos-list li {
-    display: flex;
-    justify-content: space-between;
-    gap: var(--space-4);
-    padding: var(--space-2) 0;
-    border-bottom: 1px solid var(--line);
-    color: var(--ink);
-  }
-
-  .combos-price {
-    font-weight: 600;
-    font-variant-numeric: tabular-nums;
-    white-space: nowrap;
-  }
-
-  .combos-note {
-    margin: var(--space-3) 0 0;
-    font-size: var(--font-size-small);
-    line-height: var(--line-height-small);
-  }
-
   .col-title {
     font-size: var(--font-size-h2);
     line-height: var(--line-height-h2);
@@ -166,11 +96,5 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Sản phẩm
 
   .narrow > :global(*) {
     max-width: 880px;
-  }
-
-  @media (max-width: 767px) {
-    .combos {
-      padding: var(--space-4);
-    }
   }
 </style>

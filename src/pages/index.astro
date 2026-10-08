@@ -2,50 +2,37 @@
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import ActivityList from '../components/ActivityList.astro';
-import KeyFigures from '../components/KeyFigures.astro';
-import ProductGrid from '../components/ProductGrid.astro';
-import Timeline from '../components/Timeline.astro';
 import StatusChip from '../components/StatusChip.astro';
-import { CAMPAIGN_PROJECT, PRODUCTS, TEAM_INFO, PLANNED_EXPENSES, FINANCE_SCENARIOS } from '../data/campaign';
-import {
-  sumPlannedExpenses,
-  calculateBaseRevenue,
-  calculateScenario,
-  formatVND,
-  formatScenarioBalance,
-} from '../lib/finance';
+import Icon from '../components/Icon.astro';
+import { CAMPAIGN_PROJECT, TEAM_INFO, DONATION_ACCOUNT, DONATIONS } from '../data/campaign';
+import { isDonationOpen, summarizeDonations } from '../lib/donations';
+import { formatVND } from '../lib/finance';
 
-const totalPlannedExpense = sumPlannedExpenses(PLANNED_EXPENSES);
-const totalPlannedRevenue = calculateBaseRevenue(PRODUCTS);
-const baseScenario = FINANCE_SCENARIOS.find((s) => s.id === 'chua-tinh-tai-tro');
-const baseResult = baseScenario ? calculateScenario(baseScenario, totalPlannedRevenue, totalPlannedExpense) : null;
-const balance = formatScenarioBalance(baseResult);
+const donationOpen = isDonationOpen(DONATION_ACCOUNT);
+const donationSummary = summarizeDonations(DONATIONS, donationOpen);
 
-const figures = [
+const steps = [
   {
-    label: 'Chi dự toán',
-    value: formatVND(totalPlannedExpense),
-    chip: 'ke-hoach' as const,
-    note: 'Nguyên liệu, vật tư buổi chơi, quà và di chuyển.',
+    icon: 'moc-khoa' as const,
+    title: 'Gây quỹ',
+    text: 'Nhận ủng hộ trực tuyến và bán quà lưu niệm do nhóm tự làm. Mọi khoản được ghi sổ và công khai.',
   },
   {
-    label: 'Doanh thu nếu bán đủ',
-    value: formatVND(totalPlannedRevenue),
-    chip: 'gia-dinh' as const,
-    note: 'Nếu bán hết theo giá tham khảo.',
+    icon: 'chuon-chuon' as const,
+    title: 'Một buổi chơi tại Mái ấm',
+    text: 'Khoảng 180 phút với bốn góc hoạt động. Em nào cũng chọn được cách chơi phù hợp, hoặc ngồi xem, nghỉ ngơi.',
   },
   {
-    label: 'Còn lại trước khi mua quà',
-    value: balance.text,
-    chip: 'gia-dinh' as const,
-    note: 'Dự kiến dành mua quà; chưa phải số tiền đã có.',
+    icon: 'banh' as const,
+    title: 'Trao quà đúng nhu cầu',
+    text: 'Quỹ được dùng mua vật phẩm theo danh mục Mái ấm xác nhận, kèm hóa đơn và biên bản bàn giao.',
   },
 ];
 ---
 
 <Layout
   title="Trang chủ"
-  description="Mang Theo Một Nét Vẽ — dự án của nhóm Lăng Kính (AI2015, SSG105, Đại học FPT Hà Nội): một buổi chơi có lựa chọn tại Mái ấm Thánh Tâm Xuy Xá và gây quỹ mua quà đúng nhu cầu."
+  description="Mang Theo Một Nét Vẽ — 7 sinh viên FPT Hà Nội tổ chức một buổi vui chơi sáng tạo cho các em tại Mái ấm Thánh Tâm Xuy Xá và gây quỹ tặng vật phẩm Mái ấm cần."
   currentPath="/"
 >
   <Hero />
@@ -54,100 +41,107 @@ const figures = [
     <div class="container">
       <dl class="facts-strip">
         <div class="fact">
-          <dt>Nhóm thực hiện</dt>
-          <dd>Lăng Kính · {TEAM_INFO.size} sinh viên FPT Hà Nội</dd>
+          <dt>Ai thực hiện</dt>
+          <dd>Nhóm Lăng Kính · {TEAM_INFO.size} sinh viên FPT Hà Nội</dd>
         </div>
         <div class="fact">
-          <dt>Địa điểm dự kiến</dt>
-          <dd>Mái ấm Thánh Tâm Xuy Xá, Hà Nội</dd>
+          <dt>Dành cho</dt>
+          <dd>Các em và các cụ tại Mái ấm Thánh Tâm Xuy Xá</dd>
         </div>
         <div class="fact">
           <dt>Thời gian</dt>
-          <dd>Khoảng 5 tuần · 2 buổi tại Mái ấm</dd>
+          <dd>Khoảng 5 tuần, 2 buổi tại Mái ấm</dd>
         </div>
         <div class="fact">
           <dt>Trạng thái</dt>
-          <dd><StatusChip kind="cho-xac-nhan" label="Đề xuất, chờ xác nhận" /></dd>
+          <dd><StatusChip kind="cho-xac-nhan" label="Đang chờ Mái ấm xác nhận lịch" /></dd>
         </div>
       </dl>
     </div>
   </section>
 
-  <section class="section" aria-labelledby="play-heading">
+  <section class="section" aria-labelledby="what-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">Dự án làm gì</span>
+        <h2 id="what-heading">Ba việc, một mục tiêu</h2>
+        <p>Mang niềm vui đến cho các em bằng một buổi chơi vừa sức, và mang đến Mái ấm những món quà thật sự cần.</p>
+      </div>
+
+      <ol class="steps">
+        {
+          steps.map((s, i) => (
+            <li class="step lift">
+              <div class="step-top">
+                <span class="step-icon"><Icon name={s.icon} size={30} /></span>
+                <span class="step-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+              </div>
+              <h3 class="step-title">{s.title}</h3>
+              <p class="step-text">{s.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section-soft" aria-labelledby="play-heading">
     <div class="container">
       <div class="section-header">
         <span class="eyebrow">Buổi chơi</span>
-        <h2 id="play-heading">Mỗi em chọn cách tham gia của mình</h2>
-        <p>
-          Bốn góc hoạt động vừa sức. Các em có thể chơi, đổi góc, ngồi xem hoặc nghỉ bất cứ lúc nào.
-        </p>
+        <h2 id="play-heading">Bốn góc, mỗi em một cách chơi</h2>
+        <p>Các em được tự chọn góc mình thích, đổi lượt hoặc nghỉ bất cứ lúc nào. Không ai phải làm sản phẩm giống nhau.</p>
       </div>
 
       <ActivityList activities={CAMPAIGN_PROJECT.activities} />
 
       <div class="section-actions">
-        <a href="/du-an/mang-theo-mot-net-ve" class="link-arrow">Xem buổi chơi diễn ra thế nào <span class="arrow" aria-hidden="true">→</span></a>
+        <a href="/du-an/mang-theo-mot-net-ve" class="link-arrow">Xem chi tiết dự án <span class="arrow" aria-hidden="true">→</span></a>
       </div>
     </div>
   </section>
 
-  <section class="section section-soft" aria-labelledby="money-heading">
-    <div class="container">
-      <div class="section-header">
-        <span class="eyebrow">Gây quỹ và minh bạch</span>
-        <h2 id="money-heading">Mỗi món hàng góp vào một món quà</h2>
+  <section class="donate-band" aria-labelledby="donate-heading">
+    <div class="container donate-band-inner reveal">
+      <div class="donate-text">
+        <span class="eyebrow eyebrow--light">Ủng hộ</span>
+        <h2 id="donate-heading">Cùng góp một món quà</h2>
         <p>
-          Nhóm bán đồ thủ công và đồ ăn tại FPT Hòa Lạc. Sau khi trừ chi phí, phần còn lại dùng mua vật phẩm theo đúng danh mục Mái ấm cần.
+          Chuyển khoản qua mã QR. Mỗi khoản được đối soát với ngân hàng và đăng công khai trong bảng sao kê, ai cũng kiểm tra được.
         </p>
+        <div class="donate-actions">
+          <a href="/dong-hanh" class="btn btn-primary">Ủng hộ dự án</a>
+          <a href="/dong-hanh#sao-ke" class="link-arrow link-arrow--light">Xem sao kê <span class="arrow" aria-hidden="true">→</span></a>
+        </div>
       </div>
-
-      <h3 class="block-title">Sản phẩm dự kiến</h3>
-      <ProductGrid products={PRODUCTS.filter((p) => p.isBaseRevenueItem !== false)} variant="compact" headingLevel="h4" />
-
-      <h3 class="block-title home-figures-title">Kế hoạch tài chính</h3>
-      <KeyFigures figures={figures} label="Ba con số kế hoạch chính" />
-      <p class="source-note">Đây là số kế hoạch. Chưa có thu chi thực tế; website chưa nhận đơn hàng hay tiền.</p>
-
-      <div class="section-actions">
-        <a href="/minh-bach" class="btn btn-primary">Xem minh bạch thu chi</a>
-        <a href="/san-pham" class="link-arrow">Xem sản phẩm <span class="arrow" aria-hidden="true">→</span></a>
-      </div>
+      <dl class="donate-stats">
+        <div>
+          <dt>Tổng đã nhận</dt>
+          <dd>{donationSummary.total === null ? 'Sắp mở' : formatVND(donationSummary.total)}</dd>
+        </div>
+        <div>
+          <dt>Lượt ủng hộ</dt>
+          <dd>{donationSummary.count === null ? '—' : donationSummary.count}</dd>
+        </div>
+      </dl>
     </div>
   </section>
 
-  <section class="section" aria-labelledby="timeline-heading">
+  <section class="section" aria-labelledby="team-heading">
     <div class="container">
-      <div class="section-header">
-        <span class="eyebrow">Lộ trình</span>
-        <h2 id="timeline-heading">Bốn chặng của dự án</h2>
-        <p>Gây quỹ trước, buổi chơi sau; quà chỉ được mua khi đã chốt quỹ và đối chiếu danh mục với Mái ấm.</p>
-      </div>
-
-      <Timeline stages={CAMPAIGN_PROJECT.plannedStages} />
-
-      <p class="source-note">Lịch cụ thể sẽ được công bố sau khi thống nhất với Mái ấm.</p>
-    </div>
-  </section>
-
-  <section class="section section-soft" aria-labelledby="team-support-heading">
-    <div class="container">
-      <h2 id="team-support-heading" class="sr-only">Nhóm thực hiện và cách đồng hành</h2>
+      <h2 id="team-heading" class="sr-only">Nhóm thực hiện và quà lưu niệm</h2>
       <div class="two-col">
         <div class="home-col">
           <span class="eyebrow">Nhóm thực hiện</span>
           <h3 class="block-title">Lăng Kính — 7 sinh viên FPT Hà Nội</h3>
-          <p>
-            Bảy sinh viên lớp {TEAM_INFO.classId}, chia năm mảng việc từ điều phối, tài chính, hậu cần đến truyền thông. Hai thành viên đối soát mọi khoản thu chi.
-          </p>
+          <p>Năm mảng việc từ điều phối, tài chính, hậu cần đến truyền thông. Hai thành viên đối soát mọi khoản thu chi.</p>
           <a href="/ve-nhom" class="link-arrow">Về nhóm <span class="arrow" aria-hidden="true">→</span></a>
         </div>
         <div class="home-col">
-          <span class="eyebrow">Đồng hành</span>
-          <h3 class="block-title">Hỗ trợ đúng thứ Mái ấm cần</h3>
-          <p>
-            Góp vật tư theo danh mục Mái ấm cần, mua sản phẩm khi mở bán, hoặc chia sẻ câu chuyện của dự án.
-          </p>
-          <a href="/dong-hanh" class="link-arrow">Cách đồng hành <span class="arrow" aria-hidden="true">→</span></a>
+          <span class="eyebrow">Quà lưu niệm</span>
+          <h3 class="block-title">Chuồn chuồn tre và móc khóa</h3>
+          <p>Nhóm tự làm để gây quỹ. Các em ở Mái ấm không phải làm hàng; đồ các em làm được giữ lại cho các em.</p>
+          <a href="/san-pham" class="link-arrow">Xem quà lưu niệm <span class="arrow" aria-hidden="true">→</span></a>
         </div>
       </div>
     </div>
@@ -195,8 +189,144 @@ const figures = [
     font-weight: 600;
   }
 
-  .home-figures-title {
-    margin-top: var(--space-12);
+  .steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-6);
+  }
+
+  .step {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: var(--space-8) var(--space-6);
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+  }
+
+  .step-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .step-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: var(--radius-md);
+    background: var(--surface-alt);
+    color: var(--brand-ink);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color var(--transition-normal), color var(--transition-normal);
+  }
+
+  .step:hover .step-icon {
+    background: var(--brand-ink);
+    color: #ffffff;
+  }
+
+  .step-num {
+    font-size: var(--font-size-h2);
+    line-height: 1;
+    font-weight: 700;
+    color: var(--line);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .step-title {
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+    margin: 0;
+  }
+
+  .step-text {
+    margin: 0;
+  }
+
+  .donate-band {
+    background: var(--brand-ink);
+    padding-top: var(--space-section);
+    padding-bottom: var(--space-section);
+  }
+
+  .donate-band-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: var(--space-10);
+    align-items: center;
+  }
+
+  .donate-text h2 {
+    color: #ffffff;
+    margin-bottom: var(--space-3);
+  }
+
+  .donate-text p {
+    color: #c9d2dc;
+    max-width: 56ch;
+  }
+
+  .eyebrow--light {
+    color: #f7c948;
+  }
+
+  .donate-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-6);
+    margin-top: var(--space-6);
+  }
+
+  .link-arrow--light {
+    color: #ffffff;
+  }
+
+  .donate-actions .link-arrow--light:focus-visible {
+    outline-color: #ffffff;
+  }
+
+  .donate-stats {
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .donate-stats div {
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .donate-stats div + div {
+    border-left: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
+  .donate-stats dt {
+    font-size: var(--font-size-small);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #c9d2dc;
+  }
+
+  .donate-stats dd {
+    margin: 0;
+    font-size: var(--font-size-num-xl);
+    line-height: var(--line-height-num-xl);
+    font-weight: 700;
+    color: #ffffff;
+    font-variant-numeric: tabular-nums;
   }
 
   .home-col {
@@ -223,6 +353,33 @@ const figures = [
     .fact:nth-child(n + 3) {
       border-top: 1px solid var(--line);
     }
+
+    .steps {
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 60px minmax(0, 1fr);
+      column-gap: var(--space-5);
+      row-gap: var(--space-1);
+      padding: var(--space-5);
+    }
+
+    .step-top {
+      grid-row: span 2;
+      align-self: start;
+    }
+
+    .step-num {
+      display: none;
+    }
+
+    .donate-band-inner {
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
+    }
   }
 
   @media (max-width: 767px) {
@@ -240,8 +397,23 @@ const figures = [
       border-top: 1px solid var(--line);
     }
 
-    .home-figures-title {
-      margin-top: var(--space-10);
+    .step {
+      grid-template-columns: 48px minmax(0, 1fr);
+      column-gap: var(--space-4);
+      padding: var(--space-4);
+    }
+
+    .step-icon {
+      width: 48px;
+      height: 48px;
+    }
+
+    .donate-actions .btn {
+      width: 100%;
+    }
+
+    .donate-stats div {
+      padding: var(--space-4);
     }
   }
 </style>

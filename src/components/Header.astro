@@ -9,7 +9,7 @@ const isDongHanh = currentPath === '/dong-hanh';
 const navItems = [
   { href: '/', label: 'Trang chủ' },
   { href: '/du-an/mang-theo-mot-net-ve', label: 'Dự án' },
-  { href: '/san-pham', label: 'Sản phẩm' },
+  { href: '/san-pham', label: 'Quà lưu niệm' },
   { href: '/minh-bach', label: 'Minh bạch' },
   { href: '/ve-nhom', label: 'Về nhóm' },
 ];
@@ -53,10 +53,10 @@ const navItems = [
       </ul>
       <a
         href="/dong-hanh"
-        class:list={['btn', 'btn-secondary', 'cta-btn', { 'is-active': isDongHanh }]}
+        class:list={['btn', 'btn-primary', 'cta-btn', { 'is-active': isDongHanh }]}
         aria-current={isDongHanh ? 'page' : undefined}
       >
-        Cách đồng hành
+        Ủng hộ
       </a>
     </nav>
 
@@ -103,10 +103,10 @@ const navItems = [
         <div class="mobile-cta-wrap">
           <a
             href="/dong-hanh"
-            class:list={['btn', 'btn-secondary', 'btn-block', { 'is-active': isDongHanh }]}
+            class:list={['btn', 'btn-primary', 'btn-block', { 'is-active': isDongHanh }]}
             aria-current={isDongHanh ? 'page' : undefined}
           >
-            Cách đồng hành
+            Ủng hộ
           </a>
         </div>
       </nav>

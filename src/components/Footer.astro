@@ -1,11 +1,15 @@
 ---
+import { DONATION_ACCOUNT } from '../data/campaign';
+import { isDonationOpen } from '../lib/donations';
+
+const donationOpen = isDonationOpen(DONATION_ACCOUNT);
 const navLinks = [
   { href: '/', label: 'Trang chủ' },
   { href: '/du-an/mang-theo-mot-net-ve', label: 'Dự án' },
-  { href: '/san-pham', label: 'Sản phẩm gây quỹ' },
+  { href: '/san-pham', label: 'Quà lưu niệm' },
   { href: '/minh-bach', label: 'Minh bạch thu chi' },
   { href: '/ve-nhom', label: 'Về nhóm Lăng Kính' },
-  { href: '/dong-hanh', label: 'Cách đồng hành' },
+  { href: '/dong-hanh', label: 'Ủng hộ dự án' },
 ];
 ---
 
@@ -58,7 +62,7 @@ const navLinks = [
           </li>
           <li class="status-item">
             <span class="status-bullet" aria-hidden="true">•</span>
-            <span>Chưa nhận đơn hàng, tiền hay hiện vật qua website</span>
+            <span>{donationOpen ? 'Nhận ủng hộ qua chuyển khoản, sao kê công khai' : 'Chưa mở nhận ủng hộ qua website'}</span>
           </li>
           <li class="status-item">
             <span class="status-bullet" aria-hidden="true">•</span>

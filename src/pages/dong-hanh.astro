@@ -2,115 +2,98 @@
 import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/PageHero.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
-import StatusChip from '../components/StatusChip.astro';
-import { SUPPORT_FAQS, SUPPORT_RULES, SUPPORT_WORKFLOW, OFFICIAL_CONTACT } from '../data/campaign';
+import DonationPanel from '../components/DonationPanel.astro';
+import DonationLedger from '../components/DonationLedger.astro';
+import { SUPPORT_FAQS, DONATION_ACCOUNT, DONATIONS } from '../data/campaign';
+import { isDonationOpen } from '../lib/donations';
 
-const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Cách đồng hành' }];
-const contactReady = OFFICIAL_CONTACT.status === 'confirmed' && (OFFICIAL_CONTACT.email || OFFICIAL_CONTACT.phone);
+const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Ủng hộ' }];
+const open = isDonationOpen(DONATION_ACCOUNT);
 
-const ways = [
-  {
-    tag: 'Hiện vật',
-    title: 'Góp vật tư',
-    text: 'Vật tư cho buổi chơi hoặc nguyên liệu gây quỹ, theo đúng danh mục nhóm và Mái ấm đã thống nhất.',
-    link: { href: '/minh-bach#expenses-heading', label: 'Xem chi phí dự kiến' },
-  },
-  {
-    tag: 'Mua hàng',
-    title: 'Mua sản phẩm gây quỹ',
-    text: 'Chuồn chuồn tre, móc khóa và đồ ăn do nhóm chuẩn bị, khi mở bán.',
-    link: { href: '/san-pham', label: 'Xem sản phẩm' },
-  },
-  {
-    tag: 'Lan tỏa',
-    title: 'Chia sẻ câu chuyện',
-    text: 'Chia sẻ nội dung chính thức của nhóm để nhiều người biết đến dự án.',
-    link: { href: '/du-an/mang-theo-mot-net-ve', label: 'Đọc về dự án' },
-  },
+const steps = [
+  { title: 'Chuyển khoản', text: 'Quét mã QR hoặc chuyển tới tài khoản của dự án, ghi nội dung theo hướng dẫn.' },
+  { title: 'Nhóm đối soát', text: 'Hai thành viên tài chính đối chiếu từng khoản với sao kê ngân hàng.' },
+  { title: 'Công khai', text: 'Khoản của bạn xuất hiện trong bảng sao kê bên dưới, ai cũng kiểm tra được.' },
+  { title: 'Trao quà', text: 'Tiền dùng cho buổi chơi và quà theo danh mục Mái ấm cần; báo cáo cuối có hóa đơn.' },
+];
+
+const otherWays = [
+  { title: 'Mua quà lưu niệm', text: 'Chuồn chuồn tre và móc khóa do nhóm tự làm, khi mở bán.', href: '/san-pham', label: 'Xem quà lưu niệm' },
+  { title: 'Góp vật phẩm', text: 'Theo đúng danh mục Mái ấm xác nhận, để món đồ đến đúng nơi cần.', href: '/minh-bach', label: 'Xem kế hoạch sử dụng' },
+  { title: 'Chia sẻ dự án', text: 'Gửi trang này tới bạn bè để nhiều người biết đến buổi chơi.', href: '/du-an/mang-theo-mot-net-ve', label: 'Đọc về dự án' },
 ];
 ---
 
 <Layout
-  title="Cách đồng hành cùng dự án"
-  description="Các cách đồng hành cùng dự án Mang Theo Một Nét Vẽ và cách nhóm Lăng Kính tiếp nhận hỗ trợ."
+  title="Ủng hộ dự án"
+  description="Ủng hộ dự án Mang Theo Một Nét Vẽ qua chuyển khoản, với bảng sao kê công khai từng khoản ủng hộ."
   currentPath="/dong-hanh"
 >
   <PageHero
     breadcrumbs={breadcrumbs}
-    eyebrow="Đồng hành"
-    title="Cùng mang quà đúng nhu cầu"
+    eyebrow="Ủng hộ"
+    chip={open ? { kind: 'da-xac-nhan', label: 'Đang nhận ủng hộ' } : { kind: 'cho-xac-nhan', label: 'Sắp mở nhận ủng hộ' }}
+    title="Ủng hộ một buổi chơi, một món quà"
     titleId="support-heading"
-    lead="Mỗi sự hỗ trợ đều đi đúng vào thứ Mái ấm cần, và được ghi nhận minh bạch."
-    description="Nhóm sẽ nhận hỗ trợ khi danh mục nhu cầu và kênh liên hệ được xác nhận. Hiện website chưa nhận tiền, hiện vật hay đơn hàng."
-    summaryTitle="Bạn có thể làm ngay"
-  >
-    <div slot="panel-extra" class="now">
-      <ul class="now-list">
-        <li class="now-yes"><a href="/du-an/mang-theo-mot-net-ve">Tìm hiểu buổi chơi</a></li>
-        <li class="now-yes"><a href="/san-pham">Xem sản phẩm và giá tham khảo</a></li>
-        <li class="now-yes"><a href="/minh-bach">Xem kế hoạch tài chính</a></li>
-        <li class="now-wait">Gửi hỗ trợ, đặt hàng: khi có kênh chính thức</li>
-      </ul>
-    </div>
-  </PageHero>
+    lead="Mỗi khoản ủng hộ được ghi công khai, đối soát với ngân hàng và dùng đúng cho các em tại Mái ấm."
+    description="Bạn chuyển khoản qua mã QR, nhóm đối soát rồi đăng lên bảng sao kê ngay tại trang này."
+  />
 
-  <section class="section" aria-labelledby="ways-heading">
+  <section class="section section-first" aria-labelledby="donate-heading">
+    <div class="container">
+      <h2 id="donate-heading" class="sr-only">Thông tin chuyển khoản</h2>
+      <DonationPanel account={DONATION_ACCOUNT} />
+    </div>
+  </section>
+
+  <section class="section section-soft" aria-labelledby="steps-heading">
     <div class="container">
       <div class="section-header">
-        <span class="eyebrow">Ba cách</span>
-        <h2 id="ways-heading">Bạn có thể đồng hành bằng</h2>
+        <span class="eyebrow">Minh bạch từng khoản</span>
+        <h2 id="steps-heading">Khoản ủng hộ của bạn đi đâu</h2>
+      </div>
+      <ol class="flow">
+        {
+          steps.map((s, i) => (
+            <li class="flow-step lift">
+              <span class="flow-num" aria-hidden="true">{i + 1}</span>
+              <h3 class="flow-title">{s.title}</h3>
+              <p class="flow-text">{s.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="ledger-heading" id="sao-ke">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">Sao kê</span>
+        <h2 id="ledger-heading">Danh sách người ủng hộ</h2>
+        <p>Chỉ hiển thị tên bạn chọn, số tiền, ngày và mã giao dịch rút gọn. Không hiển thị số tài khoản của người ủng hộ.</p>
+      </div>
+      <DonationLedger account={DONATION_ACCOUNT} entries={DONATIONS} />
+    </div>
+  </section>
+
+  <section class="section section-soft" aria-labelledby="ways-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">Cách khác</span>
+        <h2 id="ways-heading">Bạn cũng có thể</h2>
       </div>
       <ul class="ways">
         {
-          ways.map((w) => (
+          otherWays.map((w) => (
             <li class="way lift">
-              <span class="way-tag">{w.tag}</span>
               <h3 class="way-title">{w.title}</h3>
               <p class="way-text">{w.text}</p>
-              <a href={w.link.href} class="link-arrow">{w.link.label} <span class="arrow" aria-hidden="true">→</span></a>
+              <a href={w.href} class="link-arrow">{w.label} <span class="arrow" aria-hidden="true">→</span></a>
             </li>
           ))
         }
       </ul>
-    </div>
-  </section>
-
-  <section class="section section-soft" aria-labelledby="rules-heading">
-    <div class="container">
-      <div class="two-col">
-        <div class="reveal">
-          <span class="eyebrow">Quy trình</span>
-          <h2 id="rules-heading" class="col-title">Nhóm tiếp nhận thế nào</h2>
-          <ol class="steps">
-            {
-              SUPPORT_WORKFLOW.map((s) => (
-                <li class="step">
-                  <span class="step-num" aria-hidden="true">{s.step}</span>
-                  <div>
-                    <h3 class="step-title">{s.title}</h3>
-                    <p class="step-desc">{s.description}</p>
-                  </div>
-                </li>
-              ))
-            }
-          </ol>
-        </div>
-        <div class="reveal">
-          <span class="eyebrow">Cam kết</span>
-          <h3 class="col-title col-title--sm">Mỗi đóng góp đều rõ ràng</h3>
-          <ul class="check-list">
-            {SUPPORT_RULES.map((r) => <li>{r}</li>)}
-          </ul>
-          <div class="contact">
-            {contactReady ? (
-              <StatusChip kind="da-xac-nhan" label="Kênh liên hệ đã xác nhận" />
-            ) : (
-              <StatusChip kind="cho-xac-nhan" label="Kênh liên hệ sắp công bố" />
-            )}
-            <p>Nhóm chưa có tài khoản nhận tiền, mã QR hay biểu mẫu nào đang hoạt động. Thông tin liên hệ sẽ được đăng tại đây khi được duyệt.</p>
-          </div>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -127,79 +110,65 @@ const ways = [
   <section class="cta-band" aria-labelledby="support-cta-heading">
     <div class="container cta-band-inner">
       <div class="cta-band-text">
-        <h2 id="support-cta-heading">Ai đứng sau dự án?</h2>
-        <p>Bảy sinh viên FPT Hà Nội và cách nhóm làm việc.</p>
+        <h2 id="support-cta-heading">Tiền được sử dụng thế nào?</h2>
+        <p>Kế hoạch chi cho buổi chơi, quà và báo cáo sau dự án.</p>
       </div>
       <div class="cta-band-actions">
-        <a href="/ve-nhom" class="btn btn-primary">Về nhóm Lăng Kính</a>
+        <a href="/minh-bach" class="btn btn-primary">Xem minh bạch</a>
+        <a href="/ve-nhom" class="link-arrow">Về nhóm Lăng Kính <span class="arrow" aria-hidden="true">→</span></a>
       </div>
     </div>
   </section>
 </Layout>
 
 <style>
+  .section-first {
+    padding-top: var(--space-10);
+  }
+
   .narrow > :global(*) {
     max-width: 880px;
   }
 
-  .now-list {
+  .flow {
     list-style: none;
     margin: 0;
     padding: 0;
     display: grid;
-    gap: var(--space-1);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-4);
   }
 
-  .now-list li {
-    position: relative;
-    padding: var(--space-2) 0 var(--space-2) 28px;
-    border-bottom: 1px solid var(--line);
-    color: var(--ink);
+  .flow-step {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-5);
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
   }
 
-  .now-list li:last-child {
-    border-bottom: none;
-  }
-
-  .now-list a {
-    color: var(--ink);
-    font-weight: 600;
-    text-underline-offset: 3px;
+  .flow-num {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-pill);
+    background: var(--brand-ink);
+    color: #ffffff;
+    font-weight: 700;
     display: inline-flex;
-    min-height: 28px;
     align-items: center;
+    justify-content: center;
   }
 
-  .now-list a:hover {
-    color: var(--brand);
+  .flow-title {
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+    margin: 0;
   }
 
-  .now-yes::before {
-    content: "";
-    position: absolute;
-    left: 3px;
-    top: 15px;
-    width: 13px;
-    height: 7px;
-    border-left: 2px solid var(--status-confirmed-text);
-    border-bottom: 2px solid var(--status-confirmed-text);
-    transform: rotate(-45deg);
-  }
-
-  .now-wait {
-    color: var(--status-pending-text) !important;
-    font-weight: 600;
-  }
-
-  .now-wait::before {
-    content: "";
-    position: absolute;
-    left: 2px;
-    top: 13px;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    border: 2px solid var(--status-pending-text);
+  .flow-text {
+    margin: 0;
   }
 
   .ways {
@@ -208,7 +177,7 @@ const ways = [
     padding: 0;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--space-6);
+    gap: var(--space-5);
   }
 
   .way {
@@ -222,13 +191,6 @@ const ways = [
     border-radius: var(--radius-lg);
   }
 
-  .way-tag {
-    font-size: var(--font-size-small);
-    line-height: var(--line-height-small);
-    font-weight: 600;
-    color: var(--brand);
-  }
-
   .way-title {
     font-size: var(--font-size-h3);
     line-height: var(--line-height-h3);
@@ -240,80 +202,39 @@ const ways = [
     flex-grow: 1;
   }
 
-  .col-title {
-    font-size: var(--font-size-h2);
-    line-height: var(--line-height-h2);
-    margin-bottom: var(--space-5);
-  }
-
-  .col-title--sm {
-    font-size: var(--font-size-h3);
-    line-height: var(--line-height-h3);
-    margin-bottom: var(--space-4);
-  }
-
-  .steps {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    gap: var(--space-5);
-  }
-
-  .step {
-    display: grid;
-    grid-template-columns: 40px minmax(0, 1fr);
-    gap: var(--space-4);
-  }
-
-  .step-num {
-    width: 40px;
-    height: 40px;
-    border-radius: var(--radius-pill);
-    border: 2px solid var(--brand);
-    color: var(--brand);
-    font-weight: 700;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-variant-numeric: tabular-nums;
-    background: #ffffff;
-  }
-
-  .step-title {
-    font-size: var(--font-size-body);
-    line-height: var(--line-height-body);
-    margin: 0;
-  }
-
-  .step-desc {
-    margin: 0;
-  }
-
-  .contact {
-    margin-top: var(--space-6);
-    padding: var(--space-4) var(--space-5);
-    background: #ffffff;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-md);
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-2);
-  }
-
-  .contact p {
-    margin: 0;
-  }
-
   @media (max-width: 1023px) {
+    .flow {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
     .ways {
       grid-template-columns: 1fr;
-      gap: var(--space-4);
+      gap: var(--space-3);
     }
   }
 
   @media (max-width: 767px) {
+    .section-first {
+      padding-top: var(--space-6);
+    }
+
+    .flow {
+      grid-template-columns: 1fr;
+      gap: var(--space-3);
+    }
+
+    .flow-step {
+      display: grid;
+      grid-template-columns: 36px minmax(0, 1fr);
+      column-gap: var(--space-3);
+      row-gap: 2px;
+      padding: var(--space-4);
+    }
+
+    .flow-num {
+      grid-row: span 2;
+    }
+
     .way {
       padding: var(--space-4);
     }
