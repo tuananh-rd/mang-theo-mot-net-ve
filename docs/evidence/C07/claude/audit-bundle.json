@@ -1,0 +1,224 @@
+{
+ "headSha": "be7ae45e4147bacdee64c35374b052eaa343a49a",
+ "at": "2026-10-08T12:18:43.438Z",
+ "files": [
+  {
+   "file": "/404.html",
+   "bytes": 9646,
+   "sha256": "a8bc7b4ceb546427e936ffacc7f02121f6b54234fdff04d2779ab61d81a3550a",
+   "served": 200,
+   "servedMatch": true
+  },
+  {
+   "file": "/dong-hanh/index.html",
+   "bytes": 31897,
+   "sha256": "0f644bd22a58da716ce50c724c6950fba7a5aa9ff0989fddf9fc181e528542c3",
+   "served": 200,
+   "servedMatch": true
+  },
+  {
+   "file": "/du-an/mang-theo-mot-net-ve/index.html",
+   "bytes": 44153,
+   "sha256": "7b6ed118c8bc6a9a87d710ca5ea0275a79430ccc3e849abbd6f0f5022d088e33",
+   "served": 200,
+   "servedMatch": true
+  },
+  {
+   "file": "/favicon.svg",
+   "bytes": 703,
+   "sha256": "cf5a6109d12aead474ccee95fd51643e1988adc2364bb1349e3c3e4e6d564051",
+   "served": 200,
+   "servedMatch": true
+  },
+  {
+   "file": "/images/apple-touch-icon.png",
+   "bytes": 6141,
+   "sha256": "1f17e268aaf9672ade06b400cc5348a3126c9201b7135bd7e3723d992da20e10",
+   "served": 200,
+   "servedMatch": true
+  },
+  {
+   "file": "/images/favicon-32x32.png",
+   "bytes": 1263,
+   "sha256": "a960c351d4ca5d3fb258edf561b23e67e22a599a969a53f8fbf793f7103b3087",
+   "served": 200,
+   "servedMatch": true
+  },
+  {
+   "file": "/images/illustrations/a01.webp",
+   "bytes": 100518,
+   "sha256": "a9fa9016a999b7adab3f52f8d942c0b2f3606326003a2ef42a6c7c28bdc2f3f1",
+   "served": 200,
+   "servedMatch": true
+  },
+  {
+   "file": "/images/illustrations/a02.webp",
+   "bytes": 30248,
+   "sha256": "8db997d57ec418468478f940cde866e14ef970c3221b6f3978d6c2af4fb7e535",
+   "served": 200,
+   "servedMatch": true
+  },
+  {
+   "file": "/images/illustrations/a03.webp",
+   "bytes": 89352,
+   "sha256": "4f0050853707213fafed52296fa75ef62f1519352a9a5c30a0be45cba435c5a7",
+   "served": 200,
+   "servedMatch": true
+  },
+  {
+   "file": "/images/illustrations/a04.webp",
+   "bytes": 67214,
+   "sha256": "17c3fefd7484603a82dd9cb1cabf0122ce856c58e4977874179d2519df1ec61a",
+   "served": 200,
+   "servedMatch": true
+  },
+  {
+   "file": "/images/illustrations/a05.webp",
+   "bytes": 101026,
+   "sha256": "8d8f4d8bbaa692295eb81b34858b8cdc2e454c82bd8bb610e84c1a33dcb9407f",
+   "served": 200,
+   "servedMatch": true
+  },
+  {
+   "file": "/images/logo_lang_kinh_2048.png",
+   "bytes": 78915,
+   "sha256": "06f63ac9d41c079827d794b13ffec468ea30be7b818755b4ba96bc819f7facbc",
+   "served": 200,
+   "servedMatch": true
+  },
+  {
+   "file": "/images/logo_option5_horizontal.png",
+   "bytes": 37399,
+   "sha256": "e078e7ea7bd8debae74d2c573fe4391fd55aee57a167ca4eb63534b17ee56db9",
+   "served": 200,
+   "servedMatch": true
+  },
+  {
+   "file": "/index.html",
+   "bytes": 38398,
+   "sha256": "28b5a20d9514bcbb98a47c05f79e962609a96c5d6af5e14039312db7bc6ff423",
+   "served": 200,
+   "servedMatch": true
+  },
+  {
+   "file": "/minh-bach/index.html",
+   "bytes": 57243,
+   "sha256": "0afa57e3d05d9d9daccbf922cee45b734a48e9d9c0bbbc20b9e904734c3051fc",
+   "served": 200,
+   "servedMatch": true
+  },
+  {
+   "file": "/san-pham/index.html",
+   "bytes": 42813,
+   "sha256": "d4b74afc059db0e3fb375025e122861d1e9a606c0df6379a17238fc200d67a3b",
+   "served": 200,
+   "servedMatch": true
+  },
+  {
+   "file": "/ve-nhom/index.html",
+   "bytes": 24522,
+   "sha256": "03349053164230c972482709f66ff015e6fa92e0f8af0811eb6cab553590f6f4",
+   "served": 200,
+   "servedMatch": true
+  },
+  {
+   "file": "/_astro/index.CJYTOOrA.css",
+   "bytes": 6333,
+   "sha256": "6918606b31a568361d64ec10e7bbafd045937b5513af74aaafabeef882fde6a9",
+   "served": 200,
+   "servedMatch": true
+  },
+  {
+   "file": "/_astro/Layout.DtY-IPMs.css",
+   "bytes": 22098,
+   "sha256": "f07e9b3405af26ad30e889e8e1ddae4bc3108e2d63fa6ee7d9cc8ad2b778f685",
+   "served": 200,
+   "servedMatch": true
+  },
+  {
+   "file": "/_astro/minh-bach.Ch0SFwtN.css",
+   "bytes": 5052,
+   "sha256": "c78c0b0e14c6aa65136cfda45fda5186e516eb1d719e7519f36ab11ef4740be0",
+   "served": 200,
+   "servedMatch": true
+  }
+ ],
+ "checks": [
+  {
+   "name": "served bytes equal dist for every file",
+   "pass": true,
+   "detail": []
+  },
+  {
+   "name": "bundle has no memberNames",
+   "pass": true,
+   "detail": []
+  },
+  {
+   "name": "bundle has no sensitiveCounts",
+   "pass": true,
+   "detail": []
+  },
+  {
+   "name": "bundle has no oldFinance",
+   "pass": true,
+   "detail": []
+  },
+  {
+   "name": "bundle has no contact",
+   "pass": true,
+   "detail": []
+  },
+  {
+   "name": "bundle has no rawSource",
+   "pass": true,
+   "detail": []
+  },
+  {
+   "name": "bundle has no unapprovedAssets",
+   "pass": true,
+   "detail": []
+  },
+  {
+   "name": "bundle has no orderOrPayment",
+   "pass": true,
+   "detail": []
+  },
+  {
+   "name": "no A06-A11 files in dist",
+   "pass": true,
+   "detail": []
+  },
+  {
+   "name": "every HTML has noindex,nofollow",
+   "pass": true,
+   "detail": 7
+  },
+  {
+   "name": "transparency page shows required planned figures",
+   "pass": true,
+   "detail": []
+  },
+  {
+   "name": "transparency page shows all 24 expense lines",
+   "pass": true,
+   "detail": 33
+  },
+  {
+   "name": "combos marked not counted on products page",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "name": "actual figures shown as unconfirmed",
+   "pass": true,
+   "detail": 6
+  }
+ ],
+ "summary": {
+  "files": 20,
+  "total": 14,
+  "pass": 14,
+  "fail": []
+ }
+}

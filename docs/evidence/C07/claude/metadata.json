@@ -1,0 +1,42 @@
+{
+  "task": "C07",
+  "implementer": "Claude Opus 5.5 (claude-opus-5-5), sole implementer for C07",
+  "branch": "task/c07-claude-editorial-ui",
+  "baselineSha": "80ff81b37356d345aead982f0bab20266cc9e5c5",
+  "finalAppSha": "be7ae45e4147bacdee64c35374b052eaa343a49a",
+  "appDiff": "git diff --stat 80ff81b be7ae45: 20 files changed, 2575 insertions(+), 4163 deletions(-); src/ and tests/ only; package.json, package-lock.json, astro.config.mjs, tsconfig.json, public/ unchanged",
+  "source": {
+    "file": "D:\\Downloads\\Mang_Theo_Mot_Net_Ve_Final.pdf",
+    "pages": 34,
+    "sha256": "5d27391ea9fe8a03bb7c6f1e913278193ed8fbb1970164a15b9d7934274064c0",
+    "readMethod": "pypdf installed into the session scratchpad (outside repo); extracted text kept outside repo; not copied to public/dist/git"
+  },
+  "preview": {
+    "url": "http://127.0.0.1:4322/",
+    "bind": "127.0.0.1",
+    "pid": 28852,
+    "kind": "existing static server serving dist/ (not started or stopped by Claude)",
+    "servesFinalBuild": "audit-bundle.json: 20/20 served bodies byte-identical to dist built from be7ae45"
+  },
+  "commands": [
+    { "cmd": "npm.cmd ci", "exit": 0, "log": "logs/npm-ci.log" },
+    { "cmd": "npm.cmd run check", "exit": 0, "result": "117 files, 0 errors, 0 warnings, 0 hints", "log": "logs/check.log" },
+    { "cmd": "node --test tests/finance.test.mjs", "exit": 0, "result": "33 tests, 6 suites, 0 fail", "log": "logs/test.log" },
+    { "cmd": "npm.cmd run build", "exit": 0, "result": "7 pages, 20 files in dist", "log": "logs/build.log" },
+    { "cmd": "node docs/evidence/C07/claude/audit-bundle.mjs", "exit": 0, "result": "14/14 checks", "output": "audit-bundle.json" },
+    { "cmd": "node docs/evidence/C07/claude/qa-browser.mjs <evidenceDir> <repo>", "exit": 0, "result": "223/223 checks", "output": "qa-results.json, screens/" }
+  ],
+  "browser": "Chrome/154.0.8037.98 headless via puppeteer-core resolved from the existing Antigravity scratch node_modules (not an app dependency); 375/768 with mobile+touch emulation, 1440 desktop",
+  "screens": "screens/: 21 full-page (6 routes + 404 x 375/768/1440), menu-375-open, FAQ/disclosure open states at 375 (and finance tables at 1440), focus-1440",
+  "heightComparison": "height-comparison.json",
+  "diagnostics": [
+    "QA pre-commit run 1: finance@768 overflowed (scenario table 783/768px) -> fixed in app by allowing header wrap and tighter cell padding below 1024px; included in be7ae45.",
+    "QA pre-commit run 1: skip-link check read position during its 150ms transition (top -87px) -> test now waits 400ms; app unchanged for this item.",
+    "First evidence screenshots of open menu/disclosures were taken mid-transition (icons half-rotated) -> retaken after a 400ms wait; checks unchanged."
+  ],
+  "notVerified": [
+    "Real devices, Safari/Firefox, screen readers; full WCAG audit",
+    "Public hosting/deploy (not in scope; not done)"
+  ],
+  "status": "HOLD"
+}
