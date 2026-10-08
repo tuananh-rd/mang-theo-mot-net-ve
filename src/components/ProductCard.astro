@@ -205,9 +205,14 @@ const statusLabel = getSaleStatusLabel(product.saleStatus);
   @media (min-width: 1024px) {
     .product-card-side {
       display: grid;
-      grid-template-columns: 220px 1fr;
+      grid-template-columns: minmax(180px, 220px) minmax(0, 1fr);
       gap: var(--space-5);
       align-items: start;
+      min-width: 0;
+    }
+
+    .product-card-side .card-body {
+      min-width: 0;
     }
 
     .product-card-side .card-visual {

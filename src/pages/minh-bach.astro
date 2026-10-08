@@ -885,26 +885,35 @@ const summaryItems = [
   .estimated-tag {
     display: inline-block;
     margin-left: var(--space-2);
-    padding: 1px 6px;
+    padding: 2px 8px;
     background-color: var(--status-hypo-bg);
     color: var(--status-hypo-text);
     border-radius: var(--radius-sm);
-    font-size: 0.75rem;
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-small);
     font-weight: 600;
   }
 
-  /* Total Row: Tối màu, chữ contrast cao */
+  /* Total Row: Tối màu, chữ contrast cao (>= 4.5:1) */
   .total-row {
     font-size: 1.0625rem;
-    background-color: var(--brand-ink);
-    color: #ffffff;
+    background-color: var(--brand-ink) !important;
+    color: #ffffff !important;
   }
 
   .total-row th,
   .total-row td {
-    color: #ffffff;
+    background-color: var(--brand-ink) !important;
+    color: #ffffff !important;
     border-top: 2px solid var(--line-strong);
     padding: var(--space-4);
+  }
+
+  .total-row th {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    text-transform: none;
+    letter-spacing: normal;
   }
 
   .total-row .text-accent {
