@@ -1,624 +1,127 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/PageHero.astro';
-import ProductCard from '../components/ProductCard.astro';
+import ProductCatalog from '../components/ProductCatalog.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
-import { PRODUCTS, PRODUCT_FAQS } from '../data/campaign';
-import { formatProductPrice, formatProductQuantity } from '../lib/finance';
+import { PRODUCTS, PRODUCT_FAQS, SALES_PLAN } from '../data/campaign';
+import { calculateBaseRevenue, formatVND } from '../lib/finance';
 
-const craftProducts = PRODUCTS.filter((p) => p.category === 'craft');
-const foodProducts = PRODUCTS.filter((p) => p.category === 'food');
+const baseRevenue = calculateBaseRevenue(PRODUCTS);
 
-const breadcrumbs = [
-  { label: 'Trang chủ', href: '/' },
-  { label: 'Sản phẩm gây quỹ' },
-];
+const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Sản phẩm' }];
 
 const summaryItems = [
+  { label: 'Danh mục cơ sở', value: 'Chuồn chuồn tre, móc khóa, set đồ ăn, bánh su kem' },
+  { label: 'Giá tham khảo', value: '10.000đ – 79.000đ theo đề xuất' },
+  { label: 'Người hoàn thiện', value: 'Nhóm Lăng Kính; các em không có chỉ tiêu sản phẩm' },
   {
-    label: 'Quy mô danh mục',
-    value: '7 mặt hàng (2 thủ công, 5 ẩm thực)',
-  },
-  {
-    label: 'Khoảng giá tham khảo',
-    value: '10.000₫ – 79.000₫ trong đề xuất',
-  },
-  {
-    label: 'Tình trạng phát hành',
-    value: 'Chưa mở bán, chưa nhận đơn đặt trước',
-    chip: {
-      kind: 'cho-xac-nhan' as const,
-      label: 'Chưa mở bán',
-    },
-  },
-  {
-    label: 'Mục đích gây quỹ',
-    value: 'Bù đắp vật tư và tạo nguồn quà tặng thiết yếu',
+    label: 'Mở bán',
+    value: 'Chưa mở, chưa nhận đơn',
+    chip: { kind: 'cho-xac-nhan' as const, label: 'Chờ duyệt' },
   },
 ];
 ---
 
 <Layout
   title="Sản phẩm gây quỹ dự kiến"
-  description="Danh mục 7 sản phẩm thủ công và thực đơn ẩm thực gây quỹ dự kiến trong chiến dịch Mang Theo Một Nét Vẽ."
+  description="Giá tham khảo, số lượng kế hoạch và nguồn gốc các sản phẩm gây quỹ dự kiến của dự án Mang Theo Một Nét Vẽ."
   currentPath="/san-pham"
 >
-  <!-- Shared PageHero (7 cột trái / 5 cột phải panel Tóm tắt kế hoạch) -->
   <PageHero
     breadcrumbs={breadcrumbs}
-    eyebrow="Gây quỹ dự kiến"
-    chip={{
-      kind: 'cho-xac-nhan',
-      label: 'Chưa mở bán chính thức',
-    }}
+    eyebrow="Gây quỹ"
+    chip={{ kind: 'cho-xac-nhan', label: 'Chưa mở bán' }}
     title="Sản phẩm gây quỹ dự kiến"
     titleId="products-heading"
-    lead="Kế hoạch 7 sản phẩm lưu niệm thủ công và thực đơn ẩm thực đề xuất nhằm bù đắp chi phí vật tư và tạo nguồn lực trao tặng."
-    description="Mọi mức giá từ 10.000₫ – 79.000₫ là số liệu tham khảo trong hồ sơ đề xuất. Nhóm sinh viên dự kiến tự hoàn thiện các món quà lưu niệm thủ công; phương án ẩm thực chỉ triển khai khi có địa điểm và điều kiện an toàn được duyệt."
-    summaryTitle="Tóm tắt kế hoạch"
+    lead="Đồ thủ công và đồ ăn do nhóm chuẩn bị, bán tại FPT Hòa Lạc để có quỹ mua quà cho Mái ấm."
+    description="Giá và số lượng dưới đây là kế hoạch trong đề xuất Final. Mẫu, giá chính thức và kênh đặt hàng sẽ được công bố khi kế hoạch bán được duyệt."
+    summaryTitle="Tóm tắt"
     summaryItems={summaryItems}
   />
 
-  <!-- Section 1: Danh mục sản phẩm đề xuất -->
-  <section class="section section-soft" aria-labelledby="catalog-heading">
+  <section class="section" aria-labelledby="catalog-heading">
     <div class="container">
       <div class="section-header">
-        <span class="eyebrow">Danh mục đề xuất</span>
-        <h2 id="catalog-heading">Sản phẩm trong kế hoạch đề xuất</h2>
-        <p class="section-lead">
-          Kế hoạch gây quỹ gồm 2 sản phẩm lưu niệm thủ công và 5 món ẩm thực sinh viên dự kiến nhằm bù đắp chi phí vật tư và tạo nguồn lực trao tặng.
-        </p>
-      </div>
-
-      <!-- Notice chưa mở bán 1 lần duy nhất -->
-      <div class="product-section-notice" role="note">
+        <span class="eyebrow">Danh mục</span>
+        <h2 id="catalog-heading">Giá tham khảo và số lượng kế hoạch</h2>
         <p>
-          <strong>Lưu ý:</strong> Trạng thái mở bán chưa được xác nhận. Bản xem trước nhằm lấy ý kiến đóng góp cho đề xuất dự án, website chưa nhận đơn hàng hoặc tiền ủng hộ.
+          Bốn mặt hàng cơ sở tạo nên kịch bản doanh thu {formatVND(baseRevenue)}. Ba combo nem có trong đề xuất nhưng chưa được tính, vì hồ sơ chưa nói rõ bán thêm hay thay cho set đồ ăn.
         </p>
       </div>
 
-      <!-- Group 1: Thủ công (Desktop side-layout: ảnh trái chữ phải) -->
-      <div class="catalog-group">
-        <div class="group-title-row">
-          <h3 class="catalog-subheading">1. Sản phẩm lưu niệm thủ công</h3>
-          <span class="group-badge">2 sản phẩm &bull; Nhóm Lăng Kính hoàn thiện mẫu</span>
-        </div>
-        <div class="products-grid products-grid-craft">
-          {
-            craftProducts.map((product) => (
-              <ProductCard product={product} ratio="16:9" layout="side" />
-            ))
-          }
-        </div>
-      </div>
+      <ProductCatalog
+        products={PRODUCTS}
+        caption="Bảy mặt hàng gây quỹ: giá tham khảo, số lượng kế hoạch và doanh thu nếu bán đủ"
+      />
 
-      <!-- Group 2: Thực đơn ẩm thực (Lưới 3+2 cân đối) -->
-      <div class="catalog-group food-catalog-group">
-        <div class="food-group-header">
-          <div class="group-title-row">
-            <h3 class="catalog-subheading">2. Thực đơn ẩm thực gây quỹ dự kiến</h3>
-            <span class="food-condition-badge">
-              Chỉ triển khai khi chốt địa điểm, an toàn &amp; lịch nhận
-            </span>
-          </div>
+      <p class="source-note">
+        Theo đề xuất Final, trang 29–31. Ảnh mẫu thật sẽ bổ sung khi nhóm hoàn thiện sản phẩm. Số lượng là kế hoạch, không phải hàng tồn hay số đã bán.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section-soft" aria-labelledby="origin-heading">
+    <div class="container">
+      <div class="two-col">
+        <div>
+          <span class="eyebrow">Nguồn gốc</span>
+          <h2 id="origin-heading" class="col-title">Ai làm và làm thế nào</h2>
+          <ul class="check-list">
+            <li>Nhóm Lăng Kính chuẩn bị và hoàn thiện mọi hàng bán; kiểm tra hình thức trước khi giao.</li>
+            <li>Chuẩn bị 50 phôi chuồn chuồn: 30 bộ kèm đế dành bán, 20 chiếc để lại Mái ấm theo sắp xếp của cơ sở.</li>
+            <li>Tranh của các em chỉ được in lên móc khóa khi có sự đồng ý phù hợp; nếu không, nhóm tự hoàn thiện.</li>
+            <li>Tượng tô là hoạt động chơi tại Mái ấm, không phải hàng bán.</li>
+          </ul>
         </div>
-        <p class="food-group-desc">
-          Kế hoạch ẩm thực cơ sở gồm 50 set đồ ăn (79.000₫/set) và 50 hộp bánh su kem (20.000₫/hộp) với doanh thu dự kiến 4.950.000₫, đã giải thích cơ cấu so với dự toán cũ. Ba combo món ăn (60 suất/món theo đề xuất) chưa tính vào doanh thu cơ sở do cần đối chiếu số lượng nguyên liệu bổ sung hay thay thế (xem <a href="/minh-bach#doi-chieu-do-an" class="food-reconcile-link">bảng đối chiếu chi tiết tại trang Minh bạch</a>). Dưới đây là các mức giá tham khảo theo từng món và combo trong đề xuất:
-        </p>
-        <div class="products-grid products-grid-food">
-          {
-            foodProducts.map((product) => (
-              <div class="food-grid-item">
-                <ProductCard product={product} ratio="16:9" />
-              </div>
-            ))
-          }
+        <div>
+          <span class="eyebrow">Kế hoạch bán</span>
+          <h3 class="col-title">Khi nào và ở đâu</h3>
+          <ul class="check-list">
+            {SALES_PLAN.map((s) => <li>{s}</li>)}
+          </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Section 2: Kế hoạch số lượng dự kiến -->
-  <section class="section" aria-labelledby="quantity-plan-heading">
-    <div class="container">
+  <section class="section" aria-labelledby="faq-heading">
+    <div class="container narrow">
       <div class="section-header">
-        <span class="eyebrow">Kế hoạch phát hành</span>
-        <h2 id="quantity-plan-heading">Bảng tổng hợp kế hoạch số lượng</h2>
-        <p class="section-lead">
-          Số lượng dự kiến theo kịch bản dự toán đề xuất; tách bạch rõ ràng giữa kế hoạch chuẩn bị và thực tế phát hành.
-        </p>
+        <span class="eyebrow">Hỏi đáp</span>
+        <h2 id="faq-heading">Câu hỏi về sản phẩm</h2>
       </div>
-
-      <!-- Desktop Table view (>= 1024px) -->
-      <div class="table-container card table-desktop">
-        <div class="table-responsive">
-          <table class="plan-table">
-            <caption class="sr-only">Bảng tổng hợp kế hoạch số lượng và giá tham khảo 7 sản phẩm</caption>
-            <thead>
-              <tr>
-                <th scope="col">Sản phẩm</th>
-                <th scope="col">Giá tham khảo</th>
-                <th scope="col">Số lượng kế hoạch</th>
-                <th scope="col">Nguồn gốc &amp; Ghi chú</th>
-                <th scope="col">Trạng thái bán</th>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                PRODUCTS.map((p) => (
-                  <tr>
-                    <td class="col-name">
-                      <strong>{p.name}</strong>
-                    </td>
-                    <td class="col-price">
-                      {formatProductPrice(p)}
-                    </td>
-                    <td class="col-qty">
-                      {formatProductQuantity(p)}
-                    </td>
-                    <td class="col-notes">
-                      {p.planNotes || p.notes}
-                    </td>
-                    <td class="col-status">
-                      <span class="plan-status-badge">
-                        {p.saleStatus === 'unconfirmed' ? 'Chưa xác nhận' : p.saleStatus}
-                      </span>
-                    </td>
-                  </tr>
-                ))
-              }
-            </tbody>
-          </table>
-        </div>
-
-        <div class="table-disclaimer">
-          <p>
-            Ghi chú: Toàn bộ số lượng và mức giá trên thuộc kịch bản dự toán ban đầu trong đề xuất dự án. Số lượng tồn kho thực tế chưa được xác nhận.
-          </p>
-        </div>
-      </div>
-
-      <!-- Mobile/Tablet Collapsible Details (< 1024px) -->
-      <div class="table-mobile-collapse-wrap">
-        <details class="plan-mobile-details card" id="mobile-plan-details">
-          <summary class="plan-mobile-summary">
-            <span class="summary-text">Xem bảng tổng hợp kế hoạch (đầy đủ 7 món)</span>
-            <span class="summary-badge">Mở để xem chi tiết</span>
-            <span class="summary-icon" aria-hidden="true">&darr;</span>
-          </summary>
-
-          <div class="plan-mobile-content">
-            <p class="table-scroll-hint" id="mobile-table-scroll-hint">
-              <span aria-hidden="true">&harr;</span> Cuộn ngang để xem đầy đủ 5 cột thông tin kế hoạch
-            </p>
-            <div
-              class="table-responsive"
-              tabindex="0"
-              role="region"
-              aria-label="Bảng tổng hợp kế hoạch 7 sản phẩm"
-              aria-describedby="mobile-table-scroll-hint"
-            >
-              <table class="plan-table mobile-expanded-table">
-                <thead>
-                  <tr>
-                    <th scope="col" class="col-name">Sản phẩm</th>
-                    <th scope="col" class="col-price">Giá tham khảo</th>
-                    <th scope="col" class="col-qty">Số lượng</th>
-                    <th scope="col" class="col-notes">Nguồn gốc / Ghi chú</th>
-                    <th scope="col" class="col-status">Trạng thái</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {
-                    PRODUCTS.map((p) => (
-                      <tr>
-                        <td class="col-name">
-                          <strong>{p.name}</strong>
-                          <span class="col-subnote">{p.originText}</span>
-                        </td>
-                        <td class="col-price">
-                          {formatProductPrice(p)}
-                        </td>
-                        <td class="col-qty">
-                          {formatProductQuantity(p)}
-                        </td>
-                        <td class="col-notes">
-                          {p.planNotes || p.notes}
-                        </td>
-                        <td class="col-status">
-                          <span class="plan-status-badge">
-                            {p.saleStatus === 'unconfirmed' ? 'Chưa xác nhận' : p.saleStatus}
-                          </span>
-                        </td>
-                      </tr>
-                    ))
-                  }
-                </tbody>
-              </table>
-            </div>
-
-            <div class="table-disclaimer">
-              <p>
-                Ghi chú: Toàn bộ số lượng và mức giá trên thuộc kịch bản dự toán ban đầu trong đề xuất dự án. Số lượng tồn kho thực tế chưa được xác nhận.
-              </p>
-            </div>
-          </div>
-        </details>
-      </div>
+      <FaqAccordion items={PRODUCT_FAQS} idPrefix="product-faq" />
     </div>
   </section>
 
-  <!-- Section 3: FAQ -->
-  <section class="section section-soft" aria-labelledby="faq-heading">
-    <div class="container">
-      <div class="section-header">
-        <span class="eyebrow">Giải đáp thắc mắc</span>
-        <h2 id="faq-heading">Hỏi đáp về sản phẩm và gây quỹ</h2>
-        <p class="section-lead">
-          Những câu hỏi thường gặp về định giá tham khảo, quá trình hoàn thiện và nguyên tắc sử dụng nguồn thu.
-        </p>
+  <section class="cta-band" aria-labelledby="products-cta-heading">
+    <div class="container cta-band-inner">
+      <div class="cta-band-text">
+        <h2 id="products-cta-heading">Muốn biết tiền bán hàng dùng thế nào?</h2>
+        <p>Dự toán chi, phép tính số dư và những điểm còn cần làm rõ.</p>
       </div>
-
-      <div class="faq-wrap">
-        <FaqAccordion items={PRODUCT_FAQS} idPrefix="product-faq" />
-      </div>
-    </div>
-  </section>
-
-  <!-- Section 4: CTA điều hướng -->
-  <section class="section section-cta" aria-labelledby="products-cta-heading">
-    <div class="container">
-      <div class="products-cta-card card">
-        <h2 id="products-cta-heading" class="cta-title">
-          Muốn biết tiền bán hàng dùng thế nào?
-        </h2>
-        <p class="cta-desc">
-          Xem chi tiết dự toán 24 khoản chi phí, kịch bản doanh thu và các nguyên tắc quản trị ngân quỹ minh bạch của chiến dịch.
-        </p>
-        <div class="cta-actions">
-          <a href="/minh-bach" class="btn btn-primary">
-            Xem minh bạch thu chi &rarr;
-          </a>
-          <a href="/dong-hanh" class="btn btn-secondary">
-            Tìm hiểu cách đồng hành
-          </a>
-        </div>
+      <div class="cta-band-actions">
+        <a href="/minh-bach" class="btn btn-primary">Xem minh bạch thu chi</a>
+        <a href="/dong-hanh" class="link-arrow">Cách đồng hành →</a>
       </div>
     </div>
   </section>
 </Layout>
 
 <style>
-  /* Catalog Groups */
-  .catalog-group {
-    margin-bottom: var(--space-12);
+  .col-title {
+    font-size: var(--font-size-h2);
+    line-height: var(--line-height-h2);
+    margin-bottom: var(--space-5);
   }
 
-  .catalog-group:last-child {
-    margin-bottom: 0;
-  }
-
-  .group-title-row {
-    display: flex;
-    align-items: center;
-    gap: var(--space-4);
+  h3.col-title {
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
     margin-bottom: var(--space-4);
-    flex-wrap: wrap;
   }
 
-  .catalog-subheading {
-    font-size: var(--font-size-h2);
-    line-height: var(--line-height-h2);
-    color: var(--ink);
-    margin: 0;
-  }
-
-  .group-badge,
-  .food-condition-badge {
-    font-size: var(--font-size-small);
-    font-weight: 600;
-    padding: var(--space-1) var(--space-3);
-    border-radius: var(--radius-pill);
-    background-color: var(--surface-alt);
-    border: 1px solid var(--line);
-    color: var(--ink-2);
-  }
-
-  .food-catalog-group {
-    border-top: 1px solid var(--line);
-    padding-top: var(--space-8);
-  }
-
-  .food-group-desc {
-    font-size: var(--font-size-body);
-    line-height: var(--line-height-body);
-    color: var(--ink-2);
-    margin-bottom: var(--space-6);
-    max-width: 900px;
-  }
-
-  .food-reconcile-link {
-    color: var(--brand);
-    text-decoration: underline;
-    font-weight: 600;
-  }
-
-  .food-reconcile-link:hover {
-    color: var(--ink);
-  }
-
-  /* Craft Grid: 2 cột desktop (với side-layout ảnh trái chữ phải) */
-  .products-grid-craft {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--space-6);
-  }
-
-  /* Food Grid: Lưới 3+2 cân đối trên desktop (6 tracks) */
-  .products-grid-food {
-    display: grid;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: var(--space-6);
-  }
-
-  .food-grid-item {
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
-
-  .food-grid-item:nth-child(1),
-  .food-grid-item:nth-child(2),
-  .food-grid-item:nth-child(3) {
-    grid-column: span 2;
-  }
-
-  .food-grid-item:nth-child(4) {
-    grid-column: 2 / span 2;
-  }
-
-  .food-grid-item:nth-child(5) {
-    grid-column: 4 / span 2;
-  }
-
-  /* Tables: Desktop Table view (>= 1024px) */
-  .table-desktop {
-    display: block;
-  }
-
-  .table-mobile-collapse-wrap {
-    display: none;
-  }
-
-  .table-container {
-    padding: var(--space-6);
-  }
-
-  .table-responsive {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .table-responsive:focus-visible {
-    outline: 3px solid var(--focus);
-    outline-offset: 2px;
-  }
-
-  .plan-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.9375rem;
-  }
-
-  .plan-table th,
-  .plan-table td {
-    padding: var(--space-3) var(--space-4);
-    text-align: left;
-    border-bottom: 1px solid var(--line);
-    vertical-align: top;
-  }
-
-  .plan-table th {
-    background-color: var(--surface-alt);
-    font-weight: 600;
-    color: var(--ink);
-    font-size: var(--font-size-small);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-  }
-
-  .col-price {
-    font-variant-numeric: tabular-nums;
-    font-weight: 600;
-    color: var(--ink);
-    white-space: nowrap;
-  }
-
-  .col-qty {
-    white-space: nowrap;
-  }
-
-  .col-notes {
-    color: var(--ink-2);
-    font-size: var(--font-size-small);
-    line-height: 1.5;
-  }
-
-  .col-subnote {
-    display: block;
-    font-size: var(--font-size-small);
-    color: var(--ink-2);
-    margin-top: 2px;
-  }
-
-  .plan-status-badge {
-    display: inline-block;
-    padding: 2px 8px;
-    background-color: var(--status-pending-bg);
-    color: var(--status-pending-text);
-    border-radius: var(--radius-pill);
-    font-size: var(--font-size-small);
-    font-weight: 500;
-    white-space: nowrap;
-  }
-
-  .table-disclaimer {
-    margin-top: var(--space-4);
-    padding-top: var(--space-3);
-    border-top: 1px dashed var(--line);
-  }
-
-  .table-disclaimer p {
-    font-size: var(--font-size-small);
-    color: var(--ink-2);
-    margin: 0;
-    line-height: 1.5;
-  }
-
-  /* Mobile Details Table */
-  .plan-mobile-details {
-    padding: 0;
-    overflow: hidden;
-  }
-
-  .plan-mobile-summary {
-    padding: var(--space-4) var(--space-5);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-2);
-    background-color: var(--surface-alt);
-    font-weight: 600;
-    color: var(--ink);
-  }
-
-  .plan-mobile-summary:focus-visible {
-    outline: 3px solid var(--focus);
-    outline-offset: -2px;
-  }
-
-  .summary-text {
-    font-size: var(--font-size-body);
-  }
-
-  .summary-badge {
-    font-size: var(--font-size-small);
-    color: var(--ink-2);
-    margin-left: auto;
-  }
-
-  .summary-icon {
-    transition: transform var(--transition-fast);
-  }
-
-  details[open] .summary-icon {
-    transform: rotate(180deg);
-  }
-
-  .plan-mobile-content {
-    padding: var(--space-4);
-  }
-
-  .table-scroll-hint {
-    font-size: var(--font-size-small);
-    color: var(--ink-2);
-    margin-bottom: var(--space-2);
-    font-style: italic;
-  }
-
-  .mobile-expanded-table {
-    min-width: 900px;
-  }
-
-  /* FAQ & CTA */
-  .faq-wrap {
-    max-width: 800px;
-  }
-
-  .products-cta-card {
-    text-align: center;
-    padding: var(--space-8);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-4);
-    background-color: var(--surface-alt);
-  }
-
-  .cta-title {
-    font-size: var(--font-size-h2);
-    line-height: var(--line-height-h2);
-    color: var(--ink);
-    margin: 0;
-  }
-
-  .cta-desc {
-    font-size: 1.0625rem;
-    color: var(--ink-2);
-    max-width: 600px;
-    margin: 0;
-  }
-
-  .cta-actions {
-    display: flex;
-    gap: var(--space-4);
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  /* Responsive Breakpoints */
-  @media (max-width: 1023px) {
-    .table-desktop {
-      display: none;
-    }
-
-    .table-mobile-collapse-wrap {
-      display: block;
-    }
-
-    .products-grid-craft {
-      grid-template-columns: 1fr;
-    }
-
-    .products-grid-food {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .food-grid-item:nth-child(1),
-    .food-grid-item:nth-child(2),
-    .food-grid-item:nth-child(3),
-    .food-grid-item:nth-child(4) {
-      grid-column: span 1;
-    }
-
-    .food-grid-item:nth-child(5) {
-      grid-column: span 2;
-      max-width: 480px;
-      margin: 0 auto;
-      width: 100%;
-    }
-  }
-
-  @media (max-width: 767px) {
-    .products-grid-food {
-      grid-template-columns: 1fr;
-    }
-
-    .food-grid-item {
-      grid-column: span 1 !important;
-      max-width: none !important;
-      margin: 0 !important;
-    }
-
-    .cta-actions {
-      flex-direction: column;
-      width: 100%;
-    }
-
-    .cta-actions .btn {
-      width: 100%;
-    }
+  .narrow > :global(*) {
+    max-width: 880px;
   }
 </style>

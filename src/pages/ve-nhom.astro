@@ -1,129 +1,50 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/PageHero.astro';
-import { TEAM_INFO, TEAM_PRINCIPLES, TEAM_COORDINATION } from '../data/campaign';
+import { TEAM_INFO, TEAM_PRINCIPLES, TEAM_ROLES, PARTNER_ROLES } from '../data/campaign';
 
-const breadcrumbs = [
-  { label: 'Trang chủ', href: '/' },
-  { label: 'Về nhóm' },
-];
+const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Về nhóm' }];
 
 const summaryItems = [
-  {
-    label: 'Tổ chức thực hiện',
-    value: `Nhóm Lăng Kính (lớp ${TEAM_INFO.classId}, ĐH FPT Hà Nội)`,
-  },
-  {
-    label: 'Học phần đào tạo',
-    value: `${TEAM_INFO.course} — Kỹ năng làm việc nhóm`,
-  },
-  {
-    label: 'Quy mô nhân sự',
-    value: `${TEAM_INFO.size} sinh viên (chờ duyệt công bố danh sách)`,
-    chip: {
-      kind: 'cho-xac-nhan' as const,
-      label: 'Chờ xác nhận',
-    },
-  },
-  {
-    label: 'Địa bàn phối hợp',
-    value: 'Mái ấm Thánh Tâm Xuy Xá (dự kiến)',
-  },
+  { label: 'Thành viên', value: `${TEAM_INFO.size} sinh viên lớp ${TEAM_INFO.classId}` },
+  { label: 'Học phần', value: 'SSG105 — Đại học FPT Hà Nội' },
+  { label: 'Đối soát tài chính', value: 'Hai thành viên kiểm tra chéo mọi khoản thu chi' },
 ];
 ---
 
 <Layout
   title="Về nhóm Lăng Kính"
-  description="Giới thiệu nhóm Lăng Kính gồm 7 sinh viên lớp AI2015, học phần SSG105, Đại học FPT Hà Nội."
+  description="Nhóm Lăng Kính: 7 sinh viên lớp AI2015, học phần SSG105, Đại học FPT Hà Nội — vai trò, nguyên tắc làm việc và cách phối hợp với Mái ấm."
   currentPath="/ve-nhom"
 >
-  <!-- Shared PageHero (7 cột trái / 5 cột phải panel Tóm tắt kế hoạch) -->
   <PageHero
     breadcrumbs={breadcrumbs}
-    eyebrow="Nhóm dự án"
-    chip={{
-      kind: 'ke-hoach',
-      label: 'Nhóm học phần SSG105',
-    }}
+    eyebrow="Về nhóm"
     title="Nhóm Lăng Kính"
     titleId="team-heading"
-    lead="Kết nối một buổi vui chơi có lựa chọn với việc hỗ trợ hiện vật theo đúng nhu cầu thực tế tại Mái ấm Thánh Tâm Xuy Xá."
-    description={TEAM_INFO.description}
-    summaryTitle="Tóm tắt kế hoạch"
+    lead="Bảy sinh viên FPT Hà Nội tổ chức một buổi chơi có lựa chọn và gây quỹ để hỗ trợ đúng nhu cầu của Mái ấm."
+    description="Nhóm chịu trách nhiệm chuẩn bị, hoàn thiện hàng gây quỹ, đối soát tài chính và báo cáo. Mái ấm phối hợp và quyết định cách hỗ trợ các em."
+    summaryTitle="Tóm tắt"
     summaryItems={summaryItems}
   />
 
-  <!-- Section 1: Thông báo nhân sự (Gọn gàng, không tạo card rỗng) -->
-  <section class="section section-soft section-roster" aria-labelledby="members-heading">
-    <div class="container">
-      <div class="members-notice-wrapper">
-        <div class="members-notice-card card">
-          <span class="eyebrow">Nhân sự thực hiện</span>
-          <h2 id="members-heading" class="members-title">Thành viên nhóm Lăng Kính</h2>
-          <p class="members-desc">
-            Nhóm gồm 7 sinh viên lớp AI2015, học phần SSG105 (Kỹ năng làm việc nhóm), Đại học FPT Hà Nội. Đề xuất dự án đã có danh sách nhân sự và phân công trách nhiệm, nhưng họ tên, hình ảnh và vai trò chi tiết của từng cá nhân vẫn chờ duyệt trước khi công bố theo quy định bảo vệ thông tin riêng tư.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Section 2: Cách nhóm phối hợp (5 nhóm việc - 2 Column Ruled List) -->
-  <section class="section" aria-labelledby="coordination-heading">
+  <section class="section" aria-labelledby="roles-heading">
     <div class="container">
       <div class="section-header">
-        <span class="eyebrow">Kế hoạch làm việc nhóm</span>
-        <h2 id="coordination-heading">Cách nhóm phối hợp thực hiện</h2>
-        <p class="section-lead">
-          Phân công trách nhiệm dự kiến theo 5 nhóm việc trong đề xuất học phần, bảo đảm từng khâu chuẩn bị diễn ra an toàn và chu đáo.
-        </p>
-      </div>
-
-      <div class="coordination-ruled-list card">
-        {
-          TEAM_COORDINATION.map((item, idx) => (
-            <div class="coordination-row">
-              <div class="coordination-role-col">
-                <span class="coordination-idx">0{idx + 1}</span>
-                <h3 class="coordination-role">{item.role}</h3>
-              </div>
-              <div class="coordination-scope-col">
-                <p class="coordination-scope">{item.scope}</p>
-                <p class="coordination-note">{item.note}</p>
-              </div>
-            </div>
-          ))
-        }
-      </div>
-
-      <div class="section-footer-note">
+        <span class="eyebrow">Phân công</span>
+        <h2 id="roles-heading">Bảy vai trò trong nhóm</h2>
         <p>
-          Các nhóm việc trên là mô tả phân công trách nhiệm trong đề xuất học phần; không phải chức danh nhân sự hay thông tin liên hệ công khai đã xác nhận.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Section 3: 5 nguyên tắc cốt lõi của nhóm (Numbered list) -->
-  <section class="section section-soft" aria-labelledby="principles-heading">
-    <div class="container">
-      <div class="section-header">
-        <span class="eyebrow">Cam kết trách nhiệm</span>
-        <h2 id="principles-heading">5 nguyên tắc cốt lõi của nhóm</h2>
-        <p class="section-lead">
-          Các định hướng nhất quán trong đề xuất, làm kim chỉ nam xuyên suốt từ khâu xây dựng ý tưởng đến chuẩn bị và triển khai dự kiến.
+          Hồ sơ dự án có danh sách thành viên và phân công. Tên, ảnh và vai trò của từng người sẽ hiển thị khi mỗi thành viên đồng ý công bố.
         </p>
       </div>
 
-      <ol class="principles-ruled-list" role="list">
+      <ol class="roles">
         {
-          TEAM_PRINCIPLES.map((principle, index) => (
-            <li class="principle-row">
-              <span class="principle-num">0{index + 1}</span>
-              <div class="principle-content">
-                <h3 class="principle-title">{principle.title}</h3>
-                <p class="principle-desc">{principle.description}</p>
-              </div>
+          TEAM_ROLES.map((r, i) => (
+            <li class="role">
+              <span class="role-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+              <h3 class="role-title">{r.role}</h3>
+              <p class="role-scope">{r.scope}</p>
             </li>
           ))
         }
@@ -131,260 +52,120 @@ const summaryItems = [
     </div>
   </section>
 
-  <!-- Section 4: CTA kế hoạch buổi chơi -> Dự án -->
-  <section class="section team-cta-section" aria-labelledby="team-cta-heading">
+  <section class="section section-soft" aria-labelledby="principles-heading">
     <div class="container">
-      <div class="team-cta-card card">
-        <h2 id="team-cta-heading">Tìm hiểu kế hoạch buổi chơi tại Mái ấm</h2>
-        <p>
-          Khám phá chi tiết 4 góc hoạt động có lựa chọn, câu chuyện đề xuất và lộ trình 4 giai đoạn chuẩn bị của dự án.
-        </p>
-        <div class="team-bottom-actions">
-          <a href="/du-an/mang-theo-mot-net-ve" class="btn btn-primary">
-            Kế hoạch buổi chơi &rarr;
-          </a>
-          <a href="/san-pham" class="btn btn-secondary">
-            Xem sản phẩm gây quỹ
-          </a>
-        </div>
+      <div class="section-header">
+        <span class="eyebrow">Cách làm việc</span>
+        <h2 id="principles-heading">Năm nguyên tắc</h2>
+      </div>
+      <ul class="ruled-list">
+        {
+          TEAM_PRINCIPLES.map((p) => (
+            <li>
+              <h3 class="ruled-title">{p.title}</h3>
+              <p class="ruled-desc">{p.description}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="partners-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">Phối hợp</span>
+        <h2 id="partners-heading">Ai duyệt và hỗ trợ dự án</h2>
+        <p>Nhóm không tự quyết những việc thuộc quyền của Mái ấm hay giảng viên hướng dẫn.</p>
+      </div>
+      <ul class="ruled-list">
+        {
+          PARTNER_ROLES.map((p) => (
+            <li>
+              <h3 class="ruled-title">{p.partner}</h3>
+              <p class="ruled-desc">{p.responsibility}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="cta-band" aria-labelledby="team-cta-heading">
+    <div class="container cta-band-inner">
+      <div class="cta-band-text">
+        <h2 id="team-cta-heading">Nhóm sẽ tổ chức buổi chơi thế nào?</h2>
+        <p>Bốn góc hoạt động, agenda dự kiến và nguyên tắc an toàn.</p>
+      </div>
+      <div class="cta-band-actions">
+        <a href="/du-an/mang-theo-mot-net-ve" class="btn btn-primary">Xem kế hoạch buổi chơi</a>
+        <a href="/dong-hanh" class="link-arrow">Cách đồng hành →</a>
       </div>
     </div>
   </section>
 </Layout>
 
 <style>
-  /* Notice Roster */
-  .members-notice-wrapper {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-
-  .members-notice-card {
-    background-color: var(--color-surface-card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-md);
-    padding: var(--space-6);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-  }
-
-  .members-title {
-    font-size: var(--font-size-h2);
-    line-height: var(--line-height-h2);
-    color: var(--ink);
-    margin: 0;
-  }
-
-  .members-desc {
-    font-size: var(--font-size-body);
-    line-height: var(--line-height-body);
-    color: var(--ink-2);
-    margin: 0;
-  }
-
-  /* Coordination 2-Column Ruled List */
-  .coordination-ruled-list {
-    background-color: var(--color-surface-card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-md);
-    padding: 0;
-    overflow: hidden;
-  }
-
-  .coordination-row {
-    display: grid;
-    grid-template-columns: 280px 1fr;
-    gap: var(--space-6);
-    padding: var(--space-5) var(--space-6);
-    border-bottom: 1px solid var(--line);
-    align-items: start;
-  }
-
-  .coordination-row:last-child {
-    border-bottom: none;
-  }
-
-  .coordination-role-col {
-    display: flex;
-    align-items: baseline;
-    gap: var(--space-3);
-  }
-
-  .coordination-idx {
-    font-size: var(--font-size-small);
-    font-weight: 700;
-    color: var(--brand);
-    font-variant-numeric: tabular-nums;
-  }
-
-  .coordination-role {
-    font-size: 1.125rem;
-    font-weight: 700;
-    color: var(--ink);
-    margin: 0;
-  }
-
-  .coordination-scope-col {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-  }
-
-  .coordination-scope {
-    font-size: var(--font-size-body);
-    line-height: var(--line-height-body);
-    color: var(--ink);
-    margin: 0;
-    font-weight: 500;
-  }
-
-  .coordination-note {
-    font-size: var(--font-size-small);
-    line-height: 1.5;
-    color: var(--ink-2);
-    margin: 0;
-  }
-
-  .section-footer-note {
-    margin-top: var(--space-6);
-    font-size: var(--font-size-small);
-    color: var(--ink-2);
-  }
-
-  /* Principles Numbered Ruled List */
-  .principles-ruled-list {
+  .roles {
     list-style: none;
     margin: 0;
     padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-4);
+  }
+
+  .role {
     display: flex;
     flex-direction: column;
-    border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
+    gap: var(--space-2);
+    padding: var(--space-5);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
   }
 
-  .principle-row {
-    display: grid;
-    grid-template-columns: 80px 1fr;
-    gap: var(--space-6);
-    padding: var(--space-6) 0;
-    border-bottom: 1px solid var(--line);
-    align-items: baseline;
-  }
-
-  .principle-row:last-child {
-    border-bottom: none;
-  }
-
-  .principle-num {
-    font-size: 1.25rem;
-    font-weight: 800;
+  .role-num {
+    font-weight: 700;
     color: var(--brand);
     font-variant-numeric: tabular-nums;
   }
 
-  .principle-content {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .principle-title {
-    font-size: 1.125rem;
-    font-weight: 700;
-    line-height: 1.4;
-    color: var(--ink);
+  .role-title {
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
     margin: 0;
   }
 
-  .principle-desc {
-    font-size: var(--font-size-body);
-    line-height: var(--line-height-body);
-    color: var(--ink-2);
+  .role-scope {
     margin: 0;
   }
 
-  @media (max-width: 767px) {
-    .principle-row {
-      grid-template-columns: 48px 1fr;
-      gap: var(--space-3);
-      padding: var(--space-4) 0;
-    }
-
-    .principle-num {
-      font-size: 1.125rem;
-    }
-
-    .principle-title {
-      font-size: 1rem;
-    }
-  }
-
-  /* CTA Section */
-  .team-cta-card {
-    background-color: var(--surface-alt);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-    padding: var(--space-8);
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-4);
-  }
-
-  .team-cta-card h2 {
-    font-size: var(--font-size-h2);
-    line-height: var(--line-height-h2);
-    color: var(--ink);
-    margin: 0;
-  }
-
-  .team-cta-card p {
-    font-size: 1.0625rem;
-    color: var(--ink-2);
-    max-width: 600px;
-    margin: 0;
-  }
-
-  .team-bottom-actions {
-    display: flex;
-    gap: var(--space-4);
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  /* Responsive Adjustments */
   @media (max-width: 1023px) {
-    .coordination-row {
-      grid-template-columns: 220px 1fr;
-      gap: var(--space-4);
-    }
-
-    .principles-grid {
-      grid-template-columns: repeat(2, 1fr);
+    .roles {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 
   @media (max-width: 767px) {
-    .coordination-row {
+    .roles {
       grid-template-columns: 1fr;
-      gap: var(--space-2);
-      padding: var(--space-4);
+      gap: 0;
+      border-top: 1px solid var(--line);
     }
 
-    .principles-grid {
-      grid-template-columns: 1fr;
-      gap: var(--space-4);
+    .role {
+      display: grid;
+      grid-template-columns: 36px minmax(0, 1fr);
+      column-gap: var(--space-3);
+      row-gap: 2px;
+      padding: var(--space-4) 0;
+      border: none;
+      border-bottom: 1px solid var(--line);
+      border-radius: 0;
     }
 
-    .team-bottom-actions {
-      flex-direction: column;
-      width: 100%;
-    }
-
-    .team-bottom-actions .btn {
-      width: 100%;
+    .role-num {
+      grid-row: span 2;
     }
   }
 </style>

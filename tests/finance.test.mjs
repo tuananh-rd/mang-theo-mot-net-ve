@@ -31,6 +31,8 @@ import {
   calculateFoodReconciliation,
   calculateCraftReconciliation,
   groupPlannedExpensesByCategory,
+  buildProductCatalog,
+  sumCatalogScenarioRevenue,
 } from '../src/lib/finance.ts';
 
 describe('Kiểm thử logic tài chính và tính toán (Task C06 - Final PDF)', () => {
@@ -700,5 +702,33 @@ describe('Kiểm thử hồi quy: Lan truyền null trong calculateFoodReconcili
     assert.equal(res.hypotheticalProjectedBalance, null);
     assert.equal(res.foodRevenueMinusExpenses, null);
     assert.equal(res.foodProfitGap, null);
+  });
+});
+
+describe('Kiểm thử danh mục sản phẩm hiển thị (Task C07)', () => {
+  test('buildProductCatalog: 4 mặt hàng cơ sở cộng đúng 7.150.000đ, 3 combo không có doanh thu kịch bản', () => {
+    const rows = buildProductCatalog(PRODUCTS);
+    assert.equal(rows.length, 7);
+    const combos = rows.filter((r) => !r.inBaseScenario);
+    assert.deepEqual(
+      combos.map((r) => r.product.id).sort(),
+      ['combo-nem-gion', 'combo-nem-pho-mai', 'combo-nem-xu']
+    );
+    for (const r of combos) assert.equal(r.scenarioRevenue, null);
+    assert.equal(sumCatalogScenarioRevenue(rows), 7150000);
+    assert.equal(sumCatalogScenarioRevenue(rows), calculateBaseRevenue(PRODUCTS));
+  });
+
+  test('buildProductCatalog giữ null khi thiếu số lượng và tổng trả về null thay vì bỏ qua', () => {
+    const broken = PRODUCTS.map((p) =>
+      p.id === 'banh-su-kem'
+        ? { ...p, plannedQuantity: { ...p.plannedQuantity, value: null } }
+        : p
+    );
+    const rows = buildProductCatalog(broken);
+    const suKem = rows.find((r) => r.product.id === 'banh-su-kem');
+    assert.equal(suKem.scenarioRevenue, null);
+    assert.equal(suKem.quantityText, 'Chưa xác nhận');
+    assert.equal(sumCatalogScenarioRevenue(rows), null);
   });
 });

@@ -1,498 +1,334 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import PageHero from '../../components/PageHero.astro';
-import ActivityCard from '../../components/ActivityCard.astro';
-import StageCard from '../../components/StageCard.astro';
+import ActivityList from '../../components/ActivityList.astro';
+import Timeline from '../../components/Timeline.astro';
 import StatusChip from '../../components/StatusChip.astro';
-import { CAMPAIGN_PROJECT } from '../../data/campaign';
+import Icon from '../../components/Icon.astro';
+import {
+  CAMPAIGN_PROJECT,
+  PROJECT_NEEDS,
+  SAFETY_PRACTICES,
+  WORKSHOP_AGENDA,
+  EVALUATION_CRITERIA,
+  COURSE_TARGETS,
+} from '../../data/campaign';
 
-const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi'] as const;
-
-const breadcrumbs = [
-  { label: 'Trang chủ', href: '/' },
-  { label: 'Dự án' },
-];
+const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Dự án' }];
 
 const summaryItems = [
+  { label: 'Địa điểm dự kiến', value: 'Mái ấm Thánh Tâm Xuy Xá (Mỹ Đức, Hà Nội)' },
+  { label: 'Người tham gia', value: 'Trẻ em và người cao tuổi tại Mái ấm; số người do Mái ấm quyết định' },
+  { label: 'Hai buổi tại Mái ấm', value: 'Buổi chơi khoảng 180 phút (tuần 8); buổi trao quà 30–45 phút (tuần 9)' },
   {
-    label: 'Địa điểm dự kiến',
-    value: CAMPAIGN_PROJECT.location,
+    label: 'Thời gian',
+    value: '5 tuần học phần, tuần 5–9',
+    chip: { kind: 'cho-xac-nhan' as const, label: 'Lịch chờ chốt' },
   },
-  {
-    label: 'Người tham gia',
-    value: 'Do Mái ấm quyết định theo điều kiện thực tế của cơ sở',
-  },
-  {
-    label: 'Quy mô hoạt động',
-    value: '2 buổi dự kiến với 4 góc chơi (buổi 1: 180 phút, buổi 2: 30–45 phút)',
-  },
-  {
-    label: 'Lộ trình đề xuất',
-    value: 'Kế hoạch 5 tuần (tuần 5–9); đề xuất có chỗ ghi 4 tuần cần thống nhất',
-    chip: {
-      kind: 'cho-xac-nhan' as const,
-      label: 'Chờ xác nhận',
-    },
-  },
-];
-
-const anchorNavItems = [
-  { href: '#muc-tieu', label: '1. Mục tiêu & An toàn' },
-  { href: '#buoi-choi', label: '2. Bốn góc chơi' },
-  { href: '#giai-doan', label: '3. Hành trình triển khai' },
-  { href: '#cap-nhat', label: '4. Cập nhật kết quả' },
-  { href: '#nguon-luc', label: '5. Nguồn lực & Tài chính' },
 ];
 ---
 
 <Layout
-  title="Câu chuyện dự án"
-  description="Câu chuyện đề xuất, các góc hoạt động vui chơi có lựa chọn và 4 giai đoạn dự kiến tại Mái ấm Thánh Tâm Xuy Xá."
+  title="Dự án"
+  description="Kế hoạch buổi chơi có lựa chọn tại Mái ấm Thánh Tâm Xuy Xá: bốn góc hoạt động, agenda dự kiến, nguyên tắc an toàn và lộ trình 5 tuần."
   currentPath="/du-an/mang-theo-mot-net-ve"
 >
-  <!-- Shared PageHero (7 cột trái / 5 cột phải panel Tóm tắt kế hoạch) -->
   <PageHero
     breadcrumbs={breadcrumbs}
-    eyebrow="Đề xuất hoạt động"
-    chip={{
-      kind: 'cho-xac-nhan',
-      label: 'Đề xuất — chưa có xác nhận chính thức',
-    }}
-    title="Dự án Mang Theo Một Nét Vẽ"
+    eyebrow="Dự án"
+    chip={{ kind: 'cho-xac-nhan', label: 'Đề xuất, chờ Mái ấm xác nhận' }}
+    title="Một buổi chơi có lựa chọn"
     titleId="project-heading"
     lead={CAMPAIGN_PROJECT.slogan}
-    description="Dự án học phần SSG105 của nhóm Lăng Kính (Đại học FPT Hà Nội), đề xuất kết nối một buổi vui chơi an toàn, có lựa chọn với việc hỗ trợ hiện vật theo nhu cầu thực tế của Mái ấm."
+    description="Nhóm Lăng Kính đề xuất một buổi vui chơi sáng tạo tại Mái ấm, được thiết kế để em nào cũng có thể tham gia theo khả năng của mình, và gây quỹ để trao những vật phẩm Mái ấm thực sự cần."
     summaryTitle="Tóm tắt kế hoạch"
     summaryItems={summaryItems}
   />
 
-  <!-- Mục lục neo (5 mục link nhãn rõ ràng, cuộn ngang mobile) -->
-  <nav class="project-anchor-nav" aria-label="Mục lục các phần dự án">
+  <section class="section" aria-labelledby="why-heading">
     <div class="container">
-      <ul class="anchor-nav-list">
+      <div class="section-header">
+        <span class="eyebrow">Vì sao có dự án</span>
+        <h2 id="why-heading">Từ trao đổi với Mái ấm</h2>
+        <p>
+          Qua trao đổi trực tiếp với quản lý Mái ấm, nhóm ghi nhận các em ở nhiều độ tuổi, khả năng vận động và giao tiếp khác nhau, nên một hoạt động chung khó phù hợp với tất cả. Vì vậy nhóm mang chuồn chuồn tre, tượng tô, những bài hát quen và trò chơi nhẹ để mỗi em chọn cách vui chơi vừa sức.
+        </p>
+      </div>
+
+      <ol class="needs">
         {
-          anchorNavItems.map((item) => (
+          PROJECT_NEEDS.map((n, i) => (
+            <li class="need">
+              <span class="need-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+              <h3 class="need-title">{n.title}</h3>
+              <p class="need-desc">{n.description}</p>
+            </li>
+          ))
+        }
+      </ol>
+      <p class="source-note">
+        Hoạt động giao lưu cộng đồng, không mang tính trị liệu. Nhóm không suy đoán thêm về mong muốn của từng em ngoài thông tin đã trao đổi với Mái ấm.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section-soft" aria-labelledby="corners-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">Buổi 1 · tuần 8</span>
+        <h2 id="corners-heading">Bốn góc hoạt động</h2>
+        <p>
+          Hai bàn sáng tạo, các trò chơi theo lượt và một góc nghỉ. Các em được chọn hoạt động, chuyển lượt hoặc nghỉ; không ai phải hoàn thành sản phẩm giống nhau.
+        </p>
+      </div>
+
+      <ActivityList activities={CAMPAIGN_PROJECT.activities} showNotes />
+
+      <div class="corners-extra">
+        <p class="note">
+          Tranh và đồ các em làm được giữ lại cho các em và Mái ấm. Nhóm chuẩn bị 20 phôi chuồn chuồn dành riêng cho Mái ấm; hàng bán gây quỹ do nhóm tự hoàn thiện.
+        </p>
+
+        <details class="disclosure">
+          <summary>
+            <span class="disclosure-label">
+              Agenda dự kiến 180 phút
+              <span class="disclosure-meta">150 phút hoạt động, 2 lần nghỉ 15 phút; có thể rút ngắn nếu các em mệt</span>
+            </span>
+            <span class="disclosure-aside">
+              <span class="disclosure-chevron"><Icon name="chevron" size={18} /></span>
+            </span>
+          </summary>
+          <div class="disclosure-body">
+            <table class="data-table agenda-table">
+              <caption class="sr-only">Agenda dự kiến của buổi chơi tại Mái ấm</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Mốc thời gian</th>
+                  <th scope="col">Nội dung</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  WORKSHOP_AGENDA.map((a) => (
+                    <tr>
+                      <th scope="row" class="agenda-time">{a.time}</th>
+                      <td>{a.content}</td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+            </table>
+            <p class="source-note">
+              Theo đề xuất trang 12–13. Ngoài hai lần nghỉ chung, các em được nghỉ thêm theo nhu cầu; người điều phối điều chỉnh lượt cùng người chăm sóc.
+            </p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="safety-heading">
+    <div class="container">
+      <div class="two-col">
+        <div>
+          <span class="eyebrow">An toàn</span>
+          <h2 id="safety-heading" class="safety-title">Chuẩn bị trước buổi chơi</h2>
+          <ul class="check-list">
+            {SAFETY_PRACTICES.map((s) => <li>{s}</li>)}
+          </ul>
+        </div>
+        <div>
+          <span class="eyebrow">Quyền quyết định</span>
+          <h3 class="safety-title">Mái ấm duyệt trước mọi thứ</h3>
+          <p>
+            Lịch, chỗ chơi, bài hát, người chăm sóc, từng trò chơi và vật liệu, danh mục quà, quyền dùng sản phẩm và hình ảnh đều do Mái ấm duyệt. Không phát sinh hoạt động hay vật liệu chưa được cơ sở đồng ý.
+          </p>
+          <p class="safety-p">
+            Người chăm sóc quyết định cách hỗ trợ từng em. Cộng tác viên chỉ tham gia khi Mái ấm đồng ý.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-soft" aria-labelledby="timeline-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">Lộ trình</span>
+        <h2 id="timeline-heading">Bốn chặng trong 5 tuần</h2>
+        <p>Gây quỹ trước buổi chơi; quà được mua sau khi chốt quỹ và đối chiếu danh mục với Mái ấm.</p>
+      </div>
+
+      <Timeline stages={CAMPAIGN_PROJECT.plannedStages} />
+
+      <p class="source-note">
+        Tuần 5–9 là tuần của học phần, chưa phải ngày cụ thể. Một số phần của đề xuất còn ghi 4 tuần; nhóm sẽ thống nhất lịch chính thức. Phản hồi bổ sung sau 7–10 ngày, nếu có, được ghi thành cập nhật riêng.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="results-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">Kết quả</span>
+        <h2 id="results-heading">Cách nhóm sẽ đánh giá</h2>
+        <p class="results-status">
+          <StatusChip kind="cho-xac-nhan" label="Chưa có kết quả thực tế" />
+          <span>Kết quả chỉ được công bố sau hoạt động, kèm minh chứng. Chỉ tiêu thiếu dữ liệu ghi “chưa đủ cơ sở đánh giá”.</span>
+        </p>
+      </div>
+
+      <ul class="ruled-list">
+        {
+          EVALUATION_CRITERIA.map((c) => (
             <li>
-              <a href={item.href} class="anchor-nav-link">
-                {item.label}
-              </a>
+              <h3 class="ruled-title">{c.title}</h3>
+              <p class="ruled-desc">{c.method}</p>
             </li>
           ))
         }
       </ul>
-    </div>
-  </nav>
 
-  <!-- Section 1: Mục tiêu và nguyên tắc an toàn (2 cột list) -->
-  <section id="muc-tieu" class="section section-soft" aria-labelledby="objectives-heading">
-    <div class="container">
-      <div class="section-header">
-        <span class="eyebrow">Định hướng cốt lõi</span>
-        <h2 id="objectives-heading">Mục tiêu &amp; Nguyên tắc an toàn</h2>
-        <p class="section-lead">
-          Các nguyên tắc đề xuất nhằm bảo đảm buổi chơi an toàn, vừa sức và tôn trọng trọn vẹn quyền lựa chọn của từng người tham gia.
-        </p>
-      </div>
-
-      <div class="objectives-grid">
-        <div class="objective-card">
-          <div class="badge-row">
-            <span class="eyebrow">Mục tiêu đề xuất</span>
-            <StatusChip kind="ke-hoach" label="Kế hoạch" />
-          </div>
-          <h3 class="objective-title">Buổi chơi theo lựa chọn</h3>
-          <p class="objective-text">
-            Theo đề xuất, nhóm hướng đến một buổi chơi có lựa chọn và hỗ trợ hiện vật đúng nhu cầu. Mỗi em nhỏ tham gia hoàn toàn theo sở thích, có thể trải nghiệm, quan sát hoặc nghỉ ngơi; không đặt bất kỳ chỉ tiêu sản phẩm nào cho trẻ. Nhóm sinh viên phụ trách hoàn thiện sản phẩm gây quỹ và đối soát dòng tiền minh bạch. Kế hoạch chia sẻ tại campus (thời lượng 45–60 phút, tối thiểu 25 sinh viên ngoài nhóm) là hoạt động đề xuất chờ giảng viên phê duyệt theo học phần; việc đến thăm Mái ấm chỉ dành cho các thành viên nằm trong danh sách được cơ sở chấp thuận trước.
-          </p>
-        </div>
-
-        <div class="objective-card">
-          <div class="badge-row">
-            <span class="eyebrow">An toàn &amp; Phối hợp</span>
-            <StatusChip kind="cho-xac-nhan" label="Chờ thống nhất" />
-          </div>
-          <h3 class="objective-title">An toàn, phối hợp &amp; Quyền cơ sở</h3>
-          <p class="objective-text">
-            Lịch, không gian, vật liệu và hoạt động dự kiến cần được thống nhất với Mái ấm trước khi tổ chức. Nhóm dự kiến kiểm tra cạnh và chi tiết nhỏ, điều chỉnh trò chơi nhẹ phù hợp; người chăm sóc hỗ trợ lựa chọn và điều kiện an toàn. Người tham gia luôn có quyền chọn hoạt động, quan sát hoặc nghỉ ngơi; cơ sở có quyền rút ngắn chương trình bất cứ lúc nào để bảo đảm sức khỏe cho các em.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Section 2: Câu chuyện từ đề xuất (Cột 720px) -->
-  <section id="cau-chuyen" class="section section-story" aria-labelledby="story-heading">
-    <div class="container">
-      <div class="story-wrapper">
-        <div class="section-header">
-          <span class="eyebrow">Bối cảnh hình thành</span>
-          <h2 id="story-heading">Câu chuyện từ đề xuất</h2>
-        </div>
-
-        <div class="story-prose">
-          <p>
-            Xuất phát từ mong muốn mang lại niềm vui nhẹ nhàng và thiết thực, nhóm Lăng Kính lên ý tưởng tổ chức một không gian vui chơi có nhiều góc hoạt động tại Mái ấm Thánh Tâm Xuy Xá. Mỗi góc chơi được bố trí để người tham gia tự do lựa chọn trải nghiệm phù hợp với thể trạng và sở thích riêng — từ vẽ tranh, tô tượng, trang trí chuồn chuồn tre mộc, ca hát đến trò chơi vận động nhẹ — trong khi nhóm sinh viên tự chịu trách nhiệm chuẩn bị vật tư, trực tiếp hoàn thiện hàng lưu niệm gây quỹ và quản lý thu chi minh bạch sau đối soát.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Section 3: Buổi chơi có nhiều lựa chọn (4 góc chơi) -->
-  <section id="buoi-choi" class="section section-soft" aria-labelledby="activities-heading">
-    <div class="container">
-      <div class="section-header">
-        <span class="eyebrow">Không gian trải nghiệm</span>
-        <h2 id="activities-heading">Buổi chơi có nhiều lựa chọn</h2>
-        <p class="section-lead">
-          Không gian hoạt động tôn trọng quyền tham gia, quan sát hoặc nghỉ ngơi của từng người; không đặt chỉ tiêu sản xuất hay áp lực biểu diễn.
-        </p>
-      </div>
-
-      <div class="activities-grid">
-        {
-          CAMPAIGN_PROJECT.activities.map((activity, index) => (
-            <ActivityCard
-              activity={activity}
-              illustrationType={activityIllustrationTypes[index]}
-            />
-          ))
-        }
-      </div>
-
-      <div class="section-footer-note">
-        <p>
-          * Ghi chú bản xem trước: Biểu tượng minh họa hoạt động dự kiến. Mẫu chuồn chuồn, tượng và nhạc cụ thực tế chờ xác nhận; tô tượng là trải nghiệm tại chỗ cho các em, không phải hàng hoá mang đi bán gây quỹ.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Section 4: Hành trình dự kiến (4 giai đoạn) -->
-  <section id="giai-doan" class="section section-stages" aria-labelledby="stages-heading">
-    <div class="container">
-      <div class="section-header">
-        <span class="eyebrow">Lộ trình triển khai</span>
-        <h2 id="stages-heading">Hành trình dự kiến của dự án</h2>
-        <p class="section-lead">
-          Kế hoạch chính gồm 5 tuần (tuần 5 đến tuần 9 theo học phần SSG105), với 2 buổi tại Mái ấm (buổi 1 workshop dự kiến 180 phút có 2 lần nghỉ 15 phút; buổi 2 trao tặng 30–45 phút); lưu ý trong đề xuất có chỗ còn ghi 4 tuần cần thống nhất chính thức.
-        </p>
-      </div>
-
-      <div class="stages-grid">
-        {
-          CAMPAIGN_PROJECT.plannedStages.map((stage) => (
-            <StageCard stage={stage} />
-          ))
-        }
-      </div>
-
-      <div class="timeline-note-box">
-        <p class="timeline-note-text">
-          Lịch trình chi tiết và quy trình trao tặng phụ thuộc vào sự thống nhất cùng đại diện Mái ấm; đề xuất dự kiến theo dõi phản hồi 7–10 ngày sau bàn giao hiện vật và không tự ý ấn định ngày tháng hay đánh dấu hoàn thành trước khi được kiểm chứng.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Section 5: Cập nhật rỗng planned -->
-  <section id="cap-nhat" class="section section-updates" aria-labelledby="updates-heading">
-    <div class="container">
-      <div class="section-header">
-        <span class="eyebrow">Báo cáo thực tế</span>
-        <h2 id="updates-heading">Cập nhật và kết quả</h2>
-      </div>
-
-      <div class="empty-state-card">
-        <div class="empty-badge">
-          <StatusChip kind="cho-xac-nhan" label="Chưa có dữ liệu" />
-        </div>
-        <p class="empty-desc">
-          Chưa có cập nhật thực tế được xác nhận; kết quả và báo cáo sẽ được công bố sau khi đối soát và được phép.
-        </p>
-        <div class="evaluation-summary-box">
-          <p class="evaluation-title"><strong>Khung đánh giá kết quả theo đề xuất:</strong></p>
-          <ul class="evaluation-list">
-            <li>Dữ liệu tham gia tự nguyện của các em (quyền quan sát hoặc nghỉ ngơi không tính là thất bại chỉ tiêu).</li>
-            <li>Phản hồi từ người chăm sóc tại Mái ấm và biên bản bàn giao quà tặng đúng danh mục nhu cầu.</li>
-            <li>Báo cáo đối soát thu chi độc lập giữa tiền mặt và hiện vật sau chiến dịch.</li>
-            <li>Chỉ tiêu truyền thông kế hoạch: 8 bài đăng, 300 người theo dõi, 200 lượt tương tác, 3.000–4.000 lượt tiếp cận (có thể trùng lặp); chưa có dữ liệu thực tế nên chưa ghi nhận thành tích.</li>
+      <details class="disclosure results-more">
+        <summary>
+          <span class="disclosure-label">
+            Chỉ tiêu học phần và truyền thông
+            <span class="disclosure-meta">Mục tiêu trong đề xuất, không phải thành tích</span>
+          </span>
+          <span class="disclosure-aside">
+            <span class="disclosure-chevron"><Icon name="chevron" size={18} /></span>
+          </span>
+        </summary>
+        <div class="disclosure-body">
+          <ul class="check-list">
+            {COURSE_TARGETS.map((t) => <li>{t}</li>)}
           </ul>
         </div>
-      </div>
+      </details>
     </div>
   </section>
 
-  <!-- Section 6: Nguồn lực & Tài chính -->
-  <section id="nguon-luc" class="section section-soft" aria-labelledby="resources-heading">
-    <div class="container">
-      <div class="section-header">
-        <span class="eyebrow">Quản lý nguồn quỹ</span>
-        <h2 id="resources-heading">Nguồn lực và nguyên tắc minh bạch</h2>
+  <section class="cta-band" aria-labelledby="project-cta-heading">
+    <div class="container cta-band-inner">
+      <div class="cta-band-text">
+        <h2 id="project-cta-heading">Nguồn lực cho buổi chơi đến từ đâu?</h2>
+        <p>Dự toán 24 khoản, kịch bản doanh thu và những điểm còn cần làm rõ.</p>
       </div>
-
-      <div class="resources-layout">
-        <div class="resources-content">
-          <p class="resources-desc">
-            Theo đề xuất, nhóm sinh viên dự kiến phụ trách chuẩn bị vật tư các góc chơi, hoàn thiện quà lưu niệm và phương án ẩm thực gây quỹ; nguồn lực được dự kiến theo dõi và đối soát độc lập giữa tiền mặt và hiện vật. Chi tiết dự toán 24 khoản và cơ cấu số dư được công khai minh bạch tại trang Minh bạch.
-          </p>
-          <div class="resources-actions">
-            <a href="/minh-bach" class="btn btn-secondary">
-              Xem minh bạch thu chi &rarr;
-            </a>
-            <a href="/san-pham" class="btn btn-primary">
-              Xem sản phẩm gây quỹ dự kiến
-            </a>
-          </div>
-        </div>
+      <div class="cta-band-actions">
+        <a href="/minh-bach" class="btn btn-primary">Xem minh bạch thu chi</a>
+        <a href="/san-pham" class="link-arrow">Sản phẩm gây quỹ →</a>
       </div>
     </div>
   </section>
 </Layout>
 
 <style>
-  /* Mục lục neo (Anchor Navigation Bar) */
-  .project-anchor-nav {
-    background-color: var(--surface-alt);
-    border-bottom: 1px solid var(--line);
-    padding: var(--space-3) 0;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-  }
-
-  .anchor-nav-list {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
+  .needs {
     list-style: none;
     margin: 0;
     padding: 0;
-    overflow-x: auto;
-    white-space: nowrap;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .anchor-nav-link {
-    display: inline-flex;
-    align-items: center;
-    min-height: 40px;
-    padding: var(--space-2) var(--space-4);
-    border-radius: var(--radius-pill);
-    font-size: var(--font-size-small);
-    font-weight: 600;
-    color: var(--ink);
-    text-decoration: none;
-    border: 1px solid transparent;
-    transition: background-color var(--transition-fast), border-color var(--transition-fast);
-  }
-
-  .anchor-nav-link:hover {
-    background-color: var(--color-canvas);
-    border-color: var(--line);
-  }
-
-  /* Objectives Grid (2 Cột List) */
-  .objectives-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: var(--space-6);
   }
 
-  .objective-card {
-    background-color: var(--color-surface-card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-md);
-    padding: var(--space-6);
+  .need {
     display: flex;
     flex-direction: column;
-    gap: var(--space-3);
-  }
-
-  .objective-card .badge-row {
-    display: flex;
-    align-items: center;
     gap: var(--space-2);
-    flex-wrap: wrap;
+    padding: var(--space-5);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
   }
 
-  .objective-title {
+  .need-num {
+    font-weight: 700;
+    color: var(--brand);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .need-title {
     font-size: var(--font-size-h3);
     line-height: var(--line-height-h3);
-    color: var(--ink);
     margin: 0;
   }
 
-  .objective-text {
-    font-size: 0.9375rem;
-    line-height: 1.6;
-    color: var(--ink-2);
+  .need-desc {
     margin: 0;
   }
 
-  /* Section Story (Cột 720px) */
-  .story-wrapper {
-    max-width: 720px;
-    margin: 0 auto;
-  }
-
-  .story-prose p {
-    font-size: 1.0625rem;
-    line-height: 1.8;
-    color: var(--ink);
-    margin: 0;
-  }
-
-  /* Activities Grid */
-  .activities-grid {
+  .corners-extra {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--space-6);
-  }
-
-  .section-footer-note {
-    margin-top: var(--space-8);
-    font-size: var(--font-size-small);
-    color: var(--ink-2);
-  }
-
-  /* Stages Grid */
-  .stages-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--space-6);
-  }
-
-  .timeline-note-box {
-    margin-top: var(--space-6);
-    padding: var(--space-4);
-    background-color: var(--surface-alt);
-    border-left: 3px solid var(--line-strong);
-    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  }
-
-  .timeline-note-text {
-    font-size: var(--font-size-small);
-    line-height: 1.6;
-    color: var(--ink-2);
-    margin: 0;
-  }
-
-  /* Updates Section (Empty state) */
-  .empty-state-card {
-    background-color: var(--surface-alt);
-    border: 1px dashed var(--line-strong);
-    border-radius: var(--radius-md);
-    padding: var(--space-8);
-    text-align: center;
-    max-width: 640px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-3);
-  }
-
-  .empty-title {
-    font-size: 1.125rem;
-    line-height: 1.5;
-    color: var(--ink);
-    margin: 0;
-  }
-
-  .empty-desc {
-    font-size: var(--font-size-body);
-    line-height: var(--line-height-body);
-    color: var(--ink-2);
-    margin: 0;
-  }
-
-  .evaluation-summary-box {
-    margin-top: var(--space-4);
-    text-align: left;
-    width: 100%;
-    background-color: var(--color-surface-card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-sm);
-    padding: var(--space-4);
-  }
-
-  .evaluation-title {
-    font-size: var(--font-size-small);
-    color: var(--ink);
-    margin-bottom: var(--space-2);
-  }
-
-  .evaluation-list {
-    margin: 0;
-    padding-left: var(--space-5);
-    font-size: var(--font-size-small);
-    line-height: 1.6;
-    color: var(--ink-2);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-  }
-
-  /* Resources Section */
-  .resources-layout {
-    max-width: 760px;
-  }
-
-  .resources-desc {
-    font-size: 1rem;
-    line-height: 1.7;
-    color: var(--ink-2);
-    margin-bottom: var(--space-6);
-  }
-
-  .resources-actions {
-    display: flex;
-    align-items: center;
     gap: var(--space-4);
+    margin-top: var(--space-10);
+  }
+
+  .agenda-time {
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+    width: 140px;
+  }
+
+  .safety-title {
+    font-size: var(--font-size-h2);
+    line-height: var(--line-height-h2);
+    margin-bottom: var(--space-5);
+  }
+
+  h3.safety-title {
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+    margin-bottom: var(--space-3);
+  }
+
+  .safety-p {
+    margin-top: var(--space-3);
+  }
+
+  .results-status {
+    display: flex;
     flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2) var(--space-3);
   }
 
-  /* Scroll Margin cho neo */
-  section[id] {
-    scroll-margin-top: 60px;
+  .results-more {
+    margin-top: var(--space-6);
   }
 
-  /* Responsive Adjustments */
   @media (max-width: 1023px) {
-    .activities-grid {
-      grid-template-columns: repeat(2, 1fr);
+    .needs {
+      grid-template-columns: 1fr;
+      gap: var(--space-3);
     }
 
-    .stages-grid {
-      grid-template-columns: repeat(2, 1fr);
+    .need {
+      display: grid;
+      grid-template-columns: 40px minmax(0, 1fr);
+      column-gap: var(--space-3);
+      row-gap: var(--space-1);
+      padding: var(--space-4);
+    }
+
+    .need-num {
+      grid-row: span 2;
     }
   }
 
   @media (max-width: 767px) {
-    .objectives-grid {
-      grid-template-columns: 1fr;
-      gap: var(--space-4);
+    .agenda-time {
+      width: 104px;
+      white-space: normal;
     }
 
-    .activities-grid {
-      grid-template-columns: 1fr;
-      gap: var(--space-4);
+    .agenda-table th,
+    .agenda-table td {
+      padding: var(--space-2) var(--space-2);
     }
 
-    .stages-grid {
-      grid-template-columns: 1fr;
-      gap: var(--space-4);
-    }
-
-    .story-prose {
-      text-align: left;
-    }
-
-    .resources-actions {
-      flex-direction: column;
-      align-items: stretch;
-      gap: var(--space-3);
+    .corners-extra {
+      margin-top: var(--space-8);
     }
   }
 </style>

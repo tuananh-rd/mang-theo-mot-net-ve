@@ -1,0 +1,128 @@
+---
+import StatusChip, { type StatusChipKind } from './StatusChip.astro';
+
+export interface KeyFigure {
+  label: string;
+  value: string;
+  chip: StatusChipKind;
+  chipLabel?: string;
+  note: string;
+  muted?: boolean;
+}
+
+interface Props {
+  figures: KeyFigure[];
+  label: string;
+}
+
+const { figures, label } = Astro.props;
+---
+
+<dl class="key-figures" aria-label={label} style={`--kf-count: ${figures.length};`}>
+  {
+    figures.map((f) => (
+      <div class:list={['kf-item', { 'kf-item--muted': f.muted }]}>
+        <dt class="kf-label">{f.label}</dt>
+        <dd class="kf-value">{f.value}</dd>
+        <dd class="kf-chip">
+          <StatusChip kind={f.chip} label={f.chipLabel} />
+        </dd>
+        <dd class="kf-note">{f.note}</dd>
+      </div>
+    ))
+  }
+</dl>
+
+<style>
+  .key-figures {
+    display: grid;
+    grid-template-columns: repeat(var(--kf-count), minmax(0, 1fr));
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: #ffffff;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .kf-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-5) var(--space-6);
+    border-left: 1px solid var(--line);
+  }
+
+  .kf-item:first-child {
+    border-left: none;
+  }
+
+  .kf-label {
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-small);
+    font-weight: 600;
+    color: var(--ink-2);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .kf-value {
+    margin: 0;
+    font-size: var(--font-size-num-xl);
+    line-height: var(--line-height-num-xl);
+    font-weight: 700;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+  }
+
+  .kf-item--muted .kf-value {
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+    color: var(--ink-2);
+    padding: var(--space-2) 0;
+  }
+
+  .kf-chip {
+    margin: 0;
+  }
+
+  .kf-note {
+    margin: 0;
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-small);
+    color: var(--ink-2);
+  }
+
+  @media (max-width: 1023px) {
+    .key-figures {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .kf-item {
+      border-left: none;
+      border-top: 1px solid var(--line);
+    }
+    .kf-item:nth-child(-n + 2) {
+      border-top: none;
+    }
+    .kf-item:nth-child(even) {
+      border-left: 1px solid var(--line);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .key-figures {
+      grid-template-columns: 1fr;
+    }
+    .kf-item {
+      padding: var(--space-4);
+      border-left: none !important;
+      border-top: 1px solid var(--line);
+    }
+    .kf-item:first-child {
+      border-top: none;
+    }
+    .kf-item:nth-child(2) {
+      border-top: 1px solid var(--line);
+    }
+  }
+</style>

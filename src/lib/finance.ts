@@ -347,8 +347,9 @@ export interface FoodRevenueReconciliation {
  * - Tổng doanh thu ẩm thực cơ sở = 4.950.000đ (đã giải thích cơ cấu 1 triệu từ su kem)
  * - Chi phí nguyên liệu ẩm thực = 2.480.000đ (đã bao gồm 400.000đ bánh su kem)
  * - Doanh thu trừ chi phí = 4.950.000đ − 2.480.000đ = 2.470.000đ
- * - Lãi đồ ăn PDF ghi 2.070.000đ; khoản chênh 400.000đ xuất phát từ việc chi phí bánh su kem 400.000đ
- *   đã nằm trong 2.480.000đ nhưng bị trừ thêm lần nữa.
+ * - Lãi đồ ăn PDF ghi 2.070.000đ, lệch 400.000đ so với phép trừ theo nhóm. Bảng lãi theo mặt hàng
+ *   (trang 30) cho thấy khoản su kem 400.000đ xuất hiện ở cả dòng set lẫn dòng su kem; phân bổ chính thức
+ *   chưa được nhóm xác nhận, nên không coi số nào là lãi sản phẩm chính thức.
  */
 export function calculateFoodReconciliation(
   hypotheticalSets: number | QuantitativeFact | null | undefined = null,
@@ -542,4 +543,51 @@ export function calculateCraftReconciliation(
     craftProfitQuote: cPQ,
     craftProfitGap,
   };
+}
+
+export interface ProductCatalogRow {
+  product: Product;
+  priceText: string;
+  quantityText: string;
+  /** Doanh thu kịch bản (giá × số lượng); null với mặt hàng không thuộc doanh thu cơ sở hoặc thiếu dữ liệu. */
+  scenarioRevenue: number | null;
+  inBaseScenario: boolean;
+}
+
+/**
+ * Dựng các dòng danh mục sản phẩm cho trang Sản phẩm/Trang chủ.
+ * - Mặt hàng có isBaseRevenueItem === false (3 combo) luôn có scenarioRevenue null, không được cộng vào cơ sở.
+ * - Thiếu giá hoặc số lượng: scenarioRevenue null, không tự coi là 0.
+ */
+export function buildProductCatalog(products: Product[]): ProductCatalogRow[] {
+  return products.map((product) => {
+    const inBaseScenario = product.isBaseRevenueItem !== false;
+    const price = product.referencePrice.value;
+    const qty = product.plannedQuantity.value;
+    const scenarioRevenue =
+      inBaseScenario && price !== null && price !== undefined && qty !== null && qty !== undefined
+        ? price * qty
+        : null;
+    return {
+      product,
+      priceText: formatProductPrice(product),
+      quantityText: formatProductQuantity(product),
+      scenarioRevenue,
+      inBaseScenario,
+    };
+  });
+}
+
+/**
+ * Tổng doanh thu kịch bản từ các dòng danh mục.
+ * Trả về null nếu bất kỳ dòng thuộc cơ sở nào thiếu doanh thu (không bỏ qua dòng thiếu dữ liệu).
+ */
+export function sumCatalogScenarioRevenue(rows: ProductCatalogRow[]): number | null {
+  let total = 0;
+  for (const row of rows) {
+    if (!row.inBaseScenario) continue;
+    if (row.scenarioRevenue === null) return null;
+    total += row.scenarioRevenue;
+  }
+  return total;
 }

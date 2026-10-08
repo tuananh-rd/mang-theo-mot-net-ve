@@ -27,7 +27,7 @@ interface Props {
   lead?: string;
   description?: string;
   summaryTitle?: string;
-  summaryItems: SummaryItem[];
+  summaryItems?: SummaryItem[];
 }
 
 const {
@@ -39,8 +39,9 @@ const {
   lead,
   description,
   summaryTitle = 'Tóm tắt kế hoạch',
-  summaryItems,
+  summaryItems = [],
 } = Astro.props;
+const hasPanel = summaryItems.length > 0 || Astro.slots.has('panel-extra');
 ---
 
 <section class="page-hero" aria-labelledby={titleId}>
@@ -69,7 +70,7 @@ const {
       </nav>
     )}
 
-    <div class="page-hero-grid">
+    <div class:list={['page-hero-grid', { 'page-hero-grid--single': !hasPanel }]}>
       <!-- Cột chính bên trái: 7 cột desktop -->
       <div class="page-hero-main">
         {(eyebrow || chip) && (
@@ -91,13 +92,14 @@ const {
       </div>
 
       <!-- Panel Tóm tắt kế hoạch bên phải: 5 cột desktop -->
+      {hasPanel && (
       <aside class="page-hero-panel" aria-label={summaryTitle}>
         <div class="panel-card">
           <div class="panel-header">
-            <span class="panel-kicker">Thông tin tổng hợp</span>
             <p class="panel-title">{summaryTitle}</p>
           </div>
 
+          {summaryItems.length > 0 && (
           <dl class="panel-list">
             {summaryItems.map((item) => (
               <div class="panel-row">
@@ -109,9 +111,11 @@ const {
               </div>
             ))}
           </dl>
+          )}
           <slot name="panel-extra" />
         </div>
       </aside>
+      )}
     </div>
   </div>
 </section>
@@ -180,6 +184,14 @@ const {
     grid-template-columns: 7fr 5fr;
     gap: var(--space-8);
     align-items: start;
+  }
+
+  .page-hero-grid--single {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .page-hero-grid--single .page-hero-main {
+    max-width: 820px;
   }
 
   .page-hero-main {

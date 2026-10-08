@@ -1,8 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/PageHero.astro';
+import KeyFigures from '../components/KeyFigures.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
 import StatusChip from '../components/StatusChip.astro';
+import Icon from '../components/Icon.astro';
 import {
   PLANNED_EXPENSES,
   PRODUCTS,
@@ -30,12 +32,17 @@ const craftRevenue = calculateCraftRevenue(PRODUCTS);
 const foodRevenue = calculateFoodRevenue(PRODUCTS);
 const totalPlannedRevenue = calculateBaseRevenue(PRODUCTS);
 
-const setDoAn = PRODUCTS.find((p) => p.id === 'set-do-an');
-const banhSuKem = PRODUCTS.find((p) => p.id === 'banh-su-kem');
-const foodExpensesGroup = expenseGroups.find((g) => g.category === 'Nguyên liệu gây quỹ');
-const foodExpensesTotal = foodExpensesGroup?.subtotal ?? null;
+const byId = (id: string) => PRODUCTS.find((p) => p.id === id);
+const setDoAn = byId('set-do-an');
+const banhSuKem = byId('banh-su-kem');
+const chuonTre = byId('chuon-chuon-tre-kem-de');
+const mocKhoa = byId('moc-khoa');
 
-const foodReconciliation = calculateFoodReconciliation(
+const foodGroup = expenseGroups.find((g) => g.category === 'Nguyên liệu gây quỹ');
+const workshopGroup = expenseGroups.find((g) => g.category === 'Vật tư workshop & quà tặng');
+const otherGroup = expenseGroups.find((g) => g.category === 'Truyền thông & Di chuyển');
+
+const food = calculateFoodReconciliation(
   setDoAn?.plannedQuantity,
   setDoAn?.referencePrice,
   FINANCE_OVERVIEW.foodPlannedRevenueAssumption,
@@ -43,1556 +50,639 @@ const foodReconciliation = calculateFoodReconciliation(
   totalPlannedExpense,
   banhSuKem?.plannedQuantity,
   banhSuKem?.referencePrice,
-  foodExpensesTotal,
+  foodGroup?.subtotal ?? null,
   FINANCE_OVERVIEW.foodProfitQuote
 );
 
-const chuonTre = PRODUCTS.find((p) => p.id === 'chuon-chuon-tre-kem-de');
-const mocKhoa = PRODUCTS.find((p) => p.id === 'moc-khoa');
-const workshopExpensesGroup = expenseGroups.find((g) => g.category === 'Vật tư workshop & quà tặng');
-const workshopExpensesTotal = workshopExpensesGroup?.subtotal ?? null;
-
-const craftReconciliation = calculateCraftReconciliation(
+const craft = calculateCraftReconciliation(
   chuonTre?.plannedQuantity,
   chuonTre?.referencePrice,
   mocKhoa?.plannedQuantity,
   mocKhoa?.referencePrice,
-  workshopExpensesTotal,
+  workshopGroup?.subtotal ?? null,
   FINANCE_OVERVIEW.craftProfitQuote
 );
 
-const totalCombinedExpenses =
-  foodReconciliation.foodExpensesTotal !== null && craftReconciliation.workshopExpensesTotal !== null
-    ? foodReconciliation.foodExpensesTotal + craftReconciliation.workshopExpensesTotal
-    : null;
+const sumOrNull = (a: number | null, b: number | null) => (a !== null && b !== null ? a + b : null);
+const diffOrNull = (a: number | null, b: number | null) => (a !== null && b !== null ? a - b : null);
+const signed = (v: number | null) => (v === null ? formatVND(null) : `${v > 0 ? '+' : v < 0 ? '−' : ''}${formatVND(Math.abs(v))}`);
 
-const totalCombinedRevenueMinusExpenses =
-  foodReconciliation.foodRevenueMinusExpenses !== null && craftReconciliation.craftRevenueMinusExpenses !== null
-    ? foodReconciliation.foodRevenueMinusExpenses + craftReconciliation.craftRevenueMinusExpenses
-    : null;
+const scenarioResults = FINANCE_SCENARIOS.map((scenario) => ({
+  scenario,
+  result: calculateScenario(scenario, totalPlannedRevenue, totalPlannedExpense),
+}));
+const baseScenario = FINANCE_SCENARIOS.find((s) => s.id === 'chua-tinh-tai-tro') ?? FINANCE_SCENARIOS[0];
+const baseResult = calculateScenario(baseScenario, totalPlannedRevenue, totalPlannedExpense);
+const baseBalance = formatScenarioBalance(baseResult);
 
-const totalCombinedProfitQuote =
-  foodReconciliation.foodProfitQuote !== null && craftReconciliation.craftProfitQuote !== null
-    ? foodReconciliation.foodProfitQuote + craftReconciliation.craftProfitQuote
-    : null;
-
-const formatInSentence = (name: string) => (name ? name.charAt(0).toLowerCase() + name.slice(1) : '');
-const craftProducts = PRODUCTS.filter((p) => p.category === 'craft');
-const craftFormulaText = craftProducts
-  .map((p) => `${p.plannedQuantity.value} ${formatInSentence(p.name)} × ${formatVND(p.referencePrice.value)}`)
-  .join(' + ');
-const craftSummaryText = craftProducts
-  .map((p) => `${p.plannedQuantity.value} ${formatInSentence(p.name)}`)
-  .join(' và ');
-
-const baseFoodProducts = PRODUCTS.filter((p) => p.category === 'food' && p.isBaseRevenueItem !== false);
-const foodFormulaText = baseFoodProducts
-  .map((p) => `${p.plannedQuantity.value} ${formatInSentence(p.name)} × ${formatVND(p.referencePrice.value)}`)
-  .join(' + ');
-
-const scenarioResults = FINANCE_SCENARIOS.map((scenario) => {
-  const result = calculateScenario(scenario, totalPlannedRevenue, totalPlannedExpense);
-  return {
-    scenario,
-    result,
-  };
-});
-
-const baseScenario = FINANCE_SCENARIOS.find((s) => s.id === 'chua-tinh-tai-tro') || FINANCE_SCENARIOS[0];
-const baseScenarioResult = baseScenario
-  ? calculateScenario(baseScenario, totalPlannedRevenue, totalPlannedExpense)
-  : null;
-const baseBalanceDisplay = formatScenarioBalance(baseScenarioResult);
-
-const breadcrumbs = [
-  { label: 'Trang chủ', href: '/' },
-  { label: 'Minh bạch' },
-];
-
-const summaryItems = [
+const figures = [
   {
-    label: 'Tổng dự toán chi',
-    value: `${formatVND(totalPlannedExpense)} (${PLANNED_EXPENSES.length} khoản mục theo 3 nhóm)`,
-    chip: {
-      kind: 'ke-hoach' as const,
-      label: 'Kế hoạch',
-    },
+    label: 'Chi dự toán',
+    value: formatVND(totalPlannedExpense),
+    chip: 'ke-hoach' as const,
+    note: `${PLANNED_EXPENSES.length} khoản trong 3 nhóm, theo báo giá cần xác nhận.`,
   },
   {
-    label: 'Thu kịch bản cơ sở',
-    value: `${formatVND(totalPlannedRevenue)} (thủ công + ẩm thực cơ sở)`,
-    chip: {
-      kind: 'gia-dinh' as const,
-      label: 'Giả định',
-    },
+    label: 'Doanh thu nếu bán đủ',
+    value: formatVND(totalPlannedRevenue),
+    chip: 'gia-dinh' as const,
+    note: 'Thủ công + đồ ăn cơ sở, theo giá tham khảo.',
   },
   {
-    label: 'Số dư kịch bản cơ sở',
-    value: `${baseBalanceDisplay.text} (trước tài trợ hiện vật)`,
-    chip: {
-      kind: 'gia-dinh' as const,
-      label: 'Kịch bản',
-    },
+    label: 'Còn lại trước khi mua quà',
+    value: baseBalance.text,
+    chip: 'gia-dinh' as const,
+    note: 'Chưa tính tài trợ; không phải số tiền chắc chắn có.',
   },
   {
     label: 'Thu chi thực tế',
-    value: 'Chưa có số liệu thực tế được xác nhận',
-    chip: {
-      kind: 'cho-xac-nhan' as const,
-      label: 'Chờ xác nhận',
-    },
+    value: formatVND(ACTUAL_FINANCE.actualCashBalance.value),
+    chip: 'cho-xac-nhan' as const,
+    chipLabel: 'Chưa có số liệu',
+    note: 'Công bố sau khi đối soát và được phép.',
+    muted: true,
   },
 ];
+
+const actualRows = [
+  { label: 'Tiền thực nhận (bán hàng, tài trợ tiền)', fact: ACTUAL_FINANCE.actualCashReceived },
+  { label: 'Tiền thực chi', fact: ACTUAL_FINANCE.actualCashSpent },
+  { label: 'Số dư tiền thực tế', fact: ACTUAL_FINANCE.actualCashBalance },
+  { label: 'Hiện vật đã nhận (sổ riêng)', fact: ACTUAL_FINANCE.actualInKindReceived },
+  { label: 'Hiện vật đã bàn giao cho Mái ấm', fact: ACTUAL_FINANCE.actualInKindDelivered },
+];
+
+const formatActual = (value: number | null, unit: string) =>
+  value === null ? 'Chưa xác nhận' : unit === 'đ' ? formatVND(value) : `${value} ${unit}`;
+
+const shortName: Record<string, string> = {
+  'chuon-chuon-tre-kem-de': 'bộ chuồn chuồn',
+  'moc-khoa': 'móc khóa',
+  'set-do-an': 'set',
+  'banh-su-kem': 'hộp su kem',
+};
+const formulaText = (category: 'craft' | 'food') =>
+  PRODUCTS.filter((p) => p.category === category && p.isBaseRevenueItem !== false)
+    .map((p) => `${p.plannedQuantity.value ?? '?'} ${shortName[p.id] ?? p.name} × ${formatVND(p.referencePrice.value)}`)
+    .join(' + ');
+
+const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Minh bạch' }];
 ---
 
 <Layout
   title="Minh bạch thu chi"
-  description="Báo cáo dự toán chi phí, doanh thu kịch bản và nguyên tắc minh bạch tài chính của chiến dịch Mang Theo Một Nét Vẽ."
+  description="Dự toán 24 khoản, kịch bản doanh thu, các điểm cần làm rõ và khung báo cáo thực tế của dự án Mang Theo Một Nét Vẽ."
   currentPath="/minh-bach"
 >
-  <!-- Shared PageHero (7 cột trái / 5 cột phải panel Tóm tắt kế hoạch) -->
   <PageHero
     breadcrumbs={breadcrumbs}
-    eyebrow="Tài chính dự kiến"
-    chip={{
-      kind: 'cho-xac-nhan',
-      label: 'Chưa có số liệu thực tế được xác nhận',
-    }}
+    eyebrow="Minh bạch"
+    chip={{ kind: 'cho-xac-nhan', label: 'Chưa có số liệu thực tế' }}
     title="Minh bạch thu chi"
     titleId="transparency-heading"
-    lead="Kế hoạch dự toán ngân sách, doanh thu kịch bản bán đủ hàng và các nguyên tắc quản trị tài chính minh bạch cho chiến dịch tại Mái ấm Thánh Tâm Xuy Xá."
-    description="Toàn bộ số liệu dưới đây thuộc hồ sơ đề xuất dự án Final, phân định rõ ràng giữa kế hoạch dự toán và thực tế thực hiện. Website chưa tiếp nhận giao dịch tiền mặt, đơn đặt hàng hay tài trợ trực tuyến."
-    summaryTitle="Tóm tắt kế hoạch"
-    summaryItems={summaryItems}
+    lead="Mọi con số dưới đây là kế hoạch trong đề xuất Final, chưa phải tiền đã thu hay đã chi."
+    description="Trang này tách rõ dự toán, giả định doanh thu và số liệu thực tế, đồng thời nêu những điểm trong hồ sơ còn chờ nhóm làm rõ."
   />
 
-  <!-- Top Highlights: 3 KPI Cards + Cảnh báo đối chiếu + Chú giải trạng thái -->
-  <section class="section section-highlights" aria-label="Các chỉ số kế hoạch nổi bật">
+  <section class="section section-first" aria-labelledby="overview-heading">
     <div class="container">
-      <!-- Highlights Grid (3 KPI kế hoạch / giả định) -->
-      <div class="highlights-grid" role="region" aria-label="3 chỉ số tài chính trọng tâm">
-        <div class="highlight-card">
-          <div class="highlight-header">
-            <span class="highlight-label">Chi dự kiến (kế hoạch)</span>
-            <StatusChip kind="ke-hoach" label="Kế hoạch" />
-          </div>
-          <span class="highlight-value">{formatVND(totalPlannedExpense)}</span>
-          <p class="highlight-condition">
-            Dự toán {PLANNED_EXPENSES.length} khoản chi phí nguyên vật liệu, vật tư workshop, quà tặng và di chuyển theo đề xuất Final (trang 29, 30, 31).
-          </p>
-        </div>
+      <h2 id="overview-heading" class="sr-only">Tổng quan tài chính kế hoạch</h2>
+      <KeyFigures figures={figures} label="Bốn con số tài chính chính" />
 
-        <div class="highlight-card">
-          <div class="highlight-header">
-            <span class="highlight-label">Doanh thu kịch bản (cơ sở)</span>
-            <StatusChip kind="gia-dinh" label="Giả định" />
-          </div>
-          <span class="highlight-value">{formatVND(totalPlannedRevenue)}</span>
-          <p class="highlight-condition">
-            Gồm {formatVND(craftRevenue)} thủ công (bán đủ kế hoạch) và {formatVND(foodRevenue)} ẩm thực cơ sở (50 set đồ ăn + 50 bánh su kem).
-          </p>
+      <div class="formula" aria-label="Cách tính số dư trước khi mua quà">
+        <div class="formula-part">
+          <span class="formula-label">Thủ công</span>
+          <span class="formula-value">{formatVND(craftRevenue)}</span>
+          <span class="formula-sub">{formulaText('craft')}</span>
         </div>
-
-        <div class="highlight-card">
-          <div class="highlight-header">
-            <span class="highlight-label">Số dư giả định (kịch bản cơ sở)</span>
-            <StatusChip kind="gia-dinh" label="Giả định" />
-          </div>
-          <span class="highlight-value">
-            {baseBalanceDisplay.text}
-          </span>
-          <p class="highlight-condition">
-            Số dư mô phỏng khi chưa tính tài trợ hiện vật, dựa trên giả định bán đủ sản phẩm cơ sở theo giá tham khảo (trước khi mua quà tặng).
-          </p>
+        <span class="formula-op" aria-hidden="true">+</span>
+        <div class="formula-part">
+          <span class="formula-label">Đồ ăn cơ sở</span>
+          <span class="formula-value">{formatVND(foodRevenue)}</span>
+          <span class="formula-sub">{formulaText('food')}</span>
+        </div>
+        <span class="formula-op" aria-hidden="true">−</span>
+        <div class="formula-part">
+          <span class="formula-label">Chi dự toán</span>
+          <span class="formula-value">{formatVND(totalPlannedExpense)}</span>
+          <span class="formula-sub">{PLANNED_EXPENSES.length} khoản, mỗi khoản trừ một lần</span>
+        </div>
+        <span class="formula-op" aria-hidden="true">=</span>
+        <div class="formula-part formula-result">
+          <span class="formula-label">Còn lại trước quà</span>
+          <span class="formula-value">{baseBalance.text}</span>
+          <span class="formula-sub">Kịch bản bán đủ, chưa tài trợ</span>
         </div>
       </div>
-
-      <!-- Cảnh báo đối chiếu cơ cấu ẩm thực & phân bổ lợi nhuận C06 -->
-      <div class="transparency-gap-alert" role="note">
-        <p class="gap-alert-text">
-          <strong>Lưu ý đối chiếu cơ cấu ẩm thực &amp; phân bổ lợi nhuận đề xuất Final:</strong> Kế hoạch ẩm thực cơ sở gồm 50 set đồ ăn và 50 hộp bánh su kem ({formatVND(foodRevenue)}) đã giải thích trọn vẹn cơ cấu so với dự toán cũ. Ba combo nem (60 suất/món theo đề xuất) chưa tính vào kịch bản cơ sở do cần đối chiếu số lượng bổ sung hay thay thế; lãi từng nhóm sản phẩm trong hồ sơ có khoản chênh 400.000đ đang chờ thống nhất phân bổ chi phí nội bộ. Tổng số dư kịch bản toàn dự án (+1.680.000đ) vẫn khớp hoàn toàn giữa các phương pháp tính.
-        </p>
-        <a href="#doi-chieu-do-an" class="gap-alert-link">
-          Xem bảng đối chiếu ẩm thực &amp; lợi nhuận chi tiết &darr;
-        </a>
-      </div>
-
-      <!-- Chú giải trạng thái (Legend) -->
-      <div class="finance-status-legend" role="region" aria-label="Giải thích các trạng thái số liệu">
-        <span class="legend-title">Chú giải trạng thái:</span>
-        <div class="legend-items">
-          <div class="legend-item">
-            <StatusChip kind="ke-hoach" label="Kế hoạch" />
-            <span class="legend-desc">Dự toán {PLANNED_EXPENSES.length} khoản chi phí trong đề xuất</span>
-          </div>
-          <div class="legend-item">
-            <StatusChip kind="gia-dinh" label="Giả định" />
-            <span class="legend-desc">Mô phỏng doanh thu và số dư kịch bản</span>
-          </div>
-          <div class="legend-item">
-            <StatusChip kind="cho-xac-nhan" label="Chờ xác nhận" />
-            <span class="legend-desc">Chưa có số liệu thực tế được xác nhận</span>
-          </div>
-          <div class="legend-item">
-            <span class="legend-neutral-text">(Xác nhận thực tế: Chưa có số liệu được xác nhận)</span>
-          </div>
-        </div>
-      </div>
+      <p class="source-note">
+        Ba combo nem (60 suất/món) không có trong phép tính vì chưa rõ bán thêm hay thay cho 50 set. Hàng tồn, đơn chưa thanh toán và hiện vật không được tính là tiền.
+      </p>
     </div>
   </section>
 
-  <!-- Section 1 (LEDGER FIRST): Dự toán chi phí chi tiết (24 khoản mục) -->
   <section class="section section-soft" aria-labelledby="expenses-heading">
     <div class="container">
       <div class="section-header">
-        <span class="eyebrow">Dự toán ngân sách</span>
-        <h2 id="expenses-heading" class="section-title">
-          Dự toán chi phí chi tiết ({PLANNED_EXPENSES.length} khoản mục)
-        </h2>
-        <p class="section-subtitle">
-          Danh mục chi tiết {PLANNED_EXPENSES.length} khoản mục chi phí được chia thành 3 nhóm phục vụ buổi chơi và hoạt động tại Mái ấm theo đề xuất Final.
-        </p>
+        <span class="eyebrow">Dự toán</span>
+        <h2 id="expenses-heading">{PLANNED_EXPENSES.length} khoản chi theo 3 nhóm</h2>
+        <p>Mở từng nhóm để xem đơn giá, số lượng và ghi chú. Tất cả là dự toán theo báo giá cần xác nhận, không phải khoản đã thanh toán.</p>
       </div>
 
-      <!-- Desktop Table View (>= 768px) -->
-      <div class="table-wrap desktop-only">
-        <table class="data-table">
-          <caption class="sr-only">Bảng phân bổ {PLANNED_EXPENSES.length} khoản mục chi phí dự toán kế hoạch theo 3 nhóm</caption>
-          <thead>
-            <tr>
-              <th scope="col">Khoản mục</th>
-              <th scope="col">Nhóm phân loại</th>
-              <th scope="col" class="text-right">Dự toán (VND)</th>
-              <th scope="col">Ghi chú &amp; Cơ sở tính</th>
-            </tr>
-          </thead>
-          {
-            expenseGroups.map((group) => (
-              <tbody class="expense-group-body">
-                <tr class="group-header-row">
-                  <th scope="colgroup" colspan="2" class="group-header-title">
-                    {group.category}
-                  </th>
-                  <td class="text-right font-bold group-header-subtotal">
-                    {formatVND(group.subtotal)}
-                  </td>
-                  <td class="text-muted text-xs group-header-note">
-                    Tổng phụ {group.items.length} khoản
-                  </td>
-                </tr>
-                {
-                  group.items.map((item) => (
-                    <tr>
-                      <td>
-                        <strong>{item.title}</strong>
-                        <div class="text-xs text-muted">{item.calculationText}</div>
-                      </td>
-                      <td>
-                        <span class="category-tag">{item.category}</span>
-                      </td>
-                      <td class="text-right font-medium">
-                        {formatVND(item.amount.value)}
-                      </td>
-                      <td class="text-muted">
-                        {item.note}
-                        {item.isEstimated && (
-                          <span class="estimated-tag">Chi phí giả định</span>
-                        )}
-                      </td>
-                    </tr>
-                  ))
-                }
-              </tbody>
-            ))
-          }
-          <tfoot>
-            <tr class="total-row">
-              <th scope="row" colspan="2">Tổng dự toán chi kế hoạch ({PLANNED_EXPENSES.length} khoản)</th>
-              <td class="text-right font-bold text-accent">
-                {formatVND(totalPlannedExpense)}
-              </td>
-              <td class="text-muted">Dẫn xuất từ {PLANNED_EXPENSES.length} khoản mục dự toán trong đề xuất Final (trang 29, 30, 31), không phải chi phí thực tế</td>
-            </tr>
-          </tfoot>
-        </table>
-      </div>
-
-      <!-- Mobile Grouped Accordion (< 768px) -->
-      <div class="mobile-only mobile-expense-groups" aria-label="Danh sách dự toán chi phí theo nhóm trên di động">
+      <div class="ledger">
         {
-          expenseGroups.map((group, gIdx) => (
-            <details class="expense-group-accordion card" id={`expense-group-${gIdx}`}>
-              <summary class="group-summary">
-                <div class="group-summary-left">
-                  <h3 class="group-summary-title">{group.category}</h3>
-                  <span class="group-summary-count">{group.items.length} khoản mục</span>
-                </div>
-                <div class="group-summary-right font-bold text-accent">
-                  <span class="group-subtotal-val">{formatVND(group.subtotal)}</span>
-                  <span class="group-expand-cue" aria-hidden="true">
-                    <svg
-                      class="chevron-svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
+          expenseGroups.map((group, gi) => (
+            <details class="disclosure ledger-group" id={`nhom-chi-${gi + 1}`}>
+              <summary>
+                <span class="disclosure-label">
+                  {group.category}
+                  <span class="disclosure-meta">
+                    {group.items.length} khoản · đề xuất trang {group.sourceRef.replace('proposal-final:page-', '')}
                   </span>
-                </div>
+                </span>
+                <span class="disclosure-aside">
+                  <span class="ledger-subtotal">{formatVND(group.subtotal)}</span>
+                  <span class="disclosure-chevron"><Icon name="chevron" size={18} /></span>
+                </span>
               </summary>
-
-              <div class="group-items-list">
-                {
-                  group.items.map((item) => (
-                    <div class="mobile-expense-item">
-                      <div class="mobile-expense-top">
-                        <div class="mobile-expense-main">
-                          <h4 class="mobile-expense-title">{item.title}</h4>
-                        </div>
-                        <div class="mobile-expense-val-col">
-                          <span class="mobile-expense-val text-accent font-bold">
-                            {formatVND(item.amount.value)}
-                          </span>
-                          {item.isEstimated && (
-                            <span class="estimated-tag">Giả định</span>
-                          )}
-                        </div>
-                      </div>
-                      <div class="mobile-expense-sub text-muted">
-                        {item.calculationText && (
-                          <span class="mobile-expense-calc">{item.calculationText}</span>
-                        )}
-                        {item.calculationText && item.note && (
-                          <span class="mobile-sub-sep" aria-hidden="true">&bull;</span>
-                        )}
-                        {item.note && (
-                          <span class="mobile-expense-note">{item.note}</span>
-                        )}
-                      </div>
-                    </div>
-                  ))
-                }
+              <div class="disclosure-body">
+                <table class="data-table data-table--stack ledger-table">
+                  <caption class="sr-only">Các khoản chi trong nhóm {group.category}</caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Khoản chi</th>
+                      <th scope="col">Cơ sở tính</th>
+                      <th scope="col" class="num">Dự toán</th>
+                      <th scope="col">Ghi chú</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {group.items.map((item) => (
+                      <tr>
+                        <th scope="row">{item.title}</th>
+                        <td class="ledger-calc" data-label="Cơ sở tính">{item.calculationText}</td>
+                        <td class="num" data-label="Dự toán">{formatVND(item.amount.value)}</td>
+                        <td class="cell-wide ledger-note">{item.note.replace(/\s*\(trang \d+\)\s*$/, '')}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </details>
           ))
         }
-
-        <div class="mobile-total-card card">
-          <div class="mobile-total-header">Tổng dự toán chi kế hoạch ({PLANNED_EXPENSES.length} khoản)</div>
-          <div class="mobile-total-amount">{formatVND(totalPlannedExpense)}</div>
-          <p class="mobile-total-note">
-            Dẫn xuất từ 3 nhóm dự toán trong đề xuất Final (trang 29, 30, 31); không phải chi phí thực tế đã thanh toán.
-          </p>
+        <div class="ledger-total">
+          <span>Tổng dự toán chi</span>
+          <strong>{formatVND(totalPlannedExpense)}</strong>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Section 2: Doanh thu kịch bản và phân tích số dư -->
   <section class="section" aria-labelledby="scenarios-heading">
     <div class="container">
       <div class="section-header">
-        <span class="eyebrow">Kịch bản tài chính</span>
-        <h2 id="scenarios-heading" class="section-title">
-          Doanh thu kịch bản và phân tích số dư
-        </h2>
-        <p class="section-subtitle">
-          Tính toán doanh thu giả định khi hoàn thành các mục tiêu kế hoạch và đối sánh với dự toán chi phí.
+        <span class="eyebrow">Kịch bản hỗ trợ</span>
+        <h2 id="scenarios-heading">Nếu có tài trợ hiện vật</h2>
+        <p>
+          Hiện vật chỉ thay đúng khoản chi tương ứng, làm giảm tiền phải chi; doanh thu giữ nguyên {formatVND(totalPlannedRevenue)}. Đây là các giả định riêng lẻ trong đề xuất (trang 32), chưa có cam kết tài trợ nào.
         </p>
       </div>
 
-      <!-- Calculation Breakdown Card -->
-      <div class="formula-card card">
-        <h3 class="formula-title">Cơ cấu doanh thu kịch bản bán đủ hàng ({formatVND(totalPlannedRevenue)})</h3>
-        <div class="formula-breakdown">
-          <div class="formula-part">
-            <span class="formula-part-title">1. Sản phẩm lưu niệm thủ công:</span>
-            <p class="formula-expression">{craftFormulaText} = <strong>{formatVND(craftRevenue)}</strong></p>
-            <p class="formula-subnote">Giả định bán đủ {craftSummaryText} theo giá tham khảo trong đề xuất Final (trang 30).</p>
-          </div>
-          <div class="formula-part">
-            <span class="formula-part-title">2. Phương án ẩm thực sinh viên cơ sở:</span>
-            <p class="formula-expression">{foodFormulaText} = <strong>{formatVND(foodRevenue)}</strong></p>
-            <p class="formula-subnote">Gồm 50 set đồ ăn (79.000đ/set) và 50 hộp bánh su kem (20.000đ/hộp) theo đề xuất Final (trang 29). Chưa gộp 3 combo nem vào doanh thu cơ sở do cần đối chiếu số lượng bổ sung hay thay thế (xem mục đối chiếu ẩm thực bên dưới).</p>
-          </div>
-        </div>
-        <div class="formula-total">
-          <span>Tổng doanh thu kịch bản cơ sở kết hợp:</span>
-          <strong>{formatVND(craftRevenue)} (thủ công) + {formatVND(foodRevenue)} (ẩm thực cơ sở) = {formatVND(totalPlannedRevenue)}</strong>
-        </div>
-        <p class="formula-note">
-          Doanh thu giả định tính trên giả thiết hoàn thành mục tiêu đề xuất và bán theo mức giá tham khảo. Trạng thái mở bán hiện chưa được xác nhận; bản xem trước chưa nhận đơn hoặc tiền.
-        </p>
-      </div>
-
-      <!-- Food & Profit Reconciliation Card (#doi-chieu-do-an) -->
-      <div id="doi-chieu-do-an" class="reconciliation-card card">
-        <div class="reconciliation-header">
-          <div class="badge-wrap">
-            <span class="eyebrow">Đối chiếu kế hoạch đề xuất Final</span>
-          </div>
-          <h3 class="reconciliation-title">Đối chiếu cơ cấu ẩm thực và phân bổ lợi nhuận</h3>
-        </div>
-
-        <p class="reconciliation-lead">
-          Hồ sơ đề xuất Final (trang 29–32) xác định doanh thu ẩm thực cơ sở là <strong>{formatVND(foodRevenue)}</strong> (50 set đồ ăn và 50 hộp bánh su kem). Dưới đây là phân tích đối chiếu chi tiết về cơ cấu ẩm thực, lưu ý về combo và khoản chênh lệch phân bổ chi phí 400.000đ giữa các nhóm sản phẩm:
-        </p>
-
-        <!-- Phần 1: Cơ cấu ẩm thực cơ sở -->
-        <div class="reconciliation-sub-block">
-          <h4 class="reconciliation-sub-title">1. Cơ cấu doanh thu ẩm thực cơ sở ({formatVND(foodRevenue)})</h4>
-          <div class="reconciliation-grid">
-            <div class="reconcile-item">
-              <span class="reconcile-label">Set đồ ăn sinh viên (50 set)</span>
-              <span class="reconcile-val">{foodReconciliation.hypotheticalSets} set &times; {formatVND(foodReconciliation.setUnitPrice)} = <strong>{formatVND(foodReconciliation.setsCalculatedRevenue)}</strong></span>
-              <span class="reconcile-note">50 set đồ ăn (2 nem rán, 2 nem xù, 2 nem phô mai, dưa chuột, khoai tây, nước uống).</span>
-            </div>
-
-            <div class="reconcile-item">
-              <span class="reconcile-label">Bánh su kem (50 hộp)</span>
-              <span class="reconcile-val">{foodReconciliation.suKemQuantity} hộp &times; {formatVND(foodReconciliation.suKemUnitPrice)} = <strong>{formatVND(foodReconciliation.suKemCalculatedRevenue)}</strong></span>
-              <span class="reconcile-note">50 hộp bánh su kem giá tham khảo 20.000đ/hộp (trang 29).</span>
-            </div>
-
-            <div class="reconcile-item reconcile-total-item">
-              <span class="reconcile-label">Tổng doanh thu ẩm thực cơ sở</span>
-              <span class="reconcile-val font-bold text-accent"><strong>{formatVND(foodRevenue)}</strong></span>
-              <span class="reconcile-note">Đã giải thích đầy đủ cơ cấu doanh thu ẩm thực cơ sở; không còn khoản chênh chưa rõ nguồn.</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Phần 2: Lưu ý về 3 Combo nem -->
-        <div class="reconciliation-notice-box">
-          <p>
-            <strong>Lưu ý về 3 combo nem trong đề xuất (trang 29):</strong> Hồ sơ đề xuất liệt kê 3 combo (combo nem giòn 40k, combo nem xù 40k, combo nem phô mai 60k) với số lượng ghi nhận 60 suất/món. Tuy nhiên, định mức nguyên liệu mua vào (300 chiếc nem Công Châu) chỉ đủ cho 50 set đồ ăn đầy đủ (50 &times; 6 nem = 300 nem). Chưa có bảng phân bổ nguyên liệu độc lập để xác định 3 combo này là sản lượng làm thêm hay là phương án bán lẻ thay thế cho set đồ ăn. Để đảm bảo tính thận trọng và không tự ý nhân doanh thu kịch bản, <em>3 combo nem không được gộp vào doanh thu kịch bản cơ sở</em>.
-          </p>
-        </div>
-
-        <!-- Phần 3: Phân tích chênh lệch lợi nhuận từng nhóm (khoản lệch 400.000đ) -->
-        <div class="reconciliation-sub-block">
-          <h4 class="reconciliation-sub-title">2. Đối chiếu phân bổ lợi nhuận từng nhóm sản phẩm (khoản lệch 400.000đ)</h4>
-          <p class="reconciliation-text">
-            Hồ sơ đề xuất Final ghi nhận ước tính lãi đồ ăn là <strong>{formatVND(FINANCE_OVERVIEW.foodProfitQuote)}</strong> (trang 30) và lãi thủ công là <strong>{formatVND(FINANCE_OVERVIEW.craftProfitQuote)}</strong> (trang 31). Khi so sánh với mức doanh thu kịch bản trừ chi phí theo danh mục từng nhóm dự toán, xuất hiện khoản chênh lệch 400.000đ giữa hai nhóm:
-          </p>
-
-          <div class="table-wrap">
-            <table class="data-table">
-              <caption class="sr-only">Bảng đối chiếu phân bổ lợi nhuận giữa trích dẫn đề xuất và tính toán theo nhóm chi phí</caption>
-              <thead>
-                <tr>
-                  <th scope="col">Nhóm hoạt động</th>
-                  <th scope="col" class="text-right">Doanh thu cơ sở</th>
-                  <th scope="col" class="text-right">Chi phí theo nhóm</th>
-                  <th scope="col" class="text-right">Doanh thu − Chi phí</th>
-                  <th scope="col" class="text-right">Lãi ghi trong đề xuất</th>
-                  <th scope="col" class="text-right">Chênh lệch</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong>Ẩm thực gây quỹ</strong></td>
-                  <td class="text-right">{formatVND(foodRevenue)}</td>
-                  <td class="text-right">{formatVND(foodReconciliation.foodExpensesTotal)}</td>
-                  <td class="text-right font-medium">{formatVND(foodReconciliation.foodRevenueMinusExpenses)}</td>
-                  <td class="text-right font-bold">{formatVND(foodReconciliation.foodProfitQuote)}</td>
-                  <td class="text-right text-muted">−400.000đ (trừ 2 lần chi phí su kem)</td>
-                </tr>
-                <tr>
-                  <td><strong>Sản phẩm thủ công</strong></td>
-                  <td class="text-right">{formatVND(craftRevenue)}</td>
-                  <td class="text-right">{formatVND(craftReconciliation.workshopExpensesTotal)}</td>
-                  <td class="text-right font-medium">{formatVND(craftReconciliation.craftRevenueMinusExpenses)}</td>
-                  <td class="text-right font-bold">{formatVND(craftReconciliation.craftProfitQuote)}</td>
-                  <td class="text-right text-muted">+400.000đ (chưa tách quà &amp; vật tư)</td>
-                </tr>
-                <tr class="total-row">
-                  <th scope="row">Tổng 2 nhóm sản phẩm</th>
-                  <td class="text-right font-bold">{formatVND(totalPlannedRevenue)}</td>
-                  <td class="text-right font-bold">{formatVND(totalCombinedExpenses)}</td>
-                  <td class="text-right font-bold">{formatVND(totalCombinedRevenueMinusExpenses)}</td>
-                  <td class="text-right font-bold text-accent">{formatVND(totalCombinedProfitQuote)}</td>
-                  <td class="text-right font-bold">0đ (khớp 2.810.000đ)</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="reconciliation-analysis">
-            <p class="reconciliation-analysis-title">
-              <strong>Đối chiếu số liệu và sự trùng khớp của số dư kịch bản tổng thể:</strong>
-            </p>
-            <ul class="reconciliation-list">
-              <li>
-                <strong>Ở nhóm ẩm thực:</strong> Chi phí mua bánh su kem (400.000đ cho 50 hộp) đã nằm trong tổng 14 khoản nguyên liệu ({formatVND(foodReconciliation.foodExpensesTotal)}). Trong trích dẫn lãi đồ ăn của đề xuất (trang 30), số lãi ghi nhận là {formatVND(foodReconciliation.foodProfitQuote)} thay vì mức doanh thu trừ chi phí nhóm ({formatVND(foodReconciliation.foodRevenueMinusExpenses)}), phản ánh khoản chênh 400.000đ tương ứng với chi phí su kem.
-              </li>
-              <li>
-                <strong>Ở nhóm thủ công:</strong> Chi phí nhóm 2 ({formatVND(craftReconciliation.workshopExpensesTotal)}) bao gồm cả vật tư workshop, dụng cụ trò chơi và quà tặng Mái ấm. Đề xuất ghi nhận lãi thủ công {formatVND(craftReconciliation.craftProfitQuote)} (trang 31) so với mức lấy doanh thu trừ toàn bộ chi phí nhóm là {formatVND(craftReconciliation.craftRevenueMinusExpenses)} (chênh lệch 400.000đ). Phân bổ chi phí cụ thể giữa hàng bán và vật tư buổi chơi chưa được giải quyết trong hồ sơ, do đó khoản chênh này không phải là lợi nhuận sản phẩm đã được phê duyệt.
-              </li>
-              <li>
-                <strong>Số dư kịch bản tổng thể trước quà tặng trùng khớp:</strong> Dù tính theo các con số lãi trích dẫn trong đề xuất hay theo công thức giả định (doanh thu kịch bản trừ toàn bộ chi phí dự toán), kết quả số dư kịch bản trước quà tặng đều cho cùng một giá trị <strong>+{formatVND(FINANCE_OVERVIEW.unfundedProjectedBalance)}</strong>:
-                <br />
-                &bull; <em>Cách 1 (theo số trích dẫn đề xuất):</em> Lãi đồ ăn ghi nhận ({formatVND(foodReconciliation.foodProfitQuote)}) + Lãi thủ công ghi nhận ({formatVND(craftReconciliation.craftProfitQuote)}) − Chi phí truyền thông &amp; di chuyển ({formatVND(1130000)}) = <strong>+{formatVND(FINANCE_OVERVIEW.unfundedProjectedBalance)}</strong>.
-                <br />
-                &bull; <em>Cách 2 (doanh thu kịch bản trừ toàn bộ chi phí dự toán):</em> Tổng thu kịch bản cơ sở ({formatVND(totalPlannedRevenue)}) − Tổng {PLANNED_EXPENSES.length} khoản chi ({formatVND(totalPlannedExpense)}) = <strong>+{formatVND(FINANCE_OVERVIEW.unfundedProjectedBalance)}</strong>.
-              </li>
-              <li>
-                Các phép tính trên là số liệu mô phỏng giả định dựa trên việc bán đủ hàng theo giá tham khảo; chi phí chưa được phê duyệt phân bổ chi tiết cho từng sản phẩm riêng lẻ.
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- Desktop & Tablet Scenarios Table -->
-      <div class="table-wrap desktop-only">
-        <table class="data-table">
-          <caption class="sr-only">Bảng so sánh kịch bản tài chính kế hoạch</caption>
-          <thead>
-            <tr>
-              <th scope="col">Kịch bản kế hoạch</th>
-              <th scope="col" class="text-right">Hiện vật thay chi tiền</th>
-              <th scope="col" class="text-right">Chi tiền còn lại</th>
-              <th scope="col" class="text-right">Số dư giả định</th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              scenarioResults.map(({ scenario, result }) => (
-                <tr>
-                  <td>
-                    <strong>{scenario.title}</strong>
-                    <div class="text-sm text-muted">{scenario.description}</div>
-                  </td>
-                  <td class="text-right">
-                    {formatVND(scenario.inKindReplacement.value)}
-                    <div class="text-xs text-muted">{scenario.note}</div>
-                  </td>
-                  <td class="text-right font-medium">
-                    {result ? formatVND(result.remainingCashExpense) : 'Chưa rõ'}
-                  </td>
-                  <td class="text-right font-bold">
-                    <span class={result?.isDeficit ? 'badge-deficit' : 'badge-surplus'}>
-                      {result?.balanceText ?? 'Chưa rõ'}
+      <table class="data-table data-table--stack scenario-table">
+        <caption class="sr-only">Kịch bản tài trợ hiện vật và số dư giả định</caption>
+        <thead>
+          <tr>
+            <th scope="col">Kịch bản</th>
+            <th scope="col" class="num">Hiện vật thay chi</th>
+            <th scope="col" class="num">Tiền còn phải chi</th>
+            <th scope="col" class="num">Còn lại trước quà</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            scenarioResults.map(({ scenario, result }) => (
+              <tr>
+                <th scope="row">
+                  {scenario.title}
+                  {scenario.allocationPending && (
+                    <span class="cell-sub scenario-flag">
+                      <StatusChip kind="can-lam-ro" label="Danh mục 500.000đ chưa rõ" />
                     </span>
-                  </td>
-                </tr>
+                  )}
+                </th>
+                <td class="num" data-label="Hiện vật thay chi">{formatVND(scenario.inKindReplacement.value)}</td>
+                <td class="num" data-label="Tiền còn phải chi">{result ? formatVND(result.remainingCashExpense) : 'Chưa xác nhận'}</td>
+                <td class="num" data-label="Còn lại trước quà">{result ? formatScenarioBalance(result).text : 'Chưa xác nhận'}</td>
+              </tr>
+            ))
+          }
+          <tr>
+            <th scope="row">Không đủ tài trợ hoặc đơn trước buổi 1</th>
+            <td class="num" data-label="Hiện vật thay chi">—</td>
+            <td class="num" data-label="Tiền còn phải chi">Chưa xác định</td>
+            <td class="num" data-label="Còn lại trước quà">Không cam kết</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="source-note">
+        Trường hợp cuối: nhóm giảm vật liệu, xin điều chỉnh và không ứng tiền cá nhân. Kịch bản 500.000đ: bảng chi chỉ có bánh kẹo 340.000đ và đồ tặng truyền thông 60.000đ, nên danh mục thay chi đủ 500.000đ còn chờ nhóm xác nhận.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section-soft" aria-labelledby="open-heading" id="can-lam-ro">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">Cần làm rõ</span>
+        <h2 id="open-heading">Những điểm hồ sơ chưa thống nhất</h2>
+        <p>Website giữ nguyên số liệu nguồn và không tự chọn cách hiểu cho các điểm sau. Tổng số dư {baseBalance.text} không bị ảnh hưởng.</p>
+      </div>
+
+      <ul class="ruled-list open-list">
+        <li>
+          <h3 class="ruled-title">Ba combo nem 60 suất/món</h3>
+          <p class="ruled-desc">Chưa rõ bán thêm hay thay cho 50 set. Lượng nem dự toán (300 chiếc) vừa khớp 50 set × 6 nem, nên combo chưa được cộng vào doanh thu.</p>
+        </li>
+        <li>
+          <h3 class="ruled-title">Lãi theo từng nhóm sản phẩm</h3>
+          <p class="ruled-desc">
+            Hồ sơ ghi lãi đồ ăn {formatVND(food.foodProfitQuote)} và thủ công {formatVND(craft.craftProfitQuote)}; lấy doanh thu trừ chi theo nhóm được {formatVND(food.foodRevenueMinusExpenses)} và {formatVND(craft.craftRevenueMinusExpenses)}. Mỗi cặp lệch 400.000đ, bù trừ nhau. Phân bổ chi phí chưa được duyệt, nên không số nào là lãi sản phẩm chính thức.
+          </p>
+        </li>
+        <li>
+          <h3 class="ruled-title">Danh mục thay chi 500.000đ</h3>
+          <p class="ruled-desc">Kịch bản tài trợ bánh kẹo/quà 500.000đ chưa khớp một nhóm khoản chi cụ thể trong bảng dự toán.</p>
+        </li>
+        <li>
+          <h3 class="ruled-title">Quy cách một số nguyên liệu</h3>
+          <p class="ruled-desc">Đơn vị của bột chiên xù, dầu ăn và cách chia đợt khoai tây, dưa chuột cần xác nhận trước khi mua.</p>
+        </li>
+      </ul>
+
+      <details class="disclosure profit-detail">
+        <summary>
+          <span class="disclosure-label">
+            Bảng đối chiếu lãi theo nhóm
+            <span class="disclosure-meta">So sánh số ghi trong hồ sơ với doanh thu trừ chi phí theo nhóm</span>
+          </span>
+          <span class="disclosure-aside">
+            <span class="disclosure-chevron"><Icon name="chevron" size={18} /></span>
+          </span>
+        </summary>
+        <div class="disclosure-body">
+          <table class="data-table data-table--stack profit-table">
+            <caption class="sr-only">Đối chiếu lãi theo nhóm sản phẩm</caption>
+            <thead>
+              <tr>
+                <th scope="col">Nhóm</th>
+                <th scope="col" class="num">Doanh thu cơ sở</th>
+                <th scope="col" class="num">Chi theo nhóm</th>
+                <th scope="col" class="num">Doanh thu − chi</th>
+                <th scope="col" class="num">Hồ sơ ghi</th>
+                <th scope="col" class="num">Chênh</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Đồ ăn</th>
+                <td class="num" data-label="Doanh thu cơ sở">{formatVND(food.totalCoreFoodRevenue)}</td>
+                <td class="num" data-label="Chi theo nhóm">{formatVND(food.foodExpensesTotal)}</td>
+                <td class="num" data-label="Doanh thu − chi">{formatVND(food.foodRevenueMinusExpenses)}</td>
+                <td class="num" data-label="Hồ sơ ghi">{formatVND(food.foodProfitQuote)}</td>
+                <td class="num" data-label="Chênh">{signed(diffOrNull(food.foodProfitQuote, food.foodRevenueMinusExpenses))}</td>
+              </tr>
+              <tr>
+                <th scope="row">Thủ công</th>
+                <td class="num" data-label="Doanh thu cơ sở">{formatVND(craft.totalCraftRevenue)}</td>
+                <td class="num" data-label="Chi theo nhóm">{formatVND(craft.workshopExpensesTotal)}</td>
+                <td class="num" data-label="Doanh thu − chi">{formatVND(craft.craftRevenueMinusExpenses)}</td>
+                <td class="num" data-label="Hồ sơ ghi">{formatVND(craft.craftProfitQuote)}</td>
+                <td class="num" data-label="Chênh">{signed(diffOrNull(craft.craftProfitQuote, craft.craftRevenueMinusExpenses))}</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th scope="row">Cộng hai nhóm</th>
+                <td class="num" data-label="Doanh thu cơ sở">{formatVND(sumOrNull(food.totalCoreFoodRevenue, craft.totalCraftRevenue))}</td>
+                <td class="num" data-label="Chi theo nhóm">{formatVND(sumOrNull(food.foodExpensesTotal, craft.workshopExpensesTotal))}</td>
+                <td class="num" data-label="Doanh thu − chi">{formatVND(sumOrNull(food.foodRevenueMinusExpenses, craft.craftRevenueMinusExpenses))}</td>
+                <td class="num" data-label="Hồ sơ ghi">{formatVND(sumOrNull(food.foodProfitQuote, craft.craftProfitQuote))}</td>
+                <td class="num" data-label="Chênh">{signed(diffOrNull(sumOrNull(food.foodProfitQuote, craft.craftProfitQuote), sumOrNull(food.foodRevenueMinusExpenses, craft.craftRevenueMinusExpenses)))}</td>
+              </tr>
+            </tfoot>
+          </table>
+          <p class="source-note">
+            Cộng hai nhóm trừ thêm truyền thông và di chuyển {formatVND(otherGroup?.subtotal ?? null)} cho cùng kết quả {baseBalance.text}. Trong bảng lãi theo mặt hàng (trang 30), khoản su kem 400.000đ xuất hiện ở cả dòng set lẫn dòng su kem; nhóm chưa xác nhận cách phân bổ.
+          </p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="actual-heading">
+    <div class="container">
+      <div class="two-col">
+        <div>
+          <span class="eyebrow">Thực tế</span>
+          <h2 id="actual-heading" class="col-title">Sổ thực tế</h2>
+          <p class="actual-intro">{ACTUAL_FINANCE.statusNotice} {ACTUAL_FINANCE.disclaimer}</p>
+          <dl class="actual-list">
+            {
+              actualRows.map((r) => (
+                <div class="actual-row">
+                  <dt>{r.label}</dt>
+                  <dd>{formatActual(r.fact.value, r.fact.unit)}</dd>
+                </div>
               ))
             }
-          </tbody>
-        </table>
-      </div>
-
-      <!-- Mobile Scenarios List -->
-      <div class="mobile-only mobile-scenario-list" aria-label="Danh sách kịch bản tài chính trên di động">
-        {
-          scenarioResults.map(({ scenario, result }) => (
-            <div class="mobile-scenario-card card">
-              <h3 class="mobile-scenario-title">{scenario.title}</h3>
-              <p class="mobile-scenario-desc">{scenario.description}</p>
-              
-              <div class="mobile-scenario-details">
-                <div class="mobile-card-row">
-                  <span class="mobile-row-label">Hiện vật thay chi:</span>
-                  <span class="mobile-row-value">{formatVND(scenario.inKindReplacement.value)}</span>
-                </div>
-                <div class="mobile-card-row">
-                  <span class="mobile-row-label">Chi tiền còn lại:</span>
-                  <span class="mobile-row-value">{result ? formatVND(result.remainingCashExpense) : 'Chưa rõ'}</span>
-                </div>
-                <div class="mobile-card-row mobile-card-highlight">
-                  <span class="mobile-row-label font-bold">Số dư giả định:</span>
-                  <span class={`mobile-row-value font-bold ${result?.isDeficit ? 'badge-deficit' : 'badge-surplus'}`}>
-                    {result?.balanceText ?? 'Chưa rõ'}
-                  </span>
-                </div>
-              </div>
-            </div>
-          ))
-        }
-      </div>
-
-      <div class="scenarios-note card">
-        <p>
-          <strong>Lưu ý điều kiện tài chính trước buổi 1 (trang 32):</strong> Các kịch bản trên hoàn toàn là giả định mô phỏng, chưa có cam kết tài trợ hay doanh thu thực tế. Trường hợp nguồn thu bán hàng chưa đạt hoặc chưa có tài trợ cam kết trước buổi 1, nhóm không tạm ứng tiền cá nhân; quy mô mua sắm nguyên vật liệu được điều chỉnh về mức tối thiểu an toàn và xin ý kiến chấp thuận của giảng viên / nhóm trước khi triển khai.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Section 3: Báo cáo thực tế và nguyên tắc quản trị (5 dòng null) -->
-  <section class="section section-soft" aria-labelledby="actual-governance-heading">
-    <div class="container">
-      <div class="section-header">
-        <span class="eyebrow">Theo dõi thực tế</span>
-        <h2 id="actual-governance-heading" class="section-title">
-          Khung theo dõi dòng tiền thực tế
-        </h2>
-        <p class="section-subtitle">
-          Thông tin thu chi thực tế sẽ được cập nhật sau khi đối soát và được phép công bố.
-        </p>
-      </div>
-
-      <!-- Actual Ledger Compact (5 dòng gọn gàng, giữ null và chữ "Chưa xác nhận") -->
-      <div class="actual-ledger-compact card" role="region" aria-label="Sổ theo dõi thực tế">
-        <div class="actual-row">
-          <div class="actual-col-main">
-            <div class="actual-col-title">
-              <strong>1. Tiền thực nhận</strong>
-              <StatusChip kind="cho-xac-nhan" label="Chờ đối soát" />
-            </div>
-            <p class="actual-col-desc">Doanh thu bán hàng và tài trợ tiền mặt thực tế đã ghi nhận vào tài khoản dự án.</p>
+          </dl>
+        </div>
+        <div>
+          <span class="eyebrow">Khi có số liệu</span>
+          <h3 class="col-title col-title--sm">Cách tính sẽ dùng</h3>
+          <div class="calc-box">
+            <p class="calc-name">Quỹ có thể dùng trước khi mua quà</p>
+            <p class="calc-expr">Tiền bán hàng và tài trợ đã nhận − chi phí đã trả − chi phí còn phải trả − tiền khách đã trả cho đơn chưa hoàn tất</p>
           </div>
-          <div class="actual-col-val">Chưa xác nhận</div>
-        </div>
-
-        <div class="actual-row">
-          <div class="actual-col-main">
-            <div class="actual-col-title">
-              <strong>2. Tiền thực chi</strong>
-              <StatusChip kind="cho-xac-nhan" label="Chờ đối soát" />
-            </div>
-            <p class="actual-col-desc">Tổng các khoản chi tiêu thực tế phục vụ chuẩn bị và tổ chức hoạt động.</p>
+          <div class="calc-box">
+            <p class="calc-name">Số dư sau bàn giao</p>
+            <p class="calc-expr">Tổng tiền thực nhận − tổng tiền đã chi (gồm mua quà) − nghĩa vụ thanh toán và hoàn trả còn lại</p>
           </div>
-          <div class="actual-col-val">Chưa xác nhận</div>
-        </div>
-
-        <div class="actual-row">
-          <div class="actual-col-main">
-            <div class="actual-col-title">
-              <strong>3. Tồn quỹ thực tế</strong>
-              <StatusChip kind="cho-xac-nhan" label="Chờ đối soát" />
-            </div>
-            <p class="actual-col-desc">Số dư tiền mặt thực tế sau khi trừ toàn bộ các khoản đã chi.</p>
-          </div>
-          <div class="actual-col-val">Chưa xác nhận</div>
-        </div>
-
-        <div class="actual-row">
-          <div class="actual-col-main">
-            <div class="actual-col-title">
-              <strong>4. Hiện vật tiếp nhận &amp; bàn giao</strong>
-              <StatusChip kind="cho-xac-nhan" label="Sổ riêng" />
-            </div>
-            <p class="actual-col-desc">Theo dõi riêng trong sổ hiện vật theo kế hoạch, không quy đổi gộp vào tiền mặt.</p>
-          </div>
-          <div class="actual-col-val">Chưa xác nhận</div>
-        </div>
-
-        <div class="actual-row">
-          <div class="actual-col-main">
-            <div class="actual-col-title">
-              <strong>5. Chứng từ &amp; Hóa đơn</strong>
-              <StatusChip kind="cho-xac-nhan" label="Lưu trữ nội bộ" />
-            </div>
-            <p class="actual-col-desc">Kế hoạch lưu trữ đầy đủ hóa đơn, chứng từ; công bố bản biên tập bảo vệ riêng tư sau khi được duyệt.</p>
-          </div>
-          <div class="actual-col-val">Chưa xác nhận</div>
-        </div>
-      </div>
-
-      <!-- Empty State Notice Box -->
-      <div class="ledger-empty-notice card">
-        <p>
-          <strong>Trạng thái thực tế:</strong> {ACTUAL_FINANCE.statusNotice}
-        </p>
-        <p class="text-sm text-muted">
-          {ACTUAL_FINANCE.disclaimer} Các báo cáo thu chi, tài trợ hiện vật và chứng từ minh bạch sẽ được đăng tải chi tiết sau khi có sự xác nhận chính thức từ các bên.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Section 4: Nguyên tắc quản trị tài chính & Quỹ dự phòng (2 cột list) -->
-  <section class="section" aria-labelledby="principles-heading">
-    <div class="container">
-      <div class="section-header">
-        <span class="eyebrow">Nguyên tắc quản trị</span>
-        <h2 id="principles-heading" class="section-title">
-          Nguyên tắc quản trị ngân quỹ &amp; Xử lý rủi ro
-        </h2>
-        <p class="section-subtitle">
-          Quy chuẩn quản lý dòng tiền và các phương án ứng phó rủi ro được đề xuất nhằm bảo đảm tính minh bạch và giảm rủi ro cho dự án.
-        </p>
-      </div>
-
-      <div class="governance-two-cols">
-        <!-- Cột 1: 4 Nguyên tắc quản trị dòng tiền & Quỹ dự án -->
-        <div class="governance-col card">
-          <h3 class="governance-col-title">Nguyên tắc quản trị dòng tiền &amp; Quỹ dự án</h3>
-          <ul class="governance-list">
-            <li>
-              <strong>Công thức quỹ khả dụng trước mua quà:</strong> Quỹ khả dụng = Thu tiền thực nhận − Chi tiền thực trả − Chi phí còn phải trả − Tiền khách đã trả cho các đơn chưa hoàn tất. Hàng tồn kho, đơn chưa thanh toán và hiện vật tài trợ không được coi là tiền quỹ tự do; mỗi khoản chi chỉ thanh toán một lần duy nhất.
-            </li>
-            <li>
-              <strong>Công thức số dư sau bàn giao:</strong> Số dư cuối kỳ = Toàn bộ thu tiền thực nhận − Toàn bộ chi phí thực tế (bao gồm quà tặng đã mua) − Nghĩa vụ tài chính còn lại. Số dư chỉ được chốt sau khi hoàn tất nghiệm thu và bàn giao quà tặng tại Mái ấm.
-            </li>
-            <li>
-              <strong>Tách bạch tiền mặt và hiện vật:</strong> Tiền mặt và hiện vật được quản lý trong hai hệ thống sổ sách độc lập; tuyệt đối không gộp giá trị ước tính của hiện vật vào số dư tiền mặt của chiến dịch.
-            </li>
-            <li>
-              <strong>Đối soát chéo hai thành viên:</strong> Theo đề xuất, mọi khoản thu chi dự kiến được đối soát độc lập bởi hai thành viên phụ trách tài chính nhằm giảm rủi ro và tăng tính khách quan; chứng từ gốc được biên tập che thông tin riêng tư trước khi công bố.
-            </li>
-          </ul>
-        </div>
-
-        <!-- Cột 2: Dự phòng rủi ro & Phương án xử lý (contingency đúng trạng thái) -->
-        <div class="governance-col card">
-          <h3 class="governance-col-title">Phương án dự phòng &amp; Ứng phó rủi ro</h3>
-          <ul class="governance-list">
-            <li>
-              <strong>Trường hợp thiếu kinh phí trước buổi 1 (trang 32):</strong> Khi nguồn thu bán hàng chưa rõ hoặc chưa có cam kết tài trợ, nhóm không tạm ứng tiền cá nhân; thành viên chủ động điều chỉnh danh mục vật tư về mức tối thiểu an toàn và xin ý kiến phê duyệt của giảng viên / nhóm trước khi triển khai.
-            </li>
-            <li>
-              <strong>Rủi ro bán hàng chậm hơn dự kiến:</strong> Ưu tiên bảo toàn vốn chuẩn bị đạo cụ và quà tặng thiết yếu; điều chỉnh quy mô mua sắm nếu doanh số chưa đạt mục tiêu.
-            </li>
-            <li>
-              <strong>Rủi ro biến động thời tiết / địa điểm:</strong> Có phương án chuyển đổi hoạt động trong nhà, ưu tiên an toàn và sức khỏe của các em nhỏ tại Mái ấm.
-            </li>
-            <li>
-              <strong>Rủi ro chi phí phát sinh:</strong> Chi phí phát sinh ngoài dự toán 24 khoản chỉ giải ngân khi có sự đồng thuận của nhóm và lý do chính đáng được ghi nhận.
-            </li>
-            <li>
-              <strong>Quy tắc giải ngân quà tặng:</strong> Việc mua sắm quà tặng cho các em dựa trên số dư thực tế sau đối soát và danh mục nhu cầu do đại diện Mái ấm xác nhận; không cam kết tài trợ vượt quá nguồn lực thực tế.
-            </li>
+          <ul class="check-list rules">
+            <li>Tiền và hiện vật ghi hai sổ riêng; hai thành viên đối soát.</li>
+            <li>Chỉ chi trong số tiền thực có; thành viên không ứng tiền cá nhân.</li>
+            <li>Quà mua theo danh mục Mái ấm xác nhận, có hóa đơn và biên bản bàn giao.</li>
+            <li>Chứng từ chỉ công bố bản đã che thông tin riêng tư.</li>
           </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Section 5: FAQs -->
   <section class="section section-soft" aria-labelledby="transparency-faq-heading">
-    <div class="container">
+    <div class="container narrow">
       <div class="section-header">
-        <span class="eyebrow">Giải đáp thắc mắc</span>
-        <h2 id="transparency-faq-heading" class="section-title">
-          Câu hỏi thường gặp về tài chính
-        </h2>
-        <p class="section-subtitle">
-          Giải thích rõ ràng các băn khoăn về dự toán chi, phân bổ doanh thu và kế hoạch công khai báo cáo.
-        </p>
+        <span class="eyebrow">Hỏi đáp</span>
+        <h2 id="transparency-faq-heading">Câu hỏi về tài chính</h2>
       </div>
-
-      <FaqAccordion faqs={TRANSPARENCY_FAQS} />
+      <FaqAccordion faqs={TRANSPARENCY_FAQS} idPrefix="finance-faq" />
     </div>
   </section>
 
-  <!-- Section 6: Navigation CTA Section -->
-  <section class="section navigation-cta-section" aria-labelledby="nav-cta-heading">
-    <div class="container">
-      <div class="navigation-cta-card card">
-        <h2 id="nav-cta-heading" class="navigation-cta-title">
-          Đồng hành và đóng góp hiện vật
-        </h2>
-        <p class="navigation-cta-desc">
-          Khám phá các phương thức tiếp nhận đồng hành cùng dự án hoặc xem chi tiết câu chuyện và 4 góc chơi tại Mái ấm.
-        </p>
-        <div class="navigation-cta-actions">
-          <a href="/dong-hanh" class="btn btn-primary">
-            Cách đồng hành &rarr;
-          </a>
-          <a href="/san-pham" class="btn btn-secondary">
-            Xem sản phẩm gây quỹ dự kiến
-          </a>
-        </div>
+  <section class="cta-band" aria-labelledby="finance-cta-heading">
+    <div class="container cta-band-inner">
+      <div class="cta-band-text">
+        <h2 id="finance-cta-heading">Có thể hỗ trợ bằng hiện vật?</h2>
+        <p>Xem các cách đồng hành và nguyên tắc tiếp nhận của nhóm.</p>
+      </div>
+      <div class="cta-band-actions">
+        <a href="/dong-hanh" class="btn btn-primary">Cách đồng hành</a>
+        <a href="/san-pham" class="link-arrow">Sản phẩm gây quỹ →</a>
       </div>
     </div>
   </section>
 </Layout>
 
 <style>
-  /* Section Highlights */
-  .section-highlights {
-    padding-top: var(--space-8);
-    padding-bottom: var(--space-8);
+  .section-first {
+    padding-top: var(--space-10);
   }
 
-  /* Highlights Grid: 3 columns desktop, 1 column tablet/mobile */
-  .highlights-grid {
+  .narrow > :global(*) {
+    max-width: 880px;
+  }
+
+  /* Phép tính số dư dạng hàng */
+  .formula {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--space-4);
-    margin-bottom: var(--space-6);
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: stretch;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
   }
 
-  .highlight-card {
-    background-color: var(--surface-alt);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-md);
-    padding: var(--space-5);
+  .formula-part {
     display: flex;
     flex-direction: column;
-    gap: var(--space-2);
-    min-width: 0;
-  }
-
-  .highlight-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: var(--space-2);
-    flex-wrap: wrap;
-  }
-
-  .highlight-label {
-    font-size: var(--font-size-small);
-    font-weight: 600;
-    color: var(--ink-2);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .highlight-value {
-    font-size: var(--font-size-num-xl);
-    font-weight: 700;
-    color: var(--ink);
-    line-height: var(--line-height-num-xl);
-    font-variant-numeric: tabular-nums;
-  }
-
-  .highlight-condition {
-    font-size: var(--font-size-small);
-    color: var(--ink-2);
-    line-height: 1.45;
-    margin: 0;
-  }
-
-  /* Gap Alert Box */
-  .transparency-gap-alert {
-    background-color: #fffdf5;
-    border: 1px solid #fef3c7;
-    border-left: 4px solid var(--brand);
-    border-radius: var(--radius-sm);
-    padding: var(--space-4) var(--space-5);
-    margin-bottom: var(--space-6);
-  }
-
-  .gap-alert-text {
-    font-size: 0.9375rem;
-    line-height: 1.5;
-    color: var(--ink);
-    margin: 0 0 var(--space-2);
-  }
-
-  .gap-alert-link {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-1);
-    font-size: var(--font-size-small);
-    font-weight: 600;
-    color: var(--brand);
-    text-decoration: underline;
-  }
-
-  .gap-alert-link:hover {
-    color: var(--ink);
-  }
-
-  /* Status Legend */
-  .finance-status-legend {
-    background-color: var(--color-surface-card);
-    border: 1px solid var(--line);
+    gap: 2px;
+    padding: var(--space-4);
+    background: var(--surface-alt);
     border-radius: var(--radius-md);
-    padding: var(--space-4) var(--space-5);
-    display: flex;
-    align-items: center;
-    gap: var(--space-4);
-    flex-wrap: wrap;
   }
 
-  .legend-title {
-    font-size: var(--font-size-small);
-    font-weight: 700;
-    color: var(--ink);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
+  .formula-result {
+    background: var(--brand-ink);
   }
 
-  .legend-items {
-    display: flex;
-    align-items: center;
-    gap: var(--space-4);
-    flex-wrap: wrap;
+  .formula-result .formula-label,
+  .formula-result .formula-sub {
+    color: #c9d2dc;
   }
 
-  .legend-item {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    font-size: var(--font-size-small);
+  .formula-result .formula-value {
+    color: #ffffff;
   }
 
-  .legend-desc {
-    color: var(--ink-2);
-  }
-
-  .legend-neutral-text {
-    color: var(--ink-2);
-    font-style: italic;
-  }
-
-  /* Tables: Desktop Data Table */
-  .table-wrap {
-    background-color: var(--color-surface-card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-md);
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    margin-bottom: var(--space-6);
-  }
-
-  .data-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.9375rem;
-    text-align: left;
-  }
-
-  .data-table th,
-  .data-table td {
-    padding: var(--space-3) var(--space-4);
-    border-bottom: 1px solid var(--line);
-    vertical-align: middle;
-  }
-
-  .data-table th {
-    background-color: var(--surface-alt);
-    font-weight: 600;
-    color: var(--ink);
-    font-size: var(--font-size-small);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-  }
-
-  .group-header-row {
-    background-color: #f1ede5;
-  }
-
-  .group-header-title {
-    font-size: 0.9375rem;
-    font-weight: 700;
-    color: var(--brand);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-  }
-
-  .group-header-subtotal {
-    color: var(--ink);
-    font-variant-numeric: tabular-nums;
-  }
-
-  .group-header-note {
-    font-size: var(--font-size-small);
-    color: var(--ink-2);
-  }
-
-  .category-tag {
-    display: inline-block;
-    padding: 2px 8px;
-    background-color: var(--surface-alt);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-sm);
-    font-size: var(--font-size-small);
-    color: var(--ink-2);
-  }
-
-  .estimated-tag {
-    display: inline-block;
-    margin-left: var(--space-2);
-    padding: 2px 8px;
-    background-color: var(--status-hypo-bg);
-    color: var(--status-hypo-text);
-    border-radius: var(--radius-sm);
+  .formula-label {
     font-size: var(--font-size-small);
     line-height: var(--line-height-small);
     font-weight: 600;
-  }
-
-  /* Total Row: Tối màu, chữ contrast cao (>= 4.5:1) */
-  .total-row {
-    font-size: 1.0625rem;
-    background-color: var(--brand-ink) !important;
-    color: #ffffff !important;
-  }
-
-  .total-row th,
-  .total-row td {
-    background-color: var(--brand-ink) !important;
-    color: #ffffff !important;
-    border-top: 2px solid var(--line-strong);
-    padding: var(--space-4);
-  }
-
-  .total-row th {
-    font-size: 1.0625rem;
-    font-weight: 700;
-    text-transform: none;
-    letter-spacing: normal;
-  }
-
-  .total-row .text-accent {
-    color: var(--cta);
-    font-size: 1.25rem;
-  }
-
-  .total-row .text-muted {
-    color: var(--line);
-    font-size: var(--font-size-small);
-  }
-
-  /* Mobile Expense Groups Accordion (< 768px) */
-  .mobile-expense-groups {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-  }
-
-  .expense-group-accordion {
-    padding: 0;
-    overflow: hidden;
-  }
-
-  .group-summary {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: var(--space-4);
-    cursor: pointer;
-    background-color: var(--surface-alt);
-    gap: var(--space-2);
-  }
-
-  .group-summary:focus-visible {
-    outline: 3px solid var(--focus);
-    outline-offset: -2px;
-  }
-
-  .group-summary-title {
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--ink);
-    margin: 0;
-  }
-
-  .group-summary-count {
-    font-size: var(--font-size-small);
     color: var(--ink-2);
   }
 
-  .group-summary-right {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-  }
-
-  .group-subtotal-val {
-    font-size: 1rem;
+  .formula-value {
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+    font-weight: 700;
+    color: var(--ink);
     font-variant-numeric: tabular-nums;
   }
 
-  .group-expand-cue {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    transition: transform var(--transition-fast);
+  .formula-sub {
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-small);
+    color: var(--ink-2);
   }
 
-  details[open] .group-expand-cue {
-    transform: rotate(180deg);
+  .formula-op {
+    align-self: center;
+    font-size: var(--font-size-h3);
+    font-weight: 700;
+    color: var(--ink-2);
   }
 
-  .group-items-list {
-    padding: var(--space-2) var(--space-4) var(--space-4);
+  /* Dự toán */
+  .ledger-subtotal {
+    font-weight: 700;
+    color: var(--ink);
   }
 
-  .mobile-expense-item {
-    padding: var(--space-3) 0;
-    border-bottom: 1px dashed var(--line);
+  .ledger-table tbody th {
+    width: 28%;
   }
 
-  .mobile-expense-item:last-child {
-    border-bottom: none;
+  .ledger-note {
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-small);
+    color: var(--ink-2);
   }
 
-  .mobile-expense-top {
+  .ledger-total {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    gap: var(--space-2);
-    margin-bottom: var(--space-1);
-  }
-
-  .mobile-expense-title {
-    font-size: 0.9375rem;
-    font-weight: 600;
-    color: var(--ink);
-    margin: 0;
-  }
-
-  .mobile-expense-val {
-    font-variant-numeric: tabular-nums;
-    white-space: nowrap;
-  }
-
-  .mobile-expense-sub {
-    font-size: var(--font-size-small);
-    line-height: 1.4;
-  }
-
-  .mobile-sub-sep {
-    margin: 0 4px;
-  }
-
-  .mobile-total-card {
-    background-color: var(--brand-ink);
+    align-items: center;
+    gap: var(--space-4);
+    margin-top: var(--space-3);
+    padding: var(--space-4) var(--space-5);
+    background: var(--brand-ink);
     color: #ffffff;
-    padding: var(--space-5);
-    text-align: center;
-    margin-top: var(--space-4);
-  }
-
-  .mobile-total-header {
-    font-size: var(--font-size-small);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--line);
-    margin-bottom: var(--space-2);
-  }
-
-  .mobile-total-amount {
-    font-size: 1.75rem;
-    font-weight: 700;
-    color: var(--cta);
-    font-variant-numeric: tabular-nums;
-    margin-bottom: var(--space-2);
-  }
-
-  .mobile-total-note {
-    font-size: var(--font-size-small);
-    color: var(--line);
-    margin: 0;
-    line-height: 1.45;
-  }
-
-  /* Formula Breakdown Card */
-  .formula-card {
-    padding: var(--space-6);
-    margin-bottom: var(--space-6);
-    background-color: var(--surface-alt);
-  }
-
-  .formula-title {
-    font-size: 1.125rem;
-    font-weight: 700;
-    color: var(--ink);
-    margin: 0 0 var(--space-4);
-  }
-
-  .formula-breakdown {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-    margin-bottom: var(--space-4);
-  }
-
-  .formula-part-title {
-    font-size: 0.9375rem;
+    border-radius: var(--radius-md);
     font-weight: 600;
-    color: var(--ink);
   }
 
-  .formula-expression {
-    font-size: 1rem;
-    color: var(--ink);
-    margin: var(--space-1) 0;
+  .ledger-total strong {
+    font-size: var(--font-size-h3);
     font-variant-numeric: tabular-nums;
   }
 
-  .formula-subnote {
-    font-size: var(--font-size-small);
-    color: var(--ink-2);
-    margin: 0;
+  /* Kịch bản */
+  .scenario-table {
+    border-top: 1px solid var(--line);
   }
 
-  .formula-total {
-    padding: var(--space-3);
-    background-color: var(--color-surface-card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-sm);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-    font-size: 0.9375rem;
+  .scenario-flag {
+    margin-top: var(--space-1);
+  }
+
+  .profit-detail {
+    margin-top: var(--space-6);
+  }
+
+  /* Thực tế */
+  .col-title {
+    font-size: var(--font-size-h2);
+    line-height: var(--line-height-h2);
     margin-bottom: var(--space-3);
   }
 
-  .formula-total strong {
-    color: var(--ink);
-    font-size: 1.0625rem;
+  .col-title--sm {
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
   }
 
-  .formula-note {
-    font-size: var(--font-size-small);
-    color: var(--ink-2);
-    margin: 0;
-    line-height: 1.5;
-  }
-
-  /* Food Reconciliation Card */
-  .reconciliation-card {
-    padding: var(--space-6);
-    margin-bottom: var(--space-6);
-    background-color: var(--color-surface-card);
-    border-left: 4px solid var(--cta);
-  }
-
-  .reconciliation-title {
-    font-size: 1.125rem;
-    font-weight: 700;
-    color: var(--ink);
-    margin: var(--space-2) 0;
-  }
-
-  .reconciliation-lead {
-    font-size: 0.9375rem;
-    line-height: 1.5;
-    color: var(--ink-2);
+  .actual-intro {
     margin-bottom: var(--space-4);
   }
 
-  .reconciliation-sub-block {
-    margin-bottom: var(--space-6);
-  }
-
-  .reconciliation-sub-title {
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--ink);
-    margin: 0 0 var(--space-3);
-  }
-
-  .reconciliation-text {
-    font-size: 0.9375rem;
-    line-height: 1.5;
-    color: var(--ink-2);
-    margin-bottom: var(--space-3);
-  }
-
-  .reconciliation-notice-box {
-    background-color: var(--surface-alt);
-    border: 1px solid var(--line);
-    border-left: 4px solid var(--brand);
-    border-radius: var(--radius-sm);
-    padding: var(--space-4) var(--space-5);
-    font-size: var(--font-size-small);
-    line-height: 1.55;
-    color: var(--ink);
-    margin-bottom: var(--space-6);
-  }
-
-  .reconciliation-notice-box p {
+  .actual-list {
     margin: 0;
-  }
-
-  .reconciliation-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-4);
-    margin-bottom: var(--space-4);
-  }
-
-  .reconcile-total-item {
-    background-color: #f8fafc;
-    border-color: #94a3b8;
-  }
-
-  .reconcile-item {
-    background-color: var(--surface-alt);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-sm);
-    padding: var(--space-4);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .reconcile-gap {
-    background-color: #fffdf5;
-    border-color: #fde68a;
-  }
-
-  .reconcile-label {
-    font-size: var(--font-size-small);
-    font-weight: 600;
-    color: var(--ink-2);
-    text-transform: uppercase;
-  }
-
-  .reconcile-val {
-    font-size: 1.0625rem;
-    color: var(--ink);
-    font-variant-numeric: tabular-nums;
-  }
-
-  .reconcile-note {
-    font-size: var(--font-size-small);
-    color: var(--ink-2);
-    line-height: 1.4;
-  }
-
-  .reconciliation-analysis {
-    padding-top: var(--space-4);
-    border-top: 1px dashed var(--line);
-  }
-
-  .reconciliation-analysis-title {
-    font-size: 0.9375rem;
-    color: var(--ink);
-    margin-bottom: var(--space-2);
-  }
-
-  .reconciliation-list {
-    margin: 0;
-    padding-left: var(--space-5);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-    font-size: var(--font-size-small);
-    color: var(--ink-2);
-    line-height: 1.5;
-  }
-
-  /* Scenarios Badges */
-  .badge-surplus {
-    color: var(--ink);
-    padding: 2px 8px;
-    background-color: var(--status-hypo-bg);
-    border-radius: var(--radius-pill);
-    font-size: var(--font-size-small);
-  }
-
-  .badge-deficit {
-    color: #b91c1c;
-    padding: 2px 8px;
-    background-color: #fee2e2;
-    border-radius: var(--radius-pill);
-    font-size: var(--font-size-small);
-  }
-
-  .scenarios-note {
-    background-color: var(--surface-alt);
-    border: 1px solid var(--line);
-    border-left: 3px solid var(--line-strong);
-    padding: var(--space-4) var(--space-5);
-    font-size: var(--font-size-small);
-    line-height: 1.5;
-    color: var(--ink-2);
-    margin-top: var(--space-4);
-    margin-bottom: var(--space-6);
-  }
-
-  .scenarios-note p {
-    margin: 0;
-  }
-
-  /* Actual Cashflow (5 Rows) */
-  .actual-ledger-compact {
-    padding: 0;
-    overflow: hidden;
-    margin-bottom: var(--space-6);
+    border-top: 1px solid var(--line);
   }
 
   .actual-row {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: var(--space-4) var(--space-6);
-    border-bottom: 1px solid var(--line);
     gap: var(--space-4);
+    padding: var(--space-3) 0;
+    border-bottom: 1px solid var(--line);
   }
 
-  .actual-row:last-child {
-    border-bottom: none;
-  }
-
-  .actual-col-main {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-  }
-
-  .actual-col-title {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    font-size: 1rem;
+  .actual-row dt {
     color: var(--ink);
   }
 
-  .actual-col-desc {
-    font-size: var(--font-size-small);
-    color: var(--ink-2);
+  .actual-row dd {
     margin: 0;
-    line-height: 1.45;
-  }
-
-  .actual-col-val {
-    font-size: 0.9375rem;
-    color: var(--ink-2);
-    font-weight: 500;
+    color: var(--status-pending-text);
+    font-weight: 600;
     white-space: nowrap;
   }
 
-  .ledger-empty-notice {
-    padding: var(--space-5);
-    background-color: var(--surface-alt);
-    margin-bottom: var(--space-6);
+  .calc-box {
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    padding: var(--space-3) var(--space-4);
+    margin-bottom: var(--space-3);
   }
 
-  .ledger-empty-notice p {
-    margin: 0 0 var(--space-2);
-    line-height: 1.5;
-  }
-
-  .ledger-empty-notice p:last-child {
-    margin-bottom: 0;
-  }
-
-  /* Governance 2 Columns */
-  .governance-two-cols {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-6);
-  }
-
-  .governance-col {
-    padding: var(--space-6);
-  }
-
-  .governance-col-title {
-    font-size: 1.125rem;
+  .calc-name {
+    margin: 0;
     font-weight: 700;
     color: var(--ink);
-    margin: 0 0 var(--space-4);
-    border-bottom: 1px solid var(--line);
-    padding-bottom: var(--space-3);
   }
 
-  .governance-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-  }
-
-  .governance-list li {
+  .calc-expr {
+    margin: var(--space-1) 0 0;
     font-size: var(--font-size-small);
-    line-height: 1.6;
-    color: var(--ink-2);
+    line-height: var(--line-height-small);
   }
 
-  .governance-list strong {
-    color: var(--ink);
-    display: block;
-    margin-bottom: 2px;
-  }
-
-  /* CTA Section */
-  .navigation-cta-card {
-    text-align: center;
-    padding: var(--space-8);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-4);
-    background-color: var(--surface-alt);
-  }
-
-  .navigation-cta-title {
-    font-size: var(--font-size-h2);
-    line-height: var(--line-height-h2);
-    color: var(--ink);
-    margin: 0;
-  }
-
-  .navigation-cta-desc {
-    font-size: 1.0625rem;
-    color: var(--ink-2);
-    max-width: 600px;
-    margin: 0;
-  }
-
-  .navigation-cta-actions {
-    display: flex;
-    gap: var(--space-4);
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  /* Responsive Display Rules */
-  .desktop-only {
-    display: block;
-  }
-
-  .mobile-only {
-    display: none;
+  .rules {
+    margin-top: var(--space-5);
   }
 
   @media (max-width: 1023px) {
-    .highlights-grid {
-      grid-template-columns: 1fr;
-      gap: var(--space-3);
+    .formula {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-1);
     }
 
-    .highlight-card {
-      padding: var(--space-4);
-    }
-
-    .reconciliation-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .governance-two-cols {
-      grid-template-columns: 1fr;
+    .formula-op {
+      justify-self: center;
+      line-height: 1;
     }
   }
 
   @media (max-width: 767px) {
-    .desktop-only {
-      display: none !important;
+    .section-first {
+      padding-top: var(--space-6);
     }
 
-    .mobile-only {
-      display: flex !important;
-      flex-direction: column;
-      gap: var(--space-3);
+    .formula-part {
+      padding: var(--space-3) var(--space-4);
+    }
+
+    .ledger-table tbody tr {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      column-gap: var(--space-4);
+      row-gap: 2px;
+    }
+
+    .ledger-table tbody th {
+      width: auto;
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .ledger-table tbody td.num {
+      grid-column: 2;
+      grid-row: 1;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .ledger-table tbody td.num::before,
+    .ledger-table tbody td.ledger-calc::before {
+      display: none;
+    }
+
+    .ledger-table tbody td.ledger-calc,
+    .ledger-table tbody td.ledger-note {
+      grid-column: 1 / -1;
+      justify-content: flex-start;
+      font-size: var(--font-size-small);
+      line-height: var(--line-height-small);
+      color: var(--ink-2);
+    }
+
+    .ledger-subtotal {
+      font-size: var(--font-size-small);
     }
 
     .actual-row {
       flex-direction: column;
-      align-items: flex-start;
-      gap: var(--space-2);
-      padding: var(--space-3) var(--space-4);
-    }
-
-    .navigation-cta-actions {
-      flex-direction: column;
-      width: 100%;
-    }
-
-    .navigation-cta-actions .btn {
-      width: 100%;
+      gap: 2px;
     }
   }
 </style>

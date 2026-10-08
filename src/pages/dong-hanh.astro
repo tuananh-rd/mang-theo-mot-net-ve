@@ -3,610 +3,340 @@ import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/PageHero.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
 import StatusChip from '../components/StatusChip.astro';
-import {
-  SUPPORT_WORKFLOW,
-  SUPPORT_FAQS,
-  OFFICIAL_CONTACT,
-} from '../data/campaign';
+import { SUPPORT_FAQS, SUPPORT_RULES, SUPPORT_WORKFLOW, OFFICIAL_CONTACT } from '../data/campaign';
 
-const breadcrumbs = [
-  { label: 'Trang chủ', href: '/' },
-  { label: 'Cách đồng hành' },
-];
+const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Cách đồng hành' }];
+const contactReady = OFFICIAL_CONTACT.status === 'confirmed' && (OFFICIAL_CONTACT.email || OFFICIAL_CONTACT.phone);
 
-const summaryItems = [
+const ways = [
   {
-    label: 'Hình thức ưu tiên',
-    value: 'Hỗ trợ hiện vật đúng nhu cầu & lan tỏa thông điệp',
+    tag: 'Hiện vật',
+    title: 'Hỗ trợ vật tư',
+    text: 'Vật tư buổi chơi, đồ ăn, hàng thủ công hoặc hậu cần, chỉ theo danh mục nhóm và Mái ấm đã thống nhất.',
+    link: { href: '/minh-bach#expenses-heading', label: 'Xem dự toán vật tư →' },
   },
   {
-    label: 'Kênh tiếp nhận',
-    value: 'Chờ đại diện Mái ấm thống nhất chính thức',
-    chip: {
-      kind: 'cho-xac-nhan' as const,
-      label: 'Chờ xác nhận',
-    },
+    tag: 'Mua hàng',
+    title: 'Mua sản phẩm gây quỹ',
+    text: 'Chuồn chuồn tre, móc khóa và đồ ăn do nhóm chuẩn bị, khi kế hoạch bán được duyệt và mở đặt hàng.',
+    link: { href: '/san-pham', label: 'Xem sản phẩm dự kiến →' },
   },
   {
-    label: 'Giao dịch trực tuyến',
-    value: 'Website chưa mở nhận tiền hay đặt hàng',
-    chip: {
-      kind: 'cho-xac-nhan' as const,
-      label: 'Chưa mở',
-    },
-  },
-  {
-    label: 'Quy trình tiếp nhận',
-    value: '3 bước đối chiếu nhu cầu trước khi tiếp nhận',
-    chip: {
-      kind: 'ke-hoach' as const,
-      label: 'Kế hoạch',
-    },
+    tag: 'Lan tỏa',
+    title: 'Chia sẻ câu chuyện',
+    text: 'Chia sẻ nội dung chính thức của nhóm; không đăng ảnh hay chuyện riêng của các em khi chưa được phép.',
+    link: { href: '/du-an/mang-theo-mot-net-ve', label: 'Đọc về dự án →' },
   },
 ];
 ---
 
 <Layout
   title="Cách đồng hành cùng dự án"
-  description="Các phương thức đồng hành, quy trình tiếp nhận hỗ trợ đúng nhu cầu thực tế của chiến dịch Mang Theo Một Nét Vẽ."
+  description="Các cách đồng hành với dự án Mang Theo Một Nét Vẽ, nguyên tắc tiếp nhận hỗ trợ và tình trạng kênh liên hệ."
   currentPath="/dong-hanh"
 >
-  <!-- Shared PageHero (7 cột trái / 5 cột phải panel Tóm tắt kế hoạch) -->
   <PageHero
     breadcrumbs={breadcrumbs}
-    eyebrow="Hình thức hỗ trợ"
-    chip={{
-      kind: 'cho-xac-nhan',
-      label: 'Chưa mở tiếp nhận trực tuyến',
-    }}
+    eyebrow="Đồng hành"
     title="Cách đồng hành cùng dự án"
     titleId="support-heading"
-    lead="Một buổi chơi phù hợp, một món quà đúng nhu cầu."
-    description="Nhóm Lăng Kính hướng đến việc kết nối những tấm lòng đồng hành với nhu cầu thiết thực tại Mái ấm Thánh Tâm Xuy Xá. Mọi sự hỗ trợ đều được lên kế hoạch chu đáo, minh bạch và tôn trọng quyền riêng tư của các em."
-    summaryTitle="Tóm tắt kế hoạch"
-    summaryItems={summaryItems}
+    lead="Hỗ trợ đúng thứ Mái ấm cần, ghi nhận minh bạch."
+    description="Nhóm chỉ tiếp nhận hỗ trợ khi danh mục nhu cầu và kênh liên hệ đã được xác nhận. Hiện website chưa nhận tiền, hiện vật hay đơn hàng."
+    summaryTitle="Hiện tại bạn có thể"
   >
-    <!-- Khối "Hiện bạn có thể" trong PageHero -->
-    <div class="hero-available-options">
-      <p class="available-title">Hiện bạn có thể tìm hiểu đề xuất qua các trang thông tin:</p>
-      <div class="available-links">
-        <a href="/du-an/mang-theo-mot-net-ve" class="available-link">
-          <span aria-hidden="true">&bull;</span> Câu chuyện &amp; Bốn góc chơi
-        </a>
-        <a href="/san-pham" class="available-link">
-          <span aria-hidden="true">&bull;</span> Kế hoạch 7 sản phẩm gây quỹ
-        </a>
-        <a href="/minh-bach" class="available-link">
-          <span aria-hidden="true">&bull;</span> Minh bạch dự toán 24 khoản chi
-        </a>
-      </div>
-      <p class="available-note">
-        Kênh tiếp nhận chính thức đang chờ thống nhất cùng đại diện Mái ấm; website chưa tiếp nhận tiền mặt, hiện vật hay đặt hàng trực tuyến.
-      </p>
+    <div slot="panel-extra" class="now">
+      <ul class="now-list">
+        <li class="now-yes"><a href="/du-an/mang-theo-mot-net-ve">Tìm hiểu kế hoạch buổi chơi</a></li>
+        <li class="now-yes"><a href="/san-pham">Xem sản phẩm và giá tham khảo</a></li>
+        <li class="now-yes"><a href="/minh-bach">Xem dự toán và cách dùng quỹ</a></li>
+        <li class="now-wait">Gửi hỗ trợ hoặc đặt hàng: chờ kênh chính thức</li>
+      </ul>
     </div>
   </PageHero>
 
-  <!-- Section 1 (contact-before-ways): Kênh liên hệ chính thức ĐẶT TRƯỚC 3 phương thức -->
-  <section id="lien-he" class="section section-soft" aria-labelledby="contact-heading">
+  <section class="section" aria-labelledby="contact-heading">
+    <div class="container">
+      <div class="contact">
+        <div>
+          <span class="eyebrow">Liên hệ</span>
+          <h2 id="contact-heading" class="contact-title">Kênh liên hệ chính thức</h2>
+        </div>
+        <div class="contact-status">
+          {contactReady ? (
+            <StatusChip kind="da-xac-nhan" label="Đã xác nhận" />
+          ) : (
+            <StatusChip kind="cho-xac-nhan" label="Chưa công bố" />
+          )}
+          <p>{OFFICIAL_CONTACT.notice} Không có tài khoản nhận tiền, mã QR hay biểu mẫu nào đang hoạt động thay mặt nhóm.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-soft" aria-labelledby="ways-heading">
     <div class="container">
       <div class="section-header">
-        <span class="eyebrow">Thông tin phối hợp</span>
-        <h2 id="contact-heading" class="section-title">
-          Kênh liên hệ chính thức
-        </h2>
-        <p class="section-subtitle">
-          Thông tin phục vụ tiếp nhận ý kiến đóng góp và phối hợp thực hiện dự án.
-        </p>
+        <span class="eyebrow">Ba cách</span>
+        <h2 id="ways-heading">Bạn có thể đồng hành bằng</h2>
       </div>
+      <ul class="ways">
+        {
+          ways.map((w) => (
+            <li class="way">
+              <span class="way-tag">{w.tag}</span>
+              <h3 class="way-title">{w.title}</h3>
+              <p class="way-text">{w.text}</p>
+              <a href={w.link.href} class="link-arrow">{w.link.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
 
-      <div class="contact-box card">
-        <div class="contact-status-header">
-          <StatusChip kind="cho-xac-nhan" label="Chờ xác nhận" />
-          <h3 class="contact-status-title">Thông báo trạng thái liên hệ</h3>
+  <section class="section" aria-labelledby="rules-heading">
+    <div class="container">
+      <div class="two-col">
+        <div>
+          <span class="eyebrow">Quy trình</span>
+          <h2 id="rules-heading" class="col-title">Nhóm tiếp nhận thế nào</h2>
+          <ol class="steps">
+            {
+              SUPPORT_WORKFLOW.map((s) => (
+                <li class="step">
+                  <span class="step-num" aria-hidden="true">{s.step}</span>
+                  <div>
+                    <h3 class="step-title">{s.title}</h3>
+                    <p class="step-desc">{s.description}</p>
+                  </div>
+                </li>
+              ))
+            }
+          </ol>
         </div>
-
-        <p class="contact-notice-text">
-          {OFFICIAL_CONTACT.notice}
-        </p>
-
-        <div class="contact-explanation">
-          <p class="contact-rules-title">
-            Để đảm bảo an toàn thông tin và tính chuẩn xác của chiến dịch:
-          </p>
-          <ul class="contact-rules-list">
-            <li>Bản xem trước chưa mở biểu mẫu đăng ký hay hệ thống nhận đóng góp trực tuyến.</li>
-            <li>Không sử dụng số tài khoản cá nhân, mã QR hay các liên kết chuyển tiền trực tiếp trên website.</li>
-            <li><strong>Nguyên tắc vận động nguồn lực theo quy định học phần (trang 15):</strong> Chỉ tiếp nhận từ các nguồn bên ngoài được phê duyệt hợp lệ; nhóm không tạm ứng tiền cá nhân, không vận động từ gia đình, người thân, cán bộ hay giảng viên FPT. Các gói tài trợ logo trong hồ sơ đề xuất đang chờ phê duyệt, chưa phải cam kết quyền lợi chính thức.</li>
-            <li>Kênh liên hệ chính thức của nhóm sẽ được đăng tải sau khi hoàn tất xác nhận và được cấp quyền công bố.</li>
+        <div>
+          <span class="eyebrow">Nguyên tắc</span>
+          <h3 class="col-title col-title--sm">Nguyên tắc vận động nguồn lực</h3>
+          <ul class="check-list">
+            {SUPPORT_RULES.map((r) => <li>{r}</li>)}
           </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Section 2: Ba phương thức đồng hành dự kiến -->
-  <section class="section" aria-labelledby="methods-heading">
-    <div class="container">
+  <section class="section section-soft" aria-labelledby="support-faq-heading">
+    <div class="container narrow">
       <div class="section-header">
-        <span class="eyebrow">Hình thức hỗ trợ</span>
-        <h2 id="methods-heading" class="section-title">
-          Ba phương thức đồng hành dự kiến
-        </h2>
-        <p class="section-subtitle">
-          Các hình thức hỗ trợ được đề xuất nhằm đảm bảo đúng nhu cầu, an toàn và thiết thực.
-        </p>
+        <span class="eyebrow">Hỏi đáp</span>
+        <h2 id="support-faq-heading">Câu hỏi về đồng hành</h2>
       </div>
-
-      <div class="methods-grid">
-        <!-- Phương thức 1: Vật tư -->
-        <div class="method-card card">
-          <div class="method-badge-row">
-            <StatusChip kind="ke-hoach" label="Hiện vật" />
-          </div>
-          <h3 class="method-title">Hỗ trợ vật tư thiết yếu</h3>
-          <p class="method-desc">
-            Chiến dịch chỉ tiếp nhận hiện vật theo danh mục do nhóm và Mái ấm thống nhất xác nhận. Hiện danh mục chính thức đang chờ đối chiếu thực tế.
-          </p>
-          <div class="method-example-box">
-            <span class="example-label">Ví dụ vật tư theo đề xuất (chưa phải yêu cầu chính thức):</span>
-            <p class="example-text">
-              Phôi chuồn chuồn tre mộc, chân đế, tượng thạch cao, màu nước, cọ vẽ, mút xốp hoặc dụng cụ trò chơi an toàn.
-            </p>
-          </div>
-          <div class="method-action">
-            <a href="/minh-bach" class="btn btn-secondary btn-sm">
-              Xem dự toán 24 khoản chi &rarr;
-            </a>
-          </div>
-        </div>
-
-        <!-- Phương thức 2: Sản phẩm gây quỹ -->
-        <div class="method-card card">
-          <div class="method-badge-row">
-            <StatusChip kind="ke-hoach" label="Gây quỹ" />
-          </div>
-          <h3 class="method-title">Tìm hiểu sản phẩm gây quỹ</h3>
-          <p class="method-desc">
-            Nhóm lên kế hoạch gây quỹ bằng các sản phẩm lưu niệm thủ công (chuồn chuồn tre mộc, móc khóa Lăng Kính) và phương án ẩm thực sinh viên có điều kiện. Mức giá, số lượng và kênh mở bán đang chờ phê duyệt.
-          </p>
-          <div class="method-example-box">
-            <span class="example-label">Trạng thái bán:</span>
-            <p class="example-text">
-              Trạng thái mở bán chưa được xác nhận. Bản xem trước chưa nhận đơn hàng hay thanh toán trực tuyến.
-            </p>
-          </div>
-          <div class="method-action">
-            <a href="/san-pham" class="btn btn-secondary btn-sm">
-              Xem kế hoạch 7 sản phẩm &rarr;
-            </a>
-          </div>
-        </div>
-
-        <!-- Phương thức 3: Kết nối & Truyền thông -->
-        <div class="method-card card">
-          <div class="method-badge-row">
-            <StatusChip kind="ke-hoach" label="Lan tỏa" />
-          </div>
-          <h3 class="method-title">Kết nối và hỗ trợ truyền thông</h3>
-          <p class="method-desc">
-            Lan tỏa thông điệp vui chơi an toàn và tích cực của chiến dịch trong cộng đồng sinh viên và bạn bè theo các nội dung đã được nhóm thống nhất.
-          </p>
-          <div class="method-example-box">
-            <span class="example-label">Nguyên tắc bảo vệ:</span>
-            <p class="example-text">
-              Không khai thác chuyện riêng, hoàn cảnh cá nhân hay hình ảnh chưa được phép của các em nhỏ tại Mái ấm.
-            </p>
-          </div>
-          <div class="method-action">
-            <a href="/du-an/mang-theo-mot-net-ve" class="btn btn-secondary btn-sm">
-              Tìm hiểu câu chuyện &rarr;
-            </a>
-          </div>
-        </div>
-      </div>
+      <FaqAccordion faqs={SUPPORT_FAQS} idPrefix="support-faq" />
     </div>
   </section>
 
-  <!-- Section 3: Quy trình tiếp nhận dự kiến (01–03 workflow) -->
-  <section class="section section-soft" aria-labelledby="workflow-heading">
-    <div class="container">
-      <div class="section-header">
-        <span class="eyebrow">Kế hoạch phối hợp</span>
-        <h2 id="workflow-heading" class="section-title">
-          Quy trình tiếp nhận dự kiến
-        </h2>
-        <p class="section-subtitle">
-          Ba bước tiếp nhận hỗ trợ chặt chẽ, đảm bảo món quà trao tặng đúng người và đúng thời điểm.
-        </p>
+  <section class="cta-band" aria-labelledby="support-cta-heading">
+    <div class="container cta-band-inner">
+      <div class="cta-band-text">
+        <h2 id="support-cta-heading">Ai đứng sau dự án?</h2>
+        <p>Bảy sinh viên lớp AI2015 và cách nhóm phân công, đối soát.</p>
       </div>
-
-      <div class="workflow-grid">
-        {
-          SUPPORT_WORKFLOW.map((item) => (
-            <div class="workflow-card card">
-              <div class="workflow-step-badge">{item.step}</div>
-              <h3 class="workflow-title">{item.title}</h3>
-              <p class="workflow-desc">{item.description}</p>
-            </div>
-          ))
-        }
-      </div>
-
-      <div class="workflow-note card">
-        <p>
-          <strong>Lưu ý:</strong> Quy trình trên nằm trong đề xuất kế hoạch của nhóm Lăng Kính; các bước tiếp nhận và danh mục nhu cầu thực tế sẽ được triển khai sau khi đạt được sự thống nhất cùng Mái ấm.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Section 4: FAQs -->
-  <section class="section" aria-labelledby="support-faq-heading">
-    <div class="container">
-      <div class="section-header">
-        <span class="eyebrow">Giải đáp thắc mắc</span>
-        <h2 id="support-faq-heading" class="section-title">
-          Câu hỏi thường gặp về đồng hành
-        </h2>
-        <p class="section-subtitle">
-          Giải đáp các thắc mắc phổ biến về việc tham gia hỗ trợ và phối hợp cùng nhóm Lăng Kính.
-        </p>
-      </div>
-
-      <FaqAccordion faqs={SUPPORT_FAQS} />
-    </div>
-  </section>
-
-  <!-- Section 5: CTA "Xem nhóm thực hiện" -> Về nhóm (Per spec C05 item 7) -->
-  <section class="section section-soft navigation-cta-section" aria-labelledby="nav-cta-heading">
-    <div class="container">
-      <div class="navigation-cta-card card">
-        <span class="eyebrow">Đội ngũ thực hiện</span>
-        <h2 id="nav-cta-heading" class="navigation-cta-title">
-          Tìm hiểu về nhóm Lăng Kính
-        </h2>
-        <p class="navigation-cta-desc">
-          Khám phá 5 nhóm nhiệm vụ và 5 nguyên tắc làm việc của nhóm sinh viên lớp AI2015, Đại học FPT Hà Nội.
-        </p>
-        <div class="navigation-cta-actions">
-          <a href="/ve-nhom" class="btn btn-primary">
-            Xem nhóm thực hiện &rarr;
-          </a>
-          <a href="/du-an/mang-theo-mot-net-ve" class="btn btn-secondary">
-            Xem chi tiết buổi chơi
-          </a>
-        </div>
+      <div class="cta-band-actions">
+        <a href="/ve-nhom" class="btn btn-primary">Về nhóm Lăng Kính</a>
       </div>
     </div>
   </section>
 </Layout>
 
 <style>
-  /* Hero Available Options Block */
-  .hero-available-options {
-    margin-top: var(--space-4);
-    padding: var(--space-4);
-    background-color: var(--surface-alt);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-md);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
+  .narrow > :global(*) {
+    max-width: 880px;
   }
 
-  .available-title {
-    font-size: var(--font-size-small);
-    font-weight: 700;
-    color: var(--ink);
+  .now-list {
+    list-style: none;
     margin: 0;
-  }
-
-  .available-links {
-    display: flex;
-    flex-direction: column;
+    padding: 0;
+    display: grid;
     gap: var(--space-1);
   }
 
-  .available-link {
-    font-size: var(--font-size-small);
-    color: var(--brand);
-    text-decoration: underline;
-    font-weight: 500;
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-  }
-
-  .available-link:hover {
+  .now-list li {
+    position: relative;
+    padding: var(--space-2) 0 var(--space-2) 28px;
+    border-bottom: 1px solid var(--line);
     color: var(--ink);
   }
 
-  .available-note {
-    font-size: var(--font-size-sm);
-    color: var(--ink-2);
-    margin: var(--space-1) 0 0;
-    line-height: 1.45;
+  .now-list li:last-child {
+    border-bottom: none;
   }
 
-  /* Section Headers */
-  .section-header {
-    text-align: left;
-    max-width: 720px;
-    margin: 0 0 var(--space-8);
+  .now-list a {
+    color: var(--ink);
+    font-weight: 600;
+    text-underline-offset: 3px;
+    display: inline-flex;
+    min-height: 28px;
+    align-items: center;
+  }
+
+  .now-yes::before {
+    content: "";
+    position: absolute;
+    left: 3px;
+    top: 15px;
+    width: 13px;
+    height: 7px;
+    border-left: 2px solid var(--status-confirmed-text);
+    border-bottom: 2px solid var(--status-confirmed-text);
+    transform: rotate(-45deg);
+  }
+
+  .now-wait {
+    color: var(--status-pending-text) !important;
+    font-weight: 600;
+  }
+
+  .now-wait::before {
+    content: "";
+    position: absolute;
+    left: 2px;
+    top: 13px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid var(--status-pending-text);
+  }
+
+  .contact {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: var(--space-6) var(--space-10);
+    align-items: start;
+    padding: var(--space-6);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+  }
+
+  .contact-title {
+    margin: 0;
+  }
+
+  .contact-status {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    align-items: flex-start;
+  }
+
+  .contact-status p {
+    margin: 0;
+    color: var(--ink);
+  }
+
+  .ways {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-6);
+  }
+
+  .way {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: var(--space-2);
-  }
-
-  .section-title {
-    font-size: var(--font-size-h2);
-    color: var(--ink);
-    margin: 0;
-    line-height: var(--line-height-h2);
-    font-weight: 700;
-  }
-
-  .section-subtitle {
-    font-size: var(--font-size-body);
-    color: var(--ink-2);
-    margin: 0;
-    line-height: var(--line-height-body);
-  }
-
-  /* Contact Box */
-  .contact-box {
-    max-width: 800px;
-    padding: var(--space-8);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-    background-color: var(--color-surface-card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-  }
-
-  .contact-status-header {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-  }
-
-  .contact-status-title {
-    font-size: 1.125rem;
-    font-weight: 700;
-    color: var(--ink);
-    margin: 0;
-  }
-
-  .contact-notice-text {
-    font-size: var(--font-size-body);
-    color: var(--brand);
-    font-weight: 600;
-    margin: 0;
-    line-height: var(--line-height-body);
-  }
-
-  .contact-explanation {
-    border-top: 1px solid var(--line);
-    padding-top: var(--space-4);
-    font-size: var(--font-size-small);
-    color: var(--ink-2);
-    line-height: 1.6;
-  }
-
-  .contact-rules-title {
-    margin: 0 0 var(--space-2) 0;
-    font-weight: 600;
-    color: var(--ink);
-  }
-
-  .contact-rules-list {
-    margin: 0;
-    padding-left: var(--space-5);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  /* Methods Grid */
-  .methods-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-6);
-  }
-
-  .method-card {
     padding: var(--space-6);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-    height: 100%;
-    background-color: var(--color-surface-card);
+    background: #ffffff;
     border: 1px solid var(--line);
     border-radius: var(--radius-lg);
   }
 
-  .method-badge-row {
-    display: flex;
+  .way-tag {
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-small);
+    font-weight: 600;
+    color: var(--brand);
   }
 
-  .method-title {
-    font-size: 1.1875rem;
-    font-weight: 700;
-    color: var(--ink);
+  .way-title {
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
     margin: 0;
-    line-height: 1.35;
   }
 
-  .method-desc {
-    font-size: var(--font-size-body);
-    color: var(--ink-2);
-    line-height: var(--line-height-body);
+  .way-text {
     margin: 0;
     flex-grow: 1;
   }
 
-  .method-example-box {
-    background-color: var(--surface-alt);
-    border-radius: var(--radius-md);
-    padding: var(--space-3);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-    border: 1px solid var(--line);
+  .col-title {
+    font-size: var(--font-size-h2);
+    line-height: var(--line-height-h2);
+    margin-bottom: var(--space-5);
   }
 
-  .example-label {
-    font-size: var(--font-size-sm);
-    font-weight: 600;
-    color: var(--ink-2);
+  .col-title--sm {
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+    margin-bottom: var(--space-4);
   }
 
-  .example-text {
-    font-size: var(--font-size-small);
-    color: var(--ink);
+  .steps {
+    list-style: none;
     margin: 0;
-    line-height: 1.45;
-  }
-
-  .method-action {
-    margin-top: auto;
-    padding-top: var(--space-2);
-  }
-
-  .btn-sm {
-    padding: var(--space-2) var(--space-4);
-    font-size: var(--font-size-small);
-  }
-
-  /* Workflow Grid */
-  .workflow-grid {
+    padding: 0;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-6);
-    margin-bottom: var(--space-6);
+    gap: var(--space-5);
   }
 
-  .workflow-card {
-    padding: var(--space-6);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-    background-color: var(--color-surface-card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
+  .step {
+    display: grid;
+    grid-template-columns: 40px minmax(0, 1fr);
+    gap: var(--space-4);
   }
 
-  .workflow-step-badge {
-    width: 38px;
-    height: 38px;
+  .step-num {
+    width: 40px;
+    height: 40px;
     border-radius: var(--radius-pill);
-    background-color: var(--brand);
-    color: #ffffff;
-    display: flex;
+    border: 2px solid var(--brand);
+    color: var(--brand);
+    font-weight: 700;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 1rem;
-    font-weight: 700;
     font-variant-numeric: tabular-nums;
   }
 
-  .workflow-title {
-    font-size: 1.125rem;
-    font-weight: 700;
-    color: var(--ink);
-    margin: 0;
-  }
-
-  .workflow-desc {
+  .step-title {
     font-size: var(--font-size-body);
-    color: var(--ink-2);
     line-height: var(--line-height-body);
     margin: 0;
   }
 
-  .workflow-note {
-    padding: var(--space-5);
-    background-color: var(--color-surface-card);
-    border-left: 4px solid var(--brand);
-    border-radius: var(--radius-md);
-    border-top: 1px solid var(--line);
-    border-right: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-  }
-
-  .workflow-note p {
+  .step-desc {
     margin: 0;
-    font-size: var(--font-size-small);
-    color: var(--ink-2);
-    line-height: 1.5;
   }
 
-  /* Navigation CTA */
-  .navigation-cta-section {
-    padding: var(--space-8) 0;
-  }
-
-  .navigation-cta-card {
-    text-align: center;
-    max-width: 720px;
-    margin: 0 auto;
-    padding: var(--space-8);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-4);
-    background-color: var(--color-surface-card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-  }
-
-  .navigation-cta-title {
-    font-size: var(--font-size-h2);
-    color: var(--ink);
-    margin: 0;
-    line-height: var(--line-height-h2);
-    font-weight: 700;
-  }
-
-  .navigation-cta-desc {
-    font-size: var(--font-size-body);
-    color: var(--ink-2);
-    margin: 0;
-    line-height: var(--line-height-body);
-  }
-
-  .navigation-cta-actions {
-    display: flex;
-    gap: var(--space-3);
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  /* Responsive Rules */
   @media (max-width: 1023px) {
-    .methods-grid {
+    .ways {
       grid-template-columns: 1fr;
+      gap: var(--space-4);
     }
 
-    .workflow-grid {
+    .contact {
       grid-template-columns: 1fr;
     }
   }
 
-  @media (max-width: 480px) {
-    .contact-box {
-      padding: var(--space-5);
-    }
-
-    .navigation-cta-actions {
-      flex-direction: column;
-      width: 100%;
-    }
-
-    .navigation-cta-actions .btn {
-      width: 100%;
+  @media (max-width: 767px) {
+    .way,
+    .contact {
+      padding: var(--space-4);
     }
   }
 </style>

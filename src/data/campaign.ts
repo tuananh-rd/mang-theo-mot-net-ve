@@ -455,10 +455,9 @@ export interface TeamPrinciple {
   description: string;
 }
 
-export interface CoordinationArea {
+export interface TeamRole {
   role: string;
   scope: string;
-  note: string;
 }
 
 export interface ProductFaq {
@@ -494,64 +493,194 @@ export const TEAM_PRINCIPLES: TeamPrinciple[] = [
   },
 ];
 
-export const TEAM_COORDINATION: CoordinationArea[] = [
+/**
+ * Bảy vai trò theo bảng nhân sự trong đề xuất Final (trang 26).
+ * Hồ sơ có danh sách tên; website chỉ hiển thị vai trò cho tới khi từng thành viên đồng ý công bố tên/ảnh.
+ */
+export const TEAM_ROLES: TeamRole[] = [
   {
-    role: 'Điều phối & Trưởng dự án',
-    scope:
-      'Lên lịch trình, tổ chức họp tuần, theo dõi tiến độ tổng thể, làm việc cùng giảng viên và điều phối hoạt động chung của nhóm.',
-    note: 'Mô tả nhiệm vụ trong đề xuất học phần (trang 26), không phải chức danh nhân sự công khai.',
+    role: 'Trưởng dự án',
+    scope: 'Lịch, họp tuần, theo dõi tiến độ, làm việc với giảng viên và điều phối hoạt động nhóm.',
   },
   {
-    role: 'Tài chính & Thủ quỹ',
-    scope:
-      'Quản lý sổ thu chi, hóa đơn chứng từ, đối soát cuối mỗi ca bán hàng gây quỹ, lập báo cáo công khai và mua quà theo đúng danh mục nhu cầu.',
-    note: 'Thực hiện cơ chế đối soát độc lập theo kế hoạch đề xuất (trang 26).',
+    role: 'Tài chính, thủ quỹ',
+    scope: 'Sổ thu chi, hóa đơn, đối soát cuối mỗi ca, báo cáo công khai và mua quà theo danh mục.',
   },
   {
-    role: 'Hậu cần & Vận hành ẩm thực',
-    scope:
-      'Quản lý đơn đặt hàng, kiểm đếm tồn kho, chuẩn bị chế biến ẩm thực an toàn, vận chuyển vật tư và dựng quầy gây quỹ.',
-    note: 'Bảo đảm an toàn vệ sinh thực phẩm và quản lý nguyên liệu chặt chẽ (trang 26).',
+    role: 'Hậu cần, phụ trách chương trình',
+    scope: 'Đơn đặt hàng, tồn kho, chế biến, vận chuyển, dựng quầy và an toàn thực phẩm.',
   },
   {
-    role: 'Nội dung & Thiết kế truyền thông',
-    scope:
-      'Phụ trách thiết kế slide, poster, infographic, lịch đăng bài, báo cáo số liệu truyền thông và lưu trữ hình ảnh tư liệu có nguồn, ngày giờ.',
-    note: 'Tuân thủ nguyên tắc bản quyền và bảo vệ quyền riêng tư (trang 26).',
+    role: 'Hậu cần, bán hàng gây quỹ',
+    scope: 'Đơn đặt hàng, tồn kho, chế biến, vận chuyển, dựng quầy và an toàn thực phẩm.',
   },
   {
-    role: 'Đối ngoại & Phối hợp Mái ấm',
-    scope:
-      'Đầu mối liên hệ đại diện Mái ấm và nhà tài trợ; làm việc về địa điểm, duyệt bài hát/trò chơi và danh mục quà tặng thiết yếu.',
-    note: 'Mọi hoạt động tại cơ sở phụ thuộc vào sự đồng ý của Mái ấm (trang 26).',
+    role: 'Thiết kế, nội dung',
+    scope: 'Slide, poster, infographic; lưu ảnh và video kèm nguồn, ngày giờ.',
   },
+  {
+    role: 'Truyền thông, nội dung',
+    scope: 'Lịch đăng bài, viết bài, báo cáo số liệu truyền thông và duyệt hình ảnh.',
+  },
+  {
+    role: 'Đối ngoại, thiết kế',
+    scope: 'Đầu mối với Mái ấm và nhà hỗ trợ; thiết kế poster, infographic.',
+  },
+];
+
+export interface PartnerRole {
+  partner: string;
+  responsibility: string;
+}
+
+/** Vai trò phê duyệt/phối hợp ngoài nhóm (trang 26). */
+export const PARTNER_ROLES: PartnerRole[] = [
+  {
+    partner: 'Mái ấm Thánh Tâm',
+    responsibility:
+      'Duyệt lịch, chỗ chơi, bài hát, người chăm sóc, từng trò chơi và vật liệu, danh mục quà, quyền sử dụng sản phẩm và hình ảnh.',
+  },
+  {
+    partner: 'Giảng viên hướng dẫn',
+    responsibility:
+      'Duyệt phạm vi đi lại, nguồn quỹ, hình thức minh chứng và mọi thay đổi quan trọng của dự án học phần.',
+  },
+  {
+    partner: 'Nhà cung cấp',
+    responsibility: 'Báo giá và mẫu chuồn chuồn 12 cm, chân đế, tượng và móc khóa trước khi nhóm đặt hàng.',
+  },
+  {
+    partner: 'Nhà hỗ trợ bên ngoài',
+    responsibility:
+      'Ưu tiên hỗ trợ vật tư workshop hoặc di chuyển trước khi nhóm đặt hàng; không dùng danh nghĩa nhà trường để kêu gọi.',
+  },
+];
+
+export interface ProjectNeed {
+  title: string;
+  description: string;
+}
+
+/** Ba nhu cầu chính nhóm xác định sau trao đổi với Mái ấm (trang 5). */
+export const PROJECT_NEEDS: ProjectNeed[] = [
+  {
+    title: 'Một buổi chơi linh hoạt',
+    description: 'Có thời gian nghỉ và nhiều cách tham gia, vì các em ở nhiều độ tuổi và mức hỗ trợ khác nhau.',
+  },
+  {
+    title: 'Mái ấm giữ quyền quyết định',
+    description: 'Về số người tham gia, vật liệu, hình ảnh và danh mục hỗ trợ.',
+  },
+  {
+    title: 'Hỗ trợ thiết thực, minh bạch',
+    description: 'Chuyển nguồn quỹ thành hiện vật đúng danh mục Mái ấm xác nhận, có chứng từ và biên bản.',
+  },
+];
+
+/** Thực hành an toàn đề xuất (trang 7, 11, 20 và phụ lục A trang 33). */
+export const SAFETY_PRACTICES: string[] = [
+  'Chuồn chuồn được kiểm thân, cánh nhẵn, trục chắc; màu gốc nước; tượng không cạnh nhọn.',
+  'Chia nhóm nhỏ 5–7 trẻ mỗi lượt, có góc nghỉ; được đổi hoặc dừng hoạt động bất cứ lúc nào.',
+  'Bowling bằng bóng mềm, chốt lớn, có thể chơi khi ngồi; chuyền bóng không loại người chơi. Bỏ trò bịt mắt.',
+  'Hỏi trước về dị ứng, việc trẻ có thể đưa đồ vào miệng, nơi rửa tay và nơi phơi sản phẩm.',
+  'Nếu cơ sở thấy vật liệu hoặc trò chơi chưa phù hợp, nhóm thay bằng giấy, thẻ màu hoặc hoạt động ngồi.',
+  'Ghi hình chỉ trong phạm vi Mái ấm cho phép; tách riêng quyền giữ sản phẩm, quyền bán và quyền đăng ảnh.',
+];
+
+export interface AgendaItem {
+  time: string;
+  content: string;
+}
+
+/** Agenda dự kiến buổi 1 tại Mái ấm (trang 12–13). Có thể rút ngắn nếu Mái ấm thấy các em mệt. */
+export const WORKSHOP_AGENDA: AgendaItem[] = [
+  { time: '0–15 phút', content: 'Đón các em, giới thiệu vật mẫu và chỗ nghỉ.' },
+  { time: '15–30 phút', content: 'Chào hỏi, hát mở đầu và hướng dẫn chọn hoạt động.' },
+  { time: '30–60 phút', content: 'Lượt thủ công 1: trang trí chuồn chuồn và tô tượng tại hai bàn.' },
+  { time: '60–75 phút', content: 'Nghỉ lần 1: rửa tay, uống nước theo nếp cơ sở; đổi lượt.' },
+  { time: '75–105 phút', content: 'Lượt thủ công 2: đổi bàn hoặc tiếp tục sản phẩm đã chọn.' },
+  { time: '105–125 phút', content: 'Bowling theo lượt; các bàn tạm ngừng tô để tập trung hỗ trợ.' },
+  { time: '125–140 phút', content: 'Nghỉ lần 2, trò chuyện nhẹ; sắp xếp sản phẩm khô.' },
+  { time: '140–155 phút', content: 'Chuyền bóng theo nhạc trong vòng nhỏ, có tín hiệu nhìn thấy.' },
+  { time: '155–170 phút', content: 'Giao lưu hát, trò chuyện, trao phần bánh kẹo theo hướng dẫn người chăm sóc.' },
+  { time: '170–180 phút', content: 'Kết thúc, bàn giao sản phẩm của các em lại cho Mái ấm, thu dọn.' },
+];
+
+export interface EvaluationCriterion {
+  title: string;
+  method: string;
+}
+
+/** Cách đánh giá kết quả dự kiến (trang 22–25). Chưa có dữ liệu thì ghi “chưa đủ cơ sở đánh giá”. */
+export const EVALUATION_CRITERIA: EvaluationCriterion[] = [
+  {
+    title: 'Mỗi em có ít nhất một cách tham gia phù hợp',
+    method: 'Đối chiếu danh sách có mặt với lựa chọn đã giới thiệu; em chọn quan sát hoặc nghỉ vẫn được tôn trọng.',
+  },
+  {
+    title: 'Mức độ phù hợp, thoải mái và an toàn',
+    method: 'Phiếu của người chăm sóc theo thang 1–5; mục tiêu tối thiểu 80% phiếu hợp lệ ở mức tích cực.',
+  },
+  {
+    title: 'Quà đúng danh mục Mái ấm xác nhận',
+    method: 'Đối chiếu vật phẩm bàn giao với danh mục và xác nhận tiếp nhận của đại diện Mái ấm.',
+  },
+  {
+    title: 'Thu chi đầy đủ, có đối soát',
+    method: '100% khoản thu chi được ghi nhận và đối chiếu; chênh lệch được làm rõ trong báo cáo.',
+  },
+];
+
+/** Chỉ tiêu học phần và truyền thông dự kiến (trang 8–9, 14, 24). Không phải thành tích. */
+export const COURSE_TARGETS: string[] = [
+  'Tối thiểu 8 bài truyền thông về dự án; bài menu hoặc thông báo đơn hàng thống kê riêng.',
+  '300 người theo dõi kênh và 200 lượt tương tác trên các bài thuộc danh sách đánh giá.',
+  'Lượt tiếp cận: tối thiểu 3.000, phấn đấu 4.000. Đây là tổng lượt, có thể trùng người, không phải số người.',
+  'Buổi trải nghiệm thủ công tại campus 45–60 phút cho 25 sinh viên ngoài nhóm, chỉ tổ chức khi được duyệt.',
+  'Báo cáo tổng kết, video recap và bộ ảnh được phép sử dụng, hoàn thành không muộn hơn tuần 9.',
+];
+
+/** Kế hoạch bán hàng (trang 14). Website chưa mở nhận đơn. */
+export const SALES_PLAN: string[] = [
+  'Người mua dự kiến là sinh viên tại Hòa Lạc; nhận đơn qua biểu mẫu và quầy ở sảnh Delta khi được phép.',
+  'Mở đặt trước từ tuần 6, bán chính tuần 7–8, hoàn tất giao hàng trước buổi trao quà.',
+  'Đồ ăn chia hai đợt, tối đa 25 set mỗi đợt, chỉ bán khi đáp ứng điều kiện an toàn thực phẩm và quy định học phần.',
+  'Nhóm làm hàng theo đơn và nguồn tiền đã có; không mặc định toàn bộ số lượng sẽ bán hết.',
+];
+
+/** Quy tắc vận động và tiếp nhận hỗ trợ (trang 15). */
+export const SUPPORT_RULES: string[] = [
+  'Không dùng tiền cá nhân của thành viên; không kêu gọi từ gia đình, người thân, cán bộ hay giảng viên trường.',
+  'Thống nhất loại hỗ trợ, số lượng, thời điểm và cách ghi nhận trước khi nhận.',
+  'Tiền và hiện vật theo dõi riêng; hiện vật chỉ giảm đúng khoản chi nó thay thế, không cộng thành tiền.',
+  'Không tính lời hứa tài trợ hoặc tiền mua hàng gây quỹ vào tổng hỗ trợ.',
 ];
 
 export const PRODUCT_FAQS: ProductFaq[] = [
   {
-    question: 'Giá ghi trên website có phải là giá bán chính thức không?',
+    question: 'Giá trên website có phải giá bán chính thức không?',
     answer:
-      'Các mức giá (40.000đ/bộ chuồn chuồn tre, 10.000đ/chiếc móc khóa, thực đơn đồ ăn 20.000đ–79.000đ) là giá tham khảo trong đề xuất Final (trang 29, 30). Giá bán chính thức và số lượng phát hành sẽ được thông báo khi kế hoạch mở bán được phê duyệt.',
+      'Chưa. Đây là giá tham khảo trong đề xuất Final (trang 29–31). Giá, mẫu, số lượng phát hành và lịch nhận hàng chỉ được công bố khi kế hoạch mở bán được duyệt.',
   },
   {
-    question: 'Sản phẩm gây quỹ do ai làm và hoàn thiện?',
+    question: 'Ai làm các sản phẩm bán gây quỹ?',
     answer:
-      'Nhóm sinh viên Lăng Kính chịu trách nhiệm chuẩn bị và hoàn thiện mẫu theo kế hoạch. Chuồn chuồn tre sử dụng phôi tre mộc (chuẩn bị 50 phôi, trong đó 30 bộ bán và 20 chiếc để lại Mái ấm làm quà); móc khóa in tranh chỉ khi có sự đồng ý hợp lệ; nhóm chịu trách nhiệm hàng bán, không giao sản lượng cho các em nhỏ. Hoạt động tô tượng là vui chơi trải nghiệm tại chỗ, sản phẩm để lại Mái ấm.',
+      'Nhóm Lăng Kính chuẩn bị và hoàn thiện hàng bán. Các em tại Mái ấm không có chỉ tiêu sản phẩm; đồ các em làm trong buổi chơi, kể cả tượng tô, được để lại cho các em và Mái ấm. Tranh của các em chỉ được in lên móc khóa khi có sự đồng ý phù hợp.',
   },
   {
-    question: 'Kế hoạch gây quỹ qua đồ ăn được tính toán như thế nào?',
+    question: 'Vì sao ba combo nem không tính vào doanh thu cơ sở?',
     answer:
-      'Kế hoạch ẩm thực cơ sở gồm 50 set đồ ăn (79.000đ/set) và 50 hộp bánh su kem (20.000đ/hộp) với tổng doanh thu dự kiến 4.950.000đ, đã làm rõ cơ cấu so với dự toán cũ. Ba combo món ăn (60 suất/món theo đề xuất) chưa tính vào doanh thu cơ sở do cần đối chiếu số lượng nguyên liệu bổ sung hay thay thế (nguyên liệu nem chỉ đủ cho 50 set × 6 nem). Kế hoạch chỉ triển khai khi có địa điểm, người phụ trách và quy trình an toàn thực phẩm; hiện tại website chưa mở bán.',
+      'Hồ sơ ghi 60 suất cho mỗi combo nhưng chưa nói rõ là bán thêm hay thay cho 50 set đồ ăn. Lượng nem trong dự toán (300 chiếc) vừa khớp 50 set × 6 nem, nên website chỉ tính 50 set và 50 hộp su kem cho tới khi nhóm xác nhận.',
   },
   {
-    question: 'Khi nào mở bán và có thể đặt mua qua kênh nào?',
+    question: 'Khi nào có thể đặt mua?',
     answer:
-      'Hiện tại trạng thái mở bán chưa được xác nhận. Bản xem trước nhằm lấy ý kiến đóng góp cho đề xuất dự án. Kênh tiếp nhận chính thức sẽ được công bố sau khi các điều kiện an toàn và phê duyệt hoàn tất.',
+      'Chưa mở bán. Theo kế hoạch, nhóm mở đặt trước từ tuần 6 và bán chính tuần 7–8 của học phần, khi có kênh nhận đơn được duyệt và đáp ứng điều kiện an toàn thực phẩm. Website hiện không nhận đơn hay tiền.',
   },
   {
-    question: 'Doanh thu từ các sản phẩm được sử dụng như thế nào?',
+    question: 'Tiền bán hàng được dùng thế nào?',
     answer:
-      'Nguồn thu dự kiến trước hết trang trải chi phí nguyên liệu và vận hành (dự toán 24 khoản chi). Toàn bộ số dư tiền thực tế (nếu có sau đối soát đầy đủ) dự kiến dùng mua quà tặng và hiện vật thiết yếu bàn giao cho Mái ấm theo danh mục nhu cầu xác nhận.',
+      'Trước hết bù chi phí nguyên liệu và tổ chức theo dự toán. Phần còn lại sau đối soát dùng mua hiện vật theo danh mục Mái ấm xác nhận, có hóa đơn và biên bản bàn giao.',
   },
 ];
 
@@ -1012,7 +1141,7 @@ export const FINANCE_SCENARIOS: FinanceScenario[] = [
     id: 'tai-tro-qua-tang-500k',
     title: 'Tài trợ hiện vật quà tặng (500.000đ)',
     description:
-      'Giả định nhận tài trợ 500.000đ hiện vật quà tặng thay chi tiền. Chi tiền còn lại là 4.970.000đ; số dư giả định là +2.180.000đ. Lưu ý: Danh mục chi chỉ có bánh kẹo (340k) + quà tặng (60k) = 400k, còn 100k chưa có hạng mục thay thế cụ thể.',
+      'Giả định nhận tài trợ 500.000đ hiện vật quà tặng thay chi tiền. Chi tiền còn lại là 4.970.000đ; số dư giả định là +2.180.000đ. Bảng chi chỉ có bánh kẹo 340.000đ và đồ tặng truyền thông 60.000đ; danh mục thay chi đủ 500.000đ chưa được xác định.',
     inKindReplacement: {
       value: 500000,
       unit: 'đ',
@@ -1191,29 +1320,24 @@ export interface SupportFaq {
 
 export const SUPPORT_FAQS: SupportFaq[] = [
   {
-    question: 'Khi nào dự án bắt đầu tiếp nhận hiện vật hỗ trợ?',
+    question: 'Tôi có thể cùng đến Mái ấm tham gia buổi chơi không?',
     answer:
-      'Nhóm chỉ tiếp nhận vật phẩm sau khi danh mục nhu cầu thực tế được đại diện Mái ấm xác nhận và kênh liên hệ chính thức được công bố. Điều này giúp tránh lãng phí và đảm bảo mọi sự đóng góp đều đúng nhu cầu thiết yếu.',
+      'Không mặc định. Cộng tác viên chỉ tham gia khi Mái ấm đồng ý và được phổ biến quy tắc trước. Nhóm không tuyển người tự do đến Mái ấm.',
   },
   {
-    question: 'Cá nhân hoặc nhóm ngoài có thể cùng đến Mái ấm tham gia buổi chơi không?',
+    question: 'Khi nào nhóm bắt đầu nhận hiện vật?',
     answer:
-      'Việc đến thăm và tham gia buổi chơi tại Mái ấm phụ thuộc hoàn toàn vào sự chấp thuận của ban quản lý cơ sở và danh sách nhân sự được phê duyệt trước. Nhóm không tổ chức tuyển người tham gia tự do đến Mái ấm; điều kiện an toàn, sự đồng thuận của cơ sở và việc bảo vệ quyền riêng tư cho các em nhỏ quyết định việc tham dự.',
+      'Sau khi Mái ấm xác nhận danh mục nhu cầu và nhóm công bố kênh liên hệ chính thức. Như vậy món đồ được gửi đến đúng thứ Mái ấm cần.',
   },
   {
-    question: 'Các em nhỏ tại Mái ấm có bắt buộc phải tham gia tất cả các góc hoạt động không?',
+    question: 'Nhà hỗ trợ được ghi nhận như thế nào?',
     answer:
-      'Không. Nguyên tắc hàng đầu của buổi chơi là tôn trọng quyền lựa chọn của từng em. Các em có thể tự do tham gia vẽ tranh, trang trí chuồn chuồn tre, tô tượng, hát cùng nhau, chơi trò chơi nhẹ, hoặc chỉ ngồi quan sát và nghỉ ngơi mà không làm ảnh hưởng đến bất kỳ chỉ tiêu nào.',
+      'Đề xuất có ba mức ghi nhận logo theo tổng hỗ trợ (từ 500.000đ, 1.000.000đ và 2.000.000đ), nhưng chỉ áp dụng khi giảng viên hướng dẫn đồng ý vì hướng dẫn học phần hiện giới hạn logo. Đây chưa phải quyền lợi đã cam kết.',
   },
   {
-    question: 'Các khoản đóng góp tiền mặt và hiện vật được quản lý như thế nào?',
+    question: 'Tiền và hiện vật được quản lý ra sao?',
     answer:
-      'Theo đề xuất, nhóm dự kiến quản lý tiền mặt và hiện vật trong hai sổ theo dõi riêng biệt, không gộp chung khi triển khai. Mọi khoản thu chi bằng tiền theo kế hoạch dự kiến được hai thành viên đối soát độc lập và lưu trữ chứng từ khi thực hiện. Nhóm không tuyên bố 100% doanh thu là tiền ủng hộ hay nhận tiền/đơn khi chưa có kênh liên hệ và phê duyệt chính thức. Các gói tài trợ logo trong hồ sơ đề xuất (trang 15) chưa được xem là quyền lợi đã cam kết chính thức.',
-  },
-  {
-    question: 'Nguyên tắc vận động nguồn lực của nhóm tuân thủ những quy định nào?',
-    answer:
-      'Theo đề xuất học phần (trang 15), nguồn lực dự kiến chỉ huy động từ các nguồn bên ngoài được phê duyệt hợp lệ. Thành viên nhóm không tạm ứng tiền cá nhân, không vận động từ gia đình, người thân, cán bộ nhân viên hay giảng viên FPT. Các gói tài trợ gắn logo trong hồ sơ đề xuất đang chờ phê duyệt và chưa phải cam kết quyền lợi chính thức.',
+      'Ghi trong hai sổ riêng, có hai thành viên đối soát. Hiện vật chỉ giảm đúng khoản chi nó thay thế và không được cộng vào tiền mặt. Kết quả công bố sau khi đối soát và che thông tin riêng tư.',
   },
 ];
 
@@ -1224,28 +1348,23 @@ export interface TransparencyFaq {
 
 export const TRANSPARENCY_FAQS: TransparencyFaq[] = [
   {
-    question: 'Doanh thu kịch bản và dự toán chi phí được tính toán như thế nào?',
+    question: 'Có phải toàn bộ doanh thu dùng để mua quà?',
     answer:
-      'Dự toán chi phí kế hoạch gồm 24 khoản mục theo đề xuất Final (trang 29–31) với tổng kinh phí 5.470.000đ qua 3 nhóm: Nguyên liệu gây quỹ (14 khoản, 2.480.000đ), Vật tư workshop & quà tặng (7 khoản, 1.860.000đ), Truyền thông & di chuyển (3 khoản, 1.130.000đ). Doanh thu cơ sở bán đủ hàng đạt 7.150.000đ (thủ công 2.200.000đ + đồ ăn 4.950.000đ), cho số dư dự kiến trước quà là 1.680.000đ. Toàn bộ là mô phỏng kế hoạch trong đề xuất, không phải số liệu thực tế.',
+      'Không. Doanh thu trước hết bù chi phí nguyên liệu, vật tư và di chuyển. Chỉ phần quỹ còn lại sau đối soát mới dùng mua hiện vật cho Mái ấm. Số 1.680.000đ là kịch bản bán đủ hàng, không phải số tiền chắc chắn có.',
   },
   {
-    question: 'Doanh thu từ sản phẩm có phải 100% dành mua quà cho các em không?',
+    question: 'Tài trợ hiện vật được tính thế nào?',
     answer:
-      'Không. Nguồn thu bán sản phẩm trước hết nhằm trang trải chi phí nguyên vật liệu và tổ chức buổi chơi. Số dư tiền thực tế (nếu có sau khi đối soát tất cả các khoản chi) dự kiến sẽ được dùng để hỗ trợ hiện vật đúng theo danh mục nhu cầu của Mái ấm.',
+      'Hiện vật chỉ làm giảm khoản chi mà nó thay thế, không cộng vào doanh thu hay tiền mặt. Các kịch bản tài trợ trong bảng là giả định riêng lẻ, chưa có cam kết nào.',
   },
   {
-    question: 'Số dư tiền thực tế và quỹ khả dụng được tính toán theo nguyên tắc nào?',
+    question: 'Nếu bán chậm hoặc chưa có tài trợ trước buổi 1 thì sao?',
     answer:
-      'Quỹ khả dụng trước mua quà = Thu tiền thực tế − Chi tiền đã trả − Chi tiền còn phải trả − Tiền khách đã trả cho các đơn chưa hoàn tất. Số dư sau bàn giao = Thu tiền thực tế − Toàn bộ chi phí thực tế (gồm cả quà tặng) − Nghĩa vụ tài chính còn lại. Hàng tồn kho và hiện vật tài trợ được theo dõi trong sổ riêng biệt, không coi hàng tồn hay đơn chưa thanh toán là tiền thực nhận.',
+      'Theo đề xuất, nhóm chỉ chi trong số tiền thực có, sản xuất theo đơn đặt trước, giảm vật liệu và xin điều chỉnh. Thành viên không ứng tiền cá nhân.',
   },
   {
-    question: 'Các kịch bản tài trợ hiện vật được hiểu như thế nào?',
+    question: 'Khi nào có số liệu thực tế và chứng từ?',
     answer:
-      'Tài trợ hiện vật thay chi tiền chỉ làm giảm chi phí tiền mặt còn lại, không cộng vào doanh thu tiền. Đề xuất nêu các giả định tài trợ từng nhóm chi phí (500k quà tặng, 2.480k đồ ăn, 1.860k workshop, 1.130k di chuyển); các kịch bản này độc lập và chưa có cam kết tài trợ thực tế. Riêng kịch bản 500k quà tặng cần đối chiếu vì danh mục chi chỉ có 400k (340k bánh kẹo + 60k quà truyền thông).',
-  },
-  {
-    question: 'Khi nào báo cáo tài chính và chứng từ thực tế được công bố?',
-    answer:
-      'Sau khi chiến dịch kết thúc, hai thành viên tài chính sẽ đối soát độc lập toàn bộ hóa đơn, chứng từ. Nhóm sẽ biên tập che thông tin cá nhân nhạy cảm và công bố báo cáo công khai tại trang này sau khi được phê duyệt.',
+      'Sau khi hoạt động kết thúc và hai thành viên tài chính đối soát xong. Báo cáo dự kiến hoàn thành trong tuần 9 của học phần; chứng từ chỉ công bố bản đã che thông tin riêng tư và được phép.',
   },
 ];
