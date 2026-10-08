@@ -122,10 +122,16 @@ const hasPanel = summaryItems.length > 0 || Astro.slots.has('panel-extra');
 
 <style>
   .page-hero {
-    background-color: var(--color-canvas);
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    background:
+      radial-gradient(40% 70% at 100% 0%, rgba(247, 201, 72, 0.18), transparent 70%),
+      radial-gradient(30% 60% at 0% 100%, rgba(138, 34, 52, 0.05), transparent 70%),
+      var(--warm-canvas);
     border-bottom: 1px solid var(--color-border);
     padding-top: var(--space-6);
-    padding-bottom: var(--space-10);
+    padding-bottom: var(--space-12);
   }
 
   .page-hero-container {
@@ -208,6 +214,7 @@ const hasPanel = summaryItems.length > 0 || Astro.slots.has('panel-extra');
   }
 
   .page-hero-title {
+    letter-spacing: -0.02em;
     font-size: var(--font-size-h1);
     line-height: var(--line-height-h1);
     color: var(--color-text-primary);
@@ -239,9 +246,10 @@ const hasPanel = summaryItems.length > 0 || Astro.slots.has('panel-extra');
   }
 
   .panel-card {
-    background-color: var(--surface-alt);
+    background-color: #ffffff;
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-raised);
     padding: var(--space-6);
     display: flex;
     flex-direction: column;

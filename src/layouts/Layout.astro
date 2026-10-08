@@ -55,6 +55,7 @@ if (title.includes(BRAND_PROJECT)) {
   </head>
   <body>
     <a href="#main-content" class="skip-link">Chuyển đến nội dung chính</a>
+    <div class="scroll-progress" aria-hidden="true"></div>
 
     <!-- Top Preview Banner -->
     <aside class="preview-banner" aria-label="Thông báo bản xem trước">
@@ -74,12 +75,24 @@ if (title.includes(BRAND_PROJECT)) {
 
     <Footer />
 
+    <button type="button" class="to-top" aria-label="Lên đầu trang">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" /></svg>
+    </button>
+
     <script>
       const root = document.documentElement;
 
       // Header đổ bóng nhẹ khi trang đã cuộn
       const header = document.querySelector('.site-header');
-      const onScroll = () => header?.classList.toggle('is-scrolled', window.scrollY > 8);
+      const toTop = document.querySelector<HTMLButtonElement>('.to-top');
+      const onScroll = () => {
+        header?.classList.toggle('is-scrolled', window.scrollY > 8);
+        toTop?.classList.toggle('is-visible', window.scrollY > 700);
+      };
+      toTop?.addEventListener('click', () => {
+        window.scrollTo({ top: 0 });
+        document.getElementById('main-content')?.focus({ preventScroll: true });
+      });
       onScroll();
       window.addEventListener('scroll', onScroll, { passive: true });
 

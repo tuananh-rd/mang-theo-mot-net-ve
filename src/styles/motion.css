@@ -74,10 +74,13 @@ html.motion main .actual-list,
 html.motion main .cta-band-inner,
 html.motion main .reveal {
   opacity: 0;
-  transform: translateY(18px);
+  /* dùng thuộc tính translate riêng để không đè transform của hiệu ứng hover */
+  translate: 0 22px;
+  scale: 0.985;
   transition:
     opacity var(--duration-slow) var(--ease-out),
-    transform var(--duration-slow) var(--ease-out);
+    translate var(--duration-slow) var(--ease-out),
+    scale var(--duration-slow) var(--ease-out);
   transition-delay: var(--reveal-delay, 0ms);
 }
 
@@ -104,7 +107,8 @@ html.motion main .actual-list.is-revealed,
 html.motion main .cta-band-inner.is-revealed,
 html.motion main .reveal.is-revealed {
   opacity: 1;
-  transform: none;
+  translate: none;
+  scale: none;
 }
 
 /* --- Vào trang: tiêu đề và nội dung đầu trang --- */
@@ -163,6 +167,14 @@ html.motion main .reveal.is-revealed {
   transition: transform var(--transition-normal);
 }
 
+.btn-arrow .arrow {
+  display: inline-block;
+  margin-left: var(--space-2);
+  transition: transform var(--transition-normal);
+}
+
+.btn-arrow:hover .arrow,
+.btn-arrow:focus-visible .arrow,
 .link-arrow:hover .arrow,
 .link-arrow:focus-visible .arrow {
   transform: translateX(4px);

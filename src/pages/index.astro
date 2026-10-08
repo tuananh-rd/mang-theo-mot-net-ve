@@ -71,7 +71,7 @@ const steps = [
       <ol class="steps">
         {
           steps.map((s, i) => (
-            <li class="step lift">
+            <li class={`step lift step--${['sun', 'rose', 'mint'][i]}`}>
               <div class="step-top">
                 <span class="step-icon"><Icon name={s.icon} size={30} /></span>
                 <span class="step-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
@@ -199,6 +199,7 @@ const steps = [
   }
 
   .step {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: var(--space-3);
@@ -206,6 +207,28 @@ const steps = [
     background: #ffffff;
     border: 1px solid var(--line);
     border-radius: var(--radius-lg);
+  }
+
+  /* Mũi tên nối giữa các bước (desktop) */
+  @media (min-width: 1024px) {
+    .step:not(:last-child)::after {
+      content: "→" / "";
+      position: absolute;
+      top: 50%;
+      right: -22px;
+      width: 32px;
+      height: 32px;
+      margin-top: -16px;
+      border-radius: 50%;
+      background: var(--cta);
+      color: var(--ink);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      box-shadow: 0 0 0 4px #ffffff;
+    }
   }
 
   .step-top {
@@ -217,18 +240,25 @@ const steps = [
   .step-icon {
     width: 60px;
     height: 60px;
-    border-radius: var(--radius-md);
-    background: var(--surface-alt);
-    color: var(--brand-ink);
+    border-radius: 50%;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: background-color var(--transition-normal), color var(--transition-normal);
   }
 
-  .step:hover .step-icon {
-    background: var(--brand-ink);
-    color: #ffffff;
+  .step--sun .step-icon { background: var(--tint-sun); color: var(--tint-sun-ink); }
+  .step--rose .step-icon { background: var(--tint-rose); color: var(--tint-rose-ink); }
+  .step--mint .step-icon { background: var(--tint-mint); color: var(--tint-mint-ink); }
+
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .step:hover .step-icon {
+      animation: pop 480ms var(--ease-out) 1;
+    }
+  }
+
+  @keyframes pop {
+    40% { transform: scale(1.12) rotate(-6deg); }
+    100% { transform: none; }
   }
 
   .step-num {
@@ -250,7 +280,13 @@ const steps = [
   }
 
   .donate-band {
-    background: var(--brand-ink);
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    background:
+      radial-gradient(40% 80% at 100% 0%, rgba(247, 201, 72, 0.16), transparent 70%),
+      radial-gradient(35% 70% at 0% 100%, rgba(138, 34, 52, 0.35), transparent 70%),
+      var(--brand-ink);
     padding-top: var(--space-section);
     padding-bottom: var(--space-section);
   }
@@ -299,6 +335,11 @@ const steps = [
     border: 1px solid rgba(255, 255, 255, 0.18);
     border-radius: var(--radius-lg);
     overflow: hidden;
+  }
+
+  .donate-stats {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(2px);
   }
 
   .donate-stats div {
