@@ -4,8 +4,10 @@ import PageHero from '../components/PageHero.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
 import DonationPanel from '../components/DonationPanel.astro';
 import DonationLedger from '../components/DonationLedger.astro';
-import { SUPPORT_FAQS, DONATION_ACCOUNT, DONATIONS } from '../data/campaign';
+import ContactCard from '../components/ContactCard.astro';
+import { SUPPORT_FAQS, DONATION_ACCOUNT, DONATION_LEDGER } from '../data/campaign';
 import { isDonationOpen } from '../lib/donations';
+import { formatVND } from '../lib/finance';
 
 const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Ủng hộ' }];
 const open = isDonationOpen(DONATION_ACCOUNT);
@@ -13,13 +15,13 @@ const open = isDonationOpen(DONATION_ACCOUNT);
 const steps = [
   { title: 'Chuyển khoản', text: 'Quét mã QR hoặc chuyển tới tài khoản của dự án, ghi nội dung theo hướng dẫn.' },
   { title: 'Nhóm đối soát', text: 'Hai thành viên tài chính đối chiếu từng khoản với sao kê ngân hàng.' },
-  { title: 'Công khai', text: 'Khoản của bạn xuất hiện trong bảng sao kê bên dưới, ai cũng kiểm tra được.' },
+  { title: 'Công khai', text: 'Khoản của bạn được đăng trong sao kê bên dưới sau lần đối soát kế tiếp.' },
   { title: 'Trao quà', text: 'Tiền dùng cho buổi chơi và quà theo danh mục Mái ấm cần; báo cáo cuối có hóa đơn.' },
 ];
 
 const otherWays = [
   { title: 'Mua quà lưu niệm', text: 'Chuồn chuồn tre và móc khóa do nhóm tự làm, khi mở bán.', href: '/san-pham', label: 'Xem quà lưu niệm' },
-  { title: 'Góp vật phẩm', text: 'Theo đúng danh mục Mái ấm xác nhận, để món đồ đến đúng nơi cần.', href: '/minh-bach', label: 'Xem kế hoạch sử dụng' },
+  { title: 'Góp vật phẩm', text: 'Theo đúng danh mục Mái ấm xác nhận; hãy liên hệ nhóm trước khi gửi.', href: '#lien-he', label: 'Liên hệ nhóm' },
   { title: 'Chia sẻ dự án', text: 'Gửi trang này tới bạn bè để nhiều người biết đến buổi chơi.', href: '/du-an/mang-theo-mot-net-ve', label: 'Đọc về dự án' },
 ];
 ---
@@ -35,8 +37,8 @@ const otherWays = [
     chip={open ? { kind: 'da-xac-nhan', label: 'Đang nhận ủng hộ' } : { kind: 'cho-xac-nhan', label: 'Sắp mở nhận ủng hộ' }}
     title="Ủng hộ một buổi chơi, một món quà"
     titleId="support-heading"
-    lead="Mỗi khoản ủng hộ được ghi công khai, đối soát với ngân hàng và dùng đúng cho các em tại Mái ấm."
-    description="Bạn chuyển khoản qua mã QR, nhóm đối soát rồi đăng lên bảng sao kê ngay tại trang này."
+    lead={`Mục tiêu gây quỹ ${formatVND(DONATION_ACCOUNT.goalAmount)} cho buổi chơi và quà tặng các em tại Mái ấm.`}
+    description="Chuyển khoản qua mã QR. Nhóm đối chiếu với sao kê ngân hàng rồi đăng từng khoản ngay tại trang này."
   />
 
   <section class="section section-first" aria-labelledby="donate-heading">
@@ -46,7 +48,21 @@ const otherWays = [
     </div>
   </section>
 
-  <section class="section section-soft" aria-labelledby="steps-heading">
+  <section class="section section-soft" aria-labelledby="ledger-heading" id="sao-ke">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">Sao kê</span>
+        <h2 id="ledger-heading">Tiến độ và danh sách ủng hộ</h2>
+        <p>Chỉ tính các khoản ủng hộ đã đối chiếu với ngân hàng; tiền bán quà lưu niệm ghi riêng. Chỉ hiển thị tên bạn chọn, số tiền, ngày và mã giao dịch rút gọn.</p>
+      </div>
+      <DonationLedger account={DONATION_ACCOUNT} ledger={DONATION_LEDGER} />
+      <div class="section-actions">
+        <a href="/minh-bach#quy-trinh" class="link-arrow">Xem quy trình đối soát và công bố <span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="steps-heading">
     <div class="container">
       <div class="section-header">
         <span class="eyebrow">Minh bạch từng khoản</span>
@@ -66,18 +82,7 @@ const otherWays = [
     </div>
   </section>
 
-  <section class="section" aria-labelledby="ledger-heading" id="sao-ke">
-    <div class="container">
-      <div class="section-header">
-        <span class="eyebrow">Sao kê</span>
-        <h2 id="ledger-heading">Danh sách người ủng hộ</h2>
-        <p>Chỉ hiển thị tên bạn chọn, số tiền, ngày và mã giao dịch rút gọn. Không hiển thị số tài khoản của người ủng hộ.</p>
-      </div>
-      <DonationLedger account={DONATION_ACCOUNT} entries={DONATIONS} />
-    </div>
-  </section>
-
-  <section class="section section-soft" aria-labelledby="ways-heading">
+  <section class="section section-soft" aria-labelledby="ways-heading" id="lien-he">
     <div class="container">
       <div class="section-header">
         <span class="eyebrow">Cách khác</span>
@@ -94,6 +99,9 @@ const otherWays = [
           ))
         }
       </ul>
+      <div class="contact-wrap reveal">
+        <ContactCard />
+      </div>
     </div>
   </section>
 
@@ -110,8 +118,8 @@ const otherWays = [
   <section class="cta-band" aria-labelledby="support-cta-heading">
     <div class="container cta-band-inner">
       <div class="cta-band-text">
-        <h2 id="support-cta-heading">Tiền được sử dụng thế nào?</h2>
-        <p>Kế hoạch chi cho buổi chơi, quà và báo cáo sau dự án.</p>
+        <h2 id="support-cta-heading">Nhóm quản lý tiền ủng hộ thế nào?</h2>
+        <p>Quy trình đối soát, công bố sao kê và xử lý khi có nhầm lẫn.</p>
       </div>
       <div class="cta-band-actions">
         <a href="/minh-bach" class="btn btn-primary">Xem minh bạch</a>
@@ -169,6 +177,10 @@ const otherWays = [
 
   .flow-text {
     margin: 0;
+  }
+
+  .contact-wrap {
+    margin-top: var(--space-6);
   }
 
   .ways {

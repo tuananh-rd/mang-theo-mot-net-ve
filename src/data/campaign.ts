@@ -73,8 +73,8 @@ export const CAMPAIGN_PROJECT: Project = {
   summary:
     'Bảy sinh viên Đại học FPT Hà Nội sẽ tổ chức một buổi vui chơi sáng tạo cho các em tại Mái ấm Thánh Tâm Xuy Xá, và gây quỹ để tặng những vật phẩm Mái ấm đang cần.',
   location: 'Mái ấm Thánh Tâm Xuy Xá (Mỹ Đức, Hà Nội) & Campus FPT Hòa Lạc',
-  executionStatus: 'unknown',
-  statusNotice: 'Trạng thái thực tế chưa được xác nhận',
+  executionStatus: 'in_progress',
+  statusNotice: 'Đang triển khai · tuần 1',
   previewNotice: 'Bản xem trước — nội dung theo đề xuất Final, chờ xác nhận.',
   activities: [
     {
@@ -117,19 +117,19 @@ export const CAMPAIGN_PROJECT: Project = {
       step: '02',
       title: 'Gây quỹ',
       description:
-        'Nhận ủng hộ trực tuyến và bán quà lưu niệm thủ công; mọi khoản được ghi sổ và công khai.',
+        'Nhận ủng hộ qua chuyển khoản và bán quà lưu niệm; khoản ủng hộ đăng sao kê sau khi đối soát.',
     },
     {
       step: '03',
       title: 'Buổi chơi tại Mái ấm',
       description:
-        'Khoảng 180 phút với bốn góc hoạt động và hai lần nghỉ; có thể rút ngắn theo ý Mái ấm.',
+        '14:00 Thứ Bảy 24/10/2026 (dự kiến). Bốn góc hoạt động, có hai lần nghỉ; có thể rút ngắn theo ý Mái ấm.',
     },
     {
       step: '04',
       title: 'Đối soát và trao quà',
       description:
-        'Chốt quỹ, mua vật phẩm theo danh mục Mái ấm xác nhận, trao tặng và công bố kết quả.',
+        '14:00 Thứ Bảy 31/10/2026 (dự kiến). Chốt quỹ, mua vật phẩm theo danh mục Mái ấm xác nhận và trao tặng.',
     },
   ],
 };
@@ -543,7 +543,7 @@ export const PLAY_FLOW: PlayPhase[] = [
 export const SALES_PLAN: string[] = [
   'Nhóm mở đặt trước, sau đó bán trực tiếp tại quầy ở FPT Hòa Lạc khi được cho phép.',
   'Mẫu, giá chính thức và lịch nhận hàng sẽ được công bố tại trang này khi mở bán.',
-  'Tiền bán quà được ghi sổ cùng các khoản ủng hộ và công khai sau dự án.',
+  'Tiền bán quà ghi sổ riêng, không cộng vào tổng ủng hộ; công khai trong báo cáo cuối.',
 ];
 
 /** Nguyên tắc tiếp nhận hỗ trợ. */
@@ -1160,20 +1160,33 @@ export const ACTUAL_FINANCE: ActualFinanceReport = {
     'Số liệu thực tế sẽ được cập nhật sau khi hoàn tất đối soát chéo độc lập, biên tập bảo vệ riêng tư và được cấp quyền công bố.',
 };
 
-export interface OfficialContact {
-  email: string | null;
-  phone: string | null;
-  representative: string | null;
-  status: 'unconfirmed' | 'confirmed';
-  notice: string;
+export interface ContactPerson {
+  name: string;
+  role: string;
+  /** Số hiển thị */
+  phone: string;
+  /** Dạng E.164 dùng cho href tel: */
+  phoneE164: string;
 }
 
+export interface OfficialContact {
+  status: 'unconfirmed' | 'confirmed';
+  people: ContactPerson[];
+  fanpageUrl: string | null;
+  sourceRef: string;
+  updatedAt: string;
+}
+
+/** Liên hệ do chủ dự án cung cấp trong tài liệu bổ sung C07 (09/10/2026). */
 export const OFFICIAL_CONTACT: OfficialContact = {
-  email: null,
-  phone: null,
-  representative: null,
-  status: 'unconfirmed',
-  notice: 'Kênh liên hệ chính thức chưa được xác nhận. Thông tin sẽ được cập nhật sau khi được phép công bố.',
+  status: 'confirmed',
+  people: [
+    { name: 'Nguyễn Chí Trung', role: 'Trưởng dự án', phone: '0984 441 726', phoneE164: '+84984441726' },
+    { name: 'Lê Tuấn Anh', role: 'Đại diện đối ngoại', phone: '0343 999 199', phoneE164: '+84343999199' },
+  ],
+  fanpageUrl: 'https://www.facebook.com/mangtheomotnetve',
+  sourceRef: 'supplement-c07:muc-6',
+  updatedAt: '2026-10-09',
 };
 
 export interface SupportWorkflowStep {
@@ -1210,18 +1223,24 @@ export interface SupportFaq {
 
 export const SUPPORT_FAQS: SupportFaq[] = [
   {
-    question: 'Làm sao để tên tôi xuất hiện trong bảng sao kê?',
+    question: 'Làm sao để tên tôi xuất hiện trong sao kê?',
     answer:
-      'Ghi nội dung chuyển khoản theo hướng dẫn kèm tên bạn muốn hiển thị. Nếu muốn ẩn danh, ghi “Ẩn danh”. Nhóm chỉ hiển thị tên, số tiền, ngày và mã giao dịch rút gọn, không hiển thị số tài khoản của bạn.',
+      'Ghi nội dung chuyển khoản theo mẫu MTMNV và tên bạn muốn hiển thị. Nếu không ghi tên hoặc ghi “An danh”, khoản ủng hộ hiển thị là Ẩn danh. Website không hiển thị số tài khoản hay thông tin ngân hàng của người gửi.',
   },
   {
-    question: 'Bao lâu thì khoản ủng hộ được cập nhật?',
-    answer: 'Sau mỗi lần hai thành viên tài chính đối chiếu với sao kê ngân hàng. Ngày cập nhật gần nhất luôn ghi ở đầu bảng.',
+    question: 'Khi nào khoản ủng hộ của tôi được cập nhật?',
+    answer:
+      'Sau mỗi lần hai thành viên tài chính đối chiếu với sao kê ngân hàng. Website không kết nối tự động với ngân hàng, nên ngày đối soát gần nhất luôn ghi ở đầu bảng; khoản mới chuyển có thể chưa xuất hiện ngay.',
+  },
+  {
+    question: 'Tôi chuyển nhầm số tiền hoặc chuyển trùng thì sao?',
+    answer:
+      'Hãy liên hệ một trong hai số điện thoại của nhóm kèm thời gian và mã giao dịch. Nhóm đối chiếu với sao kê và hoàn lại nếu bạn yêu cầu; khoản đã hoàn không được tính vào tổng ủng hộ.',
   },
   {
     question: 'Tiền ủng hộ được dùng vào việc gì?',
     answer:
-      'Cho vật tư buổi chơi, quà và di chuyển theo kế hoạch; phần còn lại mua vật phẩm theo danh mục Mái ấm xác nhận. Hóa đơn và biên bản bàn giao được công khai ở trang Minh bạch.',
+      'Cho vật tư buổi chơi, quà cho các em và di chuyển; phần còn lại mua vật phẩm theo danh mục Mái ấm xác nhận, có hóa đơn và biên bản bàn giao.',
   },
   {
     question: 'Tôi có thể cùng đến Mái ấm không?',
@@ -1236,17 +1255,22 @@ export interface TransparencyFaq {
 
 export const TRANSPARENCY_FAQS: TransparencyFaq[] = [
   {
-    question: 'Tôi kiểm tra khoản ủng hộ của mình ở đâu?',
-    answer: 'Trong bảng sao kê ở trang Ủng hộ. Mỗi dòng có ngày, tên hiển thị, số tiền và mã giao dịch rút gọn để bạn đối chiếu với lịch sử chuyển khoản.',
+    question: 'Vì sao tổng ủng hộ đang ghi “Chưa cập nhật”?',
+    answer:
+      'Tổng chỉ được tính từ sổ đã đối chiếu với sao kê ngân hàng. Khi nhóm chưa công bố sổ đã đối soát, website không hiển thị con số, kể cả 0đ, để tránh hiểu sai là chưa nhận được khoản nào.',
   },
   {
-    question: 'Nếu tiền ủng hộ dư hoặc thiếu so với kế hoạch?',
+    question: 'Tiền bán quà lưu niệm có cộng vào tổng ủng hộ không?',
+    answer: 'Không. Thanh tiến độ chỉ tính các khoản ủng hộ qua tài khoản dự án đã đối soát. Tiền bán quà được ghi riêng.',
+  },
+  {
+    question: 'Nếu ủng hộ vượt mục tiêu 3.000.000đ?',
     answer:
-      'Nhóm chỉ chi trong số tiền thực có, không ai ứng tiền cá nhân. Phần dư sau chi phí được dùng mua thêm vật phẩm theo danh mục Mái ấm xác nhận và ghi rõ trong báo cáo cuối.',
+      'Website vẫn ghi đúng tổng thực tế. Phần vượt được dùng mua thêm vật phẩm theo danh mục Mái ấm xác nhận và ghi rõ trong báo cáo cuối.',
   },
   {
     question: 'Khi nào có báo cáo cuối?',
-    answer: 'Sau buổi trao quà và khi hai thành viên tài chính đối soát xong. Hóa đơn, chứng từ chỉ công bố bản đã che thông tin riêng tư.',
+    answer: 'Sau buổi trao quà và khi hai thành viên tài chính đối soát xong. Chứng từ chỉ công bố bản đã che thông tin riêng tư.',
   },
 ];
 
@@ -1259,33 +1283,34 @@ export const TRANSPARENCY_FAQS: TransparencyFaq[] = [
  * ------------------------------------------------------------------ */
 
 export interface DonationAccount {
-  /** 'active' chỉ khi đã có đủ thông tin thật và nhóm đồng ý công bố */
+  /** 'active' khi đã có đủ thông tin tài khoản thật do nhóm cung cấp */
   status: 'pending' | 'active';
   bankName: string | null;
   accountNumber: string | null;
   accountHolder: string | null;
-  /** Đường dẫn ảnh QR trong public/, ví dụ '/images/ung-ho/qr.png' */
+  /** Đường dẫn ảnh QR trong public/ */
   qrImage: string | null;
   /** Tiền tố nội dung chuyển khoản để nhận diện khoản ủng hộ dự án */
   transferPrefix: string;
-  /** Ngày đối soát sao kê gần nhất, dạng YYYY-MM-DD */
-  ledgerUpdatedAt: string | null;
+  /** Mục tiêu gây quỹ (VND), do chủ dự án duyệt */
+  goalAmount: number | null;
 }
 
+/** Tài khoản do chủ dự án cung cấp trong tài liệu bổ sung C07 (09/10/2026); mục tiêu 3.000.000đ duyệt cùng ngày. */
 export const DONATION_ACCOUNT: DonationAccount = {
-  status: 'pending',
-  bankName: null,
-  accountNumber: null,
-  accountHolder: null,
-  qrImage: null,
+  status: 'active',
+  bankName: 'Techcombank',
+  accountNumber: '999927052006',
+  accountHolder: 'LE TUAN ANH',
+  qrImage: '/images/ung-ho/qr-ung-ho-techcombank.png',
   transferPrefix: 'MTMNV',
-  ledgerUpdatedAt: null,
+  goalAmount: 3000000,
 };
 
 export interface DonationEntry {
   /** Ngày nhận theo sao kê ngân hàng, dạng YYYY-MM-DD */
   date: string;
-  /** Tên người ủng hộ muốn hiển thị, hoặc 'Ẩn danh' */
+  /** Tên người ủng hộ đồng ý hiển thị, hoặc 'Ẩn danh' */
   donor: string;
   /** Số tiền VND, số nguyên dương */
   amount: number;
@@ -1293,5 +1318,123 @@ export interface DonationEntry {
   reference: string | null;
 }
 
-/** Sao kê ủng hộ đã đối soát. Để trống cho tới khi có giao dịch thật. */
-export const DONATIONS: DonationEntry[] = [];
+export interface DonationLedger {
+  /**
+   * true chỉ khi hai thành viên tài chính đã đối chiếu sổ với sao kê ngân hàng tới ngày reconciledAt.
+   * false: chưa có sổ đã đối soát — tổng phải hiển thị "Chưa cập nhật", KHÔNG được hiểu là 0đ.
+   */
+  reconciled: boolean;
+  /** Ngày đối soát gần nhất (YYYY-MM-DD); bắt buộc khi reconciled = true */
+  reconciledAt: string | null;
+  /** Các khoản đã đối soát. Không thêm khoản chưa đối chiếu hoặc khoản bán quà lưu niệm. */
+  entries: DonationEntry[];
+}
+
+/**
+ * Sổ ủng hộ. Tài liệu bổ sung chưa có sao kê, nên chưa có sổ đã đối soát.
+ * Sổ trống ở đây không chứng minh chưa nhận được tiền.
+ */
+export const DONATION_LEDGER: DonationLedger = {
+  reconciled: false,
+  reconciledAt: null,
+  entries: [],
+};
+
+export interface ProjectProgress {
+  currentWeek: number;
+  totalWeeks: number;
+  /** Ngày nhóm cập nhật tiến độ; không tự đổi theo đồng hồ */
+  updatedAt: string;
+  /** Chỉ số giai đoạn hiện tại trong CAMPAIGN_PROJECT.plannedStages (0-based) */
+  currentStageIndex: number;
+}
+
+export const PROJECT_PROGRESS: ProjectProgress = {
+  currentWeek: 1,
+  totalWeeks: 5,
+  updatedAt: '2026-10-09',
+  currentStageIndex: 0,
+};
+
+export interface PlannedSession {
+  id: string;
+  title: string;
+  date: string;
+  time: string;
+  weekday: string;
+  description: string;
+}
+
+/** Lịch hai buổi tại Mái ấm theo nhóm cung cấp (tài liệu bổ sung C07, mục 4). */
+export const PLANNED_SESSIONS: PlannedSession[] = [
+  {
+    id: 'buoi-choi',
+    title: 'Buổi chơi tại Mái ấm',
+    date: '2026-10-24',
+    time: '14:00',
+    weekday: 'Thứ Bảy',
+    description: 'Bốn góc hoạt động, khoảng 180 phút, có hai lần nghỉ.',
+  },
+  {
+    id: 'trao-qua',
+    title: 'Gặp lại và trao quà',
+    date: '2026-10-31',
+    time: '14:00',
+    weekday: 'Thứ Bảy',
+    description: 'Trao vật phẩm theo danh mục Mái ấm xác nhận, khoảng 30–45 phút.',
+  },
+];
+
+export interface TeamMember {
+  name: string;
+  role: string;
+  photo: string;
+  description: string;
+}
+
+/** Bảy thành viên và ảnh do chủ dự án cung cấp (tài liệu bổ sung C07, map theo từng đoạn). */
+export const TEAM_MEMBERS: TeamMember[] = [
+  { name: 'Nguyễn Chí Trung', role: 'Trưởng dự án', photo: '/images/thanh-vien/nguyen-chi-trung.webp', description: 'Lên lịch, theo dõi tiến độ và điều phối hoạt động của nhóm.' },
+  { name: 'Nguyễn Ngọc Khoa', role: 'Tài chính', photo: '/images/thanh-vien/nguyen-ngoc-khoa.webp', description: 'Giữ sổ ủng hộ, đối chiếu sao kê và mua quà theo danh mục.' },
+  { name: 'Nguyễn Như Huy', role: 'Hậu cần', photo: '/images/thanh-vien/nguyen-nhu-huy.webp', description: 'Chuẩn bị vật tư, đạo cụ và chương trình buổi chơi.' },
+  { name: 'Trịnh Hiển Lân', role: 'Truyền thông', photo: '/images/thanh-vien/trinh-hien-lan.webp', description: 'Viết bài, quản lý lịch đăng và hình ảnh đúng phạm vi cho phép.' },
+  { name: 'Trần Bình Trọng', role: 'Thiết kế', photo: '/images/thanh-vien/tran-binh-trong.webp', description: 'Thiết kế ấn phẩm, poster và nhận diện của dự án.' },
+  { name: 'Lê Tuấn Anh', role: 'Đối ngoại', photo: '/images/thanh-vien/le-tuan-anh.webp', description: 'Làm việc với Mái ấm và các đơn vị hỗ trợ.' },
+  { name: 'Nguyễn Anh Khoa', role: 'Hậu cần', photo: '/images/thanh-vien/nguyen-anh-khoa.webp', description: 'Chuẩn bị quà lưu niệm, quầy và di chuyển.' },
+];
+
+export interface ProcessStep {
+  title: string;
+  description: string;
+}
+
+/**
+ * Quy trình quản lý và công bố tiền ủng hộ. Nhóm giao cho Claude đề xuất (tài liệu bổ sung C07, mục 2);
+ * đây là quy trình áp dụng của dự án, không phải mô tả việc đã thực hiện.
+ */
+export const LEDGER_PROCESS: ProcessStep[] = [
+  {
+    title: 'Một tài khoản riêng cho dự án',
+    description: 'Mọi khoản ủng hộ chuyển vào tài khoản Techcombank đã công bố, nội dung bắt đầu bằng MTMNV để dễ nhận diện.',
+  },
+  {
+    title: 'Hai người đối chiếu',
+    description: 'Thành viên tài chính và một thành viên khác cùng đối chiếu từng khoản với sao kê ngân hàng trước khi ghi sổ.',
+  },
+  {
+    title: 'Ghi sổ tối thiểu',
+    description: 'Mỗi dòng gồm ngày, số tiền, mã giao dịch rút gọn và tên người ủng hộ đồng ý hiển thị; không ghi tên thì để Ẩn danh.',
+  },
+  {
+    title: 'Chỉ công bố sau đối soát',
+    description: 'Sổ được cập nhật lên website định kỳ sau mỗi lần đối soát, kèm ngày đối soát thật. Website không kết nối tự động với ngân hàng.',
+  },
+  {
+    title: 'Xử lý nhầm, trùng, hoàn tiền',
+    description: 'Mỗi mã giao dịch chỉ ghi một lần. Khoản chuyển nhầm được hoàn lại theo yêu cầu và không tính vào tổng; chỉnh sửa được ghi chú ở lần cập nhật sau.',
+  },
+  {
+    title: 'Tôn trọng riêng tư',
+    description: 'Không công khai số tài khoản, ngân hàng hay thông tin cá nhân của người gửi; chứng từ chỉ công bố bản đã che thông tin.',
+  },
+];

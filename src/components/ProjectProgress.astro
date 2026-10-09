@@ -1,0 +1,238 @@
+---
+import { CAMPAIGN_PROJECT, PROJECT_PROGRESS, PLANNED_SESSIONS } from '../data/campaign';
+import { formatViDate } from '../lib/donations';
+
+interface Props {
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
+const { currentWeek, totalWeeks, updatedAt, currentStageIndex } = PROJECT_PROGRESS;
+const stages = CAMPAIGN_PROJECT.plannedStages;
+const weeks = Array.from({ length: totalWeeks }, (_, i) => i + 1);
+const sessionByStage: Record<number, (typeof PLANNED_SESSIONS)[number] | undefined> = {
+  2: PLANNED_SESSIONS.find((s) => s.id === 'buoi-choi'),
+  3: PLANNED_SESSIONS.find((s) => s.id === 'trao-qua'),
+};
+const shortDate = (iso: string) => formatViDate(iso).slice(0, 5);
+---
+
+<div class:list={['progress', { 'progress--compact': compact }]}>
+  <div class="progress-head">
+    <p class="progress-now">
+      <span class="pulse" aria-hidden="true"></span>
+      Đang ở <strong>tuần {currentWeek}</strong> trong khoảng {totalWeeks} tuần
+    </p>
+    <p class="progress-updated">Cập nhật {formatViDate(updatedAt)}</p>
+  </div>
+
+  <ol class="weeks" aria-label={`Tuần ${currentWeek} trên khoảng ${totalWeeks} tuần`}>
+    {
+      weeks.map((w) => (
+        <li class:list={['week', { 'is-current': w === currentWeek, 'is-past': w < currentWeek }]} aria-current={w === currentWeek ? 'step' : undefined}>
+          <span class="sr-only">{w === currentWeek ? `Tuần ${w}, đang diễn ra` : w < currentWeek ? `Tuần ${w}, đã qua` : `Tuần ${w}, dự kiến`}</span>
+        </li>
+      ))
+    }
+  </ol>
+
+  {!compact && (
+    <ol class="stages">
+      {stages.map((s, i) => {
+        const state = i < currentStageIndex ? 'past' : i === currentStageIndex ? 'current' : 'next';
+        const session = sessionByStage[i];
+        return (
+          <li class:list={['stage', `stage--${state}`]}>
+            <span class="stage-dot" aria-hidden="true">{s.step}</span>
+            <div class="stage-text">
+              <span class="stage-tag">
+                {state === 'current' ? 'Đang thực hiện' : state === 'past' ? 'Đã xong' : session ? `${session.time} · ${session.weekday} ${shortDate(session.date)}` : 'Dự kiến'}
+              </span>
+              <span class="stage-title">{s.title}</span>
+            </div>
+          </li>
+        );
+      })}
+    </ol>
+  )}
+</div>
+
+<style>
+  .progress {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    padding: var(--space-6);
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+  }
+
+  .progress--compact {
+    padding: var(--space-4) var(--space-5);
+    gap: var(--space-3);
+  }
+
+  .progress-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+
+  .progress-now {
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .progress-updated {
+    margin: 0;
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-small);
+  }
+
+  .pulse {
+    position: relative;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--status-confirmed-text);
+    flex-shrink: 0;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .pulse::after {
+      content: "";
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 2px solid var(--status-confirmed-text);
+      opacity: 0;
+      animation: ping 1.6s var(--ease-out) 3;
+    }
+  }
+
+  @keyframes ping {
+    0% { transform: scale(0.6); opacity: 0.8; }
+    100% { transform: scale(1.6); opacity: 0; }
+  }
+
+  /* Thanh tuần: đánh dấu vị trí, không thể hiện % khối lượng việc */
+  .weeks {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  .week {
+    height: 10px;
+    border-radius: var(--radius-pill);
+    background: var(--surface-alt);
+    border: 1px dashed var(--line-strong);
+  }
+
+  .week.is-past {
+    background: var(--brand-ink);
+    border-style: solid;
+    border-color: var(--brand-ink);
+  }
+
+  .week.is-current {
+    background: var(--cta);
+    border: 1px solid var(--ink);
+  }
+
+  .stages {
+    list-style: none;
+    margin: var(--space-2) 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-4);
+  }
+
+  .stage {
+    display: flex;
+    gap: var(--space-3);
+    align-items: flex-start;
+  }
+
+  .stage-dot {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px dashed var(--line-strong);
+    color: var(--ink-2);
+    font-weight: 700;
+    font-size: var(--font-size-small);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: #ffffff;
+  }
+
+  .stage--current .stage-dot {
+    border: 2px solid var(--ink);
+    background: var(--cta);
+    color: var(--ink);
+  }
+
+  .stage--past .stage-dot {
+    border: 2px solid var(--brand-ink);
+    background: var(--brand-ink);
+    color: #ffffff;
+  }
+
+  .stage-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .stage-tag {
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-small);
+    font-weight: 600;
+    color: var(--status-plan-text);
+  }
+
+  .stage--current .stage-tag {
+    color: var(--status-confirmed-text);
+  }
+
+  .stage-title {
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.35;
+  }
+
+  .stage--next .stage-title {
+    color: var(--ink-2);
+  }
+
+  @media (max-width: 1023px) {
+    .stages {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 767px) {
+    .progress {
+      padding: var(--space-4);
+    }
+
+    .stages {
+      grid-template-columns: 1fr;
+      gap: var(--space-3);
+    }
+  }
+</style>

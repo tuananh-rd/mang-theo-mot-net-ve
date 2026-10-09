@@ -4,28 +4,30 @@ import Hero from '../components/Hero.astro';
 import ActivityList from '../components/ActivityList.astro';
 import StatusChip from '../components/StatusChip.astro';
 import Icon from '../components/Icon.astro';
-import { CAMPAIGN_PROJECT, TEAM_INFO, DONATION_ACCOUNT, DONATIONS } from '../data/campaign';
-import { isDonationOpen, summarizeDonations } from '../lib/donations';
+import GoalProgress from '../components/GoalProgress.astro';
+import ProjectProgress from '../components/ProjectProgress.astro';
+import { CAMPAIGN_PROJECT, TEAM_INFO, DONATION_ACCOUNT, DONATION_LEDGER, PLANNED_SESSIONS, TEAM_MEMBERS } from '../data/campaign';
+import { summarizeLedger, formatViDate } from '../lib/donations';
 import { formatVND } from '../lib/finance';
 
-const donationOpen = isDonationOpen(DONATION_ACCOUNT);
-const donationSummary = summarizeDonations(DONATIONS, donationOpen);
+const donationSummary = summarizeLedger(DONATION_LEDGER, DONATION_ACCOUNT.goalAmount);
+const sessionText = PLANNED_SESSIONS.map((s) => formatViDate(s.date).slice(0, 5)).join(' và ');
 
 const steps = [
   {
     icon: 'moc-khoa' as const,
     title: 'Gây quỹ',
-    text: 'Nhận ủng hộ trực tuyến và bán quà lưu niệm do nhóm tự làm. Mọi khoản được ghi sổ và công khai.',
+    text: `Mục tiêu ${formatVND(DONATION_ACCOUNT.goalAmount)} từ ủng hộ qua chuyển khoản, cùng quà lưu niệm do nhóm tự làm. Sao kê đăng sau khi đối soát.`,
   },
   {
     icon: 'chuon-chuon' as const,
     title: 'Một buổi chơi tại Mái ấm',
-    text: 'Khoảng 180 phút với bốn góc hoạt động. Em nào cũng chọn được cách chơi phù hợp, hoặc ngồi xem, nghỉ ngơi.',
+    text: 'Chiều Thứ Bảy 24/10, khoảng 180 phút với bốn góc hoạt động. Em nào cũng chọn được cách chơi phù hợp, hoặc ngồi xem, nghỉ ngơi.',
   },
   {
     icon: 'banh' as const,
     title: 'Trao quà đúng nhu cầu',
-    text: 'Quỹ được dùng mua vật phẩm theo danh mục Mái ấm xác nhận, kèm hóa đơn và biên bản bàn giao.',
+    text: 'Chiều Thứ Bảy 31/10, trao vật phẩm theo danh mục Mái ấm xác nhận, kèm hóa đơn và biên bản bàn giao.',
   },
 ];
 ---
@@ -49,12 +51,12 @@ const steps = [
           <dd>Các em và các cụ tại Mái ấm Thánh Tâm Xuy Xá</dd>
         </div>
         <div class="fact">
-          <dt>Thời gian</dt>
-          <dd>Khoảng 5 tuần, 2 buổi tại Mái ấm</dd>
+          <dt>Hai buổi tại Mái ấm</dt>
+          <dd>14:00 Thứ Bảy, {sessionText}/2026</dd>
         </div>
         <div class="fact">
           <dt>Trạng thái</dt>
-          <dd><StatusChip kind="cho-xac-nhan" label="Đang chờ Mái ấm xác nhận lịch" /></dd>
+          <dd><StatusChip kind="da-xac-nhan" label={CAMPAIGN_PROJECT.statusNotice} /></dd>
         </div>
       </dl>
     </div>
@@ -85,7 +87,17 @@ const steps = [
     </div>
   </section>
 
-  <section class="section section-soft" aria-labelledby="play-heading">
+  <section class="section section-soft section-tight" aria-labelledby="progress-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">Tiến độ</span>
+        <h2 id="progress-heading">Dự án đang ở đâu</h2>
+      </div>
+      <div class="reveal"><ProjectProgress /></div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="play-heading">
     <div class="container">
       <div class="section-header">
         <span class="eyebrow">Buổi chơi</span>
@@ -107,23 +119,16 @@ const steps = [
         <span class="eyebrow eyebrow--light">Ủng hộ</span>
         <h2 id="donate-heading">Cùng góp một món quà</h2>
         <p>
-          Chuyển khoản qua mã QR. Mỗi khoản được đối soát với ngân hàng và đăng công khai trong bảng sao kê, ai cũng kiểm tra được.
+          Mục tiêu {formatVND(DONATION_ACCOUNT.goalAmount)} cho buổi chơi và quà tặng. Chuyển khoản qua mã QR; mỗi khoản được đối chiếu với ngân hàng rồi đăng công khai trong sao kê.
         </p>
         <div class="donate-actions">
           <a href="/dong-hanh" class="btn btn-primary">Ủng hộ dự án</a>
           <a href="/dong-hanh#sao-ke" class="link-arrow link-arrow--light">Xem sao kê <span class="arrow" aria-hidden="true">→</span></a>
         </div>
       </div>
-      <dl class="donate-stats">
-        <div>
-          <dt>Tổng đã nhận</dt>
-          <dd>{donationSummary.total === null ? 'Sắp mở' : formatVND(donationSummary.total)}</dd>
-        </div>
-        <div>
-          <dt>Lượt ủng hộ</dt>
-          <dd>{donationSummary.count === null ? '—' : donationSummary.count}</dd>
-        </div>
-      </dl>
+      <div class="donate-stats">
+        <GoalProgress summary={donationSummary} tone="dark" />
+      </div>
     </div>
   </section>
 
@@ -134,7 +139,12 @@ const steps = [
         <div class="home-col">
           <span class="eyebrow">Nhóm thực hiện</span>
           <h3 class="block-title">Lăng Kính — 7 sinh viên FPT Hà Nội</h3>
-          <p>Năm mảng việc từ điều phối, tài chính, hậu cần đến truyền thông. Hai thành viên đối soát mọi khoản thu chi.</p>
+          <p>Bảy sinh viên lớp {TEAM_INFO.classId} phụ trách điều phối, tài chính, hậu cần, truyền thông, thiết kế và đối ngoại.</p>
+          <ul class="mini-team" aria-label="Thành viên nhóm">
+            {TEAM_MEMBERS.map((m) => (
+              <li><img src={m.photo} alt={m.name} width="48" height="60" loading="lazy" decoding="async" /></li>
+            ))}
+          </ul>
           <a href="/ve-nhom" class="link-arrow">Về nhóm <span class="arrow" aria-hidden="true">→</span></a>
         </div>
         <div class="home-col">
@@ -329,45 +339,32 @@ const steps = [
   }
 
   .donate-stats {
-    margin: 0;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: var(--space-6);
     border: 1px solid rgba(255, 255, 255, 0.18);
     border-radius: var(--radius-lg);
-    overflow: hidden;
-  }
-
-  .donate-stats {
     background: rgba(255, 255, 255, 0.04);
-    backdrop-filter: blur(2px);
   }
 
-  .donate-stats div {
-    padding: var(--space-6);
+  .mini-team {
+    list-style: none;
+    margin: var(--space-2) 0 var(--space-1);
+    padding: 0;
     display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
   }
 
-  .donate-stats div + div {
-    border-left: 1px solid rgba(255, 255, 255, 0.18);
+  .mini-team li + li {
+    margin-left: -10px;
   }
 
-  .donate-stats dt {
-    font-size: var(--font-size-small);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: #c9d2dc;
-  }
-
-  .donate-stats dd {
-    margin: 0;
-    font-size: var(--font-size-num-xl);
-    line-height: var(--line-height-num-xl);
-    font-weight: 700;
-    color: #ffffff;
-    font-variant-numeric: tabular-nums;
+  .mini-team img {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    object-position: 50% 20%;
+    border-radius: 50%;
+    border: 3px solid #ffffff;
+    box-shadow: var(--shadow-subtle);
+    display: block;
   }
 
   .home-col {
@@ -453,7 +450,7 @@ const steps = [
       width: 100%;
     }
 
-    .donate-stats div {
+    .donate-stats {
       padding: var(--space-4);
     }
   }

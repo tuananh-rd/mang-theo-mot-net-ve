@@ -1,13 +1,14 @@
 ---
-import { DONATION_ACCOUNT } from '../data/campaign';
-import { isDonationOpen } from '../lib/donations';
+import { DONATION_ACCOUNT, OFFICIAL_CONTACT, CAMPAIGN_PROJECT, PROJECT_PROGRESS } from '../data/campaign';
+import { isDonationOpen, formatViDate } from '../lib/donations';
 
 const donationOpen = isDonationOpen(DONATION_ACCOUNT);
+const contactReady = OFFICIAL_CONTACT.status === 'confirmed';
 const navLinks = [
   { href: '/', label: 'Trang chủ' },
   { href: '/du-an/mang-theo-mot-net-ve', label: 'Dự án' },
   { href: '/san-pham', label: 'Quà lưu niệm' },
-  { href: '/minh-bach', label: 'Minh bạch thu chi' },
+  { href: '/minh-bach', label: 'Minh bạch' },
   { href: '/ve-nhom', label: 'Về nhóm Lăng Kính' },
   { href: '/dong-hanh', label: 'Ủng hộ dự án' },
 ];
@@ -52,21 +53,34 @@ const navLinks = [
         </ul>
       </nav>
 
-      <!-- Vùng 3: Trạng thái & giới hạn website -->
+      <!-- Vùng 3: Trạng thái & liên hệ -->
       <div class="footer-notes">
-        <h3 class="footer-nav-title">Trạng thái website</h3>
+        <h3 class="footer-nav-title">Liên hệ</h3>
+        {contactReady && (
+          <ul class="footer-contacts">
+            {OFFICIAL_CONTACT.people.map((p) => (
+              <li>
+                <span class="footer-contact-role">{p.role} · {p.name}</span>
+                <a class="footer-link footer-tel" href={`tel:${p.phoneE164}`}>{p.phone}</a>
+              </li>
+            ))}
+            {OFFICIAL_CONTACT.fanpageUrl && (
+              <li>
+                <a class="footer-link" href={OFFICIAL_CONTACT.fanpageUrl} target="_blank" rel="noopener noreferrer">
+                  Fanpage Facebook ↗<span class="sr-only"> (mở trong thẻ mới)</span>
+                </a>
+              </li>
+            )}
+          </ul>
+        )}
         <ul class="footer-status-list">
           <li class="status-item">
             <span class="status-bullet" aria-hidden="true">•</span>
-            <span>Bản xem trước</span>
+            <span>{CAMPAIGN_PROJECT.statusNotice} (cập nhật {formatViDate(PROJECT_PROGRESS.updatedAt)})</span>
           </li>
           <li class="status-item">
             <span class="status-bullet" aria-hidden="true">•</span>
-            <span>{donationOpen ? 'Nhận ủng hộ qua chuyển khoản, sao kê công khai' : 'Chưa mở nhận ủng hộ qua website'}</span>
-          </li>
-          <li class="status-item">
-            <span class="status-bullet" aria-hidden="true">•</span>
-            <span>Kênh liên hệ: chờ xác nhận</span>
+            <span>{donationOpen ? 'Nhận ủng hộ qua chuyển khoản; sao kê đăng sau đối soát' : 'Website chưa công bố tài khoản nhận ủng hộ'}</span>
           </li>
         </ul>
       </div>
@@ -185,6 +199,28 @@ const navLinks = [
 
   .footer-link:focus-visible {
     outline-color: #ffffff;
+  }
+
+  .footer-contacts {
+    list-style: none;
+    margin: 0 0 var(--space-4);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .footer-contact-role {
+    display: block;
+    font-size: 0.875rem;
+    color: #c9d2dc;
+  }
+
+  .footer-tel {
+    min-height: 36px;
+    color: #ffffff;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
   }
 
   .footer-status-list {

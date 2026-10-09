@@ -24,15 +24,43 @@ const iconFor: Record<string, IconName> = {
 };
 
 const rows = buildProductCatalog(products);
+
+/** Ảnh do nhóm cung cấp (tài liệu bổ sung C07). Chỉ là ảnh tham khảo, chưa phải mẫu nhóm đã hoàn thiện. */
+const photoFor: Record<string, { src: string; width: number; height: number; alt: string; caption: string }> = {
+  'chuon-chuon-tre-kem-de': {
+    src: '/images/san-pham/chuon-chuon-tre.webp',
+    width: 1117,
+    height: 541,
+    alt: 'Những chú chuồn chuồn tre sơn nhiều màu đặt trên khay mây, có chân đế',
+    caption: 'Ảnh chuồn chuồn tre do nhóm cung cấp để tham khảo; mẫu thực tế có thể khác.',
+  },
+};
+const pendingNote: Record<string, string> = {
+  'moc-khoa': 'Chưa có ảnh mẫu: móc khóa sẽ in tranh các em vẽ, chỉ khi có sự đồng ý phù hợp.',
+};
 ---
 
 <ul class:list={['product-grid', `product-grid--${variant}`]}>
   {
     rows.map((r) => (
-      <li class="product">
-        <span class="product-icon">
-          <Icon name={iconFor[r.product.id] ?? 'combo'} size={variant === 'compact' ? 26 : 30} />
-        </span>
+      <li class:list={['product', { 'product--photo': variant === 'full' && photoFor[r.product.id] }]}>
+        {variant === 'full' && photoFor[r.product.id] ? (
+          <figure class="product-figure">
+            <img
+              src={photoFor[r.product.id].src}
+              alt={photoFor[r.product.id].alt}
+              width={photoFor[r.product.id].width}
+              height={photoFor[r.product.id].height}
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption>{photoFor[r.product.id].caption}</figcaption>
+          </figure>
+        ) : (
+          <span class="product-icon">
+            <Icon name={iconFor[r.product.id] ?? 'combo'} size={variant === 'compact' ? 26 : 30} />
+          </span>
+        )}
         <div class="product-body">
           <Heading class="product-name">{r.product.name}</Heading>
           {variant === 'full' && <p class="product-desc">{r.product.description}</p>}
@@ -40,6 +68,7 @@ const rows = buildProductCatalog(products);
             <span class="price">{r.priceText}</span>
             <span class="price-note">giá tham khảo</span>
           </p>
+          {variant === 'full' && pendingNote[r.product.id] && <p class="product-pending">{pendingNote[r.product.id]}</p>}
           {variant === 'full' && (
             <p class="product-qty">
               {r.product.plannedQuantity.value === null
@@ -64,6 +93,7 @@ const rows = buildProductCatalog(products);
 
   .product-grid--full {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
   }
 
   .product-grid--compact {
@@ -91,6 +121,46 @@ const rows = buildProductCatalog(products);
     flex-direction: column;
     gap: var(--space-3);
     padding: var(--space-5);
+  }
+
+  .product--photo {
+    flex-direction: column;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .product--photo .product-body {
+    padding: 0 var(--space-6) var(--space-6);
+  }
+
+  .product-figure {
+    margin: 0;
+  }
+
+  .product-figure img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    object-position: 50% 45%;
+    display: block;
+    background: var(--surface-alt);
+  }
+
+  .product-figure figcaption {
+    padding: var(--space-2) var(--space-6) var(--space-3);
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-small);
+    color: var(--ink-2);
+  }
+
+  .product-pending {
+    margin: var(--space-2) 0 0;
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-sm);
+    background: var(--status-pending-bg);
+    color: var(--status-pending-text);
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-small);
   }
 
   .product-icon {

@@ -1,21 +1,25 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/PageHero.astro';
-import { TEAM_INFO, TEAM_PRINCIPLES, TEAM_AREAS } from '../data/campaign';
+import ContactCard from '../components/ContactCard.astro';
+import { TEAM_INFO, TEAM_PRINCIPLES, TEAM_MEMBERS, CAMPAIGN_PROJECT } from '../data/campaign';
 
 const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Về nhóm' }];
-const totalMembers = TEAM_AREAS.reduce((sum, a) => sum + a.members, 0);
 
 const summaryItems = [
-  { label: 'Thành viên', value: `${TEAM_INFO.size} sinh viên lớp ${TEAM_INFO.classId}` },
+  { label: 'Thành viên', value: `${TEAM_MEMBERS.length} sinh viên lớp ${TEAM_INFO.classId}` },
   { label: 'Trường', value: 'Đại học FPT Hà Nội' },
-  { label: 'Dự án', value: 'Mang Theo Một Nét Vẽ' },
+  {
+    label: 'Dự án',
+    value: 'Mang Theo Một Nét Vẽ',
+    chip: { kind: 'da-xac-nhan' as const, label: CAMPAIGN_PROJECT.statusNotice },
+  },
 ];
 ---
 
 <Layout
   title="Về nhóm Lăng Kính"
-  description="Nhóm Lăng Kính: 7 sinh viên lớp AI2015, Đại học FPT Hà Nội — cách nhóm làm việc và những nguyên tắc nhóm giữ."
+  description="Nhóm Lăng Kính: 7 sinh viên lớp AI2015, Đại học FPT Hà Nội — thành viên, vai trò và những nguyên tắc nhóm giữ."
   currentPath="/ve-nhom"
 >
   <PageHero
@@ -24,26 +28,30 @@ const summaryItems = [
     title="Nhóm Lăng Kính"
     titleId="team-heading"
     lead="Bảy sinh viên muốn mang đến một buổi chơi phù hợp và một món quà đúng nhu cầu."
-    description="Nhóm tự chuẩn bị buổi chơi, làm hàng gây quỹ, giữ sổ thu chi và báo cáo kết quả. Mái ấm đồng hành và quyết định cách hỗ trợ các em."
+    description="Nhóm tự chuẩn bị buổi chơi, làm quà lưu niệm, giữ sổ ủng hộ và báo cáo kết quả. Mái ấm đồng hành và quyết định cách hỗ trợ các em."
     summaryTitle="Thông tin nhóm"
     summaryItems={summaryItems}
   />
 
-  <section class="section" aria-labelledby="areas-heading">
+  <section class="section" aria-labelledby="members-heading">
     <div class="container">
       <div class="section-header">
-        <span class="eyebrow">Cách nhóm làm việc</span>
-        <h2 id="areas-heading">{totalMembers} thành viên, năm mảng việc</h2>
-        <p>Tên và hình ảnh từng thành viên sẽ được giới thiệu khi mỗi người đồng ý công bố.</p>
+        <span class="eyebrow">Thành viên</span>
+        <h2 id="members-heading">Gặp gỡ nhóm Lăng Kính</h2>
       </div>
 
-      <ul class="areas">
+      <ul class="members">
         {
-          TEAM_AREAS.map((a) => (
-            <li class="area lift">
-              <span class="area-count">{a.members} thành viên</span>
-              <h3 class="area-title">{a.title}</h3>
-              <p class="area-desc">{a.description}</p>
+          TEAM_MEMBERS.map((m) => (
+            <li class="member">
+              <div class="member-photo">
+                <img src={m.photo} alt={`Ảnh ${m.name}`} width="480" height="600" loading="lazy" decoding="async" />
+              </div>
+              <div class="member-body">
+                <span class="member-role">{m.role}</span>
+                <h3 class="member-name">{m.name}</h3>
+                <p class="member-desc">{m.description}</p>
+              </div>
             </li>
           ))
         }
@@ -70,90 +78,129 @@ const summaryItems = [
     </div>
   </section>
 
+  <section class="section" aria-labelledby="contact-heading">
+    <div class="container">
+      <h2 id="contact-heading" class="sr-only">Liên hệ nhóm</h2>
+      <div class="reveal"><ContactCard /></div>
+    </div>
+  </section>
+
   <section class="cta-band" aria-labelledby="team-cta-heading">
     <div class="container cta-band-inner">
       <div class="cta-band-text">
         <h2 id="team-cta-heading">Nhóm sẽ tổ chức buổi chơi thế nào?</h2>
-        <p>Bốn góc hoạt động, cách chuẩn bị và lộ trình của dự án.</p>
+        <p>Bốn góc hoạt động, lịch hai buổi và tiến độ dự án.</p>
       </div>
       <div class="cta-band-actions">
         <a href="/du-an/mang-theo-mot-net-ve" class="btn btn-primary">Xem dự án</a>
-        <a href="/dong-hanh" class="link-arrow">Cách đồng hành <span class="arrow" aria-hidden="true">→</span></a>
+        <a href="/dong-hanh" class="link-arrow">Ủng hộ dự án <span class="arrow" aria-hidden="true">→</span></a>
       </div>
     </div>
   </section>
 </Layout>
 
 <style>
-  .areas {
+  /* Hàng cuối được căn giữa để 7 thẻ không để ô trống lệch */
+  .members {
+    --cols: 4;
+    --gap: var(--space-5);
     list-style: none;
     margin: 0;
     padding: 0;
-    display: grid;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: var(--space-5);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--gap);
   }
 
-  .area {
-    grid-column: span 2;
+  .member {
+    flex: 0 0 calc((100% - (var(--cols) - 1) * var(--gap)) / var(--cols));
+    min-width: 0;
     display: flex;
     flex-direction: column;
-    gap: var(--space-2);
-    padding: var(--space-6);
     background: #ffffff;
     border: 1px solid var(--line);
     border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
   }
 
-  /* 3 + 2: hai thẻ cuối rộng hơn, không để ô trống */
-  .area:nth-child(4),
-  .area:nth-child(5) {
-    grid-column: span 3;
+  .member-photo {
+    aspect-ratio: 4 / 5;
+    background: var(--surface-alt);
+    overflow: hidden;
   }
 
-  .area-count {
+  .member-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform var(--duration-slow) var(--ease-out);
+  }
+
+  .member-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: var(--space-4) var(--space-5) var(--space-5);
+  }
+
+  .member-role {
+    align-self: flex-start;
     font-size: var(--font-size-small);
     line-height: var(--line-height-small);
     font-weight: 600;
-    color: var(--brand);
+    color: var(--tint-rose-ink);
+    background: var(--tint-rose);
+    padding: 2px 10px;
+    border-radius: var(--radius-pill);
+    margin-bottom: var(--space-1);
   }
 
-  .area-title {
+  .member-name {
     font-size: var(--font-size-h3);
     line-height: var(--line-height-h3);
     margin: 0;
   }
 
-  .area-desc {
+  .member-desc {
     margin: 0;
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-small);
+  }
+
+  @media (hover: hover) {
+    .member:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-raised);
+      border-color: transparent;
+    }
+
+    .member:hover .member-photo img {
+      transform: scale(1.04);
+    }
   }
 
   @media (max-width: 1023px) {
-    .areas {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .area,
-    .area:nth-child(4) {
-      grid-column: span 1;
-    }
-
-    .area:nth-child(5) {
-      grid-column: span 2;
+    .members {
+      --cols: 3;
     }
   }
 
   @media (max-width: 767px) {
-    .areas {
-      grid-template-columns: 1fr;
-      gap: var(--space-3);
+    .members {
+      --cols: 2;
+      --gap: var(--space-3);
     }
 
-    .area,
-    .area:nth-child(4),
-    .area:nth-child(5) {
-      grid-column: auto;
-      padding: var(--space-4);
+    .member-body {
+      padding: var(--space-3);
+    }
+
+    .member-name {
+      font-size: var(--font-size-body);
+      line-height: var(--line-height-body);
     }
   }
 </style>
