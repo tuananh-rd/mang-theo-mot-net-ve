@@ -46,7 +46,7 @@ const shortDate = (iso: string) => formatViDate(iso).slice(0, 5);
             <span class="stage-dot" aria-hidden="true">{s.step}</span>
             <div class="stage-text">
               <span class="stage-tag">
-                {state === 'current' ? 'Đang thực hiện' : state === 'past' ? 'Đã xong' : session ? `${session.time} · ${session.weekday} ${shortDate(session.date)}` : 'Dự kiến'}
+                {state === 'current' ? 'Đang thực hiện' : state === 'past' ? 'Đã xong' : session ? `${session.time} · ${session.weekday} ${shortDate(session.date)} (dự kiến)` : 'Dự kiến'}
               </span>
               <span class="stage-title">{s.title}</span>
             </div>
