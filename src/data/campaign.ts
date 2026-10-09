@@ -79,7 +79,7 @@ export const CAMPAIGN_PROJECT: Project = {
   activities: [
     {
       id: 'chuon-chuon-tre',
-      title: 'Chuồn chuồn tre và Vẽ tranh',
+      title: 'Chuồn chuồn tre và vẽ tranh',
       description: 'Trang trí những cánh chuồn chuồn tre thăng bằng và vẽ tranh tự do với màu sắc theo sở thích.',
       badge: 'Góc tạo hình',
       note: 'Người tham gia có quyền lựa chọn vẽ tranh, trang trí, quan sát hoặc nghỉ ngơi.',
@@ -117,7 +117,7 @@ export const CAMPAIGN_PROJECT: Project = {
       step: '02',
       title: 'Gây quỹ',
       description:
-        'Tiếp nhận ủng hộ qua chuyển khoản và bán quà lưu niệm gây quỹ; tiền ủng hộ được đối soát đăng sao kê riêng, tiền bán quà ghi sổ riêng.',
+        'Tiếp nhận ủng hộ qua chuyển khoản và dự kiến bán quà lưu niệm. Hai nguồn được ghi riêng; khoản ủng hộ được công bố sau đối soát.',
     },
     {
       step: '03',
