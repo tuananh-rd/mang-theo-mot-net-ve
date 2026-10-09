@@ -37,7 +37,6 @@ check('every HTML has noindex,nofollow', html.every(([,t])=>t.includes('content=
 const req=['2.990.000đ','1.860.000đ','1.130.000đ'];
 const fin=fs.readFileSync('dist/minh-bach/index.html','utf8');
 check('transparency page shows required planned figures', req.every(v=>fin.includes(v)), req.filter(v=>!fin.includes(v)));
-const prod=fs.readFileSync('dist/san-pham/index.html','utf8');
 const donate=fs.readFileSync('dist/dong-hanh/index.html','utf8');
 check('donation pending: no QR image, account number or copy button in bundle', !/class="qr-img"|class="account-number"|class="copy-btn"/.test(donate)&&donate.includes('qr-placeholder')&&!files.some(f=>/ung-ho/.test(f)), null);
 check('donation ledger empty: no donor rows', !/class="[^"]*donor-table/.test(donate)&&donate.includes('ledger-empty'), null);
