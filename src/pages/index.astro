@@ -6,7 +6,7 @@ import StatusChip from '../components/StatusChip.astro';
 import Icon from '../components/Icon.astro';
 import GoalProgress from '../components/GoalProgress.astro';
 import ProjectProgress from '../components/ProjectProgress.astro';
-import { CAMPAIGN_PROJECT, TEAM_INFO, DONATION_ACCOUNT, DONATION_LEDGER, PLANNED_SESSIONS, TEAM_MEMBERS } from '../data/campaign';
+import { CAMPAIGN_PROJECT, DONATION_ACCOUNT, DONATION_LEDGER, PLANNED_SESSIONS, TEAM_MEMBERS } from '../data/campaign';
 import { summarizeLedger, formatViDate } from '../lib/donations';
 import { formatVND } from '../lib/finance';
 
@@ -17,17 +17,17 @@ const steps = [
   {
     icon: 'moc-khoa' as const,
     title: 'Gây quỹ',
-    text: `Mục tiêu ${formatVND(DONATION_ACCOUNT.goalAmount)} từ ủng hộ qua chuyển khoản, cùng quà lưu niệm do nhóm tự làm. Sao kê đăng sau khi đối soát.`,
+    text: `Mục tiêu ${formatVND(DONATION_ACCOUNT.goalAmount)} từ ủng hộ qua chuyển khoản (sao kê công bố sau đối soát); tiền bán quà lưu niệm gây quỹ được ghi sổ riêng.`,
   },
   {
     icon: 'chuon-chuon' as const,
     title: 'Một buổi chơi tại Mái ấm',
-    text: 'Chiều Thứ Bảy 24/10, khoảng 180 phút với bốn góc hoạt động. Em nào cũng chọn được cách chơi phù hợp, hoặc ngồi xem, nghỉ ngơi.',
+    text: 'Dự kiến chiều Thứ Bảy 24/10, khoảng 180 phút với bốn góc hoạt động. Mỗi em có thể lựa chọn cách tham gia phù hợp với sở thích và thể trạng, quan sát hoặc nghỉ ngơi.',
   },
   {
     icon: 'banh' as const,
     title: 'Trao quà đúng nhu cầu',
-    text: 'Chiều Thứ Bảy 31/10, trao vật phẩm theo danh mục Mái ấm xác nhận, kèm hóa đơn và biên bản bàn giao.',
+    text: 'Dự kiến chiều Thứ Bảy 31/10, trao tặng vật phẩm theo danh mục Mái ấm xác nhận, kèm hóa đơn và biên bản bàn giao.',
   },
 ];
 ---
@@ -48,10 +48,10 @@ const steps = [
         </div>
         <div class="fact">
           <dt>Dành cho</dt>
-          <dd>Các em và các cụ tại Mái ấm Thánh Tâm Xuy Xá</dd>
+          <dd>Các em nhỏ và người cao tuổi tại Mái ấm Thánh Tâm Xuy Xá</dd>
         </div>
         <div class="fact">
-          <dt>Hai buổi tại Mái ấm</dt>
+          <dt>Hai buổi tại Mái ấm (dự kiến)</dt>
           <dd>14:00 Thứ Bảy, {sessionText}/2026</dd>
         </div>
         <div class="fact">
@@ -67,7 +67,7 @@ const steps = [
       <div class="section-header">
         <span class="eyebrow">Dự án làm gì</span>
         <h2 id="what-heading">Ba việc, một mục tiêu</h2>
-        <p>Mang niềm vui đến cho các em bằng một buổi chơi vừa sức, và mang đến Mái ấm những món quà thật sự cần.</p>
+        <p>Mang niềm vui đến cho các em bằng buổi chơi vừa sức, và gửi tặng Mái ấm những vật phẩm thiết thực theo danh mục Mái ấm xác nhận.</p>
       </div>
 
       <ol class="steps">
@@ -91,7 +91,7 @@ const steps = [
     <div class="container">
       <div class="section-header">
         <span class="eyebrow">Tiến độ</span>
-        <h2 id="progress-heading">Dự án đang ở đâu</h2>
+        <h2 id="progress-heading">Tiến độ dự án</h2>
       </div>
       <div class="reveal"><ProjectProgress /></div>
     </div>
@@ -102,7 +102,7 @@ const steps = [
       <div class="section-header">
         <span class="eyebrow">Buổi chơi</span>
         <h2 id="play-heading">Bốn góc, mỗi em một cách chơi</h2>
-        <p>Các em được tự chọn góc mình thích, đổi lượt hoặc nghỉ bất cứ lúc nào. Không ai phải làm sản phẩm giống nhau.</p>
+        <p>Các em có thể tự do chọn góc hoạt động, đổi lượt, quan sát hoặc nghỉ ngơi; không giao chỉ tiêu hoàn thành sản phẩm.</p>
       </div>
 
       <ActivityList activities={CAMPAIGN_PROJECT.activities} />
@@ -119,7 +119,7 @@ const steps = [
         <span class="eyebrow eyebrow--light">Ủng hộ</span>
         <h2 id="donate-heading">Cùng góp một món quà</h2>
         <p>
-          Mục tiêu {formatVND(DONATION_ACCOUNT.goalAmount)} cho buổi chơi và quà tặng. Chuyển khoản qua mã QR; mỗi khoản được đối chiếu với ngân hàng rồi đăng công khai trong sao kê.
+          Mục tiêu {formatVND(DONATION_ACCOUNT.goalAmount)} từ nguồn ủng hộ chuyển khoản cho buổi chơi và quà tặng. Mỗi khoản được đối soát với sao kê ngân hàng rồi công bố minh bạch trên website.
         </p>
         <div class="donate-actions">
           <a href="/dong-hanh" class="btn btn-primary">Ủng hộ dự án</a>
@@ -150,7 +150,7 @@ const steps = [
         <div class="home-col">
           <span class="eyebrow">Quà lưu niệm</span>
           <h3 class="block-title">Chuồn chuồn tre và móc khóa</h3>
-          <p>Nhóm tự làm để gây quỹ. Các em ở Mái ấm không phải làm hàng; đồ các em làm được giữ lại cho các em.</p>
+          <p>Sản phẩm gây quỹ do nhóm tự làm. Hoạt động tại Mái ấm hoàn toàn là vui chơi sáng tạo; các em giữ lại sản phẩm do mình làm ra.</p>
           <a href="/san-pham" class="link-arrow">Xem quà lưu niệm <span class="arrow" aria-hidden="true">→</span></a>
         </div>
       </div>

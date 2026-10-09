@@ -9,7 +9,7 @@ import { formatViDate } from '../../lib/donations';
 
 const sessionLine = (id: string) => {
   const s = PLANNED_SESSIONS.find((x) => x.id === id);
-  return s ? `${s.time} ${s.weekday} ${formatViDate(s.date)}` : 'Chưa cập nhật';
+  return s ? `${s.time} ${s.weekday} ${formatViDate(s.date)} (dự kiến)` : 'Chưa cập nhật';
 };
 
 const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Dự án' }];
@@ -39,7 +39,7 @@ const summaryItems = [
     title="Một buổi chơi có lựa chọn"
     titleId="project-heading"
     lead={CAMPAIGN_PROJECT.slogan}
-    description="Một buổi vui chơi sáng tạo tại Mái ấm, được thiết kế để em nào cũng có thể tham gia theo cách của mình, cùng hoạt động gây quỹ để trao những vật phẩm Mái ấm thực sự cần."
+    description="Một buổi vui chơi sáng tạo tại Mái ấm, tạo điều kiện để mỗi em nhỏ tham gia phù hợp với sở thích và thể trạng, cùng hoạt động gây quỹ trao tặng vật phẩm thiết thực theo danh mục Mái ấm cần."
     summaryTitle="Thông tin chính"
     summaryItems={summaryItems}
   />
@@ -50,7 +50,7 @@ const summaryItems = [
         <span class="eyebrow">Vì sao</span>
         <h2 id="why-heading">Không phải em nào cũng chơi theo một cách</h2>
         <p>
-          Các em ở Mái ấm có độ tuổi, khả năng vận động và giao tiếp khác nhau, nên một hoạt động chung khó phù hợp với tất cả. Từ trao đổi với Mái ấm, nhóm xây dựng dự án quanh ba điều.
+          Các em ở Mái ấm có độ tuổi, khả năng vận động và giao tiếp khác nhau, nên một hoạt động chung khó phù hợp với tất cả. Nhóm xây dựng kế hoạch dự án dựa trên ba định hướng chính.
         </p>
       </div>
 
@@ -75,7 +75,7 @@ const summaryItems = [
           <span class="eyebrow">Nơi dự án đến</span>
           <h2 id="home-heading" class="col-title">Mái ấm Thánh Tâm Xuy Xá</h2>
           <p>
-            Mái ấm ở Mỹ Đức, Hà Nội, chăm sóc các em nhỏ ở nhiều độ tuổi cùng các cụ cao tuổi. Mái ấm quyết định lịch, hoạt động, vật liệu, việc ghi hình và danh mục quà của dự án.
+            Mái ấm ở Mỹ Đức, Hà Nội, chăm sóc các em nhỏ ở nhiều độ tuổi cùng người cao tuổi. Mọi kế hoạch về thời gian, nội dung hoạt động, vật liệu, phạm vi ghi hình và danh mục quà tặng đều cần sự thống nhất và phê duyệt từ Mái ấm.
           </p>
         </div>
         <div class="shelter-photos">
@@ -96,12 +96,12 @@ const summaryItems = [
       <div class="section-header">
         <span class="eyebrow">Buổi chơi</span>
         <h2 id="corners-heading">Bốn góc hoạt động</h2>
-        <p>Các em chọn góc mình thích, đổi lượt hoặc nghỉ bất cứ lúc nào. Không ai phải hoàn thành sản phẩm giống nhau.</p>
+        <p>Các em có thể tự do chọn góc hoạt động, đổi lượt, quan sát hoặc nghỉ ngơi; không giao chỉ tiêu hoàn thành sản phẩm.</p>
       </div>
 
       <ActivityList activities={CAMPAIGN_PROJECT.activities} showNotes />
 
-      <h3 class="flow-title">Buổi chơi diễn ra thế nào</h3>
+      <h3 class="flow-title">Nội dung buổi chơi dự kiến</h3>
       <ol class="flow">
         {
           PLAY_FLOW.map((f, i) => (
@@ -133,10 +133,10 @@ const summaryItems = [
           <span class="eyebrow">Tôn trọng</span>
           <h3 class="col-title col-title--sm">Mái ấm là người quyết định</h3>
           <p>
-            Lịch, hoạt động, vật liệu, việc ghi hình và danh mục quà đều do Mái ấm duyệt trước. Người chăm sóc hướng dẫn cách hỗ trợ từng em.
+            Thời gian, nội dung hoạt động, vật liệu an toàn, phạm vi ghi hình và danh mục quà tặng đều cần được Mái ấm thống nhất và phê duyệt trước khi triển khai. Người chăm sóc hỗ trợ hướng dẫn tương tác phù hợp cho từng em.
           </p>
           <p>
-            Tranh và đồ các em làm được giữ lại cho các em. Hàng bán gây quỹ do nhóm tự làm.
+            Hoạt động tại Mái ấm hoàn toàn là trải nghiệm vui chơi sáng tạo; các em giữ lại toàn bộ sản phẩm do mình làm ra. Sản phẩm bán gây quỹ do nhóm Lăng Kính tự chuẩn bị và hoàn thiện.
           </p>
         </div>
       </div>

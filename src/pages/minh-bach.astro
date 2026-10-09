@@ -10,7 +10,7 @@ const summary = summarizeLedger(DONATION_LEDGER, DONATION_ACCOUNT.goalAmount);
 
 const moneyFlow = [
   { title: 'Nhận', text: 'Tiền ủng hộ vào tài khoản dự án; tiền bán quà lưu niệm ghi sổ riêng.' },
-  { title: 'Đối soát', text: 'Hai thành viên đối chiếu với sao kê ngân hàng rồi đăng lên website.' },
+  { title: 'Đối soát', text: 'Thành viên tài chính cùng một thành viên khác đối chiếu với sao kê ngân hàng trước khi cập nhật lên website.' },
   { title: 'Sử dụng', text: 'Cho buổi chơi và quà theo danh mục Mái ấm xác nhận.' },
   { title: 'Báo cáo', text: 'Sau buổi trao quà, công bố tổng nhận, hóa đơn và biên bản bàn giao.' },
 ];
@@ -28,7 +28,7 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Minh bạch'
     eyebrow="Minh bạch"
     title="Minh bạch tiền ủng hộ"
     titleId="transparency-heading"
-    lead="Nhận vào đâu, đối soát thế nào, công bố khi nào và dùng cho việc gì."
+    lead="Tài khoản tiếp nhận, quy trình đối soát, thời điểm công bố và mục đích sử dụng nguồn quỹ."
     description="Tổng ủng hộ chỉ được tính từ sổ đã đối chiếu với ngân hàng; chưa có sổ đã đối soát thì website ghi “Chưa cập nhật”, không ghi 0đ."
   />
 
@@ -90,7 +90,7 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Minh bạch'
       <div class="two-col">
         <div class="reveal">
           <span class="eyebrow">Sau dự án</span>
-          <h2 id="report-heading" class="col-title">Báo cáo cuối sẽ có</h2>
+          <h2 id="report-heading" class="col-title">Nội dung báo cáo tổng kết</h2>
           <ul class="check-list">
             <li>Tổng tiền ủng hộ đã đối soát và tiền bán quà lưu niệm, ghi riêng.</li>
             <li>Danh sách vật phẩm đã trao và biên bản có xác nhận của Mái ấm.</li>
@@ -100,7 +100,7 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Minh bạch'
         </div>
         <div class="reveal">
           <span class="eyebrow">Cam kết</span>
-          <h3 class="col-title col-title--sm">Nguyên tắc nhóm giữ</h3>
+          <h3 class="col-title col-title--sm">Nguyên tắc sử dụng nguồn quỹ</h3>
           <ul class="check-list">
             <li>Chỉ chi trong số tiền thực có; không ai ứng tiền cá nhân.</li>
             <li>Quà mua theo danh mục Mái ấm xác nhận.</li>
@@ -125,7 +125,7 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Minh bạch'
     <div class="container cta-band-inner">
       <div class="cta-band-text">
         <h2 id="finance-cta-heading">Cùng góp một món quà</h2>
-        <p>Quét mã QR và theo dõi khoản của bạn trong sao kê.</p>
+        <p>Ủng hộ qua chuyển khoản và theo dõi khoản đóng góp trong sao kê công bố sau đối soát.</p>
       </div>
       <div class="cta-band-actions">
         <a href="/dong-hanh" class="btn btn-primary">Ủng hộ dự án</a>

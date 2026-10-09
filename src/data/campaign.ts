@@ -79,7 +79,7 @@ export const CAMPAIGN_PROJECT: Project = {
   activities: [
     {
       id: 'chuon-chuon-tre',
-      title: 'Chuồn chuồn tre & Vẽ tranh',
+      title: 'Chuồn chuồn tre và vẽ tranh',
       description: 'Trang trí những cánh chuồn chuồn tre thăng bằng và vẽ tranh tự do với màu sắc theo sở thích.',
       badge: 'Góc tạo hình',
       note: 'Người tham gia có quyền lựa chọn vẽ tranh, trang trí, quan sát hoặc nghỉ ngơi.',
@@ -89,7 +89,7 @@ export const CAMPAIGN_PROJECT: Project = {
       title: 'Tô tượng sắc màu',
       description: 'Thỏa sức phối màu trên các mẫu tượng thạch cao đa dạng hình dáng và kích cỡ (10 cm).',
       badge: 'Góc tô màu',
-      note: 'Hoạt động vui chơi trải nghiệm tại chỗ, không phải hàng hoá gây quỹ.',
+      note: 'Hoạt động vui chơi trải nghiệm tại chỗ, không gắn với sản phẩm gây quỹ.',
     },
     {
       id: 'hat-cung-nhau',
@@ -117,7 +117,7 @@ export const CAMPAIGN_PROJECT: Project = {
       step: '02',
       title: 'Gây quỹ',
       description:
-        'Nhận ủng hộ qua chuyển khoản và bán quà lưu niệm; khoản ủng hộ đăng sao kê sau khi đối soát.',
+        'Tiếp nhận ủng hộ qua chuyển khoản và dự kiến bán quà lưu niệm. Hai nguồn được ghi riêng; khoản ủng hộ được công bố sau đối soát.',
     },
     {
       step: '03',
@@ -469,19 +469,19 @@ export interface ProductFaq {
 export const TEAM_PRINCIPLES: TeamPrinciple[] = [
   {
     title: 'Các em được chọn',
-    description: 'Chơi, đổi hoạt động, ngồi xem hay nghỉ đều được tôn trọng. Không có chỉ tiêu sản phẩm nào cho các em.',
+    description: 'Chơi, đổi hoạt động, ngồi xem hay nghỉ đều được tôn trọng; không giao chỉ tiêu hoàn thành sản phẩm cho các em.',
   },
   {
     title: 'An toàn trước hết',
-    description: 'Vật liệu được kiểm tra trước; trò chơi vừa sức; mọi hoạt động tại Mái ấm đều được Mái ấm duyệt.',
+    description: 'Vật liệu được kiểm tra an toàn; trò chơi vừa sức; mọi hoạt động tại Mái ấm cần được Mái ấm thống nhất và duyệt trước.',
   },
   {
-    title: 'Nhóm tự làm hàng gây quỹ',
-    description: 'Sản phẩm bán do nhóm chuẩn bị và hoàn thiện; đồ các em làm trong buổi chơi được giữ lại cho các em.',
+    title: 'Nhóm tự chuẩn bị sản phẩm gây quỹ',
+    description: 'Sản phẩm gây quỹ do nhóm chuẩn bị và hoàn thiện. Hoạt động tại Mái ấm hoàn toàn là vui chơi sáng tạo, các em giữ lại sản phẩm do mình làm ra.',
   },
   {
     title: 'Minh bạch từng khoản',
-    description: 'Hai thành viên đối soát thu chi; tiền và hiện vật ghi riêng; kết quả công khai sau dự án.',
+    description: 'Thành viên tài chính cùng một thành viên khác đối soát thu chi; tiền và hiện vật ghi riêng; kết quả công khai sau dự án.',
   },
   {
     title: 'Giữ riêng tư cho các em',
@@ -561,11 +561,11 @@ export const PRODUCT_FAQS: ProductFaq[] = [
   {
     question: 'Ai làm các sản phẩm này?',
     answer:
-      'Nhóm Lăng Kính chuẩn bị và hoàn thiện toàn bộ hàng bán. Các em ở Mái ấm không phải làm hàng; tranh của các em chỉ được in lên móc khóa khi có sự đồng ý phù hợp.',
+      'Toàn bộ sản phẩm gây quỹ do nhóm Lăng Kính chuẩn bị và hoàn thiện. Hoạt động tại Mái ấm hoàn toàn là vui chơi sáng tạo, không gắn với sản xuất hàng bán; các em giữ lại sản phẩm do mình làm ra. Tranh của các em chỉ được in lên móc khóa khi có sự đồng ý phù hợp.',
   },
   {
     question: 'Khi nào có thể đặt mua?',
-    answer: 'Khi kế hoạch bán được duyệt, nhóm sẽ công bố cách đặt hàng tại trang này. Hiện website chưa nhận đơn hay tiền.',
+    answer: 'Khi kế hoạch bán được duyệt, nhóm sẽ công bố cách đặt hàng tại trang này. Hiện website chưa nhận đơn đặt hàng hoặc thanh toán sản phẩm.',
   },
   {
     question: 'Tiền bán hàng được dùng thế nào?',
@@ -1230,7 +1230,7 @@ export const SUPPORT_FAQS: SupportFaq[] = [
   {
     question: 'Khi nào khoản ủng hộ của tôi được cập nhật?',
     answer:
-      'Sau mỗi lần hai thành viên tài chính đối chiếu với sao kê ngân hàng. Website không kết nối tự động với ngân hàng, nên ngày đối soát gần nhất luôn ghi ở đầu bảng; khoản mới chuyển có thể chưa xuất hiện ngay.',
+      'Sau mỗi lần thành viên tài chính cùng một thành viên khác đối chiếu với sao kê ngân hàng. Website không kết nối tự động với ngân hàng; khi sổ được công bố, ngày đối soát gần nhất sẽ hiển thị ở đầu bảng. Khoản ủng hộ được cập nhật định kỳ sau khi đối soát xong.',
   },
   {
     question: 'Tôi chuyển nhầm số tiền hoặc chuyển trùng thì sao?',
@@ -1257,20 +1257,21 @@ export const TRANSPARENCY_FAQS: TransparencyFaq[] = [
   {
     question: 'Vì sao tổng ủng hộ đang ghi “Chưa cập nhật”?',
     answer:
-      'Tổng chỉ được tính từ sổ đã đối chiếu với sao kê ngân hàng. Khi nhóm chưa công bố sổ đã đối soát, website không hiển thị con số, kể cả 0đ, để tránh hiểu sai là chưa nhận được khoản nào.',
+      'Tổng chỉ được tính từ sổ đã đối chiếu với sao kê ngân hàng. Khi nhóm chưa công bố sổ đã đối soát chính thức, website không hiển thị con số (kể cả 0đ) để tránh hiểu lầm là chưa nhận được khoản ủng hộ nào.',
   },
   {
     question: 'Tiền bán quà lưu niệm có cộng vào tổng ủng hộ không?',
     answer: 'Không. Thanh tiến độ chỉ tính các khoản ủng hộ qua tài khoản dự án đã đối soát. Tiền bán quà được ghi riêng.',
   },
   {
-    question: 'Nếu ủng hộ vượt mục tiêu 3.000.000đ?',
+    question: 'Trường hợp số tiền ủng hộ vượt mục tiêu 3.000.000đ thì xử lý thế nào?',
     answer:
-      'Website vẫn ghi đúng tổng thực tế. Phần vượt được dùng mua thêm vật phẩm theo danh mục Mái ấm xác nhận và ghi rõ trong báo cáo cuối.',
+      'Website vẫn ghi đúng tổng thực tế đã đối soát. Phần vượt mục tiêu sẽ được dùng mua thêm vật phẩm theo danh mục Mái ấm xác nhận và ghi rõ trong báo cáo tổng kết.',
   },
   {
-    question: 'Khi nào có báo cáo cuối?',
-    answer: 'Sau buổi trao quà và khi hai thành viên tài chính đối soát xong. Chứng từ chỉ công bố bản đã che thông tin riêng tư.',
+    question: 'Khi nào nhóm công bố báo cáo tổng kết dự án?',
+    answer:
+      'Sau buổi trao quà và khi thành viên tài chính cùng một thành viên khác hoàn tất đối soát. Chứng từ chỉ công bố bản đã che thông tin riêng tư.',
   },
 ];
 

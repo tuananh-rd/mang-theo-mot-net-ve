@@ -14,8 +14,8 @@ const open = isDonationOpen(DONATION_ACCOUNT);
 
 const steps = [
   { title: 'Chuyển khoản', text: 'Quét mã QR hoặc chuyển tới tài khoản của dự án, ghi nội dung theo hướng dẫn.' },
-  { title: 'Nhóm đối soát', text: 'Hai thành viên tài chính đối chiếu từng khoản với sao kê ngân hàng.' },
-  { title: 'Công khai', text: 'Khoản của bạn được đăng trong sao kê bên dưới sau lần đối soát kế tiếp.' },
+  { title: 'Nhóm đối soát', text: 'Thành viên tài chính cùng một thành viên khác đối chiếu từng khoản với sao kê ngân hàng.' },
+  { title: 'Công bố sao kê', text: 'Danh sách ủng hộ được cập nhật công khai tại bảng sao kê sau mỗi lần đối soát.' },
   { title: 'Trao quà', text: 'Tiền dùng cho buổi chơi và quà theo danh mục Mái ấm cần; báo cáo cuối có hóa đơn.' },
 ];
 
@@ -38,7 +38,7 @@ const otherWays = [
     title="Ủng hộ một buổi chơi, một món quà"
     titleId="support-heading"
     lead={`Mục tiêu gây quỹ ${formatVND(DONATION_ACCOUNT.goalAmount)} cho buổi chơi và quà tặng các em tại Mái ấm.`}
-    description="Chuyển khoản qua mã QR. Nhóm đối chiếu với sao kê ngân hàng rồi đăng từng khoản ngay tại trang này."
+    description="Chuyển khoản qua mã QR. Nhóm đối soát với sao kê ngân hàng và công bố từng khoản tại bảng sao kê bên dưới."
   />
 
   <section class="section section-first" aria-labelledby="donate-heading">
@@ -53,7 +53,7 @@ const otherWays = [
       <div class="section-header">
         <span class="eyebrow">Sao kê</span>
         <h2 id="ledger-heading">Tiến độ và danh sách ủng hộ</h2>
-        <p>Chỉ tính các khoản ủng hộ đã đối chiếu với ngân hàng; tiền bán quà lưu niệm ghi riêng. Chỉ hiển thị tên bạn chọn, số tiền, ngày và mã giao dịch rút gọn.</p>
+        <p>Bảng sao kê chỉ ghi nhận các khoản ủng hộ qua tài khoản đã đối soát với ngân hàng; tiền bán quà lưu niệm gây quỹ được ghi sổ riêng. Thông tin hiển thị gồm tên bạn đồng ý hiển thị, số tiền, ngày nhận và mã giao dịch rút gọn.</p>
       </div>
       <DonationLedger account={DONATION_ACCOUNT} ledger={DONATION_LEDGER} />
       <div class="section-actions">
