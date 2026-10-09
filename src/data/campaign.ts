@@ -469,7 +469,7 @@ export interface ProductFaq {
 export const TEAM_PRINCIPLES: TeamPrinciple[] = [
   {
     title: 'Các em được chọn',
-    description: 'Chơi, đổi hoạt động, ngồi xem hay nghỉ đều được tôn trọng. Không có chỉ tiêu sản phẩm nào cho các em.',
+    description: 'Chơi, đổi hoạt động, ngồi xem hay nghỉ đều được tôn trọng; không giao chỉ tiêu hoàn thành sản phẩm cho các em.',
   },
   {
     title: 'An toàn trước hết',
