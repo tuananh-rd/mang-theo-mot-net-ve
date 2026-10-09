@@ -373,11 +373,11 @@ describe('Kiểm tra tính toàn vẹn dữ liệu và an toàn thông tin (Task
     assert.equal(ACTUAL_FINANCE.vouchersCount, null);
   });
 
-  test('Kênh liên hệ chính thức có giá trị null và trạng thái unconfirmed', () => {
-    assert.equal(OFFICIAL_CONTACT.email, null);
-    assert.equal(OFFICIAL_CONTACT.phone, null);
-    assert.equal(OFFICIAL_CONTACT.representative, null);
-    assert.equal(OFFICIAL_CONTACT.status, 'unconfirmed');
+  // C07S: chủ dự án cung cấp liên hệ trong tài liệu bổ sung 09/10/2026, thay trạng thái chưa xác nhận của C06.
+  test('Kênh liên hệ đã xác nhận có số điện thoại hợp lệ cho liên kết tel:', () => {
+    assert.equal(OFFICIAL_CONTACT.status, 'confirmed');
+    assert.equal(OFFICIAL_CONTACT.people.length, 2);
+    for (const p of OFFICIAL_CONTACT.people) assert.match(p.phoneE164, /^\+84\d{9}$/);
   });
 
   test('Sản phẩm gây quỹ có đủ 7 SKUs, actualStock null và saleStatus unconfirmed', () => {

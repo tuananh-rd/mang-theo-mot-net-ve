@@ -3,18 +3,26 @@ import Layout from '../../layouts/Layout.astro';
 import PageHero from '../../components/PageHero.astro';
 import ActivityList from '../../components/ActivityList.astro';
 import Timeline from '../../components/Timeline.astro';
-import { CAMPAIGN_PROJECT, PROJECT_NEEDS, SAFETY_PRACTICES, PLAY_FLOW } from '../../data/campaign';
+import ProjectProgress from '../../components/ProjectProgress.astro';
+import { CAMPAIGN_PROJECT, PROJECT_NEEDS, SAFETY_PRACTICES, PLAY_FLOW, PLANNED_SESSIONS, PROJECT_PROGRESS } from '../../data/campaign';
+import { formatViDate } from '../../lib/donations';
+
+const sessionLine = (id: string) => {
+  const s = PLANNED_SESSIONS.find((x) => x.id === id);
+  return s ? `${s.time} ${s.weekday} ${formatViDate(s.date)}` : 'Chưa cập nhật';
+};
 
 const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Dự án' }];
 
 const summaryItems = [
   { label: 'Địa điểm', value: 'Mái ấm Thánh Tâm Xuy Xá, Mỹ Đức, Hà Nội' },
   { label: 'Người tham gia', value: 'Các em nhỏ và người cao tuổi tại Mái ấm' },
-  { label: 'Hai buổi gặp', value: 'Buổi chơi khoảng 180 phút; buổi trao quà 30–45 phút' },
+  { label: 'Buổi chơi (khoảng 180 phút)', value: sessionLine('buoi-choi') },
+  { label: 'Trao quà (30–45 phút)', value: sessionLine('trao-qua') },
   {
-    label: 'Thời gian',
-    value: 'Khoảng 5 tuần',
-    chip: { kind: 'cho-xac-nhan' as const, label: 'Lịch đang chốt' },
+    label: 'Tiến độ',
+    value: `Tuần ${PROJECT_PROGRESS.currentWeek} trong khoảng ${PROJECT_PROGRESS.totalWeeks} tuần`,
+    chip: { kind: 'da-xac-nhan' as const, label: 'Đang triển khai' },
   },
 ];
 ---
@@ -27,7 +35,7 @@ const summaryItems = [
   <PageHero
     breadcrumbs={breadcrumbs}
     eyebrow="Dự án"
-    chip={{ kind: 'cho-xac-nhan', label: 'Chờ Mái ấm xác nhận' }}
+    chip={{ kind: 'da-xac-nhan', label: CAMPAIGN_PROJECT.statusNotice }}
     title="Một buổi chơi có lựa chọn"
     titleId="project-heading"
     lead={CAMPAIGN_PROJECT.slogan}
@@ -60,7 +68,30 @@ const summaryItems = [
     </div>
   </section>
 
-  <section class="section section-soft" aria-labelledby="corners-heading">
+  <section class="section section-soft" aria-labelledby="home-heading">
+    <div class="container">
+      <div class="shelter">
+        <div class="shelter-text reveal">
+          <span class="eyebrow">Nơi dự án đến</span>
+          <h2 id="home-heading" class="col-title">Mái ấm Thánh Tâm Xuy Xá</h2>
+          <p>
+            Mái ấm ở Mỹ Đức, Hà Nội, chăm sóc các em nhỏ ở nhiều độ tuổi cùng các cụ cao tuổi. Mái ấm quyết định lịch, hoạt động, vật liệu, việc ghi hình và danh mục quà của dự án.
+          </p>
+        </div>
+        <div class="shelter-photos">
+          <figure class="shelter-photo reveal">
+            <img src="/images/mai-am/mai-am-1.webp" alt="Các em và người chăm sóc ngồi trước dãy nhà của Mái ấm Thánh Tâm" width="640" height="480" loading="lazy" decoding="async" />
+          </figure>
+          <figure class="shelter-photo reveal">
+            <img src="/images/mai-am/mai-am-2.webp" alt="Các em và khách đến thăm vỗ tay trò chuyện tại hiên Mái ấm Thánh Tâm" width="640" height="488" loading="lazy" decoding="async" />
+          </figure>
+          <p class="shelter-caption">Ảnh giới thiệu Mái ấm do nhóm cung cấp, được phép công bố. Đây không phải ảnh hoạt động của dự án.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="corners-heading">
     <div class="container">
       <div class="section-header">
         <span class="eyebrow">Buổi chơi</span>
@@ -88,7 +119,7 @@ const summaryItems = [
     </div>
   </section>
 
-  <section class="section" aria-labelledby="safety-heading">
+  <section class="section section-soft" aria-labelledby="safety-heading">
     <div class="container">
       <div class="two-col">
         <div class="reveal">
@@ -112,15 +143,18 @@ const summaryItems = [
     </div>
   </section>
 
-  <section class="section section-soft" aria-labelledby="timeline-heading">
+  <section class="section" aria-labelledby="timeline-heading">
     <div class="container">
       <div class="section-header">
         <span class="eyebrow">Lộ trình</span>
         <h2 id="timeline-heading">Bốn chặng của dự án</h2>
       </div>
-      <Timeline stages={CAMPAIGN_PROJECT.plannedStages} />
+      <div class="reveal"><ProjectProgress compact /></div>
+      <div class="timeline-wrap">
+        <Timeline stages={CAMPAIGN_PROJECT.plannedStages} />
+      </div>
       <p class="source-note">
-        Lịch cụ thể sẽ được công bố sau khi thống nhất với Mái ấm. Sau dự án, nhóm công bố hoạt động đã diễn ra, thu chi đã đối soát và vật phẩm đã trao.
+        Lịch hai buổi do nhóm công bố, có thể điều chỉnh theo Mái ấm. Sau dự án, nhóm công bố hoạt động đã diễn ra, sao kê đã đối soát và vật phẩm đã trao.
       </p>
     </div>
   </section>
@@ -133,7 +167,7 @@ const summaryItems = [
       </div>
       <div class="cta-band-actions">
         <a href="/dong-hanh" class="btn btn-primary">Ủng hộ dự án</a>
-        <a href="/minh-bach" class="link-arrow">Minh bạch thu chi <span class="arrow" aria-hidden="true">→</span></a>
+        <a href="/minh-bach" class="link-arrow">Minh bạch <span class="arrow" aria-hidden="true">→</span></a>
       </div>
     </div>
   </section>
@@ -173,6 +207,51 @@ const summaryItems = [
 
   .need-desc {
     margin: 0;
+  }
+
+  .shelter {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: var(--space-10);
+    align-items: center;
+  }
+
+  .shelter-text p {
+    margin: 0;
+  }
+
+  .shelter-photos {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-4);
+  }
+
+  .shelter-photo {
+    margin: 0;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-raised);
+    aspect-ratio: 4 / 3;
+    background: var(--surface-alt);
+  }
+
+  .shelter-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 40%;
+    display: block;
+  }
+
+  .shelter-caption {
+    grid-column: 1 / -1;
+    margin: 0;
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-small);
+  }
+
+  .timeline-wrap {
+    margin-top: var(--space-8);
   }
 
   .flow-title {
@@ -239,6 +318,11 @@ const summaryItems = [
   }
 
   @media (max-width: 1023px) {
+    .shelter {
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+    }
+
     .needs,
     .flow {
       grid-template-columns: 1fr;

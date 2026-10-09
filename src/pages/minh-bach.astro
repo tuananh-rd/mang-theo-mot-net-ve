@@ -1,94 +1,46 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/PageHero.astro';
-import KeyFigures from '../components/KeyFigures.astro';
+import GoalProgress from '../components/GoalProgress.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
-import { PLANNED_EXPENSES, TRANSPARENCY_FAQS, ACTUAL_FINANCE, DONATION_ACCOUNT, DONATIONS } from '../data/campaign';
-import { groupPlannedExpensesByCategory, formatVND } from '../lib/finance';
-import { isDonationOpen, summarizeDonations, formatViDate } from '../lib/donations';
+import { TRANSPARENCY_FAQS, DONATION_ACCOUNT, DONATION_LEDGER, LEDGER_PROCESS } from '../data/campaign';
+import { summarizeLedger } from '../lib/donations';
 
-const donationOpen = isDonationOpen(DONATION_ACCOUNT);
-const donation = summarizeDonations(DONATIONS, donationOpen);
-
-// Chỉ trình bày chi phí của buổi chơi và quà; không hiển thị đơn giá từng khoản.
-const PLAY_GROUPS: Record<string, { label: string; detail: string }> = {
-  'Vật tư workshop & quà tặng': {
-    label: 'Vật tư buổi chơi và quà',
-    detail: 'Chuồn chuồn tre và đế, tượng tô, màu vẽ, bóng, móc khóa, bánh kẹo cho các em',
-  },
-  'Truyền thông & Di chuyển': {
-    label: 'Di chuyển và ấn phẩm',
-    detail: 'Thuê xe buổi chơi, di chuyển buổi trao quà, ấn phẩm giới thiệu',
-  },
-};
-const playGroups = groupPlannedExpensesByCategory(PLANNED_EXPENSES).filter((g) => g.category in PLAY_GROUPS);
-const playTotal = playGroups.every((g) => g.subtotal !== null)
-  ? playGroups.reduce((sum, g) => sum + (g.subtotal ?? 0), 0)
-  : null;
-
-const figures = [
-  {
-    label: 'Ủng hộ đã nhận',
-    value: donation.total === null ? 'Sắp mở' : formatVND(donation.total),
-    chip: donationOpen ? ('da-xac-nhan' as const) : ('cho-xac-nhan' as const),
-    chipLabel: donationOpen ? `Đối soát ${formatViDate(DONATION_ACCOUNT.ledgerUpdatedAt)}` : 'Chưa mở nhận',
-    note: donation.count === null ? 'Tài khoản sẽ được công bố ở trang Ủng hộ.' : `${donation.count} lượt ủng hộ, xem từng dòng trong sao kê.`,
-    muted: donation.total === null,
-  },
-  {
-    label: 'Dự kiến chi cho buổi chơi',
-    value: formatVND(playTotal),
-    chip: 'ke-hoach' as const,
-    note: 'Vật tư, quà cho các em và di chuyển.',
-  },
-  {
-    label: 'Đã chi thực tế',
-    value: formatVND(ACTUAL_FINANCE.actualCashSpent.value),
-    chip: 'cho-xac-nhan' as const,
-    chipLabel: 'Cập nhật sau dự án',
-    note: 'Kèm hóa đơn, chứng từ đã che thông tin riêng.',
-    muted: true,
-  },
-  {
-    label: 'Đã trao cho Mái ấm',
-    value: ACTUAL_FINANCE.actualInKindDelivered.value === null ? 'Chưa xác nhận' : `${ACTUAL_FINANCE.actualInKindDelivered.value} ${ACTUAL_FINANCE.actualInKindDelivered.unit}`,
-    chip: 'cho-xac-nhan' as const,
-    chipLabel: 'Cập nhật sau dự án',
-    note: 'Kèm biên bản bàn giao có xác nhận của Mái ấm.',
-    muted: true,
-  },
-];
+const summary = summarizeLedger(DONATION_LEDGER, DONATION_ACCOUNT.goalAmount);
 
 const moneyFlow = [
-  { title: 'Nhận', text: 'Tiền ủng hộ và tiền bán quà lưu niệm, ghi sổ và đăng sao kê.' },
-  { title: 'Chi cho buổi chơi', text: 'Vật tư, quà cho các em và di chuyển, theo kế hoạch bên dưới.' },
-  { title: 'Mua quà cho Mái ấm', text: 'Phần còn lại mua vật phẩm theo danh mục Mái ấm xác nhận.' },
-  { title: 'Báo cáo', text: 'Công bố tổng thu, chi, hóa đơn và biên bản bàn giao sau dự án.' },
+  { title: 'Nhận', text: 'Tiền ủng hộ vào tài khoản dự án; tiền bán quà lưu niệm ghi sổ riêng.' },
+  { title: 'Đối soát', text: 'Hai thành viên đối chiếu với sao kê ngân hàng rồi đăng lên website.' },
+  { title: 'Sử dụng', text: 'Cho buổi chơi và quà theo danh mục Mái ấm xác nhận.' },
+  { title: 'Báo cáo', text: 'Sau buổi trao quà, công bố tổng nhận, hóa đơn và biên bản bàn giao.' },
 ];
 
 const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Minh bạch' }];
 ---
 
 <Layout
-  title="Minh bạch thu chi"
-  description="Tiền ủng hộ dự án Mang Theo Một Nét Vẽ được nhận, sử dụng và báo cáo thế nào."
+  title="Minh bạch"
+  description="Cách nhóm Lăng Kính nhận, đối soát, công bố và sử dụng tiền ủng hộ dự án Mang Theo Một Nét Vẽ."
   currentPath="/minh-bach"
 >
   <PageHero
     breadcrumbs={breadcrumbs}
     eyebrow="Minh bạch"
-    title="Minh bạch thu chi"
+    title="Minh bạch tiền ủng hộ"
     titleId="transparency-heading"
-    lead="Đã nhận bao nhiêu, chi vào đâu, trao gì cho Mái ấm — tất cả công khai tại đây."
-    description="Số liệu thực tế được cập nhật sau mỗi lần đối soát; các khoản chưa phát sinh được ghi rõ là chưa có."
+    lead="Nhận vào đâu, đối soát thế nào, công bố khi nào và dùng cho việc gì."
+    description="Tổng ủng hộ chỉ được tính từ sổ đã đối chiếu với ngân hàng; chưa có sổ đã đối soát thì website ghi “Chưa cập nhật”, không ghi 0đ."
   />
 
   <section class="section section-first" aria-labelledby="overview-heading">
     <div class="container">
-      <h2 id="overview-heading" class="sr-only">Tổng quan thu chi</h2>
-      <KeyFigures figures={figures} label="Tổng quan thu chi" />
+      <h2 id="overview-heading" class="sr-only">Tiến độ ủng hộ</h2>
+      <div class="overview reveal">
+        <GoalProgress summary={summary} />
+      </div>
       <div class="section-actions">
-        <a href="/dong-hanh#sao-ke" class="link-arrow">Xem sao kê từng khoản ủng hộ <span class="arrow" aria-hidden="true">→</span></a>
+        <a href="/dong-hanh#sao-ke" class="link-arrow">Xem sao kê từng khoản <span class="arrow" aria-hidden="true">→</span></a>
+        <a href="/dong-hanh" class="link-arrow">Thông tin chuyển khoản <span class="arrow" aria-hidden="true">→</span></a>
       </div>
     </div>
   </section>
@@ -97,7 +49,7 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Minh bạch'
     <div class="container">
       <div class="section-header">
         <span class="eyebrow">Dòng tiền</span>
-        <h2 id="flow-heading">Tiền đi qua bốn bước</h2>
+        <h2 id="flow-heading">Bốn bước của một khoản ủng hộ</h2>
       </div>
       <ol class="flow">
         {
@@ -113,54 +65,46 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Minh bạch'
     </div>
   </section>
 
-  <section class="section" aria-labelledby="plan-heading">
+  <section class="section" aria-labelledby="process-heading" id="quy-trinh">
     <div class="container">
       <div class="section-header">
-        <span class="eyebrow">Kế hoạch</span>
-        <h2 id="plan-heading">Dự kiến chi cho buổi chơi</h2>
-        <p>Đây là kế hoạch của nhóm. Chi phí thực tế và hóa đơn sẽ được công bố sau dự án.</p>
+        <span class="eyebrow">Quy trình áp dụng</span>
+        <h2 id="process-heading">Quản lý và công bố sao kê</h2>
+        <p>Đây là quy trình nhóm áp dụng cho dự án. Kết quả từng lần đối soát sẽ hiển thị ở trang Ủng hộ.</p>
       </div>
-      <ul class="plan">
+      <ul class="ruled-list">
         {
-          playGroups.map((g) => (
-            <li class="plan-row">
-              <div>
-                <h3 class="plan-title">{PLAY_GROUPS[g.category].label}</h3>
-                <p class="plan-detail">{PLAY_GROUPS[g.category].detail}</p>
-              </div>
-              <span class="plan-amount">{formatVND(g.subtotal)}</span>
+          LEDGER_PROCESS.map((p) => (
+            <li>
+              <h3 class="ruled-title">{p.title}</h3>
+              <p class="ruled-desc">{p.description}</p>
             </li>
           ))
         }
-        <li class="plan-row plan-total">
-          <span>Tổng dự kiến</span>
-          <span class="plan-amount">{formatVND(playTotal)}</span>
-        </li>
       </ul>
     </div>
   </section>
 
-  <section class="section section-soft" aria-labelledby="rules-heading">
+  <section class="section section-soft" aria-labelledby="report-heading">
     <div class="container">
       <div class="two-col">
         <div class="reveal">
-          <span class="eyebrow">Cam kết</span>
-          <h2 id="rules-heading" class="col-title">Cách nhóm giữ tiền</h2>
+          <span class="eyebrow">Sau dự án</span>
+          <h2 id="report-heading" class="col-title">Báo cáo cuối sẽ có</h2>
           <ul class="check-list">
-            <li>Mỗi khoản ủng hộ được đối chiếu với sao kê ngân hàng trước khi đăng.</li>
-            <li>Hai thành viên đối soát thu chi; tiền và hiện vật ghi riêng.</li>
-            <li>Chỉ chi trong số tiền thực có; không ai ứng tiền cá nhân.</li>
-            <li>Quà mua theo danh mục Mái ấm xác nhận, có hóa đơn và biên bản bàn giao.</li>
+            <li>Tổng tiền ủng hộ đã đối soát và tiền bán quà lưu niệm, ghi riêng.</li>
+            <li>Danh sách vật phẩm đã trao và biên bản có xác nhận của Mái ấm.</li>
+            <li>Hóa đơn, chứng từ đã che thông tin riêng tư.</li>
+            <li>Số còn lại (nếu có) và cách xử lý.</li>
           </ul>
         </div>
         <div class="reveal">
-          <span class="eyebrow">Sau dự án</span>
-          <h3 class="col-title col-title--sm">Báo cáo cuối sẽ có</h3>
+          <span class="eyebrow">Cam kết</span>
+          <h3 class="col-title col-title--sm">Nguyên tắc nhóm giữ</h3>
           <ul class="check-list">
-            <li>Tổng tiền ủng hộ và tiền bán quà đã nhận.</li>
-            <li>Các khoản đã chi kèm hóa đơn, chứng từ đã che thông tin riêng.</li>
-            <li>Danh sách vật phẩm đã trao và biên bản có xác nhận của Mái ấm.</li>
-            <li>Số dư còn lại và cách xử lý.</li>
+            <li>Chỉ chi trong số tiền thực có; không ai ứng tiền cá nhân.</li>
+            <li>Quà mua theo danh mục Mái ấm xác nhận.</li>
+            <li>Không dùng hình ảnh hay hoàn cảnh của các em để kêu gọi ủng hộ.</li>
           </ul>
         </div>
       </div>
@@ -181,7 +125,7 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Minh bạch'
     <div class="container cta-band-inner">
       <div class="cta-band-text">
         <h2 id="finance-cta-heading">Cùng góp một món quà</h2>
-        <p>Ủng hộ qua chuyển khoản, khoản của bạn sẽ xuất hiện trong sao kê.</p>
+        <p>Quét mã QR và theo dõi khoản của bạn trong sao kê.</p>
       </div>
       <div class="cta-band-actions">
         <a href="/dong-hanh" class="btn btn-primary">Ủng hộ dự án</a>
@@ -197,6 +141,14 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Minh bạch'
 
   .narrow > :global(*) {
     max-width: 880px;
+  }
+
+  .overview {
+    padding: var(--space-6);
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-subtle);
   }
 
   .flow {
@@ -240,56 +192,6 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Minh bạch'
     margin: 0;
   }
 
-  .plan {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    max-width: 880px;
-  }
-
-  .plan-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: var(--space-6);
-    padding: var(--space-5) var(--space-6);
-    border-bottom: 1px solid var(--line);
-  }
-
-  .plan-title {
-    font-size: var(--font-size-h3);
-    line-height: var(--line-height-h3);
-    margin: 0;
-  }
-
-  .plan-detail {
-    margin: var(--space-1) 0 0;
-    font-size: var(--font-size-small);
-    line-height: var(--line-height-small);
-  }
-
-  .plan-amount {
-    font-size: var(--font-size-h3);
-    font-weight: 700;
-    color: var(--ink);
-    font-variant-numeric: tabular-nums;
-    white-space: nowrap;
-  }
-
-  .plan-total {
-    background: var(--brand-ink);
-    color: #ffffff;
-    font-weight: 600;
-    border-bottom: none;
-  }
-
-  .plan-total .plan-amount {
-    color: #ffffff;
-  }
-
   .col-title {
     font-size: var(--font-size-h2);
     line-height: var(--line-height-h2);
@@ -313,6 +215,10 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Minh bạch'
       padding-top: var(--space-6);
     }
 
+    .overview {
+      padding: var(--space-4);
+    }
+
     .flow {
       grid-template-columns: 1fr;
       gap: var(--space-3);
@@ -328,15 +234,6 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Minh bạch'
 
     .flow-num {
       grid-row: span 2;
-    }
-
-    .plan-row {
-      padding: var(--space-4);
-      align-items: flex-start;
-    }
-
-    .plan-amount {
-      font-size: var(--font-size-body);
     }
   }
 </style>

@@ -1,0 +1,166 @@
+---
+import type { DonationSummary } from '../lib/donations';
+import { formatViDate } from '../lib/donations';
+import { formatVND } from '../lib/finance';
+
+interface Props {
+  summary: DonationSummary;
+  /** dark: dùng trên nền navy (Trang chủ) */
+  tone?: 'light' | 'dark';
+}
+
+const { summary, tone = 'light' } = Astro.props;
+const known = summary.total !== null;
+const percent = summary.percent ?? 0;
+---
+
+<div class:list={['goal', `goal--${tone}`, { 'goal--unknown': !known }]}>
+  <div class="goal-head">
+    <div>
+      <span class="goal-label">Đã ủng hộ (sổ đã đối soát)</span>
+      <span class="goal-total">{known ? formatVND(summary.total) : 'Chưa cập nhật sao kê'}</span>
+    </div>
+    <div class="goal-target">
+      <span class="goal-label">Mục tiêu</span>
+      <span class="goal-goal">{formatVND(summary.goal)}</span>
+    </div>
+  </div>
+
+  <div
+    class="goal-bar"
+    role="progressbar"
+    aria-label="Tiến độ ủng hộ so với mục tiêu"
+    aria-valuemin="0"
+    aria-valuemax="100"
+    aria-valuenow={known && summary.percent !== null ? summary.percent : undefined}
+    aria-valuetext={known ? `${summary.percent}% mục tiêu` : 'Chưa cập nhật sao kê'}
+  >
+    {known && <span class="goal-fill" style={`--goal-pct: ${percent}%;`}></span>}
+  </div>
+
+  <p class="goal-foot">
+    {known
+      ? `${summary.percent}% mục tiêu · ${summary.count} lượt · đối soát ${formatViDate(summary.reconciledAt)}${summary.reachedGoal ? ' · đã đạt mục tiêu' : ''}`
+      : 'Tổng sẽ hiển thị sau khi nhóm đối chiếu sao kê ngân hàng lần đầu.'}
+  </p>
+</div>
+
+<style>
+  .goal {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .goal-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  .goal-head > div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .goal-target {
+    text-align: right;
+    align-items: flex-end;
+  }
+
+  .goal-label {
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-small);
+    font-weight: 600;
+    color: var(--ink-2);
+  }
+
+  .goal-total {
+    font-size: var(--font-size-num-xl);
+    line-height: var(--line-height-num-xl);
+    font-weight: 700;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .goal--unknown .goal-total {
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+    color: var(--status-pending-text);
+    padding: var(--space-2) 0;
+  }
+
+  .goal-goal {
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+    font-weight: 700;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .goal-bar {
+    position: relative;
+    height: 14px;
+    border-radius: var(--radius-pill);
+    background: var(--surface-alt);
+    border: 1px solid var(--line);
+    overflow: hidden;
+  }
+
+  .goal--unknown .goal-bar {
+    background: repeating-linear-gradient(135deg, var(--surface-alt) 0 8px, #ffffff 8px 16px);
+  }
+
+  .goal-fill {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: var(--goal-pct);
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--cta), #f0a830);
+  }
+
+  .goal-foot {
+    margin: 0;
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-small);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :global(html.motion) .goal-fill {
+      animation: goal-grow 1100ms var(--ease-out) 300ms both;
+    }
+  }
+
+  @keyframes goal-grow {
+    from {
+      width: 0;
+    }
+  }
+
+  /* Trên nền tối */
+  .goal--dark .goal-label,
+  .goal--dark .goal-foot {
+    color: #c9d2dc;
+  }
+
+  .goal--dark .goal-total,
+  .goal--dark .goal-goal {
+    color: #ffffff;
+  }
+
+  .goal--dark.goal--unknown .goal-total {
+    color: var(--cta);
+  }
+
+  .goal--dark .goal-bar {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .goal--dark.goal--unknown .goal-bar {
+    background: repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0 8px, rgba(255, 255, 255, 0.12) 8px 16px);
+  }
+</style>

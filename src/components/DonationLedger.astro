@@ -1,34 +1,22 @@
 ---
-import type { DonationAccount, DonationEntry } from '../data/campaign';
-import { isDonationOpen, summarizeDonations, sortDonationsNewestFirst, formatViDate } from '../lib/donations';
+import type { DonationAccount, DonationLedger } from '../data/campaign';
+import GoalProgress from './GoalProgress.astro';
+import { summarizeLedger, sortDonationsNewestFirst, formatViDate, isLedgerReconciled } from '../lib/donations';
 import { formatVND } from '../lib/finance';
 
 interface Props {
   account: DonationAccount;
-  entries: DonationEntry[];
+  ledger: DonationLedger;
 }
 
-const { account, entries } = Astro.props;
-const open = isDonationOpen(account);
-const summary = summarizeDonations(entries, open);
-const rows = sortDonationsNewestFirst(entries);
+const { account, ledger } = Astro.props;
+const summary = summarizeLedger(ledger, account.goalAmount);
+const reconciled = isLedgerReconciled(ledger);
+const rows = sortDonationsNewestFirst(ledger.entries);
 ---
 
 <div class="ledger-box">
-  <dl class="ledger-stats">
-    <div>
-      <dt>Tổng đã nhận</dt>
-      <dd>{summary.total === null ? 'Chưa mở' : formatVND(summary.total)}</dd>
-    </div>
-    <div>
-      <dt>Số lượt ủng hộ</dt>
-      <dd>{summary.count === null ? '—' : summary.count}</dd>
-    </div>
-    <div>
-      <dt>Đối soát gần nhất</dt>
-      <dd>{formatViDate(account.ledgerUpdatedAt)}</dd>
-    </div>
-  </dl>
+  <GoalProgress summary={summary} />
 
   {rows.length > 0 ? (
     <>
@@ -37,7 +25,7 @@ const rows = sortDonationsNewestFirst(entries);
         <input id="donor-search" type="search" class="search-input" placeholder="Nhập tên hoặc mã giao dịch" autocomplete="off" />
       </div>
       <table class="data-table data-table--stack donor-table">
-        <caption class="sr-only">Sao kê các khoản ủng hộ đã đối soát</caption>
+        <caption class="sr-only">Sao kê các khoản ủng hộ đã đối soát đến {formatViDate(ledger.reconciledAt)}</caption>
         <thead>
           <tr>
             <th scope="col">Ngày</th>
@@ -57,13 +45,17 @@ const rows = sortDonationsNewestFirst(entries);
           ))}
         </tbody>
       </table>
-      <p class="no-match" hidden>Không tìm thấy khoản phù hợp. Khoản mới có thể chưa qua đối soát.</p>
+      <p class="no-match" hidden>Không tìm thấy khoản phù hợp. Khoản mới chuyển có thể chưa qua đối soát.</p>
     </>
   ) : (
     <div class="ledger-empty">
-      <p class="ledger-empty-title">{open ? 'Chưa có khoản ủng hộ nào được ghi nhận' : 'Bảng sao kê sẽ bắt đầu khi mở nhận ủng hộ'}</p>
+      <p class="ledger-empty-title">
+        {reconciled ? `Chưa có khoản ủng hộ nào trong sổ đối soát đến ${formatViDate(ledger.reconciledAt)}` : 'Sao kê chưa được cập nhật'}
+      </p>
       <p>
-        Mỗi khoản sẽ được ghi một dòng gồm ngày, tên hiển thị, mã giao dịch rút gọn và số tiền, sau khi hai thành viên tài chính đối chiếu với sao kê ngân hàng.
+        {reconciled
+          ? 'Khoản mới chuyển sau ngày đối soát sẽ xuất hiện ở lần cập nhật tiếp theo.'
+          : 'Nhóm sẽ đăng từng khoản (ngày, tên hiển thị, mã giao dịch rút gọn, số tiền) sau khi hai thành viên tài chính đối chiếu với sao kê ngân hàng. Bảng trống lúc này không có nghĩa là chưa có ai ủng hộ.'}
       </p>
     </div>
   )}
@@ -89,55 +81,19 @@ const rows = sortDonationsNewestFirst(entries);
 
 <style>
   .ledger-box {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
     background: #ffffff;
     border: 1px solid var(--line);
     border-radius: var(--radius-lg);
     padding: var(--space-6);
   }
 
-  .ledger-stats {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    margin: 0 0 var(--space-5);
-    border-bottom: 1px solid var(--line);
-    padding-bottom: var(--space-5);
-  }
-
-  .ledger-stats div {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    padding-left: var(--space-5);
-    border-left: 1px solid var(--line);
-  }
-
-  .ledger-stats div:first-child {
-    padding-left: 0;
-    border-left: none;
-  }
-
-  .ledger-stats dt {
-    font-size: var(--font-size-small);
-    color: var(--ink-2);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-  }
-
-  .ledger-stats dd {
-    margin: 0;
-    font-size: var(--font-size-h3);
-    line-height: var(--line-height-h3);
-    font-weight: 700;
-    color: var(--ink);
-    font-variant-numeric: tabular-nums;
-  }
-
   .ledger-search {
     display: flex;
     flex-direction: column;
     gap: var(--space-1);
-    margin-bottom: var(--space-4);
     max-width: 420px;
   }
 
@@ -170,7 +126,7 @@ const rows = sortDonationsNewestFirst(entries);
 
   .ledger-empty p {
     margin: 0 auto;
-    max-width: 560px;
+    max-width: 600px;
   }
 
   .ledger-empty-title {
@@ -180,29 +136,12 @@ const rows = sortDonationsNewestFirst(entries);
   }
 
   .no-match {
-    margin: var(--space-3) 0 0;
+    margin: 0;
   }
 
   @media (max-width: 767px) {
     .ledger-box {
       padding: var(--space-4);
-    }
-
-    .ledger-stats {
-      grid-template-columns: 1fr;
-      gap: var(--space-3);
-    }
-
-    .ledger-stats div {
-      padding-left: 0;
-      border-left: none;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: baseline;
-    }
-
-    .ledger-stats dd {
-      font-size: var(--font-size-body);
     }
 
     .ledger-empty {

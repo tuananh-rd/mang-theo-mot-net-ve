@@ -1,0 +1,134 @@
+---
+import { OFFICIAL_CONTACT } from '../data/campaign';
+
+interface Props {
+  title?: string;
+  intro?: string;
+}
+
+const {
+  title = 'Liên hệ nhóm',
+  intro = 'Hỏi về ủng hộ, quà lưu niệm hoặc buổi chơi, hãy gọi một trong hai số dưới đây.',
+} = Astro.props;
+const ready = OFFICIAL_CONTACT.status === 'confirmed' && OFFICIAL_CONTACT.people.length > 0;
+---
+
+{
+  ready && (
+    <div class="contact-card">
+      <h3 class="contact-title">{title}</h3>
+      <p class="contact-intro">{intro}</p>
+      <ul class="contact-list">
+        {OFFICIAL_CONTACT.people.map((p) => (
+          <li class="contact-person">
+            <span class="contact-role">{p.role}</span>
+            <span class="contact-name">{p.name}</span>
+            <a class="contact-tel" href={`tel:${p.phoneE164}`} aria-label={`Gọi ${p.role} ${p.name}: ${p.phone}`}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2Z" />
+              </svg>
+              {p.phone}
+            </a>
+          </li>
+        ))}
+      </ul>
+      {OFFICIAL_CONTACT.fanpageUrl && (
+        <a class="contact-fanpage" href={OFFICIAL_CONTACT.fanpageUrl} target="_blank" rel="noopener noreferrer">
+          Fanpage Mang Theo Một Nét Vẽ <span class="arrow" aria-hidden="true">↗</span>
+          <span class="sr-only">(mở trong thẻ mới)</span>
+        </a>
+      )}
+    </div>
+  )
+}
+
+<style>
+  .contact-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: var(--space-6);
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+  }
+
+  .contact-title {
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+    margin: 0;
+  }
+
+  .contact-intro {
+    margin: 0;
+  }
+
+  .contact-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-3);
+  }
+
+  .contact-person {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+    background: var(--surface-alt);
+  }
+
+  .contact-role {
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-small);
+    font-weight: 600;
+    color: var(--brand);
+  }
+
+  .contact-name {
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .contact-tel {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: 44px;
+    margin-top: var(--space-1);
+    font-weight: 700;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .contact-tel:hover {
+    color: var(--brand);
+  }
+
+  .contact-fanpage {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    min-height: 44px;
+    font-weight: 600;
+    color: var(--brand);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  @media (max-width: 767px) {
+    .contact-card {
+      padding: var(--space-4);
+    }
+
+    .contact-list {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
