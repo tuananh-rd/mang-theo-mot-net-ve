@@ -416,9 +416,7 @@
 
 /* Dải CTA cuối trang theo ngữ cảnh */
 .cta-band {
-  background:
-    radial-gradient(35% 120% at 100% 50%, rgba(247, 201, 72, 0.22), transparent 70%),
-    var(--warm-canvas);
+  background-color: var(--warm-canvas);
   border-top: 1px solid var(--line);
   padding-top: var(--space-12);
   padding-bottom: var(--space-12);
@@ -483,7 +481,7 @@
       right: 0;
       height: 3px;
       z-index: 60;
-      background: linear-gradient(90deg, var(--cta), var(--brand));
+      background-color: var(--brand);
       transform-origin: 0 50%;
       transform: scaleX(0);
       animation: progress-grow linear both;

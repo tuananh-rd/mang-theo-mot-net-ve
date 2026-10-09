@@ -248,21 +248,13 @@ html.motion main .reveal.is-revealed {
   }
 }
 
-/* --- Gạch chân điều hướng chạy từ giữa --- */
+/* --- Gạch chân điều hướng phẳng --- */
 @media (prefers-reduced-motion: no-preference) {
   .nav-link {
-    background-image: linear-gradient(var(--brand), var(--brand));
-    background-repeat: no-repeat;
-    background-position: 50% 100%;
-    background-size: 0% 2px;
-    transition: color var(--transition-fast), background-size var(--transition-normal);
+    transition: color var(--transition-fast), border-color var(--transition-normal);
   }
 
-  .nav-link:hover {
-    background-size: 100% 2px;
-  }
-
-  .nav-link.is-active {
-    background-image: none;
+  .nav-link:hover:not(.is-active) {
+    border-bottom-color: var(--brand);
   }
 }

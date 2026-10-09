@@ -84,14 +84,12 @@ const titleHighlight = hlIndex >= 0 ? HIGHLIGHT : null;
     isolation: isolate;
   }
 
-  /* Nền ấm: hai vệt màu rất nhẹ, tĩnh */
+  /* Nền ấm phẳng theo token thương hiệu */
   .hero-bg {
     position: absolute;
     inset: 0;
     z-index: -1;
-    background:
-      radial-gradient(42% 60% at 92% 8%, rgba(247, 201, 72, 0.22), transparent 70%),
-      radial-gradient(38% 55% at 0% 100%, rgba(138, 34, 52, 0.07), transparent 70%);
+    background-color: var(--warm-canvas);
   }
 
   .hero-grid {
