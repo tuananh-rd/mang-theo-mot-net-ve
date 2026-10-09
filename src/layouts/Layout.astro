@@ -39,17 +39,31 @@ if (title.includes(BRAND_PROJECT)) {
     <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
     <title>{pageTitle}</title>
+    <script is:inline>
+      // Bật hiệu ứng chỉ khi có JS và người dùng không chọn giảm chuyển động.
+      // Nếu script chính không chạy trong 2,5 giây, gỡ lớp để nội dung không bị ẩn.
+      (function () {
+        var d = document.documentElement;
+        if ('requestAnimationFrame' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          d.classList.add('motion');
+          setTimeout(function () {
+            if (!d.classList.contains('motion-ready')) d.classList.remove('motion');
+          }, 2500);
+        }
+      })();
+    </script>
   </head>
   <body>
     <a href="#main-content" class="skip-link">Chuyển đến nội dung chính</a>
+    <div class="scroll-progress" aria-hidden="true"></div>
 
     <!-- Top Preview Banner -->
     <aside class="preview-banner" aria-label="Thông báo bản xem trước">
       <span class="banner-text-desktop">
-        <strong>Bản xem trước</strong> — Nội dung theo đề xuất dự án, chờ xác nhận chính thức từ nhóm và Mái ấm.
+        <strong>○ Bản xem trước</strong> — Nội dung theo đề xuất dự án, chờ xác nhận chính thức từ nhóm và Mái ấm.
       </span>
       <span class="banner-text-mobile">
-        <strong>Bản xem trước</strong> — chờ xác nhận
+        <strong>○ Bản xem trước</strong> — chờ xác nhận
       </span>
     </aside>
 
@@ -60,6 +74,93 @@ if (title.includes(BRAND_PROJECT)) {
     </main>
 
     <Footer />
+
+    <button type="button" class="to-top" aria-label="Lên đầu trang">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" /></svg>
+    </button>
+
+    <script>
+      const root = document.documentElement;
+
+      // Header đổ bóng nhẹ khi trang đã cuộn
+      const header = document.querySelector('.site-header');
+      const toTop = document.querySelector<HTMLButtonElement>('.to-top');
+      const onScroll = () => {
+        header?.classList.toggle('is-scrolled', window.scrollY > 8);
+        toTop?.classList.toggle('is-visible', window.scrollY > 700);
+      };
+      toTop?.addEventListener('click', () => {
+        window.scrollTo({ top: 0 });
+        document.getElementById('main-content')?.focus({ preventScroll: true });
+      });
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+
+      // Hiện dần các khối nội dung khi cuộn tới
+      if (root.classList.contains('motion')) {
+        // Phải khớp danh sách trong src/styles/motion.css
+        const selectors = [
+          'main .section-header',
+          'main .activity-list > li',
+          'main .timeline > li',
+          'main .product-grid > li',
+          'main .kf-item',
+          'main .formula-part',
+          'main .needs > li',
+          'main .steps > li',
+          'main .plan',
+          'main .flow > li',
+          'main .areas > li',
+          'main .ways > li',
+          'main .ruled-list > li',
+          'main .check-list',
+          'main .note',
+          'main .disclosure',
+          'main .faq-item',
+          'main .home-col',
+          'main .contact',
+          'main .actual-list',
+          'main .cta-band-inner',
+          'main .reveal',
+        ];
+        const items = Array.from(document.querySelectorAll<HTMLElement>(selectors.join(',')));
+        items.forEach((el) => {
+          el.setAttribute('data-reveal', '');
+          const parent = el.parentElement;
+          if (parent) {
+            const siblings = Array.from(parent.children).filter((c) => items.includes(c as HTMLElement));
+            const i = siblings.indexOf(el);
+            if (i > 0) el.style.setProperty('--reveal-delay', `${Math.min(i, 6) * 70}ms`);
+          }
+        });
+        // Hiện mọi khối đã cuộn tới hoặc đã vượt qua (kể cả khi nhảy nhanh bằng phím End hay link neo)
+        let pending = items.slice();
+        let ticking = false;
+        const revealPassed = () => {
+          ticking = false;
+          const limit = window.innerHeight * 0.94;
+          pending = pending.filter((el) => {
+            if (el.getBoundingClientRect().top < limit) {
+              el.classList.add('is-revealed');
+              return false;
+            }
+            return true;
+          });
+          if (pending.length === 0) window.removeEventListener('scroll', onRevealScroll);
+        };
+        const onRevealScroll = () => {
+          if (!ticking) {
+            ticking = true;
+            requestAnimationFrame(revealPassed);
+          }
+        };
+        window.addEventListener('scroll', onRevealScroll, { passive: true });
+        window.addEventListener('resize', onRevealScroll, { passive: true });
+        window.addEventListener('beforeprint', () => items.forEach((el) => el.classList.add('is-revealed')));
+        revealPassed();
+        root.classList.add('motion-ready');
+      }
+    </script>
   </body>
 </html>
 

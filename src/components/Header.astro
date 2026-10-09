@@ -9,7 +9,7 @@ const isDongHanh = currentPath === '/dong-hanh';
 const navItems = [
   { href: '/', label: 'Trang chủ' },
   { href: '/du-an/mang-theo-mot-net-ve', label: 'Dự án' },
-  { href: '/san-pham', label: 'Sản phẩm' },
+  { href: '/san-pham', label: 'Quà lưu niệm' },
   { href: '/minh-bach', label: 'Minh bạch' },
   { href: '/ve-nhom', label: 'Về nhóm' },
 ];
@@ -56,7 +56,7 @@ const navItems = [
         class:list={['btn', 'btn-primary', 'cta-btn', { 'is-active': isDongHanh }]}
         aria-current={isDongHanh ? 'page' : undefined}
       >
-        Cách đồng hành
+        Ủng hộ
       </a>
     </nav>
 
@@ -106,7 +106,7 @@ const navItems = [
             class:list={['btn', 'btn-primary', 'btn-block', { 'is-active': isDongHanh }]}
             aria-current={isDongHanh ? 'page' : undefined}
           >
-            Cách đồng hành
+            Ủng hộ
           </a>
         </div>
       </nav>
@@ -185,10 +185,14 @@ const navItems = [
 
 <style>
   .site-header {
-    background-color: var(--color-canvas);
+    background-color: rgba(255, 255, 255, 0.92);
+    backdrop-filter: saturate(160%) blur(10px);
+    -webkit-backdrop-filter: saturate(160%) blur(10px);
     border-bottom: 1px solid var(--color-border);
-    position: relative;
+    position: sticky;
+    top: 0;
     z-index: 50;
+    transition: box-shadow var(--transition-normal), background-color var(--transition-normal);
   }
 
   .header-inner {
@@ -284,7 +288,7 @@ const navItems = [
 
   .nav-link.is-active {
     color: var(--color-text-primary);
-    border-bottom-color: var(--color-accent);
+    border-bottom-color: var(--brand);
   }
 
   .cta-btn {
@@ -300,7 +304,7 @@ const navItems = [
 
   .cta-btn.is-active,
   .btn-block.is-active {
-    box-shadow: 0 0 0 2px var(--color-canvas), 0 0 0 4px var(--color-accent);
+    box-shadow: 0 0 0 2px var(--color-canvas), 0 0 0 4px var(--brand);
   }
 
   /* Mobile Toggle */

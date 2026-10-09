@@ -1,43 +1,86 @@
 /**
- * Design Tokens - Đề xuất T01 theo docs/ui-reference.md
+ * Design Tokens - Hệ thị giác Hướng B (P0) theo docs/task-specs/C04.md & reports/ui-upgrade-plan-claude-c03.md
  */
 :root {
-  /* Color Palette */
+  /* Palette & Semantic Tokens */
+  --ink: #1f2933;
+  --ink-2: #52606d;
+  --brand: #8a2234;         /* Đỏ thẫm nhận diện, accent/eyebrow/link */
+  --brand-ink: #1a2235;     /* Navy đậm nhận diện */
+  --surface-alt: #f6f4ef;   /* Nền xám ấm trung tính, thay cho vàng kem #FFF8E8 */
+  --cta: #f7c948;           /* Vàng cho nút CTA chính */
+  --cta-hover: #e5b838;
+  --line: #d8dee5;          /* Viền phân cách trang trí */
+  --line-strong: #7b8794;   /* Viền điều khiển nút secondary/input >= 3:1 */
+  --focus: #174ea6;         /* Xanh focus 3px rõ ràng */
+
+  /* Màu pastel thân thiện cho các góc chơi và điểm nhấn (chữ đậm đạt >= 4.5:1 trên nền tint) */
+  --tint-sun: #fff4d6;
+  --tint-sun-ink: #7a5300;
+  --tint-rose: #fbe9ed;
+  --tint-rose-ink: #8a2234;
+  --tint-sky: #e6f0fa;
+  --tint-sky-ink: #1d4e89;
+  --tint-mint: #e3f3ea;
+  --tint-mint-ink: #1e6b3a;
+  --warm-canvas: #fffcf6;
+
+  /* Semantic Status Tokens (Chữ + Màu + Biểu tượng) */
+  --status-plan-bg: #eaf0f6;
+  --status-plan-text: #334e68;
+  --status-hypo-bg: #f1eefb;
+  --status-hypo-text: #5b3fa8;
+  --status-pending-bg: #fff4d6;
+  --status-pending-text: #6b4e00;
+  --status-review-bg: #fcebe8;
+  --status-review-text: #9b2c1f;
+  --status-confirmed-bg: #e7f4ec;
+  --status-confirmed-text: #1e6b3a;
+
+  /* Aliases tương thích ngược */
   --color-canvas: #ffffff;
-  --color-canvas-soft: #fff8e8;
+  --color-canvas-soft: var(--surface-alt);
   --color-canvas-subtle: #f8fafc;
   --color-surface-card: #ffffff;
-  
-  --color-text-primary: #1f2933;
-  --color-text-secondary: #52606d;
-  --color-text-muted: #5d6b79; /* Nhạt hơn secondary, đạt tương phản > 5:1 trên trắng và nền #FFF8E8 */
-  --color-text-accent: #b45309; /* Đảm bảo tương phản >= 4.5:1 trên nền sáng */
-  
-  --color-accent: #f7c948;
-  --color-accent-hover: #e5b838;
-  --color-accent-text: #1f2933;
-  
-  --color-border: #d8dee5;
-  --color-border-subtle: #e4e7eb;
-  --color-focus: #174ea6;
-  
-  --color-badge-bg: #fef3c7;
-  --color-badge-text: #92400e;
-  
-  /* Typography */
+  --color-text-primary: var(--ink);
+  --color-text-secondary: var(--ink-2);
+  --color-text-muted: var(--ink-2);
+  --color-text-accent: var(--brand);
+  --color-accent: var(--cta);
+  --color-accent-hover: var(--cta-hover);
+  --color-accent-text: var(--ink);
+  --color-border: var(--line);
+  --color-border-subtle: var(--line);
+  --color-border-strong: var(--line-strong);
+  --color-focus: var(--focus);
+  --color-badge-bg: var(--status-pending-bg);
+  --color-badge-text: var(--status-pending-text);
+
+  /* Typography Base */
   --font-family-base: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  
-  --font-size-h1: 3.5rem;    /* 56px */
-  --line-height-h1: 1.08;
-  --font-size-h2: 2.25rem;   /* 36px */
-  --line-height-h2: 1.25;
-  --font-size-h3: 1.5rem;    /* 24px */
-  --line-height-h3: 1.3;
-  --font-size-body: 1.125rem; /* 18px */
-  --line-height-body: 1.6;
-  --font-size-sm: 0.875rem;  /* 14px */
-  --line-height-sm: 1.5;
-  
+
+  /* Thang chữ 7 bậc chuẩn hóa - Desktop >= 1024px */
+  --font-size-display: 3.5rem;    /* 56px - Chỉ H1 Trang chủ */
+  --line-height-display: 3.75rem; /* 60px */
+  --font-size-h1: 2.75rem;        /* 44px - H1 5 trang con */
+  --line-height-h1: 3.25rem;      /* 52px */
+  --font-size-h2: 2rem;           /* 32px - Tiêu đề section */
+  --line-height-h2: 2.5rem;       /* 40px */
+  --font-size-h3: 1.25rem;        /* 20px - Tiêu đề thẻ, nhóm bảng */
+  --line-height-h3: 1.75rem;      /* 28px */
+  --font-size-lead: 1.125rem;     /* 18px - Đoạn mở đầu */
+  --line-height-lead: 1.875rem;   /* 30px */
+  --font-size-body: 1rem;         /* 16px - Văn bản chuẩn */
+  --line-height-body: 1.625rem;   /* 26px */
+  --font-size-small: 0.875rem;    /* 14px - Caption, credit, chip, eyebrow */
+  --line-height-small: 1.25rem;   /* 20px */
+  --font-size-num-xl: 2.5rem;     /* 40px - KPI tài chính */
+  --line-height-num-xl: 2.75rem;  /* 44px */
+
+  /* Aliases tương thích typography cũ */
+  --font-size-sm: var(--font-size-small);
+  --line-height-sm: var(--line-height-small);
+
   /* Spacing */
   --space-1: 4px;
   --space-2: 8px;
@@ -49,39 +92,75 @@
   --space-10: 40px;
   --space-12: 48px;
   --space-14: 56px;
+  --space-18: 72px;
   --space-20: 80px;
-  
-  /* Section Spacing */
-  --section-padding-y: var(--space-20);
+  --space-24: 96px;
+
+  /* Layout & Section Spacing - Desktop */
+  --space-section: 96px;
+  --section-padding-y: var(--space-section);
   --container-max-width: 1200px;
-  --container-gutter: var(--space-6);
-  
+  --container-gutter: 32px;
+  --prose-max-width: 68ch;
+
   /* Radii */
-  --radius-sm: 6px;
-  --radius-md: 12px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
   --radius-lg: 20px;
+  --radius-xl: 28px;
   --radius-pill: 999px;
-  
-  /* Transitions */
-  --transition-fast: 150ms ease;
-  --transition-normal: 250ms ease;
+
+  /* Subtle Shadow */
+  --shadow-subtle: 0 1px 2px rgba(16, 24, 40, 0.06), 0 1px 3px rgba(16, 24, 40, 0.08);
+
+  --shadow-raised: 0 4px 12px rgba(16, 24, 40, 0.06), 0 12px 32px rgba(16, 24, 40, 0.08);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-fast: 160ms;
+  --duration-normal: 260ms;
+  --duration-slow: 640ms;
+  --transition-fast: var(--duration-fast) var(--ease-out);
+  --transition-normal: var(--duration-normal) var(--ease-out);
 }
 
 @media (max-width: 1023px) {
   :root {
-    --font-size-h1: 2.75rem; /* 44px */
-    --font-size-h2: 2rem;    /* 32px */
-    --section-padding-y: var(--space-14); /* 56px */
+    --font-size-display: 2.75rem;   /* 44px */
+    --line-height-display: 3.125rem;/* 50px */
+    --font-size-h1: 2.375rem;       /* 38px */
+    --line-height-h1: 2.875rem;     /* 46px */
+    --font-size-h2: 1.75rem;        /* 28px */
+    --line-height-h2: 2.25rem;      /* 36px */
+    --font-size-h3: 1.25rem;        /* 20px */
+    --line-height-h3: 1.75rem;      /* 28px */
+    --font-size-lead: 1.125rem;     /* 18px */
+    --line-height-lead: 1.875rem;   /* 30px */
+    --font-size-num-xl: 2.25rem;    /* 36px */
+    --line-height-num-xl: 2.5rem;   /* 40px */
+    --space-section: 72px;
+    --section-padding-y: var(--space-section);
+    --container-gutter: 24px;
   }
 }
 
 @media (max-width: 767px) {
   :root {
-    --font-size-h1: 2.25rem; /* 36px */
-    --font-size-h2: 1.75rem; /* 28px */
-    --font-size-h3: 1.375rem;/* 22px */
-    --font-size-body: 1rem;  /* 16px */
-    --container-gutter: var(--space-4); /* 16px */
-    --section-padding-y: var(--space-6); /* 24px */
+    --font-size-display: 2.25rem;   /* 36px */
+    --line-height-display: 2.625rem;/* 42px */
+    --font-size-h1: 1.875rem;       /* 30px */
+    --line-height-h1: 2.375rem;     /* 38px */
+    --font-size-h2: 1.5rem;         /* 24px */
+    --line-height-h2: 2rem;         /* 32px */
+    --font-size-h3: 1.125rem;       /* 18px */
+    --line-height-h3: 1.625rem;     /* 26px */
+    --font-size-lead: 1.0625rem;    /* 17px */
+    --line-height-lead: 1.75rem;    /* 28px */
+    --font-size-num-xl: 1.875rem;   /* 30px */
+    --line-height-num-xl: 2.25rem;  /* 36px */
+    --space-section: 56px;
+    --section-padding-y: var(--space-section);
+    --container-gutter: 20px;
   }
 }

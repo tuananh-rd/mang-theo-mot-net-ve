@@ -1,648 +1,270 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import ActivityCard from '../../components/ActivityCard.astro';
-import StageCard from '../../components/StageCard.astro';
-import { CAMPAIGN_PROJECT } from '../../data/campaign';
+import PageHero from '../../components/PageHero.astro';
+import ActivityList from '../../components/ActivityList.astro';
+import Timeline from '../../components/Timeline.astro';
+import { CAMPAIGN_PROJECT, PROJECT_NEEDS, SAFETY_PRACTICES, PLAY_FLOW } from '../../data/campaign';
 
-const activityIllustrationTypes = ['chuon-chuon', 'to-tuong', 'hat', 'tro-choi'] as const;
+const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Dự án' }];
+
+const summaryItems = [
+  { label: 'Địa điểm', value: 'Mái ấm Thánh Tâm Xuy Xá, Mỹ Đức, Hà Nội' },
+  { label: 'Người tham gia', value: 'Các em nhỏ và người cao tuổi tại Mái ấm' },
+  { label: 'Hai buổi gặp', value: 'Buổi chơi khoảng 180 phút; buổi trao quà 30–45 phút' },
+  {
+    label: 'Thời gian',
+    value: 'Khoảng 5 tuần',
+    chip: { kind: 'cho-xac-nhan' as const, label: 'Lịch đang chốt' },
+  },
+];
 ---
 
 <Layout
-  title="Câu chuyện dự án"
-  description="Câu chuyện đề xuất, các góc hoạt động vui chơi có lựa chọn và 4 giai đoạn dự kiến tại Mái ấm Thánh Tâm Xuy Xá."
+  title="Dự án"
+  description="Mang Theo Một Nét Vẽ: một buổi chơi có lựa chọn tại Mái ấm Thánh Tâm Xuy Xá — bốn góc hoạt động, an toàn và lộ trình của dự án."
   currentPath="/du-an/mang-theo-mot-net-ve"
 >
-  <!-- Breadcrumb -->
-  <div class="breadcrumb-bar">
-    <div class="container">
-      <nav class="breadcrumb" aria-label="Đường dẫn trang">
-        <ol class="breadcrumb-list">
-          <li class="breadcrumb-item">
-            <a href="/" class="breadcrumb-link">Trang chủ</a>
-          </li>
-          <li class="breadcrumb-separator" aria-hidden="true">&rsaquo;</li>
-          <li class="breadcrumb-item">
-            <span class="breadcrumb-current" aria-current="page">Dự án</span>
-          </li>
-        </ol>
-      </nav>
-    </div>
-  </div>
+  <PageHero
+    breadcrumbs={breadcrumbs}
+    eyebrow="Dự án"
+    chip={{ kind: 'cho-xac-nhan', label: 'Chờ Mái ấm xác nhận' }}
+    title="Một buổi chơi có lựa chọn"
+    titleId="project-heading"
+    lead={CAMPAIGN_PROJECT.slogan}
+    description="Một buổi vui chơi sáng tạo tại Mái ấm, được thiết kế để em nào cũng có thể tham gia theo cách của mình, cùng hoạt động gây quỹ để trao những vật phẩm Mái ấm thực sự cần."
+    summaryTitle="Thông tin chính"
+    summaryItems={summaryItems}
+  />
 
-  <!-- Hero Section (Dạng biên tập, thay ảnh trùng bằng tóm tắt 4 thông tin cốt lõi) -->
-  <section class="project-hero" aria-labelledby="project-heading">
-    <div class="container">
-      <div class="project-hero-grid">
-        <div class="project-hero-content">
-          <div class="badge-row">
-            <span class="status-badge">Đề xuất — chưa có xác nhận chính thức</span>
-          </div>
-
-          <h1 id="project-heading" class="project-title">
-            Dự án Mang Theo Một Nét Vẽ
-          </h1>
-
-          <p class="project-slogan">
-            {CAMPAIGN_PROJECT.slogan}
-          </p>
-
-          <p class="project-intro">
-            Dự án học phần SSG105 của nhóm Lăng Kính (Đại học FPT Hà Nội), đề xuất kết nối một buổi vui chơi an toàn, có lựa chọn với việc hỗ trợ hiện vật theo nhu cầu thực tế của Mái ấm.
-          </p>
-
-          <div class="project-hero-actions">
-            <a href="#muc-tieu" class="btn btn-primary">
-              Mục tiêu &amp; An toàn
-            </a>
-            <a href="#buoi-choi" class="btn btn-secondary">
-              Xem 4 góc hoạt động
-            </a>
-          </div>
-        </div>
-
-        <div class="project-hero-editorial">
-          <div class="project-core-summary card">
-            <h2 class="core-summary-title">4 thông tin cốt lõi đề xuất</h2>
-            <ul class="core-summary-list">
-              <li>
-                <strong>Nơi dự kiến:</strong>
-                <span>{CAMPAIGN_PROJECT.location}</span>
-              </li>
-              <li>
-                <strong>Người tham gia:</strong>
-                <span>Do Mái ấm xác nhận theo điều kiện thực tế của cơ sở</span>
-              </li>
-              <li>
-                <strong>Kế hoạch:</strong>
-                <span>2 buổi tại Mái ấm với 4 góc chơi có lựa chọn</span>
-              </li>
-              <li>
-                <strong>Trạng thái:</strong>
-                <span>Đề xuất dự án — chưa có xác nhận chính thức</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Section 1: Mục tiêu và nguyên tắc an toàn (N1, N2, N3) -->
-  <section id="muc-tieu" class="section section-soft" aria-labelledby="objectives-heading">
+  <section class="section" aria-labelledby="why-heading">
     <div class="container">
       <div class="section-header">
-        <span class="section-kicker">Định hướng cốt lõi</span>
-        <h2 id="objectives-heading">Mục tiêu &amp; Nguyên tắc an toàn</h2>
-        <p class="section-lead">
-          Các nguyên tắc đề xuất nhằm bảo đảm buổi chơi an toàn, vừa sức và tôn trọng trọn vẹn quyền lựa chọn của từng người tham gia.
-        </p>
-      </div>
-
-      <div class="objectives-grid">
-        <div class="objective-card card">
-          <div class="badge-row">
-            <span class="status-badge">Mục tiêu đề xuất</span>
-          </div>
-          <h3 class="objective-title">Buổi chơi theo lựa chọn</h3>
-          <p class="objective-text">
-            Theo đề xuất, nhóm hướng đến một buổi chơi có lựa chọn và hỗ trợ hiện vật đúng nhu cầu. Mỗi người có thể tham gia theo khả năng, quan sát hoặc nghỉ; không có chỉ tiêu sản phẩm dành cho trẻ. Nhóm dự kiến hoàn thiện, kiểm tra sản phẩm và theo dõi làm/bán/tồn trước khi công bố thu chi.
-          </p>
-        </div>
-
-        <div class="objective-card card">
-          <div class="badge-row">
-            <span class="status-badge">An toàn &amp; Phối hợp</span>
-          </div>
-          <h3 class="objective-title">An toàn, phối hợp &amp; Quyền cơ sở</h3>
-          <p class="objective-text">
-            Lịch, không gian, vật liệu và hoạt động dự kiến cần được thống nhất với Mái ấm trước khi tổ chức. Nhóm dự kiến kiểm tra cạnh và chi tiết nhỏ, điều chỉnh trò chơi nhẹ phù hợp; người chăm sóc hỗ trợ lựa chọn và điều kiện an toàn. Người tham gia vẫn có quyền chọn hoạt động, quan sát hoặc nghỉ. Phương án bowling dự kiến có thể điều chỉnh lăn bóng hoặc chuyền bóng nhẹ không tính điểm loại trừ.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Section 2: Câu chuyện từ đề xuất (Rút 1 đoạn) -->
-  <section class="section section-story" aria-labelledby="story-heading">
-    <div class="container">
-      <div class="story-wrapper">
-        <div class="section-header">
-          <span class="section-kicker">Bối cảnh hình thành</span>
-          <h2 id="story-heading">Câu chuyện từ đề xuất</h2>
-        </div>
-
-        <div class="story-prose">
-          <p>
-            Xuất phát từ mong muốn mang lại niềm vui nhẹ nhàng và thiết thực, nhóm Lăng Kính lên ý tưởng tổ chức một không gian vui chơi có nhiều góc hoạt động tại Mái ấm Thánh Tâm Xuy Xá. Mỗi góc chơi được bố trí để người tham gia tự do lựa chọn trải nghiệm phù hợp với thể trạng và sở thích riêng — từ tô tượng, trang trí chuồn chuồn tre mộc, ca hát đến trò chơi vận động nhẹ — trong khi nhóm sinh viên dự kiến tự chịu trách nhiệm chuẩn bị vật tư, trực tiếp hoàn thiện hàng lưu niệm gây quỹ và quản lý thu chi minh bạch sau đối soát.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Section 3: Buổi chơi có lựa chọn (4 góc chơi) -->
-  <section id="buoi-choi" class="section section-soft" aria-labelledby="activities-heading">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-kicker">Không gian trải nghiệm</span>
-        <h2 id="activities-heading">Buổi chơi có nhiều lựa chọn</h2>
-        <p class="section-lead">
-          Không gian hoạt động tôn trọng quyền tham gia, quan sát hoặc nghỉ ngơi của từng người; không đặt chỉ tiêu sản xuất hay áp lực biểu diễn.
-        </p>
-      </div>
-
-      <div class="activities-grid">
-        {
-          CAMPAIGN_PROJECT.activities.map((activity, index) => (
-            <ActivityCard
-              activity={activity}
-              illustrationType={activityIllustrationTypes[index]}
-            />
-          ))
-        }
-      </div>
-
-      <div class="section-footer-note">
+        <span class="eyebrow">Vì sao</span>
+        <h2 id="why-heading">Không phải em nào cũng chơi theo một cách</h2>
         <p>
-          * Ghi chú: Ảnh minh họa đạo cụ, không phải ảnh hoạt động của dự án. Mẫu chuồn chuồn, tượng và nhạc cụ thực tế chờ xác nhận; ảnh bóng không thể hiện bộ bowling. Hoạt động tô tượng là trải nghiệm vui chơi tại chỗ cho các em, không phải hàng hoá mang đi bán gây quỹ.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Section 4: Hành trình dự kiến -->
-  <section class="section section-stages" aria-labelledby="stages-heading">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-kicker">Lộ trình 4 giai đoạn</span>
-        <h2 id="stages-heading">Hành trình dự kiến của dự án</h2>
-        <p class="section-lead">
-          Đề xuất dự kiến 4 tuần, với 2 buổi tại Mái ấm; lịch cụ thể chờ xác nhận.
+          Các em ở Mái ấm có độ tuổi, khả năng vận động và giao tiếp khác nhau, nên một hoạt động chung khó phù hợp với tất cả. Từ trao đổi với Mái ấm, nhóm xây dựng dự án quanh ba điều.
         </p>
       </div>
 
-      <div class="stages-grid">
+      <ol class="needs">
         {
-          CAMPAIGN_PROJECT.plannedStages.map((stage) => (
-            <StageCard stage={stage} />
+          PROJECT_NEEDS.map((n, i) => (
+            <li class="need lift">
+              <span class="need-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+              <h3 class="need-title">{n.title}</h3>
+              <p class="need-desc">{n.description}</p>
+            </li>
           ))
         }
-      </div>
-
-      <div class="timeline-note-box">
-        <p class="timeline-note-text">
-          Quy trình trao tặng và lịch trình cụ thể phụ thuộc vào sự thống nhất chính thức với đại diện Mái ấm; đề xuất dự kiến theo dõi phản hồi 7–10 ngày sau bàn giao hiện vật và không tự ý ấn định ngày tháng hay đánh dấu hoàn thành trước khi được kiểm chứng.
-        </p>
-      </div>
+      </ol>
     </div>
   </section>
 
-  <!-- Section 5: Cập nhật và kết quả (Compact updates) -->
-  <section class="section section-updates" aria-labelledby="updates-heading">
+  <section class="section section-soft" aria-labelledby="corners-heading">
     <div class="container">
       <div class="section-header">
-        <span class="section-kicker">Báo cáo thực tế</span>
-        <h2 id="updates-heading">Cập nhật và kết quả</h2>
+        <span class="eyebrow">Buổi chơi</span>
+        <h2 id="corners-heading">Bốn góc hoạt động</h2>
+        <p>Các em chọn góc mình thích, đổi lượt hoặc nghỉ bất cứ lúc nào. Không ai phải hoàn thành sản phẩm giống nhau.</p>
       </div>
 
-      <div class="empty-state-card card">
-        <div class="empty-badge">
-          <span class="status-badge">Chưa xác nhận</span>
+      <ActivityList activities={CAMPAIGN_PROJECT.activities} showNotes />
+
+      <h3 class="flow-title">Buổi chơi diễn ra thế nào</h3>
+      <ol class="flow">
+        {
+          PLAY_FLOW.map((f, i) => (
+            <li class="flow-step">
+              <span class="flow-num" aria-hidden="true">{i + 1}</span>
+              <div>
+                <h4 class="flow-step-title">{f.title}</h4>
+                <p class="flow-step-desc">{f.description}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+      <p class="source-note">Khoảng 180 phút, có hai lần nghỉ chung; Mái ấm có thể rút ngắn khi các em mệt.</p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="safety-heading">
+    <div class="container">
+      <div class="two-col">
+        <div class="reveal">
+          <span class="eyebrow">An toàn</span>
+          <h2 id="safety-heading" class="col-title">Chuẩn bị kỹ trước buổi chơi</h2>
+          <ul class="check-list">
+            {SAFETY_PRACTICES.map((s) => <li>{s}</li>)}
+          </ul>
         </div>
-        <h3 class="empty-title">
-          Chưa có cập nhật thực tế được xác nhận. Kết quả và báo cáo sẽ được công bố sau khi đối soát và được phép.
-        </h3>
-        <p class="empty-desc">
-          Kế hoạch, lịch trình chi tiết và báo cáo hoạt động sẽ được cập nhật sau khi hoàn tất đối soát và được phép công bố.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Section 6: Nguồn lực và minh bạch (2 dòng + link Minh bạch) -->
-  <section class="section section-soft" aria-labelledby="resources-heading">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-kicker">Quản lý nguồn quỹ</span>
-        <h2 id="resources-heading">Nguồn lực và nguyên tắc minh bạch</h2>
-      </div>
-
-      <div class="resources-layout">
-        <div class="resources-content">
-          <p class="resources-desc">
-            Theo đề xuất, nhóm sinh viên dự kiến phụ trách chuẩn bị vật tư các góc chơi, hoàn thiện quà lưu niệm và phương án ẩm thực gây quỹ; nguồn lực được dự kiến theo dõi và đối soát độc lập giữa tiền mặt và hiện vật. Chi tiết dự toán 19 khoản và cơ cấu số dư được công khai minh bạch tại trang Minh bạch.
+        <div class="respect reveal">
+          <span class="eyebrow">Tôn trọng</span>
+          <h3 class="col-title col-title--sm">Mái ấm là người quyết định</h3>
+          <p>
+            Lịch, hoạt động, vật liệu, việc ghi hình và danh mục quà đều do Mái ấm duyệt trước. Người chăm sóc hướng dẫn cách hỗ trợ từng em.
           </p>
-          <div class="resources-actions">
-            <a href="/minh-bach" class="btn btn-secondary">
-              Xem minh bạch thu chi &rarr;
-            </a>
-          </div>
+          <p>
+            Tranh và đồ các em làm được giữ lại cho các em. Hàng bán gây quỹ do nhóm tự làm.
+          </p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-soft" aria-labelledby="timeline-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">Lộ trình</span>
+        <h2 id="timeline-heading">Bốn chặng của dự án</h2>
+      </div>
+      <Timeline stages={CAMPAIGN_PROJECT.plannedStages} />
+      <p class="source-note">
+        Lịch cụ thể sẽ được công bố sau khi thống nhất với Mái ấm. Sau dự án, nhóm công bố hoạt động đã diễn ra, thu chi đã đối soát và vật phẩm đã trao.
+      </p>
+    </div>
+  </section>
+
+  <section class="cta-band" aria-labelledby="project-cta-heading">
+    <div class="container cta-band-inner">
+      <div class="cta-band-text">
+        <h2 id="project-cta-heading">Cùng mang buổi chơi này đến các em</h2>
+        <p>Ủng hộ qua chuyển khoản, sao kê công khai từng khoản.</p>
+      </div>
+      <div class="cta-band-actions">
+        <a href="/dong-hanh" class="btn btn-primary">Ủng hộ dự án</a>
+        <a href="/minh-bach" class="link-arrow">Minh bạch thu chi <span class="arrow" aria-hidden="true">→</span></a>
       </div>
     </div>
   </section>
 </Layout>
 
 <style>
-  /* Breadcrumb */
-  .breadcrumb-bar {
-    background-color: var(--color-canvas-soft);
-    border-bottom: 1px solid var(--color-border-subtle);
-    padding: var(--space-2) 0;
-  }
-
-  .breadcrumb-list {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
+  .needs {
     list-style: none;
     margin: 0;
     padding: 0;
-    font-size: var(--font-size-sm);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-6);
   }
 
-  .breadcrumb-link {
-    color: var(--color-text-secondary);
-    text-decoration: none;
-    min-height: 44px;
+  .need {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-6);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: #ffffff;
+  }
+
+  .need-num {
+    font-weight: 700;
+    color: var(--brand);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .need-title {
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+    margin: 0;
+  }
+
+  .need-desc {
+    margin: 0;
+  }
+
+  .flow-title {
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+    margin: var(--space-12) 0 var(--space-5);
+  }
+
+  .flow {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-4);
+  }
+
+  .flow-step {
+    display: grid;
+    grid-template-columns: 36px minmax(0, 1fr);
+    gap: var(--space-3);
+    padding: var(--space-5);
+    background: #ffffff;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--line);
+  }
+
+  .flow-num {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-pill);
+    background: var(--brand-ink);
+    color: #ffffff;
+    font-weight: 700;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
   }
 
-  .breadcrumb-link:hover {
-    color: var(--color-text-primary);
-    text-decoration: underline;
-  }
-
-  .breadcrumb-separator {
-    color: var(--color-text-muted);
-  }
-
-  .breadcrumb-current {
-    color: var(--color-text-primary);
-    font-weight: 600;
-  }
-
-  /* Hero */
-  .project-hero {
-    padding-top: var(--space-10);
-    padding-bottom: var(--space-8);
-    background-color: var(--color-canvas);
-  }
-
-  .project-hero-grid {
-    display: grid;
-    grid-template-columns: 5fr 6fr;
-    gap: var(--space-12);
-    align-items: center;
-  }
-
-  .project-hero-content {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-  }
-
-  .badge-row {
-    margin-bottom: var(--space-1);
-  }
-
-  .project-title {
-    font-size: var(--font-size-h1);
-    line-height: var(--line-height-h1);
-    color: var(--color-text-primary);
-    text-wrap: balance;
-  }
-
-  .project-slogan {
-    font-size: 1.375rem;
-    font-weight: 600;
-    line-height: 1.4;
-    color: var(--color-text-accent);
-    text-wrap: balance;
-  }
-
-  .project-intro {
+  .flow-step-title {
     font-size: var(--font-size-body);
     line-height: var(--line-height-body);
-    color: var(--color-text-secondary);
-  }
-
-  .project-hero-actions {
-    display: flex;
-    gap: var(--space-4);
-    margin-top: var(--space-2);
-    flex-wrap: wrap;
-  }
-
-  /* Editorial Hero Summary Card */
-  .project-hero-editorial {
-    width: 100%;
-  }
-
-  .project-core-summary {
-    background-color: var(--color-surface-card);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    padding: var(--space-6);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-  }
-
-  .core-summary-title {
-    font-size: 1.125rem;
-    font-weight: 700;
-    color: var(--color-text-primary);
-    margin: 0;
-    padding-bottom: var(--space-2);
-    border-bottom: 2px solid var(--color-text-accent);
-  }
-
-  .core-summary-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-  }
-
-  .core-summary-list li {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    font-size: 0.9375rem;
-    border-bottom: 1px dashed var(--color-border-subtle);
-    padding-bottom: var(--space-2);
-  }
-
-  .core-summary-list li:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
-  }
-
-  .core-summary-list strong {
-    font-size: 0.875rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--color-text-secondary);
-  }
-
-  .core-summary-list span {
-    color: var(--color-text-primary);
-    line-height: 1.45;
-  }
-
-  /* Objectives Grid */
-  .objectives-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-6);
-  }
-
-  .objective-card {
-    background-color: var(--color-surface-card);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    padding: var(--space-6);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-  }
-
-  .objective-title {
-    font-size: 1.25rem;
-    color: var(--color-text-primary);
     margin: 0;
   }
 
-  .objective-text {
-    font-size: 0.9375rem;
-    line-height: 1.6;
-    color: var(--color-text-secondary);
+  .flow-step-desc {
     margin: 0;
   }
 
-  /* Section Story */
-  .story-wrapper {
-    max-width: 760px;
-    margin: 0 auto;
+  .col-title {
+    font-size: var(--font-size-h2);
+    line-height: var(--line-height-h2);
+    margin-bottom: var(--space-5);
   }
 
-  .section-kicker {
-    display: inline-block;
-    font-size: var(--font-size-sm);
-    font-weight: 600;
-    color: var(--color-text-accent);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: var(--space-1);
+  .col-title--sm {
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+    margin-bottom: var(--space-3);
   }
 
-  .section-lead {
-    font-size: 1.125rem;
-    color: var(--color-text-secondary);
-    line-height: 1.5;
-  }
-
-  .story-prose {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-    font-size: 1.0625rem;
-    line-height: 1.7;
-    color: var(--color-text-secondary);
-  }
-
-  /* Activities */
-  .activities-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--space-6);
-  }
-
-  .section-footer-note {
-    margin-top: var(--space-8);
-  }
-
-  .section-footer-note p {
-    font-size: var(--font-size-sm) !important;
-    color: var(--color-text-muted);
-    margin: 0;
-  }
-
-  /* Stages */
-  .stages-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--space-6);
-  }
-
-  .timeline-note-box {
-    margin-top: var(--space-6);
-    background-color: var(--color-canvas-soft);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    padding: var(--space-3) var(--space-4);
-  }
-
-  .timeline-note-text {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-muted);
-    margin: 0;
-    line-height: var(--line-height-sm);
-  }
-
-  /* Resources */
-  /* Resources */
-  .resources-layout {
-    max-width: 800px;
-    margin: 0;
-    text-align: left;
-  }
-
-  .resources-content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-3);
-    text-align: left;
-  }
-
-  .resources-desc {
-    font-size: 1.0625rem;
-    line-height: 1.6;
-    color: var(--color-text-secondary);
-    max-width: 65ch;
-    text-align: left;
-  }
-
-  .resources-actions {
+  .respect p + p {
     margin-top: var(--space-3);
   }
 
-  /* Empty state */
-  .empty-state-card {
-    max-width: 760px;
-    margin: 0 auto;
-    padding: var(--space-8);
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-3);
-    background-color: var(--color-surface-card);
-  }
-
-  .empty-title {
-    font-size: 1.25rem;
-    color: var(--color-text-primary);
-    max-width: 60ch;
-  }
-
-  .empty-desc {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-muted);
-    max-width: 55ch;
-    line-height: var(--line-height-sm);
-    margin: 0;
-  }
-
-  /* Responsive */
-  @media (min-width: 768px) and (max-width: 1023px) {
-    .project-hero-grid {
+  @media (max-width: 1023px) {
+    .needs,
+    .flow {
       grid-template-columns: 1fr;
-      gap: var(--space-8);
+      gap: var(--space-3);
     }
 
-    .objectives-grid {
-      grid-template-columns: 1fr;
+    .need {
+      display: grid;
+      grid-template-columns: 40px minmax(0, 1fr);
+      column-gap: var(--space-3);
+      row-gap: var(--space-1);
+      padding: var(--space-4);
     }
 
-    .activities-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .stages-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .empty-desc,
-    .resources-desc {
-      text-align: left;
+    .need-num {
+      grid-row: span 2;
     }
   }
 
   @media (max-width: 767px) {
-    .project-hero {
-      padding-top: var(--space-4);
-      padding-bottom: var(--space-6);
+    .flow-title {
+      margin-top: var(--space-10);
     }
 
-    .project-hero-grid {
-      grid-template-columns: 1fr;
-      gap: var(--space-4);
-    }
-
-    .objectives-grid {
-      grid-template-columns: 1fr;
-      gap: var(--space-4);
-    }
-
-    .project-hero-content {
-      gap: var(--space-2);
-    }
-
-    .project-title {
-      font-size: 2rem;
-      line-height: 1.15;
-    }
-
-    .project-slogan {
-      font-size: 1.125rem;
-      line-height: 1.35;
-    }
-
-    .project-intro {
-      font-size: 0.9375rem;
-      line-height: 1.45;
-      text-align: left;
-    }
-
-    .story-prose {
-      text-align: left;
-    }
-
-    .project-hero-actions {
-      flex-direction: column;
-      gap: var(--space-2);
-      margin-top: var(--space-2);
-    }
-
-    .project-hero-actions .btn {
-      width: 100%;
-    }
-
-    .activities-grid {
-      grid-template-columns: 1fr;
-      gap: var(--space-4);
-    }
-
-    .stages-grid {
-      grid-template-columns: 1fr;
-      gap: var(--space-4);
-    }
-
-    .empty-state-card {
-      padding: var(--space-5);
-      align-items: flex-start;
-      text-align: left;
-    }
-
-    .empty-desc,
-    .resources-desc {
-      text-align: left;
+    .flow-step {
+      padding: var(--space-4);
     }
   }
 </style>

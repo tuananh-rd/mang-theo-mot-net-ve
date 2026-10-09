@@ -1,0 +1,195 @@
+---
+import Icon, { type IconName } from './Icon.astro';
+import type { Product } from '../data/campaign';
+import { buildProductCatalog } from '../lib/finance';
+
+interface Props {
+  products: Product[];
+  /** compact: chỉ tên + giá (Trang chủ); full: thêm mô tả, số lượng dự kiến */
+  variant?: 'compact' | 'full';
+  headingLevel?: 'h3' | 'h4';
+}
+
+const { products, variant = 'full', headingLevel = 'h3' } = Astro.props;
+const Heading = headingLevel;
+
+const iconFor: Record<string, IconName> = {
+  'chuon-chuon-tre-kem-de': 'chuon-chuon',
+  'moc-khoa': 'moc-khoa',
+  'set-do-an': 'set-do-an',
+  'combo-nem-gion': 'combo',
+  'combo-nem-xu': 'combo',
+  'combo-nem-pho-mai': 'combo',
+  'banh-su-kem': 'banh',
+};
+
+const rows = buildProductCatalog(products);
+---
+
+<ul class:list={['product-grid', `product-grid--${variant}`]}>
+  {
+    rows.map((r) => (
+      <li class="product">
+        <span class="product-icon">
+          <Icon name={iconFor[r.product.id] ?? 'combo'} size={variant === 'compact' ? 26 : 30} />
+        </span>
+        <div class="product-body">
+          <Heading class="product-name">{r.product.name}</Heading>
+          {variant === 'full' && <p class="product-desc">{r.product.description}</p>}
+          <p class="product-price">
+            <span class="price">{r.priceText}</span>
+            <span class="price-note">giá tham khảo</span>
+          </p>
+          {variant === 'full' && (
+            <p class="product-qty">
+              {r.product.plannedQuantity.value === null
+                ? 'Số lượng chưa xác nhận'
+                : `Dự kiến ${r.quantityText.replace(' dự kiến', '').replace(' bán', '')}`}
+            </p>
+          )}
+        </div>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .product-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  .product-grid--full {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .product-grid--compact {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-4);
+  }
+
+  .product {
+    display: flex;
+    gap: var(--space-4);
+    padding: var(--space-6);
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    transition: border-color var(--transition-normal), box-shadow var(--transition-normal), transform var(--transition-normal);
+  }
+
+  .product:hover {
+    border-color: var(--line-strong);
+    box-shadow: var(--shadow-raised);
+    transform: translateY(-2px);
+  }
+
+  .product-grid--compact .product {
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: var(--space-5);
+  }
+
+  .product-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-md);
+    background: var(--surface-alt);
+    color: var(--brand-ink);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background-color var(--transition-normal), color var(--transition-normal);
+  }
+
+  .product:hover .product-icon {
+    background: var(--brand-ink);
+    color: #ffffff;
+  }
+
+  .product-grid--compact .product-icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .product-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    min-width: 0;
+  }
+
+  .product-name {
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+    margin: 0;
+  }
+
+  .product-desc {
+    margin: 0;
+  }
+
+  .product-price {
+    margin: var(--space-2) 0 0;
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .price {
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+    font-weight: 700;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .price-note {
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-small);
+    color: var(--ink-2);
+  }
+
+  .product-qty {
+    margin: 0;
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-small);
+  }
+
+  @media (max-width: 1023px) {
+    .product-grid--compact {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 767px) {
+    .product-grid--full {
+      grid-template-columns: 1fr;
+      gap: var(--space-3);
+    }
+
+    .product {
+      padding: var(--space-4);
+    }
+
+    .product-grid--compact {
+      grid-template-columns: 1fr;
+      gap: var(--space-3);
+    }
+
+    .product-grid--compact .product {
+      flex-direction: row;
+      align-items: center;
+      padding: var(--space-4);
+    }
+
+    .product-grid--compact .product-price {
+      margin-top: 0;
+    }
+  }
+</style>

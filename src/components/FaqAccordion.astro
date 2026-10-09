@@ -22,17 +22,16 @@ const items = propItems || propFaqs || [];
           <span class="faq-q-text">{faq.question}</span>
           <span class="faq-icon" aria-hidden="true">
             <svg
-              class="chevron-svg"
-              width="18"
-              height="18"
+              class="plus-svg"
+              width="16"
+              height="16"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
               stroke-width="2.5"
               stroke-linecap="round"
-              stroke-linejoin="round"
             >
-              <polyline points="6 9 12 15 18 9"></polyline>
+              <path d="M12 5v14M5 12h14" />
             </svg>
           </span>
         </summary>
@@ -52,20 +51,22 @@ const items = propItems || propFaqs || [];
   }
 
   .faq-item {
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
     background-color: var(--color-surface-card);
-    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    transition: border-color var(--transition-normal), box-shadow var(--transition-normal), background-color var(--transition-normal);
     overflow: hidden;
   }
 
   .faq-item:hover {
-    border-color: #9aa5b1;
+    border-color: var(--line-strong);
   }
 
+  /* Mở: vạch màu thương hiệu bên trái (inset shadow, không làm xô lệch bố cục) */
   .faq-item[open] {
-    border-color: var(--color-focus);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    border-color: transparent;
+    box-shadow: inset 4px 0 0 var(--brand), var(--shadow-raised);
   }
 
   .faq-question {
@@ -73,11 +74,11 @@ const items = propItems || propFaqs || [];
     justify-content: space-between;
     align-items: center;
     gap: var(--space-3);
-    padding: var(--space-4);
+    padding: var(--space-5) var(--space-6);
     cursor: pointer;
-    font-size: 1rem;
+    font-size: var(--font-size-body);
     font-weight: 600;
-    color: var(--color-text-primary);
+    color: var(--ink);
     list-style: none;
     user-select: none;
   }
@@ -86,58 +87,56 @@ const items = propItems || propFaqs || [];
     display: none;
   }
 
+  /* Focus: outline xanh 3px chuẩn tiếp cận */
   .faq-question:focus,
   .faq-question:focus-visible {
-    outline: 3px solid var(--color-focus);
+    outline: 3px solid var(--focus);
     outline-offset: -2px;
-    background-color: var(--color-canvas-soft);
+    background-color: var(--surface-alt);
   }
 
   .faq-q-text {
     flex: 1;
     text-align: left;
-    line-height: 1.4;
+    line-height: 1.45;
   }
 
   .faq-icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
     border-radius: var(--radius-pill);
-    background-color: var(--color-canvas-soft);
-    color: var(--color-text-secondary);
+    background-color: var(--tint-sun);
+    color: var(--ink);
     flex-shrink: 0;
     transition: transform var(--transition-fast), background-color var(--transition-fast), color var(--transition-fast);
   }
 
-  .chevron-svg {
-    transition: transform var(--transition-fast);
+  .plus-svg {
+    transition: transform var(--transition-normal);
   }
 
-  .faq-item[open] .chevron-svg,
-  details[open] .chevron-svg {
-    transform: rotate(180deg);
+  .faq-item[open] .plus-svg {
+    transform: rotate(135deg);
   }
 
-  .faq-item[open] .faq-icon,
-  details[open] .faq-icon {
-    background-color: var(--color-focus) !important;
-    color: #ffffff !important;
+  .faq-item[open] .faq-icon {
+    background-color: var(--brand-ink);
+    color: #ffffff;
   }
 
   .faq-answer {
-    padding: 0 var(--space-4) var(--space-4);
-    border-top: 1px solid var(--color-border-subtle);
-    padding-top: var(--space-3);
+    padding: 0 var(--space-6) var(--space-5);
   }
 
+  /* Câu trả lời chuẩn 16px body trên toàn bộ màn hình */
   .faq-answer p {
     margin: 0;
-    font-size: 0.9375rem;
-    line-height: 1.6;
-    color: var(--color-text-secondary);
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+    color: var(--ink-2);
     text-align: left;
   }
 
@@ -147,18 +146,17 @@ const items = propItems || propFaqs || [];
     }
 
     .faq-question {
-      padding: var(--space-3);
-      font-size: 0.9375rem;
+      padding: var(--space-3) var(--space-4);
     }
 
     .faq-answer {
-      padding: 0 var(--space-3) var(--space-3);
-      padding-top: var(--space-2);
+      padding: 0 var(--space-4) var(--space-4);
+      padding-top: var(--space-3);
     }
 
     .faq-answer p {
-      font-size: 0.875rem;
-      line-height: 1.5;
+      font-size: var(--font-size-body);
+      line-height: var(--line-height-body);
     }
   }
 </style>

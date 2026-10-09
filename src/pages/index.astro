@@ -1,296 +1,147 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
-import ActivityCard from '../components/ActivityCard.astro';
-import ProductCard from '../components/ProductCard.astro';
-import StageCard from '../components/StageCard.astro';
-import {
-  CAMPAIGN_PROJECT,
-  PRODUCTS,
-  TEAM_INFO,
-  FINANCE_OVERVIEW,
-  PLANNED_EXPENSES,
-  FINANCE_SCENARIOS,
-} from '../data/campaign';
+import ActivityList from '../components/ActivityList.astro';
+import StatusChip from '../components/StatusChip.astro';
+import Icon from '../components/Icon.astro';
+import { CAMPAIGN_PROJECT, TEAM_INFO, DONATION_ACCOUNT, DONATIONS } from '../data/campaign';
+import { isDonationOpen, summarizeDonations } from '../lib/donations';
+import { formatVND } from '../lib/finance';
 
-import {
-  sumPlannedExpenses,
-  calculateCraftRevenue,
-  calculateCombinedPlannedRevenue,
-  calculateScenario,
-  formatVND,
-  formatScenarioBalance,
-} from '../lib/finance';
+const donationOpen = isDonationOpen(DONATION_ACCOUNT);
+const donationSummary = summarizeDonations(DONATIONS, donationOpen);
 
-const totalPlannedExpense = sumPlannedExpenses(PLANNED_EXPENSES);
-const craftPlannedRevenue = calculateCraftRevenue(PRODUCTS);
-const foodPlannedAssumption = FINANCE_OVERVIEW.foodPlannedRevenueAssumption;
-const totalPlannedRevenue = calculateCombinedPlannedRevenue(craftPlannedRevenue, foodPlannedAssumption);
-
-const formatInSentence = (name: string) => (name ? name.charAt(0).toLowerCase() + name.slice(1) : '');
-const craftProducts = PRODUCTS.filter((p) => p.category === 'craft');
-const craftSummaryText = craftProducts
-  .map((p) => `${p.plannedQuantity.value} ${formatInSentence(p.name)}`)
-  .join(' và ');
-
-const baseScenario = FINANCE_SCENARIOS.find((s) => s.id === 'chua-tinh-tai-tro');
-const baseScenarioResult = baseScenario
-  ? calculateScenario(baseScenario, totalPlannedRevenue, totalPlannedExpense)
-  : null;
-const balanceDisplay = formatScenarioBalance(baseScenarioResult);
-
-const activityIllustrationTypes = [
-  'chuon-chuon',
-  'to-tuong',
-  'hat',
-  'tro-choi',
-] as const;
-
-// 3 card sản phẩm đại diện trên trang chủ
-const featuredProducts = [
+const steps = [
   {
-    product: PRODUCTS.find((p) => p.id === 'chuon-chuon-tre-kem-de')!,
-    illustrationType: 'chuon-chuon' as const,
+    icon: 'moc-khoa' as const,
+    title: 'Gây quỹ',
+    text: 'Nhận ủng hộ trực tuyến và bán quà lưu niệm do nhóm tự làm. Mọi khoản được ghi sổ và công khai.',
   },
   {
-    product: PRODUCTS.find((p) => p.id === 'moc-khoa')!,
-    illustrationType: 'moc-khoa' as const,
+    icon: 'chuon-chuon' as const,
+    title: 'Một buổi chơi tại Mái ấm',
+    text: 'Khoảng 180 phút với bốn góc hoạt động. Em nào cũng chọn được cách chơi phù hợp, hoặc ngồi xem, nghỉ ngơi.',
   },
   {
-    product: PRODUCTS.find((p) => p.id === 'set-do-an')!,
-    illustrationType: 'set-do-an' as const,
+    icon: 'banh' as const,
+    title: 'Trao quà đúng nhu cầu',
+    text: 'Quỹ được dùng mua vật phẩm theo danh mục Mái ấm xác nhận, kèm hóa đơn và biên bản bàn giao.',
   },
 ];
 ---
 
 <Layout
   title="Trang chủ"
-  description="Dự án Mang Theo Một Nét Vẽ - Lăng Kính (lớp AI2015, SSG105, Đại học FPT Hà Nội) tại Mái ấm Thánh Tâm Xuy Xá."
+  description="Mang Theo Một Nét Vẽ — 7 sinh viên FPT Hà Nội tổ chức một buổi vui chơi sáng tạo cho các em tại Mái ấm Thánh Tâm Xuy Xá và gây quỹ tặng vật phẩm Mái ấm cần."
   currentPath="/"
 >
-  <!-- Hero Section -->
   <Hero />
 
-  <!-- Quick Summary Section -->
-  <section class="section-summary" aria-label="Tóm tắt nhanh dự án">
+  <section class="facts" aria-label="Thông tin chính của dự án">
     <div class="container">
-      <div class="quick-summary-bar card">
-        <div class="summary-item">
-          <span class="summary-label">Nhóm thực hiện</span>
-          <span class="summary-text">Nhóm Lăng Kính (7 sinh viên, lớp {TEAM_INFO.classId}, ĐH FPT)</span>
+      <dl class="facts-strip">
+        <div class="fact">
+          <dt>Ai thực hiện</dt>
+          <dd>Nhóm Lăng Kính · {TEAM_INFO.size} sinh viên FPT Hà Nội</dd>
         </div>
-        <div class="summary-item">
-          <span class="summary-label">Địa điểm dự kiến</span>
-          <span class="summary-text">{CAMPAIGN_PROJECT.location}</span>
+        <div class="fact">
+          <dt>Dành cho</dt>
+          <dd>Các em và các cụ tại Mái ấm Thánh Tâm Xuy Xá</dd>
         </div>
-        <div class="summary-item">
-          <span class="summary-label">Trạng thái</span>
-          <span class="summary-text">{CAMPAIGN_PROJECT.statusNotice}</span>
+        <div class="fact">
+          <dt>Thời gian</dt>
+          <dd>Khoảng 5 tuần, 2 buổi tại Mái ấm</dd>
         </div>
-        <div class="summary-item">
-          <span class="summary-label">Nội dung xem trước</span>
-          <span class="summary-text">4 góc chơi, sản phẩm tham khảo và dự toán minh bạch</span>
+        <div class="fact">
+          <dt>Trạng thái</dt>
+          <dd><StatusChip kind="cho-xac-nhan" label="Đang chờ Mái ấm xác nhận lịch" /></dd>
         </div>
-      </div>
+      </dl>
     </div>
   </section>
 
-  <!-- Section 1: Buổi chơi có lựa chọn (4 góc chơi) -->
-  <section class="section section-activities" aria-labelledby="activities-heading">
+  <section class="section" aria-labelledby="what-heading">
     <div class="container">
       <div class="section-header">
-        <h2 id="activities-heading">Buổi chơi có lựa chọn</h2>
-        <p>
-          Mỗi hoạt động được thiết kế để mang lại niềm vui vừa sức, an toàn. Người tham gia luôn có trọn vẹn quyền tự do lựa chọn tham gia góc chơi mình thích, quan sát bạn bè hoặc nghỉ ngơi.
-        </p>
+        <span class="eyebrow">Dự án làm gì</span>
+        <h2 id="what-heading">Ba việc, một mục tiêu</h2>
+        <p>Mang niềm vui đến cho các em bằng một buổi chơi vừa sức, và mang đến Mái ấm những món quà thật sự cần.</p>
       </div>
 
-      <div class="activities-grid">
+      <ol class="steps">
         {
-          CAMPAIGN_PROJECT.activities.map((act, index) => (
-            <ActivityCard
-              activity={act}
-              illustrationType={activityIllustrationTypes[index]}
-            />
+          steps.map((s, i) => (
+            <li class={`step lift step--${['sun', 'rose', 'mint'][i]}`}>
+              <div class="step-top">
+                <span class="step-icon"><Icon name={s.icon} size={30} /></span>
+                <span class="step-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+              </div>
+              <h3 class="step-title">{s.title}</h3>
+              <p class="step-text">{s.text}</p>
+            </li>
           ))
         }
-      </div>
-
-      <div class="section-footer-note">
-        <p>
-          * Ghi chú bản xem trước: Ảnh minh họa đạo cụ, không phải ảnh hoạt động của dự án. Mẫu chuồn chuồn, tượng và nhạc cụ thực tế chờ xác nhận; ảnh bóng không thể hiện bộ bowling. Hoạt động hướng đến sự gần gũi, kết nối tinh thần; không tuyên bố tác động trị liệu và không đặt chỉ tiêu sản xuất cho các em nhỏ.
-        </p>
-      </div>
+      </ol>
     </div>
   </section>
 
-  <!-- Section 2: Sản phẩm gây quỹ dự kiến (3 sản phẩm) -->
-  <section class="section section-soft section-products" aria-labelledby="products-heading">
+  <section class="section section-soft" aria-labelledby="play-heading">
     <div class="container">
       <div class="section-header">
-        <h2 id="products-heading">Sản phẩm gây quỹ dự kiến</h2>
-        <p>
-          Các sản phẩm lưu niệm thủ công được nhóm lên kế hoạch chuẩn bị nhằm gây quỹ mua quà tặng và vật phẩm thiết yếu theo danh mục xác nhận của Mái ấm.
-        </p>
+        <span class="eyebrow">Buổi chơi</span>
+        <h2 id="play-heading">Bốn góc, mỗi em một cách chơi</h2>
+        <p>Các em được tự chọn góc mình thích, đổi lượt hoặc nghỉ bất cứ lúc nào. Không ai phải làm sản phẩm giống nhau.</p>
       </div>
 
-      <div class="product-section-notice" role="note">
-        <p><strong>Lưu ý:</strong> Trạng thái mở bán chưa được xác nhận. Bản xem trước chưa nhận đơn/tiền.</p>
-      </div>
+      <ActivityList activities={CAMPAIGN_PROJECT.activities} />
 
-      <div class="products-grid">
-        {
-          featuredProducts.map(({ product }) => (
-            <ProductCard
-              product={product}
-            />
-          ))
-        }
-      </div>
-
-      <div class="section-action-center">
-        <a href="/san-pham" class="btn btn-secondary">
-          Xem chi tiết thông tin sản phẩm
-        </a>
-        <p class="action-note">
-          Mọi thông tin giá là số liệu tham khảo trong hồ sơ đề xuất dự án.
-        </p>
+      <div class="section-actions">
+        <a href="/du-an/mang-theo-mot-net-ve" class="link-arrow">Xem chi tiết dự án <span class="arrow" aria-hidden="true">→</span></a>
       </div>
     </div>
   </section>
 
-  <!-- Section 3: Minh bạch từ kế hoạch đến thực tế (Chuyển lên trước Hành trình) -->
-  <section class="section section-transparency" aria-labelledby="transparency-heading">
-    <div class="container">
-      <div class="transparency-card">
-        <div class="transparency-header">
-          <div class="badge-row">
-            <span class="status-badge">Nguyên tắc minh bạch</span>
-          </div>
-          <h2 id="transparency-heading">Minh bạch từ kế hoạch đến thực tế</h2>
-          <p class="transparency-status">
-            <strong>{FINANCE_OVERVIEW.actualStatusNotice}</strong>
-          </p>
-        </div>
-
-        <div class="transparency-content">
-          <div class="transparency-col">
-            <h3 class="col-title">Dự toán kế hoạch trong đề xuất</h3>
-            <ul class="data-list">
-              <li>
-                <span>Tổng chi phí dự toán (19 khoản):</span>
-                <strong>{formatVND(totalPlannedExpense)}</strong>
-              </li>
-              <li>
-                <span>Doanh thu kịch bản giả định:</span>
-                <strong>{formatVND(totalPlannedRevenue)}</strong>
-              </li>
-              <li>
-                <span>Chênh lệch giả định (khi chưa có tài trợ):</span>
-                <span class={balanceDisplay.diffClass}>{balanceDisplay.text}</span>
-              </li>
-            </ul>
-            <p class="transparency-sub">
-              * Kịch bản giả định: Thủ công {formatVND(craftPlannedRevenue)} (bán đủ {craftSummaryText}) + đồ ăn {formatVND(foodPlannedAssumption.value)} (mục tiêu giả định trong hồ sơ đề xuất, chưa phân bổ số lượng bán từng món; xem <a href="/minh-bach#doi-chieu-do-an" class="transparency-link">đối chiếu chi tiết tại trang Minh bạch</a>).
-            </p>
-          </div>
-
-          <div class="transparency-col">
-            <h3 class="col-title">Nguyên tắc quản trị tài chính</h3>
-            <p>
-              Tài trợ hiện vật được ghi nhận riêng biệt với tiền mặt. Dự án không tuyên bố "100% doanh thu mua quà" vì có chi phí vật tư và vận hành trong dự toán.
-            </p>
-            <p class="transparency-sub">
-              Báo cáo sau đối soát, biên tập và được phép công bố sẽ được cập nhật sau khi hoàn thành.
-            </p>
-          </div>
-        </div>
-
-        <div class="transparency-actions">
-          <a href="/minh-bach" class="btn btn-secondary">
-            Xem dự toán chi tiết
-          </a>
+  <section class="donate-band" aria-labelledby="donate-heading">
+    <div class="container donate-band-inner reveal">
+      <div class="donate-text">
+        <span class="eyebrow eyebrow--light">Ủng hộ</span>
+        <h2 id="donate-heading">Cùng góp một món quà</h2>
+        <p>
+          Chuyển khoản qua mã QR. Mỗi khoản được đối soát với ngân hàng và đăng công khai trong bảng sao kê, ai cũng kiểm tra được.
+        </p>
+        <div class="donate-actions">
+          <a href="/dong-hanh" class="btn btn-primary">Ủng hộ dự án</a>
+          <a href="/dong-hanh#sao-ke" class="link-arrow link-arrow--light">Xem sao kê <span class="arrow" aria-hidden="true">→</span></a>
         </div>
       </div>
+      <dl class="donate-stats">
+        <div>
+          <dt>Tổng đã nhận</dt>
+          <dd>{donationSummary.total === null ? 'Sắp mở' : formatVND(donationSummary.total)}</dd>
+        </div>
+        <div>
+          <dt>Lượt ủng hộ</dt>
+          <dd>{donationSummary.count === null ? '—' : donationSummary.count}</dd>
+        </div>
+      </dl>
     </div>
   </section>
 
-  <!-- Section 4: Hành trình dự kiến (4 giai đoạn) -->
-  <section class="section section-soft section-stages" aria-labelledby="stages-heading">
+  <section class="section" aria-labelledby="team-heading">
     <div class="container">
-      <div class="section-header">
-        <h2 id="stages-heading">Hành trình dự kiến</h2>
-        <p>
-          Bốn giai đoạn kế hoạch được nhóm vạch ra để triển khai dự án từng bước bài bản, minh bạch và có trách nhiệm.
-        </p>
-      </div>
-
-      <div class="stages-grid">
-        {
-          CAMPAIGN_PROJECT.plannedStages.map((stage) => (
-            <StageCard stage={stage} />
-          ))
-        }
-      </div>
-
-      <div class="section-footer-note">
-        <p>
-          * Ghi chú: Các giai đoạn dự kiến, lịch thực hiện chờ xác nhận.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Section 5: Khối hai cột "Nhóm thực hiện và cách đồng hành" -->
-  <section class="section section-group-support" aria-labelledby="group-support-heading">
-    <div class="container">
-      <div class="section-header">
-        <h2 id="group-support-heading">Nhóm thực hiện &amp; Cách đồng hành</h2>
-        <p>
-          Thông tin tóm tắt về đội ngũ thực hiện dự án và các phương thức đồng hành cùng Mái ấm.
-        </p>
-      </div>
-
-      <div class="home-group-support-grid">
-        <!-- Cột 1: Nhóm thực hiện -->
-        <div class="group-support-card card">
-          <div class="badge-row">
-            <span class="status-badge">Nhóm thực hiện</span>
-          </div>
-          <h3>Về nhóm {TEAM_INFO.name}</h3>
-          <p>
-            {TEAM_INFO.description}
-          </p>
-          <p class="team-meta-text">
-            Lớp {TEAM_INFO.classId} &bull; {TEAM_INFO.course} &bull; {TEAM_INFO.size} sinh viên
-          </p>
-          <p class="text-xs text-muted">
-            Tên, hình ảnh và phân công chi tiết của 7 thành viên chờ được xác nhận và cho phép công bố.
-          </p>
-          <div class="group-support-actions">
-            <a href="/ve-nhom" class="btn btn-secondary">
-              Tìm hiểu thêm về nhóm
-            </a>
-          </div>
+      <h2 id="team-heading" class="sr-only">Nhóm thực hiện và quà lưu niệm</h2>
+      <div class="two-col">
+        <div class="home-col">
+          <span class="eyebrow">Nhóm thực hiện</span>
+          <h3 class="block-title">Lăng Kính — 7 sinh viên FPT Hà Nội</h3>
+          <p>Năm mảng việc từ điều phối, tài chính, hậu cần đến truyền thông. Hai thành viên đối soát mọi khoản thu chi.</p>
+          <a href="/ve-nhom" class="link-arrow">Về nhóm <span class="arrow" aria-hidden="true">→</span></a>
         </div>
-
-        <!-- Cột 2: Cách đồng hành -->
-        <div class="group-support-card card">
-          <div class="badge-row">
-            <span class="status-badge">Đồng hành</span>
-          </div>
-          <h3>Đồng hành đúng nhu cầu</h3>
-          <p>
-            Dự án ưu tiên tiếp nhận sự hỗ trợ thiết thực, đúng nhu cầu thực tế của Mái ấm qua 3 phương thức: hỗ trợ vật tư thiết yếu, tìm hiểu sản phẩm gây quỹ và lan tỏa thông điệp an toàn.
-          </p>
-          <p class="text-xs text-muted">
-            Kênh tiếp nhận và thông tin liên hệ chính thức đang chờ đối soát; bản xem trước chưa mở nhận đơn hoặc đóng góp trực tuyến.
-          </p>
-          <div class="group-support-actions">
-            <a href="/dong-hanh" class="btn btn-primary">
-              Cách đồng hành &rarr;
-            </a>
-          </div>
+        <div class="home-col">
+          <span class="eyebrow">Quà lưu niệm</span>
+          <h3 class="block-title">Chuồn chuồn tre và móc khóa</h3>
+          <p>Nhóm tự làm để gây quỹ. Các em ở Mái ấm không phải làm hàng; đồ các em làm được giữ lại cho các em.</p>
+          <a href="/san-pham" class="link-arrow">Xem quà lưu niệm <span class="arrow" aria-hidden="true">→</span></a>
         </div>
       </div>
     </div>
@@ -298,288 +149,312 @@ const featuredProducts = [
 </Layout>
 
 <style>
-  /* Activities Grid */
-  .activities-grid {
+  .facts {
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    background: #ffffff;
+  }
+
+  .facts-strip {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--space-6);
-  }
-
-  .section-footer-note {
-    margin-top: var(--space-8);
-    font-size: var(--font-size-sm);
-    color: var(--color-text-muted);
-  }
-
-  /* Products Grid */
-  .products-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-6);
-  }
-
-  .section-action-center {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-3);
-    margin-top: var(--space-8);
-    text-align: center;
-  }
-
-  .action-note {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-muted);
-    max-width: 500px;
-  }
-
-  /* Stages Grid */
-  .stages-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--space-6);
-  }
-
-  /* Transparency Panel */
-  .transparency-card {
-    background-color: var(--color-surface-card);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    padding: var(--space-8);
-  }
-
-  .transparency-header {
-    margin-bottom: var(--space-6);
-  }
-
-  .transparency-header .badge-row {
-    margin-bottom: var(--space-3);
-  }
-
-  .transparency-status {
-    margin-top: var(--space-2);
-    color: var(--color-text-accent);
-    font-size: 1.125rem;
-  }
-
-  .transparency-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-8);
-    margin-bottom: var(--space-6);
-    padding-bottom: var(--space-6);
-    border-bottom: 1px solid var(--color-border-subtle);
-  }
-
-  .col-title {
-    font-size: 1.125rem;
-    margin-bottom: var(--space-4);
-    color: var(--color-text-primary);
-  }
-
-  .data-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-    padding: 0;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     margin: 0;
   }
 
-  .data-list li {
+  .fact {
+    padding: var(--space-5) var(--space-6);
+    border-left: 1px solid var(--line);
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: var(--space-2) 0;
-    border-bottom: 1px dashed var(--color-border-subtle);
-    font-size: 0.9375rem;
+    flex-direction: column;
+    gap: var(--space-1);
   }
 
-  .diff-negative,
-  .diff-positive,
-  .diff-neutral {
-    color: var(--color-text-primary);
-    font-weight: 700;
+  .fact:first-child {
+    border-left: none;
+    padding-left: 0;
   }
 
-  .transparency-sub {
-    font-size: 0.875rem;
-    color: var(--color-text-muted);
-    margin-top: var(--space-3);
-    line-height: 1.5;
+  .fact dt {
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-small);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--ink-2);
   }
 
-  .transparency-link {
-    color: var(--color-text-accent);
-    text-decoration: underline;
+  .fact dd {
+    margin: 0;
+    color: var(--ink);
     font-weight: 600;
   }
 
-  .transparency-link:hover {
-    color: var(--color-accent-hover);
-  }
-
-  .transparency-actions {
-    display: flex;
-  }
-
-  /* Quick Summary Section */
-  .section-summary {
-    padding: var(--space-4) 0;
-  }
-
-  .quick-summary-bar {
-    background-color: var(--color-surface-card);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    padding: var(--space-4) var(--space-6);
+  .steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--space-4);
-  }
-
-  .summary-item {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  .summary-label {
-    font-size: 0.875rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--color-text-secondary);
-  }
-
-  .summary-text {
-    font-size: 0.9375rem;
-    color: var(--color-text-primary);
-    line-height: 1.4;
-  }
-
-  /* Two Column Group & Support Section */
-  .home-group-support-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: var(--space-6);
   }
 
-  .group-support-card {
-    background-color: var(--color-surface-card);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    padding: var(--space-6);
+  .step {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: var(--space-3);
-    height: 100%;
+    padding: var(--space-8) var(--space-6);
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
   }
 
-  .group-support-card h3 {
-    font-size: 1.375rem;
-    color: var(--color-text-primary);
+  /* Mũi tên nối giữa các bước (desktop) */
+  @media (min-width: 1024px) {
+    .step:not(:last-child)::after {
+      content: "→" / "";
+      position: absolute;
+      top: 50%;
+      right: -22px;
+      width: 32px;
+      height: 32px;
+      margin-top: -16px;
+      border-radius: 50%;
+      background: var(--cta);
+      color: var(--ink);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      box-shadow: 0 0 0 4px #ffffff;
+    }
+  }
+
+  .step-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .step-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .step--sun .step-icon { background: var(--tint-sun); color: var(--tint-sun-ink); }
+  .step--rose .step-icon { background: var(--tint-rose); color: var(--tint-rose-ink); }
+  .step--mint .step-icon { background: var(--tint-mint); color: var(--tint-mint-ink); }
+
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .step:hover .step-icon {
+      animation: pop 480ms var(--ease-out) 1;
+    }
+  }
+
+  @keyframes pop {
+    40% { transform: scale(1.12) rotate(-6deg); }
+    100% { transform: none; }
+  }
+
+  .step-num {
+    font-size: var(--font-size-h2);
+    line-height: 1;
+    font-weight: 700;
+    color: var(--line);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .step-title {
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
     margin: 0;
   }
 
-  .group-support-card p {
-    font-size: 0.9375rem;
-    color: var(--color-text-secondary);
-    line-height: 1.5;
+  .step-text {
     margin: 0;
   }
 
-  .team-meta-text {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-secondary);
-    font-weight: 500;
+  .donate-band {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    background:
+      radial-gradient(40% 80% at 100% 0%, rgba(247, 201, 72, 0.16), transparent 70%),
+      radial-gradient(35% 70% at 0% 100%, rgba(138, 34, 52, 0.35), transparent 70%),
+      var(--brand-ink);
+    padding-top: var(--space-section);
+    padding-bottom: var(--space-section);
+  }
+
+  .donate-band-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: var(--space-10);
+    align-items: center;
+  }
+
+  .donate-text h2 {
+    color: #ffffff;
+    margin-bottom: var(--space-3);
+  }
+
+  .donate-text p {
+    color: #c9d2dc;
+    max-width: 56ch;
+  }
+
+  .eyebrow--light {
+    color: #f7c948;
+  }
+
+  .donate-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-6);
+    margin-top: var(--space-6);
+  }
+
+  .link-arrow--light {
+    color: #ffffff;
+  }
+
+  .donate-actions .link-arrow--light:focus-visible {
+    outline-color: #ffffff;
+  }
+
+  .donate-stats {
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .donate-stats {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(2px);
+  }
+
+  .donate-stats div {
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .donate-stats div + div {
+    border-left: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
+  .donate-stats dt {
+    font-size: var(--font-size-small);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #c9d2dc;
+  }
+
+  .donate-stats dd {
+    margin: 0;
+    font-size: var(--font-size-num-xl);
+    line-height: var(--line-height-num-xl);
+    font-weight: 700;
+    color: #ffffff;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .home-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+
+  .home-col p {
     margin: 0;
   }
 
-  .group-support-actions {
-    margin-top: auto;
-    padding-top: var(--space-3);
-  }
-
-  /* Responsive Adjustments */
   @media (max-width: 1023px) {
-    .quick-summary-bar {
-      grid-template-columns: repeat(2, 1fr);
+    .facts-strip {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .fact:nth-child(3) {
+      border-left: none;
+      padding-left: 0;
+    }
+
+    .fact:nth-child(n + 3) {
+      border-top: 1px solid var(--line);
+    }
+
+    .steps {
+      grid-template-columns: 1fr;
       gap: var(--space-4);
     }
 
-    .activities-grid {
-      grid-template-columns: repeat(2, 1fr);
+    .step {
+      display: grid;
+      grid-template-columns: 60px minmax(0, 1fr);
+      column-gap: var(--space-5);
+      row-gap: var(--space-1);
+      padding: var(--space-5);
     }
 
-    .products-grid {
-      grid-template-columns: repeat(2, 1fr);
+    .step-top {
+      grid-row: span 2;
+      align-self: start;
     }
 
-    .stages-grid {
-      grid-template-columns: repeat(2, 1fr);
+    .step-num {
+      display: none;
     }
 
-    .transparency-content {
+    .donate-band-inner {
       grid-template-columns: 1fr;
-      gap: var(--space-6);
+      gap: var(--space-8);
     }
   }
 
   @media (max-width: 767px) {
-    .quick-summary-bar {
+    .facts-strip {
       grid-template-columns: 1fr;
-      gap: var(--space-3);
+    }
+
+    .fact,
+    .fact:nth-child(3) {
+      border-left: none;
+      padding: var(--space-3) 0;
+    }
+
+    .fact + .fact {
+      border-top: 1px solid var(--line);
+    }
+
+    .step {
+      grid-template-columns: 48px minmax(0, 1fr);
+      column-gap: var(--space-4);
       padding: var(--space-4);
     }
 
-    .activities-grid {
-      grid-template-columns: 1fr;
-      gap: var(--space-4);
+    .step-icon {
+      width: 48px;
+      height: 48px;
     }
 
-    .products-grid {
-      grid-template-columns: 1fr;
-      gap: var(--space-4);
+    .donate-actions .btn {
+      width: 100%;
     }
 
-    .stages-grid {
-      grid-template-columns: 1fr;
-      gap: var(--space-4);
-    }
-
-    .home-group-support-grid {
-      grid-template-columns: 1fr;
-      gap: var(--space-4);
-    }
-
-    .group-support-card {
+    .donate-stats div {
       padding: var(--space-4);
-      gap: var(--space-2);
-    }
-
-    .data-list li {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 2px;
-    }
-
-    .transparency-card {
-      padding: var(--space-4);
-    }
-
-    .transparency-content {
-      gap: var(--space-4);
-      margin-bottom: var(--space-4);
-      padding-bottom: var(--space-4);
-    }
-
-    .section-footer-note {
-      margin-top: var(--space-5);
-    }
-
-    .section-action-center {
-      margin-top: var(--space-5);
     }
   }
 </style>

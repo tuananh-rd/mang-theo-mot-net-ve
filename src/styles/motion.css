@@ -1,0 +1,266 @@
+/* ------------------------------------------------------------------
+ * C07 — Chuyển động và hiệu ứng.
+ * Nguyên tắc: nội dung luôn hiển thị khi không có JS hoặc người dùng chọn giảm
+ * chuyển động; chỉ dùng opacity/transform; không có chuyển động lặp vô hạn;
+ * không có số tiền chạy tăng.
+ * ------------------------------------------------------------------ */
+
+html {
+  scroll-padding-top: 88px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Chuyển trang mượt giữa các route (cross-document view transitions) */
+  @view-transition {
+    navigation: auto;
+  }
+
+  ::view-transition-old(root) {
+    animation: vt-out 180ms var(--ease-in-out) both;
+  }
+
+  ::view-transition-new(root) {
+    animation: vt-in 320ms var(--ease-out) both;
+  }
+
+  .site-header {
+    view-transition-name: site-header;
+  }
+
+  ::view-transition-group(site-header) {
+    animation: none;
+  }
+}
+
+@keyframes vt-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes vt-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+/* --- Hiện dần khi cuộn: ẩn bằng CSS ngay từ đầu (chỉ khi html.motion) để không chớp.
+ * Danh sách phải khớp REVEAL_SELECTORS trong Layout.astro. --- */
+html.motion main .section-header,
+html.motion main .activity-list > li,
+html.motion main .timeline > li,
+html.motion main .product-grid > li,
+html.motion main .kf-item,
+html.motion main .formula-part,
+html.motion main .needs > li,
+html.motion main .steps > li,
+html.motion main .plan,
+html.motion main .flow > li,
+html.motion main .areas > li,
+html.motion main .ways > li,
+html.motion main .ruled-list > li,
+html.motion main .check-list,
+html.motion main .note,
+html.motion main .disclosure,
+html.motion main .faq-item,
+html.motion main .home-col,
+html.motion main .contact,
+html.motion main .actual-list,
+html.motion main .cta-band-inner,
+html.motion main .reveal {
+  opacity: 0;
+  /* dùng thuộc tính translate riêng để không đè transform của hiệu ứng hover */
+  translate: 0 22px;
+  scale: 0.985;
+  transition:
+    opacity var(--duration-slow) var(--ease-out),
+    translate var(--duration-slow) var(--ease-out),
+    scale var(--duration-slow) var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+html.motion main .section-header.is-revealed,
+html.motion main .activity-list > li.is-revealed,
+html.motion main .timeline > li.is-revealed,
+html.motion main .product-grid > li.is-revealed,
+html.motion main .kf-item.is-revealed,
+html.motion main .formula-part.is-revealed,
+html.motion main .needs > li.is-revealed,
+html.motion main .steps > li.is-revealed,
+html.motion main .plan.is-revealed,
+html.motion main .flow > li.is-revealed,
+html.motion main .areas > li.is-revealed,
+html.motion main .ways > li.is-revealed,
+html.motion main .ruled-list > li.is-revealed,
+html.motion main .check-list.is-revealed,
+html.motion main .note.is-revealed,
+html.motion main .disclosure.is-revealed,
+html.motion main .faq-item.is-revealed,
+html.motion main .home-col.is-revealed,
+html.motion main .contact.is-revealed,
+html.motion main .actual-list.is-revealed,
+html.motion main .cta-band-inner.is-revealed,
+html.motion main .reveal.is-revealed {
+  opacity: 1;
+  translate: none;
+  scale: none;
+}
+
+/* --- Vào trang: tiêu đề và nội dung đầu trang --- */
+@media (prefers-reduced-motion: no-preference) {
+  html.motion .enter > * {
+    animation: enter-up 720ms var(--ease-out) both;
+  }
+
+  html.motion .enter > *:nth-child(2) { animation-delay: 70ms; }
+  html.motion .enter > *:nth-child(3) { animation-delay: 140ms; }
+  html.motion .enter > *:nth-child(4) { animation-delay: 210ms; }
+  html.motion .enter > *:nth-child(5) { animation-delay: 280ms; }
+  html.motion .enter > *:nth-child(n + 6) { animation-delay: 340ms; }
+
+  html.motion .enter-visual {
+    animation: enter-visual 900ms var(--ease-out) 160ms both;
+  }
+}
+
+@keyframes enter-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+@keyframes enter-visual {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+}
+
+/* --- Nút và liên kết --- */
+.btn {
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    box-shadow var(--transition-normal),
+    transform var(--transition-normal);
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(16, 24, 40, 0.12);
+}
+
+.btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.link-arrow .arrow {
+  display: inline-block;
+  transition: transform var(--transition-normal);
+}
+
+.btn-arrow .arrow {
+  display: inline-block;
+  margin-left: var(--space-2);
+  transition: transform var(--transition-normal);
+}
+
+.btn-arrow:hover .arrow,
+.btn-arrow:focus-visible .arrow,
+.link-arrow:hover .arrow,
+.link-arrow:focus-visible .arrow {
+  transform: translateX(4px);
+}
+
+/* --- Thẻ: nhấc nhẹ khi rê chuột (chỉ thiết bị có hover) --- */
+@media (hover: hover) {
+  .lift {
+    transition:
+      border-color var(--transition-normal),
+      box-shadow var(--transition-normal),
+      transform var(--transition-normal);
+  }
+
+  .lift:hover {
+    border-color: var(--line-strong);
+    box-shadow: var(--shadow-raised);
+    transform: translateY(-3px);
+  }
+}
+
+/* --- Mở/đóng phần mở rộng và FAQ mượt (trình duyệt hỗ trợ ::details-content) --- */
+@media (prefers-reduced-motion: no-preference) {
+  :root {
+    interpolate-size: allow-keywords;
+  }
+
+  details::details-content {
+    block-size: 0;
+    overflow: clip;
+    opacity: 0;
+    transition:
+      block-size var(--duration-normal) var(--ease-out),
+      opacity var(--duration-normal) var(--ease-out),
+      content-visibility var(--duration-normal) allow-discrete;
+  }
+
+  details[open]::details-content {
+    block-size: auto;
+    opacity: 1;
+  }
+}
+
+/* --- Header khi cuộn --- */
+.site-header.is-scrolled {
+  box-shadow: 0 1px 0 var(--line), 0 8px 24px rgba(16, 24, 40, 0.06);
+}
+
+/* --- Menu mobile trượt xuống --- */
+@media (prefers-reduced-motion: no-preference) {
+  .mobile-panel:not([hidden]) {
+    animation: menu-in 240ms var(--ease-out) both;
+  }
+
+  .mobile-panel:not([hidden]) .mobile-nav-list > li {
+    animation: enter-up 360ms var(--ease-out) both;
+  }
+
+  .mobile-panel:not([hidden]) .mobile-nav-list > li:nth-child(2) { animation-delay: 30ms; }
+  .mobile-panel:not([hidden]) .mobile-nav-list > li:nth-child(3) { animation-delay: 60ms; }
+  .mobile-panel:not([hidden]) .mobile-nav-list > li:nth-child(4) { animation-delay: 90ms; }
+  .mobile-panel:not([hidden]) .mobile-nav-list > li:nth-child(5) { animation-delay: 120ms; }
+}
+
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+/* --- Gạch chân điều hướng chạy từ giữa --- */
+@media (prefers-reduced-motion: no-preference) {
+  .nav-link {
+    background-image: linear-gradient(var(--brand), var(--brand));
+    background-repeat: no-repeat;
+    background-position: 50% 100%;
+    background-size: 0% 2px;
+    transition: color var(--transition-fast), background-size var(--transition-normal);
+  }
+
+  .nav-link:hover {
+    background-size: 100% 2px;
+  }
+
+  .nav-link.is-active {
+    background-image: none;
+  }
+}

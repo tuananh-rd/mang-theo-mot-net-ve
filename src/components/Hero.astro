@@ -1,39 +1,74 @@
 ---
 import PlaceholderIllustration from './PlaceholderIllustration.astro';
+import Icon from './Icon.astro';
 import { CAMPAIGN_PROJECT } from '../data/campaign';
+
+// Tách phần "Một Nét Vẽ" để gạch chân bằng nét cọ; nếu tiêu đề đổi thì hiển thị nguyên văn.
+const HIGHLIGHT = 'Một Nét Vẽ';
+const title = CAMPAIGN_PROJECT.title;
+const hlIndex = title.indexOf(HIGHLIGHT);
+const titleBefore = hlIndex >= 0 ? title.slice(0, hlIndex).trim() : title;
+const titleHighlight = hlIndex >= 0 ? HIGHLIGHT : null;
 ---
 
 <section class="hero-section" aria-labelledby="hero-heading">
+  <div class="hero-bg" aria-hidden="true"></div>
   <div class="container">
     <div class="hero-grid">
-      <div class="hero-content">
+      <div class="hero-content enter">
+        <span class="hero-kicker">
+          <Icon name="chuon-chuon" size={18} />
+          Dự án của nhóm Lăng Kính
+        </span>
+
         <h1 id="hero-heading" class="hero-title">
-          {CAMPAIGN_PROJECT.title}
+          {titleBefore}
+          {titleHighlight && (
+            <>
+              {' '}
+              <span class="hl">
+                {titleHighlight}
+                <svg class="hl-stroke" viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                  <path d="M4 16 C 60 6, 120 20, 180 11 S 270 8, 296 14" pathLength="1" />
+                </svg>
+              </span>
+            </>
+          )}
         </h1>
 
-        <p class="hero-slogan">
-          {CAMPAIGN_PROJECT.slogan}
-        </p>
+        <p class="hero-slogan">{CAMPAIGN_PROJECT.slogan}</p>
 
-        <p class="hero-summary">
-          {CAMPAIGN_PROJECT.summary}
-        </p>
+        <p class="hero-summary">{CAMPAIGN_PROJECT.summary}</p>
 
         <div class="hero-actions">
-          <a href="/du-an/mang-theo-mot-net-ve" class="btn btn-primary hero-btn">
-            Khám phá dự án
+          <a href="/dong-hanh" class="btn btn-primary btn-arrow hero-btn">
+            Ủng hộ dự án <span class="arrow" aria-hidden="true">→</span>
           </a>
-          <a href="/san-pham" class="btn btn-secondary hero-btn">
-            Xem sản phẩm gây quỹ
-          </a>
+          <a href="/du-an/mang-theo-mot-net-ve" class="btn btn-secondary hero-btn">Tìm hiểu dự án</a>
         </div>
       </div>
 
-      <div class="hero-visual">
-        <PlaceholderIllustration
-          type="hero"
-          ratio="4:3"
-        />
+      <div class="hero-visual enter-visual">
+        <div class="hero-photo">
+          <PlaceholderIllustration type="hero" ratio="4:3" />
+          <div class="hero-sticker" aria-hidden="true">
+            <span class="sticker-icon"><Icon name="to-tuong" size={20} /></span>
+            <span>
+              <strong>4 góc chơi</strong>
+              <span class="sticker-sub">khoảng 180 phút</span>
+            </span>
+          </div>
+        </div>
+        <svg class="hero-doodle" viewBox="0 0 120 90" aria-hidden="true" focusable="false">
+          <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M60 22 v52" pathLength="1" />
+            <circle cx="60" cy="16" r="5" pathLength="1" />
+            <path d="M60 30 C 40 14, 14 16, 6 26 C 24 36, 44 36, 60 30" pathLength="1" />
+            <path d="M60 30 C 80 14, 106 16, 114 26 C 96 36, 76 36, 60 30" pathLength="1" />
+            <path d="M60 42 C 46 34, 26 36, 18 44 C 32 50, 48 50, 60 42" pathLength="1" />
+            <path d="M60 42 C 74 34, 94 36, 102 44 C 88 50, 72 50, 60 42" pathLength="1" />
+          </g>
+        </svg>
       </div>
     </div>
   </div>
@@ -41,9 +76,22 @@ import { CAMPAIGN_PROJECT } from '../data/campaign';
 
 <style>
   .hero-section {
-    padding-top: var(--space-10);
-    padding-bottom: var(--space-8);
-    background-color: var(--color-canvas);
+    position: relative;
+    overflow: hidden;
+    padding-top: var(--space-14);
+    padding-bottom: var(--space-14);
+    background-color: var(--warm-canvas);
+    isolation: isolate;
+  }
+
+  /* Nền ấm: hai vệt màu rất nhẹ, tĩnh */
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(42% 60% at 92% 8%, rgba(247, 201, 72, 0.22), transparent 70%),
+      radial-gradient(38% 55% at 0% 100%, rgba(138, 34, 52, 0.07), transparent 70%);
   }
 
   .hero-grid {
@@ -56,100 +104,252 @@ import { CAMPAIGN_PROJECT } from '../data/campaign';
   .hero-content {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     gap: var(--space-4);
   }
 
+  .hero-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 6px 14px 6px 10px;
+    border-radius: var(--radius-pill);
+    background: #ffffff;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-subtle);
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-small);
+    font-weight: 600;
+    color: var(--brand);
+  }
+
   .hero-title {
-    font-size: var(--font-size-h1);
-    line-height: var(--line-height-h1);
-    color: var(--color-text-primary);
-    word-break: break-word;
+    font-size: var(--font-size-display);
+    line-height: var(--line-height-display);
+    color: var(--ink);
     text-wrap: balance;
+    letter-spacing: -0.02em;
+  }
+
+  .hl {
+    position: relative;
+    display: inline-block;
+    white-space: nowrap;
+    z-index: 0;
+  }
+
+  .hl-stroke {
+    position: absolute;
+    left: -2%;
+    bottom: -0.34em;
+    width: 104%;
+    height: 0.36em;
+    z-index: -1;
+    overflow: visible;
+  }
+
+  .hl-stroke path {
+    fill: none;
+    stroke: var(--cta);
+    stroke-width: 8;
+    stroke-linecap: round;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
   }
 
   .hero-slogan {
-    font-size: 1.375rem;
+    font-size: 1.25rem;
     font-weight: 600;
     line-height: 1.4;
-    color: var(--color-text-accent);
+    color: var(--brand);
     text-wrap: balance;
   }
 
   .hero-summary {
-    font-size: var(--font-size-body);
-    line-height: var(--line-height-body);
-    color: var(--color-text-secondary);
-    max-width: 58ch;
+    font-size: var(--font-size-lead);
+    line-height: var(--line-height-lead);
+    color: var(--ink-2);
+    max-width: 52ch;
   }
 
   .hero-actions {
     display: flex;
-    gap: var(--space-4);
+    gap: var(--space-3);
     margin-top: var(--space-3);
     flex-wrap: wrap;
   }
 
   .hero-btn {
-    min-height: 48px;
+    min-height: 52px;
     padding: var(--space-3) var(--space-6);
   }
 
   .hero-visual {
+    position: relative;
     width: 100%;
+  }
+
+  .hero-photo {
+    position: relative;
+  }
+
+  .hero-photo :global(.illustration-wrapper) {
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-raised);
+    background: #ffffff;
+  }
+
+  .hero-sticker {
+    position: absolute;
+    top: 24px;
+    left: -20px;
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4) var(--space-3) var(--space-3);
+    background: #ffffff;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-raised);
+    color: var(--ink);
+    line-height: 1.25;
+  }
+
+  .hero-sticker strong {
+    display: block;
+    font-size: var(--font-size-body);
+  }
+
+  .sticker-sub {
+    display: block;
+    font-size: var(--font-size-small);
+    color: var(--ink-2);
+  }
+
+  .sticker-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-md);
+    background: var(--tint-rose);
+    color: var(--tint-rose-ink);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-doodle {
+    position: absolute;
+    right: -10px;
+    bottom: -46px;
+    width: 120px;
+    height: 90px;
+    color: var(--brand);
+    opacity: 0.55;
+    transform: rotate(-12deg);
+    pointer-events: none;
+  }
+
+  .hero-doodle path,
+  .hero-doodle circle {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+  }
+
+  /* Nét cọ và chuồn chuồn tự vẽ một lần khi vào trang */
+  @media (prefers-reduced-motion: no-preference) {
+    :global(html.motion) .hl-stroke path {
+      stroke-dashoffset: 1;
+      animation: draw 900ms var(--ease-out) 450ms forwards;
+    }
+
+    :global(html.motion) .hero-doodle path,
+    :global(html.motion) .hero-doodle circle {
+      stroke-dashoffset: 1;
+      animation: draw 1400ms var(--ease-out) 700ms forwards;
+    }
+
+    :global(html.motion) .hero-sticker {
+      animation: sticker-in 700ms var(--ease-out) 650ms both;
+    }
+  }
+
+  @keyframes draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes sticker-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px) scale(0.96);
+    }
   }
 
   @media (min-width: 768px) and (max-width: 1023px) {
     .hero-grid {
       grid-template-columns: 1fr;
-      gap: var(--space-8);
+      gap: var(--space-10);
     }
 
     .hero-section {
-      padding-top: var(--space-8);
-      padding-bottom: var(--space-8);
+      padding-top: var(--space-10);
+      padding-bottom: var(--space-12);
     }
 
     .hero-visual {
-      max-width: 560px;
+      max-width: 600px;
       margin-left: auto;
       margin-right: auto;
+    }
+
+    .hero-sticker {
+      left: 16px;
     }
   }
 
   @media (max-width: 767px) {
     .hero-section {
-      padding-top: var(--space-4);
-      padding-bottom: var(--space-6);
+      padding-top: var(--space-6);
+      padding-bottom: var(--space-10);
     }
 
     .hero-grid {
       grid-template-columns: 1fr;
-      gap: var(--space-4);
+      gap: var(--space-8);
     }
 
-    .hero-visual {
-      order: -1;
-      max-width: 100%;
+    .hero-photo :global(.illustration-wrapper) {
+      border-radius: var(--radius-lg);
     }
 
     .hero-visual :global(.illustration-wrapper .svg-container) {
-      height: 150px;
-      max-height: 150px !important;
-      aspect-ratio: auto !important;
+      aspect-ratio: 16 / 9;
+      height: auto;
+      max-height: none;
     }
 
     .hero-visual :global(.illustration-caption) {
-      font-size: var(--font-size-sm);
-      padding: var(--space-1) var(--space-2);
+      font-size: var(--font-size-small);
+      padding: var(--space-2) var(--space-3);
+    }
+
+    .hero-sticker {
+      top: 12px;
+      left: 12px;
+      padding: var(--space-2) var(--space-3) var(--space-2) var(--space-2);
+    }
+
+    .sticker-icon {
+      width: 32px;
+      height: 32px;
+    }
+
+    .hero-doodle {
+      display: none;
     }
 
     .hero-content {
-      gap: var(--space-2);
-    }
-
-    .hero-title {
-      font-size: 2rem;
-      line-height: 1.15;
+      gap: var(--space-3);
     }
 
     .hero-slogan {
@@ -158,14 +358,14 @@ import { CAMPAIGN_PROJECT } from '../data/campaign';
     }
 
     .hero-summary {
-      font-size: 0.9375rem;
-      line-height: 1.45;
+      font-size: var(--font-size-body);
+      line-height: var(--line-height-body);
     }
 
     .hero-actions {
       flex-direction: column;
+      align-self: stretch;
       gap: var(--space-2);
-      margin-top: var(--space-2);
     }
 
     .hero-btn {

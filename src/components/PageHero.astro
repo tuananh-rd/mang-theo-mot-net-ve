@@ -1,0 +1,342 @@
+---
+import StatusChip from './StatusChip.astro';
+
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
+interface SummaryItem {
+  label: string;
+  value: string;
+  chip?: {
+    kind: 'ke-hoach' | 'gia-dinh' | 'cho-xac-nhan' | 'can-lam-ro' | 'da-xac-nhan';
+    label: string;
+  };
+}
+
+interface Props {
+  breadcrumbs: BreadcrumbItem[];
+  eyebrow?: string;
+  chip?: {
+    kind: 'ke-hoach' | 'gia-dinh' | 'cho-xac-nhan' | 'can-lam-ro' | 'da-xac-nhan';
+    label: string;
+  };
+  title: string;
+  titleId?: string;
+  lead?: string;
+  description?: string;
+  summaryTitle?: string;
+  summaryItems?: SummaryItem[];
+}
+
+const {
+  breadcrumbs,
+  eyebrow,
+  chip,
+  title,
+  titleId = 'page-heading',
+  lead,
+  description,
+  summaryTitle = 'Tóm tắt kế hoạch',
+  summaryItems = [],
+} = Astro.props;
+const hasPanel = summaryItems.length > 0 || Astro.slots.has('panel-extra');
+---
+
+<section class="page-hero" aria-labelledby={titleId}>
+  <div class="container page-hero-container">
+    {breadcrumbs && breadcrumbs.length > 0 && (
+      <nav class="page-hero-breadcrumb" aria-label="Đường dẫn trang">
+        <ol class="breadcrumb-list">
+          {breadcrumbs.map((item, index) => {
+            const isLast = index === breadcrumbs.length - 1;
+            return (
+              <li class="breadcrumb-item">
+                {isLast || !item.href ? (
+                  <span class="breadcrumb-current" aria-current={isLast ? 'page' : undefined}>
+                    {item.label}
+                  </span>
+                ) : (
+                  <a href={item.href} class="breadcrumb-link">
+                    {item.label}
+                  </a>
+                )}
+                {!isLast && <span class="breadcrumb-separator" aria-hidden="true">/</span>}
+              </li>
+            );
+          })}
+        </ol>
+      </nav>
+    )}
+
+    <div class:list={['page-hero-grid', { 'page-hero-grid--single': !hasPanel }]}>
+      <!-- Cột chính bên trái: 7 cột desktop -->
+      <div class="page-hero-main enter">
+        {(eyebrow || chip) && (
+          <div class="page-hero-meta">
+            {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+            {chip && <StatusChip kind={chip.kind} label={chip.label} />}
+          </div>
+        )}
+
+        <h1 id={titleId} class="page-hero-title">
+          {title}
+        </h1>
+
+        {lead && <p class="page-hero-lead">{lead}</p>}
+
+        {description && <p class="page-hero-desc">{description}</p>}
+
+        <slot />
+      </div>
+
+      <!-- Panel Tóm tắt kế hoạch bên phải: 5 cột desktop -->
+      {hasPanel && (
+      <aside class="page-hero-panel enter-visual" aria-label={summaryTitle}>
+        <div class="panel-card">
+          <div class="panel-header">
+            <p class="panel-title">{summaryTitle}</p>
+          </div>
+
+          {summaryItems.length > 0 && (
+          <dl class="panel-list">
+            {summaryItems.map((item) => (
+              <div class="panel-row">
+                <dt class="panel-label">{item.label}</dt>
+                <dd class="panel-value">
+                  <span>{item.value}</span>
+                  {item.chip && <StatusChip kind={item.chip.kind} label={item.chip.label} />}
+                </dd>
+              </div>
+            ))}
+          </dl>
+          )}
+          <slot name="panel-extra" />
+        </div>
+      </aside>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  .page-hero {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    background:
+      radial-gradient(40% 70% at 100% 0%, rgba(247, 201, 72, 0.18), transparent 70%),
+      radial-gradient(30% 60% at 0% 100%, rgba(138, 34, 52, 0.05), transparent 70%),
+      var(--warm-canvas);
+    border-bottom: 1px solid var(--color-border);
+    padding-top: var(--space-6);
+    padding-bottom: var(--space-12);
+  }
+
+  .page-hero-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  /* Breadcrumb */
+  .page-hero-breadcrumb {
+    font-size: var(--font-size-small);
+  }
+
+  .breadcrumb-list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .breadcrumb-item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .breadcrumb-link {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .breadcrumb-link:hover {
+    color: var(--color-text-primary);
+    text-decoration: underline;
+  }
+
+  .breadcrumb-separator {
+    color: var(--line-strong);
+    user-select: none;
+  }
+
+  .breadcrumb-current {
+    color: var(--color-text-primary);
+    font-weight: 600;
+  }
+
+  /* 2-Column Grid Layout: 7fr / 5fr */
+  .page-hero-grid {
+    display: grid;
+    grid-template-columns: 7fr 5fr;
+    gap: var(--space-8);
+    align-items: start;
+  }
+
+  .page-hero-grid--single {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .page-hero-grid--single .page-hero-main {
+    max-width: 820px;
+  }
+
+  .page-hero-main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .page-hero-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+
+  .page-hero-title {
+    letter-spacing: -0.02em;
+    font-size: var(--font-size-h1);
+    line-height: var(--line-height-h1);
+    color: var(--color-text-primary);
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .page-hero-lead {
+    font-size: var(--font-size-lead);
+    line-height: var(--line-height-lead);
+    color: var(--color-text-accent);
+    font-weight: 500;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .page-hero-desc {
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+    color: var(--color-text-secondary);
+    margin: 0;
+    max-width: var(--prose-max-width);
+  }
+
+  /* Aside Summary Panel */
+  .page-hero-panel {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .panel-card {
+    background-color: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-raised);
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .panel-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    border-bottom: 1px solid var(--line);
+    padding-bottom: var(--space-3);
+  }
+
+  .panel-kicker {
+    font-size: var(--font-size-small);
+    font-weight: 600;
+    color: var(--brand);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .panel-title {
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+    color: var(--color-text-primary);
+    margin: 0;
+    font-weight: 700;
+  }
+
+  .panel-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin: 0;
+    padding: 0;
+  }
+
+  .panel-row {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .panel-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .panel-label {
+    font-size: var(--font-size-small);
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0;
+  }
+
+  .panel-value {
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+    color: var(--color-text-primary);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+
+  /* Responsive Stacking: <= 1023px (Tablet & Mobile) */
+  @media (max-width: 1023px) {
+    .page-hero-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .page-hero {
+      padding-top: var(--space-4);
+      padding-bottom: var(--space-6);
+    }
+
+    .panel-card {
+      padding: var(--space-4);
+    }
+  }
+</style>
