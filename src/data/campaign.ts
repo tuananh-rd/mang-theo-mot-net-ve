@@ -1340,6 +1340,34 @@ export const DONATION_LEDGER: DonationLedger = {
   entries: [],
 };
 
+export interface PendingDonationEntry {
+  /** Ngày nhận thông báo ủng hộ theo định dạng YYYY-MM-DD */
+  date: string;
+  /** Giờ nhận thông báo dạng HH:mm */
+  time: string;
+  /** Tên hiển thị ('Ẩn danh' khi chưa có xác nhận công khai) */
+  donor: string;
+  /** Số tiền ủng hộ VND */
+  amount: number;
+  /** Mã giao dịch rút gọn (null khi chưa đối chiếu với sao kê ngân hàng) */
+  reference: string | null;
+}
+
+/**
+ * Danh sách riêng các khoản ủng hộ nhóm tiếp nhận thông tin nhưng đang CHỜ ĐỐI SOÁT
+ * với sao kê ngân hàng chính thức (Task C09).
+ * TUYỆT ĐỐI KHÔNG gộp vào DONATION_LEDGER.entries hoặc tính vào tổng đã đối soát.
+ */
+export const PENDING_DONATIONS: PendingDonationEntry[] = [
+  {
+    date: '2026-10-09',
+    time: '17:19',
+    donor: 'Ẩn danh',
+    amount: 50000,
+    reference: null,
+  },
+];
+
 export interface ProjectProgress {
   currentWeek: number;
   totalWeeks: number;

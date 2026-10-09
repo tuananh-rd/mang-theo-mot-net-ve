@@ -5,7 +5,7 @@ import FaqAccordion from '../components/FaqAccordion.astro';
 import DonationPanel from '../components/DonationPanel.astro';
 import DonationLedger from '../components/DonationLedger.astro';
 import ContactCard from '../components/ContactCard.astro';
-import { SUPPORT_FAQS, DONATION_ACCOUNT, DONATION_LEDGER } from '../data/campaign';
+import { SUPPORT_FAQS, DONATION_ACCOUNT, DONATION_LEDGER, PENDING_DONATIONS } from '../data/campaign';
 import { isDonationOpen } from '../lib/donations';
 import { formatVND } from '../lib/finance';
 
@@ -55,7 +55,7 @@ const otherWays = [
         <h2 id="ledger-heading">Tiến độ và danh sách ủng hộ</h2>
         <p>Chỉ tính các khoản ủng hộ đã đối chiếu với ngân hàng; tiền bán quà lưu niệm ghi riêng. Chỉ hiển thị tên bạn chọn, số tiền, ngày và mã giao dịch rút gọn.</p>
       </div>
-      <DonationLedger account={DONATION_ACCOUNT} ledger={DONATION_LEDGER} />
+      <DonationLedger account={DONATION_ACCOUNT} ledger={DONATION_LEDGER} pendingEntries={PENDING_DONATIONS} />
       <div class="section-actions">
         <a href="/minh-bach#quy-trinh" class="link-arrow">Xem quy trình đối soát và công bố <span class="arrow" aria-hidden="true">→</span></a>
       </div>
