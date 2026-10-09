@@ -1,17 +1,15 @@
 ---
-import type { DonationAccount, DonationLedger, PendingDonationEntry } from '../data/campaign';
+import type { DonationAccount, DonationLedger } from '../data/campaign';
 import GoalProgress from './GoalProgress.astro';
-import StatusChip from './StatusChip.astro';
 import { summarizeLedger, sortDonationsNewestFirst, formatViDate, isLedgerReconciled } from '../lib/donations';
 import { formatVND } from '../lib/finance';
 
 interface Props {
   account: DonationAccount;
   ledger: DonationLedger;
-  pendingEntries?: PendingDonationEntry[];
 }
 
-const { account, ledger, pendingEntries = [] } = Astro.props;
+const { account, ledger } = Astro.props;
 const summary = summarizeLedger(ledger, account.goalAmount);
 const reconciled = isLedgerReconciled(ledger);
 const rows = sortDonationsNewestFirst(ledger.entries);
@@ -19,50 +17,6 @@ const rows = sortDonationsNewestFirst(ledger.entries);
 
 <div class="ledger-box">
   <GoalProgress summary={summary} />
-
-  {pendingEntries.length > 0 && (
-    <div class="pending-block" aria-labelledby="pending-heading">
-      <div class="pending-header">
-        <div class="pending-badge-row">
-          <StatusChip kind="cho-xac-nhan" label="Chờ đối soát" />
-          <h3 id="pending-heading" class="pending-title">Khoản ủng hộ chờ đối soát ({pendingEntries.length})</h3>
-        </div>
-        <p class="pending-notice">
-          Thông tin do nhóm cung cấp, chưa đối chiếu với ngân hàng; chưa tính vào tổng đã đối soát.
-        </p>
-      </div>
-
-      <div class="table-responsive">
-        <table class="data-table data-table--stack pending-table">
-          <caption class="sr-only">Danh sách khoản ủng hộ chờ đối soát với sao kê ngân hàng</caption>
-          <thead>
-            <tr>
-              <th scope="col">Thời gian</th>
-              <th scope="col">Người ủng hộ</th>
-              <th scope="col">Mã giao dịch</th>
-              <th scope="col" class="num">Số tiền</th>
-              <th scope="col">Trạng thái</th>
-            </tr>
-          </thead>
-          <tbody>
-            {pendingEntries.map((p) => (
-              <tr>
-                <td data-label="Thời gian">
-                  <strong>{p.time}</strong> {formatViDate(p.date)}
-                </td>
-                <th scope="row">{p.donor}</th>
-                <td data-label="Mã giao dịch">{p.reference ?? '—'}</td>
-                <td class="num" data-label="Số tiền">{formatVND(p.amount)}</td>
-                <td data-label="Trạng thái">
-                  <StatusChip kind="cho-xac-nhan" label="Chờ đối soát" />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  )}
 
   {rows.length > 0 ? (
     <>
@@ -193,66 +147,6 @@ const rows = sortDonationsNewestFirst(ledger.entries);
     .ledger-empty {
       padding: var(--space-4);
       text-align: left;
-    }
-  }
-
-  /* Khối khoản ủng hộ chờ đối soát */
-  .pending-block {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-    padding: var(--space-5);
-    background-color: var(--warm-canvas);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-md);
-  }
-
-  .pending-header {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .pending-badge-row {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    flex-wrap: wrap;
-  }
-
-  .pending-title {
-    font-size: var(--font-size-body);
-    font-weight: 700;
-    color: var(--ink);
-    margin: 0;
-  }
-
-  .pending-notice {
-    font-size: var(--font-size-small);
-    color: var(--ink-2);
-    margin: 0;
-    line-height: var(--line-height-small);
-  }
-
-  .pending-table {
-    margin: 0;
-    background: #ffffff;
-    border-radius: var(--radius-sm);
-  }
-
-  .pending-table td,
-  .pending-table th {
-    vertical-align: middle;
-  }
-
-  .pending-table .num {
-    font-weight: 700;
-    color: var(--brand);
-  }
-
-  @media (max-width: 767px) {
-    .pending-block {
-      padding: var(--space-4);
     }
   }
 </style>
