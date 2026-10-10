@@ -143,6 +143,13 @@ summary:focus-visible {
   outline-offset: 2px;
 }
 
+/* Vùng nền tối: vòng focus trắng để đủ tương phản */
+.donate-band a:focus-visible,
+.donate-band button:focus-visible,
+.site-footer a:focus-visible {
+  outline-color: var(--focus-on-dark);
+}
+
 /* Links */
 a {
   color: inherit;

@@ -20,6 +20,7 @@
   --on-dark: #ffffff;
   --on-dark-2: #c6dcd8;
   --on-dark-line: rgba(255, 255, 255, 0.2);
+  --focus-on-dark: #ffffff;  /* Vòng focus trên nền tối (xanh dương không đủ 3:1 trên --brand-ink) */
 
   /* Dải thông báo bản xem trước */
   --banner-bg: #e2f1ee;
