@@ -73,16 +73,16 @@
   --font-family-base: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 
   /* Thang chữ 7 bậc chuẩn hóa - Desktop >= 1024px */
-  --font-size-display: 3.5rem;    /* 56px - Chỉ H1 Trang chủ */
-  --line-height-display: 3.75rem; /* 60px */
-  --font-size-h1: 2.75rem;        /* 44px - H1 5 trang con */
-  --line-height-h1: 3.25rem;      /* 52px */
-  --font-size-h2: 2rem;           /* 32px - Tiêu đề section */
-  --line-height-h2: 2.5rem;       /* 40px */
+  --font-size-display: 4.5rem;    /* 72px - Chỉ H1 Trang chủ (C13) */
+  --line-height-display: 4.75rem; /* 76px */
+  --font-size-h1: 3.25rem;        /* 52px - H1 5 trang con (C13) */
+  --line-height-h1: 3.75rem;      /* 60px */
+  --font-size-h2: 2.5rem;         /* 40px - Tiêu đề section (C13) */
+  --line-height-h2: 3rem;         /* 48px */
   --font-size-h3: 1.25rem;        /* 20px - Tiêu đề thẻ, nhóm bảng */
   --line-height-h3: 1.75rem;      /* 28px */
-  --font-size-lead: 1.125rem;     /* 18px - Đoạn mở đầu */
-  --line-height-lead: 1.875rem;   /* 30px */
+  --font-size-lead: 1.25rem;      /* 20px - Đoạn mở đầu (C13) */
+  --line-height-lead: 2rem;       /* 32px */
   --font-size-body: 1rem;         /* 16px - Văn bản chuẩn */
   --line-height-body: 1.625rem;   /* 26px */
   --font-size-small: 0.875rem;    /* 14px - Caption, credit, chip, eyebrow */
@@ -140,12 +140,12 @@
 
 @media (max-width: 1023px) {
   :root {
-    --font-size-display: 2.75rem;   /* 44px */
-    --line-height-display: 3.125rem;/* 50px */
-    --font-size-h1: 2.375rem;       /* 38px */
-    --line-height-h1: 2.875rem;     /* 46px */
-    --font-size-h2: 1.75rem;        /* 28px */
-    --line-height-h2: 2.25rem;      /* 36px */
+    --font-size-display: 3.5rem;    /* 56px */
+    --line-height-display: 3.875rem;/* 62px */
+    --font-size-h1: 2.75rem;        /* 44px */
+    --line-height-h1: 3.25rem;      /* 52px */
+    --font-size-h2: 2rem;           /* 32px */
+    --line-height-h2: 2.5rem;       /* 40px */
     --font-size-h3: 1.25rem;        /* 20px */
     --line-height-h3: 1.75rem;      /* 28px */
     --font-size-lead: 1.125rem;     /* 18px */
@@ -160,12 +160,12 @@
 
 @media (max-width: 767px) {
   :root {
-    --font-size-display: 2.25rem;   /* 36px */
-    --line-height-display: 2.625rem;/* 42px */
-    --font-size-h1: 1.875rem;       /* 30px */
-    --line-height-h1: 2.375rem;     /* 38px */
-    --font-size-h2: 1.5rem;         /* 24px */
-    --line-height-h2: 2rem;         /* 32px */
+    --font-size-display: 2.5rem;    /* 40px */
+    --line-height-display: 2.875rem;/* 46px */
+    --font-size-h1: 2rem;           /* 32px */
+    --line-height-h1: 2.5rem;       /* 40px */
+    --font-size-h2: 1.625rem;       /* 26px */
+    --line-height-h2: 2.125rem;     /* 34px */
     --font-size-h3: 1.125rem;       /* 18px */
     --line-height-h3: 1.625rem;     /* 26px */
     --font-size-lead: 1.0625rem;    /* 17px */

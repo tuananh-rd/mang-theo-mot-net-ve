@@ -7,64 +7,97 @@ import Layout from '../layouts/Layout.astro';
   description="Trang bạn tìm kiếm không tồn tại trên hệ thống xem trước của dự án Mang Theo Một Nét Vẽ."
   currentPath=""
 >
-  <div class="error-container container section">
-    <div class="error-card card">
-      <div class="error-code">404</div>
-      <h1 class="error-title">Không tìm thấy trang</h1>
-      <p class="error-desc">
-        Đường dẫn bạn vừa truy cập không tồn tại hoặc đã được thay đổi trong bản xem trước.
-      </p>
-      <div class="error-actions">
-        <a href="/" class="btn btn-primary">
-          &larr; Về trang chủ
-        </a>
-        <a href="/du-an/mang-theo-mot-net-ve" class="btn btn-secondary">
-          Khám phá dự án
-        </a>
-        <a href="/san-pham" class="btn btn-secondary">
-          Quà lưu niệm
-        </a>
+  <section class="section error-band" aria-labelledby="error-heading">
+    <div class="container error-inner">
+      <p class="error-code" aria-hidden="true">404</p>
+      <div class="error-text">
+        <h1 id="error-heading" class="error-title">Không tìm thấy trang</h1>
+        <p class="error-desc">
+          Đường dẫn bạn vừa truy cập không tồn tại hoặc đã được thay đổi trong bản xem trước.
+        </p>
+        <div class="error-actions">
+          <a href="/" class="btn btn-primary">
+            &larr; Về trang chủ
+          </a>
+          <a href="/du-an/mang-theo-mot-net-ve" class="btn btn-secondary">
+            Khám phá dự án
+          </a>
+          <a href="/san-pham" class="btn btn-secondary">
+            Quà lưu niệm
+          </a>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 </Layout>
 
 <style>
-  .error-container {
-    max-width: 640px;
-    margin: 0 auto;
-    text-align: center;
+  /* C13: 404 dùng chung nền, cỡ chữ và nút của hệ thống; nền sáng để tách khỏi footer tối */
+  .error-band {
+    background-color: var(--surface-alt);
+    padding-top: var(--space-24);
+    padding-bottom: var(--space-24);
   }
 
-  .error-card {
-    padding: var(--space-10) var(--space-6);
+  .error-inner {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: var(--space-12);
     align-items: center;
-    gap: var(--space-4);
   }
 
   .error-code {
-    font-size: 3.5rem;
-    font-weight: 700;
+    font-size: 9rem;
+    font-weight: 800;
     line-height: 1;
-    color: var(--color-accent-text);
+    letter-spacing: -0.05em;
+    color: var(--brand);
+    margin: 0;
   }
 
   .error-title {
-    font-size: var(--font-size-h2);
-    color: var(--color-text-primary);
+    font-size: var(--font-size-h1);
+    line-height: var(--line-height-h1);
+    color: var(--ink);
+    margin-bottom: var(--space-3);
   }
 
   .error-desc {
-    font-size: var(--font-size-body);
-    color: var(--color-text-secondary);
-    max-width: 44ch;
+    font-size: var(--font-size-lead);
+    line-height: var(--line-height-lead);
+    color: var(--ink-2);
+    max-width: 48ch;
   }
 
   .error-actions {
-    margin-top: var(--space-4);
+    margin-top: var(--space-8);
     display: flex;
     gap: var(--space-3);
-    justify-content: center;
     flex-wrap: wrap;
+  }
+
+  @media (max-width: 767px) {
+    .error-band {
+      padding-top: var(--space-12);
+      padding-bottom: var(--space-12);
+    }
+
+    .error-inner {
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+    }
+
+    .error-code {
+      font-size: 5rem;
+    }
+
+    .error-desc {
+      font-size: var(--font-size-body);
+      line-height: var(--line-height-body);
+    }
+
+    .error-actions .btn {
+      width: 100%;
+    }
   }
 </style>
