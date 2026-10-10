@@ -265,8 +265,8 @@ const titleHighlight = hlIndex >= 0 ? HIGHLIGHT : null;
 
   .hero-doodle {
     position: absolute;
-    left: -64px;
-    bottom: -58px;
+    left: -132px;
+    bottom: -40px;
     width: 120px;
     height: 90px;
     color: var(--on-dark-2);
@@ -278,6 +278,13 @@ const titleHighlight = hlIndex >= 0 ? HIGHLIGHT : null;
   .hero-doodle circle {
     stroke-dasharray: 1;
     stroke-dashoffset: 0;
+  }
+
+  /* Khổ desktop hẹp: khoảng trống giữa hai cột không đủ cho chuồn chuồn trang trí */
+  @media (max-width: 1199px) {
+    .hero-doodle {
+      display: none;
+    }
   }
 
   /* Nét cọ và chuồn chuồn tự vẽ một lần khi vào trang */
