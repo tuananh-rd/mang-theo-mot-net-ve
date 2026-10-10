@@ -32,7 +32,7 @@ body {
   top: -100px;
   left: var(--space-4);
   background: var(--color-text-primary);
-  color: #ffffff;
+  color: var(--on-dark);
   padding: var(--space-3) var(--space-6);
   border-radius: var(--radius-sm);
   z-index: 9999;
@@ -188,12 +188,12 @@ a {
 
 /* Notice Banners */
 .preview-banner {
-  background-color: #fff4d6;
-  border-bottom: 1px solid #fde68a;
+  background-color: var(--banner-bg);
+  border-bottom: 1px solid var(--banner-line);
   padding: var(--space-2) var(--space-4);
   text-align: center;
   font-size: var(--font-size-small);
-  color: #6b4e00;
+  color: var(--banner-text);
   font-weight: 500;
   line-height: 1.4;
 }
