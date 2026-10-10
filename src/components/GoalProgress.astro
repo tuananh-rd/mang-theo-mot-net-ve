@@ -143,12 +143,12 @@ const percent = summary.percent ?? 0;
   /* Trên nền tối */
   .goal--dark .goal-label,
   .goal--dark .goal-foot {
-    color: #c9d2dc;
+    color: var(--on-dark-2);
   }
 
   .goal--dark .goal-total,
   .goal--dark .goal-goal {
-    color: #ffffff;
+    color: var(--on-dark);
   }
 
   .goal--dark.goal--unknown .goal-total {
@@ -157,7 +157,7 @@ const percent = summary.percent ?? 0;
 
   .goal--dark .goal-bar {
     background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.2);
+    border-color: var(--on-dark-line);
   }
 
   .goal--dark.goal--unknown .goal-bar {

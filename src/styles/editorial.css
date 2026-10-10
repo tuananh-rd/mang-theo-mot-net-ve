@@ -318,13 +318,13 @@
 .data-table tfoot th,
 .data-table tfoot td {
   background: var(--brand-ink);
-  color: #ffffff;
+  color: var(--on-dark);
   font-weight: 700;
   border-bottom: none;
 }
 
 .data-table tfoot .cell-sub {
-  color: #c9d2dc;
+  color: var(--on-dark-2);
 }
 
 @media (max-width: 1023px) {
@@ -410,16 +410,15 @@
   }
 
   .data-table--stack tfoot td[data-label]::before {
-    color: #c9d2dc;
+    color: var(--on-dark-2);
   }
 }
 
-/* Dải CTA cuối trang theo ngữ cảnh */
+/* Dải CTA cuối trang (C13): khối cam mơ phẳng, chữ đậm, nút nền tối */
 .cta-band {
-  background-color: var(--warm-canvas);
-  border-top: 1px solid var(--line);
-  padding-top: var(--space-12);
-  padding-bottom: var(--space-12);
+  background-color: var(--cta);
+  padding-top: var(--space-14);
+  padding-bottom: var(--space-14);
 }
 
 .cta-band-inner {
@@ -431,17 +430,21 @@
 }
 
 .cta-band-text {
-  max-width: 640px;
+  max-width: 680px;
 }
 
 .cta-band-text h2 {
-  font-size: var(--font-size-h3);
-  line-height: var(--line-height-h3);
-  margin-bottom: var(--space-1);
+  font-size: var(--font-size-h2);
+  line-height: var(--line-height-h2);
+  color: var(--ink);
+  margin-bottom: var(--space-2);
 }
 
 .cta-band-text p {
   margin: 0;
+  color: var(--ink);
+  font-size: var(--font-size-lead);
+  line-height: var(--line-height-lead);
 }
 
 .cta-band-actions {
@@ -449,6 +452,25 @@
   gap: var(--space-2) var(--space-6);
   align-items: center;
   flex-wrap: wrap;
+}
+
+.cta-band .btn-primary {
+  background-color: var(--brand-ink);
+  border-color: var(--brand-ink);
+  color: var(--on-dark);
+}
+
+.cta-band .btn-primary:hover {
+  background-color: var(--ink);
+  border-color: var(--ink);
+}
+
+.cta-band .link-arrow {
+  color: var(--ink);
+}
+
+.cta-band a:focus-visible {
+  outline-color: var(--brand-ink);
 }
 
 @media (max-width: 767px) {
@@ -464,6 +486,54 @@
   .cta-band-actions .btn {
     width: 100%;
   }
+}
+
+/* Dải nền tối (C13): nhịp xen kẽ giữa các section sáng.
+ * Chỉ đổi màu phần tiêu đề section; thẻ bên trong giữ nền và màu chữ riêng. */
+.section-dark {
+  background-color: var(--brand-ink);
+}
+
+.section-dark .section-header h2,
+.section-dark .on-dark-title {
+  color: var(--on-dark);
+}
+
+.section-dark .section-header p,
+.section-dark .on-dark-text {
+  color: var(--on-dark-2);
+}
+
+.section-dark .section-header .eyebrow,
+.section-dark .on-dark-eyebrow {
+  color: var(--cta);
+}
+
+.section-dark .section-header .eyebrow::before {
+  background-color: var(--cta);
+}
+
+.section-dark .link-arrow-on-dark {
+  color: var(--on-dark);
+}
+
+.section-dark a:focus-visible,
+.section-dark button:focus-visible,
+.section-dark summary:focus-visible {
+  outline-color: var(--focus-on-dark);
+}
+
+/* Nút phụ trên nền tối */
+.btn-on-dark {
+  background-color: transparent;
+  color: var(--on-dark);
+  border: 1.5px solid var(--on-dark);
+}
+
+.btn-on-dark:hover {
+  background-color: var(--on-dark);
+  color: var(--brand-ink);
+  border-color: var(--on-dark);
 }
 
 /* Thanh tiến trình đọc (CSS scroll-driven; trình duyệt không hỗ trợ thì ẩn) */
@@ -546,4 +616,18 @@
 .section-tight {
   padding-top: var(--space-12);
   padding-bottom: var(--space-12);
+}
+
+/* Danh sách kẻ dòng đặt trên dải tối */
+.section-dark .ruled-list,
+.section-dark .ruled-list > li {
+  border-color: var(--on-dark-line);
+}
+
+.section-dark .ruled-title {
+  color: var(--on-dark);
+}
+
+.section-dark .ruled-desc {
+  color: var(--on-dark-2);
 }

@@ -1,33 +1,46 @@
 /**
  * Design Tokens - Hệ thị giác Hướng B (P0) theo docs/task-specs/C04.md & reports/ui-upgrade-plan-claude-c03.md
+ * C12 (10/10/2026): bảng màu "Tre & Mơ" — xanh lục lam (tre, chuồn chuồn) làm màu nhận diện,
+ * cam mơ cho nút hành động, nền trắng/xanh rất nhạt. Màu phẳng, không gradient.
  */
 :root {
   /* Palette & Semantic Tokens */
-  --ink: #1f2933;
-  --ink-2: #52606d;
-  --brand: #8a2234;         /* Đỏ thẫm nhận diện, accent/eyebrow/link */
-  --brand-ink: #1a2235;     /* Navy đậm nhận diện */
-  --surface-alt: #f6f4ef;   /* Nền xám ấm trung tính, thay cho vàng kem #FFF8E8 */
-  --cta: #f7c948;           /* Vàng cho nút CTA chính */
-  --cta-hover: #e5b838;
-  --line: #d8dee5;          /* Viền phân cách trang trí */
-  --line-strong: #7b8794;   /* Viền điều khiển nút secondary/input >= 3:1 */
-  --focus: #174ea6;         /* Xanh focus 3px rõ ràng */
+  --ink: #1d2b2a;           /* Chữ chính: than ánh xanh */
+  --ink-2: #4b5d5b;         /* Chữ phụ */
+  --brand: #0d6b63;         /* Xanh lục lam nhận diện: accent/eyebrow/link */
+  --brand-ink: #123c3a;     /* Xanh lục lam đậm: footer, dải nền tối */
+  --surface-alt: #eef5f2;   /* Nền phụ xanh rất nhạt */
+  --cta: #f4a261;           /* Cam mơ cho nút hành động chính (chữ --ink) */
+  --cta-hover: #e98d45;
+  --line: #d3e0dc;          /* Viền phân cách trang trí */
+  --line-strong: #6a817d;   /* Viền điều khiển nút secondary/input >= 3:1 */
+  --focus: #1f5fbf;         /* Xanh dương focus 3px, khác màu nhận diện */
+
+  /* Chữ và lớp phủ trên nền tối (--brand-ink) */
+  --on-dark: #ffffff;
+  --on-dark-2: #c6dcd8;
+  --on-dark-line: rgba(255, 255, 255, 0.2);
+  --focus-on-dark: #ffffff;  /* Vòng focus trên nền tối (xanh dương không đủ 3:1 trên --brand-ink) */
+
+  /* Dải thông báo bản xem trước */
+  --banner-bg: #e2f1ee;
+  --banner-line: #bcd9d3;
+  --banner-text: #0b4f49;
 
   /* Màu pastel thân thiện cho các góc chơi và điểm nhấn (chữ đậm đạt >= 4.5:1 trên nền tint) */
-  --tint-sun: #fff4d6;
-  --tint-sun-ink: #7a5300;
-  --tint-rose: #fbe9ed;
-  --tint-rose-ink: #8a2234;
-  --tint-sky: #e6f0fa;
-  --tint-sky-ink: #1d4e89;
-  --tint-mint: #e3f3ea;
-  --tint-mint-ink: #1e6b3a;
-  --warm-canvas: #fffcf6;
+  --tint-sun: #fff1dc;
+  --tint-sun-ink: #7a4b00;
+  --tint-rose: #fde8e4;
+  --tint-rose-ink: #a0392b;
+  --tint-sky: #e2f1f4;
+  --tint-sky-ink: #10606d;
+  --tint-mint: #e6f2e3;
+  --tint-mint-ink: #2e6a2b;
+  --warm-canvas: #f7fbf9;   /* Nền hero/dải CTA */
 
   /* Semantic Status Tokens (Chữ + Màu + Biểu tượng) */
-  --status-plan-bg: #eaf0f6;
-  --status-plan-text: #334e68;
+  --status-plan-bg: #e7eef6;
+  --status-plan-text: #2f4f6f;
   --status-hypo-bg: #f1eefb;
   --status-hypo-text: #5b3fa8;
   --status-pending-bg: #fff4d6;
@@ -60,16 +73,16 @@
   --font-family-base: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 
   /* Thang chữ 7 bậc chuẩn hóa - Desktop >= 1024px */
-  --font-size-display: 3.5rem;    /* 56px - Chỉ H1 Trang chủ */
-  --line-height-display: 3.75rem; /* 60px */
-  --font-size-h1: 2.75rem;        /* 44px - H1 5 trang con */
-  --line-height-h1: 3.25rem;      /* 52px */
-  --font-size-h2: 2rem;           /* 32px - Tiêu đề section */
-  --line-height-h2: 2.5rem;       /* 40px */
+  --font-size-display: 4.5rem;    /* 72px - Chỉ H1 Trang chủ (C13) */
+  --line-height-display: 4.75rem; /* 76px */
+  --font-size-h1: 3.25rem;        /* 52px - H1 5 trang con (C13) */
+  --line-height-h1: 3.75rem;      /* 60px */
+  --font-size-h2: 2.5rem;         /* 40px - Tiêu đề section (C13) */
+  --line-height-h2: 3rem;         /* 48px */
   --font-size-h3: 1.25rem;        /* 20px - Tiêu đề thẻ, nhóm bảng */
   --line-height-h3: 1.75rem;      /* 28px */
-  --font-size-lead: 1.125rem;     /* 18px - Đoạn mở đầu */
-  --line-height-lead: 1.875rem;   /* 30px */
+  --font-size-lead: 1.25rem;      /* 20px - Đoạn mở đầu (C13) */
+  --line-height-lead: 2rem;       /* 32px */
   --font-size-body: 1rem;         /* 16px - Văn bản chuẩn */
   --line-height-body: 1.625rem;   /* 26px */
   --font-size-small: 0.875rem;    /* 14px - Caption, credit, chip, eyebrow */
@@ -111,9 +124,9 @@
   --radius-pill: 999px;
 
   /* Subtle Shadow */
-  --shadow-subtle: 0 1px 2px rgba(16, 24, 40, 0.06), 0 1px 3px rgba(16, 24, 40, 0.08);
+  --shadow-subtle: 0 1px 2px rgba(18, 60, 58, 0.06), 0 1px 3px rgba(18, 60, 58, 0.08);
 
-  --shadow-raised: 0 4px 12px rgba(16, 24, 40, 0.06), 0 12px 32px rgba(16, 24, 40, 0.08);
+  --shadow-raised: 0 4px 12px rgba(18, 60, 58, 0.06), 0 12px 32px rgba(18, 60, 58, 0.08);
 
   /* Motion */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
@@ -127,12 +140,12 @@
 
 @media (max-width: 1023px) {
   :root {
-    --font-size-display: 2.75rem;   /* 44px */
-    --line-height-display: 3.125rem;/* 50px */
-    --font-size-h1: 2.375rem;       /* 38px */
-    --line-height-h1: 2.875rem;     /* 46px */
-    --font-size-h2: 1.75rem;        /* 28px */
-    --line-height-h2: 2.25rem;      /* 36px */
+    --font-size-display: 3.5rem;    /* 56px */
+    --line-height-display: 3.875rem;/* 62px */
+    --font-size-h1: 2.75rem;        /* 44px */
+    --line-height-h1: 3.25rem;      /* 52px */
+    --font-size-h2: 2rem;           /* 32px */
+    --line-height-h2: 2.5rem;       /* 40px */
     --font-size-h3: 1.25rem;        /* 20px */
     --line-height-h3: 1.75rem;      /* 28px */
     --font-size-lead: 1.125rem;     /* 18px */
@@ -147,12 +160,12 @@
 
 @media (max-width: 767px) {
   :root {
-    --font-size-display: 2.25rem;   /* 36px */
-    --line-height-display: 2.625rem;/* 42px */
-    --font-size-h1: 1.875rem;       /* 30px */
-    --line-height-h1: 2.375rem;     /* 38px */
-    --font-size-h2: 1.5rem;         /* 24px */
-    --line-height-h2: 2rem;         /* 32px */
+    --font-size-display: 2.5rem;    /* 40px */
+    --line-height-display: 2.875rem;/* 46px */
+    --font-size-h1: 2rem;           /* 32px */
+    --line-height-h1: 2.5rem;       /* 40px */
+    --font-size-h2: 1.625rem;       /* 26px */
+    --line-height-h2: 2.125rem;     /* 34px */
     --font-size-h3: 1.125rem;       /* 18px */
     --line-height-h3: 1.625rem;     /* 26px */
     --font-size-lead: 1.0625rem;    /* 17px */

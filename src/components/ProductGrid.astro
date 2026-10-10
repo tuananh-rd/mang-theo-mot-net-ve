@@ -91,9 +91,10 @@ const pendingNote: Record<string, string> = {
     gap: var(--space-5);
   }
 
+  /* C13: sản phẩm có ảnh thành khối editorial rộng (ảnh 7 / chữ 5), sản phẩm chưa có ảnh xếp ngang bên dưới */
   .product-grid--full {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    align-items: start;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-6);
   }
 
   .product-grid--compact {
@@ -133,12 +134,46 @@ const pendingNote: Record<string, string> = {
     padding: 0 var(--space-6) var(--space-6);
   }
 
+  @media (min-width: 1024px) {
+    .product--photo {
+      display: grid;
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      align-items: center;
+      gap: 0;
+    }
+
+    .product--photo .product-figure img {
+      aspect-ratio: 4 / 3;
+    }
+
+    .product--photo .product-body {
+      padding: var(--space-10);
+      gap: var(--space-2);
+    }
+
+    .product--photo .product-name {
+      font-size: 2rem;
+      line-height: 1.25;
+    }
+
+    .product--photo .price {
+      font-size: 2rem;
+      line-height: 1.2;
+    }
+
+    .product-grid--full .product:not(.product--photo) {
+      padding: var(--space-8) var(--space-10);
+      align-items: center;
+    }
+  }
+
   .product-figure {
     margin: 0;
   }
 
   .product-figure img {
     width: 100%;
+    height: auto;
     aspect-ratio: 16 / 9;
     object-fit: cover;
     object-position: 50% 45%;
@@ -178,7 +213,7 @@ const pendingNote: Record<string, string> = {
 
   .product:hover .product-icon {
     background: var(--brand-ink);
-    color: #ffffff;
+    color: var(--on-dark);
   }
 
   .product-grid--compact .product-icon {
@@ -245,6 +280,14 @@ const pendingNote: Record<string, string> = {
 
     .product {
       padding: var(--space-4);
+    }
+
+    .product--photo {
+      padding: 0;
+    }
+
+    .product--photo .product-body {
+      padding: 0 var(--space-4) var(--space-4);
     }
 
     .product-grid--compact {

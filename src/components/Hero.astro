@@ -44,12 +44,13 @@ const titleHighlight = hlIndex >= 0 ? HIGHLIGHT : null;
           <a href="/dong-hanh" class="btn btn-primary btn-arrow hero-btn">
             Ủng hộ dự án <span class="arrow" aria-hidden="true">→</span>
           </a>
-          <a href="/du-an/mang-theo-mot-net-ve" class="btn btn-secondary hero-btn">Tìm hiểu dự án</a>
+          <a href="/du-an/mang-theo-mot-net-ve" class="btn btn-on-dark hero-btn">Tìm hiểu dự án</a>
         </div>
       </div>
 
       <div class="hero-visual enter-visual">
         <div class="hero-photo">
+          <span class="hero-block" aria-hidden="true"></span>
           <PlaceholderIllustration type="hero" ratio="4:3" />
           <div class="hero-sticker" aria-hidden="true">
             <span class="sticker-icon"><Icon name="to-tuong" size={20} /></span>
@@ -75,26 +76,26 @@ const titleHighlight = hlIndex >= 0 ? HIGHLIGHT : null;
 </section>
 
 <style>
+  /* C13: hero rộng nền teal đậm phẳng, ảnh lớn lệch phải với khối mơ phía sau */
   .hero-section {
     position: relative;
     overflow: hidden;
-    padding-top: var(--space-14);
-    padding-bottom: var(--space-14);
-    background-color: var(--warm-canvas);
+    padding-top: var(--space-20);
+    padding-bottom: calc(var(--space-20) + 56px);
+    background-color: var(--brand-ink);
     isolation: isolate;
   }
 
-  /* Nền ấm phẳng theo token thương hiệu */
   .hero-bg {
     position: absolute;
     inset: 0;
     z-index: -1;
-    background-color: var(--warm-canvas);
+    background-color: var(--brand-ink);
   }
 
   .hero-grid {
     display: grid;
-    grid-template-columns: 5fr 6fr;
+    grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
     gap: var(--space-12);
     align-items: center;
   }
@@ -103,7 +104,7 @@ const titleHighlight = hlIndex >= 0 ? HIGHLIGHT : null;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--space-4);
+    gap: var(--space-5);
   }
 
   .hero-kicker {
@@ -112,21 +113,25 @@ const titleHighlight = hlIndex >= 0 ? HIGHLIGHT : null;
     gap: var(--space-2);
     padding: 6px 14px 6px 10px;
     border-radius: var(--radius-pill);
-    background: #ffffff;
-    border: 1px solid var(--line);
-    box-shadow: var(--shadow-subtle);
+    background: transparent;
+    border: 1px solid var(--on-dark-line);
     font-size: var(--font-size-small);
     line-height: var(--line-height-small);
     font-weight: 600;
-    color: var(--brand);
+    color: var(--on-dark);
+  }
+
+  .hero-kicker :global(svg) {
+    color: var(--cta);
   }
 
   .hero-title {
     font-size: var(--font-size-display);
     line-height: var(--line-height-display);
-    color: var(--ink);
+    color: var(--on-dark);
     text-wrap: balance;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
+    font-weight: 800;
   }
 
   .hl {
@@ -134,14 +139,15 @@ const titleHighlight = hlIndex >= 0 ? HIGHLIGHT : null;
     display: inline-block;
     white-space: nowrap;
     z-index: 0;
+    color: var(--cta);
   }
 
   .hl-stroke {
     position: absolute;
     left: -2%;
-    bottom: -0.34em;
+    bottom: -0.3em;
     width: 104%;
-    height: 0.36em;
+    height: 0.32em;
     z-index: -1;
     overflow: visible;
   }
@@ -149,24 +155,24 @@ const titleHighlight = hlIndex >= 0 ? HIGHLIGHT : null;
   .hl-stroke path {
     fill: none;
     stroke: var(--cta);
-    stroke-width: 8;
+    stroke-width: 7;
     stroke-linecap: round;
     stroke-dasharray: 1;
     stroke-dashoffset: 0;
   }
 
   .hero-slogan {
-    font-size: 1.25rem;
+    font-size: 1.375rem;
     font-weight: 600;
     line-height: 1.4;
-    color: var(--brand);
+    color: var(--on-dark);
     text-wrap: balance;
   }
 
   .hero-summary {
     font-size: var(--font-size-lead);
     line-height: var(--line-height-lead);
-    color: var(--ink-2);
+    color: var(--on-dark-2);
     max-width: 52ch;
   }
 
@@ -178,8 +184,13 @@ const titleHighlight = hlIndex >= 0 ? HIGHLIGHT : null;
   }
 
   .hero-btn {
-    min-height: 52px;
-    padding: var(--space-3) var(--space-6);
+    min-height: 56px;
+    padding: var(--space-3) var(--space-8);
+    font-size: 1.0625rem;
+  }
+
+  .hero-section a:focus-visible {
+    outline-color: var(--focus-on-dark);
   }
 
   .hero-visual {
@@ -189,18 +200,36 @@ const titleHighlight = hlIndex >= 0 ? HIGHLIGHT : null;
 
   .hero-photo {
     position: relative;
+    isolation: isolate;
+  }
+
+  /* Khối màu mơ phẳng lệch sau ảnh, tạo bố cục bất đối xứng */
+  .hero-block {
+    position: absolute;
+    z-index: -1;
+    top: 40px;
+    right: -40px;
+    bottom: -40px;
+    left: 56px;
+    border-radius: var(--radius-xl);
+    background-color: var(--cta);
   }
 
   .hero-photo :global(.illustration-wrapper) {
     border-radius: var(--radius-xl);
+    border-color: transparent;
     box-shadow: var(--shadow-raised);
+    background: #ffffff;
+  }
+
+  .hero-photo :global(.illustration-caption) {
     background: #ffffff;
   }
 
   .hero-sticker {
     position: absolute;
-    top: 24px;
-    left: -20px;
+    top: 28px;
+    left: -28px;
     display: flex;
     align-items: center;
     gap: var(--space-3);
@@ -236,12 +265,11 @@ const titleHighlight = hlIndex >= 0 ? HIGHLIGHT : null;
 
   .hero-doodle {
     position: absolute;
-    right: -10px;
-    bottom: -46px;
+    left: -132px;
+    bottom: -40px;
     width: 120px;
     height: 90px;
-    color: var(--brand);
-    opacity: 0.55;
+    color: var(--on-dark-2);
     transform: rotate(-12deg);
     pointer-events: none;
   }
@@ -250,6 +278,13 @@ const titleHighlight = hlIndex >= 0 ? HIGHLIGHT : null;
   .hero-doodle circle {
     stroke-dasharray: 1;
     stroke-dashoffset: 0;
+  }
+
+  /* Khổ desktop hẹp: khoảng trống giữa hai cột không đủ cho chuồn chuồn trang trí */
+  @media (max-width: 1199px) {
+    .hero-doodle {
+      display: none;
+    }
   }
 
   /* Nét cọ và chuồn chuồn tự vẽ một lần khi vào trang */
@@ -286,29 +321,37 @@ const titleHighlight = hlIndex >= 0 ? HIGHLIGHT : null;
   @media (min-width: 768px) and (max-width: 1023px) {
     .hero-grid {
       grid-template-columns: 1fr;
-      gap: var(--space-10);
+      gap: var(--space-12);
     }
 
     .hero-section {
-      padding-top: var(--space-10);
-      padding-bottom: var(--space-12);
+      padding-top: var(--space-12);
+      padding-bottom: calc(var(--space-12) + 40px);
     }
 
     .hero-visual {
-      max-width: 600px;
-      margin-left: auto;
+      max-width: 620px;
       margin-right: auto;
+    }
+
+    .hero-block {
+      right: -24px;
+      bottom: -24px;
     }
 
     .hero-sticker {
       left: 16px;
     }
+
+    .hero-doodle {
+      display: none;
+    }
   }
 
   @media (max-width: 767px) {
     .hero-section {
-      padding-top: var(--space-6);
-      padding-bottom: var(--space-10);
+      padding-top: var(--space-8);
+      padding-bottom: var(--space-12);
     }
 
     .hero-grid {
@@ -317,6 +360,14 @@ const titleHighlight = hlIndex >= 0 ? HIGHLIGHT : null;
     }
 
     .hero-photo :global(.illustration-wrapper) {
+      border-radius: var(--radius-lg);
+    }
+
+    .hero-block {
+      top: 24px;
+      right: -12px;
+      bottom: -12px;
+      left: 32px;
       border-radius: var(--radius-lg);
     }
 

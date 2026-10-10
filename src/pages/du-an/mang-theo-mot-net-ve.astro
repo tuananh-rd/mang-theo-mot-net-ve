@@ -57,7 +57,7 @@ const summaryItems = [
       <ol class="needs">
         {
           PROJECT_NEEDS.map((n, i) => (
-            <li class="need lift">
+            <li class="need">
               <span class="need-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
               <h3 class="need-title">{n.title}</h3>
               <p class="need-desc">{n.description}</p>
@@ -68,12 +68,12 @@ const summaryItems = [
     </div>
   </section>
 
-  <section class="section section-soft" aria-labelledby="home-heading">
+  <section class="section section-dark" aria-labelledby="home-heading">
     <div class="container">
       <div class="shelter">
         <div class="shelter-text reveal">
-          <span class="eyebrow">Nơi dự án đến</span>
-          <h2 id="home-heading" class="col-title">Mái ấm Thánh Tâm Xuy Xá</h2>
+          <span class="eyebrow on-dark-eyebrow">Nơi dự án đến</span>
+          <h2 id="home-heading" class="col-title on-dark-title">Mái ấm Thánh Tâm Xuy Xá</h2>
           <p>
             Mái ấm ở Mỹ Đức, Hà Nội, chăm sóc các em nhỏ ở nhiều độ tuổi cùng người cao tuổi. Mọi kế hoạch về thời gian, nội dung hoạt động, vật liệu, phạm vi ghi hình và danh mục quà tặng đều cần sự thống nhất và phê duyệt từ Mái ấm.
           </p>
@@ -183,18 +183,20 @@ const summaryItems = [
     gap: var(--space-6);
   }
 
+  /* C13: ba định hướng dạng cột editorial có vạch trên, không dùng thẻ */
   .need {
     display: flex;
     flex-direction: column;
-    gap: var(--space-2);
-    padding: var(--space-6);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-    background: #ffffff;
+    gap: var(--space-3);
+    padding-top: var(--space-6);
+    border-top: 3px solid var(--brand-ink);
   }
 
   .need-num {
-    font-weight: 700;
+    font-size: 3rem;
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: -0.04em;
     color: var(--brand);
     font-variant-numeric: tabular-nums;
   }
@@ -212,25 +214,35 @@ const summaryItems = [
   .shelter {
     display: grid;
     grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    gap: var(--space-10);
+    gap: var(--space-12);
     align-items: center;
   }
 
   .shelter-text p {
     margin: 0;
+    color: var(--on-dark-2);
+    font-size: var(--font-size-lead);
+    line-height: var(--line-height-lead);
   }
 
   .shelter-photos {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--space-4);
+    gap: var(--space-5);
+    align-items: start;
+  }
+
+  /* Ảnh thứ hai lệch xuống tạo nhịp bất đối xứng (desktop) */
+  @media (min-width: 1024px) {
+    .shelter-photo:nth-of-type(2) {
+      margin-top: var(--space-12);
+    }
   }
 
   .shelter-photo {
     margin: 0;
     border-radius: var(--radius-lg);
     overflow: hidden;
-    box-shadow: var(--shadow-raised);
     aspect-ratio: 4 / 3;
     background: var(--surface-alt);
   }
@@ -246,6 +258,7 @@ const summaryItems = [
   .shelter-caption {
     grid-column: 1 / -1;
     margin: 0;
+    color: var(--on-dark-2);
     font-size: var(--font-size-small);
     line-height: var(--line-height-small);
   }
@@ -284,7 +297,7 @@ const summaryItems = [
     height: 36px;
     border-radius: var(--radius-pill);
     background: var(--brand-ink);
-    color: #ffffff;
+    color: var(--on-dark);
     font-weight: 700;
     display: inline-flex;
     align-items: center;
@@ -331,10 +344,14 @@ const summaryItems = [
 
     .need {
       display: grid;
-      grid-template-columns: 40px minmax(0, 1fr);
-      column-gap: var(--space-3);
+      grid-template-columns: 56px minmax(0, 1fr);
+      column-gap: var(--space-4);
       row-gap: var(--space-1);
-      padding: var(--space-4);
+      padding: var(--space-5) 0 var(--space-2);
+    }
+
+    .need-num {
+      font-size: 2.25rem;
     }
 
     .need-num {

@@ -156,7 +156,7 @@ html.motion main .reveal.is-revealed {
 
 .btn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(16, 24, 40, 0.12);
+  box-shadow: 0 6px 16px rgba(18, 60, 58, 0.12);
 }
 
 .btn:active {
@@ -222,7 +222,7 @@ html.motion main .reveal.is-revealed {
 
 /* --- Header khi cuộn --- */
 .site-header.is-scrolled {
-  box-shadow: 0 1px 0 var(--line), 0 8px 24px rgba(16, 24, 40, 0.06);
+  box-shadow: 0 1px 0 var(--line), 0 8px 24px rgba(18, 60, 58, 0.06);
 }
 
 /* --- Menu mobile trượt xuống --- */
