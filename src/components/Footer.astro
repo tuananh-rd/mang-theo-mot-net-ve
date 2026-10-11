@@ -105,7 +105,7 @@ const navLinks = [
     position: absolute;
     inset: 0 0 auto 0;
     height: 4px;
-    background-color: var(--brand);
+    background-color: var(--band);
   }
 
   .footer-inner {
@@ -222,6 +222,49 @@ const navLinks = [
     color: var(--on-dark);
     font-weight: 600;
     font-variant-numeric: tabular-nums;
+  }
+
+  /* C16: khối liên hệ là thẻ trắng nổi trên nền navy */
+  .footer-notes {
+    background: #ffffff;
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    border-left: 4px solid var(--band);
+    color: var(--ink);
+  }
+
+  .footer-notes .footer-nav-title {
+    color: var(--brand-ink);
+  }
+
+  .footer-notes .footer-contact-role,
+  .footer-notes .status-item {
+    color: var(--ink-2);
+  }
+
+  .footer-notes .footer-link,
+  .footer-notes .footer-tel {
+    color: var(--brand);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .footer-notes .footer-tel {
+    color: var(--brand-ink);
+    font-size: 1.125rem;
+  }
+
+  .footer-notes .footer-link:hover {
+    color: var(--brand-ink);
+    transform: none;
+  }
+
+  .footer-notes .footer-link:focus-visible {
+    outline-color: var(--focus);
+  }
+
+  .footer-notes .status-bullet {
+    color: var(--brand-deep);
   }
 
   .footer-status-list {

@@ -57,8 +57,8 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Về nhóm' 
     </div>
   </section>
 
-  <!-- Năm nguyên tắc trên nền surface-alt, đánh số 01-05 lớn (KHÔNG section-dark) -->
-  <section class="section section-principles" aria-labelledby="principles-heading">
+  <!-- Năm nguyên tắc trên dải xanh ngọc phẳng, đánh số 01-05 lớn -->
+  <section class="section section-principles band" aria-labelledby="principles-heading">
     <div class="container">
       <div class="section-header">
         <span class="eyebrow">Nguyên tắc hoạt động</span>
@@ -186,8 +186,7 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Về nhóm' 
 
   /* Năm nguyên tắc trên nền surface-alt với số đánh dấu lớn */
   .section-principles {
-    background: var(--surface-alt);
-    border-top: 1px solid var(--line);
+    border-top: none;
     padding-top: var(--space-12);
     padding-bottom: var(--space-14);
   }
@@ -207,7 +206,7 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Về nhóm' 
     gap: var(--space-6);
     align-items: baseline;
     padding-bottom: var(--space-6);
-    border-bottom: 1px solid var(--line);
+    border-bottom: 1px solid rgba(19, 38, 75, 0.28);
   }
 
   .principle-item:last-child {
@@ -219,7 +218,7 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Về nhóm' 
     font-size: 3rem;
     line-height: 1;
     font-weight: 800;
-    color: var(--brand);
+    color: var(--brand-ink);
     font-feature-settings: 'tnum';
     user-select: none;
   }
@@ -234,14 +233,14 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Về nhóm' 
     font-size: 1.375rem;
     line-height: 1.4;
     font-weight: 700;
-    color: var(--ink);
+    color: var(--brand-ink);
     margin: 0;
   }
 
   .principle-desc {
     font-size: var(--font-size-body);
     line-height: 1.6;
-    color: var(--ink-2);
+    color: var(--ink);
     margin: 0;
     max-width: var(--prose-max-width);
   }

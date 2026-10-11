@@ -183,8 +183,8 @@ function formatSessionDate(iso: string): string {
     </div>
   </section>
 
-  <!-- CHƯƠNG 04: An toàn & Tôn trọng (Nền --surface-alt) -->
-  <section class="section section-chapter section-soft" aria-labelledby="safety-heading">
+  <!-- CHƯƠNG 04: An toàn & Tôn trọng (dải xanh ngọc phẳng, thẻ trắng nổi) -->
+  <section class="section section-chapter section-safety band" aria-labelledby="safety-heading">
     <div class="container chapter-grid">
       <div class="chapter-aside">
         <span class="chapter-num" aria-hidden="true">04</span>
@@ -599,6 +599,23 @@ function formatSessionDate(iso: string): string {
     margin: var(--space-6) 0 0 0;
     padding-top: var(--space-3);
     border-top: 1px dashed var(--line);
+  }
+
+  /* Safety (Chương 04): dải xanh ngọc, chữ navy, thẻ trắng */
+  .section-safety {
+    border-top: none;
+  }
+
+  .section-safety .chapter-num,
+  .section-safety .chapter-tag,
+  .section-safety .chapter-title {
+    color: var(--brand-ink);
+  }
+
+  .section-safety .safety-card,
+  .section-safety .respect-card {
+    box-shadow: var(--shadow-raised);
+    border-color: transparent;
   }
 
   /* Safety (Chương 04) */

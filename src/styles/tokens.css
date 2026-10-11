@@ -1,46 +1,48 @@
 /**
  * Design Tokens - Hệ thị giác Hướng B (P0) theo docs/task-specs/C04.md & reports/ui-upgrade-plan-claude-c03.md
- * C12 (10/10/2026): bảng màu "Tre & Mơ" — xanh lục lam (tre, chuồn chuồn) làm màu nhận diện,
- * cam mơ cho nút hành động, nền trắng/xanh rất nhạt. Màu phẳng, không gradient.
+ * C16 (11/10/2026): bảng màu "Biển & Nắng" — xanh navy/xanh dương làm màu nhận diện, dải xanh ngọc phẳng
+ * cho số liệu kế hoạch, vàng nắng cho nút hành động, nền trắng/xanh trời rất nhạt. Màu phẳng, không gradient.
  */
 :root {
   /* Palette & Semantic Tokens */
-  --ink: #1d2b2a;           /* Chữ chính: than ánh xanh */
-  --ink-2: #4b5d5b;         /* Chữ phụ */
-  --brand: #0d6b63;         /* Xanh lục lam nhận diện: accent/eyebrow/link */
-  --brand-ink: #123c3a;     /* Xanh lục lam đậm: footer, dải nền tối */
-  --surface-alt: #eef5f2;   /* Nền phụ xanh rất nhạt */
-  --cta: #f4a261;           /* Cam mơ cho nút hành động chính (chữ --ink) */
-  --cta-hover: #e98d45;
-  --line: #d3e0dc;          /* Viền phân cách trang trí */
-  --line-strong: #6a817d;   /* Viền điều khiển nút secondary/input >= 3:1 */
-  --focus: #1f5fbf;         /* Xanh dương focus 3px, khác màu nhận diện */
+  --ink: #16233f;           /* Chữ chính: navy than */
+  --ink-2: #46556f;         /* Chữ phụ */
+  --brand: #1a5d96;         /* Xanh dương nhận diện: link/tiêu đề phụ (6,9:1 trên trắng) */
+  --brand-deep: #0d6e55;    /* Xanh ngọc đậm: eyebrow, dấu tích (6,2:1 trên trắng) */
+  --band: #2bb58d;          /* Xanh ngọc phẳng cho dải số liệu (chữ --brand-ink 5,8:1) */
+  --brand-ink: #13264b;     /* Navy đậm: footer, dải nền tối */
+  --surface-alt: #eaf4fb;   /* Nền phụ xanh trời rất nhạt */
+  --cta: #ffc43d;           /* Vàng nắng cho nút hành động chính (chữ --ink, 9,4:1) */
+  --cta-hover: #f5b21d;
+  --line: #d2e0ec;          /* Viền phân cách trang trí */
+  --line-strong: #6b7f99;   /* Viền điều khiển nút secondary/input >= 3:1 */
+  --focus: #13264b;         /* Navy focus 3px, đủ 3:1 trên trắng và nền xanh trời */
 
   /* Chữ và lớp phủ trên nền tối (--brand-ink) */
   --on-dark: #ffffff;
-  --on-dark-2: #c6dcd8;
+  --on-dark-2: #c9d8ee;
   --on-dark-line: rgba(255, 255, 255, 0.2);
   --focus-on-dark: #ffffff;  /* Vòng focus trên nền tối (xanh dương không đủ 3:1 trên --brand-ink) */
 
   /* Dải thông báo bản xem trước */
-  --banner-bg: #e2f1ee;
-  --banner-line: #bcd9d3;
-  --banner-text: #0b4f49;
+  --banner-bg: #e3f0fa;
+  --banner-line: #b9d4ea;
+  --banner-text: #0f4a7c;
 
   /* Màu pastel thân thiện cho các góc chơi và điểm nhấn (chữ đậm đạt >= 4.5:1 trên nền tint) */
-  --tint-sun: #fff1dc;
-  --tint-sun-ink: #7a4b00;
+  --tint-sun: #fff3cf;
+  --tint-sun-ink: #6e4b00;
   --tint-rose: #fde8e4;
   --tint-rose-ink: #a0392b;
-  --tint-sky: #e2f1f4;
-  --tint-sky-ink: #10606d;
-  --tint-mint: #e6f2e3;
-  --tint-mint-ink: #2e6a2b;
-  --warm-canvas: #f7fbf9;   /* Nền hero/dải CTA */
+  --tint-sky: #e0effa;
+  --tint-sky-ink: #0f4f80;
+  --tint-mint: #def4ec;
+  --tint-mint-ink: #0d6e55;
+  --warm-canvas: #f4f9fd;   /* Nền hero/dải CTA */
 
   /* Semantic Status Tokens (Chữ + Màu + Biểu tượng) */
-  --status-plan-bg: #e7eef6;
-  --status-plan-text: #2f4f6f;
+  --status-plan-bg: #e0effa;
+  --status-plan-text: #14436f;
   --status-hypo-bg: #f1eefb;
   --status-hypo-text: #5b3fa8;
   --status-pending-bg: #fff4d6;
@@ -124,9 +126,9 @@
   --radius-pill: 999px;
 
   /* Subtle Shadow */
-  --shadow-subtle: 0 1px 2px rgba(18, 60, 58, 0.06), 0 1px 3px rgba(18, 60, 58, 0.08);
+  --shadow-subtle: 0 1px 2px rgba(19, 38, 75, 0.06), 0 1px 3px rgba(19, 38, 75, 0.08);
 
-  --shadow-raised: 0 4px 12px rgba(18, 60, 58, 0.06), 0 12px 32px rgba(18, 60, 58, 0.08);
+  --shadow-raised: 0 4px 12px rgba(19, 38, 75, 0.07), 0 14px 36px rgba(19, 38, 75, 0.1);
 
   /* Motion */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);

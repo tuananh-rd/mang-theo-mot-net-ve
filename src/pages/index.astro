@@ -81,29 +81,57 @@ const steps = [
   </section>
 
   <section class="section section-what" aria-labelledby="what-heading">
-    <div class="container what-grid">
+    <div class="container">
       <div class="section-header what-header">
         <span class="eyebrow">Dự án làm gì</span>
         <h2 id="what-heading">Ba việc, một mục tiêu</h2>
         <p>Mang niềm vui đến cho các em bằng buổi chơi vừa sức, và gửi tặng Mái ấm những vật phẩm thiết thực theo danh mục Mái ấm xác nhận.</p>
       </div>
 
-      <ol class="steps">
+      <ol class="stepline">
         {
           steps.map((s, i) => (
-            <li class={`step step--${['sun', 'rose', 'mint'][i]}`}>
-              <span class="step-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-              <div class="step-body">
-                <h3 class="step-title">
-                  <span class="step-icon"><Icon name={s.icon} size={24} /></span>
-                  {s.title}
-                </h3>
-                <p class="step-text">{s.text}</p>
-              </div>
+            <li>
+              <span class="stepline-num" aria-hidden="true">{i + 1}</span>
+              <h3 class="stepline-title">{s.title}</h3>
+              <p class="stepline-text">{s.text}</p>
             </li>
           ))
         }
       </ol>
+    </div>
+  </section>
+
+  <!-- Kế hoạch trong một cái nhìn: dải xanh ngọc phẳng; chỉ dùng số liệu kế hoạch đã có -->
+  <section class="section band section-tight" aria-labelledby="plan-glance-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">Kế hoạch</span>
+        <h2 id="plan-glance-heading">Kế hoạch trong một cái nhìn</h2>
+      </div>
+      <ul class="stat-grid">
+        <li class="stat">
+          <span class="stat-num">{formatVND(DONATION_ACCOUNT.goalAmount)}</span>
+          <p class="stat-label">Mục tiêu ủng hộ</p>
+          <p class="stat-note">Qua chuyển khoản, sao kê công bố sau đối soát</p>
+        </li>
+        <li class="stat">
+          <span class="stat-num">{PLANNED_SESSIONS.length}</span>
+          <p class="stat-label">Buổi tại Mái ấm</p>
+          <p class="stat-note">Dự kiến {sessionText}/2026</p>
+        </li>
+        <li class="stat">
+          <span class="stat-num">{CAMPAIGN_PROJECT.activities.length}</span>
+          <p class="stat-label">Góc hoạt động</p>
+          <p class="stat-note">Mỗi em được chọn, đổi lượt, quan sát hoặc nghỉ</p>
+        </li>
+        <li class="stat">
+          <span class="stat-num">{TEAM_MEMBERS.length}</span>
+          <p class="stat-label">Sinh viên Lăng Kính</p>
+          <p class="stat-note">Lớp AI2015, Đại học FPT Hà Nội</p>
+        </li>
+      </ul>
+      <p class="band-note">Đây là số liệu kế hoạch, chưa phải kết quả đã đạt.</p>
     </div>
   </section>
 
@@ -296,88 +324,6 @@ const steps = [
     line-height: 1.4;
   }
 
-  /* Ba việc */
-  .what-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    gap: var(--space-12);
-    align-items: start;
-  }
-
-  .what-header {
-    margin-bottom: 0;
-  }
-
-  .what-header p {
-    font-size: var(--font-size-lead);
-    line-height: var(--line-height-lead);
-  }
-
-  .steps {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-6);
-  }
-
-  .step {
-    display: grid;
-    grid-template-columns: 72px minmax(0, 1fr);
-    gap: var(--space-6);
-    align-items: start;
-    padding: var(--space-6);
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--line);
-    background: #ffffff;
-    box-shadow: var(--shadow-subtle);
-  }
-
-  .step-num {
-    font-size: 3rem;
-    line-height: 1;
-    font-weight: 800;
-    color: var(--cta);
-    letter-spacing: -0.02em;
-    font-variant-numeric: tabular-nums;
-  }
-
-  .step-body {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .step-title {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    font-size: 1.375rem;
-    line-height: 1.3;
-    font-weight: 700;
-    color: var(--ink);
-    margin: 0;
-  }
-
-  .step-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: var(--radius-sm);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--surface-soft);
-    color: var(--brand);
-    flex-shrink: 0;
-  }
-
-  .step-text {
-    margin: 0;
-    font-size: var(--font-size-body);
-    line-height: 1.55;
-    color: var(--ink-2);
-  }
 
   /* Bốn góc: Dải ngang */
   .corners-strip {
@@ -446,7 +392,7 @@ const steps = [
   .donate-band {
     background-color: var(--brand-ink);
     color: var(--on-dark);
-    padding: var(--space-16) 0;
+    padding: var(--space-18) 0;
   }
 
   .donate-band-inner {
@@ -711,7 +657,6 @@ const steps = [
       border-top: 1px solid var(--line);
     }
 
-    .what-grid,
     .craft-journal-grid,
     .team-row {
       grid-template-columns: 1fr;
@@ -746,25 +691,6 @@ const steps = [
 
     .corners-strip {
       grid-template-columns: 1fr;
-    }
-
-    .step {
-      grid-template-columns: 56px minmax(0, 1fr);
-      gap: var(--space-4);
-      padding: var(--space-6) 0;
-    }
-
-    .step-num {
-      font-size: 2.5rem;
-    }
-
-    .step-title {
-      font-size: 1.25rem;
-    }
-
-    .step-icon {
-      width: 36px;
-      height: 36px;
     }
 
     .what-header p,
