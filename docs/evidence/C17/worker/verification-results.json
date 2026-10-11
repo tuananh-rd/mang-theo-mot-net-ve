@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-11T12:16:17.038Z",
+  "timestamp": "2026-10-11T12:28:59.917Z",
   "baseUrl": "http://127.0.0.1:4330",
   "tests": [
     {
@@ -18,8 +18,8 @@
           "id": "dev-admin",
           "email": "dev-admin@internal.local",
           "role": "admin",
-          "createdAt": "2026-10-11T12:16:17.097Z",
-          "updatedAt": "2026-10-11T12:16:17.097Z"
+          "createdAt": "2026-10-11T12:28:59.968Z",
+          "updatedAt": "2026-10-11T12:28:59.968Z"
         }
       }
     },
@@ -28,7 +28,7 @@
       "passed": true,
       "details": {
         "moduleKey": "project",
-        "revisionHash": "7acaf6c5f14e9a6d0dd733bbc865551d7816d68cceabc753d5f5a87f1fc1d397"
+        "revisionHash": "307774412a8e310645d619dd45f88a11e4249e1338df9df4abdc8c2eff4059f2"
       }
     },
     {
@@ -36,7 +36,7 @@
       "passed": true,
       "details": {
         "moduleKey": "journal",
-        "revisionHash": "6799b66b495c93e320bb6ea2a9f4528307e7038a8ebed20fdd4bed87c9d24bcb"
+        "revisionHash": "b53decd91150f21c43b2fda6aa9a98e4ee7edff6d5a0220d9d7b50eb4f1bd035"
       }
     },
     {
@@ -67,8 +67,8 @@
       "name": "API Drafts: Lưu bản nháp thành công có khóa lạc quan",
       "passed": true,
       "details": {
-        "newHash": "307774412a8e310645d619dd45f88a11e4249e1338df9df4abdc8c2eff4059f2",
-        "version": 6
+        "newHash": "4b3b8bd15d903b1326bcc3112244e2e500cb4898e01f642ee5328baff09dbda3",
+        "version": 7
       }
     },
     {
@@ -82,7 +82,7 @@
       "name": "API Publication: Tạo yêu cầu xuất bản và duy trì Idempotency",
       "passed": true,
       "details": {
-        "pubId": "pub-1791720977238-gkl1",
+        "pubId": "pub-1791721740120-haci",
         "status": "pending_review"
       }
     },

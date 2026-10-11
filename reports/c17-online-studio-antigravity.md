@@ -9,30 +9,33 @@
 - **Terminal Worker:** `term_d5e2a3fc-8366-4cc8-9ff1-60f502e1f1aa`
 - **Terminal Coordinator:** `term_6ea3ea53-bf27-4516-9467-2dfeebda674b`
 - **Mã Baseline SHA:** `89e82e65eece577d36c77f76798a8f009fb13e18`
-- **Mã Code Commit SHA:** `9a4e26132cea277f7a79ecf719b6c3cf3b04beb5` (commit `9a4e261`)
+- **Mã Code Commit SHA:** `96ae54c575c5cf4fea4160875221045e0b43fe3b` (commit `96ae54c`)
 - **Ngày hoàn thành:** 11/10/2026
 
 ---
 
 ## 1. Tóm tắt kết quả thực hiện (Executive Summary)
 
-1. **Đã thực hiện & Khắc phục toàn bộ phát hiện của Reviewer (RC17-0022308, RC17-7c60615 & RC17-5745030):**
+1. **Đã thực hiện & Khắc phục toàn diện mọi phát hiện của Reviewer (RC17-0022308, RC17-7c60615, RC17-5745030 và Delivery c0970eca54b6):**
    - **Xung đột đồng thời xác định (Deterministic Race Condition) & Giao dịch OCC nguyên tử:** Sử dụng mệnh đề `WHERE changes() = 1` trong câu lệnh `INSERT INTO revisions` và `INSERT INTO audit_logs` thuộc D1 atomic batch. Khi `draftStmt` cập nhật 0 dòng do lệch revision hash, SQLite tự động đánh giá `changes() = 1` là sai, ngăn chặn hoàn toàn việc sinh revision rác ("ghost revision") hoặc audit log thừa ngay cả khi dữ liệu bên thua hoàn toàn trùng khớp với bên thắng (`sameTargetData === true`). Loại bỏ triệt để nhánh sequential fallback không nguyên tử.
+   - **Xác thực Lịch & Mã băm Bản chụp Nghiêm ngặt (`snapshot-loader.ts`):** Kiểm tra chặt chẽ chuỗi thời gian ISO với hàm `isValidCalendarIsoDate`, đối chiếu ngày dương lịch thực tế (ngăn chặn roll-over ngày ảo như `2026-02-31`), kiểm tra kiểu dữ liệu sâu từng trường con của phân hệ `project` (bắt buộc `title`, `slug`, `summary`... là string, không chấp nhận đối tượng sai kiểu), và tính toán lại mã băm SHA-256 từ `JSON.stringify(modules)` để từ chối dứt khoát mọi bản chụp bị can thiệp dữ liệu (`tampered hash`).
    - **Bảo vệ tính Idempotent & Gating của GitHub Publisher:** Loại bỏ biến môi trường `env.GITHUB_SIMULATE` khỏi production fallback; chế độ giả lập chỉ được kích hoạt khi có cờ tường minh `options.simulateFixture === true`. Kiểm tra trạng thái HTTP (`patchRefRes.ok`) khi cập nhật branch ref (PATCH) và bảo toàn tính toàn vẹn khi tạo PR.
-   - **Kiểm định chặt chẽ Bản chụp Astro (`snapshot-loader.ts`):** Xác thực bắt buộc `generatedAt` là chuỗi ISO hợp lệ (loại bỏ fallback tự sinh ngày hiện tại), kiểm tra định dạng `sha256` bằng biểu thức chính quy 64 ký tự hex (`/^[a-f0-9]{64}$/i`), và tích hợp đầy đủ 3 hàm trích xuất câu hỏi thường gặp (`getPublishedProductFaqs`, `getPublishedSupportFaqs`, `getPublishedTransparencyFaqs`) vào `src/data/campaign.ts`.
+   - **Khả năng tiếp cận Bảng & Khắc phục Cắt cột trên Di động:** Nâng cấp toàn bộ các bảng dữ liệu (`.table-container`) với `tabindex="0"`, `role="region"`, nhãn tiếp cận `aria-label` mô tả rõ ràng, thiết lập `min-width: 640px` cho `table.data-table`, và bổ sung gợi ý cuộn ngang trực quan (`table-scroll-hint`), bảo đảm bàn phím tiếp cận đầy đủ các nút thao tác mà không bị cắt xén trên màn hình 375px.
+   - **Phục vụ Hình ảnh Bản quyền & Ảnh thu nhỏ Thực tế trên Cổng 4330:** Máy chủ cục bộ hỗ trợ phục vụ tệp tĩnh từ `public/images/` với HTTP 200 và MIME types chuẩn (`image/webp`, `image/png`), hiển thị chuẩn xác ảnh thu nhỏ riêng biệt cho từng tài nguyên bản quyền (ảnh minh họa `a01.webp` và mã QR `qr-ung-ho-techcombank.png`) thay vì bị lỗi trắng.
+   - **Nâng cấp Dữ liệu Nhật ký Cũ trong SQLite (Recognized Seed Migration):** Đã sao lưu an toàn `apps/studio/data/d1/studio.sqlite.bak` và nâng cấp hạt giống nhật ký cũ (`khoi-dong-du-an`, `khao-sat-thuc-te`) sang đúng 2 bài viết chuẩn (`ke-hoach-bon-goc-choi`, `gioi-thieu-qua-luu-niem-gay-quy`), bảo toàn 100% tất cả 6 bản ghi yêu cầu xuất bản và các nhật ký kiểm toán hiện có.
    - **Bảo vệ kho Media nội bộ & Chống giả mạo Host Loopback:** Tuyến `/media/*` yêu cầu bắt buộc phải có xác thực phiên nội bộ (`admin`, `editor`, `reviewer`) và phản hồi với `Cache-Control: private, no-store`. Yêu cầu chưa xác thực bị từ chối với HTTP 401 và 0 lần đọc bucket. Hàm `isLoopbackRequest` kiểm tra trực tiếp hostname của URL yêu cầu, ngăn chặn hoàn toàn việc giả mạo header `Host: 127.0.0.1` từ một URL từ xa để qua mặt xác thực.
-   - **Giao diện tiếp cận & Khắc phục lỗi cú pháp:** Sửa triệt để lỗi cú pháp template literal lồng nhau trong client JavaScript bằng nối chuỗi đơn. Tự động gán nhãn tiếp cận (`aria-label`) cho 100% form controls qua MutationObserver, phím `Escape` đóng drawer di động chuẩn xác (`escapeClosed: true`), thu gọn tiêu đề header trên màn hình 375px chống tràn, và nâng cấp Thư viện Media thành bảng đăng ký đầy đủ kèm ảnh thu nhỏ, tác quyền và điểm tiêu cự (X/Y).
 
 2. **Kết quả kiểm thử & Nghiệm thu:**
    - Bộ kiểm thử tự động Studio `apps/studio/tests/*.test.mjs`: **26/26 tests PASS (100%)**.
    - Kiểm tra kiểu dữ liệu TypeScript nghiêm ngặt `apps/studio/tsconfig.json`: **0 lỗi (Exit Code 0)**.
-   - Toàn bộ 6 kịch bản Negative/Browser/Race Probes của Reviewer đều **PASS 100%**:
-     - `reviewer-race-probe.mjs`: **PASS** cho cả 2 kịch bản `sameTargetData: false` và `sameTargetData: true` (`rejected: true`, `errorName: "ConcurrencyConflictError"`, `winnerPreserved: true`, `before: { drafts: 1, revisions: 1, audit_logs: 1 }` == `after: { drafts: 1, revisions: 1, audit_logs: 1 }`).
-     - `reviewer-atomicity-probe.mjs`: **PASS** (`saveResolved: false`, `persistedCounts: drafts: 0, revisions: 0, audit_logs: 0`).
-     - `reviewer-publication-probe.mjs`: **PASS** (`missingGitHubCredential.success: false`, `pendingPublicationExport.status: 400`, `wrotePublicSnapshot: false`).
-     - `reviewer-security-probe.mjs`: **PASS** (`unauthenticatedMedia: 401`, `bucketReads: 0`, `remoteUrlWithForgedLoopbackHost: 401`, `crossOriginWithoutHostHeader.accepted: false`).
-     - `reviewer-migration-probe.mjs`: **PASS** (Tất cả 22 phép so khớp nguồn đều `equivalent: true`, 0 differing paths).
-     - `reviewer-browser.mjs`: **PASS** (0 unlabelled controls trên toàn bộ 8 tabs, `overflow: false`, `escapeClosed: true`, 0 lỗi console).
+   - Toàn bộ 7 kịch bản Probes của Reviewer đều **PASS 100% (Exit Code 0)**:
+     - `reviewer-snapshot-validation-probe.mjs`: **PASS (exit 0)** cho cả 6 kịch bản (từ chối tampered hash, invalid module shape, invalid generatedAt, invalid nested project field, nonexistent calendar day 31/02; chấp nhận valid canonical snapshot).
+     - `reviewer-race-probe.mjs`: **PASS (exit 0)** cho cả 2 kịch bản `sameTargetData: false` và `sameTargetData: true` (`rejected: true`, `errorName: "ConcurrencyConflictError"`, `winnerPreserved: true`, `before: { drafts: 1, revisions: 1, audit_logs: 1 }` == `after: { drafts: 1, revisions: 1, audit_logs: 1 }`).
+     - `reviewer-atomicity-probe.mjs`: **PASS (exit 0)** (`saveResolved: false`, `persistedCounts: drafts: 0, revisions: 0, audit_logs: 0`).
+     - `reviewer-publication-probe.mjs`: **PASS (exit 0)** (`missingGitHubCredential.success: false`, `pendingPublicationExport.status: 400`, `wrotePublicSnapshot: false`).
+     - `reviewer-security-probe.mjs`: **PASS (exit 0)** (`unauthenticatedMedia: 401`, `bucketReads: 0`, `remoteUrlWithForgedLoopbackHost: 401`, `crossOriginWithoutHostHeader.accepted: false`).
+     - `reviewer-migration-probe.mjs`: **PASS (exit 0)** (Tất cả 22 phép so khớp nguồn đều `equivalent: true`, 0 differing paths).
+     - `reviewer-browser.mjs`: **PASS (exit 0)** (0 unlabelled controls trên toàn bộ 8 tabs, `overflow: false`, `escapeClosed: true`, 0 lỗi console).
    - Kiểm thử hồi quy toàn diện hệ thống gốc: `npm test` đạt **92/92 PASS**, `npm run check` đạt **0 errors, 0 warnings, 10 hints**, `npm run build` xuất bản thành công **13 static pages**.
    - Bằng chứng tích hợp máy chủ cổng 4330: 11/11 kịch bản PASS tại `docs/evidence/C17/worker/verification-results.json` và 12 ảnh chụp màn hình đa thiết bị tại `docs/evidence/C17/worker/screens/`.
 
