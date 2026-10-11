@@ -138,14 +138,16 @@ export class StudioDbClient {
     const revStmt = this.db
       .prepare(
         `INSERT INTO revisions (id, module_key, version, data_json, revision_hash, created_by, created_at, comment)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+         SELECT ?, ?, ?, ?, ?, ?, ?, ?
+         WHERE changes() = 1`
       )
       .bind(revisionId, moduleKey, nextVersion, dataJson, newHash, userEmail, now, comment || null);
 
     const auditStmt = this.db
       .prepare(
         `INSERT INTO audit_logs (id, user_email, action, module_key, details_json, created_at)
-         VALUES (?, ?, ?, ?, ?, ?)`
+         SELECT ?, ?, ?, ?, ?, ?
+         WHERE changes() = 1`
       )
       .bind(
         auditId,
@@ -158,6 +160,11 @@ export class StudioDbClient {
 
     if (typeof this.db.batch === 'function') {
       const batchResults = await this.db.batch([draftStmt, revStmt, auditStmt]);
+      for (const res of batchResults) {
+        if (res && res.success === false) {
+          throw new Error(res.error || 'Lỗi khi thực thi giao dịch hàng loạt (D1 Batch)');
+        }
+      }
       const draftResult = batchResults[0];
       if (current && (!draftResult?.meta?.changes || draftResult.meta.changes === 0)) {
         const latest = await this.getDraft(moduleKey);
@@ -167,16 +174,7 @@ export class StudioDbClient {
         );
       }
     } else {
-      const runRes = await draftStmt.run();
-      if (current && (!runRes.meta?.changes || runRes.meta.changes === 0)) {
-        const latest = await this.getDraft(moduleKey);
-        throw new ConcurrencyConflictError(
-          `Xung đột đồng thời (Race condition) tại phân hệ '${moduleKey}'. Dữ liệu đã bị ghi đè bởi phiên khác.`,
-          latest?.revisionHash
-        );
-      }
-      await revStmt.run();
-      await auditStmt.run();
+      throw new Error('D1 database batch API is required for atomic draft operations.');
     }
 
     const draftRecord: DraftRecord<T> = {

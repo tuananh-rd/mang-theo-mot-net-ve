@@ -13,6 +13,9 @@ import {
   getPublishedContacts,
   getPublishedDonationAccount,
   getPublishedTeamMembers,
+  getPublishedProductFaqs,
+  getPublishedSupportFaqs,
+  getPublishedTransparencyFaqs,
 } from './lib/snapshot-loader.ts';
 
 export interface QuantitativeFact {
@@ -564,7 +567,7 @@ export const SUPPORT_RULES: string[] = [
   'Thu chi, hóa đơn và biên bản bàn giao được công khai sau dự án.',
 ];
 
-export const PRODUCT_FAQS: ProductFaq[] = [
+export const PRODUCT_FAQS: ProductFaq[] = getPublishedProductFaqs([
   {
     question: 'Giá trên trang có phải giá bán chính thức?',
     answer: 'Chưa. Đây là giá tham khảo trong kế hoạch. Giá, mẫu và số lượng chính thức sẽ được công bố khi mở bán.',
@@ -583,7 +586,7 @@ export const PRODUCT_FAQS: ProductFaq[] = [
     answer:
       'Trước hết bù chi phí nguyên liệu và tổ chức. Phần còn lại dùng mua vật phẩm theo danh mục Mái ấm xác nhận, có hóa đơn và biên bản bàn giao.',
   },
-];
+]);
 
 export interface PlannedExpenseItem {
   id: string;
@@ -1232,7 +1235,7 @@ export interface SupportFaq {
   answer: string;
 }
 
-export const SUPPORT_FAQS: SupportFaq[] = [
+export const SUPPORT_FAQS: SupportFaq[] = getPublishedSupportFaqs([
   {
     question: 'Làm sao để tên tôi xuất hiện trong sao kê?',
     answer:
@@ -1257,14 +1260,14 @@ export const SUPPORT_FAQS: SupportFaq[] = [
     question: 'Tôi có thể cùng đến Mái ấm không?',
     answer: 'Chỉ khi Mái ấm đồng ý trước. Nhóm không tuyển người tự do đến Mái ấm, để bảo đảm an toàn và riêng tư cho các em.',
   },
-];
+]);
 
 export interface TransparencyFaq {
   question: string;
   answer: string;
 }
 
-export const TRANSPARENCY_FAQS: TransparencyFaq[] = [
+export const TRANSPARENCY_FAQS: TransparencyFaq[] = getPublishedTransparencyFaqs([
   {
     question: 'Vì sao tổng ủng hộ đang ghi “Chưa cập nhật”?',
     answer:
@@ -1284,7 +1287,7 @@ export const TRANSPARENCY_FAQS: TransparencyFaq[] = [
     answer:
       'Sau buổi trao quà và khi thành viên tài chính cùng một thành viên khác hoàn tất đối soát. Chứng từ chỉ công bố bản đã che thông tin riêng tư.',
   },
-];
+]);
 
 
 /* ------------------------------------------------------------------

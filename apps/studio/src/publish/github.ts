@@ -35,7 +35,7 @@ export async function triggerGitHubPublication(
   const commitMsg = `chore(release): xuất bản snapshot nội dung studio (${publication.snapshot.sha256.slice(0, 8)})`;
 
   const token = options.token || env.GITHUB_TOKEN;
-  const allowSimulation = options.simulateFixture || env.GITHUB_SIMULATE === 'true';
+  const allowSimulation = Boolean(options.simulateFixture);
 
   // 1. Khi thiếu GITHUB_TOKEN
   if (!token) {
@@ -173,12 +173,21 @@ export async function triggerGitHubPublication(
       }),
     });
     if (!createRefRes.ok) {
-      // Nếu branch đã tồn tại, cập nhật ref
-      await fetch(`https://api.github.com/repos/${owner}/${repo}/git/refs/heads/${branchName}`, {
+      // Nếu branch đã tồn tại, cập nhật ref (không force)
+      const patchRefRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/git/refs/heads/${branchName}`, {
         method: 'PATCH',
         headers,
         body: JSON.stringify({ sha: newCommitSha, force: false }),
       });
+      if (!patchRefRes.ok) {
+        const patchErr = await patchRefRes.text();
+        return {
+          success: false,
+          isSimulated: false,
+          branchName,
+          error: `Không thể cập nhật branch '${branchName}': ${patchErr}`,
+        };
+      }
     }
 
     // Bước 6: Tạo Pull Request (không để lộ email cá nhân)

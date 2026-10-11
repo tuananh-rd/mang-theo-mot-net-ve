@@ -59,8 +59,12 @@ export function loadValidatedSnapshot(): LoadedSnapshot | null {
     throw new Error('Malformed Published Snapshot: Trường "version" không hợp lệ.');
   }
 
-  if (typeof snap.sha256 !== 'string' || snap.sha256.length !== 64) {
-    throw new Error('Malformed Published Snapshot: Trường "sha256" không hợp lệ hoặc sai độ dài.');
+  if (typeof snap.generatedAt !== 'string' || !snap.generatedAt.trim()) {
+    throw new Error('Malformed Published Snapshot: Trường "generatedAt" bắt buộc phải là chuỗi thời gian ISO hợp lệ.');
+  }
+
+  if (typeof snap.sha256 !== 'string' || !/^[a-f0-9]{64}$/i.test(snap.sha256)) {
+    throw new Error('Malformed Published Snapshot: Trường "sha256" bắt buộc là chuỗi băm hex 64 ký tự hợp lệ.');
   }
 
   if (!snap.modules || typeof snap.modules !== 'object' || Array.isArray(snap.modules)) {
@@ -69,8 +73,8 @@ export function loadValidatedSnapshot(): LoadedSnapshot | null {
 
   return {
     version: snap.version,
-    generatedAt: snap.generatedAt || new Date().toISOString(),
-    sha256: snap.sha256,
+    generatedAt: snap.generatedAt,
+    sha256: snap.sha256.toLowerCase(),
     modules: snap.modules as SnapshotModules,
   };
 }
@@ -156,6 +160,27 @@ export function getPublishedDonationAccount<T extends Record<string, any>>(basel
 export function getPublishedTeamMembers<T>(baseline: T[]): T[] {
   if (Array.isArray(activeSnapshot?.modules?.team?.members)) {
     return activeSnapshot.modules.team.members as T[];
+  }
+  return baseline;
+}
+
+export function getPublishedProductFaqs<T>(baseline: T[]): T[] {
+  if (Array.isArray(activeSnapshot?.modules?.team?.productFaqs)) {
+    return activeSnapshot.modules.team.productFaqs as T[];
+  }
+  return baseline;
+}
+
+export function getPublishedSupportFaqs<T>(baseline: T[]): T[] {
+  if (Array.isArray(activeSnapshot?.modules?.team?.supportFaqs)) {
+    return activeSnapshot.modules.team.supportFaqs as T[];
+  }
+  return baseline;
+}
+
+export function getPublishedTransparencyFaqs<T>(baseline: T[]): T[] {
+  if (Array.isArray(activeSnapshot?.modules?.team?.transparencyFaqs)) {
+    return activeSnapshot.modules.team.transparencyFaqs as T[];
   }
   return baseline;
 }
