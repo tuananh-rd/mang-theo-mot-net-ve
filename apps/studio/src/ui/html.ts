@@ -316,9 +316,25 @@ export function renderStudioHtml(session: AuthSession): string {
     /* Tables */
     .table-container {
       overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border-radius: 6px;
+      border: 1px solid var(--color-neutral-light);
+    }
+    .table-container:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+    }
+    .table-scroll-hint {
+      font-size: 0.75rem;
+      color: var(--color-neutral-mid);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
     }
     table.data-table {
       width: 100%;
+      min-width: 640px;
       border-collapse: collapse;
       font-size: 0.9rem;
     }
@@ -730,7 +746,8 @@ export function renderStudioHtml(session: AuthSession): string {
 
           <div class="card">
             <div class="card-title">Nhật ký kiểm toán gần đây</div>
-            <div class="table-container">
+            <div class="table-scroll-hint">↔️ <span>Cuộn ngang để xem đầy đủ cột</span></div>
+            <div class="table-container" tabindex="0" role="region" aria-label="Bảng nhật ký kiểm toán gần đây">
               <table class="data-table">
                 <thead>
                   <tr>
@@ -1012,7 +1029,8 @@ export function renderStudioHtml(session: AuthSession): string {
               <span>Danh sách bài viết nhật ký thực địa (\${journalArticlesCache.length})</span>
               <button class="btn btn-primary btn-sm" id="addNewArticleBtn" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>+ Viết bài mới</button>
             </div>
-            <div class="table-container">
+            <div class="table-scroll-hint">↔️ <span>Cuộn ngang để xem đầy đủ cột và thao tác</span></div>
+            <div class="table-container" tabindex="0" role="region" aria-label="Bảng danh sách bài viết nhật ký thực địa">
               <table class="data-table">
                 <thead>
                   <tr>
@@ -1397,7 +1415,8 @@ export function renderStudioHtml(session: AuthSession): string {
             <div class="card-title">
               <span>Danh mục Media đã đăng ký & Bản quyền (Media Registry & Rights) (\${allAssets.length})</span>
             </div>
-            <div class="table-container">
+            <div class="table-scroll-hint">↔️ <span>Cuộn ngang để xem đầy đủ cột, tác quyền và thao tác</span></div>
+            <div class="table-container" tabindex="0" role="region" aria-label="Bảng danh mục media đã đăng ký và bản quyền">
               <table class="data-table">
                 <thead>
                   <tr>
@@ -1789,7 +1808,8 @@ export function renderStudioHtml(session: AuthSession): string {
           <!-- Thẻ 3: Bản chiếu giao dịch sao kê -->
           <div class="card">
             <div class="card-title">Bản chiếu giao dịch sao kê đã xử lý (\${(f.entries || []).length} khoản)</div>
-            <div class="table-container">
+            <div class="table-scroll-hint">↔️ <span>Cuộn ngang để xem đầy đủ cột giao dịch</span></div>
+            <div class="table-container" tabindex="0" role="region" aria-label="Bảng bản chiếu giao dịch sao kê đã xử lý">
               <table class="data-table">
                 <thead>
                   <tr>
@@ -2130,7 +2150,8 @@ export function renderStudioHtml(session: AuthSession): string {
 
           <div class="card">
             <div class="card-title">Danh sách yêu cầu xuất bản (\${pubs.length})</div>
-            <div class="table-container">
+            <div class="table-scroll-hint">↔️ <span>Cuộn ngang để xem đầy đủ cột, người duyệt và thao tác</span></div>
+            <div class="table-container" tabindex="0" role="region" aria-label="Bảng danh sách yêu cầu xuất bản">
               <table class="data-table">
                 <thead>
                   <tr>

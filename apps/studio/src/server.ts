@@ -39,6 +39,30 @@ export function createStudioLocalServer(options: { port?: number; dataDir?: stri
     try {
       const url = new URL(req.url || '/', `http://${req.headers.host || '127.0.0.1:' + port}`);
 
+      const method = (req.method || 'GET').toUpperCase();
+
+      // Phục vụ tệp tĩnh trong public/images/ cho các tài nguyên hình ảnh được phê duyệt
+      if (method === 'GET' && url.pathname.startsWith('/images/')) {
+        const relPath = url.pathname.replace(/^\/+/, '');
+        const filePath = path.resolve(process.cwd(), 'public', relPath);
+        if (filePath.startsWith(path.resolve(process.cwd(), 'public')) && fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
+          const ext = path.extname(filePath).toLowerCase();
+          const mimeTypes: Record<string, string> = {
+            '.webp': 'image/webp',
+            '.png': 'image/png',
+            '.jpg': 'image/jpeg',
+            '.jpeg': 'image/jpeg',
+            '.svg': 'image/svg+xml',
+            '.gif': 'image/gif',
+          };
+          res.statusCode = 200;
+          res.setHeader('Content-Type', mimeTypes[ext] || 'application/octet-stream');
+          res.setHeader('Cache-Control', 'public, max-age=3600');
+          fs.createReadStream(filePath).pipe(res);
+          return;
+        }
+      }
+
       // Chuyển đổi Node incoming message sang Web standard Request
       const headers = new Headers();
       for (const [key, value] of Object.entries(req.headers)) {
@@ -51,7 +75,6 @@ export function createStudioLocalServer(options: { port?: number; dataDir?: stri
         }
       }
 
-      const method = (req.method || 'GET').toUpperCase();
       let body: Buffer | undefined;
 
       if (method !== 'GET' && method !== 'HEAD') {

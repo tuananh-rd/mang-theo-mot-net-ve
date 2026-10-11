@@ -10,6 +10,8 @@
  * 4. Không dùng fallback ngầm để khôi phục giá trị rỗng/null do người dùng chủ ý xóa.
  */
 
+// @ts-ignore: node:crypto có sẵn trong môi trường Node.js SSG
+import { createHash } from 'node:crypto';
 import rawSnapshot from '../published-snapshot.json' with { type: 'json' };
 
 export interface SnapshotProjectModule {
@@ -44,6 +46,21 @@ export interface LoadedSnapshot {
   modules: SnapshotModules;
 }
 
+function isValidCalendarIsoDate(isoStr: string): boolean {
+  if (typeof isoStr !== 'string') return false;
+  const match = isoStr.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})/);
+  if (!match) return false;
+  const year = parseInt(match[1], 10);
+  const month = parseInt(match[2], 10);
+  const day = parseInt(match[3], 10);
+  const date = new Date(isoStr);
+  if (Number.isNaN(date.getTime())) return false;
+  if (date.getUTCFullYear() !== year || (date.getUTCMonth() + 1) !== month || date.getUTCDate() !== day) {
+    return false;
+  }
+  return true;
+}
+
 /**
  * Nạp và kiểm định bản chụp xuất bản đã phê duyệt
  */
@@ -59,7 +76,7 @@ export function loadValidatedSnapshot(): LoadedSnapshot | null {
     throw new Error('Malformed Published Snapshot: Trường "version" không hợp lệ.');
   }
 
-  if (typeof snap.generatedAt !== 'string' || !snap.generatedAt.trim()) {
+  if (typeof snap.generatedAt !== 'string' || !isValidCalendarIsoDate(snap.generatedAt)) {
     throw new Error('Malformed Published Snapshot: Trường "generatedAt" bắt buộc phải là chuỗi thời gian ISO hợp lệ.');
   }
 
@@ -69,6 +86,50 @@ export function loadValidatedSnapshot(): LoadedSnapshot | null {
 
   if (!snap.modules || typeof snap.modules !== 'object' || Array.isArray(snap.modules)) {
     throw new Error('Malformed Published Snapshot: Trường "modules" bắt buộc phải là một đối tượng phân hệ.');
+  }
+
+  // Xác thực sâu cấu trúc từng phân hệ (Deep Canonical Module Schema)
+  if (snap.modules.project !== undefined) {
+    const p = snap.modules.project;
+    if (typeof p !== 'object' || p === null || Array.isArray(p)) {
+      throw new Error('Malformed Published Snapshot: Phân hệ "project" không đúng định dạng đối tượng.');
+    }
+    const stringFields = ['slug', 'title', 'slogan', 'summary', 'location', 'executionStatus', 'statusNotice', 'previewNotice'];
+    for (const f of stringFields) {
+      if (p[f] !== undefined && typeof p[f] !== 'string') {
+        throw new Error(`Malformed Published Snapshot: Trường "project.${f}" phải là chuỗi ký tự.`);
+      }
+    }
+    const arrayFields = ['activities', 'plannedStages', 'safetyPractices', 'plannedSessions'];
+    for (const f of arrayFields) {
+      if (p[f] !== undefined && !Array.isArray(p[f])) {
+        throw new Error(`Malformed Published Snapshot: Trường "project.${f}" phải là một mảng.`);
+      }
+    }
+    if (p.progress !== undefined && (typeof p.progress !== 'object' || p.progress === null || Array.isArray(p.progress))) {
+      throw new Error('Malformed Published Snapshot: Trường "project.progress" phải là một đối tượng.');
+    }
+    if (p.contacts !== undefined && (typeof p.contacts !== 'object' || p.contacts === null || Array.isArray(p.contacts))) {
+      throw new Error('Malformed Published Snapshot: Trường "project.contacts" phải là một đối tượng.');
+    }
+  }
+  if (snap.modules.journal !== undefined && !Array.isArray(snap.modules.journal)) {
+    throw new Error('Malformed Published Snapshot: Phân hệ "journal" phải là một mảng bài viết.');
+  }
+  if (snap.modules.products !== undefined && (typeof snap.modules.products !== 'object' || snap.modules.products === null || Array.isArray(snap.modules.products))) {
+    throw new Error('Malformed Published Snapshot: Phân hệ "products" không đúng định dạng đối tượng.');
+  }
+  if (snap.modules.finance !== undefined && (typeof snap.modules.finance !== 'object' || snap.modules.finance === null || Array.isArray(snap.modules.finance))) {
+    throw new Error('Malformed Published Snapshot: Phân hệ "finance" không đúng định dạng đối tượng.');
+  }
+  if (snap.modules.team !== undefined && (typeof snap.modules.team !== 'object' || snap.modules.team === null || Array.isArray(snap.modules.team))) {
+    throw new Error('Malformed Published Snapshot: Phân hệ "team" không đúng định dạng đối tượng.');
+  }
+
+  // Tái tính toán và kiểm tra mã băm sha256 đối chiếu với JSON.stringify(modules)
+  const computedHash = createHash('sha256').update(JSON.stringify(snap.modules)).digest('hex');
+  if (snap.sha256.toLowerCase() !== computedHash.toLowerCase()) {
+    throw new Error(`Malformed Published Snapshot: Mã băm sha256 (${snap.sha256}) không khớp với nội dung phân hệ (${computedHash}).`);
   }
 
   return {

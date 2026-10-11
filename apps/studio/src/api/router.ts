@@ -70,6 +70,20 @@ export async function handleApiRequest(
         'Khởi tạo hạt giống phân hệ ban đầu'
       );
       draft = saveResult.draft;
+    } else if (moduleKey === 'journal' && Array.isArray(draft.data)) {
+      // Nâng cấp hạt giống cũ được nhận diện (khoi-dong-du-an, khao-sat-thuc-te) nếu chưa qua chỉnh sửa người dùng
+      const isObsolete = (draft.data as any[]).some((a: any) => a.slug === 'khoi-dong-du-an' || a.slug === 'khao-sat-thuc-te');
+      if (isObsolete && (draft.updatedBy === 'system-bootstrap@internal' || draft.updatedBy === 'system-migration@internal')) {
+        const canonicalData = getDefaultModuleData('journal');
+        const saveResult = await dbClient.saveDraft(
+          'journal',
+          canonicalData,
+          draft.revisionHash,
+          'system-migration@internal',
+          'Nâng cấp hạt giống nhật ký lên cấu trúc chuẩn C17'
+        );
+        draft = saveResult.draft;
+      }
     }
     return jsonResponse({ draft, success: true });
   }
