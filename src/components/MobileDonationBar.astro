@@ -158,8 +158,9 @@ const publicUrl = 'https://mangtheomotnetve.website/';
         return;
       }
 
-      // If focus is within the mobile bar itself, allow native focus without adjustment
-      if (bar.contains(target)) return;
+      // Only adjust focus within content (main or footer); ignore site-header, skip-link, or mobile bar
+      if (!target.closest('main, footer')) return;
+      if (target.closest('.site-header, .skip-link') || bar.contains(target)) return;
 
       const header = document.querySelector('.site-header');
       const headerBottom = header ? header.getBoundingClientRect().bottom : 88;
