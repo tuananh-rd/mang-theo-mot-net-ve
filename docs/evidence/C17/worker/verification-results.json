@@ -1,0 +1,98 @@
+{
+  "timestamp": "2026-10-11T10:39:41.487Z",
+  "baseUrl": "http://127.0.0.1:4330",
+  "tests": [
+    {
+      "name": "UI HTML: Trả về HTTP 200 và đủ 8 phân hệ điều hướng",
+      "passed": true,
+      "details": {
+        "status": 200,
+        "contentType": "text/html; charset=utf-8"
+      }
+    },
+    {
+      "name": "API Auth: /api/me trả về thông tin người dùng dev-admin",
+      "passed": true,
+      "details": {
+        "user": {
+          "id": "dev-admin",
+          "email": "dev-admin@internal.local",
+          "role": "admin",
+          "createdAt": "2026-10-11T10:39:41.533Z",
+          "updatedAt": "2026-10-11T10:39:41.533Z"
+        }
+      }
+    },
+    {
+      "name": "API Drafts: /api/drafts/project nạp thành công và có mã băm revision",
+      "passed": true,
+      "details": {
+        "moduleKey": "project",
+        "revisionHash": "48171874ea36182c3b66885a90837cc642caeabec268318d3addf37fa75eb22a"
+      }
+    },
+    {
+      "name": "API Drafts: /api/drafts/journal nạp thành công và có mã băm revision",
+      "passed": true,
+      "details": {
+        "moduleKey": "journal",
+        "revisionHash": "6799b66b495c93e320bb6ea2a9f4528307e7038a8ebed20fdd4bed87c9d24bcb"
+      }
+    },
+    {
+      "name": "API Drafts: /api/drafts/products nạp thành công và có mã băm revision",
+      "passed": true,
+      "details": {
+        "moduleKey": "products",
+        "revisionHash": "05e35a6624a9a267ba5ad8e3796491fadcc7af2d2404dc48cda57dc8cad6179a"
+      }
+    },
+    {
+      "name": "API Drafts: /api/drafts/finance nạp thành công và có mã băm revision",
+      "passed": true,
+      "details": {
+        "moduleKey": "finance",
+        "revisionHash": "db4f4da3ac6af4160c434abd8e37611f890ff000e9e738ef08b62cbb52b636b4"
+      }
+    },
+    {
+      "name": "API Drafts: /api/drafts/team nạp thành công và có mã băm revision",
+      "passed": true,
+      "details": {
+        "moduleKey": "team",
+        "revisionHash": "9efbeb7447b7c39c8113dd34ce2bdd9a035925e432f884ccb276a482f63ed3c1"
+      }
+    },
+    {
+      "name": "API Drafts: Lưu bản nháp thành công có khóa lạc quan",
+      "passed": true,
+      "details": {
+        "newHash": "5ade2051773f0c66cc4d373d2d4875f4f224b65ca841935367e90f590fcae79f",
+        "version": 2
+      }
+    },
+    {
+      "name": "API OCC: Báo lỗi 409 Conflict khi gửi mã băm cũ",
+      "passed": true,
+      "details": {
+        "status": 409
+      }
+    },
+    {
+      "name": "API Publication: Tạo yêu cầu xuất bản và duy trì Idempotency",
+      "passed": true,
+      "details": {
+        "pubId": "pub-1791715181678-d4u6",
+        "status": "pending_review"
+      }
+    },
+    {
+      "name": "API Audit Logs: Ghi nhật ký đầy đủ các hành động",
+      "passed": true,
+      "details": {
+        "totalRecentLogs": 5
+      }
+    }
+  ],
+  "pass": true
+}
