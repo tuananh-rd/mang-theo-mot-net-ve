@@ -3,9 +3,9 @@
 - **Người thực hiện:** Antigravity (App Worker)
 - **Người review & điều phối:** Codex
 - **Nhánh làm việc:** `task/c14-content-tools` (baseline `b4ed9120efe7b3f14cbef09855401167b24cbb68`)
-- **Commit bàn giao:** `d7360e8febebde9ca0f6411e01baf9c69714f93a` (sửa từ `0e7f0f6d3583207be76882df46fa22a55d790cd1`)
+- **Commit snapshot mã nguồn:** `36237d55a892dc7a935497ba42ba231bfe5af213` (kèm chỉnh sửa locked inquiry form theo RC14-36237d5)
 - **Mã Task Orca:** `task_7fec7cc22816`
-- **Mã Dispatch Orca:** `ctx_97dc3fd1c689`
+- **Mã Dispatch Orca:** `ctx_a6d35f99ac33`
 - **Thời gian:** 11/10/2026
 
 ---
@@ -70,6 +70,11 @@ Toàn bộ 92 bài kiểm thử tự động đạt PASS, `astro check` đạt 0
   - Thêm `@media (max-width: 600px)`: padding card `var(--space-4)`, bố cục `.calc-row` dạng cột linh hoạt với `.calc-qty-group`, `.calc-subtotal` trải đều, các nút bấm trong `.inquiry-actions` chiếm 100% chiều rộng để dễ thao tác trên màn hình cảm ứng.
   - Đo lường thực tế tại viewport 375px: `clientWidth: 375px`, `scrollWidth: 375px` (hoàn toàn không còn tràn).
   - Thao tác click sao chép `#copy-inquiry-btn` kích hoạt thành công, đưa đúng nội dung tin nhắn mẫu vào bộ nhớ tạm. Ảnh chụp kiểm thử lưu tại `docs/evidence/C14/antigravity/fixture-purchase-copy-375.png`.
+- **Đồng bộ trạng thái biểu mẫu khóa (Locked Inquiry Form State Consistency - RC14 mục 2):**
+  - Cập nhật mô tả trạng thái và đoạn văn giải thích trong khối `.inquiry-pending-state` tại `src/pages/san-pham/[slug].astro` đồng bộ chính xác với `saleModel`:
+    - Khi `saleStatus === 'closed'`: hiển thị "Trạng thái: Đã kết thúc đợt mở bán" và thông báo đợt mở bán gây quỹ đã kết thúc, tạm dừng nhận yêu cầu mua mới.
+    - Khi `stockAvailable === 0`: hiển thị "Trạng thái: Tạm hết số lượng có sẵn" và thông báo tạm dừng nhận yêu cầu mua mới do hết hàng có sẵn trong đợt này.
+    - Khi `saleStatus === 'unconfirmed'` (hoặc mặc định chờ mở bán): giữ nguyên thông điệp rõ ràng "Trạng thái: Đang chuẩn bị mẫu — Chưa mở bán" và thông báo nhóm đang hoàn thiện mẫu.
 
 ### 2.4. Nâng cấp 6: Công cụ Cập nhật Nội bộ (Local Content Studio)
 - **Kiến trúc Loopback An toàn (`tools/content-studio/server.mjs`):**
@@ -127,7 +132,7 @@ Toàn bộ 92 bài kiểm thử tự động đạt PASS, `astro check` đạt 0
 - `src/pages/nhat-ky/index.astro`: Danh sách bài viết nhật ký, lọc theo danh mục, sửa cấu trúc figure tránh che chú thích.
 - `src/pages/nhat-ky/[slug].astro`: Trang bài viết chi tiết dạng khối nội dung có cấu trúc.
 - `src/pages/san-pham.astro`: Danh mục quà lưu niệm dẫn tới trang chi tiết của 2 sản phẩm thủ công.
-- `src/pages/san-pham/[slug].astro`: Trang chi tiết quà lưu niệm, mô hình bán hàng hiệu lực, form soạn tin nhắn đặt mua responsive không tràn ở 375px.
+- `src/pages/san-pham/[slug].astro`: Trang chi tiết quà lưu niệm, mô hình bán hàng hiệu lực, form soạn tin nhắn đặt mua responsive không tràn ở 375px, thông điệp biểu mẫu khóa đồng bộ theo trạng thái (closed, stockAvailable 0, unconfirmed).
 
 ### 4.2. Dữ liệu & Thư viện Nghiệp vụ (Data & Libs)
 - `src/data/campaign.ts`: Tích hợp `validateDonationProjection` và `sanitizeDonationEntry` tại build boundary; bảo vệ dữ liệu công khai.

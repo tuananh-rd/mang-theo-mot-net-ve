@@ -57,6 +57,20 @@ const initialInquiryText = formatPurchaseInquiry({
 
 const fanpageUrl = OFFICIAL_CONTACT.fanpageUrl;
 const contactPeople = OFFICIAL_CONTACT.people;
+
+let lockedPillLabel = 'Trạng thái: Đang chuẩn bị mẫu — Chưa mở bán';
+let lockedDescText =
+  'Sản phẩm hiện đang trong giai đoạn chuẩn bị và hoàn thiện mẫu; nhóm chưa tiếp nhận đơn đặt hàng hay thu tiền trước. Khi có thông báo chính thức, tính năng soạn yêu cầu mua sẽ được mở ngay tại đây.';
+
+if (saleModel.saleStatus === 'closed') {
+  lockedPillLabel = 'Trạng thái: Đã kết thúc đợt mở bán';
+  lockedDescText =
+    'Sản phẩm hiện đã kết thúc đợt mở bán gây quỹ; nhóm tạm thời dừng tiếp nhận yêu cầu mua mới. Bạn có thể liên hệ trực tiếp với nhóm qua Fanpage hoặc số điện thoại bên dưới để biết thêm thông tin.';
+} else if (saleModel.stockAvailable === 0) {
+  lockedPillLabel = 'Trạng thái: Tạm hết số lượng có sẵn';
+  lockedDescText =
+    'Sản phẩm hiện đã tạm hết số lượng có sẵn trong đợt này; nhóm tạm dừng tiếp nhận yêu cầu mua mới. Bạn có thể liên hệ trực tiếp với nhóm qua Fanpage hoặc số điện thoại bên dưới nếu muốn đăng ký trước khi có đợt bổ sung.';
+}
 ---
 
 <Layout
@@ -236,9 +250,9 @@ const contactPeople = OFFICIAL_CONTACT.people;
               </div>
             ) : (
               <div class="inquiry-pending-state">
-                <div class="pending-pill">Trạng thái: Đang chuẩn bị mẫu — Chưa mở bán</div>
+                <div class="pending-pill">{lockedPillLabel}</div>
                 <p>
-                  Sản phẩm hiện đang trong giai đoạn chuẩn bị và hoàn thiện mẫu; nhóm chưa tiếp nhận đơn đặt hàng hay thu tiền trước. Khi có thông báo chính thức, tính năng soạn yêu cầu mua sẽ được mở ngay tại đây.
+                  {lockedDescText}
                 </p>
                 <div class="pending-contacts">
                   <p class="pending-contacts-title">Nếu bạn quan tâm hoặc muốn đăng ký số lượng lớn trước:</p>
