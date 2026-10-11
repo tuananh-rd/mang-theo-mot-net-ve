@@ -1,0 +1,6 @@
+# Dependencies
+node_modules/
+
+# Local D1 and R2 runtime data
+data/
+*.sqlite*

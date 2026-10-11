@@ -1,0 +1,25 @@
+name = "mang-theo-mot-net-ve-studio"
+main = "src/worker.ts"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+# D1 Database binding
+[[d1_databases]]
+binding = "DB"
+database_name = "studio-d1"
+database_id = "00000000-0000-0000-0000-000000000000" # Placeholder: Cần thay bằng ID D1 thật khi kích hoạt
+migrations_dir = "migrations"
+
+# R2 Bucket binding for media storage
+[[r2_buckets]]
+binding = "BUCKET"
+bucket_name = "studio-media"
+
+# Biến môi trường runtime (Chỉ kích hoạt khi được cấu hình thực tế)
+[vars]
+STUDIO_ENVIRONMENT = "production"
+# CF_ACCESS_TEAM_DOMAIN và CF_ACCESS_AUD để trống/placeholder cho đến khi cấu hình Access trên dashboard Cloudflare
+# Hệ thống sẽ fail-secure (từ chối truy cập) nếu thiếu hoặc giữ giá trị placeholder này
+CF_ACCESS_TEAM_DOMAIN = "example-team.cloudflareaccess.com"
+CF_ACCESS_AUD = "0000000000000000000000000000000000000000000000000000000000000000"
+

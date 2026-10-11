@@ -1,0 +1,107 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import { createPublicationSnapshot, computeSha256 } from '../dist/publish/adapter.js';
+import { StudioDbClient } from '../dist/db/client.js';
+import { LocalD1Database } from '../dist/db/emulator.js';
+import {
+  DEFAULT_PROJECT_DATA,
+  DEFAULT_JOURNAL_DATA,
+  DEFAULT_PRODUCTS_DATA,
+  DEFAULT_FINANCE_DATA,
+  DEFAULT_TEAM_DATA,
+} from '../dist/schemas/index.js';
+
+test('Xuất bản: Tạo bản chụp bất biến (Immutable Snapshot) và tính SHA-256', async () => {
+  const drafts = {
+    project: DEFAULT_PROJECT_DATA,
+    journal: [
+      ...DEFAULT_JOURNAL_DATA,
+      {
+        slug: 'bai-nhap-noi-bo',
+        title: 'Bài nháp chưa được duyệt',
+        summary: 'Tóm tắt bài nháp',
+        category: 'ke-hoach',
+        publishedAt: '2026-10-15',
+        status: 'draft', // Bản nháp nội bộ
+        content: [{ type: 'paragraph', text: 'Nội dung chưa công bố' }],
+      },
+    ],
+    products: DEFAULT_PRODUCTS_DATA,
+    finance: DEFAULT_FINANCE_DATA,
+    team: DEFAULT_TEAM_DATA,
+  };
+
+  const result = await createPublicationSnapshot(drafts, 'v20261011-01');
+
+  assert.equal(result.isEligibleForPublish, true);
+  assert.equal(result.snapshot.version, 'v20261011-01');
+  assert.ok(result.snapshot.sha256);
+  assert.equal(result.snapshot.sha256.length, 64);
+
+  // Bài viết có status draft bị loại bỏ khỏi bản chiếu công khai
+  const publicJournal = result.snapshot.modules.journal;
+  assert.equal(publicJournal.length, 2);
+  assert.equal(publicJournal.some((j) => j.slug === 'bai-nhap-noi-bo'), false);
+
+  // Tài chính chưa đối soát (reconciled: false) thì entries công khai phải rỗng
+  const publicFinance = result.snapshot.modules.finance;
+  assert.equal(publicFinance.reconciled, false);
+  assert.equal(publicFinance.entries.length, 0);
+});
+
+test('Xuất bản: Kiểm tra tính Idempotency và Four-Eyes trong D1', async () => {
+  const schemaSql = fs.readFileSync(path.resolve(process.cwd(), 'apps/studio/src/db/schema.sql'), 'utf-8');
+  const d1 = new LocalD1Database(':memory:', schemaSql);
+  const client = new StudioDbClient(d1);
+
+  const snapshot = {
+    version: 'v1',
+    generatedAt: new Date().toISOString(),
+    sha256: 'abc1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef',
+    modules: {
+      project: {},
+      journal: [],
+      products: {},
+      finance: {},
+      team: {},
+    },
+  };
+
+  const idempotencyKey = 'req-key-unique-001';
+
+  // Yêu cầu lần 1
+  const pub1 = await client.createPublicationRequest(snapshot, 'requester@test.vn', idempotencyKey);
+  assert.equal(pub1.status, 'pending_review');
+
+  // Yêu cầu lần 2 với cùng Idempotency Key -> trả về cùng bản ghi, không nhân đôi
+  const pub2 = await client.createPublicationRequest(snapshot, 'requester@test.vn', idempotencyKey);
+  assert.equal(pub2.id, pub1.id);
+
+  // Four-Eyes: Người yêu cầu không được tự duyệt
+  await assert.rejects(
+    async () => {
+      await client.reviewPublication(pub1.id, 'requester@test.vn', 'approve');
+    },
+    /Người tạo yêu cầu không được tự duyệt/
+  );
+
+  // Người duyệt 1
+  const approved1 = await client.reviewPublication(pub1.id, 'reviewer1@test.vn', 'approve');
+  assert.equal(approved1.approvedBy, 'reviewer1@test.vn');
+  assert.equal(approved1.status, 'pending_review');
+
+  // Người duyệt 1 không được ký duyệt lần 2
+  await assert.rejects(
+    async () => {
+      await client.reviewPublication(pub1.id, 'reviewer1@test.vn', 'approve');
+    },
+    /Cần người duyệt thứ hai độc lập/
+  );
+
+  // Người duyệt 2 độc lập -> Chuyển trạng thái sang approved
+  const approved2 = await client.reviewPublication(pub1.id, 'reviewer2@test.vn', 'approve');
+  assert.equal(approved2.secondReviewer, 'reviewer2@test.vn');
+  assert.equal(approved2.status, 'approved');
+});

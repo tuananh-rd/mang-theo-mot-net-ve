@@ -1,0 +1,17 @@
+{
+  "name": "@mang-theo-mot-net-ve/studio",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "description": "Online Full-Site Content Studio for Mang Theo Mot Net Ve with Cloudflare Access, D1 and R2",
+  "scripts": {
+    "start": "node local-server.mjs",
+    "build": "tsc",
+    "test": "node --test tests/*.test.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "typescript": "~5.8.0"
+  }
+}

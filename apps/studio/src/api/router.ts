@@ -1,0 +1,344 @@
+/**
+ * Trình định tuyến API REST cho Content Studio (Task C17)
+ * Quản lý Drafts, Revisions, Media, Finance CSV, Audit Logs, và Publications.
+ */
+
+import type { Env, AuthSession, ModuleKey, MediaAssetRecord } from '../types.js';
+import { StudioDbClient, ConcurrencyConflictError } from '../db/client.js';
+import { assertCanEdit, assertCanReview, assertCanPublish } from '../auth/rbac.js';
+import { validateCsrf } from '../auth/middleware.js';
+import { getDefaultModuleData, validateModuleData } from '../schemas/index.js';
+import { sniffImageFormat, MAX_FILE_SIZE_BYTES, checkAssetUsageInDrafts } from '../storage/media-sniffer.js';
+import { createPublicationSnapshot } from '../publish/adapter.js';
+import { validateDonationCSV } from '../../../../tools/content-studio/csv-validator.mjs';
+
+function jsonResponse(data: unknown, status = 200, headers: Record<string, string> = {}): Response {
+  return new Response(JSON.stringify(data), {
+    status,
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+      'X-Content-Type-Options': 'nosniff',
+      ...headers,
+    },
+  });
+}
+
+function errorResponse(message: string, status = 400, extra: Record<string, unknown> = {}): Response {
+  return jsonResponse({ error: message, success: false, ...extra }, status);
+}
+
+export async function handleApiRequest(
+  request: Request,
+  env: Env,
+  session: AuthSession
+): Promise<Response> {
+  const url = new URL(request.url);
+  const path = url.pathname;
+  const method = request.method.toUpperCase();
+  const dbClient = new StudioDbClient(env.DB);
+  const user = session.user;
+
+  // 1. Thông tin phiên người dùng hiện tại
+  if (path === '/api/me' && method === 'GET') {
+    return jsonResponse({
+      user,
+      isDev: session.isDev,
+      expiresAt: session.expiresAt,
+    });
+  }
+
+  // 2. Lấy bản nháp của phân hệ: GET /api/drafts/:moduleKey
+  const draftMatch = path.match(/^\/api\/drafts\/([a-z0-9-]+)$/);
+  if (draftMatch && method === 'GET') {
+    const moduleKey = draftMatch[1] as ModuleKey;
+    let draft = await dbClient.getDraft(moduleKey);
+    if (!draft) {
+      // Khởi tạo dữ liệu hạt giống nếu chưa có
+      const defaultData = getDefaultModuleData(moduleKey);
+      const saveResult = await dbClient.saveDraft(
+        moduleKey,
+        defaultData,
+        null,
+        'system-bootstrap@internal',
+        'Khởi tạo hạt giống phân hệ ban đầu'
+      );
+      draft = saveResult.draft;
+    }
+    return jsonResponse({ draft, success: true });
+  }
+
+  // 3. Lưu bản nháp: POST /api/drafts/:moduleKey
+  if (draftMatch && method === 'POST') {
+    validateCsrf(request);
+    assertCanEdit(user.role);
+
+    const moduleKey = draftMatch[1] as ModuleKey;
+    const body = await request.json() as { data: unknown; expectedHash?: string; comment?: string };
+
+    if (!body || body.data === undefined) {
+      return errorResponse('Thiếu trường dữ liệu data trong payload.', 400);
+    }
+
+    // Kiểm thực dữ liệu theo schema phân hệ
+    const validation = validateModuleData(moduleKey, body.data);
+    if (!validation.isValid) {
+      return errorResponse('Dữ liệu không vượt qua kiểm tra tính hợp lệ.', 400, {
+        validationErrors: validation.errors,
+      });
+    }
+
+    try {
+      const result = await dbClient.saveDraft(
+        moduleKey,
+        body.data,
+        body.expectedHash || null,
+        user.email,
+        body.comment
+      );
+      return jsonResponse({
+        success: true,
+        draft: result.draft,
+        revision: result.revision,
+      });
+    } catch (err: any) {
+      if (err instanceof ConcurrencyConflictError) {
+        return errorResponse(err.message, 409, {
+          conflict: true,
+          currentHash: err.currentHash,
+        });
+      }
+      return errorResponse(err.message || 'Lỗi lưu bản nháp.', 500);
+    }
+  }
+
+  // 4. Lịch sử phiên bản: GET /api/revisions/:moduleKey
+  const revisionsMatch = path.match(/^\/api\/revisions\/([a-z0-9-]+)$/);
+  if (revisionsMatch && method === 'GET') {
+    const moduleKey = revisionsMatch[1] as ModuleKey;
+    const limit = parseInt(url.searchParams.get('limit') || '20', 10);
+    const revisions = await dbClient.listRevisions(moduleKey, limit);
+    return jsonResponse({ revisions, success: true });
+  }
+
+  // 5. Khôi phục phiên bản: POST /api/revisions/:moduleKey/:id/restore
+  const restoreMatch = path.match(/^\/api\/revisions\/([a-z0-9-]+)\/([^/]+)\/restore$/);
+  if (restoreMatch && method === 'POST') {
+    validateCsrf(request);
+    assertCanEdit(user.role);
+
+    const moduleKey = restoreMatch[1] as ModuleKey;
+    const revisionId = restoreMatch[2];
+
+    try {
+      const restoredDraft = await dbClient.restoreRevision(moduleKey, revisionId, user.email);
+      return jsonResponse({ success: true, draft: restoredDraft });
+    } catch (err: any) {
+      return errorResponse(err.message || 'Không thể khôi phục phiên bản.', 400);
+    }
+  }
+
+  // 6. Danh sách Media Assets: GET /api/media
+  if (path === '/api/media' && method === 'GET') {
+    const assets = await dbClient.listMediaAssets(100);
+    return jsonResponse({ assets, success: true });
+  }
+
+  // 7. Tải lên tệp Media: POST /api/media/upload
+  if (path === '/api/media/upload' && method === 'POST') {
+    validateCsrf(request);
+    assertCanEdit(user.role);
+
+    const formData = await request.formData();
+    const file = formData.get('file') as File | null;
+    const alt = (formData.get('alt') as string || '').trim();
+    const caption = (formData.get('caption') as string || '').trim();
+    const creditName = (formData.get('creditName') as string || '').trim();
+    const creditUrl = (formData.get('creditUrl') as string || '').trim();
+    const source = (formData.get('source') as string || '').trim();
+    const isIllustration = formData.get('isIllustration') === 'true';
+
+    if (!file) {
+      return errorResponse('Thiếu tệp tin tải lên (file).', 400);
+    }
+
+    if (!alt) {
+      return errorResponse('Mô tả hình ảnh (alt) là bắt buộc cho khả năng tiếp cận.', 400);
+    }
+
+    const arrayBuffer = await file.arrayBuffer();
+    const bytes = new Uint8Array(arrayBuffer);
+
+    if (bytes.length > MAX_FILE_SIZE_BYTES) {
+      return errorResponse('Kích thước tệp vượt quá giới hạn cho phép (tối đa 5MB).', 400);
+    }
+
+    const sniff = sniffImageFormat(bytes);
+    if (!sniff.valid || !sniff.contentType || !sniff.extension) {
+      return errorResponse(sniff.error || 'Tệp không hợp lệ hoặc bị từ chối.', 400);
+    }
+
+    const assetId = `asset-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;
+    const r2Key = `media/${assetId}.${sniff.extension}`;
+
+    // Lưu vào R2
+    if (env.BUCKET) {
+      await env.BUCKET.put(r2Key, bytes, {
+        httpMetadata: { contentType: sniff.contentType },
+        customMetadata: { alt, uploadedBy: user.email },
+      });
+    }
+
+    const assetRecord: MediaAssetRecord = {
+      id: assetId,
+      filename: file.name,
+      contentType: sniff.contentType,
+      sizeBytes: bytes.length,
+      r2Key,
+      status: 'approved',
+      alt,
+      caption: caption || undefined,
+      creditName: creditName || undefined,
+      creditUrl: creditUrl || undefined,
+      source: source || undefined,
+      isIllustration,
+      focalX: 50,
+      focalY: 50,
+      createdBy: user.email,
+      createdAt: new Date().toISOString(),
+    };
+
+    await dbClient.saveMediaAsset(assetRecord);
+    await dbClient.recordAuditLog(user.email, 'UPLOAD_MEDIA', 'media', {
+      assetId,
+      filename: file.name,
+      r2Key,
+      sizeBytes: bytes.length,
+    });
+
+    return jsonResponse({ asset: assetRecord, success: true }, 201);
+  }
+
+  // 8. Xóa Media Asset: DELETE /api/media/:id
+  const deleteMediaMatch = path.match(/^\/api\/media\/([^/]+)$/);
+  if (deleteMediaMatch && method === 'DELETE') {
+    validateCsrf(request);
+    assertCanEdit(user.role);
+
+    const assetId = deleteMediaMatch[1];
+    const allDrafts = await dbClient.getAllDrafts();
+    const usage = checkAssetUsageInDrafts(assetId, allDrafts);
+
+    if (usage.inUse) {
+      return errorResponse(
+        `Không thể xóa ảnh vì đang được tham chiếu sử dụng trong các phân hệ: ${usage.usedIn.join(', ')}.`,
+        400,
+        { inUse: true, usedIn: usage.usedIn }
+      );
+    }
+
+    await dbClient.deleteMediaAsset(assetId);
+    await dbClient.recordAuditLog(user.email, 'DELETE_MEDIA', 'media', { assetId });
+
+    return jsonResponse({ success: true, deletedId: assetId });
+  }
+
+  // 9. Nhật ký kiểm toán: GET /api/audit-logs
+  if (path === '/api/audit-logs' && method === 'GET') {
+    const limit = parseInt(url.searchParams.get('limit') || '50', 10);
+    const logs = await dbClient.listAuditLogs(limit);
+    return jsonResponse({ logs, success: true });
+  }
+
+  // 10. Danh sách yêu cầu xuất bản: GET /api/publications
+  if (path === '/api/publications' && method === 'GET') {
+    const publications = await dbClient.listPublications(20);
+    return jsonResponse({ publications, success: true });
+  }
+
+  // 11. Tạo yêu cầu xuất bản: POST /api/publications/request
+  if (path === '/api/publications/request' && method === 'POST') {
+    validateCsrf(request);
+    assertCanPublish(user.role);
+
+    const body = (await request.json().catch(() => ({}))) as { idempotencyKey?: string };
+    const allDrafts = await dbClient.getAllDrafts();
+    const snapshotResult = await createPublicationSnapshot(allDrafts);
+
+    if (!snapshotResult.isEligibleForPublish) {
+      return errorResponse(
+        'Không thể tạo yêu cầu xuất bản do có lỗi dữ liệu trong một hoặc nhiều phân hệ.',
+        400,
+        { validationErrors: snapshotResult.validationErrors }
+      );
+    }
+
+    const pub = await dbClient.createPublicationRequest(
+      snapshotResult.snapshot,
+      user.email,
+      body.idempotencyKey
+    );
+
+    return jsonResponse({ publication: pub, success: true }, 201);
+  }
+
+  // 12. Duyệt yêu cầu xuất bản (Four-Eyes Principle): POST /api/publications/:id/review
+  const reviewMatch = path.match(/^\/api\/publications\/([^/]+)\/review$/);
+  if (reviewMatch && method === 'POST') {
+    validateCsrf(request);
+    assertCanReview(user.role);
+
+    const pubId = reviewMatch[1];
+    const body = (await request.json()) as { action: 'approve' | 'reject'; comment?: string };
+
+    if (!['approve', 'reject'].includes(body.action)) {
+      return errorResponse('Hành động duyệt (action) phải là "approve" hoặc "reject".', 400);
+    }
+
+    try {
+      const updatedPub = await dbClient.reviewPublication(
+        pubId,
+        user.email,
+        body.action,
+        body.comment
+      );
+      return jsonResponse({ publication: updatedPub, success: true });
+    } catch (err: any) {
+      return errorResponse(err.message || 'Lỗi thẩm định yêu cầu xuất bản.', 400);
+    }
+  }
+
+  // 13. Đối soát tệp CSV tài chính: POST /api/finance/import-csv
+  if (path === '/api/finance/import-csv' && method === 'POST') {
+    validateCsrf(request);
+    assertCanEdit(user.role);
+
+    const formData = await request.formData();
+    const csvFile = formData.get('file') as File | null;
+    const reconciledAt = formData.get('reconciledAt') as string | null;
+
+    if (!csvFile) {
+      return errorResponse('Thiếu tệp CSV tải lên.', 400);
+    }
+
+    const csvText = await csvFile.text();
+    const valResult = validateDonationCSV(csvText, {
+      reconciledAt: reconciledAt || undefined,
+      requireReconciledDate: Boolean(reconciledAt),
+    });
+
+    if (!valResult.isValid) {
+      return errorResponse('Tệp CSV chứa lỗi cấu trúc hoặc dữ liệu không hợp lệ.', 400, {
+        errors: valResult.errors,
+        warnings: valResult.warnings,
+      });
+    }
+
+    return jsonResponse({
+      success: true,
+      rows: valResult.rows,
+      stats: valResult.stats,
+    });
+  }
+
+  return errorResponse('API endpoint không tồn tại.', 404);
+}
