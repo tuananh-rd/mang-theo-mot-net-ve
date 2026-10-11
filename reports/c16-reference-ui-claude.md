@@ -2,7 +2,7 @@
 
 - Ngày 11/10/2026. Task `task_dda2fcaa800d`, dispatch `ctx_38e9d462bffa`. Claude là worker duy nhất theo ngoại lệ của C16; Antigravity HOLD.
 - Baseline: HEAD `f5595bab03978d16ec64bb512696d02df82eed1e` (nhánh `task/c15-page-layouts`). Nhánh mới `task/c16-reference-ui` tạo từ HEAD đó.
-- **Code cuối: `d44e27b889a2a4ea80d5602dffcd7d96cf4e321b`** (một commit ứng dụng). Commit báo cáo/bằng chứng đi sau và chỉ chứa `reports/c16-reference-ui-claude.md` cùng `docs/evidence/C16/claude/`; commit đó không đổi `src/`. Mọi ảnh và kết quả kiểm bên dưới chụp/chạy ở HEAD = `d44e27b` (ghi trong từng file JSON).
+- **Code cuối: `cef6634e835ba90e733dc2c5727bfc5772f3d2cd`** (hai commit ứng dụng: `d44e27b` palette/bố cục, `cef6634` sửa tràn chữ số liệu; toàn bộ kiểm tra chạy lại ở `cef6634`). Commit báo cáo/bằng chứng đi sau và chỉ chứa `reports/c16-reference-ui-claude.md` cùng `docs/evidence/C16/claude/`; commit đó không đổi `src/`. Mọi ảnh và kết quả kiểm bên dưới chụp/chạy ở HEAD = `cef6634` (ghi trong từng file JSON).
 - Không push, merge, deploy; không sửa `src/data`, `src/lib`, `public`, `tools`, `tests`, dependency, lockfile, cấu hình; không đụng tài liệu/helper/bằng chứng của Codex.
 
 ## 1. Khảo sát trang tham khảo
@@ -62,7 +62,7 @@ Tỷ lệ trên tính từ giá trị hex bằng công thức WCAG (script tạm
 
 ## 4. Thay đổi giao diện
 
-14 file trong `src/components`, `src/pages`, `src/styles`; +378/−181 dòng.
+14 file trong `src/components`, `src/pages`, `src/styles`.
 
 | Phạm vi | Thay đổi nhìn thấy được |
 | --- | --- |
@@ -81,7 +81,7 @@ Phần cấu trúc từng trang vẫn khác nhau theo C15 (poster, hành trình,
 
 ## 5. Bất biến và kết quả kiểm
 
-Chạy ở HEAD `d44e27b` trên preview 4322 (PID 544). JSON nằm trong `docs/evidence/C16/claude/verify/`; các tệp `*.log` (build/check/test/diff-check/helper) có trong thư mục `verify/logs/` trên đĩa nhưng bị `.gitignore` nên không có trong commit, giống các lượt trước.
+Chạy ở HEAD `cef6634` trên preview 4322 (PID 544). JSON nằm trong `docs/evidence/C16/claude/verify/`; các tệp `*.log` (build/check/test/diff-check/helper) có trong thư mục `verify/logs/` trên đĩa nhưng bị `.gitignore` nên không có trong commit, giống các lượt trước.
 
 | Kiểm tra | Kết quả | Tệp |
 | --- | --- | --- |
@@ -100,7 +100,11 @@ Chạy ở HEAD `d44e27b` trên preview 4322 (PID 544). JSON nằm trong `docs/e
 
 Nội dung giữ nguyên bytes ở nguồn: mục tiêu 3.000.000đ; sổ `reconciled:false`, `reconciledAt:null`, `entries:[]`; giá tham khảo 40.000/10.000đ; chưa mở bán; lịch dự kiến 24/10 và 31/10/2026; tuần 1/5, cập nhật 09/10; bảy thành viên, chân dung, liên hệ, tài khoản, QR; nhãn ảnh minh họa/tham khảo; quyền chọn/nghỉ/giữ sản phẩm của các em. Dải số liệu Trang chủ chỉ dùng: mục tiêu ủng hộ, số buổi dự kiến, số góc hoạt động, số thành viên; có dòng "Đây là số liệu kế hoạch, chưa phải kết quả đã đạt."
 
-## 6. Lỗi có sẵn được sửa trong lượt này
+## 6. Sửa lỗi trong lượt này
+
+**Theo review sớm của Codex (tràn chữ trong thẻ số liệu):** `.stat-num` `3.000.000đ` rộng 227,7 px so với 174 px (1024) và 218 px (1440). Đã cho thẻ `container-type: inline-size` và cỡ chữ `clamp(1.5rem, 17cqi, 2.75rem)` kèm `white-space: nowrap`; giữ nguyên số tiền đầy đủ, 4 thẻ, không ellipsis. Kết quả `review-stat-fit` ở `cef6634`: 375 → 228/303, 768 → 228/300, 1024 → 153/174, 1440 → 192/218 px (chữ/hộp), đều vừa (`docs/evidence/C16/claude/stat-fit/stat-fit.json`). Đã xem lại ảnh 1024: thẻ gọn, không cắt.
+
+**Lỗi có sẵn:**
 
 Token `--space-16` không tồn tại; các khai báo dùng nó bị trình duyệt bỏ nên khoảng đệm bằng 0. Đã đổi sang `--space-18` (72 px) ở: dải ủng hộ Trang chủ, vùng tài liệu Minh bạch, danh sách Nhật ký và trang bài Nhật ký (trước đó mục cuối sát dải CTA). Không đổi token trong file dữ liệu/lib.
 
@@ -115,5 +119,5 @@ Token `--space-16` không tồn tại; các khai báo dùng nó bị trình duy�
 - Dải xanh ngọc `#2bb58d` chỉ đạt chữ navy/ink; không dùng chữ `--ink-2` hay `--brand` trên dải đó (đã ghi đè ở Dự án và Về nhóm).
 - Màu focus đổi sang navy; trên dải xanh ngọc đã đặt `outline-color` navy; cần xem thêm khi thêm thành phần mới.
 - Logo trong `public` giữ nguyên (xanh navy/đỏ đậm); không chỉnh asset.
-- Chưa có ảnh mẫu thật cho móc khóa; giữ placeholder nét đứt và ghi chú. Các trang con đang dùng nền trắng khá nhiều, có thể thêm ảnh nền hoạt động thật khi nhóm có ảnh được phép.
+- Chưa có ảnh mẫu thật cho móc khóa; giữ placeholder nét đứt và ghi chú. Codex đã đọc ảnh tham khảo của họ (`docs/evidence/C16/reference/`); báo cáo này dựa trên số đo và ảnh tự chụp ở mục 1. Các trang con đang dùng nền trắng khá nhiều, có thể thêm ảnh nền hoạt động thật khi nhóm có ảnh được phép.
 - Chưa xin duyệt chủ dự án; đây là bản xem trước local, chưa phát hành.

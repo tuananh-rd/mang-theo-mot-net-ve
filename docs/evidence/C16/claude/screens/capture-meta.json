@@ -1,14 +1,14 @@
 {
- "headSha": "d44e27b889a2a4ea80d5602dffcd7d96cf4e321b",
+ "headSha": "cef6634e835ba90e733dc2c5727bfc5772f3d2cd",
  "appDirty": "",
- "at": "2026-10-11T07:09:08.978Z",
+ "at": "2026-10-11T07:17:18.111Z",
  "shots": [
   {
    "name": "home",
    "path": "/",
    "w": 1440,
    "status": 200,
-   "docH": 4797
+   "docH": 4790
   },
   {
    "name": "home",
@@ -22,7 +22,7 @@
    "path": "/",
    "w": 375,
    "status": 200,
-   "docH": 8021
+   "docH": 8053
   },
   {
    "name": "project",

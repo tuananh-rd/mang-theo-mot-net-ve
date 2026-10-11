@@ -1,0 +1,126 @@
+{
+  "head": "cef6634e835ba90e733dc2c5727bfc5772f3d2cd",
+  "checks": [
+    {
+      "width": 375,
+      "items": [
+        {
+          "text": "3.000.000đ",
+          "textWidth": 227.734375,
+          "boxWidth": 303,
+          "pass": true
+        },
+        {
+          "text": "2",
+          "textWidth": 25.046875,
+          "boxWidth": 303,
+          "pass": true
+        },
+        {
+          "text": "4",
+          "textWidth": 26,
+          "boxWidth": 303,
+          "pass": true
+        },
+        {
+          "text": "7",
+          "textWidth": 25.046875,
+          "boxWidth": 303,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "width": 768,
+      "items": [
+        {
+          "text": "3.000.000đ",
+          "textWidth": 227.734375,
+          "boxWidth": 300,
+          "pass": true
+        },
+        {
+          "text": "2",
+          "textWidth": 25.046875,
+          "boxWidth": 300,
+          "pass": true
+        },
+        {
+          "text": "4",
+          "textWidth": 26,
+          "boxWidth": 300,
+          "pass": true
+        },
+        {
+          "text": "7",
+          "textWidth": 25.046875,
+          "boxWidth": 300,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "width": 1024,
+      "items": [
+        {
+          "text": "3.000.000đ",
+          "textWidth": 153.109375,
+          "boxWidth": 174,
+          "pass": true
+        },
+        {
+          "text": "2",
+          "textWidth": 16.84375,
+          "boxWidth": 174,
+          "pass": true
+        },
+        {
+          "text": "4",
+          "textWidth": 17.484375,
+          "boxWidth": 174,
+          "pass": true
+        },
+        {
+          "text": "7",
+          "textWidth": 16.84375,
+          "boxWidth": 174,
+          "pass": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "items": [
+        {
+          "text": "3.000.000đ",
+          "textWidth": 191.8125,
+          "boxWidth": 218,
+          "pass": true
+        },
+        {
+          "text": "2",
+          "textWidth": 21.09375,
+          "boxWidth": 218,
+          "pass": true
+        },
+        {
+          "text": "4",
+          "textWidth": 21.890625,
+          "boxWidth": 218,
+          "pass": true
+        },
+        {
+          "text": "7",
+          "textWidth": 21.09375,
+          "boxWidth": 218,
+          "pass": true
+        }
+      ],
+      "pass": true
+    }
+  ],
+  "pass": true
+}

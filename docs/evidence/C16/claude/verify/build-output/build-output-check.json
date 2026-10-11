@@ -1,9 +1,9 @@
 {
-  "head": "d44e27b889a2a4ea80d5602dffcd7d96cf4e321b",
-  "startedAt": "2026-10-11T07:08:43.740Z",
+  "head": "cef6634e835ba90e733dc2c5727bfc5772f3d2cd",
+  "startedAt": "2026-10-11T07:16:56.112Z",
   "distBefore": {
-    "404.html": "b4b615a437fdf3dd4ee51ba6b42614eb1a2ea19a9c2a286021576cde0fad0073",
-    "_astro/Layout.BbbmjSS-.css": "370364838d2fda6c089332e6afb92260f9eed2f0e28900b53157d9cbbf7a8b1b",
+    "404.html": "352261c07042b3b871aaa852930ec6c937ed977830751c1a72836824f5ee9f75",
+    "_astro/Layout.Dr6TJyNf.css": "54381c1e7b362ac8c0199470616fefc6aa481094e420ff07cff81472184e7202",
     "_astro/PageHero.BrhgJSOn.css": "74c361b021e15430c54e7c6cf9fe064608e0dd74ca2a8f0ed24c475add3a3959",
     "_astro/_slug_.Ba4RV2xC.css": "f8b236eadddbfee864cfd991045864eb11a095590bdb6691da4877c0474365d4",
     "_astro/_slug_.vlTyVYGL.css": "bea25f5a05b85bc0f9321d42c65c8bfb384e714db4d22dc38e19398ea91017e9",
@@ -13,8 +13,8 @@
     "_astro/mang-theo-mot-net-ve.B7m-17_a.css": "6294e10464ae3b93baa7f393a7db3099dfd17dbf40807559cff311ff1f8c5b31",
     "_astro/minh-bach.CAdd2T2w.css": "5448adf29290b0763187d24e5ded7d36933f7cafd4ca61023050da6452609197",
     "_astro/san-pham.BIQ6dk0p.css": "27f162d22dbb23a5d9422d7d06ad560f92a4c44bb658183e9bd93bedbd941310",
-    "dong-hanh/index.html": "8fecf535cfbc1a281da3e86b38f4b071667b98e0e4edbd61ca818e3f995cdffc",
-    "du-an/mang-theo-mot-net-ve/index.html": "f668702e858d703a6e032942be9467e540d015f6b342bc1012c9a4f794f7097b",
+    "dong-hanh/index.html": "1ee1b88dfbdf6f0d1a8907a015285f5fbe40710d7cc8cd9ede1375125e4baeaa",
+    "du-an/mang-theo-mot-net-ve/index.html": "d94abbf8a34a6e06aaa666956d80aa2ddd278c8eb6b544fa81826ef1df1d889d",
     "favicon.svg": "cf5a6109d12aead474ccee95fd51643e1988adc2364bb1349e3c3e4e6d564051",
     "images/apple-touch-icon.png": "1f17e268aaf9672ade06b400cc5348a3126c9201b7135bd7e3723d992da20e10",
     "images/favicon-32x32.png": "a960c351d4ca5d3fb258edf561b23e67e22a599a969a53f8fbf793f7103b3087",
@@ -36,16 +36,16 @@
     "images/thanh-vien/tran-binh-trong.webp": "be2e54587f9085e9459b56eda0193170cedd3cf789781a7987949e47cd683f27",
     "images/thanh-vien/trinh-hien-lan.webp": "888246071c5dfe3db81634be5276d3ae38985fb2c27f00dfd007b8b58eff628c",
     "images/ung-ho/qr-ung-ho-techcombank.png": "956400743c37884ce0163df8d4c379645ca7fa770803fa40bba5e34048fd213b",
-    "index.html": "a55e09c941e278a239e0039b7923df10fc473522e38c6034757e11bc0721aa9b",
-    "minh-bach/index.html": "a87135562697ab2d339a6b2e178c6ad01759382bc1581e6ca3095e7127414458",
-    "nhat-ky/gioi-thieu-qua-luu-niem-gay-quy/index.html": "195852ccbe871a4f46e6ab1d6dfee880e7481a2b265d7178cda9ed31695a200f",
-    "nhat-ky/index.html": "0075eb4af17ce005401884a6f87b8d3cef150f77308788f66bf14a196f1903ab",
-    "nhat-ky/ke-hoach-bon-goc-choi/index.html": "ac5eb35575150ba201f56ed48d2716d22cffdb20cf45815ceb2ccee62638016f",
-    "san-pham/chuon-chuon-tre-kem-de/index.html": "6497bccc4b7ae2817ac65b2e85a9875c667fee8821b1f96f7b0de75ec3ac5750",
-    "san-pham/chuon-chuon-tre/index.html": "6497bccc4b7ae2817ac65b2e85a9875c667fee8821b1f96f7b0de75ec3ac5750",
-    "san-pham/index.html": "525b65042f014f70bcac3df495baa5908c9c6925cd3b865c300bd23aeef3525d",
-    "san-pham/moc-khoa/index.html": "946e07995e97e75c1da8bcc485068f5d63ca0cbf7965c6bb0a98054cfd354d2d",
-    "ve-nhom/index.html": "c3aa6697b0bf5e3f372ce66cfd08e3e674e17704c5ca3ccd49536b4aa9abe455"
+    "index.html": "dc5ca69c8dcab5619839e68ef77fd201c9889c633f6a5ffce64e4eee9096be5b",
+    "minh-bach/index.html": "f23703d226940cabef9c86b95def6dc0403ea830a443a806d724fb7284c12e09",
+    "nhat-ky/gioi-thieu-qua-luu-niem-gay-quy/index.html": "1a380d20dd40baba535526cfe39a5eb697178651f6c1112a464946757add3a33",
+    "nhat-ky/index.html": "2c89fb961c15742467ef90792eabad54e29a8e8269da90e961246f2089efa5f6",
+    "nhat-ky/ke-hoach-bon-goc-choi/index.html": "2433a3e5248a1b2026d3ae38bf559d73dead77c6062639d2e8cd0ef67f481da9",
+    "san-pham/chuon-chuon-tre-kem-de/index.html": "fe0f162632221670ef3c80cbf7be8bc0c4b9ba8225bf2bc5a16aae44615f0d5f",
+    "san-pham/chuon-chuon-tre/index.html": "fe0f162632221670ef3c80cbf7be8bc0c4b9ba8225bf2bc5a16aae44615f0d5f",
+    "san-pham/index.html": "8b7126512f4506846aba7f501f73b13140e9988bba4da03c13d29408e121f7f8",
+    "san-pham/moc-khoa/index.html": "c3a9d63340c359e8cfb738f74bcdf2275f6f77ee79c72bdeb2655f72bdc83c7e",
+    "ve-nhom/index.html": "826ebd7b9276e052feccda25c5b8f4a5026b959dc3bd8a15bce1dd7bea8db6c2"
   },
   "audit": [],
   "served": [
@@ -53,14 +53,14 @@
       "file": "404.html",
       "route": "/404",
       "status": 200,
-      "hash": "b4b615a437fdf3dd4ee51ba6b42614eb1a2ea19a9c2a286021576cde0fad0073",
+      "hash": "352261c07042b3b871aaa852930ec6c937ed977830751c1a72836824f5ee9f75",
       "pass": true
     },
     {
-      "file": "_astro/Layout.BbbmjSS-.css",
-      "route": "/_astro/Layout.BbbmjSS-.css",
+      "file": "_astro/Layout.Dr6TJyNf.css",
+      "route": "/_astro/Layout.Dr6TJyNf.css",
       "status": 200,
-      "hash": "370364838d2fda6c089332e6afb92260f9eed2f0e28900b53157d9cbbf7a8b1b",
+      "hash": "54381c1e7b362ac8c0199470616fefc6aa481094e420ff07cff81472184e7202",
       "pass": true
     },
     {
@@ -130,90 +130,90 @@
       "file": "dong-hanh/index.html",
       "route": "/dong-hanh",
       "status": 200,
-      "hash": "8fecf535cfbc1a281da3e86b38f4b071667b98e0e4edbd61ca818e3f995cdffc",
+      "hash": "1ee1b88dfbdf6f0d1a8907a015285f5fbe40710d7cc8cd9ede1375125e4baeaa",
       "pass": true
     },
     {
       "file": "du-an/mang-theo-mot-net-ve/index.html",
       "route": "/du-an/mang-theo-mot-net-ve",
       "status": 200,
-      "hash": "f668702e858d703a6e032942be9467e540d015f6b342bc1012c9a4f794f7097b",
+      "hash": "d94abbf8a34a6e06aaa666956d80aa2ddd278c8eb6b544fa81826ef1df1d889d",
       "pass": true
     },
     {
       "file": "index.html",
       "route": "/",
       "status": 200,
-      "hash": "a55e09c941e278a239e0039b7923df10fc473522e38c6034757e11bc0721aa9b",
+      "hash": "dc5ca69c8dcab5619839e68ef77fd201c9889c633f6a5ffce64e4eee9096be5b",
       "pass": true
     },
     {
       "file": "minh-bach/index.html",
       "route": "/minh-bach",
       "status": 200,
-      "hash": "a87135562697ab2d339a6b2e178c6ad01759382bc1581e6ca3095e7127414458",
+      "hash": "f23703d226940cabef9c86b95def6dc0403ea830a443a806d724fb7284c12e09",
       "pass": true
     },
     {
       "file": "nhat-ky/gioi-thieu-qua-luu-niem-gay-quy/index.html",
       "route": "/nhat-ky/gioi-thieu-qua-luu-niem-gay-quy",
       "status": 200,
-      "hash": "195852ccbe871a4f46e6ab1d6dfee880e7481a2b265d7178cda9ed31695a200f",
+      "hash": "1a380d20dd40baba535526cfe39a5eb697178651f6c1112a464946757add3a33",
       "pass": true
     },
     {
       "file": "nhat-ky/index.html",
       "route": "/nhat-ky",
       "status": 200,
-      "hash": "0075eb4af17ce005401884a6f87b8d3cef150f77308788f66bf14a196f1903ab",
+      "hash": "2c89fb961c15742467ef90792eabad54e29a8e8269da90e961246f2089efa5f6",
       "pass": true
     },
     {
       "file": "nhat-ky/ke-hoach-bon-goc-choi/index.html",
       "route": "/nhat-ky/ke-hoach-bon-goc-choi",
       "status": 200,
-      "hash": "ac5eb35575150ba201f56ed48d2716d22cffdb20cf45815ceb2ccee62638016f",
+      "hash": "2433a3e5248a1b2026d3ae38bf559d73dead77c6062639d2e8cd0ef67f481da9",
       "pass": true
     },
     {
       "file": "san-pham/chuon-chuon-tre-kem-de/index.html",
       "route": "/san-pham/chuon-chuon-tre-kem-de",
       "status": 200,
-      "hash": "6497bccc4b7ae2817ac65b2e85a9875c667fee8821b1f96f7b0de75ec3ac5750",
+      "hash": "fe0f162632221670ef3c80cbf7be8bc0c4b9ba8225bf2bc5a16aae44615f0d5f",
       "pass": true
     },
     {
       "file": "san-pham/chuon-chuon-tre/index.html",
       "route": "/san-pham/chuon-chuon-tre",
       "status": 200,
-      "hash": "6497bccc4b7ae2817ac65b2e85a9875c667fee8821b1f96f7b0de75ec3ac5750",
+      "hash": "fe0f162632221670ef3c80cbf7be8bc0c4b9ba8225bf2bc5a16aae44615f0d5f",
       "pass": true
     },
     {
       "file": "san-pham/index.html",
       "route": "/san-pham",
       "status": 200,
-      "hash": "525b65042f014f70bcac3df495baa5908c9c6925cd3b865c300bd23aeef3525d",
+      "hash": "8b7126512f4506846aba7f501f73b13140e9988bba4da03c13d29408e121f7f8",
       "pass": true
     },
     {
       "file": "san-pham/moc-khoa/index.html",
       "route": "/san-pham/moc-khoa",
       "status": 200,
-      "hash": "946e07995e97e75c1da8bcc485068f5d63ca0cbf7965c6bb0a98054cfd354d2d",
+      "hash": "c3a9d63340c359e8cfb738f74bcdf2275f6f77ee79c72bdeb2655f72bdc83c7e",
       "pass": true
     },
     {
       "file": "ve-nhom/index.html",
       "route": "/ve-nhom",
       "status": 200,
-      "hash": "c3aa6697b0bf5e3f372ce66cfd08e3e674e17704c5ca3ccd49536b4aa9abe455",
+      "hash": "826ebd7b9276e052feccda25c5b8f4a5026b959dc3bd8a15bce1dd7bea8db6c2",
       "pass": true
     }
   ],
   "distAfter": {
-    "404.html": "b4b615a437fdf3dd4ee51ba6b42614eb1a2ea19a9c2a286021576cde0fad0073",
-    "_astro/Layout.BbbmjSS-.css": "370364838d2fda6c089332e6afb92260f9eed2f0e28900b53157d9cbbf7a8b1b",
+    "404.html": "352261c07042b3b871aaa852930ec6c937ed977830751c1a72836824f5ee9f75",
+    "_astro/Layout.Dr6TJyNf.css": "54381c1e7b362ac8c0199470616fefc6aa481094e420ff07cff81472184e7202",
     "_astro/PageHero.BrhgJSOn.css": "74c361b021e15430c54e7c6cf9fe064608e0dd74ca2a8f0ed24c475add3a3959",
     "_astro/_slug_.Ba4RV2xC.css": "f8b236eadddbfee864cfd991045864eb11a095590bdb6691da4877c0474365d4",
     "_astro/_slug_.vlTyVYGL.css": "bea25f5a05b85bc0f9321d42c65c8bfb384e714db4d22dc38e19398ea91017e9",
@@ -223,8 +223,8 @@
     "_astro/mang-theo-mot-net-ve.B7m-17_a.css": "6294e10464ae3b93baa7f393a7db3099dfd17dbf40807559cff311ff1f8c5b31",
     "_astro/minh-bach.CAdd2T2w.css": "5448adf29290b0763187d24e5ded7d36933f7cafd4ca61023050da6452609197",
     "_astro/san-pham.BIQ6dk0p.css": "27f162d22dbb23a5d9422d7d06ad560f92a4c44bb658183e9bd93bedbd941310",
-    "dong-hanh/index.html": "8fecf535cfbc1a281da3e86b38f4b071667b98e0e4edbd61ca818e3f995cdffc",
-    "du-an/mang-theo-mot-net-ve/index.html": "f668702e858d703a6e032942be9467e540d015f6b342bc1012c9a4f794f7097b",
+    "dong-hanh/index.html": "1ee1b88dfbdf6f0d1a8907a015285f5fbe40710d7cc8cd9ede1375125e4baeaa",
+    "du-an/mang-theo-mot-net-ve/index.html": "d94abbf8a34a6e06aaa666956d80aa2ddd278c8eb6b544fa81826ef1df1d889d",
     "favicon.svg": "cf5a6109d12aead474ccee95fd51643e1988adc2364bb1349e3c3e4e6d564051",
     "images/apple-touch-icon.png": "1f17e268aaf9672ade06b400cc5348a3126c9201b7135bd7e3723d992da20e10",
     "images/favicon-32x32.png": "a960c351d4ca5d3fb258edf561b23e67e22a599a969a53f8fbf793f7103b3087",
@@ -246,18 +246,18 @@
     "images/thanh-vien/tran-binh-trong.webp": "be2e54587f9085e9459b56eda0193170cedd3cf789781a7987949e47cd683f27",
     "images/thanh-vien/trinh-hien-lan.webp": "888246071c5dfe3db81634be5276d3ae38985fb2c27f00dfd007b8b58eff628c",
     "images/ung-ho/qr-ung-ho-techcombank.png": "956400743c37884ce0163df8d4c379645ca7fa770803fa40bba5e34048fd213b",
-    "index.html": "a55e09c941e278a239e0039b7923df10fc473522e38c6034757e11bc0721aa9b",
-    "minh-bach/index.html": "a87135562697ab2d339a6b2e178c6ad01759382bc1581e6ca3095e7127414458",
-    "nhat-ky/gioi-thieu-qua-luu-niem-gay-quy/index.html": "195852ccbe871a4f46e6ab1d6dfee880e7481a2b265d7178cda9ed31695a200f",
-    "nhat-ky/index.html": "0075eb4af17ce005401884a6f87b8d3cef150f77308788f66bf14a196f1903ab",
-    "nhat-ky/ke-hoach-bon-goc-choi/index.html": "ac5eb35575150ba201f56ed48d2716d22cffdb20cf45815ceb2ccee62638016f",
-    "san-pham/chuon-chuon-tre-kem-de/index.html": "6497bccc4b7ae2817ac65b2e85a9875c667fee8821b1f96f7b0de75ec3ac5750",
-    "san-pham/chuon-chuon-tre/index.html": "6497bccc4b7ae2817ac65b2e85a9875c667fee8821b1f96f7b0de75ec3ac5750",
-    "san-pham/index.html": "525b65042f014f70bcac3df495baa5908c9c6925cd3b865c300bd23aeef3525d",
-    "san-pham/moc-khoa/index.html": "946e07995e97e75c1da8bcc485068f5d63ca0cbf7965c6bb0a98054cfd354d2d",
-    "ve-nhom/index.html": "c3aa6697b0bf5e3f372ce66cfd08e3e674e17704c5ca3ccd49536b4aa9abe455"
+    "index.html": "dc5ca69c8dcab5619839e68ef77fd201c9889c633f6a5ffce64e4eee9096be5b",
+    "minh-bach/index.html": "f23703d226940cabef9c86b95def6dc0403ea830a443a806d724fb7284c12e09",
+    "nhat-ky/gioi-thieu-qua-luu-niem-gay-quy/index.html": "1a380d20dd40baba535526cfe39a5eb697178651f6c1112a464946757add3a33",
+    "nhat-ky/index.html": "2c89fb961c15742467ef90792eabad54e29a8e8269da90e961246f2089efa5f6",
+    "nhat-ky/ke-hoach-bon-goc-choi/index.html": "2433a3e5248a1b2026d3ae38bf559d73dead77c6062639d2e8cd0ef67f481da9",
+    "san-pham/chuon-chuon-tre-kem-de/index.html": "fe0f162632221670ef3c80cbf7be8bc0c4b9ba8225bf2bc5a16aae44615f0d5f",
+    "san-pham/chuon-chuon-tre/index.html": "fe0f162632221670ef3c80cbf7be8bc0c4b9ba8225bf2bc5a16aae44615f0d5f",
+    "san-pham/index.html": "8b7126512f4506846aba7f501f73b13140e9988bba4da03c13d29408e121f7f8",
+    "san-pham/moc-khoa/index.html": "c3a9d63340c359e8cfb738f74bcdf2275f6f77ee79c72bdeb2655f72bdc83c7e",
+    "ve-nhom/index.html": "826ebd7b9276e052feccda25c5b8f4a5026b959dc3bd8a15bce1dd7bea8db6c2"
   },
-  "headAfter": "d44e27b889a2a4ea80d5602dffcd7d96cf4e321b",
+  "headAfter": "cef6634e835ba90e733dc2c5727bfc5772f3d2cd",
   "pass": true,
-  "finishedAt": "2026-10-11T07:08:44.172Z"
+  "finishedAt": "2026-10-11T07:16:56.482Z"
 }

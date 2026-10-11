@@ -1,7 +1,7 @@
 {
-  "head": "d44e27b889a2a4ea80d5602dffcd7d96cf4e321b",
-  "fixture": "C:\\Users\\tuana\\AppData\\Local\\Temp\\c15-renderer-review-FAAC5c",
-  "startedAt": "2026-10-11T07:08:44.515Z",
+  "head": "cef6634e835ba90e733dc2c5727bfc5772f3d2cd",
+  "fixture": "C:\\Users\\tuana\\AppData\\Local\\Temp\\c15-renderer-review-52LyE2",
+  "startedAt": "2026-10-11T07:16:56.899Z",
   "cases": [
     {
       "name": "draft has no generated route or public file marker",
@@ -116,8 +116,8 @@
     "ok": true,
     "category": "chuan-bi"
   },
-  "headAfter": "d44e27b889a2a4ea80d5602dffcd7d96cf4e321b",
+  "headAfter": "cef6634e835ba90e733dc2c5727bfc5772f3d2cd",
   "workingTreeAfter": "",
   "pass": true,
-  "finishedAt": "2026-10-11T07:09:00.824Z"
+  "finishedAt": "2026-10-11T07:17:13.247Z"
 }

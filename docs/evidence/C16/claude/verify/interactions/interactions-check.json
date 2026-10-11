@@ -1,6 +1,6 @@
 {
-  "head": "d44e27b889a2a4ea80d5602dffcd7d96cf4e321b",
-  "startedAt": "2026-10-11T07:07:25.677Z",
+  "head": "cef6634e835ba90e733dc2c5727bfc5772f3d2cd",
+  "startedAt": "2026-10-11T07:15:43.051Z",
   "cases": [
     {
       "name": "menu opens, hidden mobile CTA is inert, Escape restores focus",
@@ -465,7 +465,7 @@
     }
   ],
   "errors": [],
-  "headAfter": "d44e27b889a2a4ea80d5602dffcd7d96cf4e321b",
+  "headAfter": "cef6634e835ba90e733dc2c5727bfc5772f3d2cd",
   "pass": true,
-  "finishedAt": "2026-10-11T07:08:09.967Z"
+  "finishedAt": "2026-10-11T07:16:28.376Z"
 }

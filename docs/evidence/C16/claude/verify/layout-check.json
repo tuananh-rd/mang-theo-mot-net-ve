@@ -1,6 +1,6 @@
 {
-  "head": "d44e27b889a2a4ea80d5602dffcd7d96cf4e321b",
-  "time": "2026-10-11T07:07:13.312Z",
+  "head": "cef6634e835ba90e733dc2c5727bfc5772f3d2cd",
+  "time": "2026-10-11T07:15:29.949Z",
   "cases": [
     {
       "name": "QR appears early on 375x812 without clipping instructions",
@@ -118,6 +118,6 @@
       "badCaptions": []
     }
   ],
-  "headAfter": "d44e27b889a2a4ea80d5602dffcd7d96cf4e321b",
+  "headAfter": "cef6634e835ba90e733dc2c5727bfc5772f3d2cd",
   "pass": true
 }

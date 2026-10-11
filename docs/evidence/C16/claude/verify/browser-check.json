@@ -1,8 +1,8 @@
 {
-  "head": "d44e27b889a2a4ea80d5602dffcd7d96cf4e321b",
+  "head": "cef6634e835ba90e733dc2c5727bfc5772f3d2cd",
   "candidate": false,
   "workingTree": "",
-  "startedAt": "2026-10-11T07:05:48.254Z",
+  "startedAt": "2026-10-11T07:14:04.781Z",
   "pages": [
     {
       "route": "/",
@@ -13667,8 +13667,8 @@
       "pass": true
     }
   ],
-  "headAfter": "d44e27b889a2a4ea80d5602dffcd7d96cf4e321b",
+  "headAfter": "cef6634e835ba90e733dc2c5727bfc5772f3d2cd",
   "workingTreeAfter": "",
   "pass": true,
-  "finishedAt": "2026-10-11T07:07:12.967Z"
+  "finishedAt": "2026-10-11T07:15:29.578Z"
 }
