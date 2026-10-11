@@ -1,0 +1,64 @@
+{
+  "head": "0e7f0f6d3583207be76882df46fa22a55d790cd1",
+  "fixture": "C:\\Users\\tuana\\AppData\\Local\\Temp\\c14-antigravity-verify-28OAy4",
+  "startedAt": "2026-10-11T03:55:46.349Z",
+  "cases": [
+    {
+      "name": "draft has no generated route or public file marker",
+      "pass": true
+    },
+    {
+      "name": "newest published entry reaches Home latest section",
+      "pass": true
+    },
+    {
+      "name": "official donation panel share domain is mangtheomotnetve.website",
+      "pass": true
+    },
+    {
+      "name": "actual browser inquiry uses official price/channel and known-stock quantity cap",
+      "pass": true
+    },
+    {
+      "name": "stock zero produces no purchase form in built HTML",
+      "pass": true
+    },
+    {
+      "name": "build refuses unapproved ledger before public rendering",
+      "pass": true
+    },
+    {
+      "name": "original source data untouched by isolated builds",
+      "pass": true
+    }
+  ],
+  "builds": [
+    {
+      "label": "open",
+      "exitCode": 0,
+      "expectFailure": false,
+      "pass": true
+    },
+    {
+      "label": "zero-stock",
+      "exitCode": 0,
+      "expectFailure": false,
+      "pass": true
+    },
+    {
+      "label": "unapproved-ledger",
+      "exitCode": 1,
+      "expectFailure": true,
+      "pass": true
+    }
+  ],
+  "openLayout": {
+    "clientWidth": 375,
+    "scrollWidth": 375,
+    "innerWidth": 375,
+    "visualWidth": 375,
+    "scale": 1
+  },
+  "pass": true,
+  "finishedAt": "2026-10-11T03:55:54.549Z"
+}

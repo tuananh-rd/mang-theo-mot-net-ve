@@ -294,4 +294,3 @@ export function formatPurchaseInquiry(options: {
 export function getCraftProductBySlug(slug: string): CraftProductDetail | undefined {
   return CRAFT_PRODUCT_DETAILS.find((item) => item.slug === slug || (item.aliases && item.aliases.includes(slug)));
 }
-

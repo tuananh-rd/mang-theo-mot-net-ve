@@ -9,95 +9,11 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
-import { validateDonationCSV } from './csv-validator.mjs';
-import { validateJournalEntriesList, validateJournalEntry, sanitizeJournalEntry, isValidIsoDate } from './journal-validator.mjs';
+import { validateDonationCSV, validateDonationProjection, sanitizeDonationEntry } from './csv-validator.mjs';
+import { validateJournalEntriesList, validateJournalEntry, sanitizeJournalEntry } from './journal-validator.mjs';
 import { validateProductSalesConfig, sanitizeProductSalesConfig } from './product-validator.mjs';
 
-/**
- * Xác thực cấu trúc bản chiếu sổ ủng hộ JSON (reconciled-donations.json).
- */
-/**
- * Chuẩn hóa và làm sạch một dòng giao dịch sao kê công khai (Task C14 early-review-11).
- * - Loại bỏ toàn bộ trường thô không thuộc allowlist.
- * - Che giấu mã tham chiếu riêng tư (chỉ giữ hậu tố ...XXXX, tối đa 8 ký tự).
- * - Người ủng hộ Ẩn danh luôn có reference là null.
- */
-export function sanitizeDonationEntry(entry) {
-  if (!entry || typeof entry !== 'object') return null;
-  const rawDonor = typeof entry.donor === 'string' ? entry.donor.trim() : '';
-  const isAnonymous = !rawDonor || ['ẩn danh', 'an danh', 'anonymous'].includes(rawDonor.toLowerCase());
-  let safeRef = null;
-  if (!isAnonymous && entry.reference) {
-    const rawRef = String(entry.reference).trim();
-    if (rawRef.startsWith('...') && rawRef.length <= 8) {
-      safeRef = rawRef;
-    } else {
-      safeRef = `...${rawRef.slice(-4)}`;
-    }
-  }
-  return {
-    date: entry.date,
-    amount: entry.amount,
-    donor: isAnonymous ? 'Ẩn danh' : rawDonor,
-    reference: safeRef,
-  };
-}
-
-/**
- * Xác thực cấu trúc bản chiếu sổ ủng hộ JSON (reconciled-donations.json).
- */
-export function validateDonationProjection(payload) {
-  const errors = [];
-  if (!payload || typeof payload !== 'object' || Array.isArray(payload)) {
-    return { isValid: false, errors: ['Bản chiếu sao kê phải là một đối tượng JSON.'] };
-  }
-  if (typeof payload.reconciled !== 'boolean') {
-    errors.push('Thuộc tính reconciled phải là boolean.');
-  }
-  if (payload.reconciled) {
-    if (!payload.reconciledAt || typeof payload.reconciledAt !== 'string' || !isValidIsoDate(payload.reconciledAt)) {
-      errors.push('reconciledAt phải là ngày hợp lệ định dạng YYYY-MM-DD khi reconciled là true.');
-    }
-    if (payload.publicApproval !== 'approved') {
-      errors.push('publicApproval phải là "approved" khi reconciled là true.');
-    }
-    if (!Array.isArray(payload.reconciledBy) || payload.reconciledBy.length === 0) {
-      errors.push('reconciledBy phải là mảng chứa vai trò/người đối soát.');
-    }
-  } else {
-    if (payload.reconciledAt !== null && payload.reconciledAt !== undefined) {
-      errors.push('reconciledAt phải là null khi reconciled là false.');
-    }
-    if (payload.publicApproval !== 'pending' && payload.publicApproval !== undefined) {
-      errors.push('publicApproval phải là "pending" khi reconciled là false.');
-    }
-  }
-  if (!Array.isArray(payload.entries)) {
-    errors.push('entries phải là một mảng danh sách giao dịch.');
-  } else {
-    payload.entries.forEach((entry, idx) => {
-      if (!entry || typeof entry !== 'object') {
-        errors.push(`Giao dịch [${idx + 1}] không hợp lệ.`);
-        return;
-      }
-      if (!entry.date || typeof entry.date !== 'string' || !isValidIsoDate(entry.date)) {
-        errors.push(`Giao dịch [${idx + 1}]: Ngày giao dịch '${entry.date}' không hợp lệ (cần YYYY-MM-DD).`);
-      } else if (payload.reconciled && payload.reconciledAt && entry.date > payload.reconciledAt) {
-        errors.push(`Giao dịch [${idx + 1}]: Ngày giao dịch '${entry.date}' sau ngày chốt đối soát '${payload.reconciledAt}'.`);
-      }
-      if (typeof entry.amount !== 'number' || !Number.isInteger(entry.amount) || entry.amount <= 0) {
-        errors.push(`Giao dịch [${idx + 1}]: Số tiền '${entry.amount}' phải là số nguyên dương.`);
-      }
-      if (!entry.donor || typeof entry.donor !== 'string') {
-        errors.push(`Giao dịch [${idx + 1}]: Tên người ủng hộ không được để trống.`);
-      }
-      if (entry.reference !== null && typeof entry.reference !== 'string') {
-        errors.push(`Giao dịch [${idx + 1}]: Mã tham chiếu phải là chuỗi hoặc null.`);
-      }
-    });
-  }
-  return { isValid: errors.length === 0, errors };
-}
+export { validateDonationProjection, sanitizeDonationEntry };
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

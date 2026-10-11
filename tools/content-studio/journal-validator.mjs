@@ -363,4 +363,3 @@ export function validateJournalEntriesList(entries) {
     errors: allErrors,
   };
 }
-

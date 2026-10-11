@@ -741,5 +741,3 @@ describe('Kiểm thử Xác thực Cấu hình Mở bán Sản phẩm (Task C14)
     fs.rmSync(fixtureDir, { recursive: true, force: true });
   });
 });
-
-

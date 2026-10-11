@@ -10,7 +10,7 @@ interface Props {
 const { account } = Astro.props;
 const open = isDonationOpen(account);
 const transferExample = `${account.transferPrefix} Ten cua ban`;
-const publicUrl = 'https://mangtheomotnetve.pages.dev';
+const publicUrl = 'https://mangtheomotnetve.website/';
 ---
 
 <div class:list={['donate', { 'donate--pending': !open }]} id="chuyen-khoan">
@@ -147,7 +147,7 @@ const publicUrl = 'https://mangtheomotnetve.pages.dev';
   // 2. Share Page Button
   document.querySelectorAll<HTMLButtonElement>('.share-page-btn').forEach((btn) => {
     btn.addEventListener('click', async () => {
-      const url = btn.dataset.shareUrl || window.location.href;
+      const url = btn.dataset.shareUrl || 'https://mangtheomotnetve.website/';
       const title = btn.dataset.shareTitle || document.title;
       const text = btn.dataset.shareText || '';
       const status = btn.closest('.donate-actions-footer')?.querySelector('.share-page-status');

@@ -196,11 +196,13 @@ const contactPeople = OFFICIAL_CONTACT.people;
                 </p>
 
                 <div class="calc-row">
-                  <label for="product-qty-input" class="calc-label">Số lượng:</label>
-                  <div class="qty-control">
-                    <button type="button" class="qty-btn" id="qty-dec" aria-label="Giảm số lượng">-</button>
-                    <input type="number" id="product-qty-input" min="1" max={saleModel.maxPurchasableQuantity} value="1" class="qty-input" />
-                    <button type="button" class="qty-btn" id="qty-inc" aria-label="Tăng số lượng">+</button>
+                  <div class="calc-qty-group">
+                    <label for="product-qty-input" class="calc-label">Số lượng:</label>
+                    <div class="qty-control">
+                      <button type="button" class="qty-btn" id="qty-dec" aria-label="Giảm số lượng">-</button>
+                      <input type="number" id="product-qty-input" min="1" max={saleModel.maxPurchasableQuantity} value="1" class="qty-input" />
+                      <button type="button" class="qty-btn" id="qty-inc" aria-label="Tăng số lượng">+</button>
+                    </div>
                   </div>
                   <div class="calc-subtotal">
                     <span class="subtotal-label">Tạm tính:</span>
@@ -377,6 +379,12 @@ const contactPeople = OFFICIAL_CONTACT.people;
     grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
     gap: var(--space-10);
     align-items: start;
+  }
+
+  .product-visual,
+  .product-info {
+    min-width: 0;
+    max-width: 100%;
   }
 
   .product-visual {
@@ -606,11 +614,22 @@ const contactPeople = OFFICIAL_CONTACT.people;
   .calc-row {
     display: flex;
     align-items: center;
-    gap: var(--space-4);
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-3);
     background: var(--surface-soft);
     padding: var(--space-4);
     border-radius: var(--radius-md);
     margin-bottom: var(--space-4);
+    box-sizing: border-box;
+    max-width: 100%;
+  }
+
+  .calc-qty-group {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
   }
 
   .calc-label {
@@ -744,7 +763,7 @@ const contactPeople = OFFICIAL_CONTACT.people;
 
   @media (max-width: 900px) {
     .product-layout {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
       gap: var(--space-8);
     }
 
@@ -768,6 +787,46 @@ const contactPeople = OFFICIAL_CONTACT.people;
 
     .nav-strip-links .btn {
       width: 100%;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .inquiry-card,
+    .spec-card,
+    .product-callout {
+      padding: var(--space-4);
+    }
+
+    .calc-row {
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--space-3);
+      padding: var(--space-3);
+    }
+
+    .calc-qty-group {
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .calc-subtotal {
+      margin-left: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-top: 1px dashed var(--line);
+      padding-top: var(--space-2);
+      width: 100%;
+    }
+
+    .inquiry-actions {
+      flex-direction: column;
+    }
+
+    .inquiry-actions .btn {
+      width: 100%;
+      text-align: center;
+      justify-content: center;
     }
   }
 </style>

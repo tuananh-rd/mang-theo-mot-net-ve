@@ -73,7 +73,7 @@ const publicUrl = 'https://mangtheomotnetve.website/';
     if (shareBtn) {
       shareBtn.addEventListener('click', async (e) => {
         e.preventDefault();
-        const url = shareBtn.getAttribute('data-share-url') || window.location.href;
+        const url = shareBtn.getAttribute('data-share-url') || 'https://mangtheomotnetve.website/';
         const title = shareBtn.getAttribute('data-share-title') || document.title;
         const text = shareBtn.getAttribute('data-share-text') || '';
 
