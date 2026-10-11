@@ -87,19 +87,63 @@ export class StudioDbClient {
   ): Promise<{ draft: DraftRecord<T>; revision: RevisionRecord<T> }> {
     const current = await this.getDraft(moduleKey);
 
-    // Kiểm tra xung đột: nếu đã có bản nháp trên server mà client gửi hash khác
-    if (current && expectedHash && current.revisionHash !== expectedHash) {
-      throw new ConcurrencyConflictError(
-        `Xung đột chỉnh sửa ở phân hệ '${moduleKey}'. Phiên bản trên máy chủ đã thay đổi.`,
-        current.revisionHash
-      );
+    // 1. Kiểm tra mã băm kỳ vọng (Bắt buộc phải cung cấp khi draft đã tồn tại)
+    if (current) {
+      if (!expectedHash || !expectedHash.trim()) {
+        throw new ConcurrencyConflictError(
+          `Bắt buộc phải cung cấp mã băm phiên bản (expectedHash) khi lưu bản nháp phân hệ '${moduleKey}'.`,
+          current.revisionHash
+        );
+      }
+      if (current.revisionHash !== expectedHash) {
+        throw new ConcurrencyConflictError(
+          `Xung đột chỉnh sửa ở phân hệ '${moduleKey}'. Phiên bản trên máy chủ đã thay đổi.`,
+          current.revisionHash
+        );
+      }
     }
 
     const newHash = await calculateDataHash(data);
     const now = new Date().toISOString();
     const dataJson = JSON.stringify(data);
 
-    // Tính số thứ tự version mới
+    // 2. Cập nhật có điều kiện nguyên tử (Atomic Conditional Update)
+    if (current) {
+      const updateResult = await this.db
+        .prepare(
+          `UPDATE drafts
+           SET data_json = ?, revision_hash = ?, updated_by = ?, updated_at = ?
+           WHERE module_key = ? AND revision_hash = ?`
+        )
+        .bind(dataJson, newHash, userEmail, now, moduleKey, expectedHash)
+        .run();
+
+      if (!updateResult.meta?.changes || updateResult.meta.changes === 0) {
+        const latest = await this.getDraft(moduleKey);
+        throw new ConcurrencyConflictError(
+          `Xung đột đồng thời (Race condition) tại phân hệ '${moduleKey}'. Dữ liệu đã bị ghi đè bởi phiên khác.`,
+          latest?.revisionHash
+        );
+      }
+    } else {
+      try {
+        await this.db
+          .prepare(
+            `INSERT INTO drafts (module_key, data_json, revision_hash, updated_by, updated_at)
+             VALUES (?, ?, ?, ?, ?)`
+          )
+          .bind(moduleKey, dataJson, newHash, userEmail, now)
+          .run();
+      } catch (err: any) {
+        const latest = await this.getDraft(moduleKey);
+        throw new ConcurrencyConflictError(
+          `Xung đột khởi tạo tại phân hệ '${moduleKey}'. Bản nháp đã được tạo trước bởi phiên khác.`,
+          latest?.revisionHash
+        );
+      }
+    }
+
+    // 3. Tính số thứ tự version mới và lưu lịch sử phiên bản
     const maxVerRow = await this.db
       .prepare('SELECT MAX(version) as max_version FROM revisions WHERE module_key = ?')
       .bind(moduleKey)
@@ -108,21 +152,6 @@ export class StudioDbClient {
     const nextVersion = (maxVerRow?.max_version ?? 0) + 1;
     const revisionId = `rev-${moduleKey}-${nextVersion}-${Date.now()}`;
 
-    // Lưu bản nháp
-    await this.db
-      .prepare(
-        `INSERT INTO drafts (module_key, data_json, revision_hash, updated_by, updated_at)
-         VALUES (?, ?, ?, ?, ?)
-         ON CONFLICT(module_key) DO UPDATE SET
-           data_json = excluded.data_json,
-           revision_hash = excluded.revision_hash,
-           updated_by = excluded.updated_by,
-           updated_at = excluded.updated_at`
-      )
-      .bind(moduleKey, dataJson, newHash, userEmail, now)
-      .run();
-
-    // Lưu vào lịch sử phiên bản
     await this.db
       .prepare(
         `INSERT INTO revisions (id, module_key, version, data_json, revision_hash, created_by, created_at, comment)
@@ -131,7 +160,7 @@ export class StudioDbClient {
       .bind(revisionId, moduleKey, nextVersion, dataJson, newHash, userEmail, now, comment || null)
       .run();
 
-    // Ghi audit log
+    // 4. Ghi audit log
     await this.recordAuditLog(
       userEmail,
       'SAVE_DRAFT',
@@ -210,11 +239,12 @@ export class StudioDbClient {
       throw new Error(`Không tìm thấy phiên bản '${revisionId}' của phân hệ '${moduleKey}'.`);
     }
 
+    const current = await this.getDraft(moduleKey);
     const data = JSON.parse(row.data_json) as T;
     const saveResult = await this.saveDraft(
       moduleKey,
       data,
-      null, // bỏ qua hash kiểm tra khi chủ động khôi phục
+      current?.revisionHash || null,
       userEmail,
       `Khôi phục từ phiên bản v${row.version}`
     );
@@ -565,6 +595,11 @@ export class StudioDbClient {
       createdBy: r.created_by,
       createdAt: r.created_at,
     }));
+  }
+
+  /** Cập nhật trạng thái duyệt của Media Asset */
+  async updateMediaAssetStatus(id: string, status: 'approved' | 'rejected'): Promise<void> {
+    await this.db.prepare('UPDATE media_assets SET status = ? WHERE id = ?').bind(status, id).run();
   }
 
   /** Xóa Media Asset */

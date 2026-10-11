@@ -473,8 +473,17 @@ export function renderStudioHtml(session: AuthSession): string {
     (function() {
       let currentTab = 'dashboard';
       let isFormDirty = false;
-      let activeDraft = null;
       let currentUserRole = '${escapeHtml(user.role)}';
+
+      function escapeHtml(str) {
+        if (str === null || str === undefined) return '';
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
 
       const sidebar = document.getElementById('sidebar');
       const toggleSidebarBtn = document.getElementById('toggleSidebarBtn');
@@ -687,34 +696,49 @@ export function renderStudioHtml(session: AuthSession): string {
         }
         activeDraft = res.data.draft;
         const p = activeDraft.data || {};
+        const prog = p.progress || { currentWeek: 1, totalWeeks: 5, currentStageIndex: 0, updatedAt: '2026-10-09' };
+        const sessions = p.plannedSessions || [
+          { id: 'buoi-choi', title: 'Buổi chơi tại Mái ấm', date: '2026-10-24', time: '14:00', weekday: 'Thứ Bảy', description: 'Bốn góc hoạt động, khoảng 180 phút, có hai lần nghỉ.' },
+          { id: 'trao-qua', title: 'Gặp lại và trao quà', date: '2026-10-31', time: '14:00', weekday: 'Thứ Bảy', description: 'Trao vật phẩm theo danh mục Mái ấm xác nhận, khoảng 30–45 phút.' }
+        ];
+        const contacts = p.contacts || {
+          status: 'confirmed',
+          people: [
+            { name: 'Nguyễn Chí Trung', role: 'Trưởng dự án', phone: '0984 441 726', phoneE164: '+84984441726' },
+            { name: 'Lê Tuấn Anh', role: 'Đại diện đối ngoại', phone: '0343 999 199', phoneE164: '+84343999199' }
+          ],
+          fanpageUrl: 'https://www.facebook.com/mangtheomotnetve',
+          sourceRef: 'supplement-c07:muc-6',
+          updatedAt: '2026-10-09'
+        };
 
         tabContent.innerHTML = \`
           <form id="projectForm" class="card">
             <div class="card-title">
-              <span>Thông tin chung về Dự án</span>
+              <span>Thông tin chung về Dự án & Thông điệp</span>
               <button type="submit" class="btn btn-primary" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Lưu bản nháp 💾</button>
             </div>
 
             <div class="form-row">
               <div class="form-group">
                 <label>Tiêu đề dự án *</label>
-                <input type="text" class="form-control" name="title" value="\${p.title || ''}" required>
+                <input type="text" class="form-control" name="title" value="\${escapeHtml(p.title || '')}" required>
               </div>
               <div class="form-group">
                 <label>Khẩu hiệu (Slogan)</label>
-                <input type="text" class="form-control" name="slogan" value="\${p.slogan || ''}">
+                <input type="text" class="form-control" name="slogan" value="\${escapeHtml(p.slogan || '')}">
               </div>
             </div>
 
             <div class="form-group">
               <label>Tóm tắt dự án *</label>
-              <textarea class="form-control" name="summary" required>\${p.summary || ''}</textarea>
+              <textarea class="form-control" name="summary" required>\${escapeHtml(p.summary || '')}</textarea>
             </div>
 
             <div class="form-row">
               <div class="form-group">
                 <label>Địa điểm</label>
-                <input type="text" class="form-control" name="location" value="\${p.location || ''}">
+                <input type="text" class="form-control" name="location" value="\${escapeHtml(p.location || '')}">
               </div>
               <div class="form-group">
                 <label>Trạng thái thực hiện</label>
@@ -729,16 +753,97 @@ export function renderStudioHtml(session: AuthSession): string {
             <div class="form-row">
               <div class="form-group">
                 <label>Thông báo trạng thái</label>
-                <input type="text" class="form-control" name="statusNotice" value="\${p.statusNotice || ''}">
+                <input type="text" class="form-control" name="statusNotice" value="\${escapeHtml(p.statusNotice || '')}">
               </div>
               <div class="form-group">
                 <label>Thông báo bản xem trước</label>
-                <input type="text" class="form-control" name="previewNotice" value="\${p.previewNotice || ''}">
+                <input type="text" class="form-control" name="previewNotice" value="\${escapeHtml(p.previewNotice || '')}">
+              </div>
+            </div>
+
+            <div style="border-top: 1px solid var(--color-neutral-light); padding-top: 16px; margin-top: 16px;">
+              <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 12px; color: var(--color-primary);">Tiến độ Dự án (Project Progress)</h3>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Tuần hiện tại (currentWeek)</label>
+                  <input type="number" class="form-control" name="prog_currentWeek" value="\${prog.currentWeek}" min="1" max="10" required>
+                </div>
+                <div class="form-group">
+                  <label>Tổng số tuần (totalWeeks)</label>
+                  <input type="number" class="form-control" name="prog_totalWeeks" value="\${prog.totalWeeks}" min="1" max="10" required>
+                </div>
+                <div class="form-group">
+                  <label>Chỉ số giai đoạn hiện tại (currentStageIndex: 0-3)</label>
+                  <input type="number" class="form-control" name="prog_currentStageIndex" value="\${prog.currentStageIndex}" min="0" max="3" required>
+                </div>
+                <div class="form-group">
+                  <label>Ngày cập nhật tiến độ (YYYY-MM-DD)</label>
+                  <input type="date" class="form-control" name="prog_updatedAt" value="\${prog.updatedAt}" required>
+                </div>
+              </div>
+            </div>
+
+            <div style="border-top: 1px solid var(--color-neutral-light); padding-top: 16px; margin-top: 16px;">
+              <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 12px; color: var(--color-primary);">Lịch Hai Buổi Hoạt động tại Mái ấm (Planned Sessions)</h3>
+              \${sessions.map((s, idx) => \`
+                <div style="background: var(--color-bg-app); border: 1px solid var(--color-neutral-light); border-radius: 6px; padding: 12px; margin-bottom: 12px;">
+                  <strong style="display:block; margin-bottom: 8px;">Buổi \${idx + 1}: \${escapeHtml(s.title)} (\${escapeHtml(s.id)})</strong>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label>Tiêu đề</label>
+                      <input type="text" class="form-control" name="sess_title_\${idx}" value="\${escapeHtml(s.title)}">
+                    </div>
+                    <div class="form-group">
+                      <label>Ngày (YYYY-MM-DD)</label>
+                      <input type="date" class="form-control" name="sess_date_\${idx}" value="\${escapeHtml(s.date)}">
+                    </div>
+                    <div class="form-group">
+                      <label>Giờ</label>
+                      <input type="text" class="form-control" name="sess_time_\${idx}" value="\${escapeHtml(s.time)}">
+                    </div>
+                    <div class="form-group">
+                      <label>Thứ trong tuần</label>
+                      <input type="text" class="form-control" name="sess_weekday_\${idx}" value="\${escapeHtml(s.weekday)}">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label>Mô tả buổi hoạt động</label>
+                    <input type="text" class="form-control" name="sess_desc_\${idx}" value="\${escapeHtml(s.description)}">
+                  </div>
+                </div>
+              \`).join('')}
+            </div>
+
+            <div style="border-top: 1px solid var(--color-neutral-light); padding-top: 16px; margin-top: 16px;">
+              <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 12px; color: var(--color-primary);">Đầu mối Liên hệ Chính thức (Official Contacts)</h3>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Trưởng dự án</label>
+                  <input type="text" class="form-control" name="contact_name_0" value="\${escapeHtml(contacts.people[0]?.name || 'Nguyễn Chí Trung')}">
+                </div>
+                <div class="form-group">
+                  <label>Số điện thoại</label>
+                  <input type="text" class="form-control" name="contact_phone_0" value="\${escapeHtml(contacts.people[0]?.phone || '0984 441 726')}">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Đại diện đối ngoại</label>
+                  <input type="text" class="form-control" name="contact_name_1" value="\${escapeHtml(contacts.people[1]?.name || 'Lê Tuấn Anh')}">
+                </div>
+                <div class="form-group">
+                  <label>Số điện thoại</label>
+                  <input type="text" class="form-control" name="contact_phone_1" value="\${escapeHtml(contacts.people[1]?.phone || '0343 999 199')}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Trang Facebook / Fanpage Dự án</label>
+                <input type="url" class="form-control" name="contact_fanpage" value="\${escapeHtml(contacts.fanpageUrl || 'https://www.facebook.com/mangtheomotnetve')}">
               </div>
             </div>
 
             <div style="margin-top: 20px;">
-              <button type="submit" class="btn btn-primary" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Lưu bản nháp phân hệ Dự án</button>
+              <button type="submit" class="btn btn-primary" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Lưu toàn bộ bản nháp phân hệ Dự án</button>
             </div>
           </form>
         \`;
@@ -757,6 +862,38 @@ export function renderStudioHtml(session: AuthSession): string {
             executionStatus: fd.get('executionStatus'),
             statusNotice: fd.get('statusNotice'),
             previewNotice: fd.get('previewNotice'),
+            progress: {
+              currentWeek: parseInt(fd.get('prog_currentWeek'), 10),
+              totalWeeks: parseInt(fd.get('prog_totalWeeks'), 10),
+              currentStageIndex: parseInt(fd.get('prog_currentStageIndex'), 10),
+              updatedAt: fd.get('prog_updatedAt'),
+            },
+            plannedSessions: sessions.map((s, idx) => ({
+              ...s,
+              title: fd.get(\`sess_title_\${idx}\`),
+              date: fd.get(\`sess_date_\${idx}\`),
+              time: fd.get(\`sess_time_\${idx}\`),
+              weekday: fd.get(\`sess_weekday_\${idx}\`),
+              description: fd.get(\`sess_desc_\${idx}\`),
+            })),
+            contacts: {
+              ...contacts,
+              people: [
+                {
+                  name: fd.get('contact_name_0'),
+                  role: 'Trưởng dự án',
+                  phone: fd.get('contact_phone_0'),
+                  phoneE164: '+84' + String(fd.get('contact_phone_0')).replace(/\\D/g, '').replace(/^0/, ''),
+                },
+                {
+                  name: fd.get('contact_name_1'),
+                  role: 'Đại diện đối ngoại',
+                  phone: fd.get('contact_phone_1'),
+                  phoneE164: '+84' + String(fd.get('contact_phone_1')).replace(/\\D/g, '').replace(/^0/, ''),
+                },
+              ],
+              fanpageUrl: fd.get('contact_fanpage'),
+            },
           };
 
           const saveRes = await fetchApi('/api/drafts/project', {
@@ -765,7 +902,7 @@ export function renderStudioHtml(session: AuthSession): string {
             body: JSON.stringify({
               data: updated,
               expectedHash: activeDraft.revisionHash,
-              comment: 'Cập nhật thông tin dự án'
+              comment: 'Cập nhật thông tin dự án, tiến độ và lịch trình'
             })
           });
 
@@ -782,6 +919,8 @@ export function renderStudioHtml(session: AuthSession): string {
       // ==========================================
       // Tab 3: Journal Editor
       // ==========================================
+      let journalArticlesCache = [];
+
       async function renderJournalEditor() {
         const res = await fetchApi('/api/drafts/journal');
         if (!res.ok) {
@@ -789,12 +928,16 @@ export function renderStudioHtml(session: AuthSession): string {
           return;
         }
         activeDraft = res.data.draft;
-        const articles = Array.isArray(activeDraft.data) ? activeDraft.data : [];
+        journalArticlesCache = Array.isArray(activeDraft.data) ? JSON.parse(JSON.stringify(activeDraft.data)) : [];
 
+        renderJournalListView();
+      }
+
+      function renderJournalListView() {
         tabContent.innerHTML = \`
           <div class="card">
             <div class="card-title">
-              <span>Danh sách bài viết nhật ký thực địa (\${articles.length})</span>
+              <span>Danh sách bài viết nhật ký thực địa (\${journalArticlesCache.length})</span>
               <button class="btn btn-primary btn-sm" id="addNewArticleBtn" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>+ Viết bài mới</button>
             </div>
             <div class="table-container">
@@ -810,24 +953,278 @@ export function renderStudioHtml(session: AuthSession): string {
                   </tr>
                 </thead>
                 <tbody>
-                  \${articles.map((a, idx) => \`
+                  \${journalArticlesCache.map((a, idx) => \`
                     <tr>
-                      <td><code>\${a.slug}</code></td>
-                      <td><strong>\${a.title}</strong></td>
-                      <td>\${a.categoryLabel || a.category}</td>
-                      <td>\${a.publishedAt}</td>
-                      <td><span class="role-badge" style="background:\${a.status === 'published' ? '#C6F6D5' : '#FED7D7'}; color:#2D3748;">\${a.status}</span></td>
+                      <td><code>\${escapeHtml(a.slug)}</code></td>
+                      <td><strong>\${escapeHtml(a.title)}</strong></td>
+                      <td>\${escapeHtml(a.categoryLabel || a.category)}</td>
+                      <td>\${escapeHtml(a.publishedAt)}</td>
+                      <td><span class="role-badge" style="background:\${a.status === 'published' ? '#C6F6D5' : '#FED7D7'}; color:#2D3748;">\${escapeHtml(a.status)}</span></td>
                       <td>
-                        <button class="btn btn-secondary btn-sm" onclick="alert('Chỉnh sửa chi tiết bài viết: ' + '\${a.slug}')">Sửa</button>
+                        <button class="btn btn-secondary btn-sm" onclick="openArticleEditor(\${idx})" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Sửa bài viết ✏️</button>
                       </td>
                     </tr>
                   \`).join('')}
+                  \${journalArticlesCache.length === 0 ? '<tr><td colspan="6" style="text-align: center; color: var(--color-neutral-mid);">Chưa có bài viết nhật ký nào.</td></tr>' : ''}
                 </tbody>
               </table>
             </div>
           </div>
         \`;
+
+        const addBtn = document.getElementById('addNewArticleBtn');
+        if (addBtn) {
+          addBtn.addEventListener('click', () => {
+            const newArt = {
+              slug: 'bai-viet-moi-' + Date.now(),
+              title: 'Tiêu đề bài viết mới',
+              summary: 'Tóm tắt bài viết...',
+              category: 'hoat-dong',
+              categoryLabel: 'Hoạt động',
+              publishedAt: new Date().toISOString().slice(0, 10),
+              eventDate: new Date().toISOString().slice(0, 10),
+              eventStatus: 'completed',
+              status: 'draft',
+              content: [{ type: 'paragraph', text: 'Nội dung đoạn văn đầu tiên...' }]
+            };
+            journalArticlesCache.push(newArt);
+            openArticleEditor(journalArticlesCache.length - 1);
+          });
+        }
       }
+
+      window.openArticleEditor = function(articleIdx) {
+        const a = journalArticlesCache[articleIdx];
+        if (!a) return;
+
+        tabContent.innerHTML = \`
+          <div class="card">
+            <div class="card-title">
+              <span>Chỉnh sửa bài viết: <code>\${escapeHtml(a.slug)}</code></span>
+              <button class="btn btn-secondary btn-sm" id="backToJournalListBtn">← Quay lại danh sách</button>
+            </div>
+
+            <form id="articleForm">
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Slug đường dẫn *</label>
+                  <input type="text" class="form-control" name="art_slug" value="\${escapeHtml(a.slug)}" required>
+                </div>
+                <div class="form-group">
+                  <label>Tiêu đề bài viết *</label>
+                  <input type="text" class="form-control" name="art_title" value="\${escapeHtml(a.title)}" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Tóm tắt bài viết *</label>
+                <textarea class="form-control" name="art_summary" required>\${escapeHtml(a.summary)}</textarea>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Danh mục</label>
+                  <select class="form-control" name="art_category">
+                    <option value="ke-hoach" \${a.category === 'ke-hoach' ? 'selected' : ''}>Kế hoạch (ke-hoach)</option>
+                    <option value="chuan-bi" \${a.category === 'chuan-bi' ? 'selected' : ''}>Chuẩn bị (chuan-bi)</option>
+                    <option value="hoat-dong" \${a.category === 'hoat-dong' ? 'selected' : ''}>Hoạt động (hoat-dong)</option>
+                    <option value="ban-giao" \${a.category === 'ban-giao' ? 'selected' : ''}>Bàn giao (ban-giao)</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Nhãn hiển thị danh mục</label>
+                  <input type="text" class="form-control" name="art_categoryLabel" value="\${escapeHtml(a.categoryLabel || '')}">
+                </div>
+                <div class="form-group">
+                  <label>Trạng thái bài viết</label>
+                  <select class="form-control" name="art_status">
+                    <option value="draft" \${a.status === 'draft' ? 'selected' : ''}>Bản nháp (draft)</option>
+                    <option value="published" \${a.status === 'published' ? 'selected' : ''}>Đã duyệt xuất bản (published)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Ngày công bố (YYYY-MM-DD) *</label>
+                  <input type="date" class="form-control" name="art_publishedAt" value="\${escapeHtml(a.publishedAt)}" required>
+                </div>
+                <div class="form-group">
+                  <label>Ngày sự kiện thực tế</label>
+                  <input type="date" class="form-control" name="art_eventDate" value="\${escapeHtml(a.eventDate || '')}">
+                </div>
+                <div class="form-group">
+                  <label>Trạng thái sự kiện</label>
+                  <select class="form-control" name="art_eventStatus">
+                    <option value="planned" \${a.eventStatus === 'planned' ? 'selected' : ''}>Kế hoạch (planned)</option>
+                    <option value="in_progress" \${a.eventStatus === 'in_progress' ? 'selected' : ''}>Đang diễn ra (in_progress)</option>
+                    <option value="completed" \${a.eventStatus === 'completed' ? 'selected' : ''}>Đã hoàn thành (completed)</option>
+                    <option value="cancelled" \${a.eventStatus === 'cancelled' ? 'selected' : ''}>Đã hủy (cancelled)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div style="border-top: 1px solid var(--color-neutral-light); padding-top: 16px; margin-top: 16px;">
+                <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 12px; color: var(--color-primary);">Ảnh bìa đại diện (Cover Image)</h3>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Đường dẫn ảnh bìa (src)</label>
+                    <input type="text" class="form-control" name="cover_src" value="\${escapeHtml(a.coverImage?.src || '')}">
+                  </div>
+                  <div class="form-group">
+                    <label>Alt Text (Tiếp cận)</label>
+                    <input type="text" class="form-control" name="cover_alt" value="\${escapeHtml(a.coverImage?.alt || '')}">
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Chú thích (Caption)</label>
+                    <input type="text" class="form-control" name="cover_caption" value="\${escapeHtml(a.coverImage?.caption || '')}">
+                  </div>
+                  <div class="form-group">
+                    <label>Tác giả / Nguồn ảnh (Credit Name)</label>
+                    <input type="text" class="form-control" name="cover_creditName" value="\${escapeHtml(a.coverImage?.creditName || '')}">
+                  </div>
+                </div>
+              </div>
+
+              <div style="border-top: 1px solid var(--color-neutral-light); padding-top: 16px; margin-top: 16px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                  <h3 style="font-size: 1rem; font-weight: 700; color: var(--color-primary);">Các khối nội dung bài viết (\${(a.content || []).length})</h3>
+                  <button type="button" class="btn btn-secondary btn-sm" id="addBlockBtn">+ Thêm đoạn văn</button>
+                </div>
+
+                <div id="blocksContainer">
+                  \${(a.content || []).map((blk, bIdx) => \`
+                    <div style="background: var(--color-bg-app); border: 1px solid var(--color-neutral-light); border-radius: 6px; padding: 12px; margin-bottom: 12px;" data-bidx="\${bIdx}">
+                      <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                        <strong>Khối \${bIdx + 1}: \${escapeHtml(blk.type)}</strong>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="removeArticleBlock(\${articleIdx}, \${bIdx})">Xóa khối 🗑️</button>
+                      </div>
+                      <div class="form-row">
+                        <div class="form-group">
+                          <label>Loại khối</label>
+                          <select class="form-control" name="blk_type_\${bIdx}">
+                            <option value="paragraph" \${blk.type === 'paragraph' ? 'selected' : ''}>Đoạn văn (paragraph)</option>
+                            <option value="heading" \${blk.type === 'heading' ? 'selected' : ''}>Tiêu đề phụ (heading)</option>
+                            <option value="callout" \${blk.type === 'callout' ? 'selected' : ''}>Hộp lưu ý (callout)</option>
+                            <option value="quote" \${blk.type === 'quote' ? 'selected' : ''}>Trích dẫn (quote)</option>
+                            <option value="list" \${blk.type === 'list' ? 'selected' : ''}>Danh sách (list - cách nhau dấu phẩy)</option>
+                            <option value="image" \${blk.type === 'image' ? 'selected' : ''}>Ảnh trong bài (image)</option>
+                          </select>
+                        </div>
+                        <div class="form-group" style="flex: 2;">
+                          <label>Nội dung văn bản / Đường dẫn ảnh / Danh sách</label>
+                          <textarea class="form-control" name="blk_text_\${bIdx}">\${escapeHtml(blk.text || (blk.items ? blk.items.join(', ') : blk.src || ''))}</textarea>
+                        </div>
+                      </div>
+                    </div>
+                  \`).join('')}
+                </div>
+              </div>
+
+              <div style="margin-top: 20px; display: flex; gap: 12px;">
+                <button type="submit" class="btn btn-primary" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Lưu bài viết vào bản nháp 💾</button>
+                <button type="button" class="btn btn-secondary" onclick="renderJournalListView()">Hủy</button>
+              </div>
+            </form>
+          </div>
+        \`;
+
+        document.getElementById('backToJournalListBtn')?.addEventListener('click', renderJournalListView);
+
+        document.getElementById('addBlockBtn')?.addEventListener('click', () => {
+          if (!a.content) a.content = [];
+          a.content.push({ type: 'paragraph', text: '' });
+          openArticleEditor(articleIdx);
+        });
+
+        const artForm = document.getElementById('articleForm');
+        artForm?.addEventListener('input', () => setDirty(true));
+        artForm?.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const fd = new FormData(artForm);
+
+          const blocks = [];
+          const bCount = (a.content || []).length;
+          for (let i = 0; i < bCount; i++) {
+            const bType = fd.get(\`blk_type_\${i}\`) || 'paragraph';
+            const bRaw = fd.get(\`blk_text_\${i}\`) || '';
+            if (bType === 'list') {
+              blocks.push({
+                type: 'list',
+                items: bRaw.split(',').map(s => s.trim()).filter(Boolean)
+              });
+            } else if (bType === 'image') {
+              blocks.push({
+                type: 'image',
+                src: bRaw.trim(),
+                alt: 'Ảnh minh họa',
+                caption: ''
+              });
+            } else if (bType === 'heading') {
+              blocks.push({
+                type: 'heading',
+                level: 2,
+                text: bRaw
+              });
+            } else {
+              blocks.push({
+                type: bType,
+                text: bRaw
+              });
+            }
+          }
+
+          a.slug = fd.get('art_slug');
+          a.title = fd.get('art_title');
+          a.summary = fd.get('art_summary');
+          a.category = fd.get('art_category');
+          a.categoryLabel = fd.get('art_categoryLabel') || undefined;
+          a.status = fd.get('art_status');
+          a.publishedAt = fd.get('art_publishedAt');
+          a.eventDate = fd.get('art_eventDate') || null;
+          a.eventStatus = fd.get('art_eventStatus') || null;
+          a.content = blocks.length > 0 ? blocks : [{ type: 'paragraph', text: 'Nội dung bài viết' }];
+
+          const coverSrc = fd.get('cover_src');
+          if (coverSrc) {
+            a.coverImage = {
+              src: coverSrc,
+              alt: fd.get('cover_alt') || '',
+              caption: fd.get('cover_caption') || '',
+              creditName: fd.get('cover_creditName') || undefined,
+            };
+          }
+
+          const saveRes = await fetchApi('/api/drafts/journal', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              data: journalArticlesCache,
+              expectedHash: activeDraft.revisionHash,
+              comment: 'Cập nhật bài viết nhật ký: ' + a.slug
+            })
+          });
+
+          if (saveRes.ok) {
+            setDirty(false);
+            activeDraft = saveRes.data.draft;
+            alert('Đã lưu bài viết nhật ký thành công!');
+            renderJournalListView();
+          } else {
+            alert('Lỗi lưu bài viết: ' + (saveRes.data.error || 'Lỗi không xác định'));
+          }
+        });
+      };
+
+      window.removeArticleBlock = function(articleIdx, blockIdx) {
+        const a = journalArticlesCache[articleIdx];
+        if (a && a.content) {
+          a.content.splice(blockIdx, 1);
+          openArticleEditor(articleIdx);
+        }
+      };
 
       // ==========================================
       // Tab 4: Media Library
@@ -1065,8 +1462,96 @@ export function renderStudioHtml(session: AuthSession): string {
         }
         activeDraft = res.data.draft;
         const f = activeDraft.data || {};
+        const acc = f.donationAccount || {
+          status: 'active',
+          bankName: 'Techcombank',
+          accountNumber: '999927052006',
+          accountHolder: 'LE TUAN ANH',
+          qrImage: '/images/ung-ho/qr-ung-ho-techcombank.png',
+          transferPrefix: 'MTMNV',
+          goalAmount: 3000000,
+        };
+        const steps = f.ledgerProcess || [
+          { title: 'Một tài khoản riêng cho dự án', description: 'Mọi khoản ủng hộ chuyển vào tài khoản Techcombank đã công bố, nội dung bắt đầu bằng MTMNV để dễ nhận diện.' },
+          { title: 'Hai người đối chiếu', description: 'Thành viên tài chính và một thành viên khác cùng đối chiếu từng khoản với sao kê ngân hàng trước khi ghi sổ.' },
+          { title: 'Ghi sổ tối thiểu', description: 'Mỗi dòng gồm ngày, số tiền, mã giao dịch rút gọn và tên người ủng hộ đồng ý hiển thị; không ghi tên thì để Ẩn danh.' },
+          { title: 'Chỉ công bố sau đối soát', description: 'Sổ được cập nhật lên website định kỳ sau mỗi lần đối soát, kèm ngày đối soát thật. Website không kết nối tự động với ngân hàng.' },
+          { title: 'Xử lý nhầm, trùng, hoàn tiền', description: 'Mỗi mã giao dịch chỉ ghi một lần. Khoản chuyển nhầm được hoàn lại theo yêu cầu và không tính vào tổng; chỉnh sửa được ghi chú ở lần cập nhật sau.' },
+          { title: 'Tôn trọng riêng tư', description: 'Không công khai số tài khoản, ngân hàng hay thông tin cá nhân của người gửi; chứng từ chỉ công bố bản đã che thông tin.' },
+        ];
 
         tabContent.innerHTML = \`
+          <!-- Thẻ 1: Cấu hình Tài khoản Tiếp nhận & Mục tiêu Gây quỹ -->
+          <form id="donationAccountForm" class="card">
+            <div class="card-title">
+              <span>Cấu hình Tài khoản Tiếp nhận & Mục tiêu Gây quỹ</span>
+              <button type="submit" class="btn btn-primary" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Lưu tài khoản & mục tiêu 💾</button>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Trạng thái tiếp nhận *</label>
+                <select class="form-control" name="acc_status">
+                  <option value="active" \${acc.status === 'active' ? 'selected' : ''}>Đang tiếp nhận chính thức (active)</option>
+                  <option value="pending" \${acc.status === 'pending' ? 'selected' : ''}>Chờ duyệt / Tạm dừng (pending)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Mục tiêu gây quỹ (VNĐ) *</label>
+                <input type="number" class="form-control" name="acc_goalAmount" value="\${acc.goalAmount || 3000000}" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Ngân hàng tiếp nhận *</label>
+                <input type="text" class="form-control" name="acc_bankName" value="\${escapeHtml(acc.bankName || 'Techcombank')}" required>
+              </div>
+              <div class="form-group">
+                <label>Số tài khoản *</label>
+                <input type="text" class="form-control" name="acc_accountNumber" value="\${escapeHtml(acc.accountNumber || '999927052006')}" required>
+              </div>
+              <div class="form-group">
+                <label>Tên chủ tài khoản *</label>
+                <input type="text" class="form-control" name="acc_accountHolder" value="\${escapeHtml(acc.accountHolder || 'LE TUAN ANH')}" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Tiền tố chuyển khoản (Transfer Prefix) *</label>
+                <input type="text" class="form-control" name="acc_transferPrefix" value="\${escapeHtml(acc.transferPrefix || 'MTMNV')}" required>
+              </div>
+              <div class="form-group">
+                <label>Đường dẫn mã QR (qrImage)</label>
+                <input type="text" class="form-control" name="acc_qrImage" value="\${escapeHtml(acc.qrImage || '/images/ung-ho/qr-ung-ho-techcombank.png')}">
+              </div>
+            </div>
+
+            <div style="border-top: 1px solid var(--color-neutral-light); padding-top: 16px; margin-top: 16px;">
+              <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 12px; color: var(--color-primary);">Quy trình 6 Bước Quản lý & Công bố Tiền ủng hộ (Ledger Process)</h3>
+              \${steps.map((st, sIdx) => \`
+                <div style="background: var(--color-bg-app); border: 1px solid var(--color-neutral-light); border-radius: 6px; padding: 10px; margin-bottom: 10px;">
+                  <div class="form-row">
+                    <div class="form-group" style="flex: 1;">
+                      <label>Bước \${sIdx + 1}: Tiêu đề</label>
+                      <input type="text" class="form-control" name="step_title_\${sIdx}" value="\${escapeHtml(st.title)}">
+                    </div>
+                    <div class="form-group" style="flex: 2;">
+                      <label>Mô tả quy trình</label>
+                      <input type="text" class="form-control" name="step_desc_\${sIdx}" value="\${escapeHtml(st.description)}">
+                    </div>
+                  </div>
+                </div>
+              \`).join('')}
+            </div>
+
+            <div style="margin-top: 16px;">
+              <button type="submit" class="btn btn-primary" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Lưu cấu hình tài khoản & quy trình đối soát</button>
+            </div>
+          </form>
+
+          <!-- Thẻ 2: Đối soát CSV & Bốn mắt -->
           <div class="card">
             <div class="card-title">Đối soát & Thẩm định Sao kê Ủng hộ (CSV)</div>
             <div class="alert alert-warning">
@@ -1079,10 +1564,10 @@ export function renderStudioHtml(session: AuthSession): string {
                 <span class="role-badge" style="background:\${f.reconciled ? '#C6F6D5' : '#FED7D7'}; color:#2D3748;">\${f.reconciled ? 'Đã đối soát' : 'Chưa đối soát'}</span>
               </div>
               <div>
-                <strong>Mốc ngày đối soát:</strong> \${f.reconciledAt || 'Chưa chốt'}
+                <strong>Mốc ngày đối soát:</strong> \${escapeHtml(f.reconciledAt || 'Chưa chốt')}
               </div>
               <div>
-                <strong>Phê duyệt công khai:</strong> \${f.publicApproval}
+                <strong>Phê duyệt công khai:</strong> \${escapeHtml(f.publicApproval)}
               </div>
             </div>
 
@@ -1093,12 +1578,13 @@ export function renderStudioHtml(session: AuthSession): string {
               </div>
               <div class="form-group">
                 <label>Mốc ngày chốt đối soát (YYYY-MM-DD)</label>
-                <input type="date" name="reconciledAt" class="form-control" value="\${f.reconciledAt || '2026-10-31'}">
+                <input type="date" name="reconciledAt" class="form-control" value="\${escapeHtml(f.reconciledAt || '2026-10-31')}">
               </div>
               <button type="submit" class="btn btn-primary" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Thẩm định tệp CSV 📋</button>
             </form>
           </div>
 
+          <!-- Thẻ 3: Bản chiếu giao dịch sao kê -->
           <div class="card">
             <div class="card-title">Bản chiếu giao dịch sao kê đã xử lý (\${(f.entries || []).length} khoản)</div>
             <div class="table-container">
@@ -1114,10 +1600,10 @@ export function renderStudioHtml(session: AuthSession): string {
                 <tbody>
                   \${(f.entries || []).map(e => \`
                     <tr>
-                      <td>\${e.date}</td>
+                      <td>\${escapeHtml(e.date)}</td>
                       <td><strong>\${Number(e.amount).toLocaleString('vi-VN')} đ</strong></td>
-                      <td>\${e.donor}</td>
-                      <td><code>\${e.reference || '(Trống)'}</code></td>
+                      <td>\${escapeHtml(e.donor)}</td>
+                      <td><code>\${escapeHtml(e.reference || '(Trống)')}</code></td>
                     </tr>
                   \`).join('')}
                   \${(f.entries || []).length === 0 ? '<tr><td colspan="4" style="text-align: center; color: var(--color-neutral-mid);">Chưa có khoản ủng hộ nào được phê duyệt công khai.</td></tr>' : ''}
@@ -1127,8 +1613,52 @@ export function renderStudioHtml(session: AuthSession): string {
           </div>
         \`;
 
+        const accForm = document.getElementById('donationAccountForm');
+        accForm?.addEventListener('input', () => setDirty(true));
+        accForm?.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const fd = new FormData(accForm);
+
+          const updatedSteps = steps.map((st, idx) => ({
+            title: fd.get(\`step_title_\${idx}\`) || st.title,
+            description: fd.get(\`step_desc_\${idx}\`) || st.description,
+          }));
+
+          const updated = {
+            ...activeDraft.data,
+            donationAccount: {
+              status: fd.get('acc_status'),
+              goalAmount: parseInt(fd.get('acc_goalAmount'), 10),
+              bankName: fd.get('acc_bankName'),
+              accountNumber: fd.get('acc_accountNumber'),
+              accountHolder: fd.get('acc_accountHolder'),
+              transferPrefix: fd.get('acc_transferPrefix'),
+              qrImage: fd.get('acc_qrImage'),
+            },
+            ledgerProcess: updatedSteps,
+          };
+
+          const saveRes = await fetchApi('/api/drafts/finance', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              data: updated,
+              expectedHash: activeDraft.revisionHash,
+              comment: 'Cập nhật tài khoản ủng hộ và quy trình đối soát'
+            })
+          });
+
+          if (saveRes.ok) {
+            setDirty(false);
+            activeDraft = saveRes.data.draft;
+            alert('Đã lưu cấu hình tài khoản ủng hộ và quy trình đối soát thành công!');
+          } else {
+            alert('Lỗi lưu: ' + (saveRes.data.error || 'Lỗi không xác định'));
+          }
+        });
+
         const csvForm = document.getElementById('csvImportForm');
-        csvForm.addEventListener('submit', async (e) => {
+        csvForm?.addEventListener('submit', async (e) => {
           e.preventDefault();
           const fd = new FormData(csvForm);
           const valRes = await fetch('/api/finance/import-csv', {
@@ -1155,65 +1685,202 @@ export function renderStudioHtml(session: AuthSession): string {
         }
         activeDraft = res.data.draft;
         const t = activeDraft.data || {};
+        const members = t.members || [
+          { name: 'Nguyễn Chí Trung', role: 'Trưởng dự án', photo: '/images/thanh-vien/nguyen-chi-trung.webp', description: 'Lên lịch, theo dõi tiến độ và điều phối hoạt động của nhóm.' },
+          { name: 'Nguyễn Ngọc Khoa', role: 'Tài chính', photo: '/images/thanh-vien/nguyen-ngoc-khoa.webp', description: 'Giữ sổ ủng hộ, đối chiếu sao kê và mua quà theo danh mục.' },
+          { name: 'Nguyễn Như Huy', role: 'Hậu cần', photo: '/images/thanh-vien/nguyen-nhu-huy.webp', description: 'Chuẩn bị vật tư, đạo cụ và chương trình buổi chơi.' },
+          { name: 'Trịnh Hiển Lân', role: 'Truyền thông', photo: '/images/thanh-vien/trinh-hien-lan.webp', description: 'Viết bài, quản lý lịch đăng và hình ảnh đúng phạm vi cho phép.' },
+          { name: 'Trần Bình Trọng', role: 'Thiết kế', photo: '/images/thanh-vien/tran-binh-trong.webp', description: 'Thiết kế ấn phẩm, poster và nhận diện của dự án.' },
+          { name: 'Lê Tuấn Anh', role: 'Đối ngoại', photo: '/images/thanh-vien/le-tuan-anh.webp', description: 'Làm việc với Mái ấm và các đơn vị hỗ trợ.' },
+          { name: 'Nguyễn Anh Khoa', role: 'Hậu cần', photo: '/images/thanh-vien/nguyen-anh-khoa.webp', description: 'Chuẩn bị quà lưu niệm, quầy và di chuyển.' },
+        ];
+        const pFaqs = t.productFaqs || [
+          { question: 'Giá trên trang có phải giá bán chính thức?', answer: 'Chưa. Đây là giá tham khảo trong kế hoạch. Giá, mẫu và số lượng chính thức sẽ được công bố khi mở bán.' },
+          { question: 'Ai làm các sản phẩm này?', answer: 'Toàn bộ sản phẩm gây quỹ do nhóm Lăng Kính chuẩn bị và hoàn thiện. Hoạt động tại Mái ấm hoàn toàn là vui chơi sáng tạo, không gắn với sản xuất hàng bán; các em giữ lại sản phẩm do mình làm ra. Tranh của các em chỉ được in lên móc khóa khi có sự đồng ý phù hợp.' },
+          { question: 'Khi nào có thể đặt mua?', answer: 'Khi kế hoạch bán được duyệt, nhóm sẽ công bố cách đặt hàng tại trang này. Hiện website chưa nhận đơn đặt hàng hoặc thanh toán sản phẩm.' },
+          { question: 'Tiền bán hàng được dùng thế nào?', answer: 'Trước hết bù chi phí nguyên liệu và tổ chức. Phần còn lại dùng mua vật phẩm theo danh mục Mái ấm xác nhận, có hóa đơn và biên bản bàn giao.' },
+        ];
+        const sFaqs = t.supportFaqs || [
+          { question: 'Làm sao để tên tôi xuất hiện trong sao kê?', answer: 'Ghi nội dung chuyển khoản theo mẫu MTMNV và tên bạn muốn hiển thị. Nếu không ghi tên hoặc ghi “An danh”, khoản ủng hộ hiển thị là Ẩn danh. Website không hiển thị số tài khoản hay thông tin ngân hàng của người gửi.' },
+          { question: 'Khi nào khoản ủng hộ của tôi được cập nhật?', answer: 'Sau mỗi lần thành viên tài chính cùng một thành viên khác đối chiếu với sao kê ngân hàng. Website không kết nối tự động với ngân hàng; khi sổ được công bố, ngày đối soát gần nhất sẽ hiển thị ở đầu bảng. Khoản ủng hộ được cập nhật định kỳ sau khi đối soát xong.' },
+          { question: 'Tôi chuyển nhầm số tiền hoặc chuyển trùng thì sao?', answer: 'Hãy liên hệ một trong hai số điện thoại của nhóm kèm thời gian và mã giao dịch. Nhóm đối chiếu với sao kê và hoàn lại nếu bạn yêu cầu; khoản đã hoàn không được tính vào tổng ủng hộ.' },
+          { question: 'Tiền ủng hộ được dùng vào việc gì?', answer: 'Cho vật tư buổi chơi, quà cho các em và di chuyển; phần còn lại mua vật phẩm theo danh mục Mái ấm xác nhận, có hóa đơn và biên bản bàn giao.' },
+          { question: 'Tôi có thể cùng đến Mái ấm không?', answer: 'Chỉ khi Mái ấm đồng ý trước. Nhóm không tuyển người tự do đến Mái ấm, để bảo đảm an toàn và riêng tư cho các em.' },
+        ];
+        const tFaqs = t.transparencyFaqs || [
+          { question: 'Vì sao tổng ủng hộ đang ghi “Chưa cập nhật”?', answer: 'Tổng chỉ được tính từ sổ đã đối chiếu với sao kê ngân hàng. Khi nhóm chưa công bố sổ đã đối soát chính thức, website không hiển thị con số (kể cả 0đ) để tránh hiểu lầm là chưa nhận được khoản ủng hộ nào.' },
+          { question: 'Tiền bán quà lưu niệm có cộng vào tổng ủng hộ không?', answer: 'Không. Thanh tiến độ chỉ tính các khoản ủng hộ qua tài khoản dự án đã đối soát. Tiền bán quà được ghi riêng.' },
+          { question: 'Trường hợp số tiền ủng hộ vượt mục tiêu 3.000.000đ thì xử lý thế nào?', answer: 'Website vẫn ghi đúng tổng thực tế đã đối soát. Phần vượt mục tiêu sẽ được dùng mua thêm vật phẩm theo danh mục Mái ấm xác nhận và ghi rõ trong báo cáo tổng kết.' },
+          { question: 'Khi nào nhóm công bố báo cáo tổng kết dự án?', answer: 'Sau buổi trao quà và khi thành viên tài chính cùng một thành viên khác hoàn tất đối soát. Chứng từ chỉ công bố bản đã che thông tin riêng tư.' },
+        ];
 
         tabContent.innerHTML = \`
           <form id="teamForm" class="card">
             <div class="card-title">
-              <span>Thông tin Nhóm & Cấu hình SEO</span>
+              <span>Thông tin Nhóm, Thành viên, FAQs & SEO</span>
               <button type="submit" class="btn btn-primary" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Lưu phân hệ Nhóm 💾</button>
             </div>
 
             <div class="form-row">
               <div class="form-group">
                 <label>Tên nhóm *</label>
-                <input type="text" class="form-control" name="teamName" value="\${t.info?.name || ''}" required>
+                <input type="text" class="form-control" name="teamName" value="\${escapeHtml(t.info?.name || 'Lăng Kính')}" required>
               </div>
               <div class="form-group">
                 <label>Học phần / Lớp</label>
-                <input type="text" class="form-control" name="course" value="\${t.info?.course || ''}">
+                <input type="text" class="form-control" name="course" value="\${escapeHtml(t.info?.course || 'Học phần SSG105 — Đại học FPT Hà Nội')}">
+              </div>
+              <div class="form-group">
+                <label>Mã lớp</label>
+                <input type="text" class="form-control" name="classId" value="\${escapeHtml(t.info?.classId || 'AI2015')}">
               </div>
             </div>
 
             <div class="form-group">
               <label>Giới thiệu nhóm *</label>
-              <textarea class="form-control" name="teamDesc" required>\${t.info?.description || ''}</textarea>
+              <textarea class="form-control" name="teamDesc" required>\${escapeHtml(t.info?.description || '')}</textarea>
             </div>
 
-            <h3 style="font-size: 1rem; font-weight: 700; margin: 20px 0 12px; color: var(--color-primary);">Thẻ Meta SEO & Chia sẻ Mạng Xã Hội</h3>
-            <div class="form-row">
-              <div class="form-group">
-                <label>Tiêu đề trang (SEO Title)</label>
-                <input type="text" class="form-control" name="siteTitle" value="\${t.siteMeta?.siteTitle || ''}">
-              </div>
-              <div class="form-group">
-                <label>Ảnh đại diện chia sẻ (og:image)</label>
-                <input type="text" class="form-control" name="ogImage" value="\${t.siteMeta?.ogImage || ''}">
-              </div>
+            <!-- Bảy thành viên nhóm -->
+            <div style="border-top: 1px solid var(--color-neutral-light); padding-top: 16px; margin-top: 16px;">
+              <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 12px; color: var(--color-primary);">Hồ sơ 7 Thành viên Nhóm (Team Members)</h3>
+              \${members.map((m, mIdx) => \`
+                <div style="background: var(--color-bg-app); border: 1px solid var(--color-neutral-light); border-radius: 6px; padding: 12px; margin-bottom: 12px;">
+                  <strong style="display:block; margin-bottom: 8px;">Thành viên \${mIdx + 1}: \${escapeHtml(m.name)} (\${escapeHtml(m.role)})</strong>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label>Họ và tên</label>
+                      <input type="text" class="form-control" name="mem_name_\${mIdx}" value="\${escapeHtml(m.name)}">
+                    </div>
+                    <div class="form-group">
+                      <label>Vai trò phụ trách</label>
+                      <input type="text" class="form-control" name="mem_role_\${mIdx}" value="\${escapeHtml(m.role)}">
+                    </div>
+                    <div class="form-group">
+                      <label>Đường dẫn ảnh đại diện</label>
+                      <input type="text" class="form-control" name="mem_photo_\${mIdx}" value="\${escapeHtml(m.photo)}">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label>Mô tả nhiệm vụ & đóng góp</label>
+                    <input type="text" class="form-control" name="mem_desc_\${mIdx}" value="\${escapeHtml(m.description)}">
+                  </div>
+                </div>
+              \`).join('')}
             </div>
-            <div class="form-group">
-              <label>Mô tả tìm kiếm (SEO Description)</label>
-              <textarea class="form-control" name="siteDescription">\${t.siteMeta?.siteDescription || ''}</textarea>
+
+            <!-- 3 Nhóm FAQs -->
+            <div style="border-top: 1px solid var(--color-neutral-light); padding-top: 16px; margin-top: 16px;">
+              <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 12px; color: var(--color-primary);">1. FAQ Sản phẩm (Product FAQs - \${pFaqs.length} câu)</h3>
+              \${pFaqs.map((q, qIdx) => \`
+                <div style="background: var(--color-bg-app); border: 1px solid var(--color-neutral-light); border-radius: 6px; padding: 10px; margin-bottom: 10px;">
+                  <div class="form-group">
+                    <label>Câu hỏi \${qIdx + 1}</label>
+                    <input type="text" class="form-control" name="pfaq_q_\${qIdx}" value="\${escapeHtml(q.question)}">
+                  </div>
+                  <div class="form-group">
+                    <label>Câu trả lời</label>
+                    <textarea class="form-control" name="pfaq_a_\${qIdx}">\${escapeHtml(q.answer)}</textarea>
+                  </div>
+                </div>
+              \`).join('')}
+
+              <h3 style="font-size: 1rem; font-weight: 700; margin: 20px 0 12px; color: var(--color-primary);">2. FAQ Đồng hành & Tiếp nhận Ủng hộ (Support FAQs - \${sFaqs.length} câu)</h3>
+              \${sFaqs.map((q, qIdx) => \`
+                <div style="background: var(--color-bg-app); border: 1px solid var(--color-neutral-light); border-radius: 6px; padding: 10px; margin-bottom: 10px;">
+                  <div class="form-group">
+                    <label>Câu hỏi \${qIdx + 1}</label>
+                    <input type="text" class="form-control" name="sfaq_q_\${qIdx}" value="\${escapeHtml(q.question)}">
+                  </div>
+                  <div class="form-group">
+                    <label>Câu trả lời</label>
+                    <textarea class="form-control" name="sfaq_a_\${qIdx}">\${escapeHtml(q.answer)}</textarea>
+                  </div>
+                </div>
+              \`).join('')}
+
+              <h3 style="font-size: 1rem; font-weight: 700; margin: 20px 0 12px; color: var(--color-primary);">3. FAQ Minh bạch & Sao kê (Transparency FAQs - \${tFaqs.length} câu)</h3>
+              \${tFaqs.map((q, qIdx) => \`
+                <div style="background: var(--color-bg-app); border: 1px solid var(--color-neutral-light); border-radius: 6px; padding: 10px; margin-bottom: 10px;">
+                  <div class="form-group">
+                    <label>Câu hỏi \${qIdx + 1}</label>
+                    <input type="text" class="form-control" name="tfaq_q_\${qIdx}" value="\${escapeHtml(q.question)}">
+                  </div>
+                  <div class="form-group">
+                    <label>Câu trả lời</label>
+                    <textarea class="form-control" name="tfaq_a_\${qIdx}">\${escapeHtml(q.answer)}</textarea>
+                  </div>
+                </div>
+              \`).join('')}
+            </div>
+
+            <!-- SEO & Social Meta -->
+            <div style="border-top: 1px solid var(--color-neutral-light); padding-top: 16px; margin-top: 16px;">
+              <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 12px; color: var(--color-primary);">Thẻ Meta SEO & Chia sẻ Mạng Xã Hội</h3>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Tiêu đề trang (SEO Title)</label>
+                  <input type="text" class="form-control" name="siteTitle" value="\${escapeHtml(t.siteMeta?.siteTitle || 'Mang Theo Một Nét Vẽ | Dự án thiện nguyện sinh viên FPT')}">
+                </div>
+                <div class="form-group">
+                  <label>Ảnh đại diện chia sẻ (og:image)</label>
+                  <input type="text" class="form-control" name="ogImage" value="\${escapeHtml(t.siteMeta?.ogImage || '/images/illustrations/a01.webp')}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Mô tả tìm kiếm (SEO Description)</label>
+                <textarea class="form-control" name="siteDescription">\${escapeHtml(t.siteMeta?.siteDescription || '')}</textarea>
+              </div>
             </div>
 
             <div style="margin-top: 20px;">
-              <button type="submit" class="btn btn-primary" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Lưu phân hệ Nhóm</button>
+              <button type="submit" class="btn btn-primary" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Lưu toàn bộ phân hệ Nhóm, Thành viên & FAQs</button>
             </div>
           </form>
         \`;
 
         const form = document.getElementById('teamForm');
-        form.addEventListener('input', () => setDirty(true));
-        form.addEventListener('submit', async (e) => {
+        form?.addEventListener('input', () => setDirty(true));
+        form?.addEventListener('submit', async (e) => {
           e.preventDefault();
           const fd = new FormData(form);
+
+          const updatedMembers = members.map((m, idx) => ({
+            name: fd.get(\`mem_name_\${idx}\`) || m.name,
+            role: fd.get(\`mem_role_\${idx}\`) || m.role,
+            photo: fd.get(\`mem_photo_\${idx}\`) || m.photo,
+            description: fd.get(\`mem_desc_\${idx}\`) || m.description,
+          }));
+
+          const updatedPFaqs = pFaqs.map((q, idx) => ({
+            question: fd.get(\`pfaq_q_\${idx}\`) || q.question,
+            answer: fd.get(\`pfaq_a_\${idx}\`) || q.answer,
+          }));
+
+          const updatedSFaqs = sFaqs.map((q, idx) => ({
+            question: fd.get(\`sfaq_q_\${idx}\`) || q.question,
+            answer: fd.get(\`sfaq_a_\${idx}\`) || q.answer,
+          }));
+
+          const updatedTFaqs = tFaqs.map((q, idx) => ({
+            question: fd.get(\`tfaq_q_\${idx}\`) || q.question,
+            answer: fd.get(\`tfaq_a_\${idx}\`) || q.answer,
+          }));
+
           const updated = {
             ...activeDraft.data,
             info: {
               ...(activeDraft.data.info || {}),
               name: fd.get('teamName'),
               course: fd.get('course'),
+              classId: fd.get('classId') || 'AI2015',
               description: fd.get('teamDesc'),
             },
+            members: updatedMembers,
+            productFaqs: updatedPFaqs,
+            supportFaqs: updatedSFaqs,
+            transparencyFaqs: updatedTFaqs,
+            faqs: updatedPFaqs,
             siteMeta: {
               siteTitle: fd.get('siteTitle'),
               siteDescription: fd.get('siteDescription'),
@@ -1227,14 +1894,14 @@ export function renderStudioHtml(session: AuthSession): string {
             body: JSON.stringify({
               data: updated,
               expectedHash: activeDraft.revisionHash,
-              comment: 'Cập nhật thông tin nhóm và SEO'
+              comment: 'Cập nhật thông tin nhóm, 7 thành viên và 3 nhóm FAQs'
             })
           });
 
           if (saveRes.ok) {
             setDirty(false);
             activeDraft = saveRes.data.draft;
-            alert('Đã lưu phân hệ Nhóm & SEO thành công!');
+            alert('Đã lưu phân hệ Nhóm, Thành viên & FAQs thành công!');
           } else {
             alert('Lỗi lưu: ' + (saveRes.data.error || 'Lỗi không xác định'));
           }

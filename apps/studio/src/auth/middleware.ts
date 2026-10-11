@@ -53,6 +53,22 @@ export interface AuthenticateOptions {
   verifyOptions?: Partial<VerifyJwtOptions>;
 }
 
+export function isLoopbackRequest(request: Request): boolean {
+  try {
+    const url = new URL(request.url);
+    const host = (request.headers.get('Host') || url.host || '').toLowerCase();
+    const hostname = host.split(':')[0];
+    return (
+      hostname === 'localhost' ||
+      hostname === '127.0.0.1' ||
+      hostname === '::1' ||
+      hostname.endsWith('.localhost')
+    );
+  } catch {
+    return false;
+  }
+}
+
 /**
  * Xác thực request tới Content Studio và trả về thông tin phiên làm việc
  */
@@ -61,11 +77,13 @@ export async function authenticateRequest(
   env: Env,
   options: AuthenticateOptions = {}
 ): Promise<AuthSession> {
-  const isDev = env.STUDIO_ENVIRONMENT === 'development';
+  const isDevConfigured = env.STUDIO_ENVIRONMENT === 'development';
+  const isLoopback = isLoopbackRequest(request);
+  const allowDevBypass = isDevConfigured && isLoopback;
   const token = extractAccessToken(request);
 
-  // 1. Môi trường phát triển cục bộ (Local Dev Mode)
-  if (isDev) {
+  // 1. Môi trường phát triển cục bộ chỉ áp dụng cho yêu cầu loopback
+  if (allowDevBypass) {
     const url = new URL(request.url);
     const devRoleParam = url.searchParams.get('dev_role');
     const devHeader = request.headers.get('x-dev-user');
@@ -75,7 +93,7 @@ export async function authenticateRequest(
     const selectedRole = (devRoleParam || devHeader || devCookie || 'admin').toLowerCase();
     const devProfile = DEV_USERS[selectedRole] || DEV_USERS.admin;
 
-    // Đảm bảo người dùng dev tồn tại trong D1
+    // Đảm bảo người dùng dev tồn tại trong D1 cục bộ
     if (env.DB) {
       await ensureUserExists(env.DB, devProfile.email, devProfile.role);
     }

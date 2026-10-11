@@ -194,7 +194,7 @@ export async function handleApiRequest(
       contentType: sniff.contentType,
       sizeBytes: bytes.length,
       r2Key,
-      status: 'approved',
+      status: 'pending',
       alt,
       caption: caption || undefined,
       creditName: creditName || undefined,
@@ -213,12 +213,33 @@ export async function handleApiRequest(
       filename: file.name,
       r2Key,
       sizeBytes: bytes.length,
+      status: 'pending',
     });
 
     return jsonResponse({ asset: assetRecord, success: true }, 201);
   }
 
-  // 8. Xóa Media Asset: DELETE /api/media/:id
+  // 8. Duyệt / Từ chối tệp Media: POST /api/media/:id/review
+  const reviewMediaMatch = path.match(/^\/api\/media\/([^/]+)\/review$/);
+  if (reviewMediaMatch && method === 'POST') {
+    validateCsrf(request);
+    assertCanReview(user.role);
+
+    const assetId = reviewMediaMatch[1];
+    const body = (await request.json().catch(() => ({}))) as { action: 'approve' | 'reject' };
+
+    if (!['approve', 'reject'].includes(body.action)) {
+      return errorResponse('Hành động duyệt (action) phải là "approve" hoặc "reject".', 400);
+    }
+
+    const newStatus = body.action === 'approve' ? 'approved' : 'rejected';
+    await dbClient.updateMediaAssetStatus(assetId, newStatus);
+    await dbClient.recordAuditLog(user.email, 'REVIEW_MEDIA', 'media', { assetId, status: newStatus });
+
+    return jsonResponse({ success: true, assetId, status: newStatus });
+  }
+
+  // 9. Xóa Media Asset: DELETE /api/media/:id
   const deleteMediaMatch = path.match(/^\/api\/media\/([^/]+)$/);
   if (deleteMediaMatch && method === 'DELETE') {
     validateCsrf(request);
