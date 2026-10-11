@@ -178,6 +178,8 @@ export interface ProductConfigItem {
   salesChannel: string;
   returnPolicy: string | null;
   publicApproval: 'pending' | 'approved';
+  narrative?: string | null;
+  mediaKey?: string | null;
 }
 
 export type ProductsModuleData = Record<string, ProductConfigItem>;
@@ -205,6 +207,12 @@ export function validateProductsModuleData(data: unknown): { isValid: boolean; e
       if (item.publicApproval !== 'approved') {
         errors.push(`Sản phẩm '${id}': Mở bán bắt buộc phải có publicApproval là 'approved'.`);
       }
+    }
+    if (item.narrative !== undefined && item.narrative !== null && typeof item.narrative !== 'string') {
+      errors.push(`Sản phẩm '${id}': Mô tả câu chuyện (narrative) phải là chuỗi ký tự.`);
+    }
+    if (item.mediaKey !== undefined && item.mediaKey !== null && typeof item.mediaKey !== 'string') {
+      errors.push(`Sản phẩm '${id}': Khóa ảnh mediaKey phải là chuỗi ký tự.`);
     }
   }
   return { isValid: errors.length === 0, errors };
@@ -252,6 +260,28 @@ export interface FinanceModuleData {
   };
   donationAccount?: DonationAccountData;
   ledgerProcess?: LedgerProcessStep[];
+  sales?: Array<{
+    item: string;
+    quantity: number;
+    unitPrice: number;
+    totalAmount: number;
+    channel: string;
+  }>;
+  expenses?: Array<{
+    category: string;
+    item: string;
+    amount: number;
+    isCash: boolean;
+    notes?: string;
+  }>;
+  inKindDonations?: Array<{
+    item: string;
+    quantity: number;
+    estimatedValue: number;
+    donorName: string;
+  }>;
+  firstSigner?: { name: string; role: string; signedAt: string } | null;
+  secondSigner?: { name: string; role: string; signedAt: string } | null;
 }
 
 export function validateFinanceModuleData(data: unknown): { isValid: boolean; errors: string[] } {
@@ -297,6 +327,21 @@ export function validateFinanceModuleData(data: unknown): { isValid: boolean; er
         errors.push(`Giao dịch thứ ${i + 1} số tiền phải là số nguyên dương.`);
       }
     }
+  }
+  if (f.sales !== undefined && !Array.isArray(f.sales)) {
+    errors.push('sales phải là mảng doanh thu bán hàng.');
+  }
+  if (f.expenses !== undefined && !Array.isArray(f.expenses)) {
+    errors.push('expenses phải là mảng khoản chi.');
+  }
+  if (f.inKindDonations !== undefined && !Array.isArray(f.inKindDonations)) {
+    errors.push('inKindDonations phải là mảng tiếp nhận hiện vật.');
+  }
+  if (f.firstSigner !== undefined && f.firstSigner !== null && typeof f.firstSigner !== 'object') {
+    errors.push('firstSigner phải là một đối tượng xác nhận.');
+  }
+  if (f.secondSigner !== undefined && f.secondSigner !== null && typeof f.secondSigner !== 'object') {
+    errors.push('secondSigner phải là một đối tượng xác nhận.');
   }
   return { isValid: errors.length === 0, errors };
 }
@@ -662,6 +707,11 @@ export const DEFAULT_FINANCE_DATA: FinanceModuleData = {
       description: 'Không công khai số tài khoản, ngân hàng hay thông tin cá nhân của người gửi; chứng từ chỉ công bố bản đã che thông tin.',
     },
   ],
+  sales: [],
+  expenses: [],
+  inKindDonations: [],
+  firstSigner: null,
+  secondSigner: null,
 };
 
 export const DEFAULT_TEAM_DATA: TeamModuleData = {

@@ -12,6 +12,7 @@ import type {
   PublicationRecord,
   PublicationSnapshot,
   ModuleKey,
+  UserRole,
 } from '../types.js';
 
 export class ConcurrencyConflictError extends Error {
@@ -233,11 +234,71 @@ export class StudioDbClient {
     }));
   }
 
+  /** Lấy chi tiết một phiên bản lịch sử cụ thể */
+  async getRevision<T = unknown>(moduleKey: ModuleKey, revisionId: string): Promise<RevisionRecord<T> | null> {
+    const r = await this.db
+      .prepare(
+        `SELECT id, module_key, version, data_json, revision_hash, created_by, created_at, comment
+         FROM revisions
+         WHERE module_key = ? AND id = ?`
+      )
+      .bind(moduleKey, revisionId)
+      .first<{
+        id: string;
+        module_key: ModuleKey;
+        version: number;
+        data_json: string;
+        revision_hash: string;
+        created_by: string;
+        created_at: string;
+        comment: string | null;
+      }>();
+
+    if (!r) return null;
+
+    return {
+      id: r.id,
+      moduleKey: r.module_key,
+      version: r.version,
+      data: JSON.parse(r.data_json) as T,
+      revisionHash: r.revision_hash,
+      createdBy: r.created_by,
+      createdAt: r.created_at,
+      comment: r.comment || undefined,
+    };
+  }
+
+  /** Lấy danh sách tài khoản người dùng */
+  async listUsers(): Promise<Array<{ id: string; email: string; role: UserRole; createdAt: string; updatedAt: string }>> {
+    const result = await this.db
+      .prepare('SELECT id, email, role, created_at, updated_at FROM users ORDER BY created_at ASC')
+      .all<{ id: string; email: string; role: UserRole; created_at: string; updated_at: string }>();
+
+    return (result.results || []).map((u) => ({
+      id: u.id,
+      email: u.email,
+      role: u.role,
+      createdAt: u.created_at,
+      updatedAt: u.updated_at,
+    }));
+  }
+
+  /** Cập nhật vai trò người dùng */
+  async updateUserRole(email: string, role: UserRole): Promise<boolean> {
+    const now = new Date().toISOString();
+    await this.db
+      .prepare('UPDATE users SET role = ?, updated_at = ? WHERE email = ?')
+      .bind(role, now, email)
+      .run();
+    return true;
+  }
+
   /** Khôi phục một phiên bản cũ thành bản nháp hiện tại */
   async restoreRevision<T = unknown>(
     moduleKey: ModuleKey,
     revisionId: string,
-    userEmail: string
+    userEmail: string,
+    expectedHash?: string | null
   ): Promise<DraftRecord<T>> {
     const row = await this.db
       .prepare('SELECT data_json, version FROM revisions WHERE id = ? AND module_key = ?')
@@ -249,19 +310,15 @@ export class StudioDbClient {
     }
 
     const current = await this.getDraft(moduleKey);
+    const expected = expectedHash !== undefined && expectedHash !== null ? expectedHash : (current?.revisionHash || null);
     const data = JSON.parse(row.data_json) as T;
     const saveResult = await this.saveDraft(
       moduleKey,
       data,
-      current?.revisionHash || null,
+      expected,
       userEmail,
       `Khôi phục từ phiên bản v${row.version}`
     );
-
-    await this.recordAuditLog(userEmail, 'RESTORE_REVISION', moduleKey, {
-      restoredFromId: revisionId,
-      restoredFromVersion: row.version,
-    });
 
     return saveResult.draft;
   }

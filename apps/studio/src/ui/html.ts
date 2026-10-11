@@ -368,10 +368,12 @@ export function renderStudioHtml(session: AuthSession): string {
       .studio-sidebar {
         position: fixed;
         left: -260px;
-        transition: left 0.25s ease;
+        visibility: hidden;
+        transition: left 0.2s ease, visibility 0.2s ease;
       }
       .studio-sidebar.open {
         left: 0;
+        visibility: visible;
       }
       .mobile-menu-btn {
         display: block;
@@ -714,6 +716,16 @@ export function renderStudioHtml(session: AuthSession): string {
             </div>
           </div>
 
+          <div class="card" style="border-left: 4px solid var(--color-teal);">
+            <div class="card-title">
+              <span>🌐 Cổng xem trước Website công khai</span>
+              <a href="http://127.0.0.1:4322/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">Mở website (Cổng 4322) ↗</a>
+            </div>
+            <p style="color: var(--color-neutral-mid); font-size: 0.9rem;">
+              Địa chỉ xem trước website Astro SSR/SSG cục bộ: <code>http://127.0.0.1:4322/</code>. Dữ liệu công khai phản ánh các bản chụp (Snapshot) đã được duyệt và trích xuất.
+            </p>
+          </div>
+
           <div class="card">
             <div class="card-title">Lối tắt 7 phân hệ nghiệp vụ</div>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;">
@@ -771,7 +783,165 @@ export function renderStudioHtml(session: AuthSession): string {
               </table>
             </div>
           </div>
+
+          <!-- Thẻ Lịch sử Phiên bản -->
+          <div class="card">
+            <div class="card-title">
+              <span>Lịch sử Phiên bản & Khôi phục (Revisions)</span>
+            </div>
+            <div class="form-row" style="margin-bottom: 12px;">
+              <div class="form-group" style="flex: 1;">
+                <label for="historyModuleSelect">Chọn phân hệ xem lịch sử</label>
+                <select id="historyModuleSelect" class="form-control" name="historyModuleSelect">
+                  <option value="project">2. Dự án & Thông điệp (project)</option>
+                  <option value="journal">3. Nhật ký hành trình (journal)</option>
+                  <option value="products">5. Sản phẩm & Mở bán (products)</option>
+                  <option value="finance">6. Tài chính & Sao kê (finance)</option>
+                  <option value="team">7. Nhóm & SEO (team)</option>
+                </select>
+              </div>
+              <div class="form-group" style="display: flex; align-items: flex-end;">
+                <button type="button" class="btn btn-secondary" id="loadRevisionsBtn">Tải lịch sử 🔄</button>
+              </div>
+            </div>
+            <div id="revisionsListArea"></div>
+          </div>
+
+          <!-- Thẻ Quản trị Người dùng -->
+          <div class="card">
+            <div class="card-title">
+              <span>Quản trị Người dùng & Phân quyền (RBAC)</span>
+              <button type="button" class="btn btn-secondary btn-sm" id="loadUsersBtn">Tải danh sách 👥</button>
+            </div>
+            <div id="usersListArea">
+              <p style="color: var(--color-neutral-mid); font-size: 0.9rem;">Bấm "Tải danh sách" để xem và phân quyền các tài khoản quản trị.</p>
+            </div>
+          </div>
         \`;
+
+        // Sự kiện tải lịch sử phiên bản
+        document.getElementById('loadRevisionsBtn')?.addEventListener('click', async () => {
+          const modSelect = document.getElementById('historyModuleSelect');
+          const modKey = modSelect ? modSelect.value : 'project';
+          const revRes = await fetchApi('/api/revisions/' + modKey + '?limit=10');
+          const area = document.getElementById('revisionsListArea');
+          if (!area) return;
+          if (!revRes.ok) {
+            area.innerHTML = '<div class="alert alert-danger">Không thể tải lịch sử phiên bản: ' + (revRes.data.error || '') + '</div>';
+            return;
+          }
+          const revs = revRes.data.revisions || [];
+          if (revs.length === 0) {
+            area.innerHTML = '<p style="color: var(--color-neutral-mid);">Chưa có phiên bản lịch sử nào cho phân hệ này.</p>';
+            return;
+          }
+          area.innerHTML = \`
+            <div class="table-scroll-hint">↔️ <span>Cuộn ngang để xem đầy đủ cột và thao tác khôi phục</span></div>
+            <div class="table-container" tabindex="0" role="region" aria-label="Bảng lịch sử phiên bản phân hệ">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Phiên bản</th>
+                    <th>Thời gian</th>
+                    <th>Người lưu</th>
+                    <th>Ghi chú</th>
+                    <th>Mã băm</th>
+                    <th>Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  \${revs.map((r, rIdx) => \`
+                    <tr>
+                      <td><strong>v\${r.version}</strong></td>
+                      <td>\${new Date(r.createdAt).toLocaleString('vi-VN')}</td>
+                      <td>\${escapeHtml(r.createdBy)}</td>
+                      <td>\${escapeHtml(r.comment || '(Không có ghi chú)')}</td>
+                      <td><code>\${escapeHtml(r.revisionHash ? r.revisionHash.substring(0, 10) + '...' : '')}</code></td>
+                      <td>
+                        <button type="button" class="btn btn-secondary btn-sm" onclick="restoreRev('\${modKey}', '\${r.id}')" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Khôi phục 🔄</button>
+                      </td>
+                    </tr>
+                  \`).join('')}
+                </tbody>
+              </table>
+            </div>
+          \`;
+        });
+
+        window.restoreRev = async function(modKey, revId) {
+          if (!confirm('Bạn có chắc chắn muốn khôi phục phân hệ ' + modKey + ' về phiên bản này không?')) return;
+          const res = await fetchApi('/api/revisions/' + modKey + '/' + revId + '/restore', { method: 'POST' });
+          if (res.ok) {
+            showToast('Đã khôi phục phiên bản thành công!', 'success');
+            renderDashboard();
+          } else {
+            showToast('Lỗi khôi phục: ' + (res.data.error || 'Lỗi không xác định'), 'error');
+          }
+        };
+
+        // Sự kiện tải danh sách người dùng
+        document.getElementById('loadUsersBtn')?.addEventListener('click', async () => {
+          const uRes = await fetchApi('/api/users');
+          const area = document.getElementById('usersListArea');
+          if (!area) return;
+          if (!uRes.ok) {
+            area.innerHTML = '<div class="alert alert-danger">Không thể tải danh sách người dùng (yêu cầu quyền admin): ' + (uRes.data.error || '') + '</div>';
+            return;
+          }
+          const users = uRes.data.users || [];
+          area.innerHTML = \`
+            <div class="table-scroll-hint">↔️ <span>Cuộn ngang để xem danh sách tài khoản</span></div>
+            <div class="table-container" tabindex="0" role="region" aria-label="Bảng quản trị người dùng">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Email</th>
+                    <th>Vai trò hiện tại</th>
+                    <th>Ngày tạo</th>
+                    <th>Thay đổi vai trò</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  \${users.map((u, uIdx) => \`
+                    <tr>
+                      <td><strong>\${escapeHtml(u.email)}</strong></td>
+                      <td><span class="role-badge" style="background:#EBF8FF; color:#2B6CB0;">\${escapeHtml(u.role)}</span></td>
+                      <td>\${new Date(u.createdAt).toLocaleDateString('vi-VN')}</td>
+                      <td>
+                        <div style="display: flex; gap: 6px; align-items: center;">
+                          <label for="u_role_\${uIdx}" style="display: none;">Vai trò \${escapeHtml(u.email)}</label>
+                          <select id="u_role_\${uIdx}" class="form-control" aria-label="Vai trò cho \${escapeHtml(u.email)}" style="padding: 4px 8px; font-size: 0.85rem; width: auto;">
+                            <option value="admin" \${u.role === 'admin' ? 'selected' : ''}>admin</option>
+                            <option value="editor" \${u.role === 'editor' ? 'selected' : ''}>editor</option>
+                            <option value="reviewer" \${u.role === 'reviewer' ? 'selected' : ''}>reviewer</option>
+                          </select>
+                          <button type="button" class="btn btn-primary btn-sm" onclick="changeUserRole('\${escapeHtml(u.email)}', 'u_role_\${uIdx}')">Lưu</button>
+                        </div>
+                      </td>
+                    </tr>
+                  \`).join('')}
+                </tbody>
+              </table>
+            </div>
+          \`;
+        });
+
+        window.changeUserRole = async function(email, selectId) {
+          const selectEl = document.getElementById(selectId);
+          if (!selectEl) return;
+          const newRole = selectEl.value;
+          const res = await fetchApi('/api/users/' + encodeURIComponent(email) + '/role', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ role: newRole })
+          });
+          if (res.ok) {
+            showToast('Đã cập nhật vai trò cho ' + email + ' thành ' + newRole, 'success');
+            document.getElementById('loadUsersBtn')?.click();
+          } else {
+            showToast('Lỗi cập nhật vai trò: ' + (res.data.error || 'Lỗi không xác định'), 'error');
+          }
+        };
       }
 
       // ==========================================
@@ -1547,38 +1717,46 @@ export function renderStudioHtml(session: AuthSession): string {
               <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 12px; color: var(--color-primary);">1. Chuồn chuồn tre 12 cm kèm đế (chuon-chuon-tre-kem-de)</h3>
               <div class="form-row">
                 <div class="form-group">
-                  <label>Trạng thái mở bán *</label>
-                  <select class="form-control" name="cc_saleStatus">
+                  <label for="cc_saleStatus">Trạng thái mở bán *</label>
+                  <select id="cc_saleStatus" class="form-control" name="cc_saleStatus">
                     <option value="unconfirmed" \${chuonChuon.saleStatus === 'unconfirmed' ? 'selected' : ''}>Chưa xác nhận (unconfirmed)</option>
                     <option value="open" \${chuonChuon.saleStatus === 'open' ? 'selected' : ''}>Đang mở bán (open)</option>
                     <option value="closed" \${chuonChuon.saleStatus === 'closed' ? 'selected' : ''}>Đã đóng (closed)</option>
                   </select>
                 </div>
                 <div class="form-group">
-                  <label>Giá niêm yết chính thức (VNĐ)</label>
-                  <input type="number" class="form-control" name="cc_officialPrice" value="\${chuonChuon.officialPrice || ''}" placeholder="Ví dụ: 40000">
+                  <label for="cc_officialPrice">Giá niêm yết chính thức (VNĐ)</label>
+                  <input type="number" id="cc_officialPrice" class="form-control" name="cc_officialPrice" value="\${chuonChuon.officialPrice || ''}" placeholder="Ví dụ: 40000">
                 </div>
                 <div class="form-group">
-                  <label>Số lượng sẵn có (Tồn kho)</label>
-                  <input type="number" class="form-control" name="cc_stockAvailable" value="\${chuonChuon.stockAvailable !== null ? chuonChuon.stockAvailable : ''}" placeholder="Ví dụ: 30">
+                  <label for="cc_stockAvailable">Số lượng sẵn có (Tồn kho)</label>
+                  <input type="number" id="cc_stockAvailable" class="form-control" name="cc_stockAvailable" value="\${chuonChuon.stockAvailable !== null ? chuonChuon.stockAvailable : ''}" placeholder="Ví dụ: 30">
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group">
-                  <label>Kênh / Địa điểm giao nhận</label>
-                  <input type="text" class="form-control" name="cc_salesChannel" value="\${chuonChuon.salesChannel || 'FPT Hòa Lạc'}">
+                  <label for="cc_salesChannel">Kênh / Địa điểm giao nhận</label>
+                  <input type="text" id="cc_salesChannel" class="form-control" name="cc_salesChannel" value="\${escapeHtml(chuonChuon.salesChannel || 'FPT Hòa Lạc')}">
                 </div>
                 <div class="form-group">
-                  <label>Phê duyệt công khai</label>
-                  <select class="form-control" name="cc_publicApproval">
+                  <label for="cc_publicApproval">Phê duyệt công khai</label>
+                  <select id="cc_publicApproval" class="form-control" name="cc_publicApproval">
                     <option value="pending" \${chuonChuon.publicApproval === 'pending' ? 'selected' : ''}>Chờ duyệt (pending)</option>
                     <option value="approved" \${chuonChuon.publicApproval === 'approved' ? 'selected' : ''}>Đã phê duyệt (approved)</option>
                   </select>
                 </div>
               </div>
               <div class="form-group">
-                <label>Chính sách đổi trả / hoàn hủy</label>
-                <input type="text" class="form-control" name="cc_returnPolicy" value="\${chuonChuon.returnPolicy || ''}" placeholder="Chính sách đổi trả khi mở bán...">
+                <label for="cc_returnPolicy">Chính sách đổi trả / hoàn hủy</label>
+                <input type="text" id="cc_returnPolicy" class="form-control" name="cc_returnPolicy" value="\${escapeHtml(chuonChuon.returnPolicy || '')}" placeholder="Chính sách đổi trả khi mở bán...">
+              </div>
+              <div class="form-group">
+                <label for="cc_narrative">Câu chuyện / ý nghĩa gây quỹ</label>
+                <textarea id="cc_narrative" class="form-control" name="cc_narrative" rows="2" placeholder="Mô tả ý nghĩa chuồn chuồn tre mộc mạc...">\${escapeHtml(chuonChuon.narrative || '')}</textarea>
+              </div>
+              <div class="form-group">
+                <label for="cc_mediaKey">Khóa hình ảnh media (mediaKey)</label>
+                <input type="text" id="cc_mediaKey" class="form-control" name="cc_mediaKey" value="\${escapeHtml(chuonChuon.mediaKey || '/images/san-pham/chuon-chuon-tre.webp')}" placeholder="/images/san-pham/chuon-chuon-tre.webp">
               </div>
             </div>
 
@@ -1587,38 +1765,46 @@ export function renderStudioHtml(session: AuthSession): string {
               <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 12px; color: var(--color-primary);">2. Móc khóa Lăng Kính (moc-khoa)</h3>
               <div class="form-row">
                 <div class="form-group">
-                  <label>Trạng thái mở bán *</label>
-                  <select class="form-control" name="mk_saleStatus">
+                  <label for="mk_saleStatus">Trạng thái mở bán *</label>
+                  <select id="mk_saleStatus" class="form-control" name="mk_saleStatus">
                     <option value="unconfirmed" \${mocKhoa.saleStatus === 'unconfirmed' ? 'selected' : ''}>Chưa xác nhận (unconfirmed)</option>
                     <option value="open" \${mocKhoa.saleStatus === 'open' ? 'selected' : ''}>Đang mở bán (open)</option>
                     <option value="closed" \${mocKhoa.saleStatus === 'closed' ? 'selected' : ''}>Đã đóng (closed)</option>
                   </select>
                 </div>
                 <div class="form-group">
-                  <label>Giá niêm yết chính thức (VNĐ)</label>
-                  <input type="number" class="form-control" name="mk_officialPrice" value="\${mocKhoa.officialPrice || ''}" placeholder="Ví dụ: 10000">
+                  <label for="mk_officialPrice">Giá niêm yết chính thức (VNĐ)</label>
+                  <input type="number" id="mk_officialPrice" class="form-control" name="mk_officialPrice" value="\${mocKhoa.officialPrice || ''}" placeholder="Ví dụ: 10000">
                 </div>
                 <div class="form-group">
-                  <label>Số lượng sẵn có (Tồn kho)</label>
-                  <input type="number" class="form-control" name="mk_stockAvailable" value="\${mocKhoa.stockAvailable !== null ? mocKhoa.stockAvailable : ''}" placeholder="Ví dụ: 100">
+                  <label for="mk_stockAvailable">Số lượng sẵn có (Tồn kho)</label>
+                  <input type="number" id="mk_stockAvailable" class="form-control" name="mk_stockAvailable" value="\${mocKhoa.stockAvailable !== null ? mocKhoa.stockAvailable : ''}" placeholder="Ví dụ: 100">
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group">
-                  <label>Kênh / Địa điểm giao nhận</label>
-                  <input type="text" class="form-control" name="mk_salesChannel" value="\${mocKhoa.salesChannel || 'FPT Hòa Lạc'}">
+                  <label for="mk_salesChannel">Kênh / Địa điểm giao nhận</label>
+                  <input type="text" id="mk_salesChannel" class="form-control" name="mk_salesChannel" value="\${escapeHtml(mocKhoa.salesChannel || 'FPT Hòa Lạc')}">
                 </div>
                 <div class="form-group">
-                  <label>Phê duyệt công khai</label>
-                  <select class="form-control" name="mk_publicApproval">
+                  <label for="mk_publicApproval">Phê duyệt công khai</label>
+                  <select id="mk_publicApproval" class="form-control" name="mk_publicApproval">
                     <option value="pending" \${mocKhoa.publicApproval === 'pending' ? 'selected' : ''}>Chờ duyệt (pending)</option>
                     <option value="approved" \${mocKhoa.publicApproval === 'approved' ? 'selected' : ''}>Đã phê duyệt (approved)</option>
                   </select>
                 </div>
               </div>
               <div class="form-group">
-                <label>Chính sách đổi trả / hoàn hủy</label>
-                <input type="text" class="form-control" name="mk_returnPolicy" value="\${mocKhoa.returnPolicy || ''}" placeholder="Chính sách đổi trả khi mở bán...">
+                <label for="mk_returnPolicy">Chính sách đổi trả / hoàn hủy</label>
+                <input type="text" id="mk_returnPolicy" class="form-control" name="mk_returnPolicy" value="\${escapeHtml(mocKhoa.returnPolicy || '')}" placeholder="Chính sách đổi trả khi mở bán...">
+              </div>
+              <div class="form-group">
+                <label for="mk_narrative">Câu chuyện / ý nghĩa gây quỹ</label>
+                <textarea id="mk_narrative" class="form-control" name="mk_narrative" rows="2" placeholder="Mô tả ý nghĩa móc khóa Lăng Kính...">\${escapeHtml(mocKhoa.narrative || '')}</textarea>
+              </div>
+              <div class="form-group">
+                <label for="mk_mediaKey">Khóa hình ảnh media (mediaKey)</label>
+                <input type="text" id="mk_mediaKey" class="form-control" name="mk_mediaKey" value="\${escapeHtml(mocKhoa.mediaKey || '/images/san-pham/moc-khoa.webp')}" placeholder="/images/san-pham/moc-khoa.webp">
               </div>
             </div>
 
@@ -1641,6 +1827,8 @@ export function renderStudioHtml(session: AuthSession): string {
               salesChannel: fd.get('cc_salesChannel'),
               returnPolicy: fd.get('cc_returnPolicy') || null,
               publicApproval: fd.get('cc_publicApproval'),
+              narrative: fd.get('cc_narrative') || null,
+              mediaKey: fd.get('cc_mediaKey') || null,
             },
             'moc-khoa': {
               saleStatus: fd.get('mk_saleStatus'),
@@ -1649,6 +1837,8 @@ export function renderStudioHtml(session: AuthSession): string {
               salesChannel: fd.get('mk_salesChannel'),
               returnPolicy: fd.get('mk_returnPolicy') || null,
               publicApproval: fd.get('mk_publicApproval'),
+              narrative: fd.get('mk_narrative') || null,
+              mediaKey: fd.get('mk_mediaKey') || null,
             }
           };
 
@@ -1794,15 +1984,48 @@ export function renderStudioHtml(session: AuthSession): string {
 
             <form id="csvImportForm" enctype="multipart/form-data" style="border: 1px dashed var(--color-neutral-mid); padding: 16px; border-radius: 6px;">
               <div class="form-group">
-                <label>Tải lên tệp CSV sao kê ngân hàng đối soát (RFC 4180) *</label>
-                <input type="file" name="file" class="form-control" accept=".csv" required>
+                <label for="csvFileInput">Tải lên tệp CSV sao kê ngân hàng đối soát (RFC 4180) *</label>
+                <input type="file" id="csvFileInput" name="file" class="form-control" accept=".csv" required>
               </div>
               <div class="form-group">
-                <label>Mốc ngày chốt đối soát (YYYY-MM-DD)</label>
-                <input type="date" name="reconciledAt" class="form-control" value="\${escapeHtml(f.reconciledAt || '2026-10-31')}">
+                <label for="csvReconciledAt">Mốc ngày chốt đối soát (YYYY-MM-DD)</label>
+                <input type="date" id="csvReconciledAt" name="reconciledAt" class="form-control" value="\${escapeHtml(f.reconciledAt || '2026-10-31')}">
               </div>
               <button type="submit" class="btn btn-primary" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Thẩm định tệp CSV 📋</button>
             </form>
+            <div id="csvPreviewArea" style="display: none; margin-top: 12px;"></div>
+          </div>
+
+          <!-- Thẻ 2b: Xác nhận Quy tắc 2 Người (Two-Person Policy) -->
+          <div class="card">
+            <div class="card-title">Xác nhận Quy tắc 2 Người (Two-Person Policy)</div>
+            <div class="alert alert-info">
+              Quy tắc 2 người: Bắt buộc tối thiểu 2 danh tính độc lập khác nhau: 1 Người lập (Preparer) và 1 Người kiểm tra độc lập (Independent Reviewer). Nghiêm cấm tự phê duyệt (Người lập !== Người duyệt).
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 12px;">
+              <div style="border: 1px solid var(--color-neutral-light); border-radius: 6px; padding: 14px; background: var(--color-bg-app);">
+                <h4 style="font-weight: 700; color: var(--color-primary); margin-bottom: 8px;">1. Người lập số liệu (Preparer / Author)</h4>
+                \${f.firstSigner ? \`
+                  <p><strong>Người ký:</strong> \${escapeHtml(f.firstSigner.name)}</p>
+                  <p><strong>Vai trò:</strong> \${escapeHtml(f.firstSigner.role)}</p>
+                  <p><strong>Thời điểm:</strong> \${new Date(f.firstSigner.signedAt).toLocaleString('vi-VN')}</p>
+                \` : \`
+                  <p style="color: var(--color-neutral-mid); margin-bottom: 8px;">Chưa ký xác nhận nguồn.</p>
+                  <button type="button" class="btn btn-secondary btn-sm" id="signFirstBtn" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Ký xác nhận Người lập ✍️</button>
+                \`}
+              </div>
+              <div style="border: 1px solid var(--color-neutral-light); border-radius: 6px; padding: 14px; background: var(--color-bg-app);">
+                <h4 style="font-weight: 700; color: var(--color-teal); margin-bottom: 8px;">2. Người kiểm tra độc lập (Independent Reviewer)</h4>
+                \${f.secondSigner ? \`
+                  <p><strong>Người ký:</strong> \${escapeHtml(f.secondSigner.name)}</p>
+                  <p><strong>Vai trò:</strong> \${escapeHtml(f.secondSigner.role)}</p>
+                  <p><strong>Thời điểm:</strong> \${new Date(f.secondSigner.signedAt).toLocaleString('vi-VN')}</p>
+                \` : \`
+                  <p style="color: var(--color-neutral-mid); margin-bottom: 8px;">Chưa ký kiểm tra độc lập.</p>
+                  <button type="button" class="btn btn-secondary btn-sm" id="signSecondBtn" \${currentUserRole === 'editor' ? 'disabled' : ''}>Ký kiểm tra độc lập ✍️</button>
+                \`}
+              </div>
+            </div>
           </div>
 
           <!-- Thẻ 3: Bản chiếu giao dịch sao kê -->
@@ -1829,6 +2052,97 @@ export function renderStudioHtml(session: AuthSession): string {
                     </tr>
                   \`).join('')}
                   \${(f.entries || []).length === 0 ? '<tr><td colspan="4" style="text-align: center; color: var(--color-neutral-mid);">Chưa có khoản ủng hộ nào được phê duyệt công khai.</td></tr>' : ''}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Thẻ 4: Doanh thu bán hàng gây quỹ -->
+          <div class="card">
+            <div class="card-title">Doanh thu bán hàng gây quỹ (\${(f.sales || []).length} mục)</div>
+            <div class="table-scroll-hint">↔️ <span>Cuộn ngang để xem đầy đủ cột doanh thu</span></div>
+            <div class="table-container" tabindex="0" role="region" aria-label="Bảng doanh thu bán hàng gây quỹ">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Sản phẩm / Mặt hàng</th>
+                    <th>Số lượng</th>
+                    <th>Đơn giá</th>
+                    <th>Thành tiền</th>
+                    <th>Kênh bán</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  \${(f.sales || []).map(s => \`
+                    <tr>
+                      <td>\${escapeHtml(s.item)}</td>
+                      <td>\${s.quantity}</td>
+                      <td>\${Number(s.unitPrice).toLocaleString('vi-VN')} đ</td>
+                      <td><strong>\${Number(s.totalAmount).toLocaleString('vi-VN')} đ</strong></td>
+                      <td>\${escapeHtml(s.channel)}</td>
+                    </tr>
+                  \`).join('')}
+                  \${(f.sales || []).length === 0 ? '<tr><td colspan="5" style="text-align: center; color: var(--color-neutral-mid);">Chưa có dữ liệu bán hàng gây quỹ được ghi nhận.</td></tr>' : ''}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Thẻ 5: Khoản chi dự án -->
+          <div class="card">
+            <div class="card-title">Khoản chi dự án (\${(f.expenses || []).length} khoản)</div>
+            <div class="table-scroll-hint">↔️ <span>Cuộn ngang để xem đầy đủ cột chi phí</span></div>
+            <div class="table-container" tabindex="0" role="region" aria-label="Bảng chi phí dự án">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Danh mục</th>
+                    <th>Nội dung chi</th>
+                    <th>Số tiền</th>
+                    <th>Hình thức</th>
+                    <th>Ghi chú</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  \${(f.expenses || []).map(ex => \`
+                    <tr>
+                      <td>\${escapeHtml(ex.category)}</td>
+                      <td>\${escapeHtml(ex.item)}</td>
+                      <td><strong>\${Number(ex.amount).toLocaleString('vi-VN')} đ</strong></td>
+                      <td>\${ex.isCash ? 'Tiền mặt' : 'Chuyển khoản'}</td>
+                      <td>\${escapeHtml(ex.notes || '')}</td>
+                    </tr>
+                  \`).join('')}
+                  \${(f.expenses || []).length === 0 ? '<tr><td colspan="5" style="text-align: center; color: var(--color-neutral-mid);">Chưa có khoản chi nào được ghi nhận.</td></tr>' : ''}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Thẻ 6: Tiếp nhận ủng hộ hiện vật -->
+          <div class="card">
+            <div class="card-title">Tiếp nhận ủng hộ hiện vật (\${(f.inKindDonations || []).length} hiện vật)</div>
+            <div class="table-scroll-hint">↔️ <span>Cuộn ngang để xem đầy đủ cột hiện vật</span></div>
+            <div class="table-container" tabindex="0" role="region" aria-label="Bảng tiếp nhận ủng hộ hiện vật">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Hiện vật / Trang thiết bị</th>
+                    <th>Số lượng</th>
+                    <th>Ước tính giá trị</th>
+                    <th>Đơn vị / Cá nhân ủng hộ</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  \${(f.inKindDonations || []).map(k => \`
+                    <tr>
+                      <td>\${escapeHtml(k.item)}</td>
+                      <td>\${k.quantity}</td>
+                      <td>\${Number(k.estimatedValue).toLocaleString('vi-VN')} đ</td>
+                      <td>\${escapeHtml(k.donorName)}</td>
+                    </tr>
+                  \`).join('')}
+                  \${(f.inKindDonations || []).length === 0 ? '<tr><td colspan="4" style="text-align: center; color: var(--color-neutral-mid);">Chưa có hiện vật nào được tiếp nhận.</td></tr>' : ''}
                 </tbody>
               </table>
             </div>
@@ -1879,6 +2193,63 @@ export function renderStudioHtml(session: AuthSession): string {
           }
         });
 
+        // Xử lý ký xác nhận Quy tắc 2 người
+        document.getElementById('signFirstBtn')?.addEventListener('click', async () => {
+          const updated = {
+            ...activeDraft.data,
+            firstSigner: {
+              name: currentUserEmail,
+              role: currentUserRole,
+              signedAt: new Date().toISOString()
+            }
+          };
+          const saveRes = await fetchApi('/api/drafts/finance', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              data: updated,
+              expectedHash: activeDraft.revisionHash,
+              comment: 'Ký xác nhận với tư cách Người lập số liệu (Preparer)'
+            })
+          });
+          if (saveRes.ok) {
+            showToast('Đã ký xác nhận Người lập thành công!', 'success');
+            renderFinanceEditor();
+          } else {
+            showToast('Lỗi ký: ' + (saveRes.data.error || 'Không thể ký'), 'error');
+          }
+        });
+
+        document.getElementById('signSecondBtn')?.addEventListener('click', async () => {
+          if (f.firstSigner && f.firstSigner.name === currentUserEmail) {
+            showToast('Quy tắc 2 người: Người kiểm tra độc lập không được trùng với Người lập!', 'error');
+            return;
+          }
+          const updated = {
+            ...activeDraft.data,
+            secondSigner: {
+              name: currentUserEmail,
+              role: currentUserRole,
+              signedAt: new Date().toISOString()
+            }
+          };
+          const saveRes = await fetchApi('/api/drafts/finance', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              data: updated,
+              expectedHash: activeDraft.revisionHash,
+              comment: 'Ký xác nhận với tư cách Người kiểm tra độc lập (Reviewer)'
+            })
+          });
+          if (saveRes.ok) {
+            showToast('Đã ký xác nhận Người kiểm tra độc lập thành công!', 'success');
+            renderFinanceEditor();
+          } else {
+            showToast('Lỗi ký: ' + (saveRes.data.error || 'Không thể ký'), 'error');
+          }
+        });
+
         const csvForm = document.getElementById('csvImportForm');
         csvForm?.addEventListener('submit', async (e) => {
           e.preventDefault();
@@ -1889,7 +2260,45 @@ export function renderStudioHtml(session: AuthSession): string {
           });
           const json = await valRes.json();
           if (valRes.ok) {
-            showToast('Thẩm định CSV thành công! Tìm thấy ' + json.rows.length + ' dòng hợp lệ, tổng tiền: ' + json.stats.totalAmount.toLocaleString('vi-VN') + ' đ.', 'success');
+            window.pendingCsvRows = json.rows;
+            window.pendingReconciledAt = fd.get('reconciledAt');
+            const previewEl = document.getElementById('csvPreviewArea');
+            if (previewEl) {
+              previewEl.style.display = 'block';
+              previewEl.innerHTML = \`
+                <div class="alert alert-success" style="margin-top: 12px;">
+                  Đã thẩm định CSV thành công! Tìm thấy <strong>\${json.rows.length}</strong> dòng hợp lệ, tổng tiền: <strong>\${Number(json.stats.totalAmount).toLocaleString('vi-VN')} đ</strong>.
+                  <div style="margin-top: 8px;">
+                    <button type="button" class="btn btn-success btn-sm" id="applyCsvBtn" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Áp dụng vào sổ sao kê & Lưu nháp 💾</button>
+                  </div>
+                </div>
+              \`;
+              document.getElementById('applyCsvBtn')?.addEventListener('click', async () => {
+                const updated = {
+                  ...activeDraft.data,
+                  reconciled: true,
+                  reconciledAt: window.pendingReconciledAt || '2026-10-31',
+                  entries: window.pendingCsvRows,
+                };
+                const saveRes = await fetchApi('/api/drafts/finance', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    data: updated,
+                    expectedHash: activeDraft.revisionHash,
+                    comment: 'Áp dụng sổ sao kê sau đối soát CSV (' + json.rows.length + ' dòng)'
+                  })
+                });
+                if (saveRes.ok) {
+                  setDirty(false);
+                  showToast('Đã áp dụng và lưu sổ sao kê thành công!', 'success');
+                  renderFinanceEditor();
+                } else {
+                  showToast('Lỗi lưu sổ sao kê: ' + (saveRes.data.error || 'Lỗi không xác định'), 'error');
+                }
+              });
+            }
+            showToast('Thẩm định CSV thành công! Tìm thấy ' + json.rows.length + ' dòng hợp lệ.', 'success');
           } else {
             showToast('Lỗi kiểm tra CSV: ' + (json.error || 'Tệp không đạt tiêu chuẩn RFC 4180'), 'error');
           }

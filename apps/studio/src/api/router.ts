@@ -3,9 +3,9 @@
  * Quản lý Drafts, Revisions, Media, Finance CSV, Audit Logs, và Publications.
  */
 
-import type { Env, AuthSession, ModuleKey, MediaAssetRecord } from '../types.js';
+import type { Env, AuthSession, ModuleKey, MediaAssetRecord, UserRole } from '../types.js';
 import { StudioDbClient, ConcurrencyConflictError } from '../db/client.js';
-import { assertCanEdit, assertCanReview, assertCanPublish } from '../auth/rbac.js';
+import { assertCanEdit, assertCanReview, assertCanPublish, assertCanManageUsers } from '../auth/rbac.js';
 import { validateCsrf } from '../auth/middleware.js';
 import { getDefaultModuleData, validateModuleData } from '../schemas/index.js';
 import { sniffImageFormat, MAX_FILE_SIZE_BYTES, checkAssetUsageInDrafts } from '../storage/media-sniffer.js';
@@ -149,6 +149,22 @@ export async function handleApiRequest(
     return jsonResponse({ revisions, success: true });
   }
 
+  // 4b. Chi tiết một phiên bản: GET /api/revisions/:moduleKey/:id
+  const revisionDetailMatch = path.match(/^\/api\/revisions\/([a-z0-9-]+)\/([^/]+)$/);
+  if (revisionDetailMatch && method === 'GET') {
+    const rawModuleKey = revisionDetailMatch[1];
+    if (!VALID_MODULES.includes(rawModuleKey as ModuleKey)) {
+      return errorResponse(`Phân hệ '${rawModuleKey}' không hợp lệ hoặc không được hỗ trợ.`, 400);
+    }
+    const moduleKey = rawModuleKey as ModuleKey;
+    const revisionId = revisionDetailMatch[2];
+    const revision = await dbClient.getRevision(moduleKey, revisionId);
+    if (!revision) {
+      return errorResponse(`Không tìm thấy phiên bản '${revisionId}' của phân hệ '${moduleKey}'.`, 404);
+    }
+    return jsonResponse({ revision, success: true });
+  }
+
   // 5. Khôi phục phiên bản: POST /api/revisions/:moduleKey/:id/restore
   const restoreMatch = path.match(/^\/api\/revisions\/([a-z0-9-]+)\/([^/]+)\/restore$/);
   if (restoreMatch && method === 'POST') {
@@ -157,11 +173,23 @@ export async function handleApiRequest(
 
     const moduleKey = restoreMatch[1] as ModuleKey;
     const revisionId = restoreMatch[2];
+    const body = (await request.json().catch(() => ({}))) as { expectedHash?: string };
 
     try {
-      const restoredDraft = await dbClient.restoreRevision(moduleKey, revisionId, user.email);
+      const restoredDraft = await dbClient.restoreRevision(
+        moduleKey,
+        revisionId,
+        user.email,
+        body.expectedHash || null
+      );
       return jsonResponse({ success: true, draft: restoredDraft });
     } catch (err: any) {
+      if (err instanceof ConcurrencyConflictError) {
+        return errorResponse(err.message, 409, {
+          conflict: true,
+          currentHash: err.currentHash,
+        });
+      }
       return errorResponse(err.message || 'Không thể khôi phục phiên bản.', 400);
     }
   }
@@ -453,6 +481,32 @@ export async function handleApiRequest(
     });
 
     return jsonResponse({ success: true, gitResult });
+  }
+
+  // 16. Quản lý người dùng: GET /api/users
+  if (path === '/api/users' && method === 'GET') {
+    assertCanManageUsers(user.role);
+    const users = await dbClient.listUsers();
+    return jsonResponse({ users, success: true });
+  }
+
+  // 17. Cập nhật vai trò người dùng: POST /api/users/:email/role
+  const userRoleMatch = path.match(/^\/api\/users\/([^/]+)\/role$/);
+  if (userRoleMatch && method === 'POST') {
+    validateCsrf(request);
+    assertCanManageUsers(user.role);
+    const targetEmail = decodeURIComponent(userRoleMatch[1]);
+    const body = (await request.json()) as { role: UserRole };
+    const validRoles: UserRole[] = ['admin', 'editor', 'reviewer'];
+    if (!body || !validRoles.includes(body.role)) {
+      return errorResponse(`Vai trò '${body?.role}' không hợp lệ. Cho phép: ${validRoles.join(', ')}`, 400);
+    }
+    await dbClient.updateUserRole(targetEmail, body.role);
+    await dbClient.recordAuditLog(user.email, 'UPDATE_USER_ROLE', 'system', {
+      targetEmail,
+      newRole: body.role,
+    });
+    return jsonResponse({ success: true, email: targetEmail, role: body.role });
   }
 
   return errorResponse('API endpoint không tồn tại.', 404);
