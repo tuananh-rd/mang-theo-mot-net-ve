@@ -44,31 +44,55 @@ async function capture() {
     await page.screenshot({ path: path.join(outDir, 'studio-finance-1440.png'), fullPage: true });
     console.log('[Captured] studio-finance-1440.png');
 
-    // 5. Desktop 1440px - Publish Workflow Form
+    // 5. Desktop 1440px - Journal Form
+    await page.click('[data-tab="journal"]');
+    await new Promise((r) => setTimeout(r, 600));
+    await page.screenshot({ path: path.join(outDir, 'studio-journal-1440.png'), fullPage: true });
+    console.log('[Captured] studio-journal-1440.png');
+
+    // 6. Desktop 1440px - Team & FAQs Form
+    await page.click('[data-tab="team"]');
+    await new Promise((r) => setTimeout(r, 600));
+    await page.screenshot({ path: path.join(outDir, 'studio-team-1440.png'), fullPage: true });
+    console.log('[Captured] studio-team-1440.png');
+
+    // 7. Desktop 1440px - Publish Workflow Form
     await page.click('[data-tab="publish"]');
     await new Promise((r) => setTimeout(r, 600));
     await page.screenshot({ path: path.join(outDir, 'studio-publish-1440.png'), fullPage: true });
     console.log('[Captured] studio-publish-1440.png');
 
-    // 6. Tablet 768px
+    // 8. Tablet 768px - Dashboard
     await page.setViewport({ width: 768, height: 1024 });
     await page.evaluate(() => document.querySelector('[data-tab="dashboard"]').click());
     await new Promise((r) => setTimeout(r, 600));
     await page.screenshot({ path: path.join(outDir, 'studio-dashboard-768.png'), fullPage: true });
     console.log('[Captured] studio-dashboard-768.png');
 
-    // 7. Mobile 375px - Mở drawer điều hướng
+    // 9. Tablet 768px - Team
+    await page.evaluate(() => document.querySelector('[data-tab="team"]').click());
+    await new Promise((r) => setTimeout(r, 600));
+    await page.screenshot({ path: path.join(outDir, 'studio-team-768.png'), fullPage: true });
+    console.log('[Captured] studio-team-768.png');
+
+    // 10. Mobile 375px - Mở drawer điều hướng
     await page.setViewport({ width: 375, height: 812, isMobile: true, hasTouch: true });
     await page.click('#toggleSidebarBtn');
     await new Promise((r) => setTimeout(r, 400));
     await page.screenshot({ path: path.join(outDir, 'studio-drawer-open-375.png') });
     console.log('[Captured] studio-drawer-open-375.png');
 
-    // 8. Mobile 375px - Dashboard view sau khi đóng drawer
+    // 11. Mobile 375px - Dashboard view sau khi đóng drawer
     await page.click('#toggleSidebarBtn');
     await new Promise((r) => setTimeout(r, 400));
     await page.screenshot({ path: path.join(outDir, 'studio-dashboard-375.png'), fullPage: true });
     console.log('[Captured] studio-dashboard-375.png');
+
+    // 12. Mobile 375px - Project Form
+    await page.evaluate(() => document.querySelector('[data-tab="project"]').click());
+    await new Promise((r) => setTimeout(r, 600));
+    await page.screenshot({ path: path.join(outDir, 'studio-project-375.png'), fullPage: true });
+    console.log('[Captured] studio-project-375.png');
 
     console.log('Tất cả ảnh chụp màn hình Studio đã hoàn tất!');
   } finally {

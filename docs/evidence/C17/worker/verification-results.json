@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-11T10:39:41.487Z",
+  "timestamp": "2026-10-11T10:58:27.705Z",
   "baseUrl": "http://127.0.0.1:4330",
   "tests": [
     {
@@ -18,8 +18,8 @@
           "id": "dev-admin",
           "email": "dev-admin@internal.local",
           "role": "admin",
-          "createdAt": "2026-10-11T10:39:41.533Z",
-          "updatedAt": "2026-10-11T10:39:41.533Z"
+          "createdAt": "2026-10-11T10:58:27.751Z",
+          "updatedAt": "2026-10-11T10:58:27.751Z"
         }
       }
     },
@@ -28,7 +28,7 @@
       "passed": true,
       "details": {
         "moduleKey": "project",
-        "revisionHash": "48171874ea36182c3b66885a90837cc642caeabec268318d3addf37fa75eb22a"
+        "revisionHash": "cb455595f363a6b83ae3e899d5d157382aa7ab0b6f5b37bdeecf92aad00996f1"
       }
     },
     {
@@ -52,7 +52,7 @@
       "passed": true,
       "details": {
         "moduleKey": "finance",
-        "revisionHash": "db4f4da3ac6af4160c434abd8e37611f890ff000e9e738ef08b62cbb52b636b4"
+        "revisionHash": "77aa022a05f3cbf41b32b98318b6ac852bc845006e2aac7242e4e6cd615f91b6"
       }
     },
     {
@@ -60,14 +60,14 @@
       "passed": true,
       "details": {
         "moduleKey": "team",
-        "revisionHash": "9efbeb7447b7c39c8113dd34ce2bdd9a035925e432f884ccb276a482f63ed3c1"
+        "revisionHash": "8cee540795c489472267fb5f1b8ea71ce5d6239fa98873ba3cbb1a7b02f4e34f"
       }
     },
     {
       "name": "API Drafts: Lưu bản nháp thành công có khóa lạc quan",
       "passed": true,
       "details": {
-        "newHash": "5ade2051773f0c66cc4d373d2d4875f4f224b65ca841935367e90f590fcae79f",
+        "newHash": "f334cbb098da358531ab66ec147dbd55877b883446edafe7c465b60004621738",
         "version": 2
       }
     },
@@ -82,7 +82,7 @@
       "name": "API Publication: Tạo yêu cầu xuất bản và duy trì Idempotency",
       "passed": true,
       "details": {
-        "pubId": "pub-1791715181678-d4u6",
+        "pubId": "pub-1791716307895-iz3y",
         "status": "pending_review"
       }
     },
