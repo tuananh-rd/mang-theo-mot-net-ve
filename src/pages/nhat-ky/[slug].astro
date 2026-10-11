@@ -1,6 +1,5 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import PageHero from '../../components/PageHero.astro';
 import { getPublishedJournalEntries, type JournalEntry } from '../../data/journal';
 
 export function getStaticPaths() {
@@ -30,13 +29,9 @@ const breadcrumbs = [
 ];
 
 const eventStatusSuffix = entry.eventStatus === 'planned' ? ' (dự kiến)' : '';
-const summaryItems = [
-  { label: 'Danh mục', value: entry.categoryLabel },
-  { label: 'Ngày biên tập', value: formatDate(entry.publishedAt) },
-  ...(entry.eventDate
-    ? [{ label: 'Mốc sự kiện', value: `${formatDate(entry.eventDate)}${eventStatusSuffix}` }]
-    : [{ label: 'Phân loại', value: entry.categoryLabel }]),
-];
+
+const allPublished = getPublishedJournalEntries();
+const otherEntries = allPublished.filter((e) => e.slug !== entry.slug).slice(0, 2);
 ---
 
 <Layout
@@ -44,30 +39,66 @@ const summaryItems = [
   description={entry.summary}
   currentPath="/nhat-ky"
 >
-  <PageHero
-    breadcrumbs={breadcrumbs}
-    eyebrow={`Nhật ký · ${entry.categoryLabel}`}
-    chip={{ kind: entry.category === 'ke-hoach' ? 'ke-hoach' : 'cho-xac-nhan', label: entry.categoryLabel }}
-    title={entry.title}
-    titleId="article-heading"
-    lead={entry.summary}
-    summaryTitle="Thông tin bài viết"
-    summaryItems={summaryItems}
-  />
+  <!-- Breadcrumb Navigation Bar -->
+  <div class="article-page-nav">
+    <div class="container article-container-narrow">
+      <nav class="breadcrumb-nav" aria-label="Đường dẫn trang">
+        <ol class="breadcrumb-list">
+          {breadcrumbs.map((item, index) => {
+            const isLast = index === breadcrumbs.length - 1;
+            return (
+              <li class="breadcrumb-item">
+                {isLast || !item.href ? (
+                  <span class="breadcrumb-current" aria-current={isLast ? 'page' : undefined}>
+                    {item.label}
+                  </span>
+                ) : (
+                  <a href={item.href} class="breadcrumb-link">
+                    {item.label}
+                  </a>
+                )}
+                {!isLast && <span class="breadcrumb-separator" aria-hidden="true">/</span>}
+              </li>
+            );
+          })}
+        </ol>
+      </nav>
+    </div>
+  </div>
 
-  <article class="section section-article">
-    <div class="container article-container">
-      <!-- Back Link -->
-      <div class="article-back-wrap">
-        <a href="/nhat-ky" class="link-arrow">
-          <span class="arrow" aria-hidden="true">←</span> Quay lại danh sách Nhật ký
-        </a>
+  <!-- Đầu bài trong cột đọc căn giữa, nền canvas phẳng (Kiểu E) -->
+  <header class="article-header">
+    <div class="container article-container-narrow">
+      <div class="article-meta-row">
+        <span class="article-category-tag">{entry.categoryLabel}</span>
+        <span class="article-meta-sep" aria-hidden="true">·</span>
+        <span class="article-meta-date">Biên tập: {formatDate(entry.publishedAt)}</span>
+        {entry.eventDate && (
+          <>
+            <span class="article-meta-sep" aria-hidden="true">·</span>
+            <span class="article-event-chip">
+              Sự kiện: {formatDate(entry.eventDate)}{eventStatusSuffix}
+            </span>
+          </>
+        )}
       </div>
 
-      <!-- Featured Cover Image (if available) -->
-      {
-        entry.coverImage && (
-          <figure class="article-featured-image">
+      <h1 id="article-heading" class="article-title">
+        {entry.title}
+      </h1>
+
+      <p class="article-lead">
+        {entry.summary}
+      </p>
+    </div>
+  </header>
+
+  <!-- Ảnh bìa bài viết (rộng 960px, lớn hơn cột đọc nhưng vừa vặn khung hình) -->
+  {
+    entry.coverImage && (
+      <div class="container article-cover-container">
+        <figure class="article-featured-image">
+          <div class="article-cover-img-wrap">
             <img
               src={entry.coverImage.src}
               alt={entry.coverImage.alt}
@@ -76,31 +107,36 @@ const summaryItems = [
               loading="eager"
               decoding="async"
             />
-            <figcaption class="article-image-caption">
-              <span>{entry.coverImage.caption}</span>
-              {entry.coverImage.creditName && (
-                <span class="article-credit">
-                  Nguồn:{' '}
-                  {entry.coverImage.creditUrl ? (
-                    <a
-                      href={entry.coverImage.creditUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="inline-link"
-                    >
-                      {entry.coverImage.creditName} ({entry.coverImage.creditSource || 'Stock'})
-                    </a>
-                  ) : (
-                    `${entry.coverImage.creditName} (${entry.coverImage.creditSource || 'Stock'})`
-                  )}
-                </span>
-              )}
-            </figcaption>
-          </figure>
-        )
-      }
+          </div>
+          <figcaption class="article-image-caption">
+            <span>{entry.coverImage.caption}</span>
+            {entry.coverImage.creditName && (
+              <span class="article-credit">
+                Nguồn:{' '}
+                {entry.coverImage.creditUrl ? (
+                  <a
+                    href={entry.coverImage.creditUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-link"
+                  >
+                    {entry.coverImage.creditName} ({entry.coverImage.creditSource || 'Stock'})
+                  </a>
+                ) : (
+                  `${entry.coverImage.creditName} (${entry.coverImage.creditSource || 'Stock'})`
+                )}
+              </span>
+            )}
+          </figcaption>
+        </figure>
+      </div>
+    )
+  }
 
-      <!-- Article Structured Content Blocks -->
+  <!-- Thân bài đọc 68ch và điều hướng cuối bài -->
+  <article class="article-body-section">
+    <div class="container article-container-narrow">
+      <!-- Khối nội dung có cấu trúc -->
       <div class="article-content prose">
         {
           entry.content.map((block) => {
@@ -155,54 +191,180 @@ const summaryItems = [
         }
       </div>
 
-      <!-- Navigation & Bottom Actions -->
+      <!-- Khối bài viết khác (Thay thế CTA mơ theo review RC15) -->
+      {
+        otherEntries.length > 0 && (
+          <section class="other-articles-section" aria-labelledby="other-articles-heading">
+            <h2 id="other-articles-heading" class="other-articles-title">Bài viết khác trên nhật ký</h2>
+            <div class="other-articles-list">
+              {otherEntries.map((other) => (
+                <a href={`/nhat-ky/${other.slug}`} class="other-article-card">
+                  <div class="other-article-meta">
+                    <span class="other-category">{other.categoryLabel}</span>
+                    <span class="other-date">{formatDate(other.publishedAt)}</span>
+                  </div>
+                  <h3 class="other-title">{other.title}</h3>
+                  <p class="other-summary">{other.summary}</p>
+                  <span class="other-read-more">Đọc bài <span aria-hidden="true">→</span></span>
+                </a>
+              ))}
+            </div>
+          </section>
+        )
+      }
+
+      <!-- Điều hướng cuối bài -->
       <div class="article-footer-nav">
         <a href="/nhat-ky" class="btn btn-secondary">
-          ← Danh sách tất cả bài viết
+          ← Danh sách nhật ký
         </a>
-        <a href="/du-an/mang-theo-mot-net-ve" class="btn btn-primary">
-          Xem thông tin toàn bộ dự án →
+        <a href="/du-an/mang-theo-mot-net-ve" class="btn btn-secondary">
+          Xem thông tin toàn bộ dự án
+        </a>
+        <a href="/dong-hanh" class="btn btn-primary">
+          Ủng hộ quỹ dự án →
         </a>
       </div>
     </div>
   </article>
-
-  <!-- CTA Band -->
-  <section class="cta-band" aria-labelledby="detail-cta-heading">
-    <div class="container cta-band-inner">
-      <div class="cta-band-text">
-        <h2 id="detail-cta-heading">Cùng chung tay với nhóm Lăng Kính</h2>
-        <p>Ủng hộ tài chính qua tài khoản dự án hoặc theo dõi quà lưu niệm gây quỹ.</p>
-      </div>
-      <div class="cta-band-actions">
-        <a href="/dong-hanh" class="btn btn-primary">Ủng hộ qua chuyển khoản</a>
-        <a href="/san-pham" class="link-arrow">Xem quà lưu niệm <span class="arrow" aria-hidden="true">→</span></a>
-      </div>
-    </div>
-  </section>
 </Layout>
 
 <style>
-  .section-article {
+  /* Breadcrumbs */
+  .article-page-nav {
     background: #ffffff;
-    padding-top: var(--space-6);
-    padding-bottom: var(--space-10);
+    border-bottom: 1px solid var(--line);
+    padding: var(--space-3) 0;
   }
 
-  .article-container {
-    max-width: 840px;
+  .breadcrumb-nav {
+    font-size: var(--font-size-small);
+  }
+
+  .breadcrumb-list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .breadcrumb-item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .breadcrumb-link {
+    color: var(--ink-2);
+    text-decoration: none;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .breadcrumb-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+
+  .breadcrumb-separator {
+    color: var(--line-strong);
+    user-select: none;
+  }
+
+  .breadcrumb-current {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  /* Khung chiều rộng đọc tối ưu 68ch ~ 760px */
+  .article-container-narrow {
+    max-width: 760px;
     margin: 0 auto;
   }
 
-  .article-back-wrap {
-    margin-bottom: var(--space-5);
+  /* Article Header (Masthead Kiểu E) */
+  .article-header {
+    background: #ffffff;
+    padding-top: var(--space-8);
+    padding-bottom: var(--space-6);
+  }
+
+  .article-meta-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-3);
+  }
+
+  .article-category-tag {
+    font-size: var(--font-size-small);
+    font-weight: 700;
+    color: var(--brand);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .article-meta-sep {
+    color: var(--line-strong);
+  }
+
+  .article-meta-date {
+    font-size: var(--font-size-small);
+    color: var(--ink-2);
+  }
+
+  .article-event-chip {
+    font-size: var(--font-size-small);
+    font-weight: 600;
+    color: var(--status-plan-text);
+    background: var(--status-plan-bg);
+    padding: 2px var(--space-2);
+    border-radius: var(--radius-sm);
+  }
+
+  .article-title {
+    font-size: var(--font-size-h1);
+    line-height: var(--line-height-h1);
+    font-weight: 800;
+    color: var(--ink);
+    margin: 0 0 var(--space-4) 0;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  .article-lead {
+    font-size: var(--font-size-lead);
+    line-height: var(--line-height-lead);
+    color: var(--ink-2);
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  /* Cover Image Wrap: rộng 960px */
+  .article-cover-container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-6);
   }
 
   .article-featured-image {
-    margin: 0 0 var(--space-8) 0;
+    margin: 0;
     border-radius: var(--radius-lg);
     overflow: hidden;
     border: 1px solid var(--line);
+    background: var(--surface-alt);
+    box-shadow: var(--shadow-raised);
+  }
+
+  .article-cover-img-wrap {
+    width: 100%;
+    overflow: hidden;
     background: var(--surface-alt);
   }
 
@@ -215,117 +377,236 @@ const summaryItems = [
   }
 
   .article-image-caption {
-    padding: var(--space-3) var(--space-4);
+    padding: var(--space-3) var(--space-5);
     font-size: var(--font-size-small);
     line-height: var(--line-height-small);
     color: var(--ink-2);
     background: var(--surface-alt);
     border-top: 1px solid var(--line);
     display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-2);
   }
 
   .article-credit {
-    font-size: 0.8125rem;
-    color: var(--ink-2);
+    font-style: italic;
+  }
+
+  /* Body Content: Chữ lớn 18px dễ đọc, tương phản cao */
+  .article-body-section {
+    background: #ffffff;
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-16);
   }
 
   .article-content {
-    font-size: var(--font-size-base);
-    line-height: 1.75;
-    color: var(--ink);
+    margin-bottom: var(--space-12);
   }
 
   .article-p {
-    margin-bottom: var(--space-5);
+    font-size: 1.125rem;
     line-height: 1.75;
+    color: var(--ink);
+    margin: 0 0 var(--space-5) 0;
   }
 
   .article-h2 {
-    font-size: var(--font-size-h2);
-    line-height: var(--line-height-h2);
-    margin-top: var(--space-8);
-    margin-bottom: var(--space-4);
+    font-size: 2rem;
+    line-height: 1.3;
     color: var(--ink);
-    border-bottom: 2px solid var(--line);
-    padding-bottom: var(--space-2);
+    margin: var(--space-10) 0 var(--space-4) 0;
+    font-weight: 800;
+    letter-spacing: -0.01em;
   }
 
   .article-h3 {
-    font-size: var(--font-size-h3);
-    line-height: var(--line-height-h3);
-    margin-top: var(--space-6);
-    margin-bottom: var(--space-3);
+    font-size: 1.375rem;
+    line-height: 1.4;
     color: var(--ink);
+    margin: var(--space-8) 0 var(--space-3) 0;
+    font-weight: 700;
   }
 
   .article-list {
-    margin: 0 0 var(--space-6) 0;
-    padding-left: var(--space-5);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
+    margin: 0 0 var(--space-6) var(--space-6);
+    padding: 0;
+    color: var(--ink);
+    font-size: 1.125rem;
+    line-height: 1.75;
   }
 
   .article-list li {
-    line-height: 1.6;
+    margin-bottom: var(--space-2);
   }
 
   .article-callout {
     background: var(--surface-alt);
-    border-left: 4px solid var(--brand);
-    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    border-left: 4px solid var(--cta);
     padding: var(--space-4) var(--space-5);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
     margin: var(--space-6) 0;
   }
 
   .article-callout-text {
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    color: var(--ink);
     margin: 0;
     font-weight: 500;
-    color: var(--brand-ink);
   }
 
   .article-quote {
-    margin: var(--space-6) 0;
-    padding: var(--space-4) var(--space-6);
-    border-left: 4px solid var(--cta);
-    background: #fff9f4;
-    border-radius: 0 var(--radius-md) var(--radius-md) 0;
-    font-style: italic;
-    color: var(--ink);
+    border-left: 4px solid var(--brand);
+    margin: var(--space-8) 0;
+    padding: var(--space-3) var(--space-6);
+    background: var(--surface-alt);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   }
 
   .article-quote p {
-    margin: 0 0 var(--space-2) 0;
+    font-size: 1.25rem;
+    line-height: 1.6;
+    font-style: italic;
+    color: var(--ink);
+    margin: 0;
   }
 
   .article-quote cite {
-    font-style: normal;
+    display: block;
+    margin-top: var(--space-2);
     font-size: var(--font-size-small);
+    font-style: normal;
     color: var(--ink-2);
+    font-weight: 600;
+  }
+
+  .article-inline-figure {
+    margin: var(--space-8) 0;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--surface-alt);
+  }
+
+  .article-inline-figure img {
+    width: 100%;
+    height: auto;
     display: block;
   }
 
-  .article-footer-nav {
-    margin-top: var(--space-10);
-    padding-top: var(--space-6);
-    border-top: 1px solid var(--line);
+  /* Khối Bài viết khác */
+  .other-articles-section {
+    border-top: 2px solid var(--line);
+    padding-top: var(--space-8);
+    margin-top: var(--space-12);
+    margin-bottom: var(--space-8);
+  }
+
+  .other-articles-title {
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+    color: var(--ink);
+    margin: 0 0 var(--space-6) 0;
+    font-weight: 700;
+  }
+
+  .other-articles-list {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: var(--space-4);
+  }
+
+  .other-article-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding: var(--space-4) var(--space-5);
+    background: var(--surface-alt);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: transform var(--transition-fast), border-color var(--transition-fast);
+  }
+
+  .other-article-card:hover {
+    border-color: var(--brand);
+    transform: translateY(-2px);
+  }
+
+  .other-article-meta {
+    display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: var(--space-2);
+    font-size: var(--font-size-small);
+  }
+
+  .other-category {
+    font-weight: 700;
+    color: var(--brand);
+    text-transform: uppercase;
+  }
+
+  .other-date {
+    color: var(--ink-2);
+  }
+
+  .other-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  .other-summary {
+    font-size: var(--font-size-small);
+    color: var(--ink-2);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .other-read-more {
+    font-size: var(--font-size-small);
+    font-weight: 600;
+    color: var(--brand);
+    margin-top: var(--space-1);
+  }
+
+  /* Navigation Footer */
+  .article-footer-nav {
+    display: flex;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+    align-items: center;
+    border-top: 1px solid var(--line);
+    padding-top: var(--space-6);
   }
 
   @media (max-width: 767px) {
+    .article-title {
+      font-size: 2rem;
+      line-height: 2.25rem;
+    }
+
+    .article-lead {
+      font-size: 1.125rem;
+      line-height: 1.6;
+    }
+
+    .article-p {
+      font-size: 1.0625rem;
+      line-height: 1.7;
+    }
+
     .article-footer-nav {
       flex-direction: column;
       align-items: stretch;
     }
 
-    .article-footer-nav a {
+    .article-footer-nav .btn {
+      width: 100%;
       text-align: center;
+      justify-content: center;
     }
   }
 </style>

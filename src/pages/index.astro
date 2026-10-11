@@ -1,12 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
-import ActivityList from '../components/ActivityList.astro';
 import StatusChip from '../components/StatusChip.astro';
-import Icon from '../components/Icon.astro';
+import Icon, { type IconName } from '../components/Icon.astro';
 import GoalProgress from '../components/GoalProgress.astro';
-import ProjectProgress from '../components/ProjectProgress.astro';
-import { CAMPAIGN_PROJECT, DONATION_ACCOUNT, DONATION_LEDGER, PLANNED_SESSIONS, TEAM_MEMBERS } from '../data/campaign';
+import { CAMPAIGN_PROJECT, DONATION_ACCOUNT, DONATION_LEDGER, PLANNED_SESSIONS, TEAM_MEMBERS, PROJECT_PROGRESS } from '../data/campaign';
 import { getPublishedJournalEntries } from '../data/journal';
 import { summarizeLedger, formatViDate } from '../lib/donations';
 import { formatVND } from '../lib/finance';
@@ -14,6 +12,20 @@ import { formatVND } from '../lib/finance';
 const donationSummary = summarizeLedger(DONATION_LEDGER, DONATION_ACCOUNT.goalAmount);
 const sessionText = PLANNED_SESSIONS.map((s) => formatViDate(s.date).slice(0, 5)).join(' và ');
 const recentJournalEntries = getPublishedJournalEntries().slice(0, 2);
+
+const tintFor: Record<string, string> = {
+  'chuon-chuon-tre': 'sun',
+  'to-tuong': 'rose',
+  'hat-cung-nhau': 'sky',
+  'tro-choi-nhe': 'mint',
+};
+
+const iconFor: Record<string, IconName> = {
+  'chuon-chuon-tre': 'chuon-chuon',
+  'to-tuong': 'to-tuong',
+  'hat-cung-nhau': 'hat',
+  'tro-choi-nhe': 'tro-choi',
+};
 
 const steps = [
   {
@@ -50,15 +62,19 @@ const steps = [
         </div>
         <div class="fact">
           <dt>Dành cho</dt>
-          <dd>Các em nhỏ và người cao tuổi tại Mái ấm Thánh Tâm Xuy Xá</dd>
+          <dd>Các em nhỏ & người cao tuổi tại Mái ấm</dd>
         </div>
         <div class="fact">
-          <dt>Hai buổi tại Mái ấm (dự kiến)</dt>
-          <dd>14:00 Thứ Bảy, {sessionText}/2026</dd>
+          <dt>Hai buổi tại Mái ấm</dt>
+          <dd>14:00 Thứ Bảy, {sessionText}/2026 (dự kiến)</dd>
         </div>
         <div class="fact">
           <dt>Trạng thái</dt>
           <dd><StatusChip kind="da-xac-nhan" label={CAMPAIGN_PROJECT.statusNotice} /></dd>
+        </div>
+        <div class="fact">
+          <dt>Tiến độ</dt>
+          <dd>Tuần {PROJECT_PROGRESS.currentWeek}/{PROJECT_PROGRESS.totalWeeks} (kế hoạch 5 tuần)</dd>
         </div>
       </dl>
     </div>
@@ -91,17 +107,8 @@ const steps = [
     </div>
   </section>
 
-  <section class="section section-soft section-tight" aria-labelledby="progress-heading">
-    <div class="container">
-      <div class="section-header">
-        <span class="eyebrow">Tiến độ</span>
-        <h2 id="progress-heading">Tiến độ dự án</h2>
-      </div>
-      <div class="reveal"><ProjectProgress /></div>
-    </div>
-  </section>
-
-  <section class="section" aria-labelledby="play-heading">
+  <!-- Bốn góc: Dải 4 ô ngang gọn gàng (Kiểu A Áp phích) -->
+  <section class="section section-corners-strip" aria-labelledby="play-heading">
     <div class="container">
       <div class="section-header">
         <span class="eyebrow">Buổi chơi</span>
@@ -109,14 +116,28 @@ const steps = [
         <p>Các em có thể tự do chọn góc hoạt động, đổi lượt, quan sát hoặc nghỉ ngơi; không giao chỉ tiêu hoàn thành sản phẩm.</p>
       </div>
 
-      <ActivityList activities={CAMPAIGN_PROJECT.activities} />
+      <div class="corners-strip">
+        {CAMPAIGN_PROJECT.activities.map((a) => (
+          <div class={`corner-strip-item tint-${tintFor[a.id] ?? 'sun'}`}>
+            <span class="corner-strip-icon">
+              <Icon name={iconFor[a.id] ?? 'chuon-chuon'} size={24} />
+            </span>
+            <div class="corner-strip-text">
+              <span class="corner-strip-badge">{a.badge}</span>
+              <h3 class="corner-strip-title">{a.title}</h3>
+              <p class="corner-strip-desc">{a.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
 
       <div class="section-actions">
-        <a href="/du-an/mang-theo-mot-net-ve" class="link-arrow">Xem chi tiết dự án <span class="arrow" aria-hidden="true">→</span></a>
+        <a href="/du-an/mang-theo-mot-net-ve#corners-heading" class="link-arrow">Xem chi tiết kế hoạch bốn góc chơi <span class="arrow" aria-hidden="true">→</span></a>
       </div>
     </div>
   </section>
 
+  <!-- Dải ủng hộ tối (Poster style) -->
   <section class="donate-band" aria-labelledby="donate-heading">
     <div class="container donate-band-inner reveal">
       <div class="donate-text">
@@ -136,80 +157,75 @@ const steps = [
     </div>
   </section>
 
-  <section class="section" aria-labelledby="gift-heading">
-    <div class="container editorial-split">
-      <figure class="split-figure reveal">
-        <img
-          src="/images/san-pham/chuon-chuon-tre.webp"
-          alt="Những chú chuồn chuồn tre sơn nhiều màu đặt trên khay mây, có chân đế"
-          width="1117"
-          height="541"
-          loading="lazy"
-          decoding="async"
-        />
-        <figcaption>Ảnh chuồn chuồn tre do nhóm cung cấp để tham khảo; mẫu thực tế có thể khác.</figcaption>
-      </figure>
-      <div class="split-text">
-        <span class="eyebrow">Quà lưu niệm</span>
-        <h2 id="gift-heading" class="split-title">Chuồn chuồn tre và móc khóa</h2>
-        <p>Sản phẩm gây quỹ do nhóm tự làm. Hoạt động tại Mái ấm hoàn toàn là vui chơi sáng tạo; các em giữ lại sản phẩm do mình làm ra.</p>
-        <a href="/san-pham" class="link-arrow">Xem quà lưu niệm <span class="arrow" aria-hidden="true">→</span></a>
+  <!-- Quà lưu niệm + Mới trên nhật ký: Gộp lưới 12 cột 7/5 -->
+  <section class="section section-craft-journal" aria-labelledby="gift-heading">
+    <div class="container craft-journal-grid">
+      <!-- Cột Trái 7: Quà lưu niệm gây quỹ -->
+      <div class="craft-col">
+        <figure class="split-figure">
+          <div class="split-img-wrap">
+            <img
+              src="/images/san-pham/chuon-chuon-tre.webp"
+              alt="Những chú chuồn chuồn tre sơn nhiều màu đặt trên khay mây, có chân đế"
+              width="1117"
+              height="541"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <figcaption>Ảnh chuồn chuồn tre do nhóm cung cấp để tham khảo; mẫu thực tế có thể khác.</figcaption>
+        </figure>
+        <div class="craft-text">
+          <span class="eyebrow">Quà lưu niệm gây quỹ</span>
+          <h2 id="gift-heading" class="split-title">Chuồn chuồn tre và móc khóa</h2>
+          <p>Sản phẩm gây quỹ do nhóm tự làm. Hoạt động tại Mái ấm hoàn toàn là vui chơi sáng tạo; các em giữ lại toàn bộ sản phẩm do mình làm ra.</p>
+          <a href="/san-pham" class="link-arrow">Xem quà lưu niệm <span class="arrow" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+
+      <!-- Cột Phải 5: Mới trên nhật ký -->
+      <div class="journal-col" aria-labelledby="journal-home-heading">
+        <div class="journal-col-head">
+          <span class="eyebrow">Cập nhật mới</span>
+          <h2 id="journal-home-heading" class="journal-col-title">Nhật ký dự án</h2>
+          <p class="journal-col-lead">Ghi chép hành trình chuẩn bị buổi chơi và kế hoạch gây quỹ.</p>
+        </div>
+
+        {recentJournalEntries.length > 0 && (
+          <ul class="journal-col-list">
+            {recentJournalEntries.map((entry) => (
+              <li class="journal-col-item">
+                <div class="journal-col-meta">
+                  <span class={`journal-tag tag-${entry.category}`}>{entry.categoryLabel}</span>
+                  <time datetime={entry.publishedAt}>{entry.publishedAt.split('-').reverse().join('/')}</time>
+                </div>
+                <h3 class="journal-col-item-title">
+                  <a href={`/nhat-ky/${entry.slug}`}>{entry.title}</a>
+                </h3>
+                <p class="journal-col-item-summary">{entry.summary}</p>
+                <a href={`/nhat-ky/${entry.slug}`} class="link-arrow">
+                  Đọc chi tiết <span class="arrow" aria-hidden="true">→</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        <div class="journal-col-actions">
+          <a href="/nhat-ky" class="btn btn-secondary">Xem tất cả bài viết nhật ký →</a>
+        </div>
       </div>
     </div>
   </section>
 
-  {recentJournalEntries.length > 0 && (
-    <section class="section" aria-labelledby="journal-home-heading">
-      <div class="container">
-        <div class="section-header">
-          <span class="eyebrow">Cập nhật mới</span>
-          <h2 id="journal-home-heading" class="section-title">Nhật ký kế hoạch dự án</h2>
-          <p class="section-lead">Thông tin cập nhật về kế hoạch tổ chức bốn góc chơi và quà lưu niệm gây quỹ.</p>
-        </div>
-        <div class="journal-home-grid">
-          {recentJournalEntries.map((entry) => (
-            <article class="journal-home-card">
-              {entry.coverImage && (
-                <figure class="journal-home-figure">
-                  <div class="journal-card-media">
-                    <img src={entry.coverImage.src} alt={entry.coverImage.alt} width="600" height="340" loading="lazy" decoding="async" />
-                    <span class="journal-category-badge">{entry.categoryLabel}</span>
-                  </div>
-                  <figcaption class="journal-home-caption">
-                    <span class="home-caption-text">{entry.coverImage.caption}</span>
-                    {entry.coverImage.creditName && (
-                      <span class="home-caption-credit">Ảnh: {entry.coverImage.creditName} ({entry.coverImage.creditSource || 'Pexels'})</span>
-                    )}
-                  </figcaption>
-                </figure>
-              )}
-              <div class="journal-card-body">
-                <div class="journal-card-meta">
-                  <time datetime={entry.publishedAt}>{entry.publishedAt.split('-').reverse().join('/')}</time>
-                </div>
-                <h3 class="journal-card-title">
-                  <a href={`/nhat-ky/${entry.slug}`}>{entry.title}</a>
-                </h3>
-                <p class="journal-card-summary">{entry.summary}</p>
-                <a href={`/nhat-ky/${entry.slug}`} class="link-arrow">Đọc chi tiết <span class="arrow" aria-hidden="true">→</span></a>
-              </div>
-            </article>
-          ))}
-        </div>
-        <div class="journal-home-more">
-          <a href="/nhat-ky" class="btn btn-secondary">Xem tất cả bài viết nhật ký →</a>
-        </div>
-      </div>
-    </section>
-  )}
-
+  <!-- Nhóm Lăng Kính -->
   <section class="section section-soft" aria-labelledby="team-heading">
     <div class="container team-row">
       <div class="team-text">
         <span class="eyebrow">Nhóm thực hiện</span>
         <h2 id="team-heading" class="split-title">Lăng Kính</h2>
-        <p>Nhóm Lăng Kính phụ trách điều phối, tài chính, hậu cần, truyền thông, thiết kế và đối ngoại.</p>
-        <a href="/ve-nhom" class="link-arrow">Về nhóm <span class="arrow" aria-hidden="true">→</span></a>
+        <p>Nhóm Lăng Kính gồm bảy sinh viên Đại học FPT Hà Nội phụ trách điều phối, tài chính, hậu cần, truyền thông, thiết kế và đối ngoại.</p>
+        <a href="/ve-nhom" class="link-arrow">Về nhóm Lăng Kính <span class="arrow" aria-hidden="true">→</span></a>
       </div>
       <ul class="mini-team reveal" aria-label="Thành viên nhóm">
         {TEAM_MEMBERS.map((m) => (
@@ -230,7 +246,7 @@ const steps = [
 
   .facts-strip {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     margin: 0;
   }
 
@@ -252,7 +268,7 @@ const steps = [
   }
 
   .fact {
-    padding: var(--space-6);
+    padding: var(--space-5);
     border-left: 1px solid var(--line);
     display: flex;
     flex-direction: column;
@@ -276,10 +292,11 @@ const steps = [
     margin: 0;
     color: var(--ink);
     font-weight: 700;
-    font-size: 1.0625rem;
+    font-size: 0.9375rem;
+    line-height: 1.4;
   }
 
-  /* Ba việc: bố cục editorial, tiêu đề trái và danh sách đánh số lớn bên phải */
+  /* Ba việc */
   .what-grid {
     display: grid;
     grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
@@ -302,81 +319,140 @@ const steps = [
     padding: 0;
     display: flex;
     flex-direction: column;
+    gap: var(--space-6);
   }
 
   .step {
     display: grid;
-    grid-template-columns: 96px minmax(0, 1fr);
+    grid-template-columns: 72px minmax(0, 1fr);
     gap: var(--space-6);
-    padding: var(--space-8) 0;
-    border-top: 1px solid var(--line);
-  }
-
-  .step:last-child {
-    border-bottom: 1px solid var(--line);
+    align-items: start;
+    padding: var(--space-6);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--line);
+    background: #ffffff;
+    box-shadow: var(--shadow-subtle);
   }
 
   .step-num {
-    font-size: 4rem;
+    font-size: 3rem;
     line-height: 1;
     font-weight: 800;
-    letter-spacing: -0.04em;
-    color: var(--brand);
+    color: var(--cta);
+    letter-spacing: -0.02em;
     font-variant-numeric: tabular-nums;
+  }
+
+  .step-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
   }
 
   .step-title {
     display: flex;
     align-items: center;
     gap: var(--space-3);
-    font-size: 1.5rem;
+    font-size: 1.375rem;
     line-height: 1.3;
-    margin: 0 0 var(--space-2);
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0;
   }
 
   .step-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-sm);
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    background: var(--surface-soft);
+    color: var(--brand);
     flex-shrink: 0;
-  }
-
-  .step--sun .step-icon { background: var(--tint-sun); color: var(--tint-sun-ink); }
-  .step--rose .step-icon { background: var(--tint-rose); color: var(--tint-rose-ink); }
-  .step--mint .step-icon { background: var(--tint-mint); color: var(--tint-mint-ink); }
-
-  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
-    .step:hover .step-icon {
-      animation: pop 480ms var(--ease-out) 1;
-    }
-  }
-
-  @keyframes pop {
-    40% { transform: scale(1.12) rotate(-6deg); }
-    100% { transform: none; }
   }
 
   .step-text {
     margin: 0;
-    max-width: 60ch;
+    font-size: var(--font-size-body);
+    line-height: 1.55;
+    color: var(--ink-2);
   }
 
+  /* Bốn góc: Dải ngang */
+  .corners-strip {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-5);
+    margin-top: var(--space-6);
+  }
+
+  .corner-strip-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: var(--space-5);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--line);
+    background: var(--surface-alt);
+    transition: transform var(--transition-fast);
+  }
+
+  .corner-strip-item:hover {
+    transform: translateY(-2px);
+  }
+
+  .corner-strip-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-md);
+    background: #ffffff;
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--brand);
+  }
+
+  .corner-strip-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .corner-strip-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--brand);
+    letter-spacing: 0.05em;
+  }
+
+  .corner-strip-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  .corner-strip-desc {
+    font-size: var(--font-size-small);
+    line-height: 1.4;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  /* Dải Ủng hộ tối */
   .donate-band {
-    position: relative;
-    overflow: hidden;
-    isolation: isolate;
     background-color: var(--brand-ink);
-    padding-top: var(--space-section);
-    padding-bottom: var(--space-section);
+    color: var(--on-dark);
+    padding: var(--space-16) 0;
   }
 
   .donate-band-inner {
     display: grid;
     grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-    gap: var(--space-10);
+    gap: var(--space-12);
     align-items: center;
   }
 
@@ -417,31 +493,50 @@ const steps = [
     background: rgba(255, 255, 255, 0.04);
   }
 
-  /* Quà lưu niệm: ảnh lớn bên trái, chữ bên phải */
-  .editorial-split {
+  /* Quà + Nhật ký (12 cột: 7/5) */
+  .section-craft-journal {
+    padding-top: var(--space-14);
+    padding-bottom: var(--space-14);
+  }
+
+  .craft-journal-grid {
     display: grid;
     grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
     gap: var(--space-12);
-    align-items: center;
+    align-items: start;
+  }
+
+  .craft-col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
   }
 
   .split-figure {
     margin: 0;
   }
 
+  .split-img-wrap {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--surface-soft);
+  }
+
   .split-figure img {
     display: block;
     width: 100%;
     height: auto;
-    border-radius: var(--radius-xl);
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
   }
 
   .split-figure figcaption {
     margin-top: var(--space-2);
     color: var(--ink-2);
+    font-size: var(--font-size-small);
   }
 
-  .split-text,
+  .craft-text,
   .team-text {
     display: flex;
     flex-direction: column;
@@ -449,17 +544,121 @@ const steps = [
     gap: var(--space-3);
   }
 
-  .split-text p,
+  .craft-text p,
   .team-text p {
     margin: 0;
     font-size: var(--font-size-lead);
     line-height: var(--line-height-lead);
+    color: var(--ink-2);
   }
 
   .split-title {
     margin: 0;
+    font-size: var(--font-size-h2);
+    line-height: var(--line-height-h2);
+    font-weight: 800;
+    color: var(--ink);
   }
 
+  /* Journal Column */
+  .journal-col {
+    background: var(--surface-alt);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .journal-col-head {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .journal-col-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  .journal-col-lead {
+    font-size: var(--font-size-small);
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  .journal-col-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .journal-col-item {
+    padding-bottom: var(--space-5);
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .journal-col-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .journal-col-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: 0.75rem;
+    color: var(--ink-2);
+  }
+
+  .journal-tag {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    padding: 2px var(--space-2);
+    border-radius: var(--radius-sm);
+    background: var(--status-plan-bg);
+    color: var(--status-plan-text);
+  }
+
+  .journal-col-item-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1.35;
+    margin: 0;
+  }
+
+  .journal-col-item-title a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .journal-col-item-title a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+
+  .journal-col-item-summary {
+    font-size: var(--font-size-small);
+    line-height: 1.5;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  .journal-col-actions {
+    margin-top: var(--space-2);
+  }
+
+  /* Team Row */
   .team-row {
     display: grid;
     grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
@@ -490,6 +689,7 @@ const steps = [
     display: block;
   }
 
+  /* Responsive Stacking */
   @media (max-width: 1023px) {
     .facts {
       padding-top: var(--space-6);
@@ -499,7 +699,11 @@ const steps = [
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .fact:nth-child(3) {
+    .fact:nth-child(even) {
+      border-left: 1px solid var(--line);
+    }
+
+    .fact:nth-child(odd) {
       border-left: none;
     }
 
@@ -508,10 +712,14 @@ const steps = [
     }
 
     .what-grid,
-    .editorial-split,
+    .craft-journal-grid,
     .team-row {
       grid-template-columns: 1fr;
       gap: var(--space-8);
+    }
+
+    .corners-strip {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .donate-band-inner {
@@ -526,13 +734,18 @@ const steps = [
     }
 
     .fact,
-    .fact:nth-child(3) {
+    .fact:nth-child(even),
+    .fact:nth-child(odd) {
       border-left: none;
       padding: var(--space-3) var(--space-4);
     }
 
     .fact + .fact {
       border-top: 1px solid var(--line);
+    }
+
+    .corners-strip {
+      grid-template-columns: 1fr;
     }
 
     .step {
@@ -555,14 +768,10 @@ const steps = [
     }
 
     .what-header p,
-    .split-text p,
+    .craft-text p,
     .team-text p {
       font-size: var(--font-size-body);
       line-height: var(--line-height-body);
-    }
-
-    .split-figure img {
-      border-radius: var(--radius-lg);
     }
 
     .mini-team {
@@ -579,130 +788,6 @@ const steps = [
 
     .donate-stats {
       padding: var(--space-4);
-    }
-  }
-
-  .journal-home-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--space-6);
-  }
-
-  .journal-home-card {
-    background: #ffffff;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
-  }
-
-  .journal-home-card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-raised);
-  }
-
-  .journal-home-figure {
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    background: var(--surface-soft);
-    border-bottom: 1px solid var(--line);
-  }
-
-  .journal-home-caption {
-    padding: var(--space-2) var(--space-4);
-    font-size: 0.8125rem;
-    color: var(--ink-2);
-    background: var(--surface-soft);
-    line-height: 1.4;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  .home-caption-text {
-    font-weight: 500;
-  }
-
-  .home-caption-credit {
-    font-size: 0.75rem;
-    color: var(--ink-muted);
-  }
-
-  .journal-card-media {
-    position: relative;
-    aspect-ratio: 16 / 9;
-    background: var(--surface-soft);
-    overflow: hidden;
-  }
-
-  .journal-card-media img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  .journal-category-badge {
-    position: absolute;
-    top: var(--space-3);
-    left: var(--space-3);
-    background: #ffffff;
-    color: var(--color-primary);
-    font-size: var(--font-size-small);
-    font-weight: 600;
-    padding: 2px 10px;
-    border-radius: 9999px;
-    border: 1px solid var(--line);
-  }
-
-  .journal-card-body {
-    padding: var(--space-6);
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-  }
-
-  .journal-card-meta {
-    font-size: var(--font-size-small);
-    color: var(--ink-2);
-    margin-bottom: var(--space-2);
-  }
-
-  .journal-card-title {
-    font-size: 1.25rem;
-    font-weight: 700;
-    line-height: 1.35;
-    margin: 0 0 var(--space-3);
-  }
-
-  .journal-card-title a {
-    color: var(--ink);
-    text-decoration: none;
-  }
-
-  .journal-card-title a:hover {
-    color: var(--color-primary);
-  }
-
-  .journal-card-summary {
-    font-size: var(--font-size-body);
-    color: var(--ink-2);
-    line-height: 1.6;
-    margin: 0 0 var(--space-4);
-    flex: 1;
-  }
-
-  .journal-home-more {
-    margin-top: var(--space-8);
-    text-align: center;
-  }
-
-  @media (max-width: 767px) {
-    .journal-home-grid {
-      grid-template-columns: 1fr;
     }
   }
 </style>

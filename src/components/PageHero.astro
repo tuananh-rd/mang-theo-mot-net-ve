@@ -28,6 +28,7 @@ interface Props {
   description?: string;
   summaryTitle?: string;
   summaryItems?: SummaryItem[];
+  variant?: 'dark' | 'paper' | 'plain' | 'masthead';
 }
 
 const {
@@ -40,11 +41,12 @@ const {
   description,
   summaryTitle = 'Tóm tắt kế hoạch',
   summaryItems = [],
+  variant = 'dark',
 } = Astro.props;
-const hasPanel = summaryItems.length > 0 || Astro.slots.has('panel-extra');
+const hasPanel = (summaryItems && summaryItems.length > 0) || Astro.slots.has('panel-extra');
 ---
 
-<section class="page-hero" aria-labelledby={titleId}>
+<section class:list={['page-hero', `page-hero--${variant}`]} aria-labelledby={titleId}>
   <div class="container page-hero-container">
     {breadcrumbs && breadcrumbs.length > 0 && (
       <nav class="page-hero-breadcrumb" aria-label="Đường dẫn trang">
@@ -117,18 +119,125 @@ const hasPanel = summaryItems.length > 0 || Astro.slots.has('panel-extra');
       </aside>
       )}
     </div>
+    <slot name="hero-bottom" />
   </div>
 </section>
 
 <style>
-  /* C13: dải tiêu đề nền teal đậm, chữ lớn; khác hero Trang chủ ở chỗ chỉ dùng chữ và thẻ tóm tắt */
   .page-hero {
     position: relative;
     overflow: hidden;
     isolation: isolate;
+  }
+
+  /* Variant: dark (default) */
+  .page-hero--dark {
     background-color: var(--brand-ink);
     padding-top: var(--space-6);
     padding-bottom: var(--space-20);
+  }
+  .page-hero--dark a:focus-visible {
+    outline-color: var(--focus-on-dark);
+  }
+  .page-hero--dark .eyebrow {
+    color: var(--cta);
+  }
+  .page-hero--dark .breadcrumb-link {
+    color: var(--on-dark-2);
+  }
+  .page-hero--dark .breadcrumb-link:hover {
+    color: var(--on-dark);
+  }
+  .page-hero--dark .breadcrumb-separator {
+    color: var(--on-dark-2);
+  }
+  .page-hero--dark .breadcrumb-current {
+    color: var(--on-dark);
+  }
+  .page-hero--dark .page-hero-title {
+    color: var(--on-dark);
+  }
+  .page-hero--dark .page-hero-lead {
+    color: var(--on-dark);
+  }
+  .page-hero--dark .page-hero-desc {
+    color: var(--on-dark-2);
+  }
+
+  /* Variant: paper (Hành trình - Dự án) */
+  .page-hero--paper {
+    background-color: var(--surface-alt);
+    border-bottom: 1px solid var(--line);
+    padding-top: var(--space-8);
+    padding-bottom: var(--space-10);
+  }
+
+  /* Variant: plain (Catalogue SP, Minh bạch, Đồng hành) */
+  .page-hero--plain {
+    background-color: #ffffff;
+    border-bottom: 1px solid var(--line);
+    padding-top: var(--space-8);
+    padding-bottom: var(--space-8);
+  }
+
+  /* Variant: masthead (Nhật ký, Về nhóm) */
+  .page-hero--masthead {
+    background-color: #ffffff;
+    border-bottom: 1px solid var(--line);
+    padding-top: var(--space-10);
+    padding-bottom: var(--space-10);
+  }
+  .page-hero--masthead .page-hero-title {
+    font-size: var(--font-size-display);
+    line-height: var(--line-height-display);
+    letter-spacing: -0.03em;
+  }
+
+  /* Chung cho các variant nền sáng: paper, plain, masthead */
+  .page-hero--paper a:focus-visible,
+  .page-hero--plain a:focus-visible,
+  .page-hero--masthead a:focus-visible {
+    outline-color: var(--focus);
+  }
+  .page-hero--paper .eyebrow,
+  .page-hero--plain .eyebrow,
+  .page-hero--masthead .eyebrow {
+    color: var(--brand);
+  }
+  .page-hero--paper .breadcrumb-link,
+  .page-hero--plain .breadcrumb-link,
+  .page-hero--masthead .breadcrumb-link {
+    color: var(--ink-2);
+  }
+  .page-hero--paper .breadcrumb-link:hover,
+  .page-hero--plain .breadcrumb-link:hover,
+  .page-hero--masthead .breadcrumb-link:hover {
+    color: var(--brand);
+  }
+  .page-hero--paper .breadcrumb-separator,
+  .page-hero--plain .breadcrumb-separator,
+  .page-hero--masthead .breadcrumb-separator {
+    color: var(--line-strong);
+  }
+  .page-hero--paper .breadcrumb-current,
+  .page-hero--plain .breadcrumb-current,
+  .page-hero--masthead .breadcrumb-current {
+    color: var(--ink);
+  }
+  .page-hero--paper .page-hero-title,
+  .page-hero--plain .page-hero-title,
+  .page-hero--masthead .page-hero-title {
+    color: var(--ink);
+  }
+  .page-hero--paper .page-hero-lead,
+  .page-hero--plain .page-hero-lead,
+  .page-hero--masthead .page-hero-lead {
+    color: var(--ink);
+  }
+  .page-hero--paper .page-hero-desc,
+  .page-hero--plain .page-hero-desc,
+  .page-hero--masthead .page-hero-desc {
+    color: var(--ink-2);
   }
 
   /* Vạch màu mơ dưới tiêu đề, phẳng */
@@ -140,14 +249,6 @@ const hasPanel = summaryItems.length > 0 || Astro.slots.has('panel-extra');
     margin-top: var(--space-5);
     border-radius: 6px;
     background-color: var(--cta);
-  }
-
-  .page-hero a:focus-visible {
-    outline-color: var(--focus-on-dark);
-  }
-
-  .page-hero .eyebrow {
-    color: var(--cta);
   }
 
   .page-hero-container {
@@ -354,6 +455,18 @@ const hasPanel = summaryItems.length > 0 || Astro.slots.has('panel-extra');
     .page-hero {
       padding-top: var(--space-4);
       padding-bottom: var(--space-10);
+    }
+
+    .page-hero--paper,
+    .page-hero--plain,
+    .page-hero--masthead {
+      padding-top: var(--space-5);
+      padding-bottom: var(--space-6);
+    }
+
+    .page-hero--masthead .page-hero-title {
+      font-size: 2.25rem;
+      line-height: 2.75rem;
     }
 
     .page-hero-title::after {

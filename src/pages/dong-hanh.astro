@@ -32,6 +32,7 @@ const otherWays = [
   currentPath="/dong-hanh"
 >
   <PageHero
+    variant="plain"
     breadcrumbs={breadcrumbs}
     eyebrow="Ủng hộ"
     chip={open ? { kind: 'da-xac-nhan', label: 'Đang nhận ủng hộ' } : { kind: 'cho-xac-nhan', label: 'Sắp mở nhận ủng hộ' }}
@@ -39,7 +40,33 @@ const otherWays = [
     titleId="support-heading"
     lead={`Mục tiêu gây quỹ ${formatVND(DONATION_ACCOUNT.goalAmount)} cho buổi chơi và quà tặng các em tại Mái ấm.`}
     description="Chuyển khoản qua mã QR. Nhóm đối soát với sao kê ngân hàng và công bố từng khoản tại bảng sao kê bên dưới."
-  />
+  >
+    <div slot="hero-bottom" class="transfer-stepper-wrap">
+      <ol class="transfer-stepper" aria-label="Ba bước ủng hộ">
+        <li class="stepper-item">
+          <span class="stepper-num" aria-hidden="true">01</span>
+          <div class="stepper-content">
+            <strong class="stepper-title">Quét hoặc tải QR</strong>
+            <p class="stepper-desc">Dùng ứng dụng ngân hàng quét mã QR bên dưới hoặc tải ảnh QR về máy (nếu app ngân hàng của bạn hỗ trợ quét từ thư viện ảnh).</p>
+          </div>
+        </li>
+        <li class="stepper-item">
+          <span class="stepper-num" aria-hidden="true">02</span>
+          <div class="stepper-content">
+            <strong class="stepper-title">Ghi đúng nội dung</strong>
+            <p class="stepper-desc">Ghi đúng cú pháp <code>MTMNV Tên của bạn</code> để nhóm đối soát chính xác với sao kê ngân hàng.</p>
+          </div>
+        </li>
+        <li class="stepper-item">
+          <span class="stepper-num" aria-hidden="true">03</span>
+          <div class="stepper-content">
+            <strong class="stepper-title">Theo dõi sao kê</strong>
+            <p class="stepper-desc">Khoản ủng hộ sẽ xuất hiện tại bảng sao kê công khai sau mỗi đợt đối soát định kỳ của nhóm.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </PageHero>
 
   <section class="section section-first" aria-labelledby="donate-heading">
     <div class="container">
@@ -62,23 +89,32 @@ const otherWays = [
     </div>
   </section>
 
-  <section class="section section-dark" aria-labelledby="steps-heading">
+  <!-- Khoản ủng hộ của bạn đi đâu: Dòng tiến trình 4 bước sáng (Thay thế dải dark lặp lại) -->
+  <section class="section section-process" aria-labelledby="steps-heading">
     <div class="container">
       <div class="section-header">
         <span class="eyebrow">Minh bạch từng khoản</span>
         <h2 id="steps-heading">Khoản ủng hộ của bạn đi đâu</h2>
+        <p>Quy trình khép kín từ lúc nhận khoản ủng hộ tới khi trao quà tận tay các em.</p>
       </div>
-      <ol class="flow">
-        {
-          steps.map((s, i) => (
-            <li class="flow-step lift">
-              <span class="flow-num" aria-hidden="true">{i + 1}</span>
-              <h3 class="flow-title">{s.title}</h3>
-              <p class="flow-text">{s.text}</p>
-            </li>
-          ))
-        }
-      </ol>
+      <div class="flow-chain-wrap">
+        <ol class="flow-chain">
+          {
+            steps.map((s, i) => (
+              <li class="chain-step">
+                <span class="chain-badge" aria-hidden="true">0{i + 1}</span>
+                <div class="chain-text">
+                  <h3 class="chain-title">{s.title}</h3>
+                  <p class="chain-desc">{s.text}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+      <div class="process-actions">
+        <a href="/minh-bach#quy-trinh" class="link-arrow">Xem chi tiết 4 bước quy trình trên sổ thu chi <span class="arrow" aria-hidden="true">→</span></a>
+      </div>
     </div>
   </section>
 
@@ -114,22 +150,71 @@ const otherWays = [
       <FaqAccordion faqs={SUPPORT_FAQS} idPrefix="support-faq" />
     </div>
   </section>
-
-  <section class="cta-band" aria-labelledby="support-cta-heading">
-    <div class="container cta-band-inner">
-      <div class="cta-band-text">
-        <h2 id="support-cta-heading">Nhóm quản lý tiền ủng hộ thế nào?</h2>
-        <p>Quy trình đối soát, công bố sao kê và xử lý khi có nhầm lẫn.</p>
-      </div>
-      <div class="cta-band-actions">
-        <a href="/minh-bach" class="btn btn-primary">Xem minh bạch</a>
-        <a href="/ve-nhom" class="link-arrow">Về nhóm Lăng Kính <span class="arrow" aria-hidden="true">→</span></a>
-      </div>
-    </div>
-  </section>
 </Layout>
 
 <style>
+  .transfer-stepper-wrap {
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--line);
+  }
+
+  .transfer-stepper {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-6);
+  }
+
+  .stepper-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-4);
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+    box-shadow: var(--shadow-subtle);
+  }
+
+  .stepper-num {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--brand);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .stepper-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .stepper-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .stepper-desc {
+    font-size: var(--font-size-small);
+    line-height: 1.5;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  .stepper-desc code {
+    background: var(--surface-alt);
+    padding: 2px 4px;
+    border-radius: var(--radius-sm);
+    font-size: 0.8125rem;
+    color: var(--brand);
+    font-weight: 600;
+  }
+
   .section-first {
     padding-top: var(--space-10);
   }
@@ -138,45 +223,60 @@ const otherWays = [
     max-width: 880px;
   }
 
-  .flow {
+  /* 4-Step Process Section (Replaced section-dark) */
+  .section-process {
+    background: #ffffff;
+    padding-top: var(--space-12);
+    padding-bottom: var(--space-12);
+    border-top: 1px solid var(--line);
+  }
+
+  .flow-chain-wrap {
+    margin-top: var(--space-6);
+  }
+
+  .flow-chain {
     list-style: none;
     margin: 0;
     padding: 0;
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: var(--space-4);
+    gap: var(--space-6);
   }
 
-  .flow-step {
+  .chain-step {
     display: flex;
     flex-direction: column;
-    gap: var(--space-2);
+    gap: var(--space-3);
     padding: var(--space-5);
-    background: #ffffff;
+    background: var(--surface-alt);
     border: 1px solid var(--line);
     border-radius: var(--radius-lg);
   }
 
-  .flow-num {
-    width: 36px;
-    height: 36px;
-    border-radius: var(--radius-pill);
-    background: var(--brand-ink);
-    color: var(--on-dark);
+  .chain-badge {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--cta);
+  }
+
+  .chain-title {
+    font-size: 1.125rem;
     font-weight: 700;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    color: var(--ink);
+    margin: 0 0 var(--space-2) 0;
   }
 
-  .flow-title {
-    font-size: var(--font-size-h3);
-    line-height: var(--line-height-h3);
+  .chain-desc {
+    font-size: var(--font-size-small);
+    line-height: 1.5;
+    color: var(--ink-2);
     margin: 0;
   }
 
-  .flow-text {
-    margin: 0;
+  .process-actions {
+    margin-top: var(--space-8);
+    text-align: center;
   }
 
   .contact-wrap {
@@ -215,7 +315,12 @@ const otherWays = [
   }
 
   @media (max-width: 1023px) {
-    .flow {
+    .transfer-stepper {
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+    }
+
+    .flow-chain {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
@@ -230,12 +335,12 @@ const otherWays = [
       padding-top: var(--space-6);
     }
 
-    .flow {
+    .flow-chain {
       grid-template-columns: 1fr;
-      gap: var(--space-3);
+      gap: var(--space-4);
     }
 
-    .flow-step {
+    .chain-step {
       display: grid;
       grid-template-columns: 36px minmax(0, 1fr);
       column-gap: var(--space-3);
@@ -243,7 +348,7 @@ const otherWays = [
       padding: var(--space-4);
     }
 
-    .flow-num {
+    .chain-badge {
       grid-row: span 2;
     }
 

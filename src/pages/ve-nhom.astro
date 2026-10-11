@@ -2,19 +2,9 @@
 import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/PageHero.astro';
 import ContactCard from '../components/ContactCard.astro';
-import { TEAM_INFO, TEAM_PRINCIPLES, TEAM_MEMBERS, CAMPAIGN_PROJECT } from '../data/campaign';
+import { TEAM_PRINCIPLES, TEAM_MEMBERS } from '../data/campaign';
 
 const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Về nhóm' }];
-
-const summaryItems = [
-  { label: 'Thành viên', value: `${TEAM_MEMBERS.length} sinh viên lớp ${TEAM_INFO.classId}` },
-  { label: 'Trường', value: 'Đại học FPT Hà Nội' },
-  {
-    label: 'Dự án',
-    value: 'Mang Theo Một Nét Vẽ',
-    chip: { kind: 'da-xac-nhan' as const, label: CAMPAIGN_PROJECT.statusNotice },
-  },
-];
 ---
 
 <Layout
@@ -23,34 +13,42 @@ const summaryItems = [
   currentPath="/ve-nhom"
 >
   <PageHero
+    variant="masthead"
     breadcrumbs={breadcrumbs}
     eyebrow="Về nhóm"
     title="Nhóm Lăng Kính"
     titleId="team-heading"
     lead="Bảy sinh viên muốn mang đến một buổi chơi phù hợp và một món quà đúng nhu cầu."
-    description="Nhóm tự chuẩn bị buổi chơi, làm quà lưu niệm gây quỹ, ghi sổ ủng hộ và công bố báo cáo kết quả. Kế hoạch tổ chức và cách hỗ trợ cần được thống nhất với Mái ấm trước khi triển khai."
-    summaryTitle="Thông tin nhóm"
-    summaryItems={summaryItems}
+    description="7 sinh viên lớp AI2015 · Đại học FPT Hà Nội · Nhóm tự chuẩn bị buổi chơi, làm quà lưu niệm gây quỹ, ghi sổ ủng hộ và công bố báo cáo kết quả."
   />
 
-  <section class="section" aria-labelledby="members-heading">
+  <section class="section section-members" aria-labelledby="members-heading">
     <div class="container">
       <div class="section-header">
         <span class="eyebrow">Thành viên</span>
-        <h2 id="members-heading">Gặp gỡ nhóm Lăng Kính</h2>
+        <h2 id="members-heading">Gương mặt & Trách nhiệm</h2>
+        <p>Mỗi thành viên phụ trách một phần việc cụ thể trong khâu tổ chức, hậu cần và tài chính của dự án.</p>
       </div>
 
-      <ul class="members">
+      <!-- Lưới 4 cột desktop (hàng 1: 4 người, hàng 2: 3 người căn trái), 2 cột mobile -->
+      <ul class="members-grid">
         {
           TEAM_MEMBERS.map((m) => (
-            <li class="member">
-              <div class="member-photo">
-                <img src={m.photo} alt={`Ảnh ${m.name}`} width="480" height="600" loading="lazy" decoding="async" />
+            <li class="member-card">
+              <div class="member-photo-frame">
+                <img
+                  src={m.photo}
+                  alt={`Ảnh ${m.name}`}
+                  width="480"
+                  height="600"
+                  loading="lazy"
+                  decoding="async"
+                />
               </div>
-              <div class="member-body">
-                <span class="member-role">{m.role}</span>
-                <h3 class="member-name">{m.name}</h3>
-                <p class="member-desc">{m.description}</p>
+              <div class="member-info">
+                <span class="member-role-badge">{m.role}</span>
+                <h3 class="member-full-name">{m.name}</h3>
+                <p class="member-bio">{m.description}</p>
               </div>
             </li>
           ))
@@ -59,18 +57,24 @@ const summaryItems = [
     </div>
   </section>
 
-  <section class="section section-dark" aria-labelledby="principles-heading">
+  <!-- Năm nguyên tắc trên nền surface-alt, đánh số 01-05 lớn (KHÔNG section-dark) -->
+  <section class="section section-principles" aria-labelledby="principles-heading">
     <div class="container">
       <div class="section-header">
         <span class="eyebrow">Nguyên tắc hoạt động</span>
-        <h2 id="principles-heading">Năm nguyên tắc của nhóm</h2>
+        <h2 id="principles-heading">Năm cam kết của nhóm Lăng Kính</h2>
+        <p>Những nguyên tắc cốt lõi được nhóm thống nhất ngay từ đề xuất kế hoạch ban đầu.</p>
       </div>
-      <ul class="ruled-list">
+
+      <ul class="principles-list">
         {
-          TEAM_PRINCIPLES.map((p) => (
-            <li>
-              <h3 class="ruled-title">{p.title}</h3>
-              <p class="ruled-desc">{p.description}</p>
+          TEAM_PRINCIPLES.map((p, idx) => (
+            <li class="principle-item">
+              <span class="principle-number" aria-hidden="true">0{idx + 1}</span>
+              <div class="principle-body">
+                <h3 class="principle-title">{p.title}</h3>
+                <p class="principle-desc">{p.description}</p>
+              </div>
             </li>
           ))
         }
@@ -78,7 +82,7 @@ const summaryItems = [
     </div>
   </section>
 
-  <section class="section" aria-labelledby="contact-heading">
+  <section class="section section-contact" aria-labelledby="contact-heading">
     <div class="container">
       <h2 id="contact-heading" class="sr-only">Liên hệ nhóm</h2>
       <div class="reveal"><ContactCard /></div>
@@ -100,107 +104,179 @@ const summaryItems = [
 </Layout>
 
 <style>
-  /* Hàng cuối được căn giữa để 7 thẻ không để ô trống lệch */
-  .members {
-    --cols: 4;
-    --gap: var(--space-5);
+  .section-members {
+    background: #ffffff;
+    padding-top: var(--space-8);
+    padding-bottom: var(--space-12);
+  }
+
+  /* Lưới thành viên 4 cột desktop, người lẻ căn trái tự nhiên */
+  .members-grid {
     list-style: none;
     margin: 0;
     padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: var(--gap);
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-8) var(--space-6);
   }
 
-  .member {
-    flex: 0 0 calc((100% - (var(--cols) - 1) * var(--gap)) / var(--cols));
-    min-width: 0;
+  /* Thẻ thành viên không khung viền hộp nặng */
+  .member-card {
     display: flex;
     flex-direction: column;
-    background: #ffffff;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
+    gap: var(--space-3);
   }
 
-  .member-photo {
+  .member-photo-frame {
     aspect-ratio: 4 / 5;
     background: var(--surface-alt);
+    border-radius: var(--radius-md);
     overflow: hidden;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-sm);
   }
 
-  .member-photo img {
+  .member-photo-frame img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
-    transition: transform var(--duration-slow) var(--ease-out);
-  }
-
-  .member-body {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    padding: var(--space-4) var(--space-5) var(--space-5);
-  }
-
-  .member-role {
-    align-self: flex-start;
-    font-size: var(--font-size-small);
-    line-height: var(--line-height-small);
-    font-weight: 600;
-    color: var(--tint-rose-ink);
-    background: var(--tint-rose);
-    padding: 2px 10px;
-    border-radius: var(--radius-pill);
-    margin-bottom: var(--space-1);
-  }
-
-  .member-name {
-    font-size: var(--font-size-h3);
-    line-height: var(--line-height-h3);
-    margin: 0;
-  }
-
-  .member-desc {
-    margin: 0;
-    font-size: var(--font-size-small);
-    line-height: var(--line-height-small);
+    transition: transform var(--duration-normal) var(--ease-out);
   }
 
   @media (hover: hover) {
-    .member:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-raised);
-      border-color: transparent;
-    }
-
-    .member:hover .member-photo img {
+    .member-card:hover .member-photo-frame img {
       transform: scale(1.04);
     }
   }
 
+  .member-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .member-role-badge {
+    align-self: flex-start;
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-small);
+    font-weight: 700;
+    color: var(--brand);
+    background: var(--surface-alt);
+    border: 1px solid var(--line);
+    padding: 2px 10px;
+    border-radius: var(--radius-pill);
+    margin-bottom: 2px;
+  }
+
+  .member-full-name {
+    font-size: 1.25rem;
+    line-height: 1.4;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  .member-bio {
+    font-size: var(--font-size-small);
+    line-height: 1.5;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  /* Năm nguyên tắc trên nền surface-alt với số đánh dấu lớn */
+  .section-principles {
+    background: var(--surface-alt);
+    border-top: 1px solid var(--line);
+    padding-top: var(--space-12);
+    padding-bottom: var(--space-14);
+  }
+
+  .principles-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .principle-item {
+    display: grid;
+    grid-template-columns: 80px minmax(0, 1fr);
+    gap: var(--space-6);
+    align-items: baseline;
+    padding-bottom: var(--space-6);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .principle-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .principle-number {
+    font-size: 3rem;
+    line-height: 1;
+    font-weight: 800;
+    color: var(--brand);
+    font-feature-settings: 'tnum';
+    user-select: none;
+  }
+
+  .principle-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .principle-title {
+    font-size: 1.375rem;
+    line-height: 1.4;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  .principle-desc {
+    font-size: var(--font-size-body);
+    line-height: 1.6;
+    color: var(--ink-2);
+    margin: 0;
+    max-width: var(--prose-max-width);
+  }
+
+  .section-contact {
+    background: #ffffff;
+    border-top: 1px solid var(--line);
+    padding-top: var(--space-10);
+    padding-bottom: var(--space-10);
+  }
+
   @media (max-width: 1023px) {
-    .members {
-      --cols: 3;
+    .members-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-6);
     }
   }
 
   @media (max-width: 767px) {
-    .members {
-      --cols: 2;
-      --gap: var(--space-3);
+    .members-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-5) var(--space-3);
     }
 
-    .member-body {
-      padding: var(--space-3);
+    .principle-item {
+      grid-template-columns: 56px minmax(0, 1fr);
+      gap: var(--space-4);
     }
 
-    .member-name {
-      font-size: var(--font-size-body);
-      line-height: var(--line-height-body);
+    .principle-number {
+      font-size: 2.25rem;
+    }
+
+    .member-full-name {
+      font-size: 1.125rem;
     }
   }
 </style>

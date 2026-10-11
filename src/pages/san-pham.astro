@@ -4,8 +4,16 @@ import PageHero from '../components/PageHero.astro';
 import ProductGrid from '../components/ProductGrid.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
 import { PRODUCTS, PRODUCT_FAQS, SALES_PLAN } from '../data/campaign';
+import { getEffectiveProductSaleModel } from '../lib/products';
 
 const craft = PRODUCTS.filter((p) => p.category === 'craft');
+const craftSaleModels = craft.map((p) => getEffectiveProductSaleModel(p));
+const anyOpen = craftSaleModels.some((m) => m.saleStatus === 'open');
+const allOpen = craftSaleModels.length > 0 && craftSaleModels.every((m) => m.saleStatus === 'open');
+const heroChip = anyOpen
+  ? { kind: 'da-xac-nhan' as const, label: allOpen ? 'Đang mở bán' : 'Có món đang mở bán' }
+  : { kind: 'cho-xac-nhan' as const, label: 'Chưa mở bán' };
+
 const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Quà lưu niệm' }];
 ---
 
@@ -15,44 +23,53 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Quà lưu ni
   currentPath="/san-pham"
 >
   <PageHero
+    variant="plain"
     breadcrumbs={breadcrumbs}
-    eyebrow="Quà lưu niệm"
-    chip={{ kind: 'cho-xac-nhan', label: 'Chưa mở bán' }}
+    eyebrow="Quà lưu niệm gây quỹ"
+    chip={heroChip}
     title="Mua một món, góp một phần quà"
     titleId="products-heading"
     lead="Chuồn chuồn tre và móc khóa do nhóm Lăng Kính tự làm, dự kiến bán tại FPT Hòa Lạc."
-    description="Tiền bán quà ghi sổ riêng với tiền ủng hộ và dùng cho buổi chơi, quà tặng Mái ấm."
+    description="Toàn bộ tiền bán quà lưu niệm được quản lý và ghi sổ riêng với tiền ủng hộ qua chuyển khoản. Lãi thu được dùng cho buổi chơi và quà tặng Mái ấm."
   />
 
-  <section class="section" aria-labelledby="craft-heading">
+  <section class="section section-catalogue" aria-labelledby="craft-heading">
     <div class="container">
       <div class="section-header">
-        <span class="eyebrow">Sản phẩm</span>
-        <h2 id="craft-heading">Hai món quà nhỏ</h2>
-        <p>Nhóm dự kiến chuẩn bị 50 chuồn chuồn tre: 30 bộ kèm đế để bán, 20 chiếc để lại cho các em tại Mái ấm.</p>
+        <span class="eyebrow">Danh mục</span>
+        <h2 id="craft-heading">Hai món quà nhỏ sẻ chia</h2>
+        <p>Nhóm dự kiến chuẩn bị 50 chuồn chuồn tre (30 bộ kèm đế bán gây quỹ, 20 chiếc tặng các em) và móc khóa lưu niệm.</p>
       </div>
       <ProductGrid products={craft} />
     </div>
   </section>
 
+  <!-- Dải 3 bước khi mở bán & Nguyên tắc ai làm sản phẩm -->
   <section class="section section-soft" aria-labelledby="buy-heading">
     <div class="container">
-      <div class="two-col">
-        <div class="reveal">
-          <span class="eyebrow">Mua hàng</span>
-          <h2 id="buy-heading" class="col-title">Khi mở bán</h2>
-          <ul class="check-list">
-            {SALES_PLAN.map((s) => <li>{s}</li>)}
-          </ul>
-        </div>
-        <div class="reveal">
-          <span class="eyebrow">Nguồn gốc</span>
-          <h3 class="col-title col-title--sm">Ai làm sản phẩm</h3>
-          <ul class="check-list">
-            <li>Nhóm Lăng Kính chuẩn bị và hoàn thiện toàn bộ sản phẩm gây quỹ, kiểm tra chất lượng trước khi giao.</li>
-            <li>Hoạt động tại Mái ấm hoàn toàn là vui chơi sáng tạo, không gắn với sản xuất hàng bán; các em giữ lại sản phẩm do mình làm ra. Tranh của các em chỉ được in lên móc khóa khi có sự đồng ý phù hợp.</li>
-          </ul>
-        </div>
+      <div class="section-header">
+        <span class="eyebrow">Quy trình</span>
+        <h2 id="buy-heading">Khi mở bán chính thức</h2>
+        <p>Quy trình đăng ký, xác nhận và giao nhận quà lưu niệm minh bạch.</p>
+      </div>
+
+      <div class="sales-steps-grid">
+        {
+          SALES_PLAN.map((step, idx) => (
+            <div class="sales-step-card">
+              <span class="sales-step-badge">0{idx + 1}</span>
+              <p class="sales-step-content">{step}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="craft-principles-callout">
+        <h3 class="principles-callout-title">Nguồn gốc sản phẩm & Nguyên tắc vì trẻ em</h3>
+        <ul class="check-list">
+          <li>Nhóm sinh viên Lăng Kính tự chịu trách nhiệm chuẩn bị và hoàn thiện toàn bộ sản phẩm gây quỹ, kiểm tra chất lượng trước khi giao.</li>
+          <li>Hoạt động tại Mái ấm hoàn toàn là buổi chơi vui vẻ và sáng tạo, tuyệt đối không gắn với sản xuất hàng bán; các em giữ lại toàn bộ sản phẩm do mình làm ra. Tranh của các em chỉ được in lên móc khóa khi có sự đồng ý phù hợp từ Mái ấm và người giám hộ.</li>
+        </ul>
       </div>
     </div>
   </section>
@@ -82,19 +99,73 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Quà lưu ni
 </Layout>
 
 <style>
-  .col-title {
-    font-size: var(--font-size-h2);
-    line-height: var(--line-height-h2);
-    margin-bottom: var(--space-5);
+  .section-catalogue {
+    background: #ffffff;
+    padding-top: var(--space-8);
+    padding-bottom: var(--space-12);
   }
 
-  .col-title--sm {
+  /* Sales Steps 3 cột trên desktop */
+  .sales-steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-6);
+    margin-bottom: var(--space-8);
+  }
+
+  .sales-step-card {
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .sales-step-badge {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--brand);
+    line-height: 1;
+    display: inline-block;
+  }
+
+  .sales-step-content {
+    font-size: var(--font-size-body);
+    line-height: 1.5;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  /* Callout nguyên tắc viền trái cam mơ */
+  .craft-principles-callout {
+    background: #ffffff;
+    border-left: 4px solid var(--cta);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    border-top: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: var(--space-6);
+  }
+
+  .principles-callout-title {
     font-size: var(--font-size-h3);
     line-height: var(--line-height-h3);
-    margin-bottom: var(--space-4);
+    color: var(--ink);
+    margin: 0 0 var(--space-4) 0;
+    font-weight: 700;
   }
 
   .narrow > :global(*) {
     max-width: 880px;
+  }
+
+  @media (max-width: 900px) {
+    .sales-steps-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+    }
   }
 </style>
