@@ -1,0 +1,1541 @@
+{
+ "browser": "Chrome/154.0.8037.98",
+ "startedAt": "2026-10-11T06:55:16.262Z",
+ "pages": [
+  {
+   "url": "https://nangbuoctuoitho.org/",
+   "viewport": {
+    "w": 1440,
+    "h": 1000
+   },
+   "at": "2026-10-11T06:55:16.362Z",
+   "status": 200,
+   "err": null,
+   "title": "Quỹ Từ Thiện Nâng Bước Tuổi Thơ",
+   "docH": 15461,
+   "overflow": 24680,
+   "bodyBg": "rgb(255, 255, 255)",
+   "bodyColor": "rgb(52, 58, 64)",
+   "bodyFont": "\"Be Vietnam Pro\", sans-serif",
+   "bodySize": "14px",
+   "bodyLH": "22.4px",
+   "fonts": [
+    [
+     "Quicksand",
+     469
+    ],
+    [
+     "\"Be Vietnam Pro\"",
+     461
+    ],
+    [
+     "Roboto",
+     2
+    ],
+    [
+     "sans-serif",
+     1
+    ]
+   ],
+   "textColors": [
+    [
+     "rgb(28, 183, 141)",
+     308
+    ],
+    [
+     "rgb(33, 51, 96)",
+     210
+    ],
+    [
+     "rgb(14, 32, 77)",
+     126
+    ],
+    [
+     "rgb(52, 58, 64)",
+     109
+    ],
+    [
+     "rgb(30, 98, 146)",
+     92
+    ],
+    [
+     "rgb(255, 255, 255)",
+     40
+    ],
+    [
+     "rgb(0, 0, 0)",
+     30
+    ],
+    [
+     "rgb(132, 142, 159)",
+     8
+    ]
+   ],
+   "bgAreas": [
+    [
+     "rgb(255, 255, 255)",
+     36637
+    ],
+    [
+     "rgb(0, 0, 0)",
+     7228
+    ],
+    [
+     "rgb(29, 42, 77)",
+     839
+    ],
+    [
+     "rgba(255, 255, 255, 0.9)",
+     133
+    ],
+    [
+     "rgba(255, 255, 255, 0)",
+     115
+    ]
+   ],
+   "heads": [
+    {
+     "tag": "H2",
+     "text": "FV RUN - Run with Heart, Run for Hope",
+     "size": "35px",
+     "weight": "700",
+     "color": "rgb(255, 255, 255)",
+     "family": "Quicksand"
+    },
+    {
+     "tag": "H2",
+     "text": "Tham gia cùng chúng tôi",
+     "size": "35px",
+     "weight": "700",
+     "color": "rgb(255, 255, 255)",
+     "family": "Quicksand"
+    },
+    {
+     "tag": "H2",
+     "text": "Danh mục y khoa",
+     "size": "35px",
+     "weight": "700",
+     "color": "rgb(255, 255, 255)",
+     "family": "Quicksand"
+    },
+    {
+     "tag": "H2",
+     "text": "Tạo chương trình CSR của bạn",
+     "size": "35px",
+     "weight": "700",
+     "color": "rgb(255, 255, 255)",
+     "family": "Quicksand"
+    },
+    {
+     "tag": "H3",
+     "text": "★ Quỹ từ thiện tại Việt Nam điều trị đa khoa cho trẻ em khiếm khuyết có hoàn cảnh khó khăn",
+     "size": "20px",
+     "weight": "700",
+     "color": "rgb(255, 255, 255)",
+     "family": "Quicksand"
+    },
+    {
+     "tag": "H2",
+     "text": "Đồng hành cùng Quỹ Nâng Bước Tuổi Thơ",
+     "size": "15px",
+     "weight": "700",
+     "color": "rgb(28, 183, 141)",
+     "family": "Roboto"
+    },
+    {
+     "tag": "H3",
+     "text": "Góp một bàn tay cho nhiều cuộc đời nhỏ",
+     "size": "35px",
+     "weight": "700",
+     "color": "rgb(30, 98, 146)",
+     "family": "Quicksand"
+    },
+    {
+     "tag": "H2",
+     "text": "Đồng hành cùng Quỹ Nâng Bước Tuổi Thơ",
+     "size": "15px",
+     "weight": "700",
+     "color": "rgb(28, 183, 141)",
+     "family": "Roboto"
+    },
+    {
+     "tag": "H3",
+     "text": "Các Gói Tài Trợ Theo Bệnh",
+     "size": "35px",
+     "weight": "700",
+     "color": "rgb(255, 255, 255)",
+     "family": "Quicksand"
+    },
+    {
+     "tag": "H3",
+     "text": "Tìm Kiếm Theo Tên Bé",
+     "size": "37px",
+     "weight": "700",
+     "color": "rgb(255, 255, 255)",
+     "family": "Quicksand"
+    },
+    {
+     "tag": "H2",
+     "text": "Đồng hành cùng Quỹ Nâng Bước Tuổi Thơ",
+     "size": "15px",
+     "weight": "700",
+     "color": "rgb(67, 91, 161)",
+     "family": "Roboto"
+    },
+    {
+     "tag": "H3",
+     "text": "",
+     "size": "35px",
+     "weight": "700",
+     "color": "rgb(30, 98, 146)",
+     "family": "Quicksand"
+    },
+    {
+     "tag": "H1",
+     "text": "",
+     "size": "35px",
+     "weight": "700",
+     "color": "rgb(255, 255, 255)",
+     "family": "Quicksand"
+    },
+    {
+     "tag": "H3",
+     "text": "Chiến dịch từ thiện",
+     "size": "37px",
+     "weight": "700",
+     "color": "rgb(30, 98, 146)",
+     "family": "Quicksand"
+    },
+    {
+     "tag": "H2",
+     "text": "Đồng hành cùng Quỹ Nâng Bước Tuổi Thơ",
+     "size": "15px",
+     "weight": "700",
+     "color": "rgb(67, 91, 161)",
+     "family": "Roboto"
+    },
+    {
+     "tag": "H3",
+     "text": "Sứ Mệnh mang đến Phép mầu Y tế",
+     "size": "35px",
+     "weight": "700",
+     "color": "rgb(30, 98, 146)",
+     "family": "Quicksand"
+    },
+    {
+     "tag": "H2",
+     "text": "20 năm, hơn 954 trẻ em có cuộc sống mới và sẽ nhiều hơn thế nữa.",
+     "size": "35px",
+     "weight": "700",
+     "color": "rgb(255, 255, 255)",
+     "family": "Quicksand"
+    },
+    {
+     "tag": "H3",
+     "text": "Hành trình chữa lành cho trẻ em Việt Nam",
+     "size": "37px",
+     "weight": "700",
+     "color": "rgb(30, 98, 146)",
+     "family": "Quicksand"
+    },
+    {
+     "tag": "H3",
+     "text": "Các Bệnh Lý & Dị Tật Do Tai Nạn Hoặc Bẩm Sinh",
+     "size": "37px",
+     "weight": "700",
+     "color": "rgb(30, 98, 146)",
+     "family": "Quicksand"
+    },
+    {
+     "tag": "H3",
+     "text": "Qui Trình Tiếp Nhận Bệnh Nhân",
+     "size": "37px",
+     "weight": "700",
+     "color": "rgb(30, 98, 146)",
+     "family": "Quicksand"
+    },
+    {
+     "tag": "H1",
+     "text": "",
+     "size": "35px",
+     "weight": "700",
+     "color": "rgb(255, 255, 255)",
+     "family": "Quicksand"
+    },
+    {
+     "tag": "H3",
+     "text": "Các bác sĩ đồng hành",
+     "size": "37px",
+     "weight": "700",
+     "color": "rgb(255, 255, 255)",
+     "family": "Quicksand"
+    },
+    {
+     "tag": "H3",
+     "text": "Gift Shop",
+     "size": "37px",
+     "weight": "700",
+     "color": "rgb(30, 98, 146)",
+     "family": "Quicksand"
+    },
+    {
+     "tag": "H1",
+     "text": "Tình Nguyện Viên",
+     "size": "35px",
+     "weight": "700",
+     "color": "rgb(255, 255, 255)",
+     "family": "Quicksand"
+    },
+    {
+     "tag": "H3",
+     "text": "Đăng Ký Tình Nguyện Viên",
+     "size": "37px",
+     "weight": "700",
+     "color": "rgb(255, 255, 255)",
+     "family": "Quicksand"
+    },
+    {
+     "tag": "H3",
+     "text": "Góc Tri Ân",
+     "size": "37px",
+     "weight": "700",
+     "color": "rgb(30, 98, 146)",
+     "family": "Quicksand"
+    }
+   ],
+   "buttons": [
+    {
+     "text": "Quyên Góp",
+     "bg": "rgb(28, 183, 141)",
+     "color": "rgb(255, 255, 255)",
+     "radius": "50px",
+     "padding": "0px 17px",
+     "size": "13px",
+     "weight": "700"
+    },
+    {
+     "text": "Tìm Hiểu Thêm",
+     "bg": "rgb(28, 183, 141)",
+     "color": "rgb(255, 255, 255)",
+     "radius": "50px",
+     "padding": "0px 17px",
+     "size": "13px",
+     "weight": "700"
+    },
+    {
+     "text": "Tìm Hiểu Thêm",
+     "bg": "rgb(255, 255, 255)",
+     "color": "rgb(33, 51, 96)",
+     "radius": "50px",
+     "padding": "0px 17px",
+     "size": "13px",
+     "weight": "700"
+    },
+    {
+     "text": "Tìm Hiểu Thêm",
+     "bg": "rgb(28, 183, 141)",
+     "color": "rgb(255, 255, 255)",
+     "radius": "50px",
+     "padding": "0px 17px",
+     "size": "13px",
+     "weight": "700"
+    },
+    {
+     "text": "Quyên Góp",
+     "bg": "rgb(255, 255, 255)",
+     "color": "rgb(33, 51, 96)",
+     "radius": "50px",
+     "padding": "0px 17px",
+     "size": "13px",
+     "weight": "700"
+    },
+    {
+     "text": "Tìm Hiểu Thêm",
+     "bg": "rgb(28, 183, 141)",
+     "color": "rgb(255, 255, 255)",
+     "radius": "50px",
+     "padding": "0px 17px",
+     "size": "13px",
+     "weight": "700"
+    },
+    {
+     "text": "Quyên Góp",
+     "bg": "rgb(255, 255, 255)",
+     "color": "rgb(33, 51, 96)",
+     "radius": "50px",
+     "padding": "0px 17px",
+     "size": "13px",
+     "weight": "700"
+    },
+    {
+     "text": "Tìm Hiểu Thêm",
+     "bg": "rgb(28, 183, 141)",
+     "color": "rgb(255, 255, 255)",
+     "radius": "50px",
+     "padding": "0px 17px",
+     "size": "13px",
+     "weight": "700"
+    },
+    {
+     "text": "Quyên Góp",
+     "bg": "rgb(255, 255, 255)",
+     "color": "rgb(33, 51, 96)",
+     "radius": "50px",
+     "padding": "0px 17px",
+     "size": "13px",
+     "weight": "700"
+    },
+    {
+     "text": "Quỹ tin yêu rằng mình luôn quan tâm tới ",
+     "bg": "rgba(0, 0, 0, 0)",
+     "color": "rgb(28, 183, 141)",
+     "radius": "0px",
+     "padding": "0px 0px 0px 60px",
+     "size": "14px",
+     "weight": "400"
+    }
+   ],
+   "nav": [
+    {
+     "t": "Quỹ Nâng Bước Tuổi Thơ | Tầng 6, SGR.O1-",
+     "h": "#"
+    },
+    {
+     "t": "Liên Hệ: 090 3035030",
+     "h": "tel:+84090 3035030"
+    },
+    {
+     "t": "",
+     "h": "https://www.facebook.com/Quytuthien.NangBuocTuoiTho/"
+    },
+    {
+     "t": "",
+     "h": ""
+    },
+    {
+     "t": "",
+     "h": "https://youtube.com/channel/UCZn2Q6ovwLRFJWjI3OClMvA"
+    },
+    {
+     "t": "English",
+     "h": "/en/"
+    },
+    {
+     "t": "",
+     "h": "/vi/"
+    },
+    {
+     "t": "English",
+     "h": "/en/"
+    },
+    {
+     "t": "Về chúng tôi",
+     "h": ""
+    },
+    {
+     "t": "Hành Trình Chữa Lành",
+     "h": "/#trangThongTinSuMenh"
+    },
+    {
+     "t": "Danh Mục Bệnh Chữa Trị",
+     "h": "/#trangDanhMucYte"
+    },
+    {
+     "t": "Thành Viên",
+     "h": "/#trangDoiNguLanhDao"
+    },
+    {
+     "t": "Các Bác Sĩ",
+     "h": "cac-bac-si-dong-hanh/"
+    },
+    {
+     "t": "",
+     "h": ""
+    },
+    {
+     "t": "Hãy gọi chúng tôi",
+     "h": "lien-he/"
+    },
+    {
+     "t": "Giấy Phép Thành Lập",
+     "h": "https://nangbuoctuoitho.org/static/upload/files/Quyet-Dinh-Cho-Phep-Thanh-Lap-Quy-Nbtt.pdf"
+    },
+    {
+     "t": "Câu Chuyện",
+     "h": "cau-chuyen/"
+    },
+    {
+     "t": "Giúp Bé",
+     "h": "/#trangVanHanh"
+    },
+    {
+     "t": "Hành trình chữa lành",
+     "h": "#trangHanhTrinhChuaLanh"
+    },
+    {
+     "t": "Nhóm Bệnh",
+     "h": "/#trangDanhMucYte"
+    },
+    {
+     "t": "Các Bé Cần Giúp Đỡ",
+     "h": "danh-sach-benh-nhi/"
+    },
+    {
+     "t": "Cách Thức Nhận Chữa Trị",
+     "h": "/#trangVanHanh"
+    },
+    {
+     "t": "Liên Lạc Hỗ Trợ",
+     "h": "https://nangbuoctuoitho.org/tin-tuc/lien-lac-ho-tro-121.html"
+    },
+    {
+     "t": "Qui trình điều trị theo JCI",
+     "h": "/#trangJci"
+    },
+    {
+     "t": "Nâng Bước Tuổi Thơ",
+     "h": ""
+    },
+    {
+     "t": "Câu Chuyện",
+     "h": "cau-chuyen/"
+    },
+    {
+     "t": "Lời Tri Ân",
+     "h": "/#"
+    },
+    {
+     "t": "Sự Kiện",
+     "h": ""
+    },
+    {
+     "t": "FV RUN - Run with Heart, Run for Hope",
+     "h": "https://fvrun.com.vn"
+    },
+    {
+     "t": "Giọt Lành Đồng Hành Cùng Quỹ Nâng Bước T",
+     "h": "https://nangbuoctuoitho.org/tin-tuc/giot-lanh-dong-hanh-cung-quy-nang-buoc-tuoi-tho-mang-phep-mau-y-te-den-voi-9-manh-doi-nho-di-tat-bam-sinh-227.html"
+    }
+   ],
+   "secs": [
+    {
+     "tag": "section",
+     "cls": "slider",
+     "bg": "rgba(0, 0, 0, 0)",
+     "top": 0,
+     "h": 1000,
+     "pad": "0px/0px",
+     "head": "FV RUN - Run with Heart, Run for Hope"
+    },
+    {
+     "tag": "section",
+     "cls": "about-layout3 pt-100 pb-70 mb-90",
+     "bg": "rgba(0, 0, 0, 0)",
+     "top": 1000,
+     "h": 881,
+     "pad": "100px/70px",
+     "head": "Đồng hành cùng Quỹ Nâng Bước Tuổi Thơ"
+    },
+    {
+     "tag": "section",
+     "cls": "work-process work-process-carousel pt-100 pb-100 b",
+     "bg": "rgba(0, 0, 0, 0)",
+     "top": 1971,
+     "h": 1316,
+     "pad": "100px/100px",
+     "head": "Đồng hành cùng Quỹ Nâng Bước Tuổi Thơ"
+    },
+    {
+     "tag": "section",
+     "cls": "services-layout2 pt-100 pb-90 bg-img",
+     "bg": "rgba(0, 0, 0, 0)",
+     "top": 3287,
+     "h": 467,
+     "pad": "100px/90px",
+     "head": "Đồng hành cùng Quỹ Nâng Bước Tuổi Thơ"
+    },
+    {
+     "tag": "section",
+     "cls": "page-title page-title-layout1 bg-overlay pt-170 pt",
+     "bg": "rgba(0, 0, 0, 0)",
+     "top": 3754,
+     "h": 479,
+     "pad": "170px/130px",
+     "head": null
+    },
+    {
+     "tag": "section",
+     "cls": "about-layout1 pt-100 pb-100 bg-img",
+     "bg": "rgba(0, 0, 0, 0)",
+     "top": 4233,
+     "h": 824,
+     "pad": "100px/100px",
+     "head": "Chiến dịch từ thiện"
+    },
+    {
+     "tag": "section",
+     "cls": "services-layout2 pt-130 pb-40 bg-img",
+     "bg": "rgba(0, 0, 0, 0)",
+     "top": 5057,
+     "h": 1136,
+     "pad": "130px/40px",
+     "head": "Đồng hành cùng Quỹ Nâng Bước Tuổi Thơ"
+    },
+    {
+     "tag": "section",
+     "cls": "banner-layout1 py-0 bg-img",
+     "bg": "rgba(0, 0, 0, 0)",
+     "top": 6194,
+     "h": 782,
+     "pad": "0px/0px",
+     "head": "20 năm, hơn 954 trẻ em có cuộc sống mới và sẽ nhiều hơn thế "
+    },
+    {
+     "tag": "section",
+     "cls": "about-layout5 pt-100 pb-40",
+     "bg": "rgba(0, 0, 0, 0)",
+     "top": 6975,
+     "h": 892,
+     "pad": "100px/40px",
+     "head": "Hành trình chữa lành cho trẻ em Việt Nam"
+    },
+    {
+     "tag": "section",
+     "cls": "about-layout1 pt-100 pb-100 bg-img",
+     "bg": "rgba(0, 0, 0, 0)",
+     "top": 7868,
+     "h": 894,
+     "pad": "100px/100px",
+     "head": "Các Bệnh Lý & Dị Tật Do Tai Nạn Hoặc Bẩm Sinh"
+    },
+    {
+     "tag": "section",
+     "cls": "notes pt-100 pb-100 bg-img",
+     "bg": "rgba(0, 0, 0, 0)",
+     "top": 8761,
+     "h": 1200,
+     "pad": "100px/100px",
+     "head": "Qui Trình Tiếp Nhận Bệnh Nhân"
+    },
+    {
+     "tag": "section",
+     "cls": "page-title page-title-layout1 bg-overlay pt-170 pt",
+     "bg": "rgba(0, 0, 0, 0)",
+     "top": 9961,
+     "h": 479,
+     "pad": "170px/130px",
+     "head": null
+    },
+    {
+     "tag": "section",
+     "cls": "services-layout2 services-carousel bg-overlay bg-o",
+     "bg": "rgba(0, 0, 0, 0)",
+     "top": 10440,
+     "h": 858,
+     "pad": "100px/100px",
+     "head": "Các bác sĩ đồng hành"
+    },
+    {
+     "tag": "section",
+     "cls": "team-layout2 pb-80",
+     "bg": "rgba(0, 0, 0, 0)",
+     "top": 11298,
+     "h": 884,
+     "pad": "110px/80px",
+     "head": null
+    },
+    {
+     "tag": "section",
+     "cls": "team-layout2 pb-80 bg-img",
+     "bg": "rgba(0, 0, 0, 0)",
+     "top": 12182,
+     "h": 922,
+     "pad": "110px/80px",
+     "head": "Gift Shop"
+    },
+    {
+     "tag": "section",
+     "cls": "page-title page-title-layout1 bg-overlay pb-220 pt",
+     "bg": "rgba(0, 0, 0, 0)",
+     "top": 13104,
+     "h": 540,
+     "pad": "170px/220px",
+     "head": "Tình Nguyện Viên"
+    },
+    {
+     "tag": "section",
+     "cls": "contact-layout5 bg-overlay bg-overlay-blue-gradien",
+     "bg": "rgba(0, 0, 0, 0)",
+     "top": 13554,
+     "h": 617,
+     "pad": "60px/80px",
+     "head": "Đăng Ký Tình Nguyện Viên"
+    },
+    {
+     "tag": "section",
+     "cls": "about-layout1 pt-100 pb-100 bg-img",
+     "bg": "rgba(0, 0, 0, 0)",
+     "top": 14171,
+     "h": 629,
+     "pad": "100px/100px",
+     "head": "Góc Tri Ân"
+    }
+   ],
+   "links": [
+    "https://nangbuoctuoitho.org/#",
+    "https://nangbuoctuoitho.org/",
+    "https://nangbuoctuoitho.org/en/",
+    "https://nangbuoctuoitho.org/vi/",
+    "https://nangbuoctuoitho.org/#trangThongTinSuMenh",
+    "https://nangbuoctuoitho.org/#trangDanhMucYte",
+    "https://nangbuoctuoitho.org/#trangDoiNguLanhDao",
+    "https://nangbuoctuoitho.org/cac-bac-si-dong-hanh/",
+    "https://nangbuoctuoitho.org/lien-he/",
+    "https://nangbuoctuoitho.org/static/upload/files/Quyet-Dinh-Cho-Phep-Thanh-Lap-Quy-Nbtt.pdf",
+    "https://nangbuoctuoitho.org/cau-chuyen/",
+    "https://nangbuoctuoitho.org/#trangVanHanh",
+    "https://nangbuoctuoitho.org/#trangHanhTrinhChuaLanh",
+    "https://nangbuoctuoitho.org/danh-sach-benh-nhi/",
+    "https://nangbuoctuoitho.org/tin-tuc/lien-lac-ho-tro-121.html",
+    "https://nangbuoctuoitho.org/#trangJci",
+    "https://nangbuoctuoitho.org/tin-tuc/giot-lanh-dong-hanh-cung-quy-nang-buoc-tuoi-tho-mang-phep-mau-y-te-den-voi-9-manh-doi-nho-di-tat-bam-sinh-227.html",
+    "https://nangbuoctuoitho.org/tin-tuc/chien-dich-cho-em-nhin-thay-yeu-thuong-247.html",
+    "https://nangbuoctuoitho.org/moi-buoc-chan-deu-dang-gia/",
+    "https://nangbuoctuoitho.org/savoure-nang-buoc-tuoi-tho/",
+    "https://nangbuoctuoitho.org/tin-tuc/ishcmc-orchestra-power-of-love-60.html",
+    "https://nangbuoctuoitho.org/tin-tuc/dem-hoa-nhac-phep-mau-tinh-yeu-nghe-sy-tran-manh-tuan-189.html",
+    "https://nangbuoctuoitho.org/#trangGiftShop",
+    "https://nangbuoctuoitho.org/bao-cao/",
+    "https://nangbuoctuoitho.org/#trangThamGia",
+    "https://nangbuoctuoitho.org/chuong-trinh-csr/",
+    "https://nangbuoctuoitho.org/tri-an-ca-nhan/",
+    "https://nangbuoctuoitho.org/tin-tuc/loi-tri-an-124.html",
+    "https://nangbuoctuoitho.org/tin-tuc/",
+    "https://nangbuoctuoitho.org/quyen-gop/",
+    "https://nangbuoctuoitho.org/danh-sach-benh-nhi/#thongTinCapNhat",
+    "https://nangbuoctuoitho.org/benh-nhi/nguyen-hoai-bao-an-87.html",
+    "https://nangbuoctuoitho.org/benh-nhi/le-tri-thanh-86.html",
+    "https://nangbuoctuoitho.org/benh-nhi/y-chuon-ken-85.html",
+    "https://nangbuoctuoitho.org/benh-nhi/k-lu-quach-84.html",
+    "https://nangbuoctuoitho.org/benh-nhi/le-do-nhat-nam-83.html",
+    "https://nangbuoctuoitho.org/benh-nhi/kim-thi-ngoc-bich-82.html",
+    "https://nangbuoctuoitho.org/benh-nhi/nguyen-hoang-thien-phu-81.html",
+    "https://nangbuoctuoitho.org/benh-nhi/pham-nguyen-ngoc-nhu-y-80.html",
+    "https://nangbuoctuoitho.org/benh-nhi/hoang-ngoc-diep-79.html",
+    "https://nangbuoctuoitho.org/benh-nhi/nguyen-ngoc-nhu-y-78.html",
+    "https://nangbuoctuoitho.org/benh-nhi/le-huynh-bao-yen-77.html",
+    "https://nangbuoctuoitho.org/benh-nhi/dao-duy-khang-76.html",
+    "https://nangbuoctuoitho.org/benh-nhi/kim-thi-hong-vinh-75.html",
+    "https://nangbuoctuoitho.org/benh-nhi/tran-thuy-anh-74.html",
+    "https://nangbuoctuoitho.org/benh-nhi/le-binh-an-73.html",
+    "https://nangbuoctuoitho.org/benh-nhi/dao-nguyen-gia-han-72.html",
+    "https://nangbuoctuoitho.org/benh-nhi/nguyen-the-anh-kiet-71.html",
+    "https://nangbuoctuoitho.org/benh-nhi/pham-hong-ngoc-70.html",
+    "https://nangbuoctuoitho.org/benh-nhi/phan-nhat-truong-69.html",
+    "https://nangbuoctuoitho.org/benh-nhi/dao-tue-ngan-66.html",
+    "https://nangbuoctuoitho.org/benh-nhi/nguyen-minh-dang-65.html",
+    "https://nangbuoctuoitho.org/benh-nhi/tran-duong-bao-ngoc-64.html",
+    "https://nangbuoctuoitho.org/benh-nhi/dang-tran-di-nhien-63.html",
+    "https://nangbuoctuoitho.org/benh-nhi/rcam-y-da-niel-62.html",
+    "https://nangbuoctuoitho.org/benh-nhi/trinh-kha-nhu-61.html",
+    "https://nangbuoctuoitho.org/benh-nhi/ta-minh-kien-60.html",
+    "https://nangbuoctuoitho.org/benh-nhi/vo-nguyen-minh-vy-59.html",
+    "https://nangbuoctuoitho.org/benh-nhi/phung-vinh-quang-58.html",
+    "https://nangbuoctuoitho.org/benh-nhi/siu-nu-57.html",
+    "https://nangbuoctuoitho.org/benh-nhi/le-nguyen-gia-bao-56.html",
+    "https://nangbuoctuoitho.org/benh-nhi/nguyen-duc-gia-kim-55.html",
+    "https://nangbuoctuoitho.org/benh-nhi/huynh-phan-hoai-an-54.html",
+    "https://nangbuoctuoitho.org/benh-nhi/le-huynh-gia-khanh-53.html",
+    "https://nangbuoctuoitho.org/benh-nhi/le-duy-quang-52.html",
+    "https://nangbuoctuoitho.org/benh-nhi/le-tue-anh-51.html",
+    "https://nangbuoctuoitho.org/benh-nhi/nguyen-an-nhien-50.html",
+    "https://nangbuoctuoitho.org/benh-nhi/lo-ngoc-nhien-48.html",
+    "https://nangbuoctuoitho.org/benh-nhi/duong-nguyen-thien-lam-47.html",
+    "https://nangbuoctuoitho.org/benh-nhi/dang-ngoc-an-ha-46.html",
+    "https://nangbuoctuoitho.org/benh-nhi/tran-hai-yen-45.html",
+    "https://nangbuoctuoitho.org/benh-nhi/le-ngoc-minh-thu-44.html",
+    "https://nangbuoctuoitho.org/benh-nhi/le-ha-nam-43.html",
+    "https://nangbuoctuoitho.org/benh-nhi/nguyen-thi-doan-vien-42.html",
+    "https://nangbuoctuoitho.org/benh-nhi/lam-tam-nhu-41.html",
+    "https://nangbuoctuoitho.org/benh-nhi/nguyen-duy-anh-37.html",
+    "https://nangbuoctuoitho.org/benh-nhi/pham-anh-bao-thien-36.html",
+    "https://nangbuoctuoitho.org/benh-nhi/tapur-son-33.html",
+    "https://nangbuoctuoitho.org/benh-nhi/nguyen-thi-bao-chau-32.html",
+    "https://nangbuoctuoitho.org/benh-nhi/hoang-thi-bao-thy-30.html"
+   ],
+   "imgs": 219,
+   "container": {
+    "w": 1440,
+    "maxW": "none"
+   }
+  },
+  {
+   "url": "https://nangbuoctuoitho.org/",
+   "viewport": {
+    "w": 375,
+    "h": 812
+   },
+   "at": "2026-10-11T06:55:37.940Z",
+   "status": 200,
+   "err": null,
+   "title": "Quỹ Từ Thiện Nâng Bước Tuổi Thơ",
+   "docH": 15794,
+   "overflow": 0,
+   "bodyBg": "rgb(255, 255, 255)",
+   "bodyColor": "rgb(52, 58, 64)",
+   "bodyFont": "\"Be Vietnam Pro\", sans-serif",
+   "bodySize": "14px",
+   "bodyLH": "22.4px",
+   "fonts": [
+    [
+     "Quicksand",
+     471
+    ],
+    [
+     "\"Be Vietnam Pro\"",
+     444
+    ],
+    [
+     "Roboto",
+     2
+    ],
+    [
+     "sans-serif",
+     1
+    ]
+   ],
+   "textColors": [
+    [
+     "rgb(28, 183, 141)",
+     310
+    ],
+    [
+     "rgb(33, 51, 96)",
+     213
+    ],
+    [
+     "rgb(52, 58, 64)",
+     111
+    ],
+    [
+     "rgb(14, 32, 77)",
+     105
+    ],
+    [
+     "rgb(30, 98, 146)",
+     92
+    ],
+    [
+     "rgb(0, 0, 0)",
+     32
+    ],
+    [
+     "rgb(255, 255, 255)",
+     30
+    ],
+    [
+     "rgb(34, 34, 34)",
+     8
+    ]
+   ],
+   "bgAreas": [
+    [
+     "rgb(255, 255, 255)",
+     29775
+    ],
+    [
+     "rgb(0, 0, 0)",
+     1498
+    ],
+    [
+     "rgb(29, 42, 77)",
+     310
+    ],
+    [
+     "rgba(0, 0, 0, 0.6)",
+     305
+    ],
+    [
+     "rgba(255, 255, 255, 0.9)",
+     123
+    ]
+   ],
+   "heads": [
+    {
+     "tag": "H2",
+     "text": "FV RUN - Run with Heart, Run for Hope",
+     "size": "27px",
+     "weight": "700",
+     "color": "rgb(255, 255, 255)",
+     "family": "Quicksand"
+    },
+    {
+     "tag": "H2",
+     "text": "Tham gia cùng chúng tôi",
+     "size": "27px",
+     "weight": "700",
+     "color": "rgb(255, 255, 255)",
+     "family": "Quicksand"
+    },
+    {
+     "tag": "H2",
+     "text": "Danh mục y khoa",
+     "size": "27px",
+     "weight": "700",
+     "color": "rgb(255, 255, 255)",
+     "family": "Quicksand"
+    },
+    {
+     "tag": "H2",
+     "text": "Tạo chương trình CSR của bạn",
+     "size": "27px",
+     "weight": "700",
+     "color": "rgb(255, 255, 255)",
+     "family": "Quicksand"
+    },
+    {
+     "tag": "H3",
+     "text": "★ Quỹ từ thiện tại Việt Nam điều trị đa khoa cho trẻ em khiếm khuyết có hoàn cảnh khó khăn",
+     "size": "20px",
+     "weight": "700",
+     "color": "rgb(255, 255, 255)",
+     "family": "Quicksand"
+    },
+    {
+     "tag": "H2",
+     "text": "Đồng hành cùng Quỹ Nâng Bước Tuổi Thơ",
+     "size": "13px",
+     "weight": "700",
+     "color": "rgb(28, 183, 141)",
+     "family": "Roboto"
+    },
+    {
+     "tag": "H3",
+     "text": "Góp một bàn tay cho nhiều cuộc đời nhỏ",
+     "size": "24px",
+     "weight": "700",
+     "color": "rgb(30, 98, 146)",
+     "family": "Quicksand"
+    },
+    {
+     "tag": "H2",
+     "text": "Đồng hành cùng Quỹ Nâng Bước Tuổi Thơ",
+     "size": "13px",
+     "weight": "700",
+     "color": "rgb(28, 183, 141)",
+     "family": "Roboto"
+    },
+    {
+     "tag": "H3",
+     "text": "Các Gói Tài Trợ Theo Bệnh",
+     "size": "24px",
+     "weight": "700",
+     "color": "rgb(255, 255, 255)",
+     "family": "Quicksand"
+    },
+    {
+     "tag": "H3",
+     "text": "Tìm Kiếm Theo Tên Bé",
+     "size": "21px",
+     "weight": "700",
+     "color": "rgb(255, 255, 255)",
+     "family": "Quicksand"
+    },
+    {
+     "tag": "H2",
+     "text": "Đồng hành cùng Quỹ Nâng Bước Tuổi Thơ",
+     "size": "13px",
+     "weight": "700",
+     "color": "rgb(67, 91, 161)",
+     "family": "Roboto"
+    },
+    {
+     "tag": "H3",
+     "text": "",
+     "size": "24px",
+     "weight": "700",
+     "color": "rgb(30, 98, 146)",
+     "family": "Quicksand"
+    },
+    {
+     "tag": "H1",
+     "text": "",
+     "size": "27px",
+     "weight": "700",
+     "color": "rgb(255, 255, 255)",
+     "family": "Quicksand"
+    },
+    {
+     "tag": "H3",
+     "text": "Chiến dịch từ thiện",
+     "size": "21px",
+     "weight": "700",
+     "color": "rgb(30, 98, 146)",
+     "family": "Quicksand"
+    },
+    {
+     "tag": "H2",
+     "text": "Đồng hành cùng Quỹ Nâng Bước Tuổi Thơ",
+     "size": "13px",
+     "weight": "700",
+     "color": "rgb(67, 91, 161)",
+     "family": "Roboto"
+    },
+    {
+     "tag": "H3",
+     "text": "Sứ Mệnh mang đến Phép mầu Y tế",
+     "size": "24px",
+     "weight": "700",
+     "color": "rgb(30, 98, 146)",
+     "family": "Quicksand"
+    },
+    {
+     "tag": "H2",
+     "text": "20 năm, hơn 954 trẻ em có cuộc sống mới và sẽ nhiều hơn thế nữa.",
+     "size": "24px",
+     "weight": "700",
+     "color": "rgb(255, 255, 255)",
+     "family": "Quicksand"
+    },
+    {
+     "tag": "H3",
+     "text": "Hành trình chữa lành cho trẻ em Việt Nam",
+     "size": "40px",
+     "weight": "700",
+     "color": "rgb(30, 98, 146)",
+     "family": "Quicksand"
+    },
+    {
+     "tag": "H3",
+     "text": "Các Bệnh Lý & Dị Tật Do Tai Nạn Hoặc Bẩm Sinh",
+     "size": "21px",
+     "weight": "700",
+     "color": "rgb(30, 98, 146)",
+     "family": "Quicksand"
+    },
+    {
+     "tag": "H3",
+     "text": "Qui Trình Tiếp Nhận Bệnh Nhân",
+     "size": "21px",
+     "weight": "700",
+     "color": "rgb(30, 98, 146)",
+     "family": "Quicksand"
+    },
+    {
+     "tag": "H1",
+     "text": "",
+     "size": "27px",
+     "weight": "700",
+     "color": "rgb(255, 255, 255)",
+     "family": "Quicksand"
+    },
+    {
+     "tag": "H3",
+     "text": "Các bác sĩ đồng hành",
+     "size": "21px",
+     "weight": "700",
+     "color": "rgb(255, 255, 255)",
+     "family": "Quicksand"
+    },
+    {
+     "tag": "H3",
+     "text": "Gift Shop",
+     "size": "21px",
+     "weight": "700",
+     "color": "rgb(30, 98, 146)",
+     "family": "Quicksand"
+    },
+    {
+     "tag": "H1",
+     "text": "Tình Nguyện Viên",
+     "size": "27px",
+     "weight": "700",
+     "color": "rgb(255, 255, 255)",
+     "family": "Quicksand"
+    },
+    {
+     "tag": "H3",
+     "text": "Đăng Ký Tình Nguyện Viên",
+     "size": "21px",
+     "weight": "700",
+     "color": "rgb(255, 255, 255)",
+     "family": "Quicksand"
+    },
+    {
+     "tag": "H3",
+     "text": "Góc Tri Ân",
+     "size": "21px",
+     "weight": "700",
+     "color": "rgb(30, 98, 146)",
+     "family": "Quicksand"
+    }
+   ],
+   "buttons": [
+    {
+     "text": "Quyên Góp",
+     "bg": "rgb(28, 183, 141)",
+     "color": "rgb(255, 255, 255)",
+     "radius": "50px",
+     "padding": "0px 17px",
+     "size": "13px",
+     "weight": "700"
+    },
+    {
+     "text": "Tìm Hiểu Thêm",
+     "bg": "rgb(28, 183, 141)",
+     "color": "rgb(255, 255, 255)",
+     "radius": "50px",
+     "padding": "0px 17px",
+     "size": "13px",
+     "weight": "700"
+    },
+    {
+     "text": "Tìm Hiểu Thêm",
+     "bg": "rgb(255, 255, 255)",
+     "color": "rgb(33, 51, 96)",
+     "radius": "50px",
+     "padding": "0px 17px",
+     "size": "13px",
+     "weight": "700"
+    },
+    {
+     "text": "Tìm Hiểu Thêm",
+     "bg": "rgb(28, 183, 141)",
+     "color": "rgb(255, 255, 255)",
+     "radius": "50px",
+     "padding": "0px 17px",
+     "size": "13px",
+     "weight": "700"
+    },
+    {
+     "text": "Quyên Góp",
+     "bg": "rgb(255, 255, 255)",
+     "color": "rgb(33, 51, 96)",
+     "radius": "50px",
+     "padding": "0px 17px",
+     "size": "13px",
+     "weight": "700"
+    },
+    {
+     "text": "Tìm Hiểu Thêm",
+     "bg": "rgb(28, 183, 141)",
+     "color": "rgb(255, 255, 255)",
+     "radius": "50px",
+     "padding": "0px 17px",
+     "size": "13px",
+     "weight": "700"
+    },
+    {
+     "text": "Quyên Góp",
+     "bg": "rgb(255, 255, 255)",
+     "color": "rgb(33, 51, 96)",
+     "radius": "50px",
+     "padding": "0px 17px",
+     "size": "13px",
+     "weight": "700"
+    },
+    {
+     "text": "Tìm Hiểu Thêm",
+     "bg": "rgb(28, 183, 141)",
+     "color": "rgb(255, 255, 255)",
+     "radius": "50px",
+     "padding": "0px 17px",
+     "size": "13px",
+     "weight": "700"
+    },
+    {
+     "text": "Quyên Góp",
+     "bg": "rgb(255, 255, 255)",
+     "color": "rgb(33, 51, 96)",
+     "radius": "50px",
+     "padding": "0px 17px",
+     "size": "13px",
+     "weight": "700"
+    },
+    {
+     "text": "Quỹ tin yêu rằng mình luôn quan tâm tới ",
+     "bg": "rgba(0, 0, 0, 0)",
+     "color": "rgb(28, 183, 141)",
+     "radius": "0px",
+     "padding": "0px 0px 0px 60px",
+     "size": "14px",
+     "weight": "400"
+    }
+   ],
+   "nav": [
+    {
+     "t": "Quỹ Nâng Bước Tuổi Thơ | Tầng 6, SGR.O1-",
+     "h": "#"
+    },
+    {
+     "t": "Liên Hệ: 090 3035030",
+     "h": "tel:+84090 3035030"
+    },
+    {
+     "t": "",
+     "h": "https://www.facebook.com/Quytuthien.NangBuocTuoiTho/"
+    },
+    {
+     "t": "",
+     "h": ""
+    },
+    {
+     "t": "",
+     "h": "https://youtube.com/channel/UCZn2Q6ovwLRFJWjI3OClMvA"
+    },
+    {
+     "t": "English",
+     "h": "/en/"
+    },
+    {
+     "t": "",
+     "h": "/vi/"
+    },
+    {
+     "t": "English",
+     "h": "/en/"
+    },
+    {
+     "t": "Về chúng tôi",
+     "h": ""
+    },
+    {
+     "t": "Hành Trình Chữa Lành",
+     "h": "/#trangThongTinSuMenh"
+    },
+    {
+     "t": "Danh Mục Bệnh Chữa Trị",
+     "h": "/#trangDanhMucYte"
+    },
+    {
+     "t": "Thành Viên",
+     "h": "/#trangDoiNguLanhDao"
+    },
+    {
+     "t": "Các Bác Sĩ",
+     "h": "cac-bac-si-dong-hanh/"
+    },
+    {
+     "t": "",
+     "h": ""
+    },
+    {
+     "t": "Hãy gọi chúng tôi",
+     "h": "lien-he/"
+    },
+    {
+     "t": "Giấy Phép Thành Lập",
+     "h": "https://nangbuoctuoitho.org/static/upload/files/Quyet-Dinh-Cho-Phep-Thanh-Lap-Quy-Nbtt.pdf"
+    },
+    {
+     "t": "Câu Chuyện",
+     "h": "cau-chuyen/"
+    },
+    {
+     "t": "Giúp Bé",
+     "h": "/#trangVanHanh"
+    },
+    {
+     "t": "Hành trình chữa lành",
+     "h": "#trangHanhTrinhChuaLanh"
+    },
+    {
+     "t": "Nhóm Bệnh",
+     "h": "/#trangDanhMucYte"
+    },
+    {
+     "t": "Các Bé Cần Giúp Đỡ",
+     "h": "danh-sach-benh-nhi/"
+    },
+    {
+     "t": "Cách Thức Nhận Chữa Trị",
+     "h": "/#trangVanHanh"
+    },
+    {
+     "t": "Liên Lạc Hỗ Trợ",
+     "h": "https://nangbuoctuoitho.org/tin-tuc/lien-lac-ho-tro-121.html"
+    },
+    {
+     "t": "Qui trình điều trị theo JCI",
+     "h": "/#trangJci"
+    },
+    {
+     "t": "Nâng Bước Tuổi Thơ",
+     "h": ""
+    },
+    {
+     "t": "Câu Chuyện",
+     "h": "cau-chuyen/"
+    },
+    {
+     "t": "Lời Tri Ân",
+     "h": "/#"
+    },
+    {
+     "t": "Sự Kiện",
+     "h": ""
+    },
+    {
+     "t": "FV RUN - Run with Heart, Run for Hope",
+     "h": "https://fvrun.com.vn"
+    },
+    {
+     "t": "Giọt Lành Đồng Hành Cùng Quỹ Nâng Bước T",
+     "h": "https://nangbuoctuoitho.org/tin-tuc/giot-lanh-dong-hanh-cung-quy-nang-buoc-tuoi-tho-mang-phep-mau-y-te-den-voi-9-manh-doi-nho-di-tat-bam-sinh-227.html"
+    }
+   ],
+   "secs": [
+    {
+     "tag": "section",
+     "cls": "slider",
+     "bg": "rgba(0, 0, 0, 0)",
+     "top": 0,
+     "h": 812,
+     "pad": "0px/0px",
+     "head": "FV RUN - Run with Heart, Run for Hope"
+    },
+    {
+     "tag": "section",
+     "cls": "about-layout3 pt-100 pb-70 mb-90",
+     "bg": "rgba(0, 0, 0, 0)",
+     "top": 812,
+     "h": 377,
+     "pad": "50px/35px",
+     "head": "Đồng hành cùng Quỹ Nâng Bước Tuổi Thơ"
+    },
+    {
+     "tag": "section",
+     "cls": "work-process work-process-carousel pt-100 pb-100 b",
+     "bg": "rgba(0, 0, 0, 0)",
+     "top": 1234,
+     "h": 1530,
+     "pad": "50px/50px",
+     "head": "Đồng hành cùng Quỹ Nâng Bước Tuổi Thơ"
+    },
+    {
+     "tag": "section",
+     "cls": "services-layout2 pt-100 pb-90 bg-img",
+     "bg": "rgba(0, 0, 0, 0)",
+     "top": 2764,
+     "h": 739,
+     "pad": "50px/45px",
+     "head": "Đồng hành cùng Quỹ Nâng Bước Tuổi Thơ"
+    },
+    {
+     "tag": "section",
+     "cls": "page-title page-title-layout1 bg-overlay pt-170 pt",
+     "bg": "rgba(0, 0, 0, 0)",
+     "top": 3503,
+     "h": 287,
+     "pad": "85px/50px",
+     "head": null
+    },
+    {
+     "tag": "section",
+     "cls": "about-layout1 pt-100 pb-100 bg-img",
+     "bg": "rgba(0, 0, 0, 0)",
+     "top": 3790,
+     "h": 1076,
+     "pad": "50px/50px",
+     "head": "Chiến dịch từ thiện"
+    },
+    {
+     "tag": "section",
+     "cls": "services-layout2 pt-130 pb-40 bg-img",
+     "bg": "rgba(0, 0, 0, 0)",
+     "top": 4866,
+     "h": 2067,
+     "pad": "70px/20px",
+     "head": "Đồng hành cùng Quỹ Nâng Bước Tuổi Thơ"
+    },
+    {
+     "tag": "section",
+     "cls": "banner-layout1 py-0 bg-img",
+     "bg": "rgba(0, 0, 0, 0)",
+     "top": 6933,
+     "h": 1358,
+     "pad": "0px/0px",
+     "head": "20 năm, hơn 954 trẻ em có cuộc sống mới và sẽ nhiều hơn thế "
+    },
+    {
+     "tag": "section",
+     "cls": "about-layout5 pt-100 pb-40",
+     "bg": "rgba(0, 0, 0, 0)",
+     "top": 8291,
+     "h": 1145,
+     "pad": "50px/20px",
+     "head": "Hành trình chữa lành cho trẻ em Việt Nam"
+    },
+    {
+     "tag": "section",
+     "cls": "about-layout1 pt-100 pb-100 bg-img",
+     "bg": "rgba(0, 0, 0, 0)",
+     "top": 9435,
+     "h": 348,
+     "pad": "50px/50px",
+     "head": "Các Bệnh Lý & Dị Tật Do Tai Nạn Hoặc Bẩm Sinh"
+    },
+    {
+     "tag": "section",
+     "cls": "notes pt-100 pb-100 bg-img",
+     "bg": "rgba(0, 0, 0, 0)",
+     "top": 9783,
+     "h": 768,
+     "pad": "50px/50px",
+     "head": "Qui Trình Tiếp Nhận Bệnh Nhân"
+    },
+    {
+     "tag": "section",
+     "cls": "page-title page-title-layout1 bg-overlay pt-170 pt",
+     "bg": "rgba(0, 0, 0, 0)",
+     "top": 10551,
+     "h": 287,
+     "pad": "85px/50px",
+     "head": null
+    },
+    {
+     "tag": "section",
+     "cls": "services-layout2 services-carousel bg-overlay bg-o",
+     "bg": "rgba(0, 0, 0, 0)",
+     "top": 10838,
+     "h": 921,
+     "pad": "50px/50px",
+     "head": "Các bác sĩ đồng hành"
+    },
+    {
+     "tag": "section",
+     "cls": "team-layout2 pb-80",
+     "bg": "rgba(0, 0, 0, 0)",
+     "top": 11758,
+     "h": 786,
+     "pad": "50px/40px",
+     "head": null
+    },
+    {
+     "tag": "section",
+     "cls": "team-layout2 pb-80 bg-img",
+     "bg": "rgba(0, 0, 0, 0)",
+     "top": 12544,
+     "h": 814,
+     "pad": "50px/40px",
+     "head": "Gift Shop"
+    },
+    {
+     "tag": "section",
+     "cls": "page-title page-title-layout1 bg-overlay pb-220 pt",
+     "bg": "rgba(0, 0, 0, 0)",
+     "top": 13357,
+     "h": 457,
+     "pad": "85px/220px",
+     "head": "Tình Nguyện Viên"
+    },
+    {
+     "tag": "section",
+     "cls": "contact-layout5 bg-overlay bg-overlay-blue-gradien",
+     "bg": "rgba(0, 0, 0, 0)",
+     "top": 13724,
+     "h": 764,
+     "pad": "30px/40px",
+     "head": "Đăng Ký Tình Nguyện Viên"
+    },
+    {
+     "tag": "section",
+     "cls": "about-layout1 pt-100 pb-100 bg-img",
+     "bg": "rgba(0, 0, 0, 0)",
+     "top": 14488,
+     "h": 388,
+     "pad": "50px/50px",
+     "head": "Góc Tri Ân"
+    }
+   ],
+   "links": [
+    "https://nangbuoctuoitho.org/#",
+    "https://nangbuoctuoitho.org/",
+    "https://nangbuoctuoitho.org/en/",
+    "https://nangbuoctuoitho.org/vi/",
+    "https://nangbuoctuoitho.org/#trangThongTinSuMenh",
+    "https://nangbuoctuoitho.org/#trangDanhMucYte",
+    "https://nangbuoctuoitho.org/#trangDoiNguLanhDao",
+    "https://nangbuoctuoitho.org/cac-bac-si-dong-hanh/",
+    "https://nangbuoctuoitho.org/lien-he/",
+    "https://nangbuoctuoitho.org/static/upload/files/Quyet-Dinh-Cho-Phep-Thanh-Lap-Quy-Nbtt.pdf",
+    "https://nangbuoctuoitho.org/cau-chuyen/",
+    "https://nangbuoctuoitho.org/#trangVanHanh",
+    "https://nangbuoctuoitho.org/#trangHanhTrinhChuaLanh",
+    "https://nangbuoctuoitho.org/danh-sach-benh-nhi/",
+    "https://nangbuoctuoitho.org/tin-tuc/lien-lac-ho-tro-121.html",
+    "https://nangbuoctuoitho.org/#trangJci",
+    "https://nangbuoctuoitho.org/tin-tuc/giot-lanh-dong-hanh-cung-quy-nang-buoc-tuoi-tho-mang-phep-mau-y-te-den-voi-9-manh-doi-nho-di-tat-bam-sinh-227.html",
+    "https://nangbuoctuoitho.org/tin-tuc/chien-dich-cho-em-nhin-thay-yeu-thuong-247.html",
+    "https://nangbuoctuoitho.org/moi-buoc-chan-deu-dang-gia/",
+    "https://nangbuoctuoitho.org/savoure-nang-buoc-tuoi-tho/",
+    "https://nangbuoctuoitho.org/tin-tuc/ishcmc-orchestra-power-of-love-60.html",
+    "https://nangbuoctuoitho.org/tin-tuc/dem-hoa-nhac-phep-mau-tinh-yeu-nghe-sy-tran-manh-tuan-189.html",
+    "https://nangbuoctuoitho.org/#trangGiftShop",
+    "https://nangbuoctuoitho.org/bao-cao/",
+    "https://nangbuoctuoitho.org/#trangThamGia",
+    "https://nangbuoctuoitho.org/chuong-trinh-csr/",
+    "https://nangbuoctuoitho.org/tri-an-ca-nhan/",
+    "https://nangbuoctuoitho.org/tin-tuc/loi-tri-an-124.html",
+    "https://nangbuoctuoitho.org/tin-tuc/",
+    "https://nangbuoctuoitho.org/quyen-gop/",
+    "https://nangbuoctuoitho.org/danh-sach-benh-nhi/#thongTinCapNhat",
+    "https://nangbuoctuoitho.org/benh-nhi/nguyen-hoai-bao-an-87.html",
+    "https://nangbuoctuoitho.org/benh-nhi/le-tri-thanh-86.html",
+    "https://nangbuoctuoitho.org/benh-nhi/y-chuon-ken-85.html",
+    "https://nangbuoctuoitho.org/benh-nhi/k-lu-quach-84.html",
+    "https://nangbuoctuoitho.org/benh-nhi/le-do-nhat-nam-83.html",
+    "https://nangbuoctuoitho.org/benh-nhi/kim-thi-ngoc-bich-82.html",
+    "https://nangbuoctuoitho.org/benh-nhi/nguyen-hoang-thien-phu-81.html",
+    "https://nangbuoctuoitho.org/benh-nhi/pham-nguyen-ngoc-nhu-y-80.html",
+    "https://nangbuoctuoitho.org/benh-nhi/hoang-ngoc-diep-79.html",
+    "https://nangbuoctuoitho.org/benh-nhi/nguyen-ngoc-nhu-y-78.html",
+    "https://nangbuoctuoitho.org/benh-nhi/le-huynh-bao-yen-77.html",
+    "https://nangbuoctuoitho.org/benh-nhi/dao-duy-khang-76.html",
+    "https://nangbuoctuoitho.org/benh-nhi/kim-thi-hong-vinh-75.html",
+    "https://nangbuoctuoitho.org/benh-nhi/tran-thuy-anh-74.html",
+    "https://nangbuoctuoitho.org/benh-nhi/le-binh-an-73.html",
+    "https://nangbuoctuoitho.org/benh-nhi/dao-nguyen-gia-han-72.html",
+    "https://nangbuoctuoitho.org/benh-nhi/nguyen-the-anh-kiet-71.html",
+    "https://nangbuoctuoitho.org/benh-nhi/pham-hong-ngoc-70.html",
+    "https://nangbuoctuoitho.org/benh-nhi/phan-nhat-truong-69.html",
+    "https://nangbuoctuoitho.org/benh-nhi/dao-tue-ngan-66.html",
+    "https://nangbuoctuoitho.org/benh-nhi/nguyen-minh-dang-65.html",
+    "https://nangbuoctuoitho.org/benh-nhi/tran-duong-bao-ngoc-64.html",
+    "https://nangbuoctuoitho.org/benh-nhi/dang-tran-di-nhien-63.html",
+    "https://nangbuoctuoitho.org/benh-nhi/rcam-y-da-niel-62.html",
+    "https://nangbuoctuoitho.org/benh-nhi/trinh-kha-nhu-61.html",
+    "https://nangbuoctuoitho.org/benh-nhi/ta-minh-kien-60.html",
+    "https://nangbuoctuoitho.org/benh-nhi/vo-nguyen-minh-vy-59.html",
+    "https://nangbuoctuoitho.org/benh-nhi/phung-vinh-quang-58.html",
+    "https://nangbuoctuoitho.org/benh-nhi/siu-nu-57.html",
+    "https://nangbuoctuoitho.org/benh-nhi/le-nguyen-gia-bao-56.html",
+    "https://nangbuoctuoitho.org/benh-nhi/nguyen-duc-gia-kim-55.html",
+    "https://nangbuoctuoitho.org/benh-nhi/huynh-phan-hoai-an-54.html",
+    "https://nangbuoctuoitho.org/benh-nhi/le-huynh-gia-khanh-53.html",
+    "https://nangbuoctuoitho.org/benh-nhi/le-duy-quang-52.html",
+    "https://nangbuoctuoitho.org/benh-nhi/le-tue-anh-51.html",
+    "https://nangbuoctuoitho.org/benh-nhi/nguyen-an-nhien-50.html",
+    "https://nangbuoctuoitho.org/benh-nhi/lo-ngoc-nhien-48.html",
+    "https://nangbuoctuoitho.org/benh-nhi/duong-nguyen-thien-lam-47.html",
+    "https://nangbuoctuoitho.org/benh-nhi/dang-ngoc-an-ha-46.html",
+    "https://nangbuoctuoitho.org/benh-nhi/tran-hai-yen-45.html",
+    "https://nangbuoctuoitho.org/benh-nhi/le-ngoc-minh-thu-44.html",
+    "https://nangbuoctuoitho.org/benh-nhi/le-ha-nam-43.html",
+    "https://nangbuoctuoitho.org/benh-nhi/nguyen-thi-doan-vien-42.html",
+    "https://nangbuoctuoitho.org/benh-nhi/lam-tam-nhu-41.html",
+    "https://nangbuoctuoitho.org/benh-nhi/nguyen-duy-anh-37.html",
+    "https://nangbuoctuoitho.org/benh-nhi/pham-anh-bao-thien-36.html",
+    "https://nangbuoctuoitho.org/benh-nhi/tapur-son-33.html",
+    "https://nangbuoctuoitho.org/benh-nhi/nguyen-thi-bao-chau-32.html",
+    "https://nangbuoctuoitho.org/benh-nhi/hoang-thi-bao-thy-30.html"
+   ],
+   "imgs": 219,
+   "container": {
+    "w": 0,
+    "maxW": "none"
+   }
+  }
+ ],
+ "finishedAt": "2026-10-11T06:55:47.077Z"
+}

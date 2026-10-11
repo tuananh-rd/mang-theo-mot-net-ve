@@ -1,0 +1,10 @@
+import {createRequire} from 'node:module';
+const req=createRequire('file:///C:/Users/tuana/.gemini/antigravity-cli/brain/86498389-9ca4-486e-9ba8-82247107fb96/scratch/x.mjs');
+const puppeteer=req('puppeteer-core');
+const out=process.argv[2];
+const b=await puppeteer.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true,args:['--disable-gpu']});
+const p=await b.newPage();await p.setViewport({width:375,height:812,isMobile:true,hasTouch:true});await p.setCacheEnabled(false);
+await p.goto('http://127.0.0.1:4322/ve-nhom',{waitUntil:'networkidle0'});
+await p.click('#mobile-nav-toggle');await new Promise(r=>setTimeout(r,800));
+await p.screenshot({path:out+'/menu-open-375.png'});
+await b.close();

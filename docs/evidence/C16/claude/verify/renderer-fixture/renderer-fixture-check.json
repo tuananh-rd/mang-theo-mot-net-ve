@@ -1,0 +1,123 @@
+{
+  "head": "d44e27b889a2a4ea80d5602dffcd7d96cf4e321b",
+  "fixture": "C:\\Users\\tuana\\AppData\\Local\\Temp\\c15-renderer-review-FAAC5c",
+  "startedAt": "2026-10-11T07:08:44.515Z",
+  "cases": [
+    {
+      "name": "draft has no generated route or public file marker",
+      "pass": true
+    },
+    {
+      "name": "newest published entry reaches Home latest section",
+      "pass": true
+    },
+    {
+      "name": "actual browser inquiry uses official price/channel and known-stock quantity cap",
+      "pass": true
+    },
+    {
+      "name": "mixed open/unconfirmed catalogue agrees with effective detail price and item status",
+      "pass": true
+    },
+    {
+      "name": "multi-category fixture filters featured/list cards visually and keyboard restores all",
+      "pass": true
+    },
+    {
+      "name": "stock zero produces no purchase form in built HTML",
+      "pass": true
+    },
+    {
+      "name": "stock zero locked explanation does not claim not-yet-open preparation",
+      "pass": true
+    },
+    {
+      "name": "closed product blocks inquiry and describes closure accurately",
+      "pass": true
+    },
+    {
+      "name": "build refuses unapproved ledger before public rendering",
+      "pass": true
+    },
+    {
+      "name": "approved ledger build projects actual amount without raw reference or private fields",
+      "pass": true
+    },
+    {
+      "name": "finance plan/actual table renders approved amount and real reconciliation date dynamically",
+      "pass": true
+    },
+    {
+      "name": "zero-entry journal builds accessible empty state without fake cards or filters",
+      "pass": true
+    },
+    {
+      "name": "one-entry journal builds one real reading link without redundant filtering",
+      "pass": true
+    },
+    {
+      "name": "original source data untouched by isolated builds",
+      "pass": true
+    }
+  ],
+  "builds": [
+    {
+      "label": "open",
+      "exitCode": 0,
+      "expectFailure": false,
+      "pass": true
+    },
+    {
+      "label": "zero-stock",
+      "exitCode": 0,
+      "expectFailure": false,
+      "pass": true
+    },
+    {
+      "label": "closed",
+      "exitCode": 0,
+      "expectFailure": false,
+      "pass": true
+    },
+    {
+      "label": "unapproved-ledger",
+      "exitCode": 1,
+      "expectFailure": true,
+      "pass": true
+    },
+    {
+      "label": "approved-projection",
+      "exitCode": 0,
+      "expectFailure": false,
+      "pass": true
+    },
+    {
+      "label": "journal-empty",
+      "exitCode": 0,
+      "expectFailure": false,
+      "pass": true
+    },
+    {
+      "label": "journal-one",
+      "exitCode": 0,
+      "expectFailure": false,
+      "pass": true
+    }
+  ],
+  "workingTree": "",
+  "openLayout": {
+    "clientWidth": 375,
+    "scrollWidth": 375,
+    "innerWidth": 375,
+    "visualWidth": 375,
+    "scale": 1
+  },
+  "filterHit": {
+    "ok": true,
+    "category": "chuan-bi"
+  },
+  "headAfter": "d44e27b889a2a4ea80d5602dffcd7d96cf4e321b",
+  "workingTreeAfter": "",
+  "pass": true,
+  "finishedAt": "2026-10-11T07:09:00.824Z"
+}

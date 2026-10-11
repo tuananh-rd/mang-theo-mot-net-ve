@@ -1,0 +1,260 @@
+{
+ "headSha": "d44e27b889a2a4ea80d5602dffcd7d96cf4e321b",
+ "appDirty": "",
+ "at": "2026-10-11T07:09:08.978Z",
+ "shots": [
+  {
+   "name": "home",
+   "path": "/",
+   "w": 1440,
+   "status": 200,
+   "docH": 4797
+  },
+  {
+   "name": "home",
+   "path": "/",
+   "w": 768,
+   "status": 200,
+   "docH": 7052
+  },
+  {
+   "name": "home",
+   "path": "/",
+   "w": 375,
+   "status": 200,
+   "docH": 8021
+  },
+  {
+   "name": "project",
+   "path": "/du-an/mang-theo-mot-net-ve",
+   "w": 1440,
+   "status": 200,
+   "docH": 5229
+  },
+  {
+   "name": "project",
+   "path": "/du-an/mang-theo-mot-net-ve",
+   "w": 768,
+   "status": 200,
+   "docH": 7632
+  },
+  {
+   "name": "project",
+   "path": "/du-an/mang-theo-mot-net-ve",
+   "w": 375,
+   "status": 200,
+   "docH": 8729
+  },
+  {
+   "name": "products",
+   "path": "/san-pham",
+   "w": 1440,
+   "status": 200,
+   "docH": 3621
+  },
+  {
+   "name": "products",
+   "path": "/san-pham",
+   "w": 768,
+   "status": 200,
+   "docH": 5162
+  },
+  {
+   "name": "products",
+   "path": "/san-pham",
+   "w": 375,
+   "status": 200,
+   "docH": 5352
+  },
+  {
+   "name": "finance",
+   "path": "/minh-bach",
+   "w": 1440,
+   "status": 200,
+   "docH": 4546
+  },
+  {
+   "name": "finance",
+   "path": "/minh-bach",
+   "w": 768,
+   "status": 200,
+   "docH": 5306
+  },
+  {
+   "name": "finance",
+   "path": "/minh-bach",
+   "w": 375,
+   "status": 200,
+   "docH": 7138
+  },
+  {
+   "name": "team",
+   "path": "/ve-nhom",
+   "w": 1440,
+   "status": 200,
+   "docH": 3813
+  },
+  {
+   "name": "team",
+   "path": "/ve-nhom",
+   "w": 768,
+   "status": 200,
+   "docH": 4548
+  },
+  {
+   "name": "team",
+   "path": "/ve-nhom",
+   "w": 375,
+   "status": 200,
+   "docH": 5444
+  },
+  {
+   "name": "support",
+   "path": "/dong-hanh",
+   "w": 1440,
+   "status": 200,
+   "docH": 4886
+  },
+  {
+   "name": "support",
+   "path": "/dong-hanh",
+   "w": 768,
+   "status": 200,
+   "docH": 5966
+  },
+  {
+   "name": "support",
+   "path": "/dong-hanh",
+   "w": 375,
+   "status": 200,
+   "docH": 6839
+  },
+  {
+   "name": "journal",
+   "path": "/nhat-ky",
+   "w": 1440,
+   "status": 200,
+   "docH": 2118
+  },
+  {
+   "name": "journal",
+   "path": "/nhat-ky",
+   "w": 768,
+   "status": 200,
+   "docH": 3135
+  },
+  {
+   "name": "journal",
+   "path": "/nhat-ky",
+   "w": 375,
+   "status": 200,
+   "docH": 3182
+  },
+  {
+   "name": "journal-detail-1",
+   "path": "/nhat-ky/ke-hoach-bon-goc-choi",
+   "w": 1440,
+   "status": 200,
+   "docH": 3213
+  },
+  {
+   "name": "journal-detail-1",
+   "path": "/nhat-ky/ke-hoach-bon-goc-choi",
+   "w": 768,
+   "status": 200,
+   "docH": 3380
+  },
+  {
+   "name": "journal-detail-1",
+   "path": "/nhat-ky/ke-hoach-bon-goc-choi",
+   "w": 375,
+   "status": 200,
+   "docH": 4474
+  },
+  {
+   "name": "journal-detail-2",
+   "path": "/nhat-ky/gioi-thieu-qua-luu-niem-gay-quy",
+   "w": 1440,
+   "status": 200,
+   "docH": 2852
+  },
+  {
+   "name": "journal-detail-2",
+   "path": "/nhat-ky/gioi-thieu-qua-luu-niem-gay-quy",
+   "w": 768,
+   "status": 200,
+   "docH": 3023
+  },
+  {
+   "name": "journal-detail-2",
+   "path": "/nhat-ky/gioi-thieu-qua-luu-niem-gay-quy",
+   "w": 375,
+   "status": 200,
+   "docH": 3934
+  },
+  {
+   "name": "product-detail-1",
+   "path": "/san-pham/chuon-chuon-tre-kem-de",
+   "w": 1440,
+   "status": 200,
+   "docH": 2684
+  },
+  {
+   "name": "product-detail-1",
+   "path": "/san-pham/chuon-chuon-tre-kem-de",
+   "w": 768,
+   "status": 200,
+   "docH": 3655
+  },
+  {
+   "name": "product-detail-1",
+   "path": "/san-pham/chuon-chuon-tre-kem-de",
+   "w": 375,
+   "status": 200,
+   "docH": 4116
+  },
+  {
+   "name": "product-detail-2",
+   "path": "/san-pham/moc-khoa",
+   "w": 1440,
+   "status": 200,
+   "docH": 2604
+  },
+  {
+   "name": "product-detail-2",
+   "path": "/san-pham/moc-khoa",
+   "w": 768,
+   "status": 200,
+   "docH": 3287
+  },
+  {
+   "name": "product-detail-2",
+   "path": "/san-pham/moc-khoa",
+   "w": 375,
+   "status": 200,
+   "docH": 3898
+  },
+  {
+   "name": "not-found",
+   "path": "/khong-ton-tai-c16",
+   "w": 1440,
+   "status": 404,
+   "docH": 998
+  },
+  {
+   "name": "not-found",
+   "path": "/khong-ton-tai-c16",
+   "w": 768,
+   "status": 404,
+   "docH": 1452
+  },
+  {
+   "name": "not-found",
+   "path": "/khong-ton-tai-c16",
+   "w": 375,
+   "status": 404,
+   "docH": 1687
+  }
+ ],
+ "browser": "Chrome/154.0.8037.98"
+}
