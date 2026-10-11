@@ -192,16 +192,20 @@ export function validateCsrf(request: Request): void {
     return;
   }
 
-  // Kiểm tra Origin / Referer
-  const origin = request.headers.get('Origin');
   const secFetchSite = request.headers.get('Sec-Fetch-Site');
-
   if (secFetchSite && secFetchSite === 'cross-site') {
     throw new AuthError('Yêu cầu bị từ chối do vi phạm chính sách bảo mật CSRF (Cross-site request blocked).', 'CSRF_BLOCKED', 403);
   }
 
+  let requestUrl: URL;
+  try {
+    requestUrl = new URL(request.url);
+  } catch {
+    throw new AuthError('URL yêu cầu không hợp lệ.', 'INVALID_REQUEST_URL', 400);
+  }
+
+  const origin = request.headers.get('Origin');
   if (origin) {
-    const requestHost = request.headers.get('Host') || '';
     let originUrl: URL;
     try {
       originUrl = new URL(origin);
@@ -209,8 +213,31 @@ export function validateCsrf(request: Request): void {
       throw new AuthError('Origin header không hợp lệ.', 'INVALID_ORIGIN', 403);
     }
 
-    if (requestHost && originUrl.host !== requestHost) {
-      throw new AuthError('Yêu cầu có Origin không khớp với Host của hệ thống.', 'CSRF_ORIGIN_MISMATCH', 403);
+    if (originUrl.origin !== requestUrl.origin) {
+      throw new AuthError('Yêu cầu có Origin không khớp với URL của hệ thống.', 'CSRF_ORIGIN_MISMATCH', 403);
     }
+    return;
+  }
+
+  // Nếu không có Origin, kiểm tra Referer
+  const referer = request.headers.get('Referer');
+  if (referer) {
+    try {
+      const refererUrl = new URL(referer);
+      if (refererUrl.origin !== requestUrl.origin) {
+        throw new AuthError('Yêu cầu có Referer không khớp với URL của hệ thống.', 'CSRF_REFERER_MISMATCH', 403);
+      }
+      return;
+    } catch {
+      throw new AuthError('Referer header không hợp lệ.', 'INVALID_REFERER', 403);
+    }
+  }
+
+  // Trong môi trường trình duyệt, mọi mutation đều có Origin hoặc Referer.
+  // Cho phép yêu cầu nội bộ loopback hoặc API có Authorization Bearer bỏ qua nếu chạy ngoài trình duyệt.
+  const isLoopback = isLoopbackRequest(request);
+  const isBearer = Boolean(request.headers.get('Authorization')?.startsWith('Bearer '));
+  if (!isLoopback && !isBearer) {
+    throw new AuthError('Yêu cầu thay đổi dữ liệu thiếu Origin và Referer hợp lệ (CSRF Protection).', 'CSRF_MISSING_ORIGIN', 403);
   }
 }

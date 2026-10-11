@@ -106,3 +106,50 @@ test('Storage R2: Hoạt động bền vững của LocalR2Bucket (put, get, lis
     }
   }
 });
+
+test('Media Auth: Tệp media pending/chưa duyệt từ chối yêu cầu unauthenticated (401), tệp approved được phục vụ công khai', async () => {
+  const { default: worker } = await import('../dist/worker.js');
+  const { LocalD1Database } = await import('../dist/db/emulator.js');
+  const schemaSql = fs.readFileSync(path.resolve(process.cwd(), 'apps/studio/src/db/schema.sql'), 'utf-8');
+  const testDir = path.resolve(process.cwd(), 'apps/studio/data/test-media-auth-' + Date.now());
+  const bucket = new LocalR2Bucket(testDir);
+  const db = new LocalD1Database(':memory:', schemaSql);
+
+  try {
+    // 1. Tạo 1 asset pending và 1 asset approved trong R2 và D1
+    const pendingKey = 'media/pending-photo.jpg';
+    const approvedKey = 'media/approved-photo.jpg';
+    await bucket.put(pendingKey, Buffer.from('pending-data'), { httpMetadata: { contentType: 'image/jpeg' } });
+    await bucket.put(approvedKey, Buffer.from('approved-data'), { httpMetadata: { contentType: 'image/jpeg' } });
+
+    await db.prepare('INSERT INTO media_assets (id, filename, r2_key, size_bytes, content_type, status, alt, created_by, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)')
+      .bind('ast-1', 'pending-photo.jpg', pendingKey, 12, 'image/jpeg', 'pending', 'Mô tả', 'dev@test.vn', new Date().toISOString())
+      .run();
+    await db.prepare('INSERT INTO media_assets (id, filename, r2_key, size_bytes, content_type, status, alt, created_by, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)')
+      .bind('ast-2', 'approved-photo.jpg', approvedKey, 13, 'image/jpeg', 'approved', 'Mô tả', 'dev@test.vn', new Date().toISOString())
+      .run();
+
+    const env = {
+      DB: db,
+      BUCKET: bucket,
+      STUDIO_ENVIRONMENT: 'production',
+      CF_ACCESS_TEAM_DOMAIN: 'https://test-team.cloudflareaccess.com',
+      CF_ACCESS_AUD: 'aud-test-123',
+    };
+
+    // 2. Yêu cầu tệp approved không cần đăng nhập -> HTTP 200, Cache-Control public
+    const reqApproved = new Request(`https://test-domain.website/${approvedKey}`, { method: 'GET' });
+    const resApproved = await worker.fetch(reqApproved, env, {});
+    assert.equal(resApproved.status, 200);
+    assert.match(resApproved.headers.get('Cache-Control') || '', /public/);
+
+    // 3. Yêu cầu tệp pending không có xác thực -> HTTP 401 Unauthorized
+    const reqPendingUnauth = new Request(`https://test-domain.website/${pendingKey}`, { method: 'GET' });
+    const resPendingUnauth = await worker.fetch(reqPendingUnauth, env, {});
+    assert.equal(resPendingUnauth.status, 401);
+  } finally {
+    if (fs.existsSync(testDir)) {
+      fs.rmSync(testDir, { recursive: true, force: true });
+    }
+  }
+});

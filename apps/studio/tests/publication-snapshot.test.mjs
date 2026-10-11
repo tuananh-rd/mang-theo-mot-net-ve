@@ -105,3 +105,32 @@ test('Xuất bản: Kiểm tra tính Idempotency và Four-Eyes trong D1', async 
   assert.equal(approved2.secondReviewer, 'reviewer2@test.vn');
   assert.equal(approved2.status, 'approved');
 });
+
+test('Xuất bản: Trích xuất Snapshot được duyệt sang dữ liệu tĩnh Astro (Snapshot Consumer)', async () => {
+  const { exportApprovedSnapshot } = await import('../dist/publish/consumer.js');
+  const tempDir = path.resolve(process.cwd(), 'apps/studio/data/test-export-' + Date.now());
+
+  try {
+    const mockSnapshot = {
+      snapshotHash: '1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef',
+      createdAt: new Date().toISOString(),
+      modules: ['project', 'journal', 'products', 'finance', 'team'],
+      journal: [{ slug: 'bai-1', title: 'Bài 1', status: 'published', content: [] }],
+      products: { 'chuon-chuon-tre-kem-de': { status: 'open' } },
+      project: { title: 'Dự án MTMNV' },
+      finance: { reconciled: false },
+      team: { members: [] },
+    };
+
+    const res = exportApprovedSnapshot(mockSnapshot, tempDir);
+    assert.equal(res.success, true);
+    assert.equal(res.filesWritten.length, 3);
+    assert.ok(fs.existsSync(path.join(tempDir, 'src/data/published-snapshot.json')));
+    assert.ok(fs.existsSync(path.join(tempDir, 'src/data/journal-entries.json')));
+    assert.ok(fs.existsSync(path.join(tempDir, 'src/data/product-sales-config.json')));
+  } finally {
+    if (fs.existsSync(tempDir)) {
+      fs.rmSync(tempDir, { recursive: true, force: true });
+    }
+  }
+});

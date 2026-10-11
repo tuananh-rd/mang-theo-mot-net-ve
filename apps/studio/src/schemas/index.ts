@@ -277,12 +277,26 @@ export function validateFinanceModuleData(data: unknown): { isValid: boolean; er
     if (f.publicApproval !== 'pending') {
       errors.push('publicApproval phải là "pending" khi chưa đối soát xong.');
     }
-    if (Array.isArray(f.entries) && f.entries.length > 0) {
-      errors.push('entries phải rỗng khi chưa đối soát xong (reconciled: false).');
-    }
+    // Ghi chú: Trong bản nháp riêng tư (private draft), entries được phép chứa các giao dịch chuẩn bị / nhập từ CSV trước khi đối soát.
+    // Việc lọc rỗng entries khi chưa đối soát sẽ do bộ làm sạch bản chiếu công khai (sanitizeFinanceForPublic) đảm trách.
   }
   if (!Array.isArray(f.entries)) {
     errors.push('entries phải là mảng danh sách giao dịch.');
+  } else {
+    // Kiểm tra định dạng cơ bản của từng giao dịch trong bản nháp
+    for (let i = 0; i < f.entries.length; i++) {
+      const e = f.entries[i];
+      if (!e || typeof e !== 'object') {
+        errors.push(`Giao dịch thứ ${i + 1} phải là một đối tượng.`);
+        continue;
+      }
+      if (!e.date || !/^\d{4}-\d{2}-\d{2}$/.test(e.date)) {
+        errors.push(`Giao dịch thứ ${i + 1} thiếu ngày hợp lệ YYYY-MM-DD.`);
+      }
+      if (typeof e.amount !== 'number' || e.amount <= 0 || !Number.isInteger(e.amount)) {
+        errors.push(`Giao dịch thứ ${i + 1} số tiền phải là số nguyên dương.`);
+      }
+    }
   }
   return { isValid: errors.length === 0, errors };
 }

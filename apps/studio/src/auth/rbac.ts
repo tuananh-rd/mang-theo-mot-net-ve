@@ -86,10 +86,35 @@ export function assertCanManageUsers(role: UserRole): void {
 }
 
 /**
- * Thẩm định quy tắc 2 người độc lập (Four-eyes principle) cho Tài chính & Sao kê:
- * - Người duyệt không được trùng với người tạo bản nháp / đề xuất (nghiêm cấm self-review)
- * - Khi công bố sao kê ngân hàng, bắt buộc phải có đủ 2 người duyệt độc lập ký xác nhận
+ * Thẩm định quy tắc 2 người (Two-Person Policy / Four-Eyes Principle) cho Tài chính & Sao kê:
+ * - Tổng cộng tối thiểu 2 danh tính được cấp quyền khác nhau (không yêu cầu 3 người):
+ *   1. Người lập (Preparer / Author): ghi nhận xác nhận nguồn trên phiên bản bất biến.
+ *   2. Người duyệt độc lập (Independent Reviewer): phê duyệt yêu cầu xuất bản.
+ * - Người lập không được tự phê duyệt (chặn self-review: reviewerEmail !== preparerEmail).
+ * - Một người không thể đóng cả hai vai; khi nội dung thay đổi, xác nhận phải được làm lại.
  */
+export function validateTwoPersonFinanceApproval(options: {
+  preparerEmail: string;
+  reviewerEmail: string;
+}): { isValid: boolean; error?: string } {
+  const preparer = (options.preparerEmail || '').trim().toLowerCase();
+  const reviewer = (options.reviewerEmail || '').trim().toLowerCase();
+
+  if (!preparer) {
+    return { isValid: false, error: 'Thiếu định danh người lập bản nháp/nguồn tài chính (preparer).' };
+  }
+  if (!reviewer) {
+    return { isValid: false, error: 'Thiếu định danh người phê duyệt độc lập (reviewer).' };
+  }
+  if (preparer === reviewer) {
+    return {
+      isValid: false,
+      error: 'Quy tắc 2 người: Người lập tài chính không được tự phê duyệt nội dung của mình (cần một người duyệt độc lập).',
+    };
+  }
+  return { isValid: true };
+}
+
 export function validateFourEyesApproval(options: {
   currentReviewerEmail: string;
   authorEmail: string;
@@ -118,12 +143,19 @@ export function validateFourEyesApproval(options: {
     };
   }
 
-  // 3. Nếu là bước xuất bản chính thức, bắt buộc phải đủ 2 người ký duyệt
+  // 3. Nếu là bước xuất bản chính thức:
+  // Cần ít nhất 2 danh tính độc lập (ví dụ author + cur reviewer, hoặc first reviewer + cur reviewer)
   if (isFinalPublication) {
-    if (!first || !cur) {
+    if (first && cur === first) {
       return {
         isValid: false,
         error: 'Chưa đủ điều kiện xuất bản tài chính: Cần ít nhất 2 người duyệt độc lập xác nhận.',
+      };
+    }
+    if (!first && (!cur || cur === author)) {
+      return {
+        isValid: false,
+        error: 'Chưa đủ điều kiện xuất bản tài chính: Cần người phê duyệt độc lập khác với tác giả.',
       };
     }
   }

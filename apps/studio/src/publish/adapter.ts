@@ -241,7 +241,7 @@ function sanitizeFinanceForPublic(finance: FinanceModuleData): FinanceModuleData
       accountHolder: finance.donationAccount.accountHolder ? String(finance.donationAccount.accountHolder).trim() : null,
       qrImage: finance.donationAccount.qrImage ? String(finance.donationAccount.qrImage).trim() : null,
       transferPrefix: String(finance.donationAccount.transferPrefix || 'MTMNV').trim(),
-      goalAmount: typeof finance.donationAccount.goalAmount === 'number' ? finance.donationAccount.goalAmount : 3000000,
+      goalAmount: typeof finance.donationAccount.goalAmount === 'number' ? finance.donationAccount.goalAmount : null,
     };
   }
 

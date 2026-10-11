@@ -13,17 +13,49 @@ export default {
     const url = new URL(request.url);
     const path = url.pathname;
 
-    // 1. Phục vụ tệp media công khai từ R2
+    // 1. Phục vụ tệp media từ R2 có kiểm soát quyền truy cập
     if (path.startsWith('/media/')) {
-      const key = path.slice(1); // bỏ dấu / đầu
+      const key = path.slice(1); // bỏ dấu / đầu (ví dụ: media/abc.jpg)
       if (env.BUCKET) {
+        // Kiểm tra trạng thái asset trong DB
+        let isApproved = false;
+        if (env.DB) {
+          const row = await env.DB.prepare('SELECT status FROM media_assets WHERE r2_key = ?').bind(key).first<{ status: string }>();
+          if (row && row.status === 'approved') {
+            isApproved = true;
+          }
+        }
+
+        // Tệp chưa được duyệt (pending/rejected/chưa lưu): Bắt buộc xác thực người dùng nội bộ
+        if (!isApproved) {
+          let session;
+          try {
+            session = await authenticateRequest(request, env);
+          } catch {
+            return new Response(
+              JSON.stringify({
+                error: 'Truy cập bị từ chối: Tệp media chưa được duyệt hoặc thuộc khu vực nội bộ. Cần đăng nhập để xem.',
+                code: 'UNAUTHORIZED_MEDIA',
+              }),
+              { status: 401, headers: { 'Content-Type': 'application/json; charset=utf-8' } }
+            );
+          }
+
+          if (!session || !['admin', 'editor', 'reviewer'].includes(session.user.role)) {
+            return new Response(
+              JSON.stringify({ error: 'Không đủ quyền hạn xem tệp media riêng tư.', code: 'FORBIDDEN_MEDIA' }),
+              { status: 403, headers: { 'Content-Type': 'application/json; charset=utf-8' } }
+            );
+          }
+        }
+
         const object = await env.BUCKET.get(key);
         if (object) {
           return new Response(object.body as any, {
             headers: {
               'Content-Type': object.httpMetadata?.contentType || 'application/octet-stream',
               'ETag': object.etag,
-              'Cache-Control': 'public, max-age=86400',
+              'Cache-Control': isApproved ? 'public, max-age=86400' : 'private, no-store',
             },
           });
         }

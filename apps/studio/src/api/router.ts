@@ -10,6 +10,8 @@ import { validateCsrf } from '../auth/middleware.js';
 import { getDefaultModuleData, validateModuleData } from '../schemas/index.js';
 import { sniffImageFormat, MAX_FILE_SIZE_BYTES, checkAssetUsageInDrafts } from '../storage/media-sniffer.js';
 import { createPublicationSnapshot } from '../publish/adapter.js';
+import { exportApprovedSnapshot } from '../publish/consumer.js';
+import { triggerGitHubPublication } from '../publish/github.js';
 import { validateDonationCSV } from '../../../../tools/content-studio/csv-validator.mjs';
 
 function jsonResponse(data: unknown, status = 200, headers: Record<string, string> = {}): Response {
@@ -359,6 +361,58 @@ export async function handleApiRequest(
       rows: valResult.rows,
       stats: valResult.stats,
     });
+  }
+
+  // 14. Trích xuất Bản chụp đã duyệt sang thư mục Astro: POST /api/publications/:id/export
+  const exportMatch = path.match(/^\/api\/publications\/([^/]+)\/export$/);
+  if (exportMatch && method === 'POST') {
+    validateCsrf(request);
+    assertCanPublish(user.role);
+
+    const pubId = exportMatch[1];
+    const pub = await dbClient.getPublication(pubId);
+    if (!pub) {
+      return errorResponse('Không tìm thấy yêu cầu xuất bản.', 404);
+    }
+
+    const exportResult = exportApprovedSnapshot(pub.snapshot);
+    if (!exportResult.success) {
+      return errorResponse(`Lỗi trích xuất bản chụp: ${exportResult.error}`, 500);
+    }
+
+    await dbClient.recordAuditLog(user.email, 'EXPORT_SNAPSHOT', 'system', {
+      pubId,
+      filesWritten: exportResult.filesWritten,
+      snapshotHash: exportResult.snapshotHash,
+    });
+
+    return jsonResponse({ success: true, exportResult });
+  }
+
+  // 15. Tạo Pull Request GitHub hoặc kích hoạt triển khai: POST /api/publications/:id/publish-git
+  const publishGitMatch = path.match(/^\/api\/publications\/([^/]+)\/publish-git$/);
+  if (publishGitMatch && method === 'POST') {
+    validateCsrf(request);
+    assertCanPublish(user.role);
+
+    const pubId = publishGitMatch[1];
+    const pub = await dbClient.getPublication(pubId);
+    if (!pub) {
+      return errorResponse('Không tìm thấy yêu cầu xuất bản.', 404);
+    }
+
+    const gitResult = await triggerGitHubPublication(pub, env);
+    if (!gitResult.success) {
+      return errorResponse(`Lỗi tích hợp GitHub: ${gitResult.error}`, 500);
+    }
+
+    await dbClient.recordAuditLog(user.email, 'TRIGGER_GIT_PUBLISH', 'system', {
+      pubId,
+      branchName: gitResult.branchName,
+      isSimulated: gitResult.isSimulated,
+    });
+
+    return jsonResponse({ success: true, gitResult });
   }
 
   return errorResponse('API endpoint không tồn tại.', 404);

@@ -107,43 +107,7 @@ export class StudioDbClient {
     const now = new Date().toISOString();
     const dataJson = JSON.stringify(data);
 
-    // 2. Cập nhật có điều kiện nguyên tử (Atomic Conditional Update)
-    if (current) {
-      const updateResult = await this.db
-        .prepare(
-          `UPDATE drafts
-           SET data_json = ?, revision_hash = ?, updated_by = ?, updated_at = ?
-           WHERE module_key = ? AND revision_hash = ?`
-        )
-        .bind(dataJson, newHash, userEmail, now, moduleKey, expectedHash)
-        .run();
-
-      if (!updateResult.meta?.changes || updateResult.meta.changes === 0) {
-        const latest = await this.getDraft(moduleKey);
-        throw new ConcurrencyConflictError(
-          `Xung đột đồng thời (Race condition) tại phân hệ '${moduleKey}'. Dữ liệu đã bị ghi đè bởi phiên khác.`,
-          latest?.revisionHash
-        );
-      }
-    } else {
-      try {
-        await this.db
-          .prepare(
-            `INSERT INTO drafts (module_key, data_json, revision_hash, updated_by, updated_at)
-             VALUES (?, ?, ?, ?, ?)`
-          )
-          .bind(moduleKey, dataJson, newHash, userEmail, now)
-          .run();
-      } catch (err: any) {
-        const latest = await this.getDraft(moduleKey);
-        throw new ConcurrencyConflictError(
-          `Xung đột khởi tạo tại phân hệ '${moduleKey}'. Bản nháp đã được tạo trước bởi phiên khác.`,
-          latest?.revisionHash
-        );
-      }
-    }
-
-    // 3. Tính số thứ tự version mới và lưu lịch sử phiên bản
+    // 2. Tính số thứ tự version mới
     const maxVerRow = await this.db
       .prepare('SELECT MAX(version) as max_version FROM revisions WHERE module_key = ?')
       .bind(moduleKey)
@@ -151,22 +115,78 @@ export class StudioDbClient {
 
     const nextVersion = (maxVerRow?.max_version ?? 0) + 1;
     const revisionId = `rev-${moduleKey}-${nextVersion}-${Date.now()}`;
+    const auditId = `aud-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;
 
-    await this.db
-      .prepare(
-        `INSERT INTO revisions (id, module_key, version, data_json, revision_hash, created_by, created_at, comment)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
-      )
-      .bind(revisionId, moduleKey, nextVersion, dataJson, newHash, userEmail, now, comment || null)
-      .run();
+    // 3. Thực thi giao dịch nguyên tử (Atomic Transaction):
+    // Đảm bảo cả 3 thao tác Draft UPDATE/INSERT + Revision INSERT + Audit Log INSERT
+    // đều phải thành công cùng nhau hoặc cùng bị rollback nếu xảy ra race condition.
+    await this.db.exec('BEGIN TRANSACTION;');
+    try {
+      if (current) {
+        const updateResult = await this.db
+          .prepare(
+            `UPDATE drafts
+             SET data_json = ?, revision_hash = ?, updated_by = ?, updated_at = ?
+             WHERE module_key = ? AND revision_hash = ?`
+          )
+          .bind(dataJson, newHash, userEmail, now, moduleKey, expectedHash)
+          .run();
 
-    // 4. Ghi audit log
-    await this.recordAuditLog(
-      userEmail,
-      'SAVE_DRAFT',
-      moduleKey,
-      { version: nextVersion, revisionHash: newHash, comment }
-    );
+        if (!updateResult.meta?.changes || updateResult.meta.changes === 0) {
+          await this.db.exec('ROLLBACK;');
+          const latest = await this.getDraft(moduleKey);
+          throw new ConcurrencyConflictError(
+            `Xung đột đồng thời (Race condition) tại phân hệ '${moduleKey}'. Dữ liệu đã bị ghi đè bởi phiên khác.`,
+            latest?.revisionHash
+          );
+        }
+      } else {
+        const insertResult = await this.db
+          .prepare(
+            `INSERT INTO drafts (module_key, data_json, revision_hash, updated_by, updated_at)
+             VALUES (?, ?, ?, ?, ?)`
+          )
+          .bind(moduleKey, dataJson, newHash, userEmail, now)
+          .run();
+
+        if (insertResult.error) {
+          await this.db.exec('ROLLBACK;');
+          const latest = await this.getDraft(moduleKey);
+          throw new ConcurrencyConflictError(
+            `Xung đột khởi tạo tại phân hệ '${moduleKey}'. Bản nháp đã được tạo trước bởi phiên khác.`,
+            latest?.revisionHash
+          );
+        }
+      }
+
+      await this.db
+        .prepare(
+          `INSERT INTO revisions (id, module_key, version, data_json, revision_hash, created_by, created_at, comment)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+        )
+        .bind(revisionId, moduleKey, nextVersion, dataJson, newHash, userEmail, now, comment || null)
+        .run();
+
+      await this.db
+        .prepare(
+          `INSERT INTO audit_logs (id, user_email, action, module_key, details_json, created_at)
+           VALUES (?, ?, ?, ?, ?, ?)`
+        )
+        .bind(
+          auditId,
+          userEmail,
+          'SAVE_DRAFT',
+          moduleKey,
+          JSON.stringify({ version: nextVersion, revisionHash: newHash, comment }),
+          now
+        )
+        .run();
+
+      await this.db.exec('COMMIT;');
+    } catch (err) {
+      await this.db.exec('ROLLBACK;').catch(() => {});
+      throw err;
+    }
 
     const draftRecord: DraftRecord<T> = {
       moduleKey,
@@ -405,6 +425,37 @@ export class StudioDbClient {
       deploymentVerifiedAt: r.deployment_verified_at,
       createdAt: r.created_at,
     }));
+  }
+
+  /** Lấy chi tiết một yêu cầu xuất bản theo ID */
+  async getPublication(publicationId: string): Promise<PublicationRecord | null> {
+    const r = await this.db
+      .prepare(
+        `SELECT id, snapshot_json, status, requested_by, approved_by, second_reviewer,
+                published_at, git_ref, deploy_status, error_message, idempotency_key,
+                deployment_verified_at, created_at
+         FROM publications
+         WHERE id = ?`
+      )
+      .bind(publicationId)
+      .first<any>();
+
+    if (!r) return null;
+    return {
+      id: r.id,
+      snapshot: JSON.parse(r.snapshot_json),
+      status: r.status,
+      requestedBy: r.requested_by,
+      approvedBy: r.approved_by,
+      secondReviewer: r.second_reviewer,
+      publishedAt: r.published_at,
+      gitRef: r.git_ref,
+      deployStatus: r.deploy_status,
+      errorMessage: r.error_message,
+      idempotencyKey: r.idempotency_key,
+      deploymentVerifiedAt: r.deployment_verified_at,
+      createdAt: r.created_at,
+    };
   }
 
   /** Duyệt yêu cầu xuất bản tuân thủ Four-Eyes Principle */

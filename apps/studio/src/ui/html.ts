@@ -485,6 +485,23 @@ export function renderStudioHtml(session: AuthSession): string {
           .replace(/'/g, '&#39;');
       }
 
+      function showToast(message, type) {
+        let container = document.getElementById('studioToastContainer');
+        if (!container) {
+          container = document.createElement('div');
+          container.id = 'studioToastContainer';
+          container.style.cssText = 'position: fixed; bottom: 20px; right: 20px; z-index: 10000; display: flex; flex-direction: column; gap: 8px; max-width: 440px;';
+          document.body.appendChild(container);
+        }
+        const toast = document.createElement('div');
+        const bg = type === 'success' ? '#2e7d32' : (type === 'error' ? '#c62828' : '#0288d1');
+        toast.style.cssText = 'background: ' + bg + '; color: #fff; padding: 12px 16px; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); font-size: 0.9rem; font-weight: 500; display: flex; align-items: center; justify-content: space-between; gap: 12px;';
+        toast.innerHTML = '<span>' + escapeHtml(message) + '</span><button style=\"background: none; border: none; color: #fff; font-size: 1.2rem; cursor: pointer; line-height: 1;\" aria-label=\"Đóng\">&times;</button>';
+        toast.querySelector('button').onclick = function() { toast.remove(); };
+        container.appendChild(toast);
+        setTimeout(function() { if (toast.parentNode) toast.remove(); }, 6000);
+      }
+
       const sidebar = document.getElementById('sidebar');
       const toggleSidebarBtn = document.getElementById('toggleSidebarBtn');
       const pageHeading = document.getElementById('pageHeading');
@@ -819,26 +836,26 @@ export function renderStudioHtml(session: AuthSession): string {
               <div class="form-row">
                 <div class="form-group">
                   <label>Trưởng dự án</label>
-                  <input type="text" class="form-control" name="contact_name_0" value="\${escapeHtml(contacts.people[0]?.name || 'Nguyễn Chí Trung')}">
+                  <input type="text" class="form-control" name="contact_name_0" value="\${escapeHtml(contacts.people[0]?.name ?? '')}">
                 </div>
                 <div class="form-group">
                   <label>Số điện thoại</label>
-                  <input type="text" class="form-control" name="contact_phone_0" value="\${escapeHtml(contacts.people[0]?.phone || '0984 441 726')}">
+                  <input type="text" class="form-control" name="contact_phone_0" value="\${escapeHtml(contacts.people[0]?.phone ?? '')}">
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group">
                   <label>Đại diện đối ngoại</label>
-                  <input type="text" class="form-control" name="contact_name_1" value="\${escapeHtml(contacts.people[1]?.name || 'Lê Tuấn Anh')}">
+                  <input type="text" class="form-control" name="contact_name_1" value="\${escapeHtml(contacts.people[1]?.name ?? '')}">
                 </div>
                 <div class="form-group">
                   <label>Số điện thoại</label>
-                  <input type="text" class="form-control" name="contact_phone_1" value="\${escapeHtml(contacts.people[1]?.phone || '0343 999 199')}">
+                  <input type="text" class="form-control" name="contact_phone_1" value="\${escapeHtml(contacts.people[1]?.phone ?? '')}">
                 </div>
               </div>
               <div class="form-group">
                 <label>Trang Facebook / Fanpage Dự án</label>
-                <input type="url" class="form-control" name="contact_fanpage" value="\${escapeHtml(contacts.fanpageUrl || 'https://www.facebook.com/mangtheomotnetve')}">
+                <input type="url" class="form-control" name="contact_fanpage" value="\${escapeHtml(contacts.fanpageUrl ?? '')}">
               </div>
             </div>
 
@@ -909,9 +926,9 @@ export function renderStudioHtml(session: AuthSession): string {
           if (saveRes.ok) {
             setDirty(false);
             activeDraft = saveRes.data.draft;
-            alert('Đã lưu bản nháp dự án thành công!');
+            showToast('Đã lưu bản nháp dự án thành công!', 'success');
           } else {
-            alert('Lỗi lưu bản nháp: ' + (saveRes.data.error || 'Lỗi không xác định'));
+            showToast('Lỗi lưu bản nháp: ' + (saveRes.data.error || 'Lỗi không xác định'), 'error');
           }
         });
       }
@@ -981,9 +998,9 @@ export function renderStudioHtml(session: AuthSession): string {
               summary: 'Tóm tắt bài viết...',
               category: 'hoat-dong',
               categoryLabel: 'Hoạt động',
-              publishedAt: new Date().toISOString().slice(0, 10),
-              eventDate: new Date().toISOString().slice(0, 10),
-              eventStatus: 'completed',
+              publishedAt: null,
+              eventDate: null,
+              eventStatus: 'planned',
               status: 'draft',
               content: [{ type: 'paragraph', text: 'Nội dung đoạn văn đầu tiên...' }]
             };
@@ -1210,10 +1227,10 @@ export function renderStudioHtml(session: AuthSession): string {
           if (saveRes.ok) {
             setDirty(false);
             activeDraft = saveRes.data.draft;
-            alert('Đã lưu bài viết nhật ký thành công!');
+            showToast('Đã lưu bài viết nhật ký thành công!', 'success');
             renderJournalListView();
           } else {
-            alert('Lỗi lưu bài viết: ' + (saveRes.data.error || 'Lỗi không xác định'));
+            showToast('Lỗi lưu bài viết: ' + (saveRes.data.error || 'Lỗi không xác định'), 'error');
           }
         });
       };
@@ -1287,10 +1304,10 @@ export function renderStudioHtml(session: AuthSession): string {
           });
           const json = await uploadRes.json();
           if (uploadRes.ok) {
-            alert('Tải tệp lên thành công!');
+            showToast('Tải tệp lên thành công!', 'success');
             renderMediaLibrary();
           } else {
-            alert('Lỗi tải tệp: ' + (json.error || 'Từ chối bởi hệ thống'));
+            showToast('Lỗi tải tệp: ' + (json.error || 'Từ chối bởi hệ thống'), 'error');
           }
         });
       }
@@ -1444,9 +1461,9 @@ export function renderStudioHtml(session: AuthSession): string {
           if (saveRes.ok) {
             setDirty(false);
             activeDraft = saveRes.data.draft;
-            alert('Đã lưu cấu hình mở bán sản phẩm thành công!');
+            showToast('Đã lưu cấu hình mở bán sản phẩm thành công!', 'success');
           } else {
-            alert('Lỗi lưu cấu hình: ' + (saveRes.data.error || 'Lỗi không xác định'));
+            showToast('Lỗi lưu cấu hình: ' + (saveRes.data.error || 'Lỗi không xác định'), 'error');
           }
         });
       }
@@ -1651,9 +1668,9 @@ export function renderStudioHtml(session: AuthSession): string {
           if (saveRes.ok) {
             setDirty(false);
             activeDraft = saveRes.data.draft;
-            alert('Đã lưu cấu hình tài khoản ủng hộ và quy trình đối soát thành công!');
+            showToast('Đã lưu cấu hình tài khoản ủng hộ và quy trình đối soát thành công!', 'success');
           } else {
-            alert('Lỗi lưu: ' + (saveRes.data.error || 'Lỗi không xác định'));
+            showToast('Lỗi lưu: ' + (saveRes.data.error || 'Lỗi không xác định'), 'error');
           }
         });
 
@@ -1667,9 +1684,9 @@ export function renderStudioHtml(session: AuthSession): string {
           });
           const json = await valRes.json();
           if (valRes.ok) {
-            alert('Thẩm định CSV thành công! Tìm thấy ' + json.rows.length + ' dòng hợp lệ, tổng tiền: ' + json.stats.totalAmount.toLocaleString('vi-VN') + ' đ.');
+            showToast('Thẩm định CSV thành công! Tìm thấy ' + json.rows.length + ' dòng hợp lệ, tổng tiền: ' + json.stats.totalAmount.toLocaleString('vi-VN') + ' đ.', 'success');
           } else {
-            alert('Lỗi kiểm tra CSV: ' + (json.error || 'Tệp không đạt tiêu chuẩn RFC 4180'));
+            showToast('Lỗi kiểm tra CSV: ' + (json.error || 'Tệp không đạt tiêu chuẩn RFC 4180'), 'error');
           }
         });
       }
@@ -1901,9 +1918,9 @@ export function renderStudioHtml(session: AuthSession): string {
           if (saveRes.ok) {
             setDirty(false);
             activeDraft = saveRes.data.draft;
-            alert('Đã lưu phân hệ Nhóm, Thành viên & FAQs thành công!');
+            showToast('Đã lưu phân hệ Nhóm, Thành viên & FAQs thành công!', 'success');
           } else {
-            alert('Lỗi lưu: ' + (saveRes.data.error || 'Lỗi không xác định'));
+            showToast('Lỗi lưu: ' + (saveRes.data.error || 'Lỗi không xác định'), 'error');
           }
         });
       }
@@ -1942,22 +1959,26 @@ export function renderStudioHtml(session: AuthSession): string {
                   </tr>
                 </thead>
                 <tbody>
-                  \${pubs.map(p => \`
+                  \${pubs.map(p => \\\`
                     <tr>
-                      <td><code>\${p.id}</code></td>
-                      <td>\${new Date(p.createdAt).toLocaleString('vi-VN')}</td>
-                      <td>\${p.requestedBy}</td>
-                      <td>\${p.approvedBy || '<em>(Chưa duyệt)</em>'}</td>
-                      <td>\${p.secondReviewer || '<em>(Chưa duyệt)</em>'}</td>
-                      <td><span class="role-badge" style="background:#EBF8FF; color:#2B6CB0;">\${p.status}</span></td>
+                      <td><code>\\\${p.id}</code></td>
+                      <td>\\\${new Date(p.createdAt).toLocaleString('vi-VN')}</td>
+                      <td>\\\${p.requestedBy}</td>
+                      <td>\\\${p.approvedBy || '<em>(Chưa duyệt)</em>'}</td>
+                      <td>\\\${p.secondReviewer || '<em>(Chưa duyệt)</em>'}</td>
+                      <td><span class="role-badge" style="background:#EBF8FF; color:#2B6CB0;">\\\${p.status}</span></td>
                       <td>
-                        \${p.status === 'pending_review' ? \`
-                          <button class="btn btn-success btn-sm" onclick="reviewPub('\${p.id}', 'approve')" \${currentUserRole === 'editor' ? 'disabled' : ''}>Duyệt</button>
-                          <button class="btn btn-danger btn-sm" onclick="reviewPub('\${p.id}', 'reject')" \${currentUserRole === 'editor' ? 'disabled' : ''}>Từ chối</button>
-                        \` : '<em>Hoàn tất</em>'}
+                        <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                          \\\${p.status === 'pending_review' ? \\\\\`
+                            <button class="btn btn-success btn-sm" onclick="reviewPub('\\\\\\\${p.id}', 'approve')" \\\${currentUserRole === 'editor' ? 'disabled' : ''}>Duyệt</button>
+                            <button class="btn btn-danger btn-sm" onclick="reviewPub('\\\\\\\${p.id}', 'reject')" \\\${currentUserRole === 'editor' ? 'disabled' : ''}>Từ chối</button>
+                          \\\\\` : ''}
+                          <button class="btn btn-secondary btn-sm" onclick="exportPub('\\\\\\\${p.id}')" title="Trích xuất snapshot sang thư mục Astro">Xuất sang Astro 🚀</button>
+                          <button class="btn btn-secondary btn-sm" onclick="gitPublish('\\\\\\\${p.id}')" title="Tạo PR GitHub hoặc mô phỏng">Tạo PR Git 🐙</button>
+                        </div>
                       </td>
                     </tr>
-                  \`).join('')}
+                  \\\`).join('')}
                   \${pubs.length === 0 ? '<tr><td colspan="7" style="text-align: center; color: var(--color-neutral-mid);">Chưa có yêu cầu xuất bản nào.</td></tr>' : ''}
                 </tbody>
               </table>
@@ -1974,10 +1995,10 @@ export function renderStudioHtml(session: AuthSession): string {
               body: JSON.stringify({ idempotencyKey: 'pub-req-' + Date.now() })
             });
             if (res.ok) {
-              alert('Đã tạo yêu cầu xuất bản thành công!');
+              showToast('Đã tạo yêu cầu xuất bản thành công!', 'success');
               renderPublishView();
             } else {
-              alert('Lỗi: ' + (res.data.error || 'Không thể tạo yêu cầu xuất bản'));
+              showToast('Lỗi: ' + (res.data.error || 'Không thể tạo yêu cầu xuất bản'), 'error');
             }
           });
         }
@@ -1989,10 +2010,29 @@ export function renderStudioHtml(session: AuthSession): string {
             body: JSON.stringify({ action })
           });
           if (res.ok) {
-            alert('Thao tác duyệt thành công!');
+            showToast('Thao tác duyệt thành công!', 'success');
             renderPublishView();
           } else {
-            alert('Lỗi duyệt: ' + (res.data.error || 'Vi phạm điều kiện phê duyệt'));
+            showToast('Lỗi duyệt: ' + (res.data.error || 'Vi phạm điều kiện phê duyệt'), 'error');
+          }
+        };
+
+        window.exportPub = async function(pubId) {
+          const res = await fetchApi('/api/publications/' + pubId + '/export', { method: 'POST' });
+          if (res.ok) {
+            showToast('Đã xuất bản chụp sang Astro (' + (res.data.exportResult?.filesWritten || []).join(', ') + ')!', 'success');
+          } else {
+            showToast('Lỗi xuất bản chụp: ' + (res.data.error || 'Lỗi không xác định'), 'error');
+          }
+        };
+
+        window.gitPublish = async function(pubId) {
+          const res = await fetchApi('/api/publications/' + pubId + '/publish-git', { method: 'POST' });
+          if (res.ok) {
+            showToast('Tích hợp Git (' + res.data.gitResult?.branchName + '): ' + (res.data.gitResult?.isSimulated ? 'Chế độ mô phỏng PR thành công' : res.data.gitResult?.prUrl), 'success');
+            renderPublishView();
+          } else {
+            showToast('Lỗi tích hợp Git: ' + (res.data.error || 'Lỗi không xác định'), 'error');
           }
         };
       }

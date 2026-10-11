@@ -36,6 +36,25 @@ test('Four-Eyes: Người duyệt thứ hai phải độc lập với người d
   assert.equal(validIndependent.isValid, true);
 });
 
+test('Quy tắc 2 người: Đúng 2 danh tính độc lập (Người lập + Người duyệt độc lập)', async () => {
+  const { validateTwoPersonFinanceApproval } = await import('../dist/auth/rbac.js');
+
+  // Trùng người lập và duyệt -> Từ chối
+  const selfReview = validateTwoPersonFinanceApproval({
+    preparerEmail: 'lead@mangtheomotnetve.vn',
+    reviewerEmail: 'lead@mangtheomotnetve.vn',
+  });
+  assert.equal(selfReview.isValid, false);
+  assert.match(selfReview.error, /Người lập tài chính không được tự phê duyệt/);
+
+  // 2 người độc lập -> Hợp lệ (không cần người thứ 3)
+  const validTwo = validateTwoPersonFinanceApproval({
+    preparerEmail: 'lead@mangtheomotnetve.vn',
+    reviewerEmail: 'reviewer@mangtheomotnetve.vn',
+  });
+  assert.equal(validTwo.isValid, true);
+});
+
 test('CSV Parser: Tuân thủ RFC 4180, từ chối unclosed quotes và dòng sai số cột', () => {
   // Unclosed quotes
   const unclosed = 'id,date,amount\n1,2026-10-10,"50000';

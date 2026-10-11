@@ -35,6 +35,12 @@ test('Khóa lạc quan & Revisions: Phát hiện xung đột 409 và khôi phụ
     ConcurrencyConflictError
   );
 
+  // Kiểm tra tính nguyên tử: Giao dịch bị rollback, không tạo revision rác hay audit log rác
+  const revsDuringConflict = await client.listRevisions('project', 10);
+  assert.equal(revsDuringConflict.length, 2); // Chỉ giữ đúng 2 revision v1 và v2, không tạo v3 bị lỗi
+  const auditLogs = await client.listAuditLogs(10);
+  assert.equal(auditLogs.filter((l) => l.details?.comment === 'A cố lưu ghi đè').length, 0);
+
   // 5. Kiểm tra danh sách Revisions
   const revs = await client.listRevisions('project', 10);
   assert.equal(revs.length, 2);

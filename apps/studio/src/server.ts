@@ -56,8 +56,19 @@ export function createStudioLocalServer(options: { port?: number; dataDir?: stri
 
       if (method !== 'GET' && method !== 'HEAD') {
         const chunks: Buffer[] = [];
+        let totalSize = 0;
+        const MAX_BODY_SIZE = 10 * 1024 * 1024; // 10MB giới hạn dung lượng
+
         for await (const chunk of req) {
-          chunks.push(typeof chunk === 'string' ? Buffer.from(chunk) : chunk);
+          const buf = typeof chunk === 'string' ? Buffer.from(chunk) : chunk;
+          totalSize += buf.length;
+          if (totalSize > MAX_BODY_SIZE) {
+            res.statusCode = 413;
+            res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+            res.end('413 Payload Too Large: Dung lượng yêu cầu vượt quá giới hạn 10MB.');
+            return;
+          }
+          chunks.push(buf);
         }
         body = Buffer.concat(chunks);
       }
