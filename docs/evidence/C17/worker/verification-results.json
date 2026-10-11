@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-11T11:25:52.789Z",
+  "timestamp": "2026-10-11T12:03:08.550Z",
   "baseUrl": "http://127.0.0.1:4330",
   "tests": [
     {
@@ -18,8 +18,8 @@
           "id": "dev-admin",
           "email": "dev-admin@internal.local",
           "role": "admin",
-          "createdAt": "2026-10-11T11:25:52.834Z",
-          "updatedAt": "2026-10-11T11:25:52.834Z"
+          "createdAt": "2026-10-11T12:03:08.614Z",
+          "updatedAt": "2026-10-11T12:03:08.614Z"
         }
       }
     },
@@ -28,7 +28,7 @@
       "passed": true,
       "details": {
         "moduleKey": "project",
-        "revisionHash": "38e51ff8c7f84aea1fc2d359ec99fe70171bf6889f7525545998cda46126eb92"
+        "revisionHash": "cc41b37f006d303ae709238d91cb5d65dd2cd4390f582fd0ffbfc20daa95a555"
       }
     },
     {
@@ -67,8 +67,8 @@
       "name": "API Drafts: Lưu bản nháp thành công có khóa lạc quan",
       "passed": true,
       "details": {
-        "newHash": "cc41b37f006d303ae709238d91cb5d65dd2cd4390f582fd0ffbfc20daa95a555",
-        "version": 4
+        "newHash": "7acaf6c5f14e9a6d0dd733bbc865551d7816d68cceabc753d5f5a87f1fc1d397",
+        "version": 5
       }
     },
     {
@@ -82,7 +82,7 @@
       "name": "API Publication: Tạo yêu cầu xuất bản và duy trì Idempotency",
       "passed": true,
       "details": {
-        "pubId": "pub-1791717952954-dx8q",
+        "pubId": "pub-1791720188729-07lx",
         "status": "pending_review"
       }
     },
