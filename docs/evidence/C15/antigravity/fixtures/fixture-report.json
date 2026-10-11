@@ -1,0 +1,25 @@
+{
+  "head": "409c8ff7970e279abe709bfeb88f533485878a5b",
+  "fixture": "C:\\Users\\tuana\\AppData\\Local\\Temp\\c15-antigravity-fixture-F1G0J1",
+  "buildExit": 0,
+  "cases": [
+    {
+      "mode": "centered-click",
+      "filtered": [
+        "chuan-bi"
+      ],
+      "restored": 3,
+      "pass": true
+    },
+    {
+      "mode": "keyboard",
+      "filtered": [
+        "chuan-bi"
+      ],
+      "restored": 3,
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "pass": true
+}
