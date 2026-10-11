@@ -21,3 +21,7 @@ docs/source/
 .DS_Store
 Thumbs.db
 *.log
+
+# Local content studio backups and private scratch fixtures
+tools/content-studio/backups/
+scratch/

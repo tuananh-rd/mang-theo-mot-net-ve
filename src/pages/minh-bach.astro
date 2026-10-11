@@ -4,236 +4,564 @@ import PageHero from '../components/PageHero.astro';
 import GoalProgress from '../components/GoalProgress.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
 import { TRANSPARENCY_FAQS, DONATION_ACCOUNT, DONATION_LEDGER, LEDGER_PROCESS } from '../data/campaign';
-import { summarizeLedger } from '../lib/donations';
+import { summarizeLedger, formatViDate } from '../lib/donations';
+import { formatVND } from '../lib/finance';
 
 const summary = summarizeLedger(DONATION_LEDGER, DONATION_ACCOUNT.goalAmount);
 
 const moneyFlow = [
-  { title: 'Nhận', text: 'Tiền ủng hộ vào tài khoản dự án; tiền bán quà lưu niệm ghi sổ riêng.' },
-  { title: 'Đối soát', text: 'Thành viên tài chính cùng một thành viên khác đối chiếu với sao kê ngân hàng trước khi cập nhật lên website.' },
-  { title: 'Sử dụng', text: 'Cho buổi chơi và quà theo danh mục Mái ấm xác nhận.' },
-  { title: 'Báo cáo', text: 'Sau buổi trao quà, công bố tổng nhận, hóa đơn và biên bản bàn giao.' },
+  { title: 'Tiếp nhận', text: 'Tiền ủng hộ được chuyển trực tiếp vào tài khoản ngân hàng của dự án. Toàn bộ tiền bán quà lưu niệm được quản lý và ghi sổ riêng biệt.' },
+  { title: 'Đối soát', text: 'Thành viên phụ trách tài chính cùng một thành viên khác đối chiếu khớp từng giao dịch với sao kê ngân hàng chính thức trước khi cập nhật lên website.' },
+  { title: 'Sử dụng', text: 'Toàn bộ nguồn quỹ dùng cho chi phí buổi chơi và mua quà tặng theo đúng danh mục nhu cầu do Mái ấm Thánh Tâm xác nhận.' },
+  { title: 'Báo cáo', text: 'Sau khi hoàn thành buổi trao quà, nhóm công bố công khai tổng thu, hóa đơn chứng từ và biên bản bàn giao có xác nhận của Mái ấm.' },
 ];
 
 const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Minh bạch' }];
+
+const ledgerStatusMeta = summary.reconciledAt
+  ? `Cập nhật ngày ${formatViDate(summary.reconciledAt)}`
+  : 'Chưa có sổ đã đối soát chính thức';
 ---
 
 <Layout
-  title="Minh bạch"
+  title="Minh bạch tài chính"
   description="Cách nhóm Lăng Kính nhận, đối soát, công bố và sử dụng tiền ủng hộ dự án Mang Theo Một Nét Vẽ."
   currentPath="/minh-bach"
 >
   <PageHero
+    variant="plain"
     breadcrumbs={breadcrumbs}
-    eyebrow="Minh bạch"
+    eyebrow="Minh bạch tài chính"
+    chip={{ kind: 'da-xac-nhan', label: 'Tài liệu công khai' }}
     title="Minh bạch tiền ủng hộ"
     titleId="transparency-heading"
     lead="Tài khoản tiếp nhận, quy trình đối soát, thời điểm công bố và mục đích sử dụng nguồn quỹ."
-    description="Tổng ủng hộ chỉ được tính từ sổ đã đối chiếu với ngân hàng; chưa có sổ đã đối soát thì website ghi “Chưa cập nhật”, không ghi 0đ."
+    description={`Trạng thái sổ: ${ledgerStatusMeta}. Website chỉ ghi nhận số liệu từ các dòng sổ đã đối soát với ngân hàng.`}
   />
 
-  <section class="section section-first" aria-labelledby="overview-heading">
-    <div class="container">
-      <h2 id="overview-heading" class="sr-only">Tiến độ ủng hộ</h2>
-      <div class="overview reveal">
-        <GoalProgress summary={summary} />
-      </div>
-      <div class="section-actions">
-        <a href="/dong-hanh#sao-ke" class="link-arrow">Xem sao kê từng khoản <span class="arrow" aria-hidden="true">→</span></a>
-        <a href="/dong-hanh" class="link-arrow">Thông tin chuyển khoản <span class="arrow" aria-hidden="true">→</span></a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section-dark" aria-labelledby="flow-heading">
-    <div class="container">
-      <div class="section-header">
-        <span class="eyebrow">Dòng tiền</span>
-        <h2 id="flow-heading">Bốn bước của một khoản ủng hộ</h2>
-      </div>
-      <ol class="flow">
-        {
-          moneyFlow.map((f, i) => (
-            <li class="flow-step lift">
-              <span class="flow-num" aria-hidden="true">{i + 1}</span>
-              <h3 class="flow-title">{f.title}</h3>
-              <p class="flow-text">{f.text}</p>
-            </li>
-          ))
-        }
-      </ol>
-    </div>
-  </section>
-
-  <section class="section" aria-labelledby="process-heading" id="quy-trinh">
-    <div class="container">
-      <div class="section-header">
-        <span class="eyebrow">Quy trình áp dụng</span>
-        <h2 id="process-heading">Quản lý và công bố sao kê</h2>
-        <p>Đây là quy trình nhóm áp dụng cho dự án. Kết quả từng lần đối soát sẽ hiển thị ở trang Ủng hộ.</p>
-      </div>
-      <ul class="ruled-list">
-        {
-          LEDGER_PROCESS.map((p) => (
-            <li>
-              <h3 class="ruled-title">{p.title}</h3>
-              <p class="ruled-desc">{p.description}</p>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-  </section>
-
-  <section class="section section-soft" aria-labelledby="report-heading">
-    <div class="container">
-      <div class="two-col">
-        <div class="reveal">
-          <span class="eyebrow">Sau dự án</span>
-          <h2 id="report-heading" class="col-title">Nội dung báo cáo tổng kết</h2>
-          <ul class="check-list">
-            <li>Tổng tiền ủng hộ đã đối soát và tiền bán quà lưu niệm, ghi riêng.</li>
-            <li>Danh sách vật phẩm đã trao và biên bản có xác nhận của Mái ấm.</li>
-            <li>Hóa đơn, chứng từ đã che thông tin riêng tư.</li>
-            <li>Số còn lại (nếu có) và cách xử lý.</li>
+  <section class="section section-doc-layout">
+    <div class="container doc-container">
+      <!-- Cột Trái 3: Mục lục tài liệu (Sticky trên Desktop >= 1024px) -->
+      <aside class="doc-sidebar">
+        <nav class="doc-toc" aria-label="Mục lục trang">
+          <p class="doc-toc-title">Mục lục tài liệu</p>
+          <ul class="doc-toc-list">
+            <li><a href="#tong-quan" class="doc-toc-link">1. Tổng quan và đối soát</a></li>
+            <li><a href="#dong-tien" class="doc-toc-link">2. Bốn bước dòng tiền</a></li>
+            <li><a href="#quy-trinh" class="doc-toc-link">3. Quy trình áp dụng</a></li>
+            <li><a href="#bao-cao" class="doc-toc-link">4. Báo cáo và cam kết</a></li>
+            <li><a href="#faq" class="doc-toc-link">5. Câu hỏi thường gặp</a></li>
           </ul>
-        </div>
-        <div class="reveal">
-          <span class="eyebrow">Cam kết</span>
-          <h3 class="col-title col-title--sm">Nguyên tắc sử dụng nguồn quỹ</h3>
-          <ul class="check-list">
-            <li>Chỉ chi trong số tiền thực có; không ai ứng tiền cá nhân.</li>
-            <li>Quà mua theo danh mục Mái ấm xác nhận.</li>
-            <li>Không dùng hình ảnh hay hoàn cảnh của các em để kêu gọi ủng hộ.</li>
+        </nav>
+      </aside>
+
+      <!-- Cột Phải 9: Thân tài liệu -->
+      <div class="doc-main">
+        <!-- 1. Tổng quan & Bảng Kế hoạch / Thực tế -->
+        <section id="tong-quan" class="doc-section" aria-labelledby="overview-heading">
+          <div class="doc-section-header">
+            <span class="eyebrow">Phần 1</span>
+            <h2 id="overview-heading" class="doc-section-title">Tổng quan chỉ tiêu và thực tế đối soát</h2>
+            <p>Bảng tổng hợp đối chiếu giữa mục tiêu ban đầu và số liệu thực tế qua tài khoản ngân hàng dự án.</p>
+          </div>
+
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <caption class="sr-only">Bảng so sánh kế hoạch và thực tế ủng hộ</caption>
+              <thead>
+                <tr>
+                  <th scope="col" class="th-item">Hạng mục</th>
+                  <th scope="col" class="th-plan">Kế hoạch</th>
+                  <th scope="col" class="th-actual">Thực tế (đã đối soát)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row" class="td-item">Mục tiêu tiếp nhận ủng hộ</th>
+                  <td class="td-plan">{formatVND(DONATION_ACCOUNT.goalAmount)}</td>
+                  <td class="td-actual">
+                    <span class="cell-status-tag" title="Chỉ tiêu kế hoạch, không phải số thực tế đã đối soát">
+                      Không áp dụng
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row" class="td-item">Tổng tiền đã nhận (đối chiếu ngân hàng)</th>
+                  <td class="td-plan">
+                    <span class="cell-status-tag" title="Phụ thuộc vào các khoản ủng hộ thực tế">
+                      — (Theo thực tế)
+                    </span>
+                  </td>
+                  <td class="td-actual">
+                    <strong>{summary.total !== null ? formatVND(summary.total) : 'Chưa cập nhật'}</strong>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row" class="td-item">Mốc đối soát sao kê gần nhất</th>
+                  <td class="td-plan">
+                    <span class="cell-status-tag" title="Chưa có lịch đối soát cố định">
+                      Chưa có lịch xác nhận
+                    </span>
+                  </td>
+                  <td class="td-actual">
+                    {summary.reconciledAt ? formatViDate(summary.reconciledAt) : 'Chưa có'}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="table-footnote">
+            <p>
+              <strong>Lưu ý quan trọng:</strong> Toàn bộ doanh thu bán quà lưu niệm được quản lý và ghi sổ riêng biệt với các khoản ủng hộ qua chuyển khoản. Tiền bán quà không tính gộp vào chỉ tiêu ủng hộ 3.000.000đ ở trên.
+            </p>
+          </div>
+
+          <div class="overview-progress-card">
+            <GoalProgress summary={summary} />
+            <div class="progress-actions">
+              <a href="/dong-hanh#sao-ke" class="link-arrow">
+                Xem sao kê từng khoản đã đối soát <span class="arrow" aria-hidden="true">→</span>
+              </a>
+              <a href="/dong-hanh#chuyen-khoan" class="btn btn-secondary">
+                Thông tin tài khoản chuyển khoản
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. Bốn bước dòng tiền (Danh sách dọc số lớn, KHÔNG nền tối) -->
+        <section id="dong-tien" class="doc-section" aria-labelledby="flow-heading">
+          <div class="doc-section-header">
+            <span class="eyebrow">Phần 2</span>
+            <h2 id="flow-heading" class="doc-section-title">Bốn bước của một khoản ủng hộ</h2>
+            <p>Vòng đời từ khi một khoản đóng góp được chuyển khoản đến lúc bàn giao hiện vật cho các em.</p>
+          </div>
+
+          <ol class="vertical-steps-list">
+            {
+              moneyFlow.map((f, i) => (
+                <li class="vertical-step-item">
+                  <div class="step-num-col">
+                    <span class="step-large-num" aria-hidden="true">0{i + 1}</span>
+                  </div>
+                  <div class="step-text-col">
+                    <h3 class="step-title">{f.title}</h3>
+                    <p class="step-desc">{f.text}</p>
+                  </div>
+                </li>
+              ))
+            }
+          </ol>
+        </section>
+
+        <!-- 3. Quy trình áp dụng (Ruled List chuẩn tài liệu) -->
+        <section id="quy-trinh" class="doc-section" aria-labelledby="process-heading">
+          <div class="doc-section-header">
+            <span class="eyebrow">Phần 3</span>
+            <h2 id="process-heading" class="doc-section-title">Quy trình quản lý và công bố sao kê</h2>
+            <p>Quy tắc đối soát 2 người bắt buộc, bảo mật thông tin và cập nhật minh bạch lên website.</p>
+          </div>
+
+          <ul class="ruled-list">
+            {
+              LEDGER_PROCESS.map((p) => (
+                <li>
+                  <h3 class="ruled-title">{p.title}</h3>
+                  <p class="ruled-desc">{p.description}</p>
+                </li>
+              ))
+            }
           </ul>
-        </div>
+        </section>
+
+        <!-- 4. Báo cáo & Cam kết (Khối 2 cột trên nền surface-alt) -->
+        <section id="bao-cao" class="doc-section" aria-labelledby="report-heading">
+          <div class="doc-section-header">
+            <span class="eyebrow">Phần 4</span>
+            <h2 id="report-heading" class="doc-section-title">Báo cáo tổng kết và cam kết trách nhiệm</h2>
+            <p>Các nội dung bắt buộc nhóm sẽ công khai sau khi hoàn thành buổi chơi tại Mái ấm Thánh Tâm.</p>
+          </div>
+
+          <div class="commitments-box">
+            <div class="commit-col">
+              <h3 class="commit-col-title">Hồ sơ báo cáo tổng kết</h3>
+              <ul class="check-list">
+                <li>Tổng tiền ủng hộ đã đối soát và tiền bán quà lưu niệm, ghi sổ riêng biệt.</li>
+                <li>Danh sách vật phẩm, đồ dùng đã trao và biên bản có xác nhận của Mái ấm.</li>
+                <li>Hóa đơn, chứng từ mua sắm đã che thông tin định danh cá nhân.</li>
+                <li>Số dư còn lại (nếu có) và phương án xử lý thống nhất với Mái ấm.</li>
+              </ul>
+            </div>
+            <div class="commit-col">
+              <h3 class="commit-col-title">Nguyên tắc sử dụng nguồn quỹ</h3>
+              <ul class="check-list">
+                <li>Chỉ chi trong số tiền thực có; không ai ứng tiền cá nhân.</li>
+                <li>Quà tặng mua đúng theo danh mục Mái ấm Thánh Tâm xác nhận.</li>
+                <li>Tuyệt đối không dùng hình ảnh hay hoàn cảnh của các em để kêu gọi ủng hộ.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- 5. Câu hỏi thường gặp -->
+        <section id="faq" class="doc-section" aria-labelledby="transparency-faq-heading">
+          <div class="doc-section-header">
+            <span class="eyebrow">Phần 5</span>
+            <h2 id="transparency-faq-heading" class="doc-section-title">Câu hỏi thường gặp về tài chính</h2>
+          </div>
+          <FaqAccordion faqs={TRANSPARENCY_FAQS} idPrefix="finance-faq" />
+        </section>
       </div>
     </div>
   </section>
 
-  <section class="section" aria-labelledby="transparency-faq-heading">
-    <div class="container narrow">
-      <div class="section-header">
-        <span class="eyebrow">Hỏi đáp</span>
-        <h2 id="transparency-faq-heading">Câu hỏi thường gặp</h2>
-      </div>
-      <FaqAccordion faqs={TRANSPARENCY_FAQS} idPrefix="finance-faq" />
-    </div>
-  </section>
-
+  <!-- CTA Band -->
   <section class="cta-band" aria-labelledby="finance-cta-heading">
     <div class="container cta-band-inner">
       <div class="cta-band-text">
-        <h2 id="finance-cta-heading">Cùng góp một món quà</h2>
-        <p>Ủng hộ qua chuyển khoản và theo dõi khoản đóng góp trong sao kê công bố sau đối soát.</p>
+        <h2 id="finance-cta-heading">Bạn muốn chung tay cùng dự án?</h2>
+        <p>Mọi khoản đóng góp qua chuyển khoản đều được ghi nhận và sao kê công khai.</p>
       </div>
       <div class="cta-band-actions">
-        <a href="/dong-hanh" class="btn btn-primary">Ủng hộ dự án</a>
+        <a href="/dong-hanh" class="btn btn-primary">Ủng hộ qua chuyển khoản</a>
+        <a href="/san-pham" class="link-arrow">Xem quà lưu niệm <span class="arrow" aria-hidden="true">→</span></a>
       </div>
     </div>
   </section>
 </Layout>
 
 <style>
-  .section-first {
-    padding-top: var(--space-10);
-  }
-
-  .narrow > :global(*) {
-    max-width: 880px;
-  }
-
-  .overview {
-    padding: var(--space-6);
+  .section-doc-layout {
     background: #ffffff;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-subtle);
+    padding-top: var(--space-8);
+    padding-bottom: var(--space-18);
   }
 
-  .flow {
+  /* Grid 3 / 9 trên desktop */
+  .doc-container {
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr);
+    gap: var(--space-12);
+    align-items: start;
+  }
+
+  /* Sticky Sidebar Mục lục (>= 1024px) */
+  .doc-sidebar {
+    position: sticky;
+    top: calc(var(--header-height, 64px) + var(--space-6));
+    z-index: 10;
+  }
+
+  .doc-toc {
+    background: var(--surface-alt);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+  }
+
+  .doc-toc-title {
+    font-size: var(--font-size-small);
+    font-weight: 700;
+    color: var(--brand);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 var(--space-3) 0;
+    padding-bottom: var(--space-2);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .doc-toc-list {
     list-style: none;
     margin: 0;
     padding: 0;
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: var(--space-4);
-  }
-
-  .flow-step {
     display: flex;
     flex-direction: column;
     gap: var(--space-2);
-    padding: var(--space-5);
-    background: #ffffff;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
   }
 
-  .flow-num {
-    width: 36px;
-    height: 36px;
-    border-radius: var(--radius-pill);
-    background: var(--brand-ink);
-    color: var(--on-dark);
+  .doc-toc-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    font-size: var(--font-size-small);
+    font-weight: 600;
+    color: var(--ink);
+    text-decoration: none;
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+  }
+
+  .doc-toc-link:hover {
+    color: var(--brand);
+    background: #ffffff;
+    text-decoration: underline;
+  }
+
+  /* Main Document Column */
+  .doc-main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-14);
+    max-width: 820px;
+  }
+
+  .doc-section {
+    scroll-margin-top: calc(var(--header-height, 64px) + var(--space-6));
+  }
+
+  .doc-section-header {
+    margin-bottom: var(--space-6);
+  }
+
+  .doc-section-title {
+    font-size: var(--font-size-h2);
+    line-height: var(--line-height-h2);
+    font-weight: 800;
+    color: var(--ink);
+    margin: var(--space-1) 0 var(--space-2) 0;
+    letter-spacing: -0.01em;
+  }
+
+  .doc-section-header p {
+    font-size: var(--font-size-body);
+    line-height: 1.6;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  /* Bảng Kế hoạch / Thực tế 3 cột */
+  .data-table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    background: #ffffff;
+    margin-bottom: var(--space-4);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: var(--font-size-body);
+  }
+
+  .data-table th,
+  .data-table td {
+    padding: var(--space-4) var(--space-5);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .data-table tbody tr:last-child th,
+  .data-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .data-table thead th {
+    background: var(--surface-alt);
+    font-size: var(--font-size-small);
     font-weight: 700;
+    color: var(--brand);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border-bottom: 2px solid var(--line);
+  }
+
+  .th-item {
+    width: 45%;
+  }
+
+  .th-plan {
+    width: 25%;
+  }
+
+  .th-actual {
+    width: 30%;
+  }
+
+  .td-item {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .td-plan {
+    color: var(--ink-2);
+  }
+
+  .td-actual {
+    color: var(--ink);
+  }
+
+  .cell-status-tag {
+    font-size: var(--font-size-small);
+    color: var(--ink-2);
+    font-style: italic;
+  }
+
+  .table-footnote {
+    font-size: var(--font-size-small);
+    color: var(--ink-2);
+    line-height: 1.5;
+    margin-bottom: var(--space-6);
+  }
+
+  .overview-progress-card {
+    background: var(--surface-alt);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .progress-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+    border-top: 1px solid var(--line);
+    padding-top: var(--space-4);
+  }
+
+  /* 4 Bước dòng tiền: danh sách dọc có số lớn (KHÔNG nền tối) */
+  .vertical-steps-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .vertical-step-item {
+    display: grid;
+    grid-template-columns: 80px minmax(0, 1fr);
+    gap: var(--space-6);
+    position: relative;
+    padding-bottom: var(--space-8);
+  }
+
+  .vertical-step-item:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: 40px;
+    top: 52px;
+    bottom: 0;
+    width: 2px;
+    background: var(--line);
+  }
+
+  .step-large-num {
+    width: 52px;
+    height: 52px;
+    border-radius: 9999px;
+    background: #ffffff;
+    border: 2px solid var(--brand);
+    color: var(--brand);
+    font-size: 1.25rem;
+    font-weight: 800;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    box-shadow: var(--shadow-sm);
   }
 
-  .flow-title {
-    font-size: var(--font-size-h3);
-    line-height: var(--line-height-h3);
+  .step-text-col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding-top: var(--space-2);
+  }
+
+  .step-title {
+    font-size: 1.375rem;
+    line-height: 1.4;
+    font-weight: 700;
+    color: var(--ink);
     margin: 0;
   }
 
-  .flow-text {
+  .step-desc {
+    font-size: var(--font-size-body);
+    line-height: 1.6;
+    color: var(--ink-2);
     margin: 0;
   }
 
-  .col-title {
-    font-size: var(--font-size-h2);
-    line-height: var(--line-height-h2);
-    margin-bottom: var(--space-5);
+  /* Khối 2 cột cam kết trên nền surface-alt */
+  .commitments-box {
+    background: var(--surface-alt);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-8);
   }
 
-  .col-title--sm {
-    font-size: var(--font-size-h3);
-    line-height: var(--line-height-h3);
-    margin-bottom: var(--space-4);
+  .commit-col-title {
+    font-size: 1.25rem;
+    line-height: 1.4;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0 0 var(--space-4) 0;
+    padding-bottom: var(--space-2);
+    border-bottom: 2px solid var(--line);
   }
 
   @media (max-width: 1023px) {
-    .flow {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+    .doc-container {
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
+    }
+
+    .doc-sidebar {
+      position: static;
+    }
+
+    .doc-toc-list {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+    }
+
+    .doc-toc-link {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      padding: var(--space-2) var(--space-3);
     }
   }
 
   @media (max-width: 767px) {
-    .section-first {
-      padding-top: var(--space-6);
-    }
-
-    .overview {
-      padding: var(--space-4);
-    }
-
-    .flow {
+    .commitments-box {
       grid-template-columns: 1fr;
+      padding: var(--space-5);
+      gap: var(--space-6);
+    }
+
+    .vertical-step-item {
+      grid-template-columns: 60px minmax(0, 1fr);
       gap: var(--space-3);
     }
 
-    .flow-step {
-      display: grid;
-      grid-template-columns: 36px minmax(0, 1fr);
-      column-gap: var(--space-3);
-      row-gap: 2px;
-      padding: var(--space-4);
+    .vertical-step-item:not(:last-child)::after {
+      left: 28px;
     }
 
-    .flow-num {
-      grid-row: span 2;
+    .step-large-num {
+      width: 44px;
+      height: 44px;
+      font-size: 1.125rem;
+    }
+
+    .data-table th,
+    .data-table td {
+      padding: var(--space-3);
+      font-size: var(--font-size-small);
     }
   }
 </style>

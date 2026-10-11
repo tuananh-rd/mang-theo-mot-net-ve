@@ -1,6 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import MobileDonationBar from '../components/MobileDonationBar.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -74,6 +75,8 @@ if (title.includes(BRAND_PROJECT)) {
     </main>
 
     <Footer />
+
+    <MobileDonationBar currentPath={currentPath} />
 
     <button type="button" class="to-top" aria-label="Lên đầu trang">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" /></svg>
@@ -168,5 +171,12 @@ if (title.includes(BRAND_PROJECT)) {
 <style>
   #main-content:focus {
     outline: none;
+  }
+
+  @media (max-width: 767px) {
+    :global(.to-top) {
+      bottom: calc(68px + env(safe-area-inset-bottom, 0px)) !important;
+      right: 16px !important;
+    }
   }
 </style>

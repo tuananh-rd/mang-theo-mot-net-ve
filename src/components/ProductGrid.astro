@@ -1,16 +1,16 @@
 ---
 import Icon, { type IconName } from './Icon.astro';
+import StatusChip from './StatusChip.astro';
 import type { Product } from '../data/campaign';
 import { buildProductCatalog } from '../lib/finance';
+import { getEffectiveProductSaleModel } from '../lib/products';
 
 interface Props {
   products: Product[];
-  /** compact: chỉ tên + giá (Trang chủ); full: thêm mô tả, số lượng dự kiến */
-  variant?: 'compact' | 'full';
-  headingLevel?: 'h3' | 'h4';
+  headingLevel?: 'h2' | 'h3' | 'h4';
 }
 
-const { products, variant = 'full', headingLevel = 'h3' } = Astro.props;
+const { products, headingLevel = 'h3' } = Astro.props;
 const Heading = headingLevel;
 
 const iconFor: Record<string, IconName> = {
@@ -35,274 +35,294 @@ const photoFor: Record<string, { src: string; width: number; height: number; alt
     caption: 'Ảnh chuồn chuồn tre do nhóm cung cấp để tham khảo; mẫu thực tế có thể khác.',
   },
 };
+
 const pendingNote: Record<string, string> = {
-  'moc-khoa': 'Chưa có ảnh mẫu: móc khóa sẽ in tranh các em vẽ, chỉ khi có sự đồng ý phù hợp.',
+  'moc-khoa': 'Chưa có ảnh mẫu: móc khóa dự kiến in tranh các em vẽ, chỉ thực hiện khi có sự đồng ý phù hợp từ Mái ấm.',
 };
 ---
 
-<ul class:list={['product-grid', `product-grid--${variant}`]}>
+<ul class="catalogue-grid">
   {
-    rows.map((r) => (
-      <li class:list={['product', { 'product--photo': variant === 'full' && photoFor[r.product.id] }]}>
-        {variant === 'full' && photoFor[r.product.id] ? (
-          <figure class="product-figure">
-            <img
-              src={photoFor[r.product.id].src}
-              alt={photoFor[r.product.id].alt}
-              width={photoFor[r.product.id].width}
-              height={photoFor[r.product.id].height}
-              loading="lazy"
-              decoding="async"
-            />
-            <figcaption>{photoFor[r.product.id].caption}</figcaption>
-          </figure>
-        ) : (
-          <span class="product-icon">
-            <Icon name={iconFor[r.product.id] ?? 'combo'} size={variant === 'compact' ? 26 : 30} />
-          </span>
-        )}
-        <div class="product-body">
-          <Heading class="product-name">{r.product.name}</Heading>
-          {variant === 'full' && <p class="product-desc">{r.product.description}</p>}
-          <p class="product-price">
-            <span class="price">{r.priceText}</span>
-            <span class="price-note">giá tham khảo</span>
-          </p>
-          {variant === 'full' && pendingNote[r.product.id] && <p class="product-pending">{pendingNote[r.product.id]}</p>}
-          {variant === 'full' && (
-            <p class="product-qty">
+    rows.map((r) => {
+      const saleModel = r.product.category === 'craft' ? getEffectiveProductSaleModel(r.product) : null;
+      const priceVal = saleModel && saleModel.effectivePrice !== null ? saleModel.priceText : r.priceText;
+      const unitVal = saleModel ? saleModel.unitSuffix : 'chiếc';
+      const noteVal = saleModel ? saleModel.priceTypeLabel : 'Giá tham khảo';
+      const photo = photoFor[r.product.id];
+
+      return (
+        <li class="catalogue-card">
+          <div class="catalogue-visual">
+            {photo ? (
+              <figure class="catalogue-figure">
+                <div class="catalogue-img-wrap">
+                  <img
+                    src={photo.src}
+                    alt={photo.alt}
+                    width={photo.width}
+                    height={photo.height}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+                <figcaption class="catalogue-caption">{photo.caption}</figcaption>
+              </figure>
+            ) : (
+              <div class="catalogue-placeholder">
+                <div class="placeholder-icon">
+                  <Icon name={iconFor[r.product.id] ?? 'moc-khoa'} size={48} />
+                </div>
+                <p class="placeholder-label">Chưa có ảnh mẫu</p>
+                {pendingNote[r.product.id] && (
+                  <p class="placeholder-note">{pendingNote[r.product.id]}</p>
+                )}
+              </div>
+            )}
+          </div>
+
+          <div class="catalogue-body">
+            {saleModel && (
+              <div class="catalogue-status-meta">
+                <StatusChip kind={saleModel.statusChipKind} label={saleModel.statusLabel} />
+              </div>
+            )}
+
+            <Heading class="catalogue-title">
+              <a href={`/san-pham/${r.product.id}`} class="catalogue-title-link">
+                {r.product.name}
+              </a>
+            </Heading>
+
+            <p class="catalogue-desc">{r.product.description}</p>
+
+            <div class="catalogue-price-box">
+              <div class="price-row">
+                <span class="catalogue-price-amount">{priceVal}</span>
+                <span class="catalogue-price-unit">/ {unitVal}</span>
+              </div>
+              <span class="catalogue-price-badge">{noteVal}</span>
+            </div>
+
+            <p class="catalogue-qty">
               {r.product.plannedQuantity.value === null
                 ? 'Số lượng chưa xác nhận'
                 : `Dự kiến ${r.quantityText.replace(' dự kiến', '').replace(' bán', '')}`}
             </p>
-          )}
-        </div>
-      </li>
-    ))
+
+            <div class="catalogue-actions">
+              <a href={`/san-pham/${r.product.id}`} class="btn btn-secondary">
+                Xem chi tiết sản phẩm <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </div>
+        </li>
+      );
+    })
   }
 </ul>
 
 <style>
-  .product-grid {
+  .catalogue-grid {
     list-style: none;
     margin: 0;
     padding: 0;
     display: grid;
-    gap: var(--space-5);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-8);
   }
 
-  /* C13: sản phẩm có ảnh thành khối editorial rộng (ảnh 7 / chữ 5), sản phẩm chưa có ảnh xếp ngang bên dưới */
-  .product-grid--full {
-    grid-template-columns: minmax(0, 1fr);
-    gap: var(--space-6);
-  }
-
-  .product-grid--compact {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: var(--space-4);
-  }
-
-  .product {
-    display: flex;
-    gap: var(--space-4);
-    padding: var(--space-6);
+  .catalogue-card {
     background: #ffffff;
     border: 1px solid var(--line);
     border-radius: var(--radius-lg);
-    transition: border-color var(--transition-normal), box-shadow var(--transition-normal), transform var(--transition-normal);
+    overflow: hidden;
+    box-shadow: var(--shadow-raised);
+    display: flex;
+    flex-direction: column;
+    transition: transform var(--transition-fast), border-color var(--transition-fast);
   }
 
-  .product:hover {
+  .catalogue-card:hover {
     border-color: var(--line-strong);
-    box-shadow: var(--shadow-raised);
     transform: translateY(-2px);
   }
 
-  .product-grid--compact .product {
-    flex-direction: column;
-    gap: var(--space-3);
-    padding: var(--space-5);
-  }
-
-  .product--photo {
-    flex-direction: column;
-    padding: 0;
-    overflow: hidden;
-  }
-
-  .product--photo .product-body {
-    padding: 0 var(--space-6) var(--space-6);
-  }
-
-  @media (min-width: 1024px) {
-    .product--photo {
-      display: grid;
-      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-      align-items: center;
-      gap: 0;
-    }
-
-    .product--photo .product-figure img {
-      aspect-ratio: 4 / 3;
-    }
-
-    .product--photo .product-body {
-      padding: var(--space-10);
-      gap: var(--space-2);
-    }
-
-    .product--photo .product-name {
-      font-size: 2rem;
-      line-height: 1.25;
-    }
-
-    .product--photo .price {
-      font-size: 2rem;
-      line-height: 1.2;
-    }
-
-    .product-grid--full .product:not(.product--photo) {
-      padding: var(--space-8) var(--space-10);
-      align-items: center;
-    }
-  }
-
-  .product-figure {
-    margin: 0;
-  }
-
-  .product-figure img {
+  .catalogue-visual {
     width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-    object-position: 50% 45%;
-    display: block;
     background: var(--surface-alt);
   }
 
-  .product-figure figcaption {
-    padding: var(--space-2) var(--space-6) var(--space-3);
+  .catalogue-figure {
+    margin: 0;
+  }
+
+  .catalogue-img-wrap {
+    width: 100%;
+    overflow: hidden;
+    background: var(--surface-alt);
+  }
+
+  .catalogue-figure img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+  }
+
+  .catalogue-caption {
+    padding: var(--space-3) var(--space-4);
     font-size: var(--font-size-small);
     line-height: var(--line-height-small);
     color: var(--ink-2);
-  }
-
-  .product-pending {
-    margin: var(--space-2) 0 0;
-    padding: var(--space-2) var(--space-3);
-    border-radius: var(--radius-sm);
-    background: var(--status-pending-bg);
-    color: var(--status-pending-text);
-    font-size: var(--font-size-small);
-    line-height: var(--line-height-small);
-  }
-
-  .product-icon {
-    width: 56px;
-    height: 56px;
-    border-radius: var(--radius-md);
+    border-top: 1px solid var(--line);
     background: var(--surface-alt);
-    color: var(--brand-ink);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    transition: background-color var(--transition-normal), color var(--transition-normal);
   }
 
-  .product:hover .product-icon {
-    background: var(--brand-ink);
-    color: var(--on-dark);
-  }
-
-  .product-grid--compact .product-icon {
-    width: 48px;
-    height: 48px;
-  }
-
-  .product-body {
+  .catalogue-placeholder {
+    aspect-ratio: 4 / 3;
     display: flex;
     flex-direction: column;
-    gap: var(--space-1);
-    min-width: 0;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    background: var(--surface-alt);
+    border: 2px dashed var(--line-strong);
+    margin: var(--space-4);
+    border-radius: var(--radius-md);
+    text-align: center;
+    padding: var(--space-4);
   }
 
-  .product-name {
-    font-size: var(--font-size-h3);
-    line-height: var(--line-height-h3);
-    margin: 0;
-  }
-
-  .product-desc {
-    margin: 0;
-  }
-
-  .product-price {
-    margin: var(--space-2) 0 0;
+  .placeholder-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 9999px;
+    background: #ffffff;
+    border: 1px solid var(--line);
     display: flex;
-    align-items: baseline;
+    align-items: center;
+    justify-content: center;
+    color: var(--brand);
+  }
+
+  .placeholder-label {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  .placeholder-note {
+    font-size: var(--font-size-small);
+    color: var(--ink-2);
+    margin: 0;
+    max-width: 320px;
+    line-height: 1.4;
+  }
+
+  .catalogue-body {
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    flex: 1;
+  }
+
+  .catalogue-status-meta {
+    display: flex;
+    align-items: center;
+  }
+
+  .catalogue-title {
+    font-size: 1.5rem;
+    line-height: 1.3;
+    font-weight: 800;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  .catalogue-title-link {
+    color: inherit;
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .catalogue-title-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+
+  .catalogue-desc {
+    font-size: var(--font-size-body);
+    line-height: 1.5;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  .catalogue-price-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--surface-alt);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    padding: var(--space-3) var(--space-4);
+    margin-top: var(--space-1);
     flex-wrap: wrap;
     gap: var(--space-2);
   }
 
-  .price {
-    font-size: var(--font-size-h3);
-    line-height: var(--line-height-h3);
-    font-weight: 700;
-    color: var(--ink);
-    font-variant-numeric: tabular-nums;
+  .price-row {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-1);
   }
 
-  .price-note {
-    font-size: var(--font-size-small);
-    line-height: var(--line-height-small);
+  .catalogue-price-amount {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--ink);
+    line-height: 1.1;
+  }
+
+  .catalogue-price-unit {
+    font-size: 1rem;
+    font-weight: 600;
     color: var(--ink-2);
   }
 
-  .product-qty {
-    margin: 0;
+  .catalogue-price-badge {
     font-size: var(--font-size-small);
-    line-height: var(--line-height-small);
+    font-weight: 700;
+    color: var(--brand);
+    background: #ffffff;
+    border: 1px solid var(--line);
+    padding: 2px var(--space-2);
+    border-radius: var(--radius-sm);
   }
 
-  @media (max-width: 1023px) {
-    .product-grid--compact {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+  .catalogue-qty {
+    font-size: var(--font-size-small);
+    color: var(--ink-2);
+    margin: 0;
   }
 
-  @media (max-width: 767px) {
-    .product-grid--full {
+  .catalogue-actions {
+    margin-top: auto;
+    padding-top: var(--space-3);
+  }
+
+  .catalogue-actions .btn {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+
+  @media (max-width: 900px) {
+    .catalogue-grid {
       grid-template-columns: 1fr;
-      gap: var(--space-3);
-    }
-
-    .product {
-      padding: var(--space-4);
-    }
-
-    .product--photo {
-      padding: 0;
-    }
-
-    .product--photo .product-body {
-      padding: 0 var(--space-4) var(--space-4);
-    }
-
-    .product-grid--compact {
-      grid-template-columns: 1fr;
-      gap: var(--space-3);
-    }
-
-    .product-grid--compact .product {
-      flex-direction: row;
-      align-items: center;
-      padding: var(--space-4);
-    }
-
-    .product-grid--compact .product-price {
-      margin-top: 0;
+      gap: var(--space-6);
     }
   }
 </style>

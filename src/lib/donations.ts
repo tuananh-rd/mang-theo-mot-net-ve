@@ -56,6 +56,9 @@ export function validateLedger(ledger: DonationLedger): void {
   if (!ledger.reconciled && ledger.entries.length > 0) {
     throw new Error('Có dòng ủng hộ nhưng sổ chưa được đánh dấu đã đối soát.');
   }
+  if (ledger.reconciled && ledger.publicApproval && ledger.publicApproval !== 'approved') {
+    throw new Error('Sổ đã đối soát nhưng chưa được phê duyệt công khai (publicApproval != approved).');
+  }
   const seen = new Set<string>();
   for (const entry of ledger.entries) {
     validateDonation(entry);

@@ -44,7 +44,7 @@ const titleHighlight = hlIndex >= 0 ? HIGHLIGHT : null;
           <a href="/dong-hanh" class="btn btn-primary btn-arrow hero-btn">
             Ủng hộ dự án <span class="arrow" aria-hidden="true">→</span>
           </a>
-          <a href="/du-an/mang-theo-mot-net-ve" class="btn btn-on-dark hero-btn">Tìm hiểu dự án</a>
+          <a href="/du-an/mang-theo-mot-net-ve" class="btn btn-secondary hero-btn">Tìm hiểu dự án</a>
         </div>
       </div>
 
@@ -76,13 +76,13 @@ const titleHighlight = hlIndex >= 0 ? HIGHLIGHT : null;
 </section>
 
 <style>
-  /* C13: hero rộng nền teal đậm phẳng, ảnh lớn lệch phải với khối mơ phía sau */
+  /* C16: hero rộng nền xanh trời phẳng, chữ navy, ảnh lớn lệch phải với khối xanh dương phía sau */
   .hero-section {
     position: relative;
     overflow: hidden;
     padding-top: var(--space-20);
     padding-bottom: calc(var(--space-20) + 56px);
-    background-color: var(--brand-ink);
+    background-color: var(--surface-alt);
     isolation: isolate;
   }
 
@@ -90,7 +90,7 @@ const titleHighlight = hlIndex >= 0 ? HIGHLIGHT : null;
     position: absolute;
     inset: 0;
     z-index: -1;
-    background-color: var(--brand-ink);
+    background-color: var(--surface-alt);
   }
 
   .hero-grid {
@@ -113,22 +113,22 @@ const titleHighlight = hlIndex >= 0 ? HIGHLIGHT : null;
     gap: var(--space-2);
     padding: 6px 14px 6px 10px;
     border-radius: var(--radius-pill);
-    background: transparent;
-    border: 1px solid var(--on-dark-line);
+    background: #ffffff;
+    border: 1px solid var(--line);
     font-size: var(--font-size-small);
     line-height: var(--line-height-small);
     font-weight: 600;
-    color: var(--on-dark);
+    color: var(--ink);
   }
 
   .hero-kicker :global(svg) {
-    color: var(--cta);
+    color: var(--brand);
   }
 
   .hero-title {
     font-size: var(--font-size-display);
     line-height: var(--line-height-display);
-    color: var(--on-dark);
+    color: var(--brand-ink);
     text-wrap: balance;
     letter-spacing: -0.03em;
     font-weight: 800;
@@ -139,7 +139,7 @@ const titleHighlight = hlIndex >= 0 ? HIGHLIGHT : null;
     display: inline-block;
     white-space: nowrap;
     z-index: 0;
-    color: var(--cta);
+    color: var(--brand);
   }
 
   .hl-stroke {
@@ -165,14 +165,14 @@ const titleHighlight = hlIndex >= 0 ? HIGHLIGHT : null;
     font-size: 1.375rem;
     font-weight: 600;
     line-height: 1.4;
-    color: var(--on-dark);
+    color: var(--ink);
     text-wrap: balance;
   }
 
   .hero-summary {
     font-size: var(--font-size-lead);
     line-height: var(--line-height-lead);
-    color: var(--on-dark-2);
+    color: var(--ink-2);
     max-width: 52ch;
   }
 
@@ -187,10 +187,6 @@ const titleHighlight = hlIndex >= 0 ? HIGHLIGHT : null;
     min-height: 56px;
     padding: var(--space-3) var(--space-8);
     font-size: 1.0625rem;
-  }
-
-  .hero-section a:focus-visible {
-    outline-color: var(--focus-on-dark);
   }
 
   .hero-visual {
@@ -212,7 +208,7 @@ const titleHighlight = hlIndex >= 0 ? HIGHLIGHT : null;
     bottom: -40px;
     left: 56px;
     border-radius: var(--radius-xl);
-    background-color: var(--cta);
+    background-color: var(--brand);
   }
 
   .hero-photo :global(.illustration-wrapper) {
@@ -269,7 +265,7 @@ const titleHighlight = hlIndex >= 0 ? HIGHLIGHT : null;
     bottom: -40px;
     width: 120px;
     height: 90px;
-    color: var(--on-dark-2);
+    color: var(--brand);
     transform: rotate(-12deg);
     pointer-events: none;
   }

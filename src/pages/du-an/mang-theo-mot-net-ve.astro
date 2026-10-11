@@ -4,27 +4,16 @@ import PageHero from '../../components/PageHero.astro';
 import ActivityList from '../../components/ActivityList.astro';
 import Timeline from '../../components/Timeline.astro';
 import ProjectProgress from '../../components/ProjectProgress.astro';
-import { CAMPAIGN_PROJECT, PROJECT_NEEDS, SAFETY_PRACTICES, PLAY_FLOW, PLANNED_SESSIONS, PROJECT_PROGRESS } from '../../data/campaign';
-import { formatViDate } from '../../lib/donations';
-
-const sessionLine = (id: string) => {
-  const s = PLANNED_SESSIONS.find((x) => x.id === id);
-  return s ? `${s.time} ${s.weekday} ${formatViDate(s.date)} (dự kiến)` : 'Chưa cập nhật';
-};
+import { CAMPAIGN_PROJECT, PROJECT_NEEDS, SAFETY_PRACTICES, PLAY_FLOW, PLANNED_SESSIONS } from '../../data/campaign';
+import { getPublishedJournalEntries } from '../../data/journal';
 
 const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Dự án' }];
+const publishedEntries = getPublishedJournalEntries();
 
-const summaryItems = [
-  { label: 'Địa điểm', value: 'Mái ấm Thánh Tâm Xuy Xá, Mỹ Đức, Hà Nội' },
-  { label: 'Người tham gia', value: 'Các em nhỏ và người cao tuổi tại Mái ấm' },
-  { label: 'Buổi chơi (khoảng 180 phút)', value: sessionLine('buoi-choi') },
-  { label: 'Trao quà (30–45 phút)', value: sessionLine('trao-qua') },
-  {
-    label: 'Tiến độ',
-    value: `Tuần ${PROJECT_PROGRESS.currentWeek} trong khoảng ${PROJECT_PROGRESS.totalWeeks} tuần`,
-    chip: { kind: 'da-xac-nhan' as const, label: 'Đang triển khai' },
-  },
-];
+function formatSessionDate(iso: string): string {
+  const parts = iso.split('-');
+  return parts.length === 3 ? `${parts[2]}/${parts[1]}/${parts[0]}` : iso;
+}
 ---
 
 <Layout
@@ -33,132 +22,239 @@ const summaryItems = [
   currentPath="/du-an/mang-theo-mot-net-ve"
 >
   <PageHero
+    variant="paper"
     breadcrumbs={breadcrumbs}
     eyebrow="Dự án"
     chip={{ kind: 'da-xac-nhan', label: CAMPAIGN_PROJECT.statusNotice }}
     title="Một buổi chơi có lựa chọn"
     titleId="project-heading"
     lead={CAMPAIGN_PROJECT.slogan}
-    description="Một buổi vui chơi sáng tạo tại Mái ấm, tạo điều kiện để mỗi em nhỏ tham gia phù hợp với sở thích và thể trạng, cùng hoạt động gây quỹ trao tặng vật phẩm thiết thực theo danh mục Mái ấm cần."
-    summaryTitle="Thông tin chính"
-    summaryItems={summaryItems}
-  />
-
-  <section class="section" aria-labelledby="why-heading">
-    <div class="container">
-      <div class="section-header">
-        <span class="eyebrow">Vì sao</span>
-        <h2 id="why-heading">Không phải em nào cũng chơi theo một cách</h2>
-        <p>
-          Các em ở Mái ấm có độ tuổi, khả năng vận động và giao tiếp khác nhau, nên một hoạt động chung khó phù hợp với tất cả. Nhóm xây dựng kế hoạch dự án dựa trên ba định hướng chính.
-        </p>
+    description="Buổi vui chơi sáng tạo và trao tặng vật phẩm thiết thực tại Mái ấm Thánh Tâm theo danh mục nhu cầu thực tế."
+  >
+    <div slot="hero-bottom" class="roadmap-board">
+      <div class="roadmap-progress">
+        <ProjectProgress compact />
       </div>
-
-      <ol class="needs">
-        {
-          PROJECT_NEEDS.map((n, i) => (
-            <li class="need">
-              <span class="need-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-              <h3 class="need-title">{n.title}</h3>
-              <p class="need-desc">{n.description}</p>
-            </li>
-          ))
-        }
-      </ol>
-    </div>
-  </section>
-
-  <section class="section section-dark" aria-labelledby="home-heading">
-    <div class="container">
-      <div class="shelter">
-        <div class="shelter-text reveal">
-          <span class="eyebrow on-dark-eyebrow">Nơi dự án đến</span>
-          <h2 id="home-heading" class="col-title on-dark-title">Mái ấm Thánh Tâm Xuy Xá</h2>
-          <p>
-            Mái ấm ở Mỹ Đức, Hà Nội, chăm sóc các em nhỏ ở nhiều độ tuổi cùng người cao tuổi. Mọi kế hoạch về thời gian, nội dung hoạt động, vật liệu, phạm vi ghi hình và danh mục quà tặng đều cần sự thống nhất và phê duyệt từ Mái ấm.
-          </p>
-        </div>
-        <div class="shelter-photos">
-          <figure class="shelter-photo reveal">
-            <img src="/images/mai-am/mai-am-1.webp" alt="Các em và người chăm sóc ngồi trước dãy nhà của Mái ấm Thánh Tâm" width="640" height="480" loading="lazy" decoding="async" />
-          </figure>
-          <figure class="shelter-photo reveal">
-            <img src="/images/mai-am/mai-am-2.webp" alt="Các em và khách đến thăm vỗ tay trò chuyện tại hiên Mái ấm Thánh Tâm" width="640" height="488" loading="lazy" decoding="async" />
-          </figure>
-          <p class="shelter-caption">Ảnh giới thiệu Mái ấm do nhóm cung cấp, được phép công bố. Đây không phải ảnh hoạt động của dự án.</p>
-        </div>
+      <div class="roadmap-timeline">
+        <h2 class="sr-only">Lộ trình và tiến độ thực hiện</h2>
+        <Timeline stages={CAMPAIGN_PROJECT.plannedStages} showDescriptions={false} />
       </div>
-    </div>
-  </section>
-
-  <section class="section" aria-labelledby="corners-heading">
-    <div class="container">
-      <div class="section-header">
-        <span class="eyebrow">Buổi chơi</span>
-        <h2 id="corners-heading">Bốn góc hoạt động</h2>
-        <p>Các em có thể tự do chọn góc hoạt động, đổi lượt, quan sát hoặc nghỉ ngơi; không giao chỉ tiêu hoàn thành sản phẩm.</p>
+      <div class="planned-sessions-strip">
+        <h3 class="planned-sessions-title">Lịch sinh hoạt dự kiến tại Mái ấm</h3>
+        <ul class="planned-sessions-list">
+          {
+            PLANNED_SESSIONS.map((session) => (
+              <li class="session-item">
+                <span class="session-badge">{session.title}:</span>
+                <span class="session-datetime">
+                  <strong>{session.time}</strong> {session.weekday} <strong>{formatSessionDate(session.date)}</strong> (dự kiến)
+                </span>
+                <span class="session-desc"> — {session.description}</span>
+              </li>
+            ))
+          }
+        </ul>
       </div>
-
-      <ActivityList activities={CAMPAIGN_PROJECT.activities} showNotes />
-
-      <h3 class="flow-title">Nội dung buổi chơi dự kiến</h3>
-      <ol class="flow">
-        {
-          PLAY_FLOW.map((f, i) => (
-            <li class="flow-step">
-              <span class="flow-num" aria-hidden="true">{i + 1}</span>
-              <div>
-                <h4 class="flow-step-title">{f.title}</h4>
-                <p class="flow-step-desc">{f.description}</p>
-              </div>
-            </li>
-          ))
-        }
-      </ol>
-      <p class="source-note">Khoảng 180 phút, có hai lần nghỉ chung; Mái ấm có thể rút ngắn khi các em mệt.</p>
-    </div>
-  </section>
-
-  <section class="section section-soft" aria-labelledby="safety-heading">
-    <div class="container">
-      <div class="two-col">
-        <div class="reveal">
-          <span class="eyebrow">An toàn</span>
-          <h2 id="safety-heading" class="col-title">Chuẩn bị kỹ trước buổi chơi</h2>
-          <ul class="check-list">
-            {SAFETY_PRACTICES.map((s) => <li>{s}</li>)}
-          </ul>
-        </div>
-        <div class="respect reveal">
-          <span class="eyebrow">Tôn trọng</span>
-          <h3 class="col-title col-title--sm">Mái ấm là người quyết định</h3>
-          <p>
-            Thời gian, nội dung hoạt động, vật liệu an toàn, phạm vi ghi hình và danh mục quà tặng đều cần được Mái ấm thống nhất và phê duyệt trước khi triển khai. Người chăm sóc hỗ trợ hướng dẫn tương tác phù hợp cho từng em.
-          </p>
-          <p>
-            Hoạt động tại Mái ấm hoàn toàn là trải nghiệm vui chơi sáng tạo; các em giữ lại toàn bộ sản phẩm do mình làm ra. Sản phẩm bán gây quỹ do nhóm Lăng Kính tự chuẩn bị và hoàn thiện.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" aria-labelledby="timeline-heading">
-    <div class="container">
-      <div class="section-header">
-        <span class="eyebrow">Lộ trình</span>
-        <h2 id="timeline-heading">Bốn chặng của dự án</h2>
-      </div>
-      <div class="reveal"><ProjectProgress compact /></div>
-      <div class="timeline-wrap">
-        <Timeline stages={CAMPAIGN_PROJECT.plannedStages} />
-      </div>
-      <p class="source-note">
-        Lịch hai buổi do nhóm công bố, có thể điều chỉnh theo Mái ấm. Sau dự án, nhóm công bố hoạt động đã diễn ra, sao kê đã đối soát và vật phẩm đã trao.
+      <p class="roadmap-note">
+        Lịch hai buổi do nhóm đề xuất, có thể điều chỉnh theo lịch sinh hoạt của Mái ấm.
       </p>
     </div>
+  </PageHero>
+
+  <!-- CHƯƠNG 01: Vì sao (Lưới 3/9) -->
+  <section class="section section-chapter" aria-labelledby="why-heading">
+    <div class="container chapter-grid">
+      <div class="chapter-aside">
+        <span class="chapter-num" aria-hidden="true">01</span>
+        <span class="chapter-tag">Vì sao</span>
+      </div>
+      <div class="chapter-content">
+        <h2 id="why-heading" class="chapter-title">Không phải em nào cũng chơi theo một cách</h2>
+        <p class="chapter-lead">
+          Các em ở Mái ấm có độ tuổi, khả năng vận động và giao tiếp khác nhau, nên một hoạt động chung khó phù hợp với tất cả. Nhóm xây dựng kế hoạch dự án dựa trên ba định hướng chính.
+        </p>
+
+        <ol class="needs">
+          {
+            PROJECT_NEEDS.map((n, i) => (
+              <li class="need">
+                <span class="need-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                <h3 class="need-title">{n.title}</h3>
+                <p class="need-desc">{n.description}</p>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </div>
   </section>
 
+  <!-- CHƯƠNG 02: Mái ấm Thánh Tâm (Section dark DUY NHẤT trên trang) -->
+  <section class="section section-chapter section-dark" aria-labelledby="home-heading">
+    <div class="container chapter-grid">
+      <div class="chapter-aside">
+        <span class="chapter-num on-dark-num" aria-hidden="true">02</span>
+        <span class="chapter-tag on-dark-tag">Mái ấm</span>
+      </div>
+      <div class="chapter-content">
+        <div class="shelter-layout">
+          <div class="shelter-text">
+            <h2 id="home-heading" class="chapter-title on-dark-title">Mái ấm Thánh Tâm Xuy Xá</h2>
+            <p class="shelter-desc">
+              Mái ấm ở Mỹ Đức, Hà Nội, chăm sóc các em nhỏ ở nhiều độ tuổi cùng người cao tuổi. Mọi kế hoạch về thời gian, nội dung hoạt động, vật liệu, phạm vi ghi hình và danh mục quà tặng đều cần sự thống nhất và phê duyệt từ Mái ấm.
+            </p>
+          </div>
+          <div class="shelter-photos">
+            <div class="shelter-photo-grid">
+              <figure class="shelter-figure">
+                <div class="shelter-img-wrap">
+                  <img
+                    src="/images/mai-am/mai-am-1.webp"
+                    alt="Các em và người chăm sóc ngồi trước dãy nhà của Mái ấm Thánh Tâm"
+                    width="640"
+                    height="480"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+              </figure>
+              <figure class="shelter-figure">
+                <div class="shelter-img-wrap">
+                  <img
+                    src="/images/mai-am/mai-am-2.webp"
+                    alt="Các em và khách đến thăm vỗ tay trò chuyện tại hiên Mái ấm Thánh Tâm"
+                    width="640"
+                    height="488"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+              </figure>
+            </div>
+            <p class="shelter-caption">
+              Ảnh giới thiệu Mái ấm do nhóm cung cấp, được phép công bố. Đây không phải ảnh hoạt động của dự án.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHƯƠNG 03: Buổi chơi (Bốn góc hoạt động 2x2 + Luồng 3 bước) -->
+  <section class="section section-chapter" aria-labelledby="corners-heading">
+    <div class="container chapter-grid">
+      <div class="chapter-aside">
+        <span class="chapter-num" aria-hidden="true">03</span>
+        <span class="chapter-tag">Buổi chơi</span>
+      </div>
+      <div class="chapter-content">
+        <h2 id="corners-heading" class="chapter-title">Bốn góc hoạt động có lựa chọn</h2>
+        <p class="chapter-lead">
+          Các em có thể tự do chọn góc hoạt động, đổi lượt, quan sát hoặc nghỉ ngơi; không giao chỉ tiêu hoàn thành sản phẩm.
+        </p>
+
+        <div class="corners-grid-wrap">
+          <ActivityList activities={CAMPAIGN_PROJECT.activities} showNotes />
+        </div>
+
+        <p class="corners-journal-note">
+          Xem phân tích chi tiết từng góc chơi tại <a href="/nhat-ky/ke-hoach-bon-goc-choi" class="link-inline">Nhật ký: Kế hoạch bốn góc chơi tại Mái ấm Thánh Tâm →</a>.
+        </p>
+
+        <!-- Luồng hoạt động 3 bước dọc -->
+        <div class="play-flow-card">
+          <h3 class="play-flow-heading">Nội dung buổi chơi dự kiến</h3>
+          <ol class="flow-list">
+            {
+              PLAY_FLOW.map((f, i) => (
+                <li class="flow-item">
+                  <span class="flow-badge" aria-hidden="true">0{i + 1}</span>
+                  <div class="flow-detail">
+                    <h4 class="flow-item-title">{f.title}</h4>
+                    <p class="flow-item-desc">{f.description}</p>
+                  </div>
+                </li>
+              ))
+            }
+          </ol>
+          <p class="flow-note">Khoảng 180 phút, có hai lần nghỉ chung; Mái ấm có thể rút ngắn khi các em mệt.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHƯƠNG 04: An toàn & Tôn trọng (dải xanh ngọc phẳng, thẻ trắng nổi) -->
+  <section class="section section-chapter section-safety band" aria-labelledby="safety-heading">
+    <div class="container chapter-grid">
+      <div class="chapter-aside">
+        <span class="chapter-num" aria-hidden="true">04</span>
+        <span class="chapter-tag">Nguyên tắc</span>
+      </div>
+      <div class="chapter-content">
+        <h2 id="safety-heading" class="chapter-title">Chuẩn bị kỹ lưỡng và tôn trọng Mái ấm</h2>
+        <div class="safety-two-col">
+          <div class="safety-card">
+            <h3 class="safety-subheading">Chuẩn bị an toàn trước buổi chơi</h3>
+            <ul class="check-list">
+              {SAFETY_PRACTICES.map((s) => <li>{s}</li>)}
+            </ul>
+          </div>
+          <div class="respect-card">
+            <h3 class="safety-subheading">Mái ấm là người quyết định</h3>
+            <div class="respect-quote">
+              <p>
+                Thời gian, nội dung hoạt động, vật liệu an toàn, phạm vi ghi hình và danh mục quà tặng đều cần được Mái ấm thống nhất và phê duyệt trước khi triển khai. Người chăm sóc hỗ trợ hướng dẫn tương tác phù hợp cho từng em.
+              </p>
+              <p>
+                Hoạt động tại Mái ấm hoàn toàn là trải nghiệm vui chơi sáng tạo; <strong>các em giữ lại toàn bộ sản phẩm do mình làm ra</strong>. Sản phẩm bán gây quỹ do nhóm Lăng Kính tự chuẩn bị và hoàn thiện.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHƯƠNG 05: Nhật ký dự án -->
+  <section class="section section-chapter" aria-labelledby="project-journal-heading">
+    <div class="container chapter-grid">
+      <div class="chapter-aside">
+        <span class="chapter-num" aria-hidden="true">05</span>
+        <span class="chapter-tag">Nhật ký</span>
+      </div>
+      <div class="chapter-content">
+        <h2 id="project-journal-heading" class="chapter-title">Ghi chép hành trình và kế hoạch chi tiết</h2>
+        <p class="chapter-lead">
+          Chi tiết các góc hoạt động, vật liệu an toàn và quà lưu niệm gây quỹ được ghi chép và cập nhật liên tục.
+        </p>
+
+        <div class="journal-links-grid">
+          {
+            publishedEntries.slice(0, 2).map((entry) => (
+              <div class="project-journal-card">
+                <span class={`journal-tag tag-${entry.category}`}>{entry.categoryLabel}</span>
+                <h3 class="project-journal-title">
+                  <a href={`/nhat-ky/${entry.slug}`} class="journal-link">
+                    {entry.title}
+                  </a>
+                </h3>
+                <p class="project-journal-desc">{entry.summary}</p>
+                <a href={`/nhat-ky/${entry.slug}`} class="link-arrow">
+                  Đọc bài viết <span class="arrow" aria-hidden="true">→</span>
+                </a>
+              </div>
+            ))
+          }
+        </div>
+
+        <div class="chapter-actions">
+          <a href="/nhat-ky" class="btn btn-secondary">Xem tất cả bài viết nhật ký →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dải CTA cam đất cuối trang -->
   <section class="cta-band" aria-labelledby="project-cta-heading">
     <div class="container cta-band-inner">
       <div class="cta-band-text">
@@ -174,198 +270,524 @@ const summaryItems = [
 </Layout>
 
 <style>
+  /* Unified Roadmap Board in PageHero */
+  .roadmap-board {
+    margin-top: var(--space-6);
+    padding: var(--space-5);
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .roadmap-progress {
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .roadmap-timeline {
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .planned-sessions-strip {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .planned-sessions-title {
+    font-size: var(--font-size-small);
+    font-weight: 700;
+    color: var(--brand);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0;
+  }
+
+  .planned-sessions-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .session-item {
+    font-size: var(--font-size-small);
+    line-height: 1.5;
+    color: var(--ink);
+  }
+
+  .session-badge {
+    font-weight: 700;
+    color: var(--brand);
+    margin-right: 4px;
+  }
+
+  .session-datetime {
+    color: var(--ink);
+  }
+
+  .session-desc {
+    color: var(--ink-2);
+  }
+
+  .roadmap-note {
+    font-size: var(--font-size-small);
+    color: var(--ink-2);
+    margin: 0;
+    font-style: italic;
+  }
+
+  /* Chapter Common Styles (Grid 3/9) */
+  .section-chapter {
+    padding-top: var(--space-12);
+    padding-bottom: var(--space-12);
+    border-top: 1px solid var(--line);
+  }
+
+  .chapter-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 9fr);
+    gap: var(--space-10);
+    align-items: start;
+  }
+
+  .chapter-aside {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    position: sticky;
+    top: calc(var(--header-height, 64px) + var(--space-6));
+  }
+
+  .chapter-num {
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--brand);
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .chapter-tag {
+    font-size: var(--font-size-small);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 700;
+    color: var(--brand);
+  }
+
+  .chapter-content {
+    min-width: 0;
+  }
+
+  .chapter-title {
+    font-size: var(--font-size-h2);
+    line-height: var(--line-height-h2);
+    font-weight: 800;
+    color: var(--ink);
+    margin: 0 0 var(--space-4) 0;
+  }
+
+  .chapter-lead {
+    font-size: var(--font-size-lead);
+    line-height: var(--line-height-lead);
+    color: var(--ink-2);
+    margin: 0 0 var(--space-8) 0;
+  }
+
+  /* Needs (Chương 01) */
   .needs {
     list-style: none;
     margin: 0;
     padding: 0;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--space-6);
+    gap: var(--space-5);
   }
 
-  /* C13: ba định hướng dạng cột editorial có vạch trên, không dùng thẻ */
   .need {
     display: flex;
     flex-direction: column;
-    gap: var(--space-3);
-    padding-top: var(--space-6);
-    border-top: 3px solid var(--brand-ink);
+    gap: var(--space-2);
+    padding: var(--space-6);
+    background: var(--surface-alt);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
   }
 
   .need-num {
-    font-size: 3rem;
-    line-height: 1;
+    font-size: var(--font-size-small);
     font-weight: 800;
-    letter-spacing: -0.04em;
     color: var(--brand);
-    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.05em;
   }
 
   .need-title {
     font-size: var(--font-size-h3);
     line-height: var(--line-height-h3);
     margin: 0;
+    color: var(--ink);
+    font-weight: 700;
   }
 
   .need-desc {
     margin: 0;
+    font-size: var(--font-size-small);
+    line-height: 1.5;
+    color: var(--ink-2);
   }
 
-  .shelter {
-    display: grid;
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    gap: var(--space-12);
-    align-items: center;
+  /* Shelter (Chương 02 - dark) */
+  .on-dark-num {
+    color: var(--cta);
   }
 
-  .shelter-text p {
-    margin: 0;
+  .on-dark-tag {
+    color: var(--on-dark-2);
+  }
+
+  .on-dark-title {
+    color: var(--on-dark);
+  }
+
+  .shelter-desc {
     color: var(--on-dark-2);
     font-size: var(--font-size-lead);
     line-height: var(--line-height-lead);
+    margin: 0 0 var(--space-8) 0;
   }
 
   .shelter-photos {
+    margin-top: var(--space-6);
+  }
+
+  .shelter-photo-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--space-5);
-    align-items: start;
+    gap: var(--space-6);
   }
 
-  /* Ảnh thứ hai lệch xuống tạo nhịp bất đối xứng (desktop) */
-  @media (min-width: 1024px) {
-    .shelter-photo:nth-of-type(2) {
-      margin-top: var(--space-12);
-    }
-  }
-
-  .shelter-photo {
+  .shelter-figure {
     margin: 0;
+  }
+
+  .shelter-img-wrap {
     border-radius: var(--radius-lg);
     overflow: hidden;
-    aspect-ratio: 4 / 3;
-    background: var(--surface-alt);
+    background: var(--surface-soft);
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  .shelter-photo img {
+  .shelter-img-wrap img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: 50% 40%;
+    height: auto;
     display: block;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
   }
 
   .shelter-caption {
-    grid-column: 1 / -1;
-    margin: 0;
-    color: var(--on-dark-2);
+    margin-top: var(--space-3);
     font-size: var(--font-size-small);
-    line-height: var(--line-height-small);
+    color: var(--on-dark-2);
+    line-height: 1.4;
+    font-style: italic;
   }
 
-  .timeline-wrap {
-    margin-top: var(--space-8);
+  /* Corners (Chương 03) */
+  .corners-grid-wrap :global(.activity-list) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-6);
   }
 
-  .flow-title {
+  .corners-journal-note {
+    margin: var(--space-6) 0 var(--space-8) 0;
+    font-size: var(--font-size-body);
+    color: var(--ink-2);
+  }
+
+  .link-inline {
+    color: var(--brand);
+    font-weight: 600;
+    text-decoration: underline;
+  }
+
+  .play-flow-card {
+    background: var(--surface-alt);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+  }
+
+  .play-flow-heading {
     font-size: var(--font-size-h3);
     line-height: var(--line-height-h3);
-    margin: var(--space-12) 0 var(--space-5);
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0 0 var(--space-6) 0;
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--line);
   }
 
-  .flow {
+  .flow-list {
     list-style: none;
     margin: 0;
     padding: 0;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    position: relative;
   }
 
-  .flow-step {
+  .flow-item {
     display: grid;
     grid-template-columns: 36px minmax(0, 1fr);
-    gap: var(--space-3);
-    padding: var(--space-5);
-    background: #ffffff;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--line);
+    gap: var(--space-4);
+    align-items: start;
+    position: relative;
   }
 
-  .flow-num {
+  .flow-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 17px;
+    top: 36px;
+    bottom: -24px;
+    width: 2px;
+    background: var(--line-strong);
+  }
+
+  .flow-badge {
     width: 36px;
     height: 36px;
     border-radius: var(--radius-pill);
-    background: var(--brand-ink);
-    color: var(--on-dark);
-    font-weight: 700;
+    background: var(--brand);
+    color: #ffffff;
+    font-size: 0.875rem;
+    font-weight: 800;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    z-index: 1;
   }
 
-  .flow-step-title {
-    font-size: var(--font-size-body);
-    line-height: var(--line-height-body);
+  .flow-item-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0 0 4px 0;
+  }
+
+  .flow-item-desc {
+    font-size: var(--font-size-small);
+    line-height: 1.5;
+    color: var(--ink-2);
     margin: 0;
   }
 
-  .flow-step-desc {
+  .flow-note {
+    font-size: var(--font-size-small);
+    color: var(--ink-2);
+    font-style: italic;
+    margin: var(--space-6) 0 0 0;
+    padding-top: var(--space-3);
+    border-top: 1px dashed var(--line);
+  }
+
+  /* Safety (Chương 04): dải xanh ngọc, chữ navy, thẻ trắng */
+  .section-safety {
+    border-top: none;
+  }
+
+  .section-safety .chapter-num,
+  .section-safety .chapter-tag,
+  .section-safety .chapter-title {
+    color: var(--brand-ink);
+  }
+
+  .section-safety .safety-card,
+  .section-safety .respect-card {
+    box-shadow: var(--shadow-raised);
+    border-color: transparent;
+  }
+
+  /* Safety (Chương 04) */
+  .safety-two-col {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-8);
+  }
+
+  .safety-card {
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    box-shadow: var(--shadow-subtle);
+  }
+
+  .respect-card {
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    box-shadow: var(--shadow-subtle);
+  }
+
+  .safety-subheading {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0 0 var(--space-4) 0;
+    padding-bottom: var(--space-2);
+    border-bottom: 2px solid var(--brand);
+  }
+
+  .check-list {
+    margin: 0;
+    padding-left: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    font-size: var(--font-size-small);
+    line-height: 1.5;
+    color: var(--ink);
+  }
+
+  .respect-quote {
+    border-left: 4px solid var(--cta);
+    padding-left: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .respect-quote p {
+    font-size: var(--font-size-small);
+    line-height: 1.6;
+    color: var(--ink-2);
     margin: 0;
   }
 
-  .col-title {
-    font-size: var(--font-size-h2);
-    line-height: var(--line-height-h2);
-    margin-bottom: var(--space-5);
+  /* Journal (Chương 05) */
+  .journal-links-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-6);
+    margin-bottom: var(--space-6);
   }
 
-  .col-title--sm {
-    font-size: var(--font-size-h3);
-    line-height: var(--line-height-h3);
-    margin-bottom: var(--space-3);
+  .project-journal-card {
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    box-shadow: var(--shadow-subtle);
   }
 
-  .respect p + p {
-    margin-top: var(--space-3);
+  .journal-tag {
+    align-self: flex-start;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 2px var(--space-2);
+    border-radius: var(--radius-sm);
+    background: var(--status-plan-bg);
+    color: var(--status-plan-text);
   }
 
+  .project-journal-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  .journal-link {
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .journal-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+
+  .project-journal-desc {
+    font-size: var(--font-size-small);
+    line-height: 1.5;
+    color: var(--ink-2);
+    margin: 0;
+    flex-grow: 1;
+  }
+
+  .chapter-actions {
+    margin-top: var(--space-6);
+  }
+
+  /* Responsive Stacking */
   @media (max-width: 1023px) {
-    .shelter {
+    .chapter-grid {
       grid-template-columns: 1fr;
       gap: var(--space-6);
     }
 
-    .needs,
-    .flow {
-      grid-template-columns: 1fr;
+    .chapter-aside {
+      position: static;
+      flex-direction: row;
+      align-items: baseline;
       gap: var(--space-3);
+      padding-bottom: var(--space-2);
+      border-bottom: 2px solid var(--line);
     }
 
-    .need {
-      display: grid;
-      grid-template-columns: 56px minmax(0, 1fr);
-      column-gap: var(--space-4);
-      row-gap: var(--space-1);
-      padding: var(--space-5) 0 var(--space-2);
+    .chapter-num {
+      font-size: 2.5rem;
     }
 
-    .need-num {
-      font-size: 2.25rem;
+    .needs {
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
     }
 
-    .need-num {
-      grid-row: span 2;
+    .shelter-photo-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .safety-two-col {
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+    }
+
+    .journal-links-grid {
+      grid-template-columns: 1fr;
     }
   }
 
   @media (max-width: 767px) {
-    .flow-title {
-      margin-top: var(--space-10);
+    .roadmap-board {
+      margin-top: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      gap: var(--space-3);
     }
 
-    .flow-step {
-      padding: var(--space-4);
+    .roadmap-progress,
+    .roadmap-timeline {
+      padding-bottom: var(--space-2);
+    }
+
+    .corners-grid-wrap :global(.activity-list) {
+      grid-template-columns: 1fr;
     }
   }
 </style>

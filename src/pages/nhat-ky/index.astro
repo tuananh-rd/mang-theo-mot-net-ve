@@ -1,0 +1,524 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHero from '../../components/PageHero.astro';
+import { getPublishedJournalEntries, JOURNAL_CATEGORIES } from '../../data/journal';
+
+const entries = getPublishedJournalEntries();
+const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Nhật ký' }];
+
+function formatDate(d: string): string {
+  const parts = d.split('-');
+  if (parts.length === 3) return `${parts[2]}/${parts[1]}/${parts[0]}`;
+  return d;
+}
+
+const latestDate = entries.length > 0 ? formatDate(entries[0].publishedAt) : '';
+
+// Đánh giá danh mục thực tế có bài published
+const activeCategories = JOURNAL_CATEGORIES.filter((cat) =>
+  entries.some((e) => e.category === cat.id)
+);
+
+// Tách bài nổi bật (mới nhất) và danh sách bài còn lại (Kiểu E - Tạp chí)
+const featuredEntry = entries.length > 0 ? entries[0] : null;
+const remainingEntries = entries.length > 1 ? entries.slice(1) : [];
+---
+
+<Layout
+  title="Nhật ký dự án"
+  description="Nhật ký kế hoạch, tiến độ chuẩn bị và các hoạt động của dự án thiện nguyện Mang Theo Một Nét Vẽ."
+  currentPath="/nhat-ky"
+>
+  <PageHero
+    variant="masthead"
+    breadcrumbs={breadcrumbs}
+    eyebrow="Tiến độ và chia sẻ"
+    chip={{ kind: 'ke-hoach', label: 'Cập nhật dự án' }}
+    title="Nhật ký dự án"
+    titleId="journal-heading"
+    lead="Từng bước chuẩn bị, từng nét vẽ sẻ chia — ghi chép hành trình mang niềm vui đến Mái ấm Thánh Tâm."
+    description={`${entries.length} bài viết đã công bố · Cập nhật ngày ${latestDate || 'chưa có'}`}
+  />
+
+  <section class="section section-journal-body" aria-labelledby="journal-list-heading">
+    <div class="container">
+      <h2 id="journal-list-heading" class="sr-only">Tin tức và nhật ký chuẩn bị</h2>
+
+      <!-- Bài viết nổi bật (Featured Entry: Grid 7/5 desktop) -->
+      {
+        featuredEntry && (
+          <div class="journal-featured-wrap">
+            <article class="journal-card journal-featured-card" data-category={featuredEntry.category}>
+              {featuredEntry.coverImage && (
+                <figure class="journal-card-figure featured-figure">
+                  <div class="journal-card-img-wrap">
+                    <img
+                      src={featuredEntry.coverImage.src}
+                      alt={featuredEntry.coverImage.alt}
+                      loading="eager"
+                      decoding="async"
+                      width="800"
+                      height="450"
+                    />
+                  </div>
+                  <figcaption class="journal-card-caption">
+                    <span class="caption-text">{featuredEntry.coverImage.caption}</span>
+                    {featuredEntry.coverImage.creditName && (
+                      <span class="caption-credit">
+                        Nguồn ảnh: {featuredEntry.coverImage.creditName} ({featuredEntry.coverImage.creditSource || 'Stock'})
+                      </span>
+                    )}
+                  </figcaption>
+                </figure>
+              )}
+              <div class="journal-card-body featured-body">
+                <div class="journal-card-meta">
+                  <span class={`journal-tag tag-${featuredEntry.category}`}>{featuredEntry.categoryLabel}</span>
+                  <span class="journal-date">Biên tập: {formatDate(featuredEntry.publishedAt)}</span>
+                  {featuredEntry.eventDate && (
+                    <span class="journal-event-badge">
+                      Sự kiện: {formatDate(featuredEntry.eventDate)} {featuredEntry.eventStatus === 'planned' ? '(dự kiến)' : ''}
+                    </span>
+                  )}
+                </div>
+
+                <h3 class="featured-card-title">
+                  <a href={`/nhat-ky/${featuredEntry.slug}`} class="journal-title-link">
+                    {featuredEntry.title}
+                  </a>
+                </h3>
+
+                <p class="featured-summary">{featuredEntry.summary}</p>
+
+                <div class="featured-action">
+                  <a href={`/nhat-ky/${featuredEntry.slug}`} class="link-arrow">
+                    Đọc toàn bộ bài viết <span class="arrow" aria-hidden="true">→</span>
+                  </a>
+                </div>
+              </div>
+            </article>
+          </div>
+        )
+      }
+
+      <!-- Bộ lọc danh mục: CHỈ render khi activeCategories.length >= 2 (RC15 Review Override) -->
+      {
+        activeCategories.length >= 2 && (
+          <div class="journal-filter" aria-label="Lọc bài viết theo danh mục">
+            <button
+              type="button"
+              class="filter-pill is-active"
+              data-category="all"
+              aria-pressed="true"
+            >
+              Tất cả ({entries.length})
+            </button>
+            {activeCategories.map((cat) => {
+              const count = entries.filter((e) => e.category === cat.id).length;
+              return (
+                <button
+                  type="button"
+                  class="filter-pill"
+                  data-category={cat.id}
+                  aria-pressed="false"
+                >
+                  {cat.label} ({count})
+                </button>
+              );
+            })}
+          </div>
+        )
+      }
+
+      <!-- Danh sách các bài còn lại (Hàng ngang 4/8 desktop) -->
+      {
+        remainingEntries.length > 0 && (
+          <div class="journal-remaining-list" id="journal-entries-grid">
+            {remainingEntries.map((entry) => (
+              <article class="journal-card journal-row-card" data-category={entry.category}>
+                {entry.coverImage && (
+                  <figure class="journal-card-figure row-figure">
+                    <div class="journal-card-img-wrap">
+                      <img
+                        src={entry.coverImage.src}
+                        alt={entry.coverImage.alt}
+                        loading="lazy"
+                        decoding="async"
+                        width="480"
+                        height="270"
+                      />
+                    </div>
+                    <figcaption class="journal-card-caption">
+                      <span class="caption-text">{entry.coverImage.caption}</span>
+                      {entry.coverImage.creditName && (
+                        <span class="caption-credit">
+                          Nguồn: {entry.coverImage.creditName}
+                        </span>
+                      )}
+                    </figcaption>
+                  </figure>
+                )}
+                <div class="journal-card-body row-body">
+                  <div class="journal-card-meta">
+                    <span class={`journal-tag tag-${entry.category}`}>{entry.categoryLabel}</span>
+                    <span class="journal-date">Biên tập: {formatDate(entry.publishedAt)}</span>
+                    {entry.eventDate && (
+                      <span class="journal-event-badge">
+                        Sự kiện: {formatDate(entry.eventDate)} {entry.eventStatus === 'planned' ? '(dự kiến)' : ''}
+                      </span>
+                    )}
+                  </div>
+
+                  <h3 class="row-card-title">
+                    <a href={`/nhat-ky/${entry.slug}`} class="journal-title-link">
+                      {entry.title}
+                    </a>
+                  </h3>
+
+                  <p class="row-summary">{entry.summary}</p>
+
+                  <a href={`/nhat-ky/${entry.slug}`} class="link-arrow">
+                    Đọc tiếp <span class="arrow" aria-hidden="true">→</span>
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        )
+      }
+
+      <!-- Empty State khi lọc không có kết quả hoặc chưa có bài viết -->
+      <div class="journal-empty" id="journal-empty" hidden={entries.length > 0}>
+        <p id="journal-empty-text">{entries.length === 0 ? 'Hiện chưa có bài viết nào được công bố.' : 'Không tìm thấy bài viết nào trong danh mục đã chọn.'}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="cta-band" aria-labelledby="journal-cta-heading">
+    <div class="container cta-band-inner">
+      <div class="cta-band-text">
+        <h2 id="journal-cta-heading">Cùng đồng hành với dự án</h2>
+        <p>Mỗi sự ủng hộ hoặc chia sẻ đều góp phần mang đến buổi chơi trọn vẹn cho các em.</p>
+      </div>
+      <div class="cta-band-actions">
+        <a href="/dong-hanh" class="btn btn-primary">Ủng hộ dự án</a>
+        <a href="/du-an/mang-theo-mot-net-ve" class="link-arrow">Tìm hiểu dự án <span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  function setupJournalFilters() {
+    const filterButtons = document.querySelectorAll<HTMLButtonElement>('.journal-filter .filter-pill');
+    const cards = document.querySelectorAll<HTMLElement>('.journal-card');
+    const emptyState = document.getElementById('journal-empty');
+    const emptyText = document.getElementById('journal-empty-text');
+
+    if (!filterButtons.length) return;
+
+    filterButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const cat = btn.getAttribute('data-category') || 'all';
+
+        filterButtons.forEach((b) => {
+          b.classList.remove('is-active');
+          b.setAttribute('aria-pressed', 'false');
+        });
+        btn.classList.add('is-active');
+        btn.setAttribute('aria-pressed', 'true');
+
+        let visibleCount = 0;
+        cards.forEach((card) => {
+          const cardCat = card.getAttribute('data-category');
+          if (cat === 'all' || cardCat === cat) {
+            card.removeAttribute('hidden');
+            visibleCount++;
+          } else {
+            card.setAttribute('hidden', '');
+          }
+        });
+
+        if (emptyState) {
+          if (visibleCount === 0) {
+            emptyState.removeAttribute('hidden');
+            if (emptyText) emptyText.textContent = 'Không tìm thấy bài viết nào trong danh mục đã chọn.';
+          } else {
+            emptyState.setAttribute('hidden', '');
+          }
+        }
+      });
+    });
+  }
+
+  setupJournalFilters();
+  document.addEventListener('astro:page-load', setupJournalFilters);
+</script>
+
+<style>
+  .section-journal-body {
+    background: #ffffff;
+    padding-top: var(--space-8);
+    padding-bottom: var(--space-18);
+  }
+
+  /* Bài nổi bật (Featured Entry: Grid 7/5 desktop) */
+  .journal-featured-wrap {
+    margin-bottom: var(--space-12);
+  }
+
+  .journal-featured-card {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: var(--space-8) var(--space-10);
+    align-items: center;
+    background: var(--surface-alt);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    padding: var(--space-6);
+  }
+
+  .featured-figure {
+    margin: 0;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid var(--line);
+  }
+
+  .featured-figure .journal-card-img-wrap {
+    width: 100%;
+    overflow: hidden;
+    background: var(--surface-alt);
+  }
+
+  .featured-figure img {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  .featured-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .featured-card-title {
+    font-size: 1.875rem;
+    line-height: 1.3;
+    font-weight: 800;
+    color: var(--ink);
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  .featured-summary {
+    font-size: var(--font-size-body);
+    line-height: 1.6;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  .featured-action {
+    margin-top: var(--space-2);
+  }
+
+  /* Danh sách bài viết còn lại (Rows 4/8 desktop) */
+  .journal-remaining-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+    margin-top: var(--space-8);
+  }
+
+  .journal-row-card {
+    display: grid;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    gap: var(--space-6) var(--space-8);
+    align-items: start;
+    padding-bottom: var(--space-8);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .journal-row-card:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .row-figure {
+    margin: 0;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid var(--line);
+  }
+
+  .row-figure .journal-card-img-wrap {
+    width: 100%;
+    overflow: hidden;
+    background: var(--surface-alt);
+  }
+
+  .row-figure img {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  .row-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .row-card-title {
+    font-size: 1.375rem;
+    line-height: 1.4;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  .row-summary {
+    font-size: var(--font-size-small);
+    line-height: 1.6;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  /* Shared Card Elements */
+  .journal-title-link {
+    color: inherit;
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .journal-title-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+
+  .journal-card-caption {
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--font-size-small);
+    line-height: 1.4;
+    color: var(--ink-2);
+    background: #ffffff;
+    border-top: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .caption-credit {
+    font-size: 0.8125rem;
+    color: var(--ink-2);
+    font-style: italic;
+  }
+
+  .journal-card-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+    font-size: var(--font-size-small);
+  }
+
+  .journal-tag {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    padding: 2px var(--space-2);
+    border-radius: var(--radius-sm);
+  }
+
+  .tag-ke-hoach {
+    background: var(--status-plan-bg);
+    color: var(--status-plan-text);
+  }
+
+  .journal-date {
+    color: var(--ink-2);
+  }
+
+  .journal-event-badge {
+    background: var(--status-pending-bg);
+    color: var(--status-pending-text);
+    padding: 2px var(--space-2);
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    font-size: 0.75rem;
+  }
+
+  /* Filter Pills */
+  .journal-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-bottom: var(--space-8);
+    padding-bottom: var(--space-4);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .filter-pill {
+    background: #ffffff;
+    border: 1.5px solid var(--line-strong);
+    color: var(--ink);
+    padding: var(--space-2) var(--space-4);
+    border-radius: 9999px;
+    font-size: var(--font-size-small);
+    font-weight: 600;
+    cursor: pointer;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    transition: all var(--transition-fast);
+  }
+
+  .filter-pill:hover {
+    border-color: var(--brand);
+    color: var(--brand);
+  }
+
+  .filter-pill.is-active {
+    background: var(--brand);
+    color: #ffffff;
+    border-color: var(--brand);
+  }
+
+  .journal-empty {
+    padding: var(--space-12) 0;
+    text-align: center;
+    color: var(--ink-2);
+    font-size: var(--font-size-lead);
+  }
+
+  .journal-card[hidden],
+  .journal-featured-card[hidden],
+  .journal-row-card[hidden],
+  .journal-empty[hidden] {
+    display: none !important;
+  }
+
+  @media (max-width: 900px) {
+    .journal-featured-card {
+      grid-template-columns: 1fr;
+      padding: var(--space-4);
+    }
+
+    .journal-row-card {
+      grid-template-columns: 1fr;
+    }
+
+    .featured-card-title {
+      font-size: 1.5rem;
+    }
+  }
+</style>

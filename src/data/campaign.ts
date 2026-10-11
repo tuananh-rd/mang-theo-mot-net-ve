@@ -4,6 +4,9 @@
  * Lưu ý: Số liệu thực tế chưa có để null, không gán 0 hoặc số kế hoạch làm thành tích.
  */
 
+import initialReconciledDonations from './reconciled-donations.json' with { type: 'json' };
+import { validateDonationProjection, sanitizeDonationEntry } from '../../tools/content-studio/csv-validator.mjs';
+
 export interface QuantitativeFact {
   value: number | null;
   unit: string;
@@ -1327,19 +1330,54 @@ export interface DonationLedger {
   reconciled: boolean;
   /** Ngày đối soát gần nhất (YYYY-MM-DD); bắt buộc khi reconciled = true */
   reconciledAt: string | null;
+  /** Các vai trò/người tham gia đối soát */
+  reconciledBy?: string[];
+  /** Trạng thái phê duyệt công khai */
+  publicApproval?: 'pending' | 'approved';
   /** Các khoản đã đối soát. Không thêm khoản chưa đối chiếu hoặc khoản bán quà lưu niệm. */
   entries: DonationEntry[];
+}
+
+function projectPublicDonationLedger(raw: unknown): DonationLedger {
+  const validation = validateDonationProjection(raw);
+  if (!validation.isValid) {
+    throw new Error(`Dữ liệu sổ đối soát không hợp lệ tại build boundary:\n${validation.errors.join('; ')}`);
+  }
+  const payload = raw as {
+    reconciled: boolean;
+    reconciledAt: string | null;
+    reconciledBy?: string[];
+    publicApproval?: 'pending' | 'approved';
+    entries: any[];
+  };
+  if (!payload.reconciled) {
+    return {
+      reconciled: false,
+      reconciledAt: null,
+      entries: [],
+    };
+  }
+  const cleanEntries: DonationEntry[] = (payload.entries || []).map((entry) => {
+    const clean = sanitizeDonationEntry(entry);
+    return {
+      date: clean!.date,
+      amount: clean!.amount,
+      donor: clean!.donor,
+      reference: clean!.reference,
+    };
+  });
+  return {
+    reconciled: true,
+    reconciledAt: payload.reconciledAt,
+    entries: cleanEntries,
+  };
 }
 
 /**
  * Sổ ủng hộ. Tài liệu bổ sung chưa có sao kê, nên chưa có sổ đã đối soát.
  * Sổ trống ở đây không chứng minh chưa nhận được tiền.
  */
-export const DONATION_LEDGER: DonationLedger = {
-  reconciled: false,
-  reconciledAt: null,
-  entries: [],
-};
+export const DONATION_LEDGER: DonationLedger = projectPublicDonationLedger(initialReconciledDonations);
 
 export interface ProjectProgress {
   currentWeek: number;

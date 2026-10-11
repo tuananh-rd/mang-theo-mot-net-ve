@@ -9,6 +9,7 @@ const isDongHanh = currentPath === '/dong-hanh';
 const navItems = [
   { href: '/', label: 'Trang chủ' },
   { href: '/du-an/mang-theo-mot-net-ve', label: 'Dự án' },
+  { href: '/nhat-ky', label: 'Nhật ký' },
   { href: '/san-pham', label: 'Quà lưu niệm' },
   { href: '/minh-bach', label: 'Minh bạch' },
   { href: '/ve-nhom', label: 'Về nhóm' },
@@ -36,7 +37,7 @@ const navItems = [
       <ul class="nav-list">
         {
           navItems.map((item) => {
-            const isActive = currentPath === item.href;
+            const isActive = currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href));
             return (
               <li>
                 <a
@@ -85,7 +86,7 @@ const navItems = [
         <ul class="mobile-nav-list">
           {
             navItems.map((item) => {
-              const isActive = currentPath === item.href;
+              const isActive = currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href));
               return (
                 <li>
                   <a
@@ -368,7 +369,7 @@ const navItems = [
     background-color: var(--color-canvas);
     border-bottom: 1px solid var(--color-border);
     padding: var(--space-6) 0;
-    box-shadow: 0 4px 12px rgba(18, 60, 58, 0.06);
+    box-shadow: 0 4px 12px rgba(19, 38, 75, 0.06);
   }
 
   .mobile-panel[hidden] {
