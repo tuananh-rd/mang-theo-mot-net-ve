@@ -136,4 +136,26 @@ const parsed = stages.map((s) => {
       padding-bottom: 0;
     }
   }
+
+  @media (max-width: 767px) {
+    .timeline-step {
+      gap: var(--space-3);
+      padding-bottom: var(--space-2);
+    }
+
+    .timeline-num {
+      width: 28px;
+      height: 28px;
+      font-size: 0.8125rem;
+    }
+
+    .timeline-title {
+      font-size: 0.9375rem;
+      line-height: 1.3;
+    }
+
+    .timeline-week {
+      font-size: 0.75rem;
+    }
+  }
 </style>

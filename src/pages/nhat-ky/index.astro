@@ -32,7 +32,7 @@ const remainingEntries = entries.length > 1 ? entries.slice(1) : [];
   <PageHero
     variant="masthead"
     breadcrumbs={breadcrumbs}
-    eyebrow="Tiến độ & Chia sẻ"
+    eyebrow="Tiến độ và chia sẻ"
     chip={{ kind: 'ke-hoach', label: 'Cập nhật dự án' }}
     title="Nhật ký dự án"
     titleId="journal-heading"
@@ -42,11 +42,7 @@ const remainingEntries = entries.length > 1 ? entries.slice(1) : [];
 
   <section class="section section-journal-body" aria-labelledby="journal-list-heading">
     <div class="container">
-      <div class="section-header">
-        <span class="eyebrow">Dòng sự kiện</span>
-        <h2 id="journal-list-heading">Tin tức & Nhật ký chuẩn bị</h2>
-        <p>Theo dõi quá trình chuẩn bị buổi chơi và kế hoạch gây quỹ của nhóm sinh viên Lăng Kính.</p>
-      </div>
+      <h2 id="journal-list-heading" class="sr-only">Tin tức và nhật ký chuẩn bị</h2>
 
       <!-- Bài viết nổi bật (Featured Entry: Grid 7/5 desktop) -->
       {

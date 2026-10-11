@@ -39,7 +39,6 @@ const otherWays = [
     title="Ủng hộ một buổi chơi, một món quà"
     titleId="support-heading"
     lead={`Mục tiêu gây quỹ ${formatVND(DONATION_ACCOUNT.goalAmount)} cho buổi chơi và quà tặng các em tại Mái ấm.`}
-    description="Chuyển khoản qua mã QR. Nhóm đối soát với sao kê ngân hàng và công bố từng khoản tại bảng sao kê bên dưới."
   >
     <div slot="hero-bottom" class="transfer-stepper-wrap">
       <ol class="transfer-stepper" aria-label="Ba bước ủng hộ">
@@ -47,21 +46,21 @@ const otherWays = [
           <span class="stepper-num" aria-hidden="true">01</span>
           <div class="stepper-content">
             <strong class="stepper-title">Quét hoặc tải QR</strong>
-            <p class="stepper-desc">Dùng ứng dụng ngân hàng quét mã QR bên dưới hoặc tải ảnh QR về máy (nếu app ngân hàng của bạn hỗ trợ quét từ thư viện ảnh).</p>
+            <p class="stepper-desc">Quét trực tiếp hoặc tải ảnh về máy (nếu app ngân hàng hỗ trợ quét từ thư viện).</p>
           </div>
         </li>
         <li class="stepper-item">
           <span class="stepper-num" aria-hidden="true">02</span>
           <div class="stepper-content">
             <strong class="stepper-title">Ghi đúng nội dung</strong>
-            <p class="stepper-desc">Ghi đúng cú pháp <code>MTMNV Tên của bạn</code> để nhóm đối soát chính xác với sao kê ngân hàng.</p>
+            <p class="stepper-desc">Ghi đúng cú pháp <code>MTMNV Tên của bạn</code> để nhóm đối soát chính xác.</p>
           </div>
         </li>
         <li class="stepper-item">
           <span class="stepper-num" aria-hidden="true">03</span>
           <div class="stepper-content">
             <strong class="stepper-title">Theo dõi sao kê</strong>
-            <p class="stepper-desc">Khoản ủng hộ sẽ xuất hiện tại bảng sao kê công khai sau mỗi đợt đối soát định kỳ của nhóm.</p>
+            <p class="stepper-desc">Khoản ủng hộ xuất hiện tại bảng sao kê sau các đợt đối soát của nhóm.</p>
           </div>
         </li>
       </ol>
@@ -113,7 +112,7 @@ const otherWays = [
         </ol>
       </div>
       <div class="process-actions">
-        <a href="/minh-bach#quy-trinh" class="link-arrow">Xem chi tiết 4 bước quy trình trên sổ thu chi <span class="arrow" aria-hidden="true">→</span></a>
+        <a href="/minh-bach#dong-tien" class="link-arrow">Xem quy trình nhận, đối soát, công bố và trao quà <span class="arrow" aria-hidden="true">→</span></a>
       </div>
     </div>
   </section>
@@ -331,8 +330,46 @@ const otherWays = [
   }
 
   @media (max-width: 767px) {
+    .transfer-stepper-wrap {
+      margin-top: var(--space-2);
+      padding-top: var(--space-2);
+    }
+
+    .transfer-stepper {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-2);
+    }
+
+    .stepper-item {
+      padding: var(--space-2) var(--space-1);
+      flex-direction: column;
+      gap: 2px;
+      text-align: center;
+      align-items: center;
+      border-radius: var(--radius-sm);
+      box-shadow: none;
+    }
+
+    .stepper-num {
+      font-size: 0.9375rem;
+      line-height: 1;
+    }
+
+    .stepper-content {
+      gap: 2px;
+    }
+
+    .stepper-title {
+      font-size: 0.75rem;
+      line-height: 1.25;
+    }
+
+    .stepper-desc {
+      display: none;
+    }
+
     .section-first {
-      padding-top: var(--space-6);
+      padding-top: var(--space-2);
     }
 
     .flow-chain {

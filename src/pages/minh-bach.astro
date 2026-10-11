@@ -36,7 +36,7 @@ const ledgerStatusMeta = summary.reconciledAt
     title="Minh bạch tiền ủng hộ"
     titleId="transparency-heading"
     lead="Tài khoản tiếp nhận, quy trình đối soát, thời điểm công bố và mục đích sử dụng nguồn quỹ."
-    description={`Trạng thái sổ: ${ledgerStatusMeta}. Tổng tiền ủng hộ chỉ được tính từ các dòng sổ đã đối chiếu với ngân hàng; khi chưa có sổ đã đối soát, website hiển thị “Chưa cập nhật”, tuyệt đối không tự ý ghi 0đ.`}
+    description={`Trạng thái sổ: ${ledgerStatusMeta}. Website chỉ ghi nhận số liệu từ các dòng sổ đã đối soát với ngân hàng.`}
   />
 
   <section class="section section-doc-layout">
@@ -46,10 +46,10 @@ const ledgerStatusMeta = summary.reconciledAt
         <nav class="doc-toc" aria-label="Mục lục trang">
           <p class="doc-toc-title">Mục lục tài liệu</p>
           <ul class="doc-toc-list">
-            <li><a href="#tong-quan" class="doc-toc-link">1. Tổng quan & Đối soát</a></li>
+            <li><a href="#tong-quan" class="doc-toc-link">1. Tổng quan và đối soát</a></li>
             <li><a href="#dong-tien" class="doc-toc-link">2. Bốn bước dòng tiền</a></li>
             <li><a href="#quy-trinh" class="doc-toc-link">3. Quy trình áp dụng</a></li>
-            <li><a href="#bao-cao" class="doc-toc-link">4. Báo cáo & Cam kết</a></li>
+            <li><a href="#bao-cao" class="doc-toc-link">4. Báo cáo và cam kết</a></li>
             <li><a href="#faq" class="doc-toc-link">5. Câu hỏi thường gặp</a></li>
           </ul>
         </nav>
@@ -61,7 +61,7 @@ const ledgerStatusMeta = summary.reconciledAt
         <section id="tong-quan" class="doc-section" aria-labelledby="overview-heading">
           <div class="doc-section-header">
             <span class="eyebrow">Phần 1</span>
-            <h2 id="overview-heading" class="doc-section-title">Tổng quan chỉ tiêu & Thực tế đối soát</h2>
+            <h2 id="overview-heading" class="doc-section-title">Tổng quan chỉ tiêu và thực tế đối soát</h2>
             <p>Bảng tổng hợp đối chiếu giữa mục tiêu ban đầu và số liệu thực tế qua tài khoản ngân hàng dự án.</p>
           </div>
 
@@ -81,7 +81,7 @@ const ledgerStatusMeta = summary.reconciledAt
                   <td class="td-plan">{formatVND(DONATION_ACCOUNT.goalAmount)}</td>
                   <td class="td-actual">
                     <span class="cell-status-tag" title="Chỉ tiêu kế hoạch, không phải số thực tế đã đối soát">
-                      — (Đang tiếp nhận)
+                      Không áp dụng
                     </span>
                   </td>
                 </tr>
@@ -99,8 +99,8 @@ const ledgerStatusMeta = summary.reconciledAt
                 <tr>
                   <th scope="row" class="td-item">Mốc đối soát sao kê gần nhất</th>
                   <td class="td-plan">
-                    <span class="cell-status-tag" title="Đối soát định kỳ theo đợt công bố">
-                      — (Định kỳ)
+                    <span class="cell-status-tag" title="Chưa có lịch đối soát cố định">
+                      Chưa có lịch xác nhận
                     </span>
                   </td>
                   <td class="td-actual">
@@ -159,7 +159,7 @@ const ledgerStatusMeta = summary.reconciledAt
         <section id="quy-trinh" class="doc-section" aria-labelledby="process-heading">
           <div class="doc-section-header">
             <span class="eyebrow">Phần 3</span>
-            <h2 id="process-heading" class="doc-section-title">Quy trình quản lý & Công bố sao kê</h2>
+            <h2 id="process-heading" class="doc-section-title">Quy trình quản lý và công bố sao kê</h2>
             <p>Quy tắc đối soát 2 người bắt buộc, bảo mật thông tin và cập nhật minh bạch lên website.</p>
           </div>
 
@@ -179,7 +179,7 @@ const ledgerStatusMeta = summary.reconciledAt
         <section id="bao-cao" class="doc-section" aria-labelledby="report-heading">
           <div class="doc-section-header">
             <span class="eyebrow">Phần 4</span>
-            <h2 id="report-heading" class="doc-section-title">Báo cáo tổng kết & Cam kết trách nhiệm</h2>
+            <h2 id="report-heading" class="doc-section-title">Báo cáo tổng kết và cam kết trách nhiệm</h2>
             <p>Các nội dung bắt buộc nhóm sẽ công khai sau khi hoàn thành buổi chơi tại Mái ấm Thánh Tâm.</p>
           </div>
 
@@ -189,7 +189,7 @@ const ledgerStatusMeta = summary.reconciledAt
               <ul class="check-list">
                 <li>Tổng tiền ủng hộ đã đối soát và tiền bán quà lưu niệm, ghi sổ riêng biệt.</li>
                 <li>Danh sách vật phẩm, đồ dùng đã trao và biên bản có xác nhận của Mái ấm.</li>
-                <li>Hóa đơn, chứng từ mua sắm đã che thông tin riêng tư (PII).</li>
+                <li>Hóa đơn, chứng từ mua sắm đã che thông tin định danh cá nhân.</li>
                 <li>Số dư còn lại (nếu có) và phương án xử lý thống nhất với Mái ấm.</li>
               </ul>
             </div>

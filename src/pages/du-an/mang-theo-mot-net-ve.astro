@@ -4,11 +4,16 @@ import PageHero from '../../components/PageHero.astro';
 import ActivityList from '../../components/ActivityList.astro';
 import Timeline from '../../components/Timeline.astro';
 import ProjectProgress from '../../components/ProjectProgress.astro';
-import { CAMPAIGN_PROJECT, PROJECT_NEEDS, SAFETY_PRACTICES, PLAY_FLOW } from '../../data/campaign';
+import { CAMPAIGN_PROJECT, PROJECT_NEEDS, SAFETY_PRACTICES, PLAY_FLOW, PLANNED_SESSIONS } from '../../data/campaign';
 import { getPublishedJournalEntries } from '../../data/journal';
 
 const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Dự án' }];
 const publishedEntries = getPublishedJournalEntries();
+
+function formatSessionDate(iso: string): string {
+  const parts = iso.split('-');
+  return parts.length === 3 ? `${parts[2]}/${parts[1]}/${parts[0]}` : iso;
+}
 ---
 
 <Layout
@@ -24,14 +29,31 @@ const publishedEntries = getPublishedJournalEntries();
     title="Một buổi chơi có lựa chọn"
     titleId="project-heading"
     lead={CAMPAIGN_PROJECT.slogan}
-    description="Một buổi vui chơi sáng tạo tại Mái ấm, tạo điều kiện để mỗi em nhỏ tham gia phù hợp với sở thích và thể trạng, cùng hoạt động gây quỹ trao tặng vật phẩm thiết thực theo danh mục Mái ấm cần."
+    description="Buổi vui chơi sáng tạo và trao tặng vật phẩm thiết thực tại Mái ấm Thánh Tâm theo danh mục nhu cầu thực tế."
   >
-    <div slot="hero-bottom" class="roadmap-strip-wrap">
+    <div slot="hero-bottom" class="roadmap-board">
       <div class="roadmap-progress">
         <ProjectProgress compact />
       </div>
       <div class="roadmap-timeline">
+        <h2 class="sr-only">Lộ trình và tiến độ thực hiện</h2>
         <Timeline stages={CAMPAIGN_PROJECT.plannedStages} showDescriptions={false} />
+      </div>
+      <div class="planned-sessions-strip">
+        <h3 class="planned-sessions-title">Lịch sinh hoạt dự kiến tại Mái ấm</h3>
+        <ul class="planned-sessions-list">
+          {
+            PLANNED_SESSIONS.map((session) => (
+              <li class="session-item">
+                <span class="session-badge">{session.title}:</span>
+                <span class="session-datetime">
+                  <strong>{session.time}</strong> {session.weekday} <strong>{formatSessionDate(session.date)}</strong> (dự kiến)
+                </span>
+                <span class="session-desc"> — {session.description}</span>
+              </li>
+            ))
+          }
+        </ul>
       </div>
       <p class="roadmap-note">
         Lịch hai buổi do nhóm đề xuất, có thể điều chỉnh theo lịch sinh hoạt của Mái ấm.
@@ -109,9 +131,9 @@ const publishedEntries = getPublishedJournalEntries();
                 </div>
               </figure>
             </div>
-            <figcaption class="shelter-caption">
+            <p class="shelter-caption">
               Ảnh giới thiệu Mái ấm do nhóm cung cấp, được phép công bố. Đây không phải ảnh hoạt động của dự án.
-            </figcaption>
+            </p>
           </div>
         </div>
       </div>
@@ -169,7 +191,7 @@ const publishedEntries = getPublishedJournalEntries();
         <span class="chapter-tag">Nguyên tắc</span>
       </div>
       <div class="chapter-content">
-        <h2 id="safety-heading" class="chapter-title">Chuẩn bị kỹ lưỡng & Tôn trọng Mái ấm</h2>
+        <h2 id="safety-heading" class="chapter-title">Chuẩn bị kỹ lưỡng và tôn trọng Mái ấm</h2>
         <div class="safety-two-col">
           <div class="safety-card">
             <h3 class="safety-subheading">Chuẩn bị an toàn trước buổi chơi</h3>
@@ -201,7 +223,7 @@ const publishedEntries = getPublishedJournalEntries();
         <span class="chapter-tag">Nhật ký</span>
       </div>
       <div class="chapter-content">
-        <h2 id="project-journal-heading" class="chapter-title">Ghi chép hành trình & Kế hoạch chi tiết</h2>
+        <h2 id="project-journal-heading" class="chapter-title">Ghi chép hành trình và kế hoạch chi tiết</h2>
         <p class="chapter-lead">
           Chi tiết các góc hoạt động, vật liệu an toàn và quà lưu niệm gây quỹ được ghi chép và cập nhật liên tục.
         </p>
@@ -248,28 +270,70 @@ const publishedEntries = getPublishedJournalEntries();
 </Layout>
 
 <style>
-  /* Roadmap Strip in PageHero */
-  .roadmap-strip-wrap {
-    margin-top: var(--space-8);
-    padding-top: var(--space-6);
-    border-top: 1px solid var(--line);
+  /* Unified Roadmap Board in PageHero */
+  .roadmap-board {
+    margin-top: var(--space-6);
+    padding: var(--space-5);
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
     display: flex;
     flex-direction: column;
-    gap: var(--space-6);
+    gap: var(--space-4);
   }
 
   .roadmap-progress {
-    background: #ffffff;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-md);
-    padding: var(--space-4) var(--space-5);
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--line);
   }
 
   .roadmap-timeline {
-    background: #ffffff;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-md);
-    padding: var(--space-5);
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .planned-sessions-strip {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .planned-sessions-title {
+    font-size: var(--font-size-small);
+    font-weight: 700;
+    color: var(--brand);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0;
+  }
+
+  .planned-sessions-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .session-item {
+    font-size: var(--font-size-small);
+    line-height: 1.5;
+    color: var(--ink);
+  }
+
+  .session-badge {
+    font-weight: 700;
+    color: var(--brand);
+    margin-right: 4px;
+  }
+
+  .session-datetime {
+    color: var(--ink);
+  }
+
+  .session-desc {
+    color: var(--ink-2);
   }
 
   .roadmap-note {
@@ -694,6 +758,17 @@ const publishedEntries = getPublishedJournalEntries();
   }
 
   @media (max-width: 767px) {
+    .roadmap-board {
+      margin-top: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      gap: var(--space-3);
+    }
+
+    .roadmap-progress,
+    .roadmap-timeline {
+      padding-bottom: var(--space-2);
+    }
+
     .corners-grid-wrap :global(.activity-list) {
       grid-template-columns: 1fr;
     }

@@ -454,14 +454,30 @@ const hasPanel = (summaryItems && summaryItems.length > 0) || Astro.slots.has('p
   @media (max-width: 767px) {
     .page-hero {
       padding-top: var(--space-4);
-      padding-bottom: var(--space-10);
+      padding-bottom: var(--space-8);
+    }
+
+    .page-hero-container {
+      gap: var(--space-3);
+    }
+
+    .page-hero-main {
+      gap: var(--space-2);
     }
 
     .page-hero--paper,
-    .page-hero--plain,
     .page-hero--masthead {
-      padding-top: var(--space-5);
-      padding-bottom: var(--space-6);
+      padding-top: var(--space-4);
+      padding-bottom: var(--space-5);
+    }
+
+    .page-hero--plain {
+      padding-top: var(--space-3);
+      padding-bottom: var(--space-3);
+    }
+
+    .page-hero-breadcrumb .breadcrumb-link {
+      min-height: 36px;
     }
 
     .page-hero--masthead .page-hero-title {
@@ -470,9 +486,9 @@ const hasPanel = (summaryItems && summaryItems.length > 0) || Astro.slots.has('p
     }
 
     .page-hero-title::after {
-      width: 56px;
-      height: 5px;
-      margin-top: var(--space-4);
+      width: 48px;
+      height: 4px;
+      margin-top: var(--space-2);
     }
 
     .panel-card {
