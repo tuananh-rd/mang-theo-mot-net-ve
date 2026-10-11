@@ -1,0 +1,414 @@
+[
+  {
+    "tab": "dashboard",
+    "formControls": 1,
+    "unlabelledControls": 0,
+    "navigationFocusable": [
+      {
+        "tab": "dashboard",
+        "tabIndex": 0
+      },
+      {
+        "tab": "project",
+        "tabIndex": 0
+      },
+      {
+        "tab": "journal",
+        "tabIndex": 0
+      },
+      {
+        "tab": "media",
+        "tabIndex": 0
+      },
+      {
+        "tab": "products",
+        "tabIndex": 0
+      },
+      {
+        "tab": "finance",
+        "tabIndex": 0
+      },
+      {
+        "tab": "team",
+        "tabIndex": 0
+      },
+      {
+        "tab": "publish",
+        "tabIndex": 0
+      }
+    ],
+    "overflow": false
+  },
+  {
+    "tab": "project",
+    "formControls": 26,
+    "unlabelledControls": 0,
+    "navigationFocusable": [
+      {
+        "tab": "dashboard",
+        "tabIndex": 0
+      },
+      {
+        "tab": "project",
+        "tabIndex": 0
+      },
+      {
+        "tab": "journal",
+        "tabIndex": 0
+      },
+      {
+        "tab": "media",
+        "tabIndex": 0
+      },
+      {
+        "tab": "products",
+        "tabIndex": 0
+      },
+      {
+        "tab": "finance",
+        "tabIndex": 0
+      },
+      {
+        "tab": "team",
+        "tabIndex": 0
+      },
+      {
+        "tab": "publish",
+        "tabIndex": 0
+      }
+    ],
+    "overflow": false
+  },
+  {
+    "tab": "journal",
+    "formControls": 0,
+    "unlabelledControls": 0,
+    "navigationFocusable": [
+      {
+        "tab": "dashboard",
+        "tabIndex": 0
+      },
+      {
+        "tab": "project",
+        "tabIndex": 0
+      },
+      {
+        "tab": "journal",
+        "tabIndex": 0
+      },
+      {
+        "tab": "media",
+        "tabIndex": 0
+      },
+      {
+        "tab": "products",
+        "tabIndex": 0
+      },
+      {
+        "tab": "finance",
+        "tabIndex": 0
+      },
+      {
+        "tab": "team",
+        "tabIndex": 0
+      },
+      {
+        "tab": "publish",
+        "tabIndex": 0
+      }
+    ],
+    "overflow": false
+  },
+  {
+    "tab": "media",
+    "formControls": 8,
+    "unlabelledControls": 0,
+    "navigationFocusable": [
+      {
+        "tab": "dashboard",
+        "tabIndex": 0
+      },
+      {
+        "tab": "project",
+        "tabIndex": 0
+      },
+      {
+        "tab": "journal",
+        "tabIndex": 0
+      },
+      {
+        "tab": "media",
+        "tabIndex": 0
+      },
+      {
+        "tab": "products",
+        "tabIndex": 0
+      },
+      {
+        "tab": "finance",
+        "tabIndex": 0
+      },
+      {
+        "tab": "team",
+        "tabIndex": 0
+      },
+      {
+        "tab": "publish",
+        "tabIndex": 0
+      }
+    ],
+    "overflow": false
+  },
+  {
+    "tab": "products",
+    "formControls": 16,
+    "unlabelledControls": 0,
+    "navigationFocusable": [
+      {
+        "tab": "dashboard",
+        "tabIndex": 0
+      },
+      {
+        "tab": "project",
+        "tabIndex": 0
+      },
+      {
+        "tab": "journal",
+        "tabIndex": 0
+      },
+      {
+        "tab": "media",
+        "tabIndex": 0
+      },
+      {
+        "tab": "products",
+        "tabIndex": 0
+      },
+      {
+        "tab": "finance",
+        "tabIndex": 0
+      },
+      {
+        "tab": "team",
+        "tabIndex": 0
+      },
+      {
+        "tab": "publish",
+        "tabIndex": 0
+      }
+    ],
+    "overflow": false
+  },
+  {
+    "tab": "finance",
+    "formControls": 21,
+    "unlabelledControls": 0,
+    "navigationFocusable": [
+      {
+        "tab": "dashboard",
+        "tabIndex": 0
+      },
+      {
+        "tab": "project",
+        "tabIndex": 0
+      },
+      {
+        "tab": "journal",
+        "tabIndex": 0
+      },
+      {
+        "tab": "media",
+        "tabIndex": 0
+      },
+      {
+        "tab": "products",
+        "tabIndex": 0
+      },
+      {
+        "tab": "finance",
+        "tabIndex": 0
+      },
+      {
+        "tab": "team",
+        "tabIndex": 0
+      },
+      {
+        "tab": "publish",
+        "tabIndex": 0
+      }
+    ],
+    "overflow": false
+  },
+  {
+    "tab": "team",
+    "formControls": 61,
+    "unlabelledControls": 0,
+    "navigationFocusable": [
+      {
+        "tab": "dashboard",
+        "tabIndex": 0
+      },
+      {
+        "tab": "project",
+        "tabIndex": 0
+      },
+      {
+        "tab": "journal",
+        "tabIndex": 0
+      },
+      {
+        "tab": "media",
+        "tabIndex": 0
+      },
+      {
+        "tab": "products",
+        "tabIndex": 0
+      },
+      {
+        "tab": "finance",
+        "tabIndex": 0
+      },
+      {
+        "tab": "team",
+        "tabIndex": 0
+      },
+      {
+        "tab": "publish",
+        "tabIndex": 0
+      }
+    ],
+    "overflow": false
+  },
+  {
+    "tab": "publish",
+    "formControls": 0,
+    "unlabelledControls": 0,
+    "navigationFocusable": [
+      {
+        "tab": "dashboard",
+        "tabIndex": 0
+      },
+      {
+        "tab": "project",
+        "tabIndex": 0
+      },
+      {
+        "tab": "journal",
+        "tabIndex": 0
+      },
+      {
+        "tab": "media",
+        "tabIndex": 0
+      },
+      {
+        "tab": "products",
+        "tabIndex": 0
+      },
+      {
+        "tab": "finance",
+        "tabIndex": 0
+      },
+      {
+        "tab": "team",
+        "tabIndex": 0
+      },
+      {
+        "tab": "publish",
+        "tabIndex": 0
+      }
+    ],
+    "overflow": false
+  },
+  {
+    "mobileDrawer": {
+      "beforeEscape": "studio-sidebar open",
+      "afterEscape": "studio-sidebar",
+      "escapeClosed": true
+    },
+    "errors": []
+  },
+  {
+    "tab": "project",
+    "viewport": 375,
+    "overflow": false,
+    "formControls": 26
+  },
+  {
+    "tab": "journal",
+    "viewport": 375,
+    "overflow": false,
+    "formControls": 0
+  },
+  {
+    "tab": "media",
+    "viewport": 375,
+    "overflow": false,
+    "formControls": 8
+  },
+  {
+    "tab": "products",
+    "viewport": 375,
+    "overflow": false,
+    "formControls": 16
+  },
+  {
+    "tab": "finance",
+    "viewport": 375,
+    "overflow": false,
+    "formControls": 21
+  },
+  {
+    "tab": "team",
+    "viewport": 375,
+    "overflow": false,
+    "formControls": 61
+  },
+  {
+    "tab": "publish",
+    "viewport": 375,
+    "overflow": false,
+    "formControls": 0
+  },
+  {
+    "tab": "project",
+    "viewport": 768,
+    "overflow": false,
+    "formControls": 26
+  },
+  {
+    "tab": "journal",
+    "viewport": 768,
+    "overflow": false,
+    "formControls": 0
+  },
+  {
+    "tab": "media",
+    "viewport": 768,
+    "overflow": false,
+    "formControls": 8
+  },
+  {
+    "tab": "products",
+    "viewport": 768,
+    "overflow": false,
+    "formControls": 16
+  },
+  {
+    "tab": "finance",
+    "viewport": 768,
+    "overflow": false,
+    "formControls": 21
+  },
+  {
+    "tab": "team",
+    "viewport": 768,
+    "overflow": false,
+    "formControls": 61
+  },
+  {
+    "tab": "publish",
+    "viewport": 768,
+    "overflow": false,
+    "formControls": 0
+  }
+]
