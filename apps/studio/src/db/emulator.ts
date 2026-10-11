@@ -49,12 +49,17 @@ export class LocalD1Database implements D1Database {
     try {
       for (const stmt of statements) {
         const res = await stmt.run<T>();
+        if (res && res.success === false) {
+          throw new Error(res.error || 'D1 Batch Statement Failed');
+        }
         responses.push(res);
       }
       this.db.exec('COMMIT;');
       return responses;
     } catch (err) {
-      this.db.exec('ROLLBACK;');
+      try {
+        this.db.exec('ROLLBACK;');
+      } catch {}
       throw err;
     }
   }
@@ -99,10 +104,7 @@ class LocalD1PreparedStatement implements D1PreparedStatement {
         },
       };
     } catch (err: any) {
-      return {
-        success: false,
-        error: err.message,
-      };
+      throw new Error(`D1 Query Error: ${err.message} [SQL: ${this.query}]`);
     }
   }
 
@@ -118,10 +120,7 @@ class LocalD1PreparedStatement implements D1PreparedStatement {
         },
       };
     } catch (err: any) {
-      return {
-        success: false,
-        error: err.message,
-      };
+      throw new Error(`D1 Execution Error: ${err.message} [SQL: ${this.query}]`);
     }
   }
 }

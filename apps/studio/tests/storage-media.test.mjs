@@ -137,16 +137,24 @@ test('Media Auth: Tệp media pending/chưa duyệt từ chối yêu cầu unaut
       CF_ACCESS_AUD: 'aud-test-123',
     };
 
-    // 2. Yêu cầu tệp approved không cần đăng nhập -> HTTP 200, Cache-Control public
-    const reqApproved = new Request(`https://test-domain.website/${approvedKey}`, { method: 'GET' });
-    const resApproved = await worker.fetch(reqApproved, env, {});
-    assert.equal(resApproved.status, 200);
-    assert.match(resApproved.headers.get('Cache-Control') || '', /public/);
+    // 2. Yêu cầu tệp media không có xác thực trong production -> HTTP 401 Unauthorized
+    const reqApprovedUnauth = new Request(`https://test-domain.website/${approvedKey}`, { method: 'GET' });
+    const resApprovedUnauth = await worker.fetch(reqApprovedUnauth, env, {});
+    assert.equal(resApprovedUnauth.status, 401);
 
-    // 3. Yêu cầu tệp pending không có xác thực -> HTTP 401 Unauthorized
     const reqPendingUnauth = new Request(`https://test-domain.website/${pendingKey}`, { method: 'GET' });
     const resPendingUnauth = await worker.fetch(reqPendingUnauth, env, {});
     assert.equal(resPendingUnauth.status, 401);
+
+    // 3. Yêu cầu có xác thực nội bộ -> HTTP 200, Cache-Control private, no-store
+    const devEnv = { ...env, STUDIO_ENVIRONMENT: 'development' };
+    const reqAuth = new Request(`http://127.0.0.1:4330/${approvedKey}`, {
+      method: 'GET',
+      headers: { 'x-dev-user': 'admin@test.vn' },
+    });
+    const resAuth = await worker.fetch(reqAuth, devEnv, {});
+    assert.equal(resAuth.status, 200);
+    assert.match(resAuth.headers.get('Cache-Control') || '', /private, no-store/);
   } finally {
     if (fs.existsSync(testDir)) {
       fs.rmSync(testDir, { recursive: true, force: true });

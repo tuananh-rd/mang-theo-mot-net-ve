@@ -369,7 +369,7 @@ export const DEFAULT_PROJECT_DATA: ProjectModuleData = {
   title: 'Mang Theo Một Nét Vẽ',
   slogan: 'Một buổi chơi phù hợp, một món quà đúng nhu cầu.',
   summary:
-    'Bảy sinh viên Đại học FPT Hà Nội tổ chức buổi vui chơi sáng tạo cho các em tại Mái ấm Thánh Tâm Xuy Xá, và gây quỹ để tặng những vật phẩm Mái ấm đang cần.',
+    'Bảy sinh viên Đại học FPT Hà Nội sẽ tổ chức một buổi vui chơi sáng tạo cho các em tại Mái ấm Thánh Tâm Xuy Xá, và gây quỹ để tặng những vật phẩm Mái ấm đang cần.',
   location: 'Mái ấm Thánh Tâm Xuy Xá (Mỹ Đức, Hà Nội) & Campus FPT Hòa Lạc',
   executionStatus: 'in_progress',
   statusNotice: 'Đang triển khai · tuần 1',
@@ -408,28 +408,32 @@ export const DEFAULT_PROJECT_DATA: ProjectModuleData = {
     {
       step: '01',
       title: 'Xác nhận và chuẩn bị',
-      description: 'Thống nhất với Mái ấm về lịch, hoạt động, vật liệu và danh mục quà; chuẩn bị đạo cụ an toàn.',
+      description:
+        'Thống nhất với Mái ấm về lịch, hoạt động, vật liệu và danh mục quà; chuẩn bị đạo cụ an toàn.',
     },
     {
       step: '02',
       title: 'Gây quỹ',
-      description: 'Tiếp nhận ủng hộ qua chuyển khoản và dự kiến bán quà lưu niệm. Hai nguồn được ghi riêng.',
+      description:
+        'Tiếp nhận ủng hộ qua chuyển khoản và dự kiến bán quà lưu niệm. Hai nguồn được ghi riêng; khoản ủng hộ được công bố sau đối soát.',
     },
     {
       step: '03',
       title: 'Buổi chơi tại Mái ấm',
-      description: '14:00 Thứ Bảy 24/10/2026 (dự kiến). Bốn góc hoạt động, có hai lần nghỉ.',
+      description:
+        '14:00 Thứ Bảy 24/10/2026 (dự kiến). Bốn góc hoạt động, có hai lần nghỉ; có thể rút ngắn theo ý Mái ấm.',
     },
     {
       step: '04',
       title: 'Đối soát và trao quà',
-      description: '14:00 Thứ Bảy 31/10/2026 (dự kiến). Chốt quỹ, mua vật phẩm theo danh mục và trao tặng.',
+      description:
+        '14:00 Thứ Bảy 31/10/2026 (dự kiến). Chốt quỹ, mua vật phẩm theo danh mục Mái ấm xác nhận và trao tặng.',
     },
   ],
   needs: [
     {
       title: 'Một buổi chơi linh hoạt',
-      description: 'Có thời gian nghỉ và nhiều cách tham gia, phù hợp thể trạng từng em.',
+      description: 'Có thời gian nghỉ và nhiều cách tham gia, vì các em ở nhiều độ tuổi và mức hỗ trợ khác nhau.',
     },
     {
       title: 'Mái ấm giữ quyền quyết định',
@@ -437,14 +441,14 @@ export const DEFAULT_PROJECT_DATA: ProjectModuleData = {
     },
     {
       title: 'Hỗ trợ thiết thực, minh bạch',
-      description: 'Chuyển nguồn quỹ thành hiện vật đúng danh mục xác nhận, có chứng từ hóa đơn.',
+      description: 'Chuyển nguồn quỹ thành hiện vật đúng danh mục Mái ấm xác nhận, có chứng từ và biên bản.',
     },
   ],
   safetyPractices: [
     'Chuồn chuồn mài nhẵn, màu gốc nước, tượng không cạnh nhọn.',
-    'Chia nhóm nhỏ theo lượt, luôn có góc nghỉ ngơi.',
-    'Trò chơi vận động nhẹ nhàng, không mang tính loại trừ.',
-    'Chỉ chụp ảnh trong phạm vi cho phép của Mái ấm.',
+    'Chia nhóm nhỏ theo lượt, luôn có góc nghỉ.',
+    'Trò chơi vận động nhẹ, có thể chơi khi ngồi, không loại người chơi.',
+    'Chỉ ghi hình trong phạm vi Mái ấm cho phép.',
   ],
   progress: {
     currentWeek: 1,
@@ -484,49 +488,105 @@ export const DEFAULT_PROJECT_DATA: ProjectModuleData = {
 
 export const DEFAULT_JOURNAL_DATA: JournalArticle[] = [
   {
-    slug: 'khoi-dong-du-an',
-    title: 'Khởi động dự án Mang Theo Một Nét Vẽ',
-    summary: 'Nhóm Lăng Kính chính thức khởi động dự án tình nguyện với mục tiêu mang đến niềm vui cho các em nhỏ tại Mái ấm Thánh Tâm Xuy Xá.',
+    slug: 'ke-hoach-bon-goc-choi',
+    title: 'Kế hoạch bốn góc chơi có lựa chọn tại Mái ấm Thánh Tâm',
+    summary: 'Bốn góc hoạt động được nhóm chuẩn bị vừa sức, ưu tiên an toàn và quyền tự do tham gia, đổi lượt, quan sát hoặc nghỉ ngơi của các em.',
     category: 'ke-hoach',
     categoryLabel: 'Kế hoạch',
-    publishedAt: '2026-10-01',
-    eventDate: '2026-10-01',
-    eventStatus: 'completed',
+    publishedAt: '2026-10-11',
+    eventDate: '2026-10-24',
+    eventStatus: 'planned',
     status: 'published',
+    coverImage: {
+      src: '/images/illustrations/a01.webp',
+      alt: 'Bảng màu nước và cọ vẽ cho hoạt động tạo hình và tô màu',
+      caption: 'Ảnh minh họa họa cụ — kế hoạch góc trải nghiệm, chưa phải ảnh thực tế của buổi chơi.',
+      creditName: 'Pavel Danilyuk',
+      creditSource: 'Pexels',
+      creditUrl: 'https://www.pexels.com/photo/watercolors-and-paintbrushes-6925031/',
+    },
     content: [
       {
         type: 'paragraph',
-        text: 'Dự án "Mang Theo Một Nét Vẽ" được khởi xướng bởi 7 sinh viên trường Đại học FPT với tâm nguyện tạo ra một không gian sinh hoạt, vui chơi sáng tạo an toàn và gần gũi.',
+        text: 'Tại Mái ấm Thánh Tâm Xuy Xá (Mỹ Đức, Hà Nội), nhóm sinh viên Lăng Kính dự kiến tổ chức một buổi vui chơi sáng tạo trong khoảng 180 phút vào chiều Thứ Bảy 24/10/2026. Để buổi chơi thực sự mang lại niềm vui vừa sức, nhóm xây dựng kế hoạch gồm bốn góc hoạt động với hai lượt chơi tại bàn chuồn chuồn và tô tượng xen kẽ trò chơi chung và nghỉ giải lao theo lịch trình dự kiến, cho phép các em tự do chọn góc chơi hoặc nghỉ ngơi.',
       },
       {
         type: 'heading',
         level: 2,
-        text: 'Mục tiêu trọng tâm',
+        text: 'Bốn góc trải nghiệm theo kế hoạch',
       },
       {
         type: 'list',
         items: [
-          'Tổ chức 4 góc hoạt động nghệ thuật và vận động nhẹ',
-          'Vận động gây quỹ ủng hộ hiện vật thiết yếu theo nhu cầu Mái ấm',
-          'Đảm bảo 100% minh bạch tài chính và an toàn cho các em',
+          'Góc tạo hình: Trang trí những chú chuồn chuồn tre thăng bằng và vẽ tranh tự do theo sở thích.',
+          'Góc tô màu: Thỏa sức phối màu trên các mẫu tượng thạch cao đa dạng hình dáng và kích cỡ (10 cm).',
+          'Góc âm nhạc: Giao lưu hát cùng nhau với các giai điệu thiếu nhi gần gũi, ấm áp và không áp lực biểu diễn.',
+          'Góc vận động nhẹ: Các trò chơi tương tác vừa sức gồm bowling mini, chuyền bóng nhẹ nhàng và thẻ màu ghép hình.',
         ],
+      },
+      {
+        type: 'callout',
+        text: 'Nguyên tắc hàng đầu của nhóm: Mỗi em nhỏ có quyền tự do lựa chọn góc hoạt động yêu thích, đổi lượt, quan sát hoặc nghỉ ngơi bất kỳ lúc nào; tuyệt đối không giao chỉ tiêu hoàn thành sản phẩm cho các em.',
+      },
+      {
+        type: 'heading',
+        level: 2,
+        text: 'Chuẩn bị an toàn và phối hợp cùng Mái ấm',
+      },
+      {
+        type: 'paragraph',
+        text: 'Theo nguyên tắc an toàn của nhóm, toàn bộ vật liệu trước buổi chơi đều được lên kế hoạch kiểm tra kỹ lưỡng, ưu tiên màu vẽ gốc nước dễ rửa sạch và tránh các chi tiết cạnh nhọn sắc theo quy chuẩn bảo vệ an toàn cho trẻ. Kế hoạch tổ chức, khung giờ chi tiết và cách thức hỗ trợ cần được thống nhất và duyệt trước với Mái ấm trước khi triển khai.',
+      },
+      {
+        type: 'quote',
+        text: 'Đồ các em làm ra trong buổi chơi hoàn toàn thuộc về các em giữ lại làm kỷ niệm. Nhóm Lăng Kính tuyệt đối không thu lại bất kỳ sản phẩm nào để bán hay gây quỹ.',
       },
     ],
   },
   {
-    slug: 'khao-sat-thuc-te',
-    title: 'Khảo sát thực tế và thống nhất nhu cầu cùng Mái ấm',
-    summary: 'Đại diện nhóm đã có buổi gặp gỡ, trao đổi trực tiếp với ban phụ trách Mái ấm Thánh Tâm để lắng nghe và xây dựng kế hoạch phù hợp.',
-    category: 'chuan-bi',
-    categoryLabel: 'Chuẩn bị',
-    publishedAt: '2026-10-05',
-    eventDate: '2026-10-04',
-    eventStatus: 'completed',
+    slug: 'gioi-thieu-qua-luu-niem-gay-quy',
+    title: 'Giới thiệu hai món quà lưu niệm gây quỹ và kế hoạch mở bán',
+    summary: 'Chuồn chuồn tre mộc và móc khóa Lăng Kính do nhóm sinh viên Lăng Kính chuẩn bị theo kế hoạch gây quỹ cho buổi chơi và vật phẩm tặng Mái ấm.',
+    category: 'ke-hoach',
+    categoryLabel: 'Kế hoạch',
+    publishedAt: '2026-10-11',
+    eventDate: null,
+    eventStatus: null,
     status: 'published',
+    coverImage: {
+      src: '/images/san-pham/chuon-chuon-tre.webp',
+      alt: 'Những chú chuồn chuồn tre sơn nhiều màu đặt trên khay mây, có chân đế',
+      caption: 'Ảnh chuồn chuồn tre do nhóm cung cấp để tham khảo; hiện sản phẩm đang ở trạng thái chờ mở bán.',
+    },
     content: [
       {
         type: 'paragraph',
-        text: 'Buổi khảo sát giúp nhóm hiểu rõ hơn về đặc điểm sinh hoạt, các lưu ý về sức khỏe và an toàn của các em nhỏ tại cơ sở.',
+        text: 'Để chuẩn bị kinh phí tổ chức buổi chơi và gửi tặng Mái ấm Thánh Tâm những vật phẩm thiết thực theo đúng danh mục Mái ấm xác nhận, nhóm sinh viên Lăng Kính đã lên kế hoạch chuẩn bị hai sản phẩm quà lưu niệm thủ công nhỏ mang ý nghĩa của dự án.',
+      },
+      {
+        type: 'heading',
+        level: 2,
+        text: 'Hai sản phẩm quà lưu niệm dự kiến',
+      },
+      {
+        type: 'list',
+        items: [
+          'Chuồn chuồn tre kèm đế: Kế hoạch chuẩn bị 50 phôi tre mộc 12 cm theo đề xuất, trong đó 30 bộ có đế dự kiến bán gây quỹ với giá tham khảo 40.000đ/bộ; 20 chiếc để lại Mái ấm theo lựa chọn của cơ sở.',
+          'Móc khóa Lăng Kính: Dự kiến 100 chiếc móc khóa Lăng Kính với giá tham khảo 10.000đ/chiếc. Tranh vẽ của các em chỉ được in khi có sự đồng ý phù hợp từ Mái ấm và người giám hộ.',
+        ],
+      },
+      {
+        type: 'callout',
+        text: 'Trạng thái hiện tại: Chưa mở bán. Website hiện chưa nhận đơn đặt hàng hoặc thanh toán sản phẩm. Kế hoạch mở bán dự kiến diễn ra tại khuôn viên Đại học FPT Hòa Lạc sau khi nhóm hoàn tất chuẩn bị mẫu và được phê duyệt.',
+      },
+      {
+        type: 'heading',
+        level: 2,
+        text: 'Nguyên tắc minh bạch và hạch toán độc lập',
+      },
+      {
+        type: 'paragraph',
+        text: 'Tiền bán quà lưu niệm được nhóm ghi sổ riêng, hoàn toàn tách biệt với các khoản ủng hộ qua tài khoản chuyển khoản. Theo kế hoạch, nguồn thu này dùng để bù đắp chi phí nguyên liệu và tổ chức; phần thặng dư nếu có được dùng trực tiếp cho buổi chơi và quà tặng Mái ấm.',
       },
     ],
   },
@@ -768,6 +828,6 @@ export function validateModuleData(moduleKey: ModuleKey, data: unknown): { isVal
     case 'team':
       return validateTeamModuleData(data);
     default:
-      return { isValid: true, errors: [] };
+      return { isValid: false, errors: [`Phân hệ '${moduleKey}' không hợp lệ hoặc không được hỗ trợ.`] };
   }
 }

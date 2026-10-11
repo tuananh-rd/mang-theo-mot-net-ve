@@ -10,9 +10,10 @@ import { validateCsrf } from '../auth/middleware.js';
 import { getDefaultModuleData, validateModuleData } from '../schemas/index.js';
 import { sniffImageFormat, MAX_FILE_SIZE_BYTES, checkAssetUsageInDrafts } from '../storage/media-sniffer.js';
 import { createPublicationSnapshot } from '../publish/adapter.js';
-import { exportApprovedSnapshot } from '../publish/consumer.js';
 import { triggerGitHubPublication } from '../publish/github.js';
 import { validateDonationCSV } from '../../../../tools/content-studio/csv-validator.mjs';
+
+const VALID_MODULES: ModuleKey[] = ['project', 'journal', 'products', 'finance', 'team'];
 
 function jsonResponse(data: unknown, status = 200, headers: Record<string, string> = {}): Response {
   return new Response(JSON.stringify(data), {
@@ -52,7 +53,11 @@ export async function handleApiRequest(
   // 2. Lấy bản nháp của phân hệ: GET /api/drafts/:moduleKey
   const draftMatch = path.match(/^\/api\/drafts\/([a-z0-9-]+)$/);
   if (draftMatch && method === 'GET') {
-    const moduleKey = draftMatch[1] as ModuleKey;
+    const rawModuleKey = draftMatch[1];
+    if (!VALID_MODULES.includes(rawModuleKey as ModuleKey)) {
+      return errorResponse(`Phân hệ '${rawModuleKey}' không hợp lệ hoặc không được hỗ trợ.`, 400);
+    }
+    const moduleKey = rawModuleKey as ModuleKey;
     let draft = await dbClient.getDraft(moduleKey);
     if (!draft) {
       // Khởi tạo dữ liệu hạt giống nếu chưa có
@@ -74,7 +79,11 @@ export async function handleApiRequest(
     validateCsrf(request);
     assertCanEdit(user.role);
 
-    const moduleKey = draftMatch[1] as ModuleKey;
+    const rawModuleKey = draftMatch[1];
+    if (!VALID_MODULES.includes(rawModuleKey as ModuleKey)) {
+      return errorResponse(`Phân hệ '${rawModuleKey}' không hợp lệ hoặc không được hỗ trợ.`, 400);
+    }
+    const moduleKey = rawModuleKey as ModuleKey;
     const body = await request.json() as { data: unknown; expectedHash?: string; comment?: string };
 
     if (!body || body.data === undefined) {
@@ -116,7 +125,11 @@ export async function handleApiRequest(
   // 4. Lịch sử phiên bản: GET /api/revisions/:moduleKey
   const revisionsMatch = path.match(/^\/api\/revisions\/([a-z0-9-]+)$/);
   if (revisionsMatch && method === 'GET') {
-    const moduleKey = revisionsMatch[1] as ModuleKey;
+    const rawModuleKey = revisionsMatch[1];
+    if (!VALID_MODULES.includes(rawModuleKey as ModuleKey)) {
+      return errorResponse(`Phân hệ '${rawModuleKey}' không hợp lệ hoặc không được hỗ trợ.`, 400);
+    }
+    const moduleKey = rawModuleKey as ModuleKey;
     const limit = parseInt(url.searchParams.get('limit') || '20', 10);
     const revisions = await dbClient.listRevisions(moduleKey, limit);
     return jsonResponse({ revisions, success: true });
@@ -363,7 +376,7 @@ export async function handleApiRequest(
     });
   }
 
-  // 14. Trích xuất Bản chụp đã duyệt sang thư mục Astro: POST /api/publications/:id/export
+  // 14. Trích xuất Bản chụp đã duyệt: POST /api/publications/:id/export
   const exportMatch = path.match(/^\/api\/publications\/([^/]+)\/export$/);
   if (exportMatch && method === 'POST') {
     validateCsrf(request);
@@ -375,18 +388,25 @@ export async function handleApiRequest(
       return errorResponse('Không tìm thấy yêu cầu xuất bản.', 404);
     }
 
-    const exportResult = exportApprovedSnapshot(pub.snapshot);
-    if (!exportResult.success) {
-      return errorResponse(`Lỗi trích xuất bản chụp: ${exportResult.error}`, 500);
+    if (pub.status !== 'approved') {
+      return errorResponse(`Yêu cầu xuất bản chưa được phê duyệt (trạng thái: ${pub.status}). Chỉ có thể xuất bản bản chụp đã được duyệt.`, 400);
     }
 
     await dbClient.recordAuditLog(user.email, 'EXPORT_SNAPSHOT', 'system', {
       pubId,
-      filesWritten: exportResult.filesWritten,
-      snapshotHash: exportResult.snapshotHash,
+      snapshotHash: pub.snapshot.sha256,
     });
 
-    return jsonResponse({ success: true, exportResult });
+    return jsonResponse({
+      success: true,
+      pubId,
+      snapshotHash: pub.snapshot.sha256,
+      exportedFiles: {
+        'published-snapshot.json': pub.snapshot,
+        'journal-entries.json': pub.snapshot.modules?.journal || [],
+        'product-sales-config.json': pub.snapshot.modules?.products || {},
+      },
+    });
   }
 
   // 15. Tạo Pull Request GitHub hoặc kích hoạt triển khai: POST /api/publications/:id/publish-git
@@ -401,9 +421,15 @@ export async function handleApiRequest(
       return errorResponse('Không tìm thấy yêu cầu xuất bản.', 404);
     }
 
+    if (pub.status !== 'approved') {
+      return errorResponse(`Yêu cầu xuất bản chưa được phê duyệt (trạng thái: ${pub.status}). Chỉ có thể xuất bản lên GitHub khi đã được duyệt.`, 400);
+    }
+
     const gitResult = await triggerGitHubPublication(pub, env);
     if (!gitResult.success) {
-      return errorResponse(`Lỗi tích hợp GitHub: ${gitResult.error}`, 500);
+      return errorResponse(`Lỗi tích hợp GitHub: ${gitResult.error || gitResult.message}`, gitResult.error === 'not_configured' ? 503 : 500, {
+        gitResult,
+      });
     }
 
     await dbClient.recordAuditLog(user.email, 'TRIGGER_GIT_PUBLISH', 'system', {

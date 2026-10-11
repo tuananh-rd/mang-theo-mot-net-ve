@@ -87,23 +87,10 @@ test('Xuất bản: Kiểm tra tính Idempotency và Four-Eyes trong D1', async 
     /Người tạo yêu cầu không được tự duyệt/
   );
 
-  // Người duyệt 1
-  const approved1 = await client.reviewPublication(pub1.id, 'reviewer1@test.vn', 'approve');
-  assert.equal(approved1.approvedBy, 'reviewer1@test.vn');
-  assert.equal(approved1.status, 'pending_review');
-
-  // Người duyệt 1 không được ký duyệt lần 2
-  await assert.rejects(
-    async () => {
-      await client.reviewPublication(pub1.id, 'reviewer1@test.vn', 'approve');
-    },
-    /Cần người duyệt thứ hai độc lập/
-  );
-
-  // Người duyệt 2 độc lập -> Chuyển trạng thái sang approved
-  const approved2 = await client.reviewPublication(pub1.id, 'reviewer2@test.vn', 'approve');
-  assert.equal(approved2.secondReviewer, 'reviewer2@test.vn');
-  assert.equal(approved2.status, 'approved');
+  // Người duyệt độc lập (Independent Reviewer) -> Chuyển trạng thái sang approved
+  const approved = await client.reviewPublication(pub1.id, 'reviewer1@test.vn', 'approve');
+  assert.equal(approved.approvedBy, 'reviewer1@test.vn');
+  assert.equal(approved.status, 'approved');
 });
 
 test('Xuất bản: Trích xuất Snapshot được duyệt sang dữ liệu tĩnh Astro (Snapshot Consumer)', async () => {

@@ -363,6 +363,24 @@ export function renderStudioHtml(session: AuthSession): string {
       .content-area {
         padding: 16px;
       }
+      .page-title {
+        font-size: 1rem;
+        max-width: 150px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .top-bar {
+        padding: 10px 14px;
+        gap: 8px;
+      }
+      .user-pill {
+        padding: 4px 8px;
+        font-size: 0.75rem;
+      }
+      .user-pill .user-email {
+        display: none;
+      }
     }
   </style>
 </head>
@@ -378,49 +396,49 @@ export function renderStudioHtml(session: AuthSession): string {
     </div>
     <ul class="nav-list">
       <li class="nav-item">
-        <a class="nav-link active" data-tab="dashboard">
+        <a class="nav-link active" data-tab="dashboard" href="#dashboard" tabindex="0">
           <span class="nav-icon">📊</span>
           <span>1. Tổng quan</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-tab="project">
+        <a class="nav-link" data-tab="project" href="#project" tabindex="0">
           <span class="nav-icon">📖</span>
           <span>2. Dự án & Thông điệp</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-tab="journal">
+        <a class="nav-link" data-tab="journal" href="#journal" tabindex="0">
           <span class="nav-icon">📝</span>
           <span>3. Nhật ký hành trình</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-tab="media">
+        <a class="nav-link" data-tab="media" href="#media" tabindex="0">
           <span class="nav-icon">🖼️</span>
           <span>4. Thư viện Media</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-tab="products">
+        <a class="nav-link" data-tab="products" href="#products" tabindex="0">
           <span class="nav-icon">🛍️</span>
           <span>5. Sản phẩm & Mở bán</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-tab="finance">
+        <a class="nav-link" data-tab="finance" href="#finance" tabindex="0">
           <span class="nav-icon">💰</span>
           <span>6. Tài chính & Sao kê</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-tab="team">
+        <a class="nav-link" data-tab="team" href="#team" tabindex="0">
           <span class="nav-icon">👥</span>
           <span>7. Nhóm, FAQ & SEO</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-tab="publish">
+        <a class="nav-link" data-tab="publish" href="#publish" tabindex="0">
           <span class="nav-icon">🚀</span>
           <span>8. Lịch sử & Xuất bản</span>
         </a>
@@ -430,8 +448,8 @@ export function renderStudioHtml(session: AuthSession): string {
       isDev
         ? `
     <div style="padding: 16px; border-top: 1px solid #2D3748;">
-      <div style="font-size: 0.75rem; color: #A0AEC0; margin-bottom: 6px; text-transform: uppercase; font-weight: 700;">Chế độ Dev: Chuyển vai trò</div>
-      <select id="devRoleSelect" class="form-control" style="background: #2D3748; color: #FFFFFF; border-color: #4A5568; font-size: 0.85rem;">
+      <label for="devRoleSelect" style="display: block; font-size: 0.75rem; color: #A0AEC0; margin-bottom: 6px; text-transform: uppercase; font-weight: 700;">Chế độ Dev: Chuyển vai trò</label>
+      <select id="devRoleSelect" class="form-control" aria-label="Chế độ Dev: Chuyển vai trò" style="background: #2D3748; color: #FFFFFF; border-color: #4A5568; font-size: 0.85rem;">
         <option value="admin" ${user.role === 'admin' ? 'selected' : ''}>Quản trị viên (Admin)</option>
         <option value="editor" ${user.role === 'editor' ? 'selected' : ''}>Biên tập viên (Editor)</option>
         <option value="reviewer" ${user.role === 'reviewer' ? 'selected' : ''}>Người duyệt (Reviewer)</option>
@@ -445,7 +463,7 @@ export function renderStudioHtml(session: AuthSession): string {
   <main class="studio-main">
     <header class="top-bar">
       <div class="top-left">
-        <button class="mobile-menu-btn" id="toggleSidebarBtn" aria-label="Menu">☰</button>
+        <button class="mobile-menu-btn" id="toggleSidebarBtn" aria-label="Mở menu điều hướng">☰</button>
         <h1 class="page-title" id="pageHeading">Tổng quan hệ thống</h1>
       </div>
       <div class="top-right">
@@ -454,7 +472,7 @@ export function renderStudioHtml(session: AuthSession): string {
           <span>Có thay đổi chưa lưu</span>
         </div>
         <div class="user-pill">
-          <span>${escapeHtml(user.email)}</span>
+          <span class="user-email">${escapeHtml(user.email)}</span>
           <span class="role-badge ${escapeHtml(user.role)}">${escapeHtml(user.role)}</span>
         </div>
       </div>
@@ -510,11 +528,47 @@ export function renderStudioHtml(session: AuthSession): string {
       const navLinks = document.querySelectorAll('.nav-link');
       const devRoleSelect = document.getElementById('devRoleSelect');
 
-      // Toggle Sidebar Mobile
+      // Toggle Sidebar Mobile & Keyboard Escape Handler
       if (toggleSidebarBtn) {
         toggleSidebarBtn.addEventListener('click', () => {
           sidebar.classList.toggle('open');
         });
+      }
+
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && sidebar.classList.contains('open')) {
+          sidebar.classList.remove('open');
+        }
+      });
+
+      function ensureAccessibleLabels() {
+        document.querySelectorAll('main input, main textarea, main select').forEach((el, index) => {
+          if (!el.getAttribute('aria-label') && !el.getAttribute('aria-labelledby') && (!el.labels || !el.labels.length)) {
+            const parentLabel = el.closest('label');
+            if (parentLabel) {
+              return;
+            }
+            const formGroup = el.closest('.form-group');
+            const prevLabel = formGroup ? formGroup.querySelector('label') : null;
+            if (prevLabel) {
+              const id = el.id || ('ctrl_' + (el.name || 'input') + '_' + index);
+              el.id = id;
+              prevLabel.htmlFor = id;
+              const text = prevLabel.textContent.trim().replace(/\\*$/, '').trim();
+              el.setAttribute('aria-label', text);
+            } else {
+              const fallback = el.placeholder || el.name || ('Trường nhập liệu ' + index);
+              el.setAttribute('aria-label', fallback);
+            }
+          }
+        });
+      }
+
+      const contentObserver = new MutationObserver(() => {
+        ensureAccessibleLabels();
+      });
+      if (tabContent) {
+        contentObserver.observe(tabContent, { childList: true, subtree: true });
       }
 
       // Dev Role Switcher
@@ -614,6 +668,7 @@ export function renderStudioHtml(session: AuthSession): string {
             await renderPublishView();
             break;
         }
+        ensureAccessibleLabels();
       }
 
       // ==========================================
@@ -1248,31 +1303,90 @@ export function renderStudioHtml(session: AuthSession): string {
       // ==========================================
       async function renderMediaLibrary() {
         const res = await fetchApi('/api/media');
-        const assets = res.ok ? res.data.assets || [] : [];
+        const dbAssets = res.ok ? res.data.assets || [] : [];
+
+        // Hợp nhất danh mục media từ D1 và các tài nguyên chiến dịch đã được phê duyệt
+        const defaultApprovedAssets = [
+          {
+            id: 'ast-approved-01',
+            filename: 'a01.webp',
+            contentType: 'image/webp',
+            sizeBytes: 54200,
+            status: 'approved',
+            alt: 'Minh họa Chuồn chuồn tre thăng bằng',
+            caption: 'Ảnh minh họa sản phẩm gây quỹ thủ công',
+            creditName: 'Nhóm Lăng Kính',
+            source: 'Chiến dịch',
+            isIllustration: 1,
+            focalX: 50,
+            focalY: 50,
+            r2Key: 'images/illustrations/a01.webp',
+          },
+          {
+            id: 'ast-approved-02',
+            filename: 'qr-ung-ho-techcombank.png',
+            contentType: 'image/png',
+            sizeBytes: 88400,
+            status: 'approved',
+            alt: 'Mã QR tài khoản Techcombank chính thức',
+            caption: 'Mã QR tiếp nhận ủng hộ Techcombank',
+            creditName: 'Dự án MTMNV',
+            source: 'Tài khoản chính thức C07',
+            isIllustration: 0,
+            focalX: 50,
+            focalY: 50,
+            r2Key: 'images/ung-ho/qr-ung-ho-techcombank.png',
+          },
+        ];
+
+        const allAssets = [...dbAssets];
+        for (const def of defaultApprovedAssets) {
+          if (!allAssets.some(a => a.filename === def.filename)) {
+            allAssets.push(def);
+          }
+        }
 
         tabContent.innerHTML = \`
           <div class="card">
-            <div class="card-title">Tải lên tệp Media an toàn (R2 Storage)</div>
+            <div class="card-title">Tải lên tệp Media an toàn (R2 Storage & Magic Bytes Guard)</div>
             <form id="mediaUploadForm" enctype="multipart/form-data">
               <div class="form-row">
                 <div class="form-group">
-                  <label>Chọn tệp ảnh (JPEG, PNG, WebP, AVIF - Tối đa 5MB) *</label>
-                  <input type="file" name="file" class="form-control" accept="image/jpeg,image/png,image/webp,image/avif" required>
+                  <label for="media_file">Chọn tệp ảnh (JPEG, PNG, WebP, AVIF - Tối đa 5MB) *</label>
+                  <input type="file" id="media_file" name="file" class="form-control" aria-label="Chọn tệp ảnh" accept="image/jpeg,image/png,image/webp,image/avif" required>
                   <div class="hint">Hệ thống kiểm tra magic bytes thực tế, từ chối mã SVG/Script/HTML.</div>
                 </div>
                 <div class="form-group">
-                  <label>Mô tả ảnh cho khả năng tiếp cận (Alt Text) *</label>
-                  <input type="text" name="alt" class="form-control" placeholder="Mô tả cụ thể nội dung bức ảnh..." required>
+                  <label for="media_alt">Mô tả ảnh cho khả năng tiếp cận (Alt Text) *</label>
+                  <input type="text" id="media_alt" name="alt" class="form-control" aria-label="Mô tả ảnh cho khả năng tiếp cận" placeholder="Mô tả cụ thể nội dung bức ảnh..." required>
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group">
-                  <label>Chú thích (Caption)</label>
-                  <input type="text" name="caption" class="form-control" placeholder="Chú thích hiển thị dưới ảnh...">
+                  <label for="media_caption">Chú thích (Caption)</label>
+                  <input type="text" id="media_caption" name="caption" class="form-control" aria-label="Chú thích" placeholder="Chú thích hiển thị dưới ảnh...">
                 </div>
                 <div class="form-group">
-                  <label>Tác giả / Nguồn ảnh (Credit Name)</label>
-                  <input type="text" name="creditName" class="form-control" placeholder="Ví dụ: Nhóm Lăng Kính">
+                  <label for="media_creditName">Tác giả / Nguồn ảnh (Credit Name)</label>
+                  <input type="text" id="media_creditName" name="creditName" class="form-control" aria-label="Tác giả hoặc nguồn ảnh" placeholder="Ví dụ: Nhóm Lăng Kính">
+                </div>
+                <div class="form-group">
+                  <label for="media_creditUrl">Liên kết nguồn (Credit URL)</label>
+                  <input type="url" id="media_creditUrl" name="creditUrl" class="form-control" aria-label="Liên kết nguồn" placeholder="https://...">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="media_focalX">Điểm tiêu cự X (%)</label>
+                  <input type="number" id="media_focalX" name="focalX" class="form-control" aria-label="Điểm tiêu cự X" min="0" max="100" value="50">
+                </div>
+                <div class="form-group">
+                  <label for="media_focalY">Điểm tiêu cự Y (%)</label>
+                  <input type="number" id="media_focalY" name="focalY" class="form-control" aria-label="Điểm tiêu cự Y" min="0" max="100" value="50">
+                </div>
+                <div class="form-group" style="display: flex; align-items: center; gap: 8px; margin-top: 26px;">
+                  <input type="checkbox" id="media_isIllustration" name="isIllustration" aria-label="Là ảnh minh họa">
+                  <label for="media_isIllustration" style="margin-bottom: 0;">Là ảnh minh họa (Illustration)</label>
                 </div>
               </div>
               <button type="submit" class="btn btn-primary" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Tải lên thư viện Media 📤</button>
@@ -1280,16 +1394,60 @@ export function renderStudioHtml(session: AuthSession): string {
           </div>
 
           <div class="card">
-            <div class="card-title">Tệp Media hiện có (\${assets.length})</div>
-            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px;">
-              \${assets.map(a => \`
-                <div style="border: 1px solid var(--color-neutral-light); border-radius: 6px; padding: 10px; background: #FFF;">
-                  <div style="font-size: 0.85rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">\${a.filename}</div>
-                  <div style="font-size: 0.75rem; color: var(--color-neutral-mid); margin: 4px 0;">\${a.contentType} · \${(a.sizeBytes / 1024).toFixed(1)} KB</div>
-                  <div style="font-size: 0.75rem; color: #4A5568;">Alt: \${a.alt}</div>
-                </div>
-              \`).join('')}
-              \${assets.length === 0 ? '<div style="color: var(--color-neutral-mid);">Chưa có tệp tải lên nào.</div>' : ''}
+            <div class="card-title">
+              <span>Danh mục Media đã đăng ký & Bản quyền (Media Registry & Rights) (\${allAssets.length})</span>
+            </div>
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Ảnh xem trước</th>
+                    <th>Tên tệp & R2 Key</th>
+                    <th>Định dạng & Dung lượng</th>
+                    <th>Tác quyền (Rights / Credit)</th>
+                    <th>Tiêu cự (Focal)</th>
+                    <th>Trạng thái</th>
+                    <th>Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  \${allAssets.map(a => \`
+                    <tr>
+                      <td style="width: 80px;">
+                        <img src="\${a.r2Key ? '/' + a.r2Key : '/images/illustrations/a01.webp'}" alt="\${escapeHtml(a.alt)}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px; border: 1px solid var(--color-neutral-light);" onerror="this.src='/images/illustrations/a01.webp'">
+                      </td>
+                      <td>
+                        <strong>\${escapeHtml(a.filename)}</strong>
+                        <div style="font-size: 0.75rem; color: var(--color-neutral-mid); font-family: monospace;">\${escapeHtml(a.r2Key || a.id)}</div>
+                        <div style="font-size: 0.75rem; color: #4A5568;">Alt: \${escapeHtml(a.alt)}</div>
+                      </td>
+                      <td>
+                        <span class="badge" style="background:#EDF2F7; color:#4A5568;">\${escapeHtml(a.contentType)}</span>
+                        <div style="font-size: 0.75rem; color: var(--color-neutral-mid); margin-top: 4px;">\${(a.sizeBytes / 1024).toFixed(1)} KB</div>
+                      </td>
+                      <td>
+                        <div><strong>\${escapeHtml(a.creditName || 'Chưa có')}</strong></div>
+                        <div style="font-size: 0.75rem; color: var(--color-neutral-mid);">\${escapeHtml(a.source || 'Nội bộ')}</div>
+                      </td>
+                      <td>
+                        <div style="font-size: 0.85rem; font-family: monospace;">X: \${a.focalX || 50}% / Y: \${a.focalY || 50}%</div>
+                      </td>
+                      <td>
+                        <span class="badge badge-\${a.status === 'approved' ? 'approved' : a.status === 'rejected' ? 'draft' : 'pending'}">\${escapeHtml(a.status || 'approved')}</span>
+                      </td>
+                      <td>
+                        <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                          \${(currentUserRole === 'reviewer' || currentUserRole === 'admin') ?
+                            ('<button type="button" class="btn btn-secondary btn-sm" onclick="reviewMedia(\\'' + escapeHtml(a.id) + '\\', \\'approve\\')">Duyệt ✅</button>' +
+                             '<button type="button" class="btn btn-secondary btn-sm" onclick="reviewMedia(\\'' + escapeHtml(a.id) + '\\', \\'reject\\')">Từ chối ❌</button>') : ''}
+                          \${(currentUserRole === 'editor' || currentUserRole === 'admin') ?
+                            ('<button type="button" class="btn btn-secondary btn-sm" style="color: #E53E3E;" onclick="deleteMedia(\\'' + escapeHtml(a.id) + '\\')">Xóa 🗑️</button>') : ''}
+                        </div>
+                      </td>
+                    </tr>
+                  \`).join('')}
+                </tbody>
+              </table>
             </div>
           </div>
         \`;
@@ -1304,13 +1462,40 @@ export function renderStudioHtml(session: AuthSession): string {
           });
           const json = await uploadRes.json();
           if (uploadRes.ok) {
-            showToast('Tải tệp lên thành công!', 'success');
+            showToast('Tải tệp lên thành công! Tệp được chuyển vào trạng thái chờ duyệt.', 'success');
             renderMediaLibrary();
           } else {
             showToast('Lỗi tải tệp: ' + (json.error || 'Từ chối bởi hệ thống'), 'error');
           }
         });
       }
+
+      window.reviewMedia = async function(id, action) {
+        const reviewRes = await fetch('/api/media/' + id + '/review', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action })
+        });
+        const json = await reviewRes.json();
+        if (reviewRes.ok) {
+          showToast('Đã ' + (action === 'approve' ? 'phê duyệt' : 'từ chối') + ' tệp media!', 'success');
+          renderMediaLibrary();
+        } else {
+          showToast('Lỗi duyệt media: ' + (json.error || 'Thất bại'), 'error');
+        }
+      };
+
+      window.deleteMedia = async function(id) {
+        if (!confirm('Bạn có chắc chắn muốn xóa tệp media này?')) return;
+        const delRes = await fetch('/api/media/' + id, { method: 'DELETE' });
+        const json = await delRes.json();
+        if (delRes.ok) {
+          showToast('Đã xóa tệp media thành công.', 'success');
+          renderMediaLibrary();
+        } else {
+          showToast('Lỗi xóa media: ' + (json.error || 'Thất bại'), 'error');
+        }
+      };
 
       // ==========================================
       // Tab 5: Products & Sales Configuration
@@ -1959,26 +2144,26 @@ export function renderStudioHtml(session: AuthSession): string {
                   </tr>
                 </thead>
                 <tbody>
-                  \${pubs.map(p => \\\`
+                  \${pubs.map(p => \`
                     <tr>
-                      <td><code>\\\${p.id}</code></td>
-                      <td>\\\${new Date(p.createdAt).toLocaleString('vi-VN')}</td>
-                      <td>\\\${p.requestedBy}</td>
-                      <td>\\\${p.approvedBy || '<em>(Chưa duyệt)</em>'}</td>
-                      <td>\\\${p.secondReviewer || '<em>(Chưa duyệt)</em>'}</td>
-                      <td><span class="role-badge" style="background:#EBF8FF; color:#2B6CB0;">\\\${p.status}</span></td>
+                      <td><code>\${p.id}</code></td>
+                      <td>\${new Date(p.createdAt).toLocaleString('vi-VN')}</td>
+                      <td>\${p.requestedBy}</td>
+                      <td>\${p.approvedBy || '<em>(Chưa duyệt)</em>'}</td>
+                      <td>\${p.secondReviewer || '<em>(Chưa duyệt)</em>'}</td>
+                      <td><span class="role-badge" style="background:#EBF8FF; color:#2B6CB0;">\${p.status}</span></td>
                       <td>
                         <div style="display: flex; gap: 6px; flex-wrap: wrap;">
-                          \\\${p.status === 'pending_review' ? \\\\\`
-                            <button class="btn btn-success btn-sm" onclick="reviewPub('\\\\\\\${p.id}', 'approve')" \\\${currentUserRole === 'editor' ? 'disabled' : ''}>Duyệt</button>
-                            <button class="btn btn-danger btn-sm" onclick="reviewPub('\\\\\\\${p.id}', 'reject')" \\\${currentUserRole === 'editor' ? 'disabled' : ''}>Từ chối</button>
-                          \\\\\` : ''}
-                          <button class="btn btn-secondary btn-sm" onclick="exportPub('\\\\\\\${p.id}')" title="Trích xuất snapshot sang thư mục Astro">Xuất sang Astro 🚀</button>
-                          <button class="btn btn-secondary btn-sm" onclick="gitPublish('\\\\\\\${p.id}')" title="Tạo PR GitHub hoặc mô phỏng">Tạo PR Git 🐙</button>
+                          \${p.status === 'pending_review' ? (
+                            '<button class="btn btn-success btn-sm" onclick="reviewPub(\\'' + p.id + '\\', \\'approve\\')" ' + (currentUserRole === 'editor' ? 'disabled' : '') + '>Duyệt</button>' +
+                            '<button class="btn btn-danger btn-sm" onclick="reviewPub(\\'' + p.id + '\\', \\'reject\\')" ' + (currentUserRole === 'editor' ? 'disabled' : '') + '>Từ chối</button>'
+                          ) : ''}
+                          <button class="btn btn-secondary btn-sm" onclick="exportPub('\${p.id}')" title="Trích xuất snapshot sang thư mục Astro">Xuất sang Astro 🚀</button>
+                          <button class="btn btn-secondary btn-sm" onclick="gitPublish('\${p.id}')" title="Tạo PR GitHub hoặc mô phỏng">Tạo PR Git 🐙</button>
                         </div>
                       </td>
                     </tr>
-                  \\\`).join('')}
+                  \`).join('')}
                   \${pubs.length === 0 ? '<tr><td colspan="7" style="text-align: center; color: var(--color-neutral-mid);">Chưa có yêu cầu xuất bản nào.</td></tr>' : ''}
                 </tbody>
               </table>

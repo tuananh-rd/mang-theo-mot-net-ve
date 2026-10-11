@@ -6,6 +6,14 @@
 
 import initialReconciledDonations from './reconciled-donations.json' with { type: 'json' };
 import { validateDonationProjection, sanitizeDonationEntry } from '../../tools/content-studio/csv-validator.mjs';
+import {
+  getPublishedProject,
+  getPublishedProgress,
+  getPublishedSessions,
+  getPublishedContacts,
+  getPublishedDonationAccount,
+  getPublishedTeamMembers,
+} from './lib/snapshot-loader.ts';
 
 export interface QuantitativeFact {
   value: number | null;
@@ -69,7 +77,7 @@ export interface SupportMethod {
   statusText: string;
 }
 
-export const CAMPAIGN_PROJECT: Project = {
+export const CAMPAIGN_PROJECT: Project = getPublishedProject({
   slug: 'mang-theo-mot-net-ve',
   title: 'Mang Theo Một Nét Vẽ',
   slogan: 'Một buổi chơi phù hợp, một món quà đúng nhu cầu.',
@@ -135,7 +143,7 @@ export const CAMPAIGN_PROJECT: Project = {
         '14:00 Thứ Bảy 31/10/2026 (dự kiến). Chốt quỹ, mua vật phẩm theo danh mục Mái ấm xác nhận và trao tặng.',
     },
   ],
-};
+});
 
 export const PRODUCTS: Product[] = [
   {
@@ -1181,7 +1189,7 @@ export interface OfficialContact {
 }
 
 /** Liên hệ do chủ dự án cung cấp trong tài liệu bổ sung C07 (09/10/2026). */
-export const OFFICIAL_CONTACT: OfficialContact = {
+export const OFFICIAL_CONTACT: OfficialContact = getPublishedContacts({
   status: 'confirmed',
   people: [
     { name: 'Nguyễn Chí Trung', role: 'Trưởng dự án', phone: '0984 441 726', phoneE164: '+84984441726' },
@@ -1190,7 +1198,7 @@ export const OFFICIAL_CONTACT: OfficialContact = {
   fanpageUrl: 'https://www.facebook.com/mangtheomotnetve',
   sourceRef: 'supplement-c07:muc-6',
   updatedAt: '2026-10-09',
-};
+});
 
 export interface SupportWorkflowStep {
   step: string;
@@ -1301,7 +1309,7 @@ export interface DonationAccount {
 }
 
 /** Tài khoản do chủ dự án cung cấp trong tài liệu bổ sung C07 (09/10/2026); mục tiêu 3.000.000đ duyệt cùng ngày. */
-export const DONATION_ACCOUNT: DonationAccount = {
+export const DONATION_ACCOUNT: DonationAccount = getPublishedDonationAccount({
   status: 'active',
   bankName: 'Techcombank',
   accountNumber: '999927052006',
@@ -1309,7 +1317,7 @@ export const DONATION_ACCOUNT: DonationAccount = {
   qrImage: '/images/ung-ho/qr-ung-ho-techcombank.png',
   transferPrefix: 'MTMNV',
   goalAmount: 3000000,
-};
+});
 
 export interface DonationEntry {
   /** Ngày nhận theo sao kê ngân hàng, dạng YYYY-MM-DD */
@@ -1388,12 +1396,12 @@ export interface ProjectProgress {
   currentStageIndex: number;
 }
 
-export const PROJECT_PROGRESS: ProjectProgress = {
+export const PROJECT_PROGRESS: ProjectProgress = getPublishedProgress({
   currentWeek: 1,
   totalWeeks: 5,
   updatedAt: '2026-10-09',
   currentStageIndex: 0,
-};
+});
 
 export interface PlannedSession {
   id: string;
@@ -1405,7 +1413,7 @@ export interface PlannedSession {
 }
 
 /** Lịch hai buổi tại Mái ấm theo nhóm cung cấp (tài liệu bổ sung C07, mục 4). */
-export const PLANNED_SESSIONS: PlannedSession[] = [
+export const PLANNED_SESSIONS: PlannedSession[] = getPublishedSessions([
   {
     id: 'buoi-choi',
     title: 'Buổi chơi tại Mái ấm',
@@ -1422,7 +1430,7 @@ export const PLANNED_SESSIONS: PlannedSession[] = [
     weekday: 'Thứ Bảy',
     description: 'Trao vật phẩm theo danh mục Mái ấm xác nhận, khoảng 30–45 phút.',
   },
-];
+]);
 
 export interface TeamMember {
   name: string;
@@ -1432,7 +1440,7 @@ export interface TeamMember {
 }
 
 /** Bảy thành viên và ảnh do chủ dự án cung cấp (tài liệu bổ sung C07, map theo từng đoạn). */
-export const TEAM_MEMBERS: TeamMember[] = [
+export const TEAM_MEMBERS: TeamMember[] = getPublishedTeamMembers([
   { name: 'Nguyễn Chí Trung', role: 'Trưởng dự án', photo: '/images/thanh-vien/nguyen-chi-trung.webp', description: 'Lên lịch, theo dõi tiến độ và điều phối hoạt động của nhóm.' },
   { name: 'Nguyễn Ngọc Khoa', role: 'Tài chính', photo: '/images/thanh-vien/nguyen-ngoc-khoa.webp', description: 'Giữ sổ ủng hộ, đối chiếu sao kê và mua quà theo danh mục.' },
   { name: 'Nguyễn Như Huy', role: 'Hậu cần', photo: '/images/thanh-vien/nguyen-nhu-huy.webp', description: 'Chuẩn bị vật tư, đạo cụ và chương trình buổi chơi.' },
@@ -1440,7 +1448,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
   { name: 'Trần Bình Trọng', role: 'Thiết kế', photo: '/images/thanh-vien/tran-binh-trong.webp', description: 'Thiết kế ấn phẩm, poster và nhận diện của dự án.' },
   { name: 'Lê Tuấn Anh', role: 'Đối ngoại', photo: '/images/thanh-vien/le-tuan-anh.webp', description: 'Làm việc với Mái ấm và các đơn vị hỗ trợ.' },
   { name: 'Nguyễn Anh Khoa', role: 'Hậu cần', photo: '/images/thanh-vien/nguyen-anh-khoa.webp', description: 'Chuẩn bị quà lưu niệm, quầy và di chuyển.' },
-];
+]);
 
 export interface ProcessStep {
   title: string;

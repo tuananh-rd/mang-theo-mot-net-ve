@@ -118,74 +118,65 @@ export class StudioDbClient {
     const auditId = `aud-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;
 
     // 3. Thực thi giao dịch nguyên tử (Atomic Transaction):
-    // Đảm bảo cả 3 thao tác Draft UPDATE/INSERT + Revision INSERT + Audit Log INSERT
-    // đều phải thành công cùng nhau hoặc cùng bị rollback nếu xảy ra race condition.
-    await this.db.exec('BEGIN TRANSACTION;');
-    try {
-      if (current) {
-        const updateResult = await this.db
+    // Sử dụng Cloudflare D1 batch API (https://developers.cloudflare.com/d1/worker-api/d1-database/#batch).
+    // D1 batch() thực thi toàn bộ statements trong một transaction duy nhất và rollback nếu có lỗi.
+    const draftStmt = current
+      ? this.db
           .prepare(
             `UPDATE drafts
              SET data_json = ?, revision_hash = ?, updated_by = ?, updated_at = ?
              WHERE module_key = ? AND revision_hash = ?`
           )
           .bind(dataJson, newHash, userEmail, now, moduleKey, expectedHash)
-          .run();
-
-        if (!updateResult.meta?.changes || updateResult.meta.changes === 0) {
-          await this.db.exec('ROLLBACK;');
-          const latest = await this.getDraft(moduleKey);
-          throw new ConcurrencyConflictError(
-            `Xung đột đồng thời (Race condition) tại phân hệ '${moduleKey}'. Dữ liệu đã bị ghi đè bởi phiên khác.`,
-            latest?.revisionHash
-          );
-        }
-      } else {
-        const insertResult = await this.db
+      : this.db
           .prepare(
             `INSERT INTO drafts (module_key, data_json, revision_hash, updated_by, updated_at)
              VALUES (?, ?, ?, ?, ?)`
           )
-          .bind(moduleKey, dataJson, newHash, userEmail, now)
-          .run();
+          .bind(moduleKey, dataJson, newHash, userEmail, now);
 
-        if (insertResult.error) {
-          await this.db.exec('ROLLBACK;');
-          const latest = await this.getDraft(moduleKey);
-          throw new ConcurrencyConflictError(
-            `Xung đột khởi tạo tại phân hệ '${moduleKey}'. Bản nháp đã được tạo trước bởi phiên khác.`,
-            latest?.revisionHash
-          );
-        }
+    const revStmt = this.db
+      .prepare(
+        `INSERT INTO revisions (id, module_key, version, data_json, revision_hash, created_by, created_at, comment)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+      )
+      .bind(revisionId, moduleKey, nextVersion, dataJson, newHash, userEmail, now, comment || null);
+
+    const auditStmt = this.db
+      .prepare(
+        `INSERT INTO audit_logs (id, user_email, action, module_key, details_json, created_at)
+         VALUES (?, ?, ?, ?, ?, ?)`
+      )
+      .bind(
+        auditId,
+        userEmail,
+        'SAVE_DRAFT',
+        moduleKey,
+        JSON.stringify({ version: nextVersion, revisionHash: newHash, comment }),
+        now
+      );
+
+    if (typeof this.db.batch === 'function') {
+      const batchResults = await this.db.batch([draftStmt, revStmt, auditStmt]);
+      const draftResult = batchResults[0];
+      if (current && (!draftResult?.meta?.changes || draftResult.meta.changes === 0)) {
+        const latest = await this.getDraft(moduleKey);
+        throw new ConcurrencyConflictError(
+          `Xung đột đồng thời (Race condition) tại phân hệ '${moduleKey}'. Dữ liệu đã bị ghi đè bởi phiên khác.`,
+          latest?.revisionHash
+        );
       }
-
-      await this.db
-        .prepare(
-          `INSERT INTO revisions (id, module_key, version, data_json, revision_hash, created_by, created_at, comment)
-           VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
-        )
-        .bind(revisionId, moduleKey, nextVersion, dataJson, newHash, userEmail, now, comment || null)
-        .run();
-
-      await this.db
-        .prepare(
-          `INSERT INTO audit_logs (id, user_email, action, module_key, details_json, created_at)
-           VALUES (?, ?, ?, ?, ?, ?)`
-        )
-        .bind(
-          auditId,
-          userEmail,
-          'SAVE_DRAFT',
-          moduleKey,
-          JSON.stringify({ version: nextVersion, revisionHash: newHash, comment }),
-          now
-        )
-        .run();
-
-      await this.db.exec('COMMIT;');
-    } catch (err) {
-      await this.db.exec('ROLLBACK;').catch(() => {});
-      throw err;
+    } else {
+      const runRes = await draftStmt.run();
+      if (current && (!runRes.meta?.changes || runRes.meta.changes === 0)) {
+        const latest = await this.getDraft(moduleKey);
+        throw new ConcurrencyConflictError(
+          `Xung đột đồng thời (Race condition) tại phân hệ '${moduleKey}'. Dữ liệu đã bị ghi đè bởi phiên khác.`,
+          latest?.revisionHash
+        );
+      }
+      await revStmt.run();
+      await auditStmt.run();
     }
 
     const draftRecord: DraftRecord<T> = {
@@ -481,7 +472,7 @@ export class StudioDbClient {
     if (action === 'reject') {
       const now = new Date().toISOString();
       await this.db
-        .prepare('UPDATE publications SET status = "draft", error_message = ? WHERE id = ?')
+        .prepare("UPDATE publications SET status = 'draft', error_message = ? WHERE id = ?")
         .bind(comment || 'Từ chối bởi người duyệt', publicationId)
         .run();
 
@@ -498,53 +489,28 @@ export class StudioDbClient {
       };
     }
 
-    // Four-Eyes Principle: Người yêu cầu không được tự duyệt
+    // Four-Eyes Principle / Two-Person Policy: Người yêu cầu không được tự duyệt
     if (reviewerEmail.toLowerCase() === pub.requested_by.toLowerCase()) {
       throw new Error('Vi phạm nguyên tắc Bốn Mắt (Four-Eyes): Người tạo yêu cầu không được tự duyệt.');
     }
 
-    // Người duyệt 1
-    if (!pub.approved_by) {
-      await this.db
-        .prepare('UPDATE publications SET approved_by = ? WHERE id = ?')
-        .bind(reviewerEmail, publicationId)
-        .run();
-
-      await this.recordAuditLog(reviewerEmail, 'APPROVE_PUBLICATION_STAGE_1', 'publish', {
-        publicationId,
-        comment,
-      });
-
-      return {
-        ...pub,
-        snapshot: JSON.parse(pub.snapshot_json),
-        approvedBy: reviewerEmail,
-      };
-    }
-
-    // Người duyệt 2 (Independent Reviewer)
-    if (reviewerEmail.toLowerCase() === pub.approved_by.toLowerCase()) {
-      throw new Error('Vi phạm nguyên tắc Bốn Mắt: Cần người duyệt thứ hai độc lập, không được lặp lại người duyệt trước.');
-    }
-
     const now = new Date().toISOString();
     await this.db
-      .prepare(
-        'UPDATE publications SET second_reviewer = ?, status = "approved" WHERE id = ?'
-      )
+      .prepare("UPDATE publications SET approved_by = ?, status = 'approved' WHERE id = ?")
       .bind(reviewerEmail, publicationId)
       .run();
 
-    await this.recordAuditLog(reviewerEmail, 'APPROVE_PUBLICATION_STAGE_2', 'publish', {
+    await this.recordAuditLog(reviewerEmail, 'APPROVE_PUBLICATION', 'publish', {
       publicationId,
-      firstReviewer: pub.approved_by,
+      requestedBy: pub.requested_by,
+      approvedBy: reviewerEmail,
       comment,
     });
 
     return {
       ...pub,
       snapshot: JSON.parse(pub.snapshot_json),
-      secondReviewer: reviewerEmail,
+      approvedBy: reviewerEmail,
       status: 'approved',
     };
   }

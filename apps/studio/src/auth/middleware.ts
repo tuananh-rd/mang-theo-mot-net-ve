@@ -56,14 +56,32 @@ export interface AuthenticateOptions {
 export function isLoopbackRequest(request: Request): boolean {
   try {
     const url = new URL(request.url);
-    const host = (request.headers.get('Host') || url.host || '').toLowerCase();
-    const hostname = host.split(':')[0];
-    return (
-      hostname === 'localhost' ||
-      hostname === '127.0.0.1' ||
-      hostname === '::1' ||
-      hostname.endsWith('.localhost')
+    const urlHostname = url.hostname.toLowerCase();
+    const isUrlLoopback = (
+      urlHostname === 'localhost' ||
+      urlHostname === '127.0.0.1' ||
+      urlHostname === '::1' ||
+      urlHostname.endsWith('.localhost')
     );
+    if (!isUrlLoopback) {
+      return false;
+    }
+
+    const hostHeader = request.headers.get('Host');
+    if (hostHeader) {
+      const headerHostname = hostHeader.toLowerCase().split(':')[0];
+      const isHeaderLoopback = (
+        headerHostname === 'localhost' ||
+        headerHostname === '127.0.0.1' ||
+        headerHostname === '::1' ||
+        headerHostname.endsWith('.localhost')
+      );
+      if (!isHeaderLoopback) {
+        return false;
+      }
+    }
+
+    return true;
   } catch {
     return false;
   }
@@ -111,19 +129,19 @@ export async function authenticateRequest(
     };
   }
 
-  // 2. Môi trường Production: Bắt buộc kiểm tra cấu hình (Fail-secure)
-  if (!env.CF_ACCESS_TEAM_DOMAIN || !env.CF_ACCESS_AUD) {
-    throw new AuthConfigMissingError(
-      'Hệ thống đang chạy chế độ Production nhưng thiếu cấu hình Cloudflare Access (CF_ACCESS_TEAM_DOMAIN hoặc CF_ACCESS_AUD).'
-    );
-  }
-
-  // 3. Nếu thiếu token JWT
+  // 2. Nếu thiếu token JWT
   if (!token) {
     throw new AuthError(
       'Yêu cầu chưa được xác thực qua Cloudflare Access (Thiếu JWT assertion hoặc cookie CF_Authorization).',
       'UNAUTHORIZED',
       401
+    );
+  }
+
+  // 3. Môi trường Production: Bắt buộc kiểm tra cấu hình (Fail-secure)
+  if (!env.CF_ACCESS_TEAM_DOMAIN || !env.CF_ACCESS_AUD) {
+    throw new AuthConfigMissingError(
+      'Hệ thống đang chạy chế độ Production nhưng thiếu cấu hình Cloudflare Access (CF_ACCESS_TEAM_DOMAIN hoặc CF_ACCESS_AUD).'
     );
   }
 

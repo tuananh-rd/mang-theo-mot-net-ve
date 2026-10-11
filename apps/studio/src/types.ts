@@ -209,5 +209,8 @@ export interface Env {
   CF_ACCESS_AUD?: string;
   STUDIO_ENVIRONMENT?: 'development' | 'production';
   GITHUB_TOKEN?: string;
+  GITHUB_OWNER?: string;
   GITHUB_REPO?: string;
+  GITHUB_BASE_BRANCH?: string;
+  GITHUB_SIMULATE?: string;
 }
