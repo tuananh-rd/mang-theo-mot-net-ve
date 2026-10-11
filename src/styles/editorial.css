@@ -677,6 +677,7 @@
 }
 
 .stat {
+  container-type: inline-size;
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
@@ -686,8 +687,11 @@
   box-shadow: var(--shadow-raised);
 }
 
+/* Cỡ chữ theo bề rộng thẻ (cqi): "3.000.000đ" rộng ~5,2em nên luôn nằm gọn trong thẻ, không cắt/ellipsis */
 .stat-num {
-  font-size: 2.75rem;
+  font-size: 1.75rem;
+  font-size: clamp(1.5rem, 17cqi, 2.75rem);
+  white-space: nowrap;
   line-height: 1;
   font-weight: 800;
   letter-spacing: -0.03em;
@@ -841,7 +845,4 @@
     padding: var(--space-4);
   }
 
-  .stat-num {
-    font-size: 2.25rem;
-  }
 }
