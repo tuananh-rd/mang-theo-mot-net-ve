@@ -9,6 +9,24 @@ html {
   scroll-padding-top: 88px;
 }
 
+@media (max-width: 767px) {
+  html {
+    scroll-padding-top: 104px;
+    scroll-padding-bottom: 84px;
+  }
+
+  main a,
+  main button,
+  main input,
+  main select,
+  main textarea,
+  main summary,
+  main [tabindex] {
+    scroll-margin-top: 104px;
+    scroll-margin-bottom: 84px;
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   html {
     scroll-behavior: smooth;

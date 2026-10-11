@@ -137,8 +137,54 @@ const publicUrl = 'https://mangtheomotnetve.website/';
       );
       targetObserver.observe(donationTarget);
     }
+
+    // 4. Focus handling: Ensure keyboard-focused controls inside main are not obscured by fixed bar or sticky header
+    if (activeFocusHandler) {
+      window.removeEventListener('focusin', activeFocusHandler);
+      activeFocusHandler = null;
+    }
+
+    activeFocusHandler = (e: FocusEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (!target || typeof target.getBoundingClientRect !== 'function') return;
+      if (!bar) return;
+
+      const barRect = bar.getBoundingClientRect();
+      if (
+        barRect.height === 0 ||
+        bar.classList.contains('is-hidden-by-menu') ||
+        bar.classList.contains('is-hidden-by-target')
+      ) {
+        return;
+      }
+
+      // If focus is within the mobile bar itself, allow native focus without adjustment
+      if (bar.contains(target)) return;
+
+      const header = document.querySelector('.site-header');
+      const headerBottom = header ? header.getBoundingClientRect().bottom : 88;
+      const bottomCutoff = barRect.top - 16;
+      const r = target.getBoundingClientRect();
+
+      const availableHeight = bottomCutoff - (headerBottom + 12);
+      if (r.height > availableHeight) {
+        if (r.top < headerBottom + 12 || r.top > bottomCutoff) {
+          const diff = r.top - (headerBottom + 12);
+          window.scrollBy({ top: diff, behavior: 'instant' });
+        }
+      } else if (r.bottom > bottomCutoff) {
+        const diff = r.bottom - bottomCutoff;
+        window.scrollBy({ top: diff, behavior: 'instant' });
+      } else if (r.top < headerBottom + 12) {
+        const diff = (headerBottom + 12) - r.top;
+        window.scrollBy({ top: -diff, behavior: 'instant' });
+      }
+    };
+
+    window.addEventListener('focusin', activeFocusHandler);
   }
 
+  let activeFocusHandler: ((e: FocusEvent) => void) | null = null;
   setupMobileBar();
   document.addEventListener('astro:page-load', setupMobileBar);
 </script>
