@@ -180,6 +180,12 @@ function sanitizeProductsForPublic(products: ProductsModuleData) {
       returnPolicy: item.returnPolicy ? String(item.returnPolicy).trim() : null,
       publicApproval: item.publicApproval || 'pending',
     };
+    if (item.narrative !== undefined && item.narrative !== null && String(item.narrative).trim()) {
+      result[id].narrative = String(item.narrative).trim();
+    }
+    if (item.mediaKey !== undefined && item.mediaKey !== null && String(item.mediaKey).trim()) {
+      result[id].mediaKey = String(item.mediaKey).trim();
+    }
   }
   return result;
 }

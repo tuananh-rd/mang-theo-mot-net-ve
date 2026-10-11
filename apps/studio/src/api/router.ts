@@ -175,12 +175,16 @@ export async function handleApiRequest(
     const revisionId = restoreMatch[2];
     const body = (await request.json().catch(() => ({}))) as { expectedHash?: string };
 
+    if (!body.expectedHash || typeof body.expectedHash !== 'string' || !body.expectedHash.trim()) {
+      return errorResponse('Bắt buộc phải cung cấp expectedHash của bản nháp hiện tại để chống ghi đè (OCC).', 400);
+    }
+
     try {
       const restoredDraft = await dbClient.restoreRevision(
         moduleKey,
         revisionId,
         user.email,
-        body.expectedHash || null
+        body.expectedHash.trim()
       );
       return jsonResponse({ success: true, draft: restoredDraft });
     } catch (err: any) {

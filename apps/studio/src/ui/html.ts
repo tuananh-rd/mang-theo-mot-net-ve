@@ -819,17 +819,25 @@ export function renderStudioHtml(session: AuthSession): string {
           </div>
         \`;
 
+        let displayedDraftHashes = {};
+
         // Sự kiện tải lịch sử phiên bản
         document.getElementById('loadRevisionsBtn')?.addEventListener('click', async () => {
           const modSelect = document.getElementById('historyModuleSelect');
           const modKey = modSelect ? modSelect.value : 'project';
-          const revRes = await fetchApi('/api/revisions/' + modKey + '?limit=10');
+          const [revRes, draftRes] = await Promise.all([
+            fetchApi('/api/revisions/' + modKey + '?limit=10'),
+            fetchApi('/api/drafts/' + modKey)
+          ]);
           const area = document.getElementById('revisionsListArea');
           if (!area) return;
           if (!revRes.ok) {
             area.innerHTML = '<div class="alert alert-danger">Không thể tải lịch sử phiên bản: ' + (revRes.data.error || '') + '</div>';
             return;
           }
+          const currentDraftHash = (draftRes.ok && draftRes.data && draftRes.data.draft) ? draftRes.data.draft.revisionHash : '';
+          displayedDraftHashes[modKey] = currentDraftHash;
+
           const revs = revRes.data.revisions || [];
           if (revs.length === 0) {
             area.innerHTML = '<p style="color: var(--color-neutral-mid);">Chưa có phiên bản lịch sử nào cho phân hệ này.</p>';
@@ -870,10 +878,23 @@ export function renderStudioHtml(session: AuthSession): string {
 
         window.restoreRev = async function(modKey, revId) {
           if (!confirm('Bạn có chắc chắn muốn khôi phục phân hệ ' + modKey + ' về phiên bản này không?')) return;
-          const res = await fetchApi('/api/revisions/' + modKey + '/' + revId + '/restore', { method: 'POST' });
+          const expectedHash = displayedDraftHashes[modKey] || '';
+          if (!expectedHash) {
+            showToast('Không xác định được mã phiên bản hiện tại (expectedHash). Vui lòng bấm Tải lịch sử trước khi khôi phục.', 'error');
+            return;
+          }
+          const res = await fetchApi('/api/revisions/' + modKey + '/' + revId + '/restore', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ expectedHash: expectedHash })
+          });
           if (res.ok) {
             showToast('Đã khôi phục phiên bản thành công!', 'success');
             renderDashboard();
+          } else if (res.status === 409) {
+            if (confirm('Xung đột phiên bản (409): Phân hệ đã có chỉnh sửa mới hơn kể từ khi bạn mở danh sách. Bạn có muốn tải lại danh sách phiên bản mới nhất không?')) {
+              document.getElementById('loadRevisionsBtn')?.click();
+            }
           } else {
             showToast('Lỗi khôi phục: ' + (res.data.error || 'Lỗi không xác định'), 'error');
           }
@@ -1701,6 +1722,42 @@ export function renderStudioHtml(session: AuthSession): string {
         const chuonChuon = pConfig['chuon-chuon-tre-kem-de'] || {};
         const mocKhoa = pConfig['moc-khoa'] || {};
 
+        // Nạp thư viện Media đã phê duyệt (Approved Media Registry)
+        const mediaRes = await fetchApi('/api/media');
+        const dbAssets = mediaRes.ok ? (mediaRes.data.assets || []) : [];
+        const approvedDbAssets = dbAssets.filter(function(a) { return a.status === 'approved'; });
+
+        const mediaOptions = [
+          { path: '/images/san-pham/chuon-chuon-tre.webp', label: 'Chuồn chuồn tre kèm đế (Mẫu gốc)' },
+          { path: '/images/san-pham/moc-khoa.webp', label: 'Móc khóa Lăng Kính (Mẫu phôi)' },
+          { path: '/images/illustrations/a01.webp', label: 'Minh họa Chuồn chuồn tre thăng bằng (a01.webp)' },
+          { path: '/images/ung-ho/qr-ung-ho-techcombank.png', label: 'Mã QR Techcombank (qr-ung-ho-techcombank.png)' }
+        ];
+
+        for (var i = 0; i < approvedDbAssets.length; i++) {
+          var a = approvedDbAssets[i];
+          var cleanKey = a.r2Key ? (a.r2Key.charAt(0) === '/' ? a.r2Key.substring(1) : a.r2Key) : '';
+          var p = a.r2Key ? ('/' + cleanKey) : ('/media/' + a.id);
+          var exists = false;
+          for (var j = 0; j < mediaOptions.length; j++) {
+            if (mediaOptions[j].path === p) { exists = true; break; }
+          }
+          if (!exists) {
+            mediaOptions.push({ path: p, label: (a.alt || a.filename) + ' (Thư viện đã duyệt)' });
+          }
+        }
+
+        const ccMediaVal = chuonChuon.mediaKey || '/images/san-pham/chuon-chuon-tre.webp';
+        const mkMediaVal = mocKhoa.mediaKey || '/images/san-pham/moc-khoa.webp';
+
+        var ccOptionsHtml = mediaOptions.map(function(opt) {
+          return '<option value="' + escapeHtml(opt.path) + '"' + (ccMediaVal === opt.path ? ' selected' : '') + '>' + escapeHtml(opt.label) + ' (' + escapeHtml(opt.path) + ')</option>';
+        }).join('');
+
+        var mkOptionsHtml = mediaOptions.map(function(opt) {
+          return '<option value="' + escapeHtml(opt.path) + '"' + (mkMediaVal === opt.path ? ' selected' : '') + '>' + escapeHtml(opt.label) + ' (' + escapeHtml(opt.path) + ')</option>';
+        }).join('');
+
         tabContent.innerHTML = \`
           <form id="productsForm" class="card">
             <div class="card-title">
@@ -1755,8 +1812,14 @@ export function renderStudioHtml(session: AuthSession): string {
                 <textarea id="cc_narrative" class="form-control" name="cc_narrative" rows="2" placeholder="Mô tả ý nghĩa chuồn chuồn tre mộc mạc...">\${escapeHtml(chuonChuon.narrative || '')}</textarea>
               </div>
               <div class="form-group">
-                <label for="cc_mediaKey">Khóa hình ảnh media (mediaKey)</label>
-                <input type="text" id="cc_mediaKey" class="form-control" name="cc_mediaKey" value="\${escapeHtml(chuonChuon.mediaKey || '/images/san-pham/chuon-chuon-tre.webp')}" placeholder="/images/san-pham/chuon-chuon-tre.webp">
+                <label for="cc_mediaKey">Hình ảnh sản phẩm được duyệt (Approved Media Registry) *</label>
+                <select id="cc_mediaKey" class="form-control" name="cc_mediaKey">
+                  \${ccOptionsHtml}
+                </select>
+                <div id="cc_mediaPreview" style="margin-top: 8px; display: flex; align-items: center; gap: 12px; padding: 8px; background: #f8fafc; border-radius: 4px; border: 1px solid var(--color-neutral-light);">
+                  <img id="cc_mediaThumb" src="\${escapeHtml(ccMediaVal)}" alt="Xem trước ảnh chuồn chuồn tre" style="max-height: 80px; max-width: 120px; border-radius: 4px; border: 1px solid var(--color-neutral-light); object-fit: contain; background: #ffffff;">
+                  <span id="cc_mediaLabel" style="font-size: 0.82rem; color: var(--color-neutral-mid); font-family: monospace;">\${escapeHtml(ccMediaVal)}</span>
+                </div>
               </div>
             </div>
 
@@ -1803,8 +1866,14 @@ export function renderStudioHtml(session: AuthSession): string {
                 <textarea id="mk_narrative" class="form-control" name="mk_narrative" rows="2" placeholder="Mô tả ý nghĩa móc khóa Lăng Kính...">\${escapeHtml(mocKhoa.narrative || '')}</textarea>
               </div>
               <div class="form-group">
-                <label for="mk_mediaKey">Khóa hình ảnh media (mediaKey)</label>
-                <input type="text" id="mk_mediaKey" class="form-control" name="mk_mediaKey" value="\${escapeHtml(mocKhoa.mediaKey || '/images/san-pham/moc-khoa.webp')}" placeholder="/images/san-pham/moc-khoa.webp">
+                <label for="mk_mediaKey">Hình ảnh sản phẩm được duyệt (Approved Media Registry) *</label>
+                <select id="mk_mediaKey" class="form-control" name="mk_mediaKey">
+                  \${mkOptionsHtml}
+                </select>
+                <div id="mk_mediaPreview" style="margin-top: 8px; display: flex; align-items: center; gap: 12px; padding: 8px; background: #f8fafc; border-radius: 4px; border: 1px solid var(--color-neutral-light);">
+                  <img id="mk_mediaThumb" src="\${escapeHtml(mkMediaVal)}" alt="Xem trước ảnh móc khóa" style="max-height: 80px; max-width: 120px; border-radius: 4px; border: 1px solid var(--color-neutral-light); object-fit: contain; background: #ffffff;">
+                  <span id="mk_mediaLabel" style="font-size: 0.82rem; color: var(--color-neutral-mid); font-family: monospace;">\${escapeHtml(mkMediaVal)}</span>
+                </div>
               </div>
             </div>
 
@@ -1813,6 +1882,28 @@ export function renderStudioHtml(session: AuthSession): string {
             </div>
           </form>
         \`;
+
+        const ccSelect = document.getElementById('cc_mediaKey');
+        const ccThumb = document.getElementById('cc_mediaThumb');
+        const ccLabel = document.getElementById('cc_mediaLabel');
+        if (ccSelect && ccThumb && ccLabel) {
+          ccSelect.addEventListener('change', function() {
+            ccThumb.src = ccSelect.value;
+            ccLabel.textContent = ccSelect.value;
+            setDirty(true);
+          });
+        }
+
+        const mkSelect = document.getElementById('mk_mediaKey');
+        const mkThumb = document.getElementById('mk_mediaThumb');
+        const mkLabel = document.getElementById('mk_mediaLabel');
+        if (mkSelect && mkThumb && mkLabel) {
+          mkSelect.addEventListener('change', function() {
+            mkThumb.src = mkSelect.value;
+            mkLabel.textContent = mkSelect.value;
+            setDirty(true);
+          });
+        }
 
         const form = document.getElementById('productsForm');
         form.addEventListener('input', () => setDirty(true));

@@ -116,8 +116,22 @@ export function loadValidatedSnapshot(): LoadedSnapshot | null {
   if (snap.modules.journal !== undefined && !Array.isArray(snap.modules.journal)) {
     throw new Error('Malformed Published Snapshot: Phân hệ "journal" phải là một mảng bài viết.');
   }
-  if (snap.modules.products !== undefined && (typeof snap.modules.products !== 'object' || snap.modules.products === null || Array.isArray(snap.modules.products))) {
-    throw new Error('Malformed Published Snapshot: Phân hệ "products" không đúng định dạng đối tượng.');
+  if (snap.modules.products !== undefined) {
+    if (typeof snap.modules.products !== 'object' || snap.modules.products === null || Array.isArray(snap.modules.products)) {
+      throw new Error('Malformed Published Snapshot: Phân hệ "products" không đúng định dạng đối tượng.');
+    }
+    for (const [prodId, prod] of Object.entries(snap.modules.products)) {
+      if (typeof prod !== 'object' || prod === null || Array.isArray(prod)) {
+        throw new Error(`Malformed Published Snapshot: Dữ liệu sản phẩm "${prodId}" không đúng định dạng đối tượng.`);
+      }
+      const p = prod as Record<string, any>;
+      if (p.narrative !== undefined && p.narrative !== null && typeof p.narrative !== 'string') {
+        throw new Error(`Malformed Published Snapshot: Trường "products.${prodId}.narrative" phải là chuỗi ký tự.`);
+      }
+      if (p.mediaKey !== undefined && p.mediaKey !== null && typeof p.mediaKey !== 'string') {
+        throw new Error(`Malformed Published Snapshot: Trường "products.${prodId}.mediaKey" phải là chuỗi ký tự.`);
+      }
+    }
   }
   if (snap.modules.finance !== undefined && (typeof snap.modules.finance !== 'object' || snap.modules.finance === null || Array.isArray(snap.modules.finance))) {
     throw new Error('Malformed Published Snapshot: Phân hệ "finance" không đúng định dạng đối tượng.');
@@ -259,4 +273,42 @@ export function getPublishedFaqs<T extends { productFaqs: any[]; supportFaqs: an
     supportFaqs: Array.isArray(team.supportFaqs) ? team.supportFaqs : baseline.supportFaqs,
     transparencyFaqs: Array.isArray(team.transparencyFaqs) ? team.transparencyFaqs : baseline.transparencyFaqs,
   };
+}
+
+/**
+ * Lấy cấu hình mở bán sản phẩm đã xuất bản (bao gồm narrative và mediaKey)
+ */
+export function getPublishedProductConfig(productId: string): {
+  saleStatus?: 'unconfirmed' | 'open' | 'closed';
+  officialPrice?: number | null;
+  stockAvailable?: number | null;
+  salesChannel?: string;
+  returnPolicy?: string | null;
+  publicApproval?: 'pending' | 'approved';
+  narrative?: string | null;
+  mediaKey?: string | null;
+} | null {
+  if (!activeSnapshot?.modules?.products) {
+    return null;
+  }
+  return (activeSnapshot.modules.products as Record<string, any>)[productId] || null;
+}
+
+/**
+ * Áp dụng cấu hình sản phẩm từ bản chụp xuất bản lên danh mục baseline
+ */
+export function getPublishedProducts<T extends Record<string, any>>(baseline: T): T {
+  if (!activeSnapshot?.modules?.products) {
+    return baseline;
+  }
+  const snapProds = activeSnapshot.modules.products as Record<string, any>;
+  const result: any = { ...baseline };
+  for (const [id, conf] of Object.entries(snapProds)) {
+    if (result[id]) {
+      result[id] = { ...result[id], ...conf };
+    } else {
+      result[id] = conf;
+    }
+  }
+  return result as T;
 }

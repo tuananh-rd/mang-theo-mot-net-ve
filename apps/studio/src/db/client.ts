@@ -310,7 +310,15 @@ export class StudioDbClient {
     }
 
     const current = await this.getDraft(moduleKey);
-    const expected = expectedHash !== undefined && expectedHash !== null ? expectedHash : (current?.revisionHash || null);
+    if (expectedHash !== undefined && expectedHash !== null) {
+      if (current && current.revisionHash !== expectedHash) {
+        throw new ConcurrencyConflictError(
+          `Xung đột phiên bản: Bản nháp hiện tại (${current.revisionHash}) không khớp với expectedHash (${expectedHash}).`,
+          current.revisionHash
+        );
+      }
+    }
+    const expected = expectedHash || (current?.revisionHash || null);
     const data = JSON.parse(row.data_json) as T;
     const saveResult = await this.saveDraft(
       moduleKey,

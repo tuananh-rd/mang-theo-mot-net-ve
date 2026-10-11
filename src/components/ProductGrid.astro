@@ -4,6 +4,7 @@ import StatusChip from './StatusChip.astro';
 import type { Product } from '../data/campaign';
 import { buildProductCatalog } from '../lib/finance';
 import { getEffectiveProductSaleModel } from '../lib/products';
+import { getPublishedProductConfig } from '../data/lib/snapshot-loader.ts';
 
 interface Props {
   products: Product[];
@@ -45,10 +46,19 @@ const pendingNote: Record<string, string> = {
   {
     rows.map((r) => {
       const saleModel = r.product.category === 'craft' ? getEffectiveProductSaleModel(r.product) : null;
+      const publishedConf = getPublishedProductConfig(r.product.id);
       const priceVal = saleModel && saleModel.effectivePrice !== null ? saleModel.priceText : r.priceText;
       const unitVal = saleModel ? saleModel.unitSuffix : 'chiếc';
       const noteVal = saleModel ? saleModel.priceTypeLabel : 'Giá tham khảo';
-      const photo = photoFor[r.product.id];
+      const photo = publishedConf?.mediaKey
+        ? {
+            src: publishedConf.mediaKey,
+            width: photoFor[r.product.id]?.width || 1117,
+            height: photoFor[r.product.id]?.height || 541,
+            alt: photoFor[r.product.id]?.alt || r.product.name,
+            caption: photoFor[r.product.id]?.caption || 'Ảnh sản phẩm được phê duyệt.',
+          }
+        : photoFor[r.product.id];
 
       return (
         <li class="catalogue-card">
@@ -94,6 +104,11 @@ const pendingNote: Record<string, string> = {
             </Heading>
 
             <p class="catalogue-desc">{r.product.description}</p>
+            {publishedConf?.narrative && (
+              <p class="catalogue-narrative-note" style="font-size: 0.85rem; color: var(--ink-2); margin-top: 4px; font-style: italic;">
+                {publishedConf.narrative}
+              </p>
+            )}
 
             <div class="catalogue-price-box">
               <div class="price-row">

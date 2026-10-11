@@ -110,6 +110,13 @@ if (saleModel.saleStatus === 'closed') {
           <h1 id="product-title" class="product-sheet-title">{product.name}</h1>
           <p class="product-sheet-lead">{product.description}</p>
 
+          {detail.narrative && (
+            <div class="product-narrative-box">
+              <span class="narrative-tag">Ý nghĩa sản phẩm:</span>
+              <p class="narrative-content">{detail.narrative}</p>
+            </div>
+          )}
+
           <div class="product-price-box">
             <div class="price-main-row">
               <span class="price-amount">{saleModel.priceText}</span>
@@ -271,6 +278,13 @@ if (saleModel.saleStatus === 'closed') {
             <dt>Nguồn gốc và chế tác</dt>
             <dd>{detail.originDetails}</dd>
           </div>
+
+          {detail.narrative && (
+            <div class="spec-item">
+              <dt>Ý nghĩa và câu chuyện</dt>
+              <dd>{detail.narrative}</dd>
+            </div>
+          )}
 
           <div class="spec-item">
             <dt>Địa điểm và kế hoạch nhận quà</dt>
@@ -520,6 +534,31 @@ if (saleModel.saleStatus === 'closed') {
     color: var(--ink-2);
     margin: 0;
     text-wrap: balance;
+  }
+
+  .product-narrative-box {
+    background: var(--surface-alt);
+    border-left: 3px solid var(--brand);
+    border-radius: var(--radius-sm);
+    padding: var(--space-3) var(--space-4);
+    margin-top: var(--space-3);
+  }
+
+  .narrative-tag {
+    display: block;
+    font-size: var(--font-size-small);
+    font-weight: 700;
+    color: var(--brand);
+    margin-bottom: var(--space-1);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .narrative-content {
+    font-size: var(--font-size-body);
+    line-height: 1.6;
+    color: var(--ink);
+    margin: 0;
   }
 
   /* Hộp hiển thị giá nổi bật */

@@ -11,6 +11,7 @@ import { PRODUCTS, type Product } from '../data/campaign.ts';
 import { formatVND } from './finance.ts';
 import productSalesConfig from '../data/product-sales-config.json' with { type: 'json' };
 import { validateProductSalesConfig } from '../../tools/content-studio/product-validator.mjs';
+import { getPublishedProductConfig } from '../data/lib/snapshot-loader.ts';
 
 // Kiểm tra schema dữ liệu tại read/build boundary
 const _configValidation = validateProductSalesConfig(productSalesConfig);
@@ -45,13 +46,20 @@ export interface CraftProductDetail {
     isReferenceOnly: boolean;
   };
   imagePendingNote?: string;
+  narrative?: string | null;
 }
 
 /**
- * Lấy cấu hình mở bán chính thức của sản phẩm từ product-sales-config.json.
+ * Lấy cấu hình mở bán chính thức của sản phẩm từ product-sales-config.json và bản chụp xuất bản.
  */
-export function getProductSalesConfig(productId: string): ProductSalesConfigEntry | undefined {
-  return (productSalesConfig as Record<string, ProductSalesConfigEntry>)[productId];
+export function getProductSalesConfig(productId: string): (ProductSalesConfigEntry & { narrative?: string | null; mediaKey?: string | null }) | undefined {
+  const baseline = (productSalesConfig as Record<string, ProductSalesConfigEntry>)[productId];
+  const published = getPublishedProductConfig(productId);
+  if (!published) return baseline;
+  return {
+    ...baseline,
+    ...published,
+  } as ProductSalesConfigEntry & { narrative?: string | null; mediaKey?: string | null };
 }
 
 /**
@@ -289,8 +297,33 @@ export function formatPurchaseInquiry(options: {
 }
 
 /**
- * Tìm sản phẩm thủ công theo slug (hỗ trợ cả slug alias như chuon-chuon-tre).
+ * Tìm sản phẩm thủ công theo slug (hỗ trợ cả slug alias như chuon-chuon-tre) và hợp nhất dữ liệu từ snapshot xuất bản.
  */
 export function getCraftProductBySlug(slug: string): CraftProductDetail | undefined {
-  return CRAFT_PRODUCT_DETAILS.find((item) => item.slug === slug || (item.aliases && item.aliases.includes(slug)));
+  const item = CRAFT_PRODUCT_DETAILS.find((detail) => detail.slug === slug || (detail.aliases && detail.aliases.includes(slug)));
+  if (!item) return undefined;
+
+  const published = getPublishedProductConfig(item.product.id);
+  if (!published) return item;
+
+  const cloned: CraftProductDetail = {
+    ...item,
+  };
+
+  if (published.narrative) {
+    cloned.narrative = published.narrative;
+  }
+
+  if (published.mediaKey) {
+    cloned.image = {
+      src: published.mediaKey,
+      alt: item.image?.alt || `Ảnh sản phẩm ${item.product.name}`,
+      width: item.image?.width || 1117,
+      height: item.image?.height || 541,
+      caption: item.image?.caption || `Ảnh ${item.product.name} được phê duyệt từ Content Studio.`,
+      isReferenceOnly: item.image?.isReferenceOnly ?? false,
+    };
+  }
+
+  return cloned;
 }
