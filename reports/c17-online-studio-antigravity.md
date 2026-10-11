@@ -9,32 +9,31 @@
 - **Terminal Worker:** `term_d5e2a3fc-8366-4cc8-9ff1-60f502e1f1aa`
 - **Terminal Coordinator:** `term_6ea3ea53-bf27-4516-9467-2dfeebda674b`
 - **Mã Baseline SHA:** `89e82e65eece577d36c77f76798a8f009fb13e18`
-- **Mã Code Commit SHA:** `002230847d37bbf671c5c8f89e0923884afc12fc` (commit `0022308`)
+- **Mã Code Commit SHA:** `9a4e26132cea277f7a79ecf719b6c3cf3b04beb5` (commit `9a4e261`)
 - **Ngày hoàn thành:** 11/10/2026
 
 ---
 
 ## 1. Tóm tắt kết quả thực hiện (Executive Summary)
 
-1. **Đã thực hiện & Khắc phục toàn bộ phát hiện của Reviewer (RC17-7c60615 & RC17-5745030):**
-   - **Giao dịch D1 nguyên tử & Rollback tự động:** Thay thế hoàn toàn các lệnh SQL `BEGIN/COMMIT` thủ công bằng API `db.batch([draftStmt, revStmt, auditStmt])` chuẩn của Cloudflare D1. Sửa trình giả lập D1 (`LocalD1PreparedStatement`) để lan truyền lỗi thực thi SQL (không nuốt lỗi), bảo đảm khi bất kỳ câu lệnh nào trong batch thất bại (như lỗi chèn audit log), toàn bộ giao dịch được rollback hoàn toàn (`drafts: 0, revisions: 0, audit_logs: 0`).
-   - **Tích hợp GitHub Git Data API & Từ chối mô phỏng giả trong Production:** Triển khai luồng Git Data API đầy đủ (tra cứu base ref -> lấy base tree -> tạo tree -> tạo commit -> cập nhật branch ref -> tạo PR). Khi thiếu token GitHub trong production, trả về dứt khoát `success: false, error: 'not_configured'`, không tự ý bịa đặt PR thành công hoặc SHA `sim-*`. Thân PR được lọc bỏ toàn bộ email nội bộ của người tạo/duyệt.
-   - **Cách ly Runtime Worker & Bảo vệ Endpoint Xuất bản:** Loại bỏ `node:fs` và `consumer.ts` khỏi Worker router. Các endpoint `/api/publications/:id/export` và `/publish-git` kiểm tra nghiêm ngặt trạng thái phê duyệt (`pub.status === 'approved'`), từ chối dứt khoát các yêu cầu đang chờ (`pending_review`) hoặc bị từ chối với HTTP 400, không ghi bất kỳ tệp nào vào `src/data`.
-   - **Tiêu thụ Bản chụp trong Astro (`snapshot-loader.ts`):** Kiểm tra schema chặt chẽ, trích xuất chuẩn cấu trúc `modules.project`, bảo toàn giá trị rỗng/null có chủ đích (không tự động fallback khôi phục dữ liệu đã xóa), hỗ trợ import có phần mở rộng `.ts` tường minh tương thích Node 24 ESM, và được tích hợp trực tiếp vào `src/data/campaign.ts`.
-   - **Bảo toàn dữ liệu nguồn chuẩn (Canonical Source Alignment):** Loại bỏ hoàn toàn bài viết nhật ký tự tạo không có thực (`khao-sat-thuc-te`), đồng bộ dữ liệu mẫu trong `schemas/index.ts` khớp chính xác 100% với `journal-entries.json` và `campaign.ts`. Toàn bộ 22 tiêu chí so sánh nguồn trong probe di chuyển đều tương đương tuyệt đối với 0 đường dẫn khác biệt.
+1. **Đã thực hiện & Khắc phục toàn bộ phát hiện của Reviewer (RC17-0022308, RC17-7c60615 & RC17-5745030):**
+   - **Xung đột đồng thời xác định (Deterministic Race Condition) & Giao dịch OCC nguyên tử:** Sử dụng mệnh đề `WHERE changes() = 1` trong câu lệnh `INSERT INTO revisions` và `INSERT INTO audit_logs` thuộc D1 atomic batch. Khi `draftStmt` cập nhật 0 dòng do lệch revision hash, SQLite tự động đánh giá `changes() = 1` là sai, ngăn chặn hoàn toàn việc sinh revision rác ("ghost revision") hoặc audit log thừa ngay cả khi dữ liệu bên thua hoàn toàn trùng khớp với bên thắng (`sameTargetData === true`). Loại bỏ triệt để nhánh sequential fallback không nguyên tử.
+   - **Bảo vệ tính Idempotent & Gating của GitHub Publisher:** Loại bỏ biến môi trường `env.GITHUB_SIMULATE` khỏi production fallback; chế độ giả lập chỉ được kích hoạt khi có cờ tường minh `options.simulateFixture === true`. Kiểm tra trạng thái HTTP (`patchRefRes.ok`) khi cập nhật branch ref (PATCH) và bảo toàn tính toàn vẹn khi tạo PR.
+   - **Kiểm định chặt chẽ Bản chụp Astro (`snapshot-loader.ts`):** Xác thực bắt buộc `generatedAt` là chuỗi ISO hợp lệ (loại bỏ fallback tự sinh ngày hiện tại), kiểm tra định dạng `sha256` bằng biểu thức chính quy 64 ký tự hex (`/^[a-f0-9]{64}$/i`), và tích hợp đầy đủ 3 hàm trích xuất câu hỏi thường gặp (`getPublishedProductFaqs`, `getPublishedSupportFaqs`, `getPublishedTransparencyFaqs`) vào `src/data/campaign.ts`.
    - **Bảo vệ kho Media nội bộ & Chống giả mạo Host Loopback:** Tuyến `/media/*` yêu cầu bắt buộc phải có xác thực phiên nội bộ (`admin`, `editor`, `reviewer`) và phản hồi với `Cache-Control: private, no-store`. Yêu cầu chưa xác thực bị từ chối với HTTP 401 và 0 lần đọc bucket. Hàm `isLoopbackRequest` kiểm tra trực tiếp hostname của URL yêu cầu, ngăn chặn hoàn toàn việc giả mạo header `Host: 127.0.0.1` từ một URL từ xa để qua mặt xác thực.
-   - **Giao diện tiếp cận & Khắc phục lỗi cú pháp:** Sửa triệt để lỗi cú pháp template literal lồng nhau trong client JavaScript. Tự động gán nhãn tiếp cận (`aria-label`) cho 100% form controls qua MutationObserver, phím `Escape` đóng drawer di dộng chuẩn xác, thu gọn tiêu đề header trên màn hình 375px chống tràn, và nâng cấp Thư viện Media thành bảng đăng ký đầy đủ kèm ảnh thu nhỏ, tác quyền và điểm tiêu cự (X/Y).
+   - **Giao diện tiếp cận & Khắc phục lỗi cú pháp:** Sửa triệt để lỗi cú pháp template literal lồng nhau trong client JavaScript bằng nối chuỗi đơn. Tự động gán nhãn tiếp cận (`aria-label`) cho 100% form controls qua MutationObserver, phím `Escape` đóng drawer di động chuẩn xác (`escapeClosed: true`), thu gọn tiêu đề header trên màn hình 375px chống tràn, và nâng cấp Thư viện Media thành bảng đăng ký đầy đủ kèm ảnh thu nhỏ, tác quyền và điểm tiêu cự (X/Y).
 
 2. **Kết quả kiểm thử & Nghiệm thu:**
    - Bộ kiểm thử tự động Studio `apps/studio/tests/*.test.mjs`: **26/26 tests PASS (100%)**.
    - Kiểm tra kiểu dữ liệu TypeScript nghiêm ngặt `apps/studio/tsconfig.json`: **0 lỗi (Exit Code 0)**.
-   - Toàn bộ 5 kịch bản Negative/Browser Probes của Reviewer đều **PASS 100%**:
+   - Toàn bộ 6 kịch bản Negative/Browser/Race Probes của Reviewer đều **PASS 100%**:
+     - `reviewer-race-probe.mjs`: **PASS** cho cả 2 kịch bản `sameTargetData: false` và `sameTargetData: true` (`rejected: true`, `errorName: "ConcurrencyConflictError"`, `winnerPreserved: true`, `before: { drafts: 1, revisions: 1, audit_logs: 1 }` == `after: { drafts: 1, revisions: 1, audit_logs: 1 }`).
      - `reviewer-atomicity-probe.mjs`: **PASS** (`saveResolved: false`, `persistedCounts: drafts: 0, revisions: 0, audit_logs: 0`).
      - `reviewer-publication-probe.mjs`: **PASS** (`missingGitHubCredential.success: false`, `pendingPublicationExport.status: 400`, `wrotePublicSnapshot: false`).
      - `reviewer-security-probe.mjs`: **PASS** (`unauthenticatedMedia: 401`, `bucketReads: 0`, `remoteUrlWithForgedLoopbackHost: 401`, `crossOriginWithoutHostHeader.accepted: false`).
      - `reviewer-migration-probe.mjs`: **PASS** (Tất cả 22 phép so khớp nguồn đều `equivalent: true`, 0 differing paths).
      - `reviewer-browser.mjs`: **PASS** (0 unlabelled controls trên toàn bộ 8 tabs, `overflow: false`, `escapeClosed: true`, 0 lỗi console).
-   - Kiểm thử hồi quy toàn diện hệ thống gốc: `npm test` đạt **92/92 PASS**, `npm run check` đạt **0 errors, 0 warnings, 9 hints**, `npm run build` xuất bản thành công **13 static pages**.
+   - Kiểm thử hồi quy toàn diện hệ thống gốc: `npm test` đạt **92/92 PASS**, `npm run check` đạt **0 errors, 0 warnings, 10 hints**, `npm run build` xuất bản thành công **13 static pages**.
    - Bằng chứng tích hợp máy chủ cổng 4330: 11/11 kịch bản PASS tại `docs/evidence/C17/worker/verification-results.json` và 12 ảnh chụp màn hình đa thiết bị tại `docs/evidence/C17/worker/screens/`.
 
 3. **Công việc tiếp theo / Bàn giao:**
@@ -45,11 +44,14 @@
 
 ## 2. Chi tiết giải pháp kỹ thuật theo các tiêu chí RC17
 
-### 2.1. Giao dịch D1 nguyên tử & Khóa lạc quan (Atomicity & OCC)
-- Thay thế các truy vấn SQLite thô (`BEGIN TRANSACTION;`, `COMMIT;`) bằng cơ chế `db.batch([draftStmt, revStmt, auditStmt])` bản địa của Cloudflare D1.
+### 2.1. Giao dịch D1 nguyên tử, Khóa lạc quan (OCC) & Chống Ghost Revisions
+- Thay thế hoàn toàn các lệnh SQL thô bằng cơ chế `db.batch([draftStmt, revStmt, auditStmt])` bản địa của Cloudflare D1, loại bỏ triệt để sequential fallback.
+- **Ngăn chặn Ghost Revisions khi xung đột đồng thời:** Trong các câu lệnh `INSERT INTO revisions` và `INSERT INTO audit_logs`, sử dụng cú pháp `INSERT ... SELECT ... WHERE changes() = 1`. Khi có 2 writer cùng ghi dữ liệu (kể cả khi bên thua ghi dữ liệu trùng khớp bên thắng `sameTargetData === true`), nếu `draftStmt` không cập nhật dòng nào (do `revision_hash` đã bị bên thắng đổi), `changes() = 1` đánh giá là 0, triệt tiêu hoàn toàn việc chèn revision hoặc audit log mồ côi.
 - `LocalD1Database.batch` trong môi trường phát triển cục bộ thực thi atomic batch với `BEGIN TRANSACTION;` và `ROLLBACK;` khi có bất kỳ câu lệnh nào thất bại.
 - Trình giả lập `LocalD1PreparedStatement.run()` và `all()` được cấu hình ném lỗi trực tiếp khi câu lệnh SQL gặp vi phạm ràng buộc hoặc trigger lỗi, bảo đảm không nuốt lỗi ngầm.
-- Xác thực qua `docs/evidence/C17/reviewer-atomicity-probe.mjs`: Khi trigger cố ý gây lỗi tại `audit_logs`, `saveDraft` bị reject và toàn bộ các bảng `drafts`, `revisions`, `audit_logs` đều có số bản ghi là 0.
+- Xác thực qua:
+  - `docs/evidence/C17/reviewer-atomicity-probe.mjs`: Khi trigger cố ý gây lỗi tại `audit_logs`, `saveDraft` bị reject và toàn bộ các bảng `drafts`, `revisions`, `audit_logs` đều có số bản ghi là 0.
+  - `docs/evidence/C17/reviewer-race-probe.mjs`: Trong cả 2 kịch bản `sameTargetData: false` và `sameTargetData: true`, thao tác ghi của bên thua bị từ chối 409 ConcurrencyConflictError, giữ nguyên chính xác số lượng bản ghi `{ drafts: 1, revisions: 1, audit_logs: 1 }`, bảo toàn trọn vẹn bản ghi của bên thắng.
 
 ### 2.2. Tích hợp GitHub Git Data API & Quản lý Thông tin Nhạy cảm
 - Tách biệt rõ ràng chế độ production và chế độ kiểm thử:
@@ -74,6 +76,8 @@
 ### 2.4. Tiêu thụ Bản chụp trong Astro (`snapshot-loader.ts`)
 - Bộ nạp dữ liệu bản chụp cho Astro nằm tại `src/data/lib/snapshot-loader.ts` và được nhập trực tiếp vào `src/data/campaign.ts`.
 - Sử dụng import tường minh `with { type: 'json' }` và hỗ trợ nạp dự phòng an toàn về dữ liệu gốc C16 khi tệp `published-snapshot.json` rỗng hoặc chưa tồn tại.
+- Kiểm tra schema sâu: bắt buộc `generatedAt` là chuỗi ISO hợp lệ và `sha256` là chuỗi hex 64 ký tự hợp lệ; chuẩn hóa hex về lowercase.
+- Tích hợp đầy đủ các helper trích xuất dữ liệu: `getPublishedContacts`, `getPublishedDonationAccount`, `getPublishedTeamMembers`, `getPublishedProductFaqs`, `getPublishedSupportFaqs`, `getPublishedTransparencyFaqs`.
 - Khi nạp bản chụp đã xuất bản, bộ nạp trích xuất cấu trúc chuẩn `snapshot.modules.project` (và các module con), đồng thời tôn trọng các trường rỗng/null có chủ đích từ phía biên tập viên.
 
 ### 2.5. Bảo mật Media & Chống Bypass Loopback
