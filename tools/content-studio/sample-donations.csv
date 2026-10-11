@@ -1,0 +1,3 @@
+ma_giao_dich,ngay,so_tien,ten_nguoi_ung_ho,noi_dung,dong_y_cong_khai,ghi_chu
+SAMPLE_TXN_0001,2026-10-10,0,"[DỮ LIỆU MẪU KIỂM THỬ - THAY BẰNG TÊN THẬT]","[MẪU ĐỊNH DẠNG - KHÔNG ÁP DỤNG THẬT]",khong,"[BẢN MẪU ĐỊNH DẠNG - CẦN NHẬP DỮ LIỆU ĐỐI SOÁT THẬT VÀ SỐ TIỀN > 0 TRƯỚC KHI ÁP DỤNG]"
+SAMPLE_TXN_0002,2026-10-10,0,"Ẩn danh","[MẪU ĐỊNH DẠNG - KHÔNG ÁP DỤNG THẬT]",khong,"[BẢN MẪU ĐỊNH DẠNG - CẦN NHẬP DỮ LIỆU ĐỐI SOÁT THẬT VÀ SỐ TIỀN > 0 TRƯỚC KHI ÁP DỤNG]"

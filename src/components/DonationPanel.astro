@@ -10,9 +10,10 @@ interface Props {
 const { account } = Astro.props;
 const open = isDonationOpen(account);
 const transferExample = `${account.transferPrefix} Ten cua ban`;
+const publicUrl = 'https://mangtheomotnetve.pages.dev';
 ---
 
-<div class:list={['donate', { 'donate--pending': !open }]}>
+<div class:list={['donate', { 'donate--pending': !open }]} id="chuyen-khoan">
   <div class="donate-qr">
     {open ? (
       <img
@@ -82,16 +83,50 @@ const transferExample = `${account.transferPrefix} Ten cua ban`;
       </div>
     </dl>
 
+    <div class="mobile-transfer-guide">
+      <h3 class="guide-heading">Cách chuyển khoản tiện lợi trên cùng một điện thoại:</h3>
+      <ol class="guide-steps">
+        <li>
+          <strong>Cách 1 (Quét QR):</strong> Bấm nút <em>"Tải ảnh QR để quét từ thư viện ảnh"</em> ở trên &rarr; Mở ứng dụng ngân hàng &rarr; Chọn tính năng <em>"Quét QR"</em> &rarr; Chọn ảnh QR vừa tải về máy.
+        </li>
+        <li>
+          <strong>Cách 2 (Chuyển khoản thủ công):</strong> Bấm nút <em>"Sao chép"</em> số tài khoản và nội dung ở trên để dán vào ứng dụng ngân hàng.
+        </li>
+      </ol>
+    </div>
+
     <p class="donate-hint">
       {open
         ? 'Ghi tên bạn muốn hiển thị sau mã dự án; không ghi tên hoặc ghi “An danh” sẽ hiển thị là Ẩn danh. Khoản ủng hộ được cập nhật trong bảng sao kê bên dưới sau khi đối soát với ngân hàng (không cập nhật tức thời).'
         : 'Website chưa công bố tài khoản nhận ủng hộ đã được nhóm xác nhận. Thông tin sẽ được đăng tại đây khi sẵn sàng.'}
     </p>
     <p class="copy-status" aria-live="polite"></p>
+
+    <div class="donate-actions-footer">
+      <a href="#sao-ke" class="link-arrow">
+        Xem tiến độ và sổ đối soát bên dưới <span class="arrow" aria-hidden="true">&darr;</span>
+      </a>
+      <button
+        type="button"
+        class="btn btn-secondary share-page-btn"
+        data-share-url={publicUrl}
+        data-share-title="Mang Theo Một Nét Vẽ"
+        data-share-text="Dự án thiện nguyện mang buổi vui chơi sáng tạo và quà tặng đến Mái ấm Thánh Tâm Xuy Xá."
+      >
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+          <polyline points="16 6 12 2 8 6"></polyline>
+          <line x1="12" y1="2" x2="12" y2="15"></line>
+        </svg>
+        <span>Chia sẻ trang này tới bạn bè</span>
+      </button>
+      <span class="share-page-status" role="status" aria-live="polite"></span>
+    </div>
   </div>
 </div>
 
 <script>
+  // 1. Copy Buttons
   document.querySelectorAll<HTMLButtonElement>('.copy-btn').forEach((btn) => {
     btn.addEventListener('click', async () => {
       const value = btn.dataset.copy ?? '';
@@ -105,6 +140,38 @@ const transferExample = `${account.transferPrefix} Ten cua ban`;
         }, 1800);
       } catch {
         if (status) status.textContent = 'Không sao chép được, vui lòng chọn và sao chép thủ công.';
+      }
+    });
+  });
+
+  // 2. Share Page Button
+  document.querySelectorAll<HTMLButtonElement>('.share-page-btn').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const url = btn.dataset.shareUrl || window.location.href;
+      const title = btn.dataset.shareTitle || document.title;
+      const text = btn.dataset.shareText || '';
+      const status = btn.closest('.donate-actions-footer')?.querySelector('.share-page-status');
+
+      if (navigator.share && window.location.protocol.startsWith('http')) {
+        try {
+          await navigator.share({ title, text, url });
+          if (status) status.textContent = 'Đã mở hộp thoại chia sẻ.';
+          return;
+        } catch (err: any) {
+          if (err?.name === 'AbortError') return;
+        }
+      }
+
+      try {
+        await navigator.clipboard.writeText(url);
+        if (status) {
+          status.textContent = 'Đã sao chép liên kết chia sẻ!';
+          setTimeout(() => {
+            if (status) status.textContent = '';
+          }, 3000);
+        }
+      } catch {
+        if (status) status.textContent = 'Không thể sao chép liên kết tự động.';
       }
     });
   });
@@ -305,5 +372,61 @@ const transferExample = `${account.transferPrefix} Ten cua ban`;
       grid-column: 1;
       grid-row: auto;
     }
+  }
+
+  .mobile-transfer-guide {
+    background: var(--surface-alt);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    margin-top: var(--space-4);
+  }
+
+  .guide-heading {
+    font-size: var(--font-size-small);
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0 0 var(--space-2) 0;
+  }
+
+  .guide-steps {
+    margin: 0;
+    padding-left: var(--space-4);
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-small);
+    color: var(--ink-2);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .donate-actions-footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--line);
+  }
+
+  .share-page-btn {
+    min-height: 40px;
+    height: 40px;
+    padding: 0 var(--space-4);
+    font-size: var(--font-size-small);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .share-page-status {
+    font-size: var(--font-size-small);
+    color: var(--status-confirmed-text);
+  }
+
+  .share-page-status:empty {
+    display: none;
   }
 </style>

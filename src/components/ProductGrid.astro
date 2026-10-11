@@ -2,6 +2,7 @@
 import Icon, { type IconName } from './Icon.astro';
 import type { Product } from '../data/campaign';
 import { buildProductCatalog } from '../lib/finance';
+import { getEffectiveProductSaleModel } from '../lib/products';
 
 interface Props {
   products: Product[];
@@ -62,12 +63,25 @@ const pendingNote: Record<string, string> = {
           </span>
         )}
         <div class="product-body">
-          <Heading class="product-name">{r.product.name}</Heading>
+          <Heading class="product-name">
+            {r.product.category === 'craft' ? (
+              <a href={`/san-pham/${r.product.id}`} class="product-name-link">{r.product.name}</a>
+            ) : (
+              r.product.name
+            )}
+          </Heading>
           {variant === 'full' && <p class="product-desc">{r.product.description}</p>}
-          <p class="product-price">
-            <span class="price">{r.priceText}</span>
-            <span class="price-note">giá tham khảo</span>
-          </p>
+          {(() => {
+            const saleModel = r.product.category === 'craft' ? getEffectiveProductSaleModel(r.product) : null;
+            const priceVal = saleModel && saleModel.effectivePrice !== null ? `${saleModel.priceText}/${saleModel.unitSuffix}` : r.priceText;
+            const noteVal = saleModel ? saleModel.priceTypeLabel.toLowerCase() : 'giá tham khảo';
+            return (
+              <p class="product-price">
+                <span class="price">{priceVal}</span>
+                <span class="price-note">{noteVal}</span>
+              </p>
+            );
+          })()}
           {variant === 'full' && pendingNote[r.product.id] && <p class="product-pending">{pendingNote[r.product.id]}</p>}
           {variant === 'full' && (
             <p class="product-qty">
@@ -75,6 +89,13 @@ const pendingNote: Record<string, string> = {
                 ? 'Số lượng chưa xác nhận'
                 : `Dự kiến ${r.quantityText.replace(' dự kiến', '').replace(' bán', '')}`}
             </p>
+          )}
+          {variant === 'full' && r.product.category === 'craft' && (
+            <div class="product-actions">
+              <a href={`/san-pham/${r.product.id}`} class="link-arrow">
+                Xem chi tiết <span class="arrow" aria-hidden="true">→</span>
+              </a>
+            </div>
           )}
         </div>
       </li>
@@ -304,5 +325,20 @@ const pendingNote: Record<string, string> = {
     .product-grid--compact .product-price {
       margin-top: 0;
     }
+  }
+
+  .product-name-link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .product-name-link:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+  }
+
+  .product-actions {
+    margin-top: var(--space-4);
+    padding-top: var(--space-2);
   }
 </style>

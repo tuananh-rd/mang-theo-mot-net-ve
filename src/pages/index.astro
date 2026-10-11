@@ -7,11 +7,13 @@ import Icon from '../components/Icon.astro';
 import GoalProgress from '../components/GoalProgress.astro';
 import ProjectProgress from '../components/ProjectProgress.astro';
 import { CAMPAIGN_PROJECT, DONATION_ACCOUNT, DONATION_LEDGER, PLANNED_SESSIONS, TEAM_MEMBERS } from '../data/campaign';
+import { getPublishedJournalEntries } from '../data/journal';
 import { summarizeLedger, formatViDate } from '../lib/donations';
 import { formatVND } from '../lib/finance';
 
 const donationSummary = summarizeLedger(DONATION_LEDGER, DONATION_ACCOUNT.goalAmount);
 const sessionText = PLANNED_SESSIONS.map((s) => formatViDate(s.date).slice(0, 5)).join(' và ');
+const recentJournalEntries = getPublishedJournalEntries().slice(0, 2);
 
 const steps = [
   {
@@ -155,6 +157,51 @@ const steps = [
       </div>
     </div>
   </section>
+
+  {recentJournalEntries.length > 0 && (
+    <section class="section" aria-labelledby="journal-home-heading">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">Cập nhật mới</span>
+          <h2 id="journal-home-heading" class="section-title">Nhật ký kế hoạch dự án</h2>
+          <p class="section-lead">Thông tin cập nhật về kế hoạch tổ chức bốn góc chơi và quà lưu niệm gây quỹ.</p>
+        </div>
+        <div class="journal-home-grid">
+          {recentJournalEntries.map((entry) => (
+            <article class="journal-home-card">
+              {entry.coverImage && (
+                <figure class="journal-home-figure">
+                  <div class="journal-card-media">
+                    <img src={entry.coverImage.src} alt={entry.coverImage.alt} width="600" height="340" loading="lazy" decoding="async" />
+                    <span class="journal-category-badge">{entry.categoryLabel}</span>
+                  </div>
+                  <figcaption class="journal-home-caption">
+                    <span class="home-caption-text">{entry.coverImage.caption}</span>
+                    {entry.coverImage.creditName && (
+                      <span class="home-caption-credit">Ảnh: {entry.coverImage.creditName} ({entry.coverImage.creditSource || 'Pexels'})</span>
+                    )}
+                  </figcaption>
+                </figure>
+              )}
+              <div class="journal-card-body">
+                <div class="journal-card-meta">
+                  <time datetime={entry.publishedAt}>{entry.publishedAt.split('-').reverse().join('/')}</time>
+                </div>
+                <h3 class="journal-card-title">
+                  <a href={`/nhat-ky/${entry.slug}`}>{entry.title}</a>
+                </h3>
+                <p class="journal-card-summary">{entry.summary}</p>
+                <a href={`/nhat-ky/${entry.slug}`} class="link-arrow">Đọc chi tiết <span class="arrow" aria-hidden="true">→</span></a>
+              </div>
+            </article>
+          ))}
+        </div>
+        <div class="journal-home-more">
+          <a href="/nhat-ky" class="btn btn-secondary">Xem tất cả bài viết nhật ký →</a>
+        </div>
+      </div>
+    </section>
+  )}
 
   <section class="section section-soft" aria-labelledby="team-heading">
     <div class="container team-row">
@@ -532,6 +579,130 @@ const steps = [
 
     .donate-stats {
       padding: var(--space-4);
+    }
+  }
+
+  .journal-home-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-6);
+  }
+
+  .journal-home-card {
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .journal-home-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-raised);
+  }
+
+  .journal-home-figure {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    background: var(--surface-soft);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .journal-home-caption {
+    padding: var(--space-2) var(--space-4);
+    font-size: 0.8125rem;
+    color: var(--ink-2);
+    background: var(--surface-soft);
+    line-height: 1.4;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .home-caption-text {
+    font-weight: 500;
+  }
+
+  .home-caption-credit {
+    font-size: 0.75rem;
+    color: var(--ink-muted);
+  }
+
+  .journal-card-media {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: var(--surface-soft);
+    overflow: hidden;
+  }
+
+  .journal-card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .journal-category-badge {
+    position: absolute;
+    top: var(--space-3);
+    left: var(--space-3);
+    background: #ffffff;
+    color: var(--color-primary);
+    font-size: var(--font-size-small);
+    font-weight: 600;
+    padding: 2px 10px;
+    border-radius: 9999px;
+    border: 1px solid var(--line);
+  }
+
+  .journal-card-body {
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .journal-card-meta {
+    font-size: var(--font-size-small);
+    color: var(--ink-2);
+    margin-bottom: var(--space-2);
+  }
+
+  .journal-card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.35;
+    margin: 0 0 var(--space-3);
+  }
+
+  .journal-card-title a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .journal-card-title a:hover {
+    color: var(--color-primary);
+  }
+
+  .journal-card-summary {
+    font-size: var(--font-size-body);
+    color: var(--ink-2);
+    line-height: 1.6;
+    margin: 0 0 var(--space-4);
+    flex: 1;
+  }
+
+  .journal-home-more {
+    margin-top: var(--space-8);
+    text-align: center;
+  }
+
+  @media (max-width: 767px) {
+    .journal-home-grid {
+      grid-template-columns: 1fr;
     }
   }
 </style>

@@ -8,7 +8,7 @@ interface BreadcrumbItem {
 
 interface SummaryItem {
   label: string;
-  value: string;
+  value?: string;
   chip?: {
     kind: 'ke-hoach' | 'gia-dinh' | 'cho-xac-nhan' | 'can-lam-ro' | 'da-xac-nhan';
     label: string;
@@ -105,7 +105,7 @@ const hasPanel = summaryItems.length > 0 || Astro.slots.has('panel-extra');
               <div class="panel-row">
                 <dt class="panel-label">{item.label}</dt>
                 <dd class="panel-value">
-                  <span>{item.value}</span>
+                  {item.value && <span>{item.value}</span>}
                   {item.chip && <StatusChip kind={item.chip.kind} label={item.chip.label} />}
                 </dd>
               </div>

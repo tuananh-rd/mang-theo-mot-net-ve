@@ -101,6 +101,10 @@ const summaryItems = [
 
       <ActivityList activities={CAMPAIGN_PROJECT.activities} showNotes />
 
+      <p class="corners-journal-note">
+        Xem phân tích chi tiết từng góc chơi tại <a href="/nhat-ky/ke-hoach-bon-goc-choi" class="link-inline">Nhật ký: Kế hoạch bốn góc chơi tại Mái ấm Thánh Tâm →</a>.
+      </p>
+
       <h3 class="flow-title">Nội dung buổi chơi dự kiến</h3>
       <ol class="flow">
         {
@@ -156,6 +160,20 @@ const summaryItems = [
       <p class="source-note">
         Lịch hai buổi do nhóm công bố, có thể điều chỉnh theo Mái ấm. Sau dự án, nhóm công bố hoạt động đã diễn ra, sao kê đã đối soát và vật phẩm đã trao.
       </p>
+    </div>
+  </section>
+
+  <section class="section section-soft" aria-labelledby="project-journal-heading">
+    <div class="container project-journal-box">
+      <div>
+        <span class="eyebrow">Cập nhật</span>
+        <h2 id="project-journal-heading" class="col-title">Nhật ký kế hoạch dự án</h2>
+        <p>Chi tiết các góc hoạt động, vật liệu an toàn và quà lưu niệm gây quỹ được biên tập đầy đủ trong mục Nhật ký.</p>
+      </div>
+      <div class="project-journal-actions">
+        <a href="/nhat-ky/ke-hoach-bon-goc-choi" class="link-arrow">Kế hoạch bốn góc chơi <span class="arrow" aria-hidden="true">→</span></a>
+        <a href="/nhat-ky" class="btn btn-secondary">Đọc nhật ký dự án</a>
+      </div>
     </div>
   </section>
 
@@ -366,6 +384,46 @@ const summaryItems = [
 
     .flow-step {
       padding: var(--space-4);
+    }
+  }
+
+  .corners-journal-note {
+    margin-top: var(--space-4);
+    font-size: var(--font-size-small);
+    color: var(--ink-2);
+  }
+
+  .link-inline {
+    color: var(--color-primary);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .link-inline:hover {
+    color: var(--ink);
+  }
+
+  .project-journal-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-8);
+  }
+
+  .project-journal-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 767px) {
+    .project-journal-box {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-4);
     }
   }
 </style>

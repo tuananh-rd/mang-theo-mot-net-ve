@@ -7,6 +7,7 @@ const contactReady = OFFICIAL_CONTACT.status === 'confirmed';
 const navLinks = [
   { href: '/', label: 'Trang chủ' },
   { href: '/du-an/mang-theo-mot-net-ve', label: 'Dự án' },
+  { href: '/nhat-ky', label: 'Nhật ký' },
   { href: '/san-pham', label: 'Quà lưu niệm' },
   { href: '/minh-bach', label: 'Minh bạch' },
   { href: '/ve-nhom', label: 'Về nhóm Lăng Kính' },
@@ -274,7 +275,7 @@ const navLinks = [
 
     .site-footer {
       padding-top: var(--space-8);
-      padding-bottom: var(--space-6);
+      padding-bottom: calc(var(--space-6) + 60px + env(safe-area-inset-bottom, 0px));
     }
   }
 </style>

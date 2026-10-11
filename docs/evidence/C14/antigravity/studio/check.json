@@ -1,0 +1,680 @@
+{
+  "time": "2026-10-11T03:03:32.685Z",
+  "pages": [
+    {
+      "width": 375,
+      "tab": "journal",
+      "viewport": 375,
+      "scrollWidth": 375,
+      "images": [],
+      "controls": [
+        {
+          "id": "",
+          "type": "BUTTON",
+          "text": "1. Biên tập Nhật ký",
+          "disabled": false
+        },
+        {
+          "id": "",
+          "type": "BUTTON",
+          "text": "2. Trạng thái Mở bán Quà lưu niệm",
+          "disabled": false
+        },
+        {
+          "id": "",
+          "type": "BUTTON",
+          "text": "3. Đối soát Sao kê CSV",
+          "disabled": false
+        },
+        {
+          "id": "",
+          "type": "BUTTON",
+          "text": "Chỉnh sửa",
+          "disabled": false
+        },
+        {
+          "id": "",
+          "type": "BUTTON",
+          "text": "Chỉnh sửa",
+          "disabled": false
+        },
+        {
+          "id": "j-slug",
+          "type": "INPUT",
+          "text": "",
+          "disabled": false
+        },
+        {
+          "id": "j-category",
+          "type": "SELECT",
+          "text": "Kế hoạch\n                Chuẩn bị\n                Hoạt động\n          ",
+          "disabled": false
+        },
+        {
+          "id": "j-title",
+          "type": "INPUT",
+          "text": "",
+          "disabled": false
+        },
+        {
+          "id": "j-summary",
+          "type": "TEXTAREA",
+          "text": "",
+          "disabled": false
+        },
+        {
+          "id": "j-published-at",
+          "type": "INPUT",
+          "text": "",
+          "disabled": false
+        },
+        {
+          "id": "j-event-date",
+          "type": "INPUT",
+          "text": "",
+          "disabled": false
+        },
+        {
+          "id": "j-event-status",
+          "type": "SELECT",
+          "text": "-- Không có (null) --\n                Đã lên kế hoạch (planned)\n      ",
+          "disabled": false
+        },
+        {
+          "id": "j-status",
+          "type": "SELECT",
+          "text": "Công bố (Published)\n                Bản nháp nội bộ (Draft)",
+          "disabled": false
+        },
+        {
+          "id": "j-image",
+          "type": "SELECT",
+          "text": "-- Không dùng ảnh bìa --Minh họa họa cụ màu nước và cọ vẽ (A01)Minh họ",
+          "disabled": false
+        },
+        {
+          "id": "",
+          "type": "BUTTON",
+          "text": "+ Đoạn văn",
+          "disabled": false
+        },
+        {
+          "id": "",
+          "type": "BUTTON",
+          "text": "+ Tiêu đề mục",
+          "disabled": false
+        },
+        {
+          "id": "",
+          "type": "BUTTON",
+          "text": "+ Khối lưu ý",
+          "disabled": false
+        },
+        {
+          "id": "",
+          "type": "BUTTON",
+          "text": "+ Danh sách",
+          "disabled": false
+        },
+        {
+          "id": "",
+          "type": "BUTTON",
+          "text": "+ Trích dẫn",
+          "disabled": false
+        },
+        {
+          "id": "",
+          "type": "BUTTON",
+          "text": "Kiểm tra & Xuất JSON",
+          "disabled": false
+        },
+        {
+          "id": "export-journal-btn",
+          "type": "BUTTON",
+          "text": "Xuất tệp JSON",
+          "disabled": false
+        },
+        {
+          "id": "apply-journal-btn",
+          "type": "BUTTON",
+          "text": "Áp dụng vào Site",
+          "disabled": false
+        }
+      ],
+      "pass": true
+    },
+    {
+      "width": 375,
+      "tab": "products",
+      "viewport": 375,
+      "scrollWidth": 375,
+      "images": [],
+      "controls": [
+        {
+          "id": "",
+          "type": "BUTTON",
+          "text": "1. Biên tập Nhật ký",
+          "disabled": false
+        },
+        {
+          "id": "",
+          "type": "BUTTON",
+          "text": "2. Trạng thái Mở bán Quà lưu niệm",
+          "disabled": false
+        },
+        {
+          "id": "",
+          "type": "BUTTON",
+          "text": "3. Đối soát Sao kê CSV",
+          "disabled": false
+        },
+        {
+          "id": "prod-status-chuon-chuon-tre-kem-de",
+          "type": "SELECT",
+          "text": "Chờ mở bán (unconfirmed)\n                Đang mở bán (open)\n          ",
+          "disabled": false
+        },
+        {
+          "id": "prod-price-chuon-chuon-tre-kem-de",
+          "type": "INPUT",
+          "text": "",
+          "disabled": false
+        },
+        {
+          "id": "prod-stock-chuon-chuon-tre-kem-de",
+          "type": "INPUT",
+          "text": "",
+          "disabled": false
+        },
+        {
+          "id": "prod-channel-chuon-chuon-tre-kem-de",
+          "type": "INPUT",
+          "text": "",
+          "disabled": false
+        },
+        {
+          "id": "prod-policy-chuon-chuon-tre-kem-de",
+          "type": "TEXTAREA",
+          "text": "",
+          "disabled": false
+        },
+        {
+          "id": "prod-approval-chuon-chuon-tre-kem-de",
+          "type": "SELECT",
+          "text": "Chờ duyệt (pending)\n                Đã duyệt (approved)",
+          "disabled": false
+        },
+        {
+          "id": "prod-status-moc-khoa",
+          "type": "SELECT",
+          "text": "Chờ mở bán (unconfirmed)\n                Đang mở bán (open)\n          ",
+          "disabled": false
+        },
+        {
+          "id": "prod-price-moc-khoa",
+          "type": "INPUT",
+          "text": "",
+          "disabled": false
+        },
+        {
+          "id": "prod-stock-moc-khoa",
+          "type": "INPUT",
+          "text": "",
+          "disabled": false
+        },
+        {
+          "id": "prod-channel-moc-khoa",
+          "type": "INPUT",
+          "text": "",
+          "disabled": false
+        },
+        {
+          "id": "prod-policy-moc-khoa",
+          "type": "TEXTAREA",
+          "text": "",
+          "disabled": false
+        },
+        {
+          "id": "prod-approval-moc-khoa",
+          "type": "SELECT",
+          "text": "Chờ duyệt (pending)\n                Đã duyệt (approved)",
+          "disabled": false
+        },
+        {
+          "id": "export-products-btn",
+          "type": "BUTTON",
+          "text": "Xuất cấu hình JSON",
+          "disabled": false
+        },
+        {
+          "id": "save-products-btn",
+          "type": "BUTTON",
+          "text": "Lưu & Áp dụng cấu hình",
+          "disabled": false
+        }
+      ],
+      "pass": true
+    },
+    {
+      "width": 375,
+      "tab": "csv",
+      "viewport": 375,
+      "scrollWidth": 375,
+      "images": [],
+      "controls": [
+        {
+          "id": "",
+          "type": "BUTTON",
+          "text": "1. Biên tập Nhật ký",
+          "disabled": false
+        },
+        {
+          "id": "",
+          "type": "BUTTON",
+          "text": "2. Trạng thái Mở bán Quà lưu niệm",
+          "disabled": false
+        },
+        {
+          "id": "",
+          "type": "BUTTON",
+          "text": "3. Đối soát Sao kê CSV",
+          "disabled": false
+        },
+        {
+          "id": "csv-text",
+          "type": "TEXTAREA",
+          "text": "",
+          "disabled": false
+        },
+        {
+          "id": "csv-reconciled-date",
+          "type": "INPUT",
+          "text": "",
+          "disabled": false
+        },
+        {
+          "id": "csv-reviewers",
+          "type": "INPUT",
+          "text": "",
+          "disabled": false
+        },
+        {
+          "id": "csv-confirm-approved",
+          "type": "INPUT",
+          "text": "",
+          "disabled": false
+        },
+        {
+          "id": "validate-csv-btn",
+          "type": "BUTTON",
+          "text": "Kiểm tra tính hợp lệ CSV",
+          "disabled": false
+        },
+        {
+          "id": "load-sample-csv-btn",
+          "type": "BUTTON",
+          "text": "Nạp CSV mẫu",
+          "disabled": false
+        },
+        {
+          "id": "export-csv-json-btn",
+          "type": "BUTTON",
+          "text": "Xuất JSON đối soát",
+          "disabled": true
+        },
+        {
+          "id": "apply-csv-btn",
+          "type": "BUTTON",
+          "text": "Áp dụng bản chiếu công khai",
+          "disabled": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "tab": "journal",
+      "viewport": 1440,
+      "scrollWidth": 1440,
+      "images": [],
+      "controls": [
+        {
+          "id": "",
+          "type": "BUTTON",
+          "text": "1. Biên tập Nhật ký",
+          "disabled": false
+        },
+        {
+          "id": "",
+          "type": "BUTTON",
+          "text": "2. Trạng thái Mở bán Quà lưu niệm",
+          "disabled": false
+        },
+        {
+          "id": "",
+          "type": "BUTTON",
+          "text": "3. Đối soát Sao kê CSV",
+          "disabled": false
+        },
+        {
+          "id": "",
+          "type": "BUTTON",
+          "text": "Chỉnh sửa",
+          "disabled": false
+        },
+        {
+          "id": "",
+          "type": "BUTTON",
+          "text": "Chỉnh sửa",
+          "disabled": false
+        },
+        {
+          "id": "j-slug",
+          "type": "INPUT",
+          "text": "",
+          "disabled": false
+        },
+        {
+          "id": "j-category",
+          "type": "SELECT",
+          "text": "Kế hoạch\n                Chuẩn bị\n                Hoạt động\n          ",
+          "disabled": false
+        },
+        {
+          "id": "j-title",
+          "type": "INPUT",
+          "text": "",
+          "disabled": false
+        },
+        {
+          "id": "j-summary",
+          "type": "TEXTAREA",
+          "text": "",
+          "disabled": false
+        },
+        {
+          "id": "j-published-at",
+          "type": "INPUT",
+          "text": "",
+          "disabled": false
+        },
+        {
+          "id": "j-event-date",
+          "type": "INPUT",
+          "text": "",
+          "disabled": false
+        },
+        {
+          "id": "j-event-status",
+          "type": "SELECT",
+          "text": "-- Không có (null) --\n                Đã lên kế hoạch (planned)\n      ",
+          "disabled": false
+        },
+        {
+          "id": "j-status",
+          "type": "SELECT",
+          "text": "Công bố (Published)\n                Bản nháp nội bộ (Draft)",
+          "disabled": false
+        },
+        {
+          "id": "j-image",
+          "type": "SELECT",
+          "text": "-- Không dùng ảnh bìa --Minh họa họa cụ màu nước và cọ vẽ (A01)Minh họ",
+          "disabled": false
+        },
+        {
+          "id": "",
+          "type": "BUTTON",
+          "text": "+ Đoạn văn",
+          "disabled": false
+        },
+        {
+          "id": "",
+          "type": "BUTTON",
+          "text": "+ Tiêu đề mục",
+          "disabled": false
+        },
+        {
+          "id": "",
+          "type": "BUTTON",
+          "text": "+ Khối lưu ý",
+          "disabled": false
+        },
+        {
+          "id": "",
+          "type": "BUTTON",
+          "text": "+ Danh sách",
+          "disabled": false
+        },
+        {
+          "id": "",
+          "type": "BUTTON",
+          "text": "+ Trích dẫn",
+          "disabled": false
+        },
+        {
+          "id": "",
+          "type": "BUTTON",
+          "text": "Kiểm tra & Xuất JSON",
+          "disabled": false
+        },
+        {
+          "id": "export-journal-btn",
+          "type": "BUTTON",
+          "text": "Xuất tệp JSON",
+          "disabled": false
+        },
+        {
+          "id": "apply-journal-btn",
+          "type": "BUTTON",
+          "text": "Áp dụng vào Site",
+          "disabled": false
+        }
+      ],
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "tab": "products",
+      "viewport": 1440,
+      "scrollWidth": 1440,
+      "images": [],
+      "controls": [
+        {
+          "id": "",
+          "type": "BUTTON",
+          "text": "1. Biên tập Nhật ký",
+          "disabled": false
+        },
+        {
+          "id": "",
+          "type": "BUTTON",
+          "text": "2. Trạng thái Mở bán Quà lưu niệm",
+          "disabled": false
+        },
+        {
+          "id": "",
+          "type": "BUTTON",
+          "text": "3. Đối soát Sao kê CSV",
+          "disabled": false
+        },
+        {
+          "id": "prod-status-chuon-chuon-tre-kem-de",
+          "type": "SELECT",
+          "text": "Chờ mở bán (unconfirmed)\n                Đang mở bán (open)\n          ",
+          "disabled": false
+        },
+        {
+          "id": "prod-price-chuon-chuon-tre-kem-de",
+          "type": "INPUT",
+          "text": "",
+          "disabled": false
+        },
+        {
+          "id": "prod-stock-chuon-chuon-tre-kem-de",
+          "type": "INPUT",
+          "text": "",
+          "disabled": false
+        },
+        {
+          "id": "prod-channel-chuon-chuon-tre-kem-de",
+          "type": "INPUT",
+          "text": "",
+          "disabled": false
+        },
+        {
+          "id": "prod-policy-chuon-chuon-tre-kem-de",
+          "type": "TEXTAREA",
+          "text": "",
+          "disabled": false
+        },
+        {
+          "id": "prod-approval-chuon-chuon-tre-kem-de",
+          "type": "SELECT",
+          "text": "Chờ duyệt (pending)\n                Đã duyệt (approved)",
+          "disabled": false
+        },
+        {
+          "id": "prod-status-moc-khoa",
+          "type": "SELECT",
+          "text": "Chờ mở bán (unconfirmed)\n                Đang mở bán (open)\n          ",
+          "disabled": false
+        },
+        {
+          "id": "prod-price-moc-khoa",
+          "type": "INPUT",
+          "text": "",
+          "disabled": false
+        },
+        {
+          "id": "prod-stock-moc-khoa",
+          "type": "INPUT",
+          "text": "",
+          "disabled": false
+        },
+        {
+          "id": "prod-channel-moc-khoa",
+          "type": "INPUT",
+          "text": "",
+          "disabled": false
+        },
+        {
+          "id": "prod-policy-moc-khoa",
+          "type": "TEXTAREA",
+          "text": "",
+          "disabled": false
+        },
+        {
+          "id": "prod-approval-moc-khoa",
+          "type": "SELECT",
+          "text": "Chờ duyệt (pending)\n                Đã duyệt (approved)",
+          "disabled": false
+        },
+        {
+          "id": "export-products-btn",
+          "type": "BUTTON",
+          "text": "Xuất cấu hình JSON",
+          "disabled": false
+        },
+        {
+          "id": "save-products-btn",
+          "type": "BUTTON",
+          "text": "Lưu & Áp dụng cấu hình",
+          "disabled": false
+        }
+      ],
+      "pass": true
+    },
+    {
+      "width": 1440,
+      "tab": "csv",
+      "viewport": 1440,
+      "scrollWidth": 1440,
+      "images": [],
+      "controls": [
+        {
+          "id": "",
+          "type": "BUTTON",
+          "text": "1. Biên tập Nhật ký",
+          "disabled": false
+        },
+        {
+          "id": "",
+          "type": "BUTTON",
+          "text": "2. Trạng thái Mở bán Quà lưu niệm",
+          "disabled": false
+        },
+        {
+          "id": "",
+          "type": "BUTTON",
+          "text": "3. Đối soát Sao kê CSV",
+          "disabled": false
+        },
+        {
+          "id": "csv-text",
+          "type": "TEXTAREA",
+          "text": "",
+          "disabled": false
+        },
+        {
+          "id": "csv-reconciled-date",
+          "type": "INPUT",
+          "text": "",
+          "disabled": false
+        },
+        {
+          "id": "csv-reviewers",
+          "type": "INPUT",
+          "text": "",
+          "disabled": false
+        },
+        {
+          "id": "csv-confirm-approved",
+          "type": "INPUT",
+          "text": "",
+          "disabled": false
+        },
+        {
+          "id": "validate-csv-btn",
+          "type": "BUTTON",
+          "text": "Kiểm tra tính hợp lệ CSV",
+          "disabled": false
+        },
+        {
+          "id": "load-sample-csv-btn",
+          "type": "BUTTON",
+          "text": "Nạp CSV mẫu",
+          "disabled": false
+        },
+        {
+          "id": "export-csv-json-btn",
+          "type": "BUTTON",
+          "text": "Xuất JSON đối soát",
+          "disabled": true
+        },
+        {
+          "id": "apply-csv-btn",
+          "type": "BUTTON",
+          "text": "Áp dụng bản chiếu công khai",
+          "disabled": true
+        }
+      ],
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "catalog": {
+    "keys": [
+      "images",
+      "entries",
+      "products",
+      "productsConfig",
+      "hashes"
+    ],
+    "imageCount": 8,
+    "entryCount": 2,
+    "productCount": 2,
+    "hasHashes": false
+  },
+  "pass": true
+}

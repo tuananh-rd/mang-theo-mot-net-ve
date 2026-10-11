@@ -1,0 +1,773 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Icon from '../../components/Icon.astro';
+import { OFFICIAL_CONTACT } from '../../data/campaign';
+import {
+  CRAFT_PRODUCT_DETAILS,
+  getCraftProductBySlug,
+  getEffectiveProductSaleModel,
+  formatPurchaseInquiry,
+} from '../../lib/products';
+
+export function getStaticPaths() {
+  const paths: { params: { slug: string } }[] = [];
+  for (const detail of CRAFT_PRODUCT_DETAILS) {
+    paths.push({ params: { slug: detail.slug } });
+    if (detail.aliases) {
+      for (const alias of detail.aliases) {
+        paths.push({ params: { slug: alias } });
+      }
+    }
+  }
+  return paths;
+}
+
+const { slug } = Astro.params;
+const detail = getCraftProductBySlug(slug!);
+
+if (!detail) {
+  throw new Error(`Product not found for slug: ${slug}`);
+}
+
+const { product } = detail;
+const saleModel = getEffectiveProductSaleModel(product);
+const isPurchaseEligible = saleModel.canPurchase;
+
+const breadcrumbs = [
+  { label: 'Trang chủ', href: '/' },
+  { label: 'Quà lưu niệm', href: '/san-pham' },
+  { label: product.name },
+];
+
+const summaryItems = [
+  { label: saleModel.priceTypeLabel, value: `${saleModel.priceText}/${saleModel.unitSuffix}` },
+  {
+    label: 'Dự kiến chuẩn bị',
+    value: product.plannedQuantity.value ? `${product.plannedQuantity.value} ${saleModel.unitSuffix}` : 'Chưa xác nhận',
+  },
+  { label: 'Trạng thái', chip: { kind: saleModel.statusChipKind, label: saleModel.statusLabel } },
+  { label: 'Kênh bán', value: saleModel.salesChannel },
+];
+
+const initialInquiryText = formatPurchaseInquiry({
+  product,
+  quantity: 1,
+});
+
+const fanpageUrl = OFFICIAL_CONTACT.fanpageUrl;
+const contactPeople = OFFICIAL_CONTACT.people;
+---
+
+<Layout
+  title={`${product.name} — Quà lưu niệm gây quỹ`}
+  description={`${product.description} ${saleModel.priceTypeLabel}: ${saleModel.priceText}. Quà lưu niệm do nhóm Lăng Kính chuẩn bị gây quỹ cho Mái ấm Thánh Tâm.`}
+  currentPath="/san-pham"
+>
+  <PageHero
+    breadcrumbs={breadcrumbs}
+    eyebrow="Chi tiết sản phẩm gây quỹ"
+    chip={{ kind: saleModel.statusChipKind, label: saleModel.statusLabel }}
+    title={product.name}
+    titleId="product-title"
+    lead={product.description}
+    description="Toàn bộ doanh thu bán quà lưu niệm được quản lý và ghi sổ riêng biệt với các khoản ủng hộ qua chuyển khoản. Lãi thu được dùng để chuẩn bị buổi chơi và mua quà tặng các em tại Mái ấm Thánh Tâm."
+    summaryTitle="Thông tin nhanh"
+    summaryItems={summaryItems}
+  />
+
+  <section class="section" aria-labelledby="product-detail-heading">
+    <div class="container">
+      <div class="product-layout">
+        <!-- Visual Column -->
+        <div class="product-visual">
+          {detail.image ? (
+            <figure class="product-figure-main">
+              <img
+                src={detail.image.src}
+                alt={detail.image.alt}
+                width={detail.image.width}
+                height={detail.image.height}
+                loading="eager"
+                decoding="async"
+              />
+              <figcaption class="product-caption">
+                <strong>Lưu ý:</strong> {detail.image.caption}
+              </figcaption>
+            </figure>
+          ) : (
+            <div class="product-placeholder">
+              <div class="placeholder-icon">
+                <Icon name="moc-khoa" size={48} />
+              </div>
+              <p class="placeholder-title">Chưa có ảnh chụp mẫu</p>
+              <p class="placeholder-desc">{detail.imagePendingNote}</p>
+            </div>
+          )}
+
+          <div class="product-callout">
+            <h3 class="callout-title">Nguyên tắc gây quỹ</h3>
+            <p>
+              Hoạt động tại Mái ấm hoàn toàn là buổi chơi vui vẻ và sáng tạo cho các em; <strong>các em giữ lại toàn bộ sản phẩm mình làm ra</strong>. Nhóm Lăng Kính tự chịu trách nhiệm chuẩn bị và hoàn thiện sản phẩm bán gây quỹ, tuyệt đối không giao chỉ tiêu sản xuất cho các em.
+            </p>
+          </div>
+        </div>
+
+        <!-- Facts & Information Column -->
+        <div class="product-info">
+          <h2 id="product-detail-heading" class="sr-only">Thông số và kế hoạch sản phẩm</h2>
+
+          <div class="spec-card">
+            <h3 class="spec-card-title">Thông tin chi tiết</h3>
+            <dl class="spec-list">
+              <div class="spec-item">
+                <dt>{saleModel.priceTypeLabel}</dt>
+                <dd>
+                  <strong>{saleModel.priceText}</strong> / {saleModel.unitSuffix}
+                  <span class="spec-note">{saleModel.priceNote}</span>
+                </dd>
+              </div>
+
+              <div class="spec-item">
+                <dt>Số lượng dự kiến</dt>
+                <dd>
+                  {product.plannedQuantity.value !== null
+                    ? `${product.plannedQuantity.value} ${saleModel.unitSuffix} (theo kế hoạch)`
+                    : 'Chưa xác nhận số lượng'}
+                </dd>
+              </div>
+
+              {saleModel.stockAvailable !== null && (
+                <div class="spec-item">
+                  <dt>Số lượng hiện có</dt>
+                  <dd>
+                    <strong>{saleModel.stockAvailable} {saleModel.unitSuffix}</strong> (theo thông tin kho)
+                  </dd>
+                </div>
+              )}
+
+              <div class="spec-item">
+                <dt>Chất liệu & phôi</dt>
+                <dd>{detail.materialInfo}</dd>
+              </div>
+
+              {detail.dimensionInfo && (
+                <div class="spec-item">
+                  <dt>Kích thước</dt>
+                  <dd>{detail.dimensionInfo}</dd>
+                </div>
+              )}
+
+              <div class="spec-item">
+                <dt>Nguồn gốc & chế tác</dt>
+                <dd>{detail.originDetails}</dd>
+              </div>
+
+              <div class="spec-item">
+                <dt>Địa điểm & kế hoạch nhận quà</dt>
+                <dd>{saleModel.salesChannel}</dd>
+              </div>
+
+              <div class="spec-item">
+                <dt>Chính sách đổi / trả / hủy</dt>
+                <dd>{saleModel.returnPolicy}</dd>
+              </div>
+            </dl>
+          </div>
+
+          <!-- Purchase Inquiry Flow Section -->
+          <div class="inquiry-card" id="inquiry-section">
+            <div class="inquiry-card-header">
+              <span class="eyebrow">Quy trình đăng ký</span>
+              <h3 class="inquiry-title">Soạn yêu cầu mua quà lưu niệm</h3>
+            </div>
+
+            {isPurchaseEligible ? (
+              <div
+                class="inquiry-interactive"
+                data-unit-price={saleModel.effectivePrice}
+                data-product-name={product.name}
+                data-unit-suffix={saleModel.unitSuffix}
+                data-sales-channel={saleModel.salesChannel}
+                data-max-qty={saleModel.maxPurchasableQuantity}
+              >
+                <p class="inquiry-lead">
+                  Chọn số lượng bạn mong muốn để hệ thống tự động soạn sẵn nội dung tin nhắn. Bạn sao chép nội dung và gửi đến Fanpage hoặc liên hệ trực tiếp thành viên nhóm.
+                </p>
+
+                <div class="calc-row">
+                  <label for="product-qty-input" class="calc-label">Số lượng:</label>
+                  <div class="qty-control">
+                    <button type="button" class="qty-btn" id="qty-dec" aria-label="Giảm số lượng">-</button>
+                    <input type="number" id="product-qty-input" min="1" max={saleModel.maxPurchasableQuantity} value="1" class="qty-input" />
+                    <button type="button" class="qty-btn" id="qty-inc" aria-label="Tăng số lượng">+</button>
+                  </div>
+                  <div class="calc-subtotal">
+                    <span class="subtotal-label">Tạm tính:</span>
+                    <strong class="subtotal-val" id="subtotal-val">{saleModel.priceText}</strong>
+                  </div>
+                </div>
+
+                <div class="inquiry-textarea-wrap">
+                  <label for="inquiry-text-output" class="inquiry-text-label">Nội dung yêu cầu gửi nhóm:</label>
+                  <textarea id="inquiry-text-output" class="inquiry-textarea" rows="8" readonly>{initialInquiryText}</textarea>
+                </div>
+
+                <div class="inquiry-actions">
+                  <button type="button" class="btn btn-primary" id="copy-inquiry-btn">
+                    Sao chép nội dung yêu cầu
+                  </button>
+                  {fanpageUrl && (
+                    <a href={fanpageUrl} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                      Gửi qua Fanpage Lăng Kính ↗
+                    </a>
+                  )}
+                </div>
+
+                <div class="copy-alert" id="copy-alert" role="status" aria-live="polite" hidden>
+                  Đã sao chép nội dung yêu cầu mua vào bộ nhớ tạm!
+                </div>
+
+                <p class="inquiry-footer-note">
+                  <strong>Bước tiếp theo:</strong> Gửi nội dung đã sao chép cho nhóm Lăng Kính. Đơn hàng chỉ được xác nhận sau khi nhóm liên hệ lại và thống nhất cách thức giao nhận. Website không xử lý thanh toán tự động và không thu tiền trước.
+                </p>
+              </div>
+            ) : (
+              <div class="inquiry-pending-state">
+                <div class="pending-pill">Trạng thái: Đang chuẩn bị mẫu — Chưa mở bán</div>
+                <p>
+                  Sản phẩm hiện đang trong giai đoạn chuẩn bị và hoàn thiện mẫu; nhóm chưa tiếp nhận đơn đặt hàng hay thu tiền trước. Khi có thông báo chính thức, tính năng soạn yêu cầu mua sẽ được mở ngay tại đây.
+                </p>
+                <div class="pending-contacts">
+                  <p class="pending-contacts-title">Nếu bạn quan tâm hoặc muốn đăng ký số lượng lớn trước:</p>
+                  <ul class="contact-links">
+                    {fanpageUrl && (
+                      <li>
+                        <a href={fanpageUrl} target="_blank" rel="noopener noreferrer" class="link-arrow">
+                          Nhắn tin qua Fanpage Mang Theo Một Nét Vẽ <span class="arrow" aria-hidden="true">↗</span>
+                        </a>
+                      </li>
+                    )}
+                    {contactPeople.map((p) => (
+                      <li>
+                        <a href={`tel:${p.phoneE164}`} class="link-arrow">
+                          Liên hệ trực tiếp: {p.name} ({p.role}): {p.phone} <span class="arrow" aria-hidden="true">→</span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Navigation Footer -->
+  <section class="section section-soft">
+    <div class="container nav-strip">
+      <a href="/san-pham" class="link-arrow">
+        <span class="arrow" aria-hidden="true">←</span> Quay lại danh mục quà lưu niệm
+      </a>
+      <div class="nav-strip-links">
+        <a href="/nhat-ky/gioi-thieu-qua-luu-niem-gay-quy" class="link-inline">Đọc bài nhật ký về quà lưu niệm →</a>
+        <a href="/dong-hanh" class="btn btn-secondary">Ủng hộ quỹ dự án</a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  function setupProductInquiry() {
+    const container = document.querySelector<HTMLElement>('.inquiry-interactive');
+    if (!container) return;
+
+    const unitPrice = Number(container.getAttribute('data-unit-price') || '0');
+    const productName = container.getAttribute('data-product-name') || '';
+    const unitSuffix = container.getAttribute('data-unit-suffix') || 'chiếc';
+    const salesChannel =
+      container.getAttribute('data-sales-channel') ||
+      'Khuôn viên Đại học FPT Hà Nội (Hòa Lạc) hoặc theo thỏa thuận với nhóm';
+    const maxQty = Number(container.getAttribute('data-max-qty') || '50');
+
+    const qtyInput = document.getElementById('product-qty-input') as HTMLInputElement | null;
+    const btnInc = document.getElementById('qty-inc');
+    const btnDec = document.getElementById('qty-dec');
+    const subtotalEl = document.getElementById('subtotal-val');
+    const textareaEl = document.getElementById('inquiry-text-output') as HTMLTextAreaElement | null;
+    const copyBtn = document.getElementById('copy-inquiry-btn');
+    const copyAlert = document.getElementById('copy-alert');
+
+    function updateInquiry() {
+      if (!qtyInput || !subtotalEl || !textareaEl) return;
+      let qty = parseInt(qtyInput.value, 10);
+      if (isNaN(qty) || qty < 1) qty = 1;
+      if (qty > maxQty) qty = maxQty;
+      qtyInput.value = qty.toString();
+
+      const subtotal = unitPrice * qty;
+      const formattedSubtotal = new Intl.NumberFormat('vi-VN').format(subtotal) + 'đ';
+      subtotalEl.textContent = formattedSubtotal;
+
+      const lines = [
+        `[YÊU CẦU MUA QUÀ LƯU NIỆM GÂY QUỸ]`,
+        `Dự án: Mang Theo Một Nét Vẽ — Nhóm sinh viên Lăng Kính`,
+        `Sản phẩm: ${productName}`,
+        `Số lượng: ${qty} ${unitSuffix}`,
+        `Đơn giá: ${new Intl.NumberFormat('vi-VN').format(unitPrice)}đ`,
+        `Tạm tính: ${formattedSubtotal}`,
+        `Địa điểm nhận dự kiến: ${salesChannel}`,
+        `---`,
+        `Lưu ý: Đây là tin nhắn soạn mẫu gửi đến Fanpage hoặc thành viên nhóm Lăng Kính. Yêu cầu mua chỉ được xác nhận sau khi nhóm phản hồi và thống nhất cách nhận quà.`,
+      ];
+      textareaEl.value = lines.join('\n');
+    }
+
+    btnInc?.addEventListener('click', () => {
+      if (qtyInput) {
+        const cur = parseInt(qtyInput.value || '1', 10);
+        if (cur < maxQty) {
+          qtyInput.value = (cur + 1).toString();
+          updateInquiry();
+        }
+      }
+    });
+
+    btnDec?.addEventListener('click', () => {
+      if (qtyInput) {
+        const cur = parseInt(qtyInput.value || '1', 10);
+        if (cur > 1) {
+          qtyInput.value = (cur - 1).toString();
+          updateInquiry();
+        }
+      }
+    });
+
+    qtyInput?.addEventListener('input', updateInquiry);
+
+    copyBtn?.addEventListener('click', async () => {
+      if (!textareaEl) return;
+      try {
+        await navigator.clipboard.writeText(textareaEl.value);
+        if (copyAlert) {
+          copyAlert.removeAttribute('hidden');
+          copyAlert.textContent = 'Đã sao chép nội dung yêu cầu vào bộ nhớ tạm!';
+          setTimeout(() => {
+            copyAlert.setAttribute('hidden', '');
+          }, 3500);
+        }
+      } catch (err) {
+        if (copyAlert) {
+          copyAlert.removeAttribute('hidden');
+          copyAlert.textContent = 'Không thể sao chép tự động. Bạn hãy bôi đen đoạn văn bản và chọn Sao chép.';
+        }
+      }
+    });
+  }
+
+  setupProductInquiry();
+  document.addEventListener('astro:page-load', setupProductInquiry);
+</script>
+
+<style>
+  .product-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: var(--space-10);
+    align-items: start;
+  }
+
+  .product-visual {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .product-figure-main {
+    margin: 0;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: #ffffff;
+    box-shadow: var(--shadow-raised);
+  }
+
+  .product-figure-main img {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+  }
+
+  .product-caption {
+    padding: var(--space-4) var(--space-5);
+    font-size: var(--font-size-small);
+    color: var(--ink-2);
+    border-top: 1px solid var(--line);
+    background: var(--surface-soft);
+    line-height: 1.5;
+  }
+
+  .product-placeholder {
+    padding: var(--space-10) var(--space-6);
+    background: var(--surface-soft);
+    border: 2px dashed var(--line);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .placeholder-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 9999px;
+    background: #ffffff;
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+  }
+
+  .placeholder-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  .placeholder-desc {
+    font-size: var(--font-size-small);
+    color: var(--ink-2);
+    max-width: 380px;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .product-callout {
+    background: var(--surface-soft);
+    border-left: 4px solid var(--color-primary);
+    padding: var(--space-5);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  }
+
+  .callout-title {
+    font-size: var(--font-size-small);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin: 0 0 var(--space-2);
+  }
+
+  .product-callout p {
+    font-size: var(--font-size-small);
+    color: var(--ink-2);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .product-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  .spec-card {
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    box-shadow: var(--shadow-raised);
+  }
+
+  .spec-card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0 0 var(--space-5);
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .spec-list {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .spec-item {
+    display: grid;
+    grid-template-columns: 160px minmax(0, 1fr);
+    gap: var(--space-4);
+    align-items: start;
+    font-size: var(--font-size-body);
+  }
+
+  .spec-item dt {
+    font-weight: 600;
+    color: var(--ink-2);
+  }
+
+  .spec-item dd {
+    margin: 0;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+
+  .spec-note {
+    display: block;
+    font-size: var(--font-size-small);
+    color: var(--ink-2);
+    margin-top: 2px;
+  }
+
+  .inquiry-card {
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    box-shadow: var(--shadow-raised);
+  }
+
+  .inquiry-card-header {
+    margin-bottom: var(--space-4);
+  }
+
+  .inquiry-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: var(--space-1) 0 0;
+  }
+
+  .inquiry-pending-state {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .pending-pill {
+    display: inline-block;
+    align-self: flex-start;
+    background: var(--surface-soft);
+    border: 1px solid var(--line);
+    color: var(--ink-2);
+    font-size: var(--font-size-small);
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 9999px;
+  }
+
+  .inquiry-pending-state p {
+    font-size: var(--font-size-body);
+    color: var(--ink);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .pending-contacts {
+    background: var(--surface-soft);
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+    margin-top: var(--space-2);
+  }
+
+  .pending-contacts-title {
+    font-size: var(--font-size-small);
+    font-weight: 600;
+    color: var(--ink-2);
+    margin-bottom: var(--space-2) !important;
+  }
+
+  .contact-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .inquiry-lead {
+    font-size: var(--font-size-body);
+    color: var(--ink-2);
+    line-height: 1.5;
+    margin-bottom: var(--space-4);
+  }
+
+  .calc-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    background: var(--surface-soft);
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-4);
+  }
+
+  .calc-label {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .qty-control {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: #ffffff;
+    overflow: hidden;
+  }
+
+  .qty-btn {
+    width: 36px;
+    height: 36px;
+    background: #ffffff;
+    border: none;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--ink);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .qty-btn:hover {
+    background: var(--surface-soft);
+  }
+
+  .qty-input {
+    width: 48px;
+    height: 36px;
+    border: none;
+    border-left: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .calc-subtotal {
+    margin-left: auto;
+    font-size: 1.125rem;
+  }
+
+  .subtotal-label {
+    color: var(--ink-2);
+    font-size: var(--font-size-small);
+    margin-right: var(--space-2);
+  }
+
+  .subtotal-val {
+    color: var(--color-primary);
+    font-weight: 800;
+  }
+
+  .inquiry-textarea-wrap {
+    margin-bottom: var(--space-4);
+  }
+
+  .inquiry-text-label {
+    display: block;
+    font-size: var(--font-size-small);
+    font-weight: 600;
+    color: var(--ink-2);
+    margin-bottom: var(--space-2);
+  }
+
+  .inquiry-textarea {
+    width: 100%;
+    padding: var(--space-3);
+    font-family: inherit;
+    font-size: var(--font-size-small);
+    line-height: 1.5;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    background: var(--surface-soft);
+    color: var(--ink);
+    resize: vertical;
+  }
+
+  .inquiry-actions {
+    display: flex;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-3);
+  }
+
+  .copy-alert {
+    padding: var(--space-3) var(--space-4);
+    background: #e8f5e9;
+    border: 1px solid #c8e6c9;
+    color: #2e7d32;
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-small);
+    font-weight: 600;
+    margin-bottom: var(--space-3);
+  }
+
+  .inquiry-footer-note {
+    font-size: var(--font-size-small);
+    color: var(--ink-2);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .nav-strip {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .nav-strip-links {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .link-inline {
+    color: var(--color-primary);
+    font-weight: 600;
+    text-decoration: underline;
+  }
+
+  @media (max-width: 900px) {
+    .product-layout {
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
+    }
+
+    .spec-item {
+      grid-template-columns: 1fr;
+      gap: 4px;
+    }
+
+    .nav-strip {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-4);
+    }
+
+    .nav-strip-links {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-3);
+      width: 100%;
+    }
+
+    .nav-strip-links .btn {
+      width: 100%;
+    }
+  }
+</style>

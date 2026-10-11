@@ -1,0 +1,235 @@
+---
+/**
+ * Thanh hành động ủng hộ nhanh trên thiết bị di động (Task C14)
+ * Tuân thủ docs/task-specs/C14.md và early-review-03:
+ * - Gọn, dễ chạm (min 44px touch target), tính safe-area-inset-bottom.
+ * - Không che footer/focus/menu/QR, tự động ẩn khi khối QR đã trong viewport trên trang /dong-hanh.
+ * - Tự động ẩn và đặt inert/visibility:hidden để không lọt bàn phím Tab khi menu hoặc QR hiện.
+ * - Dùng domain chính thức https://mangtheomotnetve.website/
+ * - Hoạt động bằng HTML link thuần khi tắt JS (JS-off).
+ * - Tích hợp Web Share API với fallback sao chép URL công khai an toàn, thông báo co giãn tránh tràn màn hình 375px.
+ */
+
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = '' } = Astro.props;
+const isDongHanh = currentPath === '/dong-hanh';
+const publicUrl = 'https://mangtheomotnetve.website/';
+---
+
+<aside class="mobile-sticky-bar" id="mobile-sticky-bar" aria-label="Thao tác nhanh cho di động">
+  <div class="mobile-sticky-inner">
+    <a
+      href={isDongHanh ? '#chuyen-khoan' : '/dong-hanh'}
+      class="btn btn-primary mobile-bar-donate"
+      id="mobile-bar-donate-link"
+    >
+      Ủng hộ dự án
+    </a>
+    <a
+      href={publicUrl}
+      class="btn btn-secondary mobile-bar-share"
+      id="mobile-bar-share-btn"
+      data-share-url={publicUrl}
+      data-share-title="Mang Theo Một Nét Vẽ"
+      data-share-text="Dự án thiện nguyện mang buổi vui chơi sáng tạo và quà tặng đến Mái ấm Thánh Tâm Xuy Xá."
+      aria-label="Chia sẻ dự án"
+    >
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+        <polyline points="16 6 12 2 8 6"></polyline>
+        <line x1="12" y1="2" x2="12" y2="15"></line>
+      </svg>
+      <span>Chia sẻ</span>
+    </a>
+  </div>
+  <div class="mobile-bar-live" id="mobile-bar-live-status" role="status" aria-live="polite"></div>
+</aside>
+
+<script>
+  function setupMobileBar() {
+    const bar = document.getElementById('mobile-sticky-bar');
+    const shareBtn = document.getElementById('mobile-bar-share-btn');
+    const liveStatus = document.getElementById('mobile-bar-live-status');
+    const menuToggle = document.getElementById('mobile-nav-toggle');
+
+    if (!bar) return;
+
+    function updateInertState() {
+      if (!bar) return;
+      const isHidden =
+        bar.classList.contains('is-hidden-by-menu') ||
+        bar.classList.contains('is-hidden-by-target');
+      if (isHidden) {
+        bar.setAttribute('inert', '');
+      } else {
+        bar.removeAttribute('inert');
+      }
+    }
+
+    // 1. Web Share API & Clipboard Fallback (ngăn nhảy link khi có JS)
+    if (shareBtn) {
+      shareBtn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        const url = shareBtn.getAttribute('data-share-url') || window.location.href;
+        const title = shareBtn.getAttribute('data-share-title') || document.title;
+        const text = shareBtn.getAttribute('data-share-text') || '';
+
+        // Check if Web Share API is available (avoid local testing errors)
+        if (navigator.share && window.location.protocol.startsWith('http')) {
+          try {
+            await navigator.share({ title, text, url });
+            if (liveStatus) liveStatus.textContent = 'Đã mở hộp thoại chia sẻ.';
+            return;
+          } catch (err: any) {
+            if (err?.name === 'AbortError') return;
+          }
+        }
+
+        // Fallback: Copy public URL to clipboard
+        try {
+          await navigator.clipboard.writeText(url);
+          if (liveStatus) {
+            liveStatus.textContent = 'Đã sao chép liên kết dự án vào bộ nhớ tạm!';
+            setTimeout(() => {
+              if (liveStatus) liveStatus.textContent = '';
+            }, 3000);
+          }
+        } catch {
+          if (liveStatus) {
+            liveStatus.textContent = 'Không thể sao chép tự động. Hãy sao chép địa chỉ trang web.';
+          }
+        }
+      });
+    }
+
+    // 2. Hide sticky bar and set inert when mobile menu panel is opened
+    if (menuToggle) {
+      const observer = new MutationObserver(() => {
+        const isOpen = menuToggle.getAttribute('aria-expanded') === 'true';
+        if (isOpen) {
+          bar.classList.add('is-hidden-by-menu');
+        } else {
+          bar.classList.remove('is-hidden-by-menu');
+        }
+        updateInertState();
+      });
+      observer.observe(menuToggle, { attributes: true, attributeFilter: ['aria-expanded'] });
+    }
+
+    // 3. On /dong-hanh page: Hide bar when QR/donation panel is in viewport
+    const donationTarget = document.getElementById('chuyen-khoan') || document.querySelector('.donate');
+    if (donationTarget && 'IntersectionObserver' in window) {
+      const targetObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              bar.classList.add('is-hidden-by-target');
+            } else {
+              bar.classList.remove('is-hidden-by-target');
+            }
+            updateInertState();
+          });
+        },
+        { threshold: 0.15 }
+      );
+      targetObserver.observe(donationTarget);
+    }
+  }
+
+  setupMobileBar();
+  document.addEventListener('astro:page-load', setupMobileBar);
+</script>
+
+<style>
+  .mobile-sticky-bar {
+    display: none;
+  }
+
+  @media (max-width: 767px) {
+    .mobile-sticky-bar {
+      display: block;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 45; /* Dưới header mobile panel (z-index 50/60) nhưng trên content */
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-top: 1px solid var(--line);
+      box-shadow: 0 -4px 16px rgba(18, 60, 58, 0.08);
+      padding: var(--space-2) var(--space-4);
+      padding-bottom: max(var(--space-2), env(safe-area-inset-bottom));
+      transition: transform var(--transition-normal), opacity var(--transition-normal), visibility var(--transition-normal);
+      visibility: visible;
+    }
+
+    .mobile-sticky-bar.is-hidden-by-menu,
+    .mobile-sticky-bar.is-hidden-by-target {
+      transform: translateY(100%);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .mobile-sticky-inner {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .mobile-bar-donate {
+      flex: 1;
+      min-height: 44px;
+      height: 44px;
+      font-size: 0.9375rem;
+      padding: 0 var(--space-3);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .mobile-bar-share {
+      min-height: 44px;
+      height: 44px;
+      padding: 0 var(--space-3);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+
+    .mobile-bar-live {
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--brand-ink);
+      color: #ffffff;
+      font-size: 0.75rem;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      pointer-events: none;
+      max-width: 90vw;
+      width: max-content;
+      text-align: center;
+      line-height: 1.3;
+      box-shadow: var(--shadow-raised);
+    }
+
+    .mobile-bar-live:empty {
+      display: none;
+    }
+  }
+</style>

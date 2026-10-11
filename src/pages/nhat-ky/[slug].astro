@@ -1,0 +1,331 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHero from '../../components/PageHero.astro';
+import { getPublishedJournalEntries, type JournalEntry } from '../../data/journal';
+
+export function getStaticPaths() {
+  const publishedEntries = getPublishedJournalEntries();
+  return publishedEntries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: JournalEntry;
+}
+
+const { entry } = Astro.props;
+
+function formatDate(d: string): string {
+  const parts = d.split('-');
+  if (parts.length === 3) return `${parts[2]}/${parts[1]}/${parts[0]}`;
+  return d;
+}
+
+const breadcrumbs = [
+  { label: 'Trang chủ', href: '/' },
+  { label: 'Nhật ký', href: '/nhat-ky' },
+  { label: entry.title },
+];
+
+const eventStatusSuffix = entry.eventStatus === 'planned' ? ' (dự kiến)' : '';
+const summaryItems = [
+  { label: 'Danh mục', value: entry.categoryLabel },
+  { label: 'Ngày biên tập', value: formatDate(entry.publishedAt) },
+  ...(entry.eventDate
+    ? [{ label: 'Mốc sự kiện', value: `${formatDate(entry.eventDate)}${eventStatusSuffix}` }]
+    : [{ label: 'Phân loại', value: entry.categoryLabel }]),
+];
+---
+
+<Layout
+  title={`${entry.title} — Nhật ký`}
+  description={entry.summary}
+  currentPath="/nhat-ky"
+>
+  <PageHero
+    breadcrumbs={breadcrumbs}
+    eyebrow={`Nhật ký · ${entry.categoryLabel}`}
+    chip={{ kind: entry.category === 'ke-hoach' ? 'ke-hoach' : 'cho-xac-nhan', label: entry.categoryLabel }}
+    title={entry.title}
+    titleId="article-heading"
+    lead={entry.summary}
+    summaryTitle="Thông tin bài viết"
+    summaryItems={summaryItems}
+  />
+
+  <article class="section section-article">
+    <div class="container article-container">
+      <!-- Back Link -->
+      <div class="article-back-wrap">
+        <a href="/nhat-ky" class="link-arrow">
+          <span class="arrow" aria-hidden="true">←</span> Quay lại danh sách Nhật ký
+        </a>
+      </div>
+
+      <!-- Featured Cover Image (if available) -->
+      {
+        entry.coverImage && (
+          <figure class="article-featured-image">
+            <img
+              src={entry.coverImage.src}
+              alt={entry.coverImage.alt}
+              width="1200"
+              height="675"
+              loading="eager"
+              decoding="async"
+            />
+            <figcaption class="article-image-caption">
+              <span>{entry.coverImage.caption}</span>
+              {entry.coverImage.creditName && (
+                <span class="article-credit">
+                  Nguồn:{' '}
+                  {entry.coverImage.creditUrl ? (
+                    <a
+                      href={entry.coverImage.creditUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="inline-link"
+                    >
+                      {entry.coverImage.creditName} ({entry.coverImage.creditSource || 'Stock'})
+                    </a>
+                  ) : (
+                    `${entry.coverImage.creditName} (${entry.coverImage.creditSource || 'Stock'})`
+                  )}
+                </span>
+              )}
+            </figcaption>
+          </figure>
+        )
+      }
+
+      <!-- Article Structured Content Blocks -->
+      <div class="article-content prose">
+        {
+          entry.content.map((block) => {
+            if (block.type === 'paragraph') {
+              return <p class="article-p">{block.text}</p>;
+            }
+            if (block.type === 'heading') {
+              if (block.level === 3) {
+                return <h3 class="article-h3">{block.text}</h3>;
+              }
+              return <h2 class="article-h2">{block.text}</h2>;
+            }
+            if (block.type === 'list') {
+              return (
+                <ul class="article-list">
+                  {block.items.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              );
+            }
+            if (block.type === 'callout') {
+              return (
+                <aside class="article-callout" role="note">
+                  <p class="article-callout-text">{block.text}</p>
+                </aside>
+              );
+            }
+            if (block.type === 'quote') {
+              return (
+                <blockquote class="article-quote">
+                  <p>{block.text}</p>
+                  {block.cite && <cite>— {block.cite}</cite>}
+                </blockquote>
+              );
+            }
+            if (block.type === 'image') {
+              return (
+                <figure class="article-inline-figure">
+                  <img src={block.src} alt={block.alt} loading="lazy" decoding="async" />
+                  <figcaption class="article-image-caption">
+                    <span>{block.caption}</span>
+                    {block.creditName && (
+                      <span class="article-credit">Nguồn: {block.creditName}</span>
+                    )}
+                  </figcaption>
+                </figure>
+              );
+            }
+            return null;
+          })
+        }
+      </div>
+
+      <!-- Navigation & Bottom Actions -->
+      <div class="article-footer-nav">
+        <a href="/nhat-ky" class="btn btn-secondary">
+          ← Danh sách tất cả bài viết
+        </a>
+        <a href="/du-an/mang-theo-mot-net-ve" class="btn btn-primary">
+          Xem thông tin toàn bộ dự án →
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <!-- CTA Band -->
+  <section class="cta-band" aria-labelledby="detail-cta-heading">
+    <div class="container cta-band-inner">
+      <div class="cta-band-text">
+        <h2 id="detail-cta-heading">Cùng chung tay với nhóm Lăng Kính</h2>
+        <p>Ủng hộ tài chính qua tài khoản dự án hoặc theo dõi quà lưu niệm gây quỹ.</p>
+      </div>
+      <div class="cta-band-actions">
+        <a href="/dong-hanh" class="btn btn-primary">Ủng hộ qua chuyển khoản</a>
+        <a href="/san-pham" class="link-arrow">Xem quà lưu niệm <span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .section-article {
+    background: #ffffff;
+    padding-top: var(--space-6);
+    padding-bottom: var(--space-10);
+  }
+
+  .article-container {
+    max-width: 840px;
+    margin: 0 auto;
+  }
+
+  .article-back-wrap {
+    margin-bottom: var(--space-5);
+  }
+
+  .article-featured-image {
+    margin: 0 0 var(--space-8) 0;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: var(--surface-alt);
+  }
+
+  .article-featured-image img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block;
+  }
+
+  .article-image-caption {
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-small);
+    color: var(--ink-2);
+    background: var(--surface-alt);
+    border-top: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .article-credit {
+    font-size: 0.8125rem;
+    color: var(--ink-2);
+  }
+
+  .article-content {
+    font-size: var(--font-size-base);
+    line-height: 1.75;
+    color: var(--ink);
+  }
+
+  .article-p {
+    margin-bottom: var(--space-5);
+    line-height: 1.75;
+  }
+
+  .article-h2 {
+    font-size: var(--font-size-h2);
+    line-height: var(--line-height-h2);
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-4);
+    color: var(--ink);
+    border-bottom: 2px solid var(--line);
+    padding-bottom: var(--space-2);
+  }
+
+  .article-h3 {
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-3);
+    color: var(--ink);
+  }
+
+  .article-list {
+    margin: 0 0 var(--space-6) 0;
+    padding-left: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .article-list li {
+    line-height: 1.6;
+  }
+
+  .article-callout {
+    background: var(--surface-alt);
+    border-left: 4px solid var(--brand);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    padding: var(--space-4) var(--space-5);
+    margin: var(--space-6) 0;
+  }
+
+  .article-callout-text {
+    margin: 0;
+    font-weight: 500;
+    color: var(--brand-ink);
+  }
+
+  .article-quote {
+    margin: var(--space-6) 0;
+    padding: var(--space-4) var(--space-6);
+    border-left: 4px solid var(--cta);
+    background: #fff9f4;
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    font-style: italic;
+    color: var(--ink);
+  }
+
+  .article-quote p {
+    margin: 0 0 var(--space-2) 0;
+  }
+
+  .article-quote cite {
+    font-style: normal;
+    font-size: var(--font-size-small);
+    color: var(--ink-2);
+    display: block;
+  }
+
+  .article-footer-nav {
+    margin-top: var(--space-10);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--line);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  @media (max-width: 767px) {
+    .article-footer-nav {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .article-footer-nav a {
+      text-align: center;
+    }
+  }
+</style>

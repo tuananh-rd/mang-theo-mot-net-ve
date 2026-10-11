@@ -1,0 +1,18 @@
+{
+  "chuon-chuon-tre-kem-de": {
+    "saleStatus": "unconfirmed",
+    "officialPrice": null,
+    "stockAvailable": null,
+    "salesChannel": "FPT Hòa Lạc",
+    "returnPolicy": null,
+    "publicApproval": "pending"
+  },
+  "moc-khoa": {
+    "saleStatus": "unconfirmed",
+    "officialPrice": null,
+    "stockAvailable": null,
+    "salesChannel": "FPT Hòa Lạc",
+    "returnPolicy": null,
+    "publicApproval": "pending"
+  }
+}

@@ -4,6 +4,8 @@
  * Lưu ý: Số liệu thực tế chưa có để null, không gán 0 hoặc số kế hoạch làm thành tích.
  */
 
+import initialReconciledDonations from './reconciled-donations.json' with { type: 'json' };
+
 export interface QuantitativeFact {
   value: number | null;
   unit: string;
@@ -1335,11 +1337,7 @@ export interface DonationLedger {
  * Sổ ủng hộ. Tài liệu bổ sung chưa có sao kê, nên chưa có sổ đã đối soát.
  * Sổ trống ở đây không chứng minh chưa nhận được tiền.
  */
-export const DONATION_LEDGER: DonationLedger = {
-  reconciled: false,
-  reconciledAt: null,
-  entries: [],
-};
+export const DONATION_LEDGER: DonationLedger = initialReconciledDonations as DonationLedger;
 
 export interface ProjectProgress {
   currentWeek: number;
