@@ -74,9 +74,6 @@ export function renderStudioHtml(session: AuthSession): string {
       font-size: 1.1rem;
       font-weight: 700;
       color: #FFFFFF;
-      display: flex;
-      align-items: center;
-      gap: 8px;
     }
     .sidebar-subtitle {
       font-size: 0.8rem;
@@ -95,12 +92,12 @@ export function renderStudioHtml(session: AuthSession): string {
     .nav-link {
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 10px 12px;
+      padding: 10px 14px;
       color: #CBD5E0;
       text-decoration: none;
       border-radius: 6px;
       font-weight: 500;
+      font-size: 0.92rem;
       cursor: pointer;
       transition: all 0.15s ease;
     }
@@ -111,11 +108,6 @@ export function renderStudioHtml(session: AuthSession): string {
     .nav-link.active {
       background: var(--color-primary);
       color: #FFFFFF;
-    }
-    .nav-icon {
-      width: 18px;
-      text-align: center;
-      font-size: 1rem;
     }
 
     /* Main Container */
@@ -148,10 +140,13 @@ export function renderStudioHtml(session: AuthSession): string {
       display: none;
       background: none;
       border: 1px solid var(--color-neutral-light);
-      padding: 6px 10px;
+      padding: 6px 12px;
       border-radius: 4px;
       cursor: pointer;
-      font-size: 1.2rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--color-neutral-dark);
+      white-space: nowrap;
     }
     .page-title {
       font-size: 1.25rem;
@@ -376,7 +371,13 @@ export function renderStudioHtml(session: AuthSession): string {
         visibility: visible;
       }
       .mobile-menu-btn {
-        display: block;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .top-left {
+        gap: 10px;
+        min-width: 0;
       }
       .content-area {
         padding: 16px;
@@ -406,58 +407,47 @@ export function renderStudioHtml(session: AuthSession): string {
   <!-- Sidebar -->
   <aside class="studio-sidebar" id="sidebar">
     <div class="sidebar-header">
-      <div class="sidebar-title">
-        <span>🎨</span>
-        <span>Content Studio</span>
-      </div>
+      <div class="sidebar-title">Content Studio</div>
       <div class="sidebar-subtitle">Mang Theo Một Nét Vẽ</div>
     </div>
     <ul class="nav-list">
       <li class="nav-item">
         <a class="nav-link active" data-tab="dashboard" href="#dashboard" tabindex="0">
-          <span class="nav-icon">📊</span>
           <span>1. Tổng quan</span>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" data-tab="project" href="#project" tabindex="0">
-          <span class="nav-icon">📖</span>
           <span>2. Dự án & Thông điệp</span>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" data-tab="journal" href="#journal" tabindex="0">
-          <span class="nav-icon">📝</span>
           <span>3. Nhật ký hành trình</span>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" data-tab="media" href="#media" tabindex="0">
-          <span class="nav-icon">🖼️</span>
           <span>4. Thư viện Media</span>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" data-tab="products" href="#products" tabindex="0">
-          <span class="nav-icon">🛍️</span>
           <span>5. Sản phẩm & Mở bán</span>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" data-tab="finance" href="#finance" tabindex="0">
-          <span class="nav-icon">💰</span>
           <span>6. Tài chính & Sao kê</span>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" data-tab="team" href="#team" tabindex="0">
-          <span class="nav-icon">👥</span>
           <span>7. Nhóm, FAQ & SEO</span>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" data-tab="publish" href="#publish" tabindex="0">
-          <span class="nav-icon">🚀</span>
           <span>8. Lịch sử & Xuất bản</span>
         </a>
       </li>
@@ -481,12 +471,11 @@ export function renderStudioHtml(session: AuthSession): string {
   <main class="studio-main">
     <header class="top-bar">
       <div class="top-left">
-        <button class="mobile-menu-btn" id="toggleSidebarBtn" aria-label="Mở menu điều hướng">☰</button>
+        <button class="mobile-menu-btn" id="toggleSidebarBtn" aria-label="Mở menu" aria-expanded="false">Mở menu</button>
         <h1 class="page-title" id="pageHeading">Tổng quan hệ thống</h1>
       </div>
       <div class="top-right">
         <div class="dirty-indicator" id="dirtyIndicator">
-          <span>⚠️</span>
           <span>Có thay đổi chưa lưu</span>
         </div>
         <div class="user-pill">
@@ -532,7 +521,7 @@ export function renderStudioHtml(session: AuthSession): string {
         const toast = document.createElement('div');
         const bg = type === 'success' ? '#2e7d32' : (type === 'error' ? '#c62828' : '#0288d1');
         toast.style.cssText = 'background: ' + bg + '; color: #fff; padding: 12px 16px; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); font-size: 0.9rem; font-weight: 500; display: flex; align-items: center; justify-content: space-between; gap: 12px;';
-        toast.innerHTML = '<span>' + escapeHtml(message) + '</span><button style=\"background: none; border: none; color: #fff; font-size: 1.2rem; cursor: pointer; line-height: 1;\" aria-label=\"Đóng\">&times;</button>';
+        toast.innerHTML = '<span>' + escapeHtml(message) + '</span><button style=\"background: none; border: 1px solid rgba(255,255,255,0.4); color: #fff; font-size: 0.8rem; padding: 2px 8px; border-radius: 4px; cursor: pointer;\" aria-label=\"Đóng\">Đóng</button>';
         toast.querySelector('button').onclick = function() { toast.remove(); };
         container.appendChild(toast);
         setTimeout(function() { if (toast.parentNode) toast.remove(); }, 6000);
@@ -546,16 +535,37 @@ export function renderStudioHtml(session: AuthSession): string {
       const navLinks = document.querySelectorAll('.nav-link');
       const devRoleSelect = document.getElementById('devRoleSelect');
 
+      function updateSidebarToggle(isOpen) {
+        if (!sidebar) return;
+        if (isOpen) {
+          sidebar.classList.add('open');
+          if (toggleSidebarBtn) {
+            toggleSidebarBtn.textContent = 'Đóng menu';
+            toggleSidebarBtn.setAttribute('aria-label', 'Đóng menu');
+            toggleSidebarBtn.setAttribute('aria-expanded', 'true');
+          }
+        } else {
+          sidebar.classList.remove('open');
+          if (toggleSidebarBtn) {
+            toggleSidebarBtn.textContent = 'Mở menu';
+            toggleSidebarBtn.setAttribute('aria-label', 'Mở menu');
+            toggleSidebarBtn.setAttribute('aria-expanded', 'false');
+          }
+        }
+      }
+
       // Toggle Sidebar Mobile & Keyboard Escape Handler
       if (toggleSidebarBtn) {
         toggleSidebarBtn.addEventListener('click', () => {
-          sidebar.classList.toggle('open');
+          const isOpen = sidebar.classList.contains('open');
+          updateSidebarToggle(!isOpen);
         });
       }
 
       window.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && sidebar.classList.contains('open')) {
-          sidebar.classList.remove('open');
+          updateSidebarToggle(false);
+          toggleSidebarBtn?.focus();
         }
       });
 
@@ -631,7 +641,7 @@ export function renderStudioHtml(session: AuthSession): string {
           setDirty(false);
           loadTab(tab);
           if (window.innerWidth <= 768) {
-            sidebar.classList.remove('open');
+            updateSidebarToggle(false);
           }
         });
       });
@@ -712,14 +722,14 @@ export function renderStudioHtml(session: AuthSession): string {
               \${latestPub ? 'Bản xuất bản gần nhất: <strong>' + latestPub.id + '</strong> (' + new Date(latestPub.createdAt).toLocaleString('vi-VN') + '). Trạng thái triển khai: <strong>' + latestPub.deployStatus + '</strong>' : 'Chưa có bản xuất bản nào được tạo.'}
             </p>
             <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-              <button class="btn btn-primary" onclick="document.querySelector('[data-tab=publish]').click()">Xem quy trình duyệt xuất bản 🚀</button>
+              <button class="btn btn-primary" onclick="document.querySelector('[data-tab=publish]').click()">Xem quy trình duyệt xuất bản</button>
             </div>
           </div>
 
           <div class="card" style="border-left: 4px solid var(--color-teal);">
             <div class="card-title">
-              <span>🌐 Cổng xem trước Website công khai</span>
-              <a href="http://127.0.0.1:4322/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">Mở website (Cổng 4322) ↗</a>
+              <span>Cổng xem trước Website công khai</span>
+              <a href="http://127.0.0.1:4322/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">Mở website (Cổng 4322)</a>
             </div>
             <p style="color: var(--color-neutral-mid); font-size: 0.9rem;">
               Địa chỉ xem trước website Astro SSR/SSG cục bộ: <code>http://127.0.0.1:4322/</code>. Dữ liệu công khai phản ánh các bản chụp (Snapshot) đã được duyệt và trích xuất.
@@ -758,7 +768,7 @@ export function renderStudioHtml(session: AuthSession): string {
 
           <div class="card">
             <div class="card-title">Nhật ký kiểm toán gần đây</div>
-            <div class="table-scroll-hint">↔️ <span>Cuộn ngang để xem đầy đủ cột</span></div>
+            <div class="table-scroll-hint"><span>Cuộn ngang để xem đầy đủ cột</span></div>
             <div class="table-container" tabindex="0" role="region" aria-label="Bảng nhật ký kiểm toán gần đây">
               <table class="data-table">
                 <thead>
@@ -801,7 +811,7 @@ export function renderStudioHtml(session: AuthSession): string {
                 </select>
               </div>
               <div class="form-group" style="display: flex; align-items: flex-end;">
-                <button type="button" class="btn btn-secondary" id="loadRevisionsBtn">Tải lịch sử 🔄</button>
+                <button type="button" class="btn btn-secondary" id="loadRevisionsBtn">Tải lịch sử</button>
               </div>
             </div>
             <div id="revisionsListArea"></div>
@@ -811,7 +821,7 @@ export function renderStudioHtml(session: AuthSession): string {
           <div class="card">
             <div class="card-title">
               <span>Quản trị Người dùng & Phân quyền (RBAC)</span>
-              <button type="button" class="btn btn-secondary btn-sm" id="loadUsersBtn">Tải danh sách 👥</button>
+              <button type="button" class="btn btn-secondary btn-sm" id="loadUsersBtn">Tải danh sách</button>
             </div>
             <div id="usersListArea">
               <p style="color: var(--color-neutral-mid); font-size: 0.9rem;">Bấm "Tải danh sách" để xem và phân quyền các tài khoản quản trị.</p>
@@ -844,7 +854,7 @@ export function renderStudioHtml(session: AuthSession): string {
             return;
           }
           area.innerHTML = \`
-            <div class="table-scroll-hint">↔️ <span>Cuộn ngang để xem đầy đủ cột và thao tác khôi phục</span></div>
+            <div class="table-scroll-hint"><span>Cuộn ngang để xem đầy đủ cột và thao tác khôi phục</span></div>
             <div class="table-container" tabindex="0" role="region" aria-label="Bảng lịch sử phiên bản phân hệ">
               <table class="data-table">
                 <thead>
@@ -866,7 +876,7 @@ export function renderStudioHtml(session: AuthSession): string {
                       <td>\${escapeHtml(r.comment || '(Không có ghi chú)')}</td>
                       <td><code>\${escapeHtml(r.revisionHash ? r.revisionHash.substring(0, 10) + '...' : '')}</code></td>
                       <td>
-                        <button type="button" class="btn btn-secondary btn-sm" onclick="restoreRev('\${modKey}', '\${r.id}')" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Khôi phục 🔄</button>
+                        <button type="button" class="btn btn-secondary btn-sm" onclick="restoreRev('\${modKey}', '\${r.id}')" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Khôi phục</button>
                       </td>
                     </tr>
                   \`).join('')}
@@ -911,7 +921,7 @@ export function renderStudioHtml(session: AuthSession): string {
           }
           const users = uRes.data.users || [];
           area.innerHTML = \`
-            <div class="table-scroll-hint">↔️ <span>Cuộn ngang để xem danh sách tài khoản</span></div>
+            <div class="table-scroll-hint"><span>Cuộn ngang để xem danh sách tài khoản</span></div>
             <div class="table-container" tabindex="0" role="region" aria-label="Bảng quản trị người dùng">
               <table class="data-table">
                 <thead>
@@ -996,7 +1006,7 @@ export function renderStudioHtml(session: AuthSession): string {
           <form id="projectForm" class="card">
             <div class="card-title">
               <span>Thông tin chung về Dự án & Thông điệp</span>
-              <button type="submit" class="btn btn-primary" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Lưu bản nháp 💾</button>
+              <button type="submit" class="btn btn-primary" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Lưu bản nháp</button>
             </div>
 
             <div class="form-row">
@@ -1220,7 +1230,7 @@ export function renderStudioHtml(session: AuthSession): string {
               <span>Danh sách bài viết nhật ký thực địa (\${journalArticlesCache.length})</span>
               <button class="btn btn-primary btn-sm" id="addNewArticleBtn" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>+ Viết bài mới</button>
             </div>
-            <div class="table-scroll-hint">↔️ <span>Cuộn ngang để xem đầy đủ cột và thao tác</span></div>
+            <div class="table-scroll-hint"><span>Cuộn ngang để xem đầy đủ cột và thao tác</span></div>
             <div class="table-container" tabindex="0" role="region" aria-label="Bảng danh sách bài viết nhật ký thực địa">
               <table class="data-table">
                 <thead>
@@ -1242,7 +1252,7 @@ export function renderStudioHtml(session: AuthSession): string {
                       <td>\${escapeHtml(a.publishedAt)}</td>
                       <td><span class="role-badge" style="background:\${a.status === 'published' ? '#C6F6D5' : '#FED7D7'}; color:#2D3748;">\${escapeHtml(a.status)}</span></td>
                       <td>
-                        <button class="btn btn-secondary btn-sm" onclick="openArticleEditor(\${idx})" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Sửa bài viết ✏️</button>
+                        <button class="btn btn-secondary btn-sm" onclick="openArticleEditor(\${idx})" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Sửa bài viết</button>
                       </td>
                     </tr>
                   \`).join('')}
@@ -1282,7 +1292,7 @@ export function renderStudioHtml(session: AuthSession): string {
           <div class="card">
             <div class="card-title">
               <span>Chỉnh sửa bài viết: <code>\${escapeHtml(a.slug)}</code></span>
-              <button class="btn btn-secondary btn-sm" id="backToJournalListBtn">← Quay lại danh sách</button>
+              <button class="btn btn-secondary btn-sm" id="backToJournalListBtn">Quay lại danh sách</button>
             </div>
 
             <form id="articleForm">
@@ -1380,7 +1390,7 @@ export function renderStudioHtml(session: AuthSession): string {
                     <div style="background: var(--color-bg-app); border: 1px solid var(--color-neutral-light); border-radius: 6px; padding: 12px; margin-bottom: 12px;" data-bidx="\${bIdx}">
                       <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
                         <strong>Khối \${bIdx + 1}: \${escapeHtml(blk.type)}</strong>
-                        <button type="button" class="btn btn-danger btn-sm" onclick="removeArticleBlock(\${articleIdx}, \${bIdx})">Xóa khối 🗑️</button>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="removeArticleBlock(\${articleIdx}, \${bIdx})">Xóa khối</button>
                       </div>
                       <div class="form-row">
                         <div class="form-group">
@@ -1405,7 +1415,7 @@ export function renderStudioHtml(session: AuthSession): string {
               </div>
 
               <div style="margin-top: 20px; display: flex; gap: 12px;">
-                <button type="submit" class="btn btn-primary" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Lưu bài viết vào bản nháp 💾</button>
+                <button type="submit" class="btn btn-primary" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Lưu bài viết vào bản nháp</button>
                 <button type="button" class="btn btn-secondary" onclick="renderJournalListView()">Hủy</button>
               </div>
             </form>
@@ -1598,7 +1608,7 @@ export function renderStudioHtml(session: AuthSession): string {
                   <label for="media_isIllustration" style="margin-bottom: 0;">Là ảnh minh họa (Illustration)</label>
                 </div>
               </div>
-              <button type="submit" class="btn btn-primary" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Tải lên thư viện Media 📤</button>
+              <button type="submit" class="btn btn-primary" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Tải lên thư viện Media</button>
             </form>
           </div>
 
@@ -1606,7 +1616,7 @@ export function renderStudioHtml(session: AuthSession): string {
             <div class="card-title">
               <span>Danh mục Media đã đăng ký & Bản quyền (Media Registry & Rights) (\${allAssets.length})</span>
             </div>
-            <div class="table-scroll-hint">↔️ <span>Cuộn ngang để xem đầy đủ cột, tác quyền và thao tác</span></div>
+            <div class="table-scroll-hint"><span>Cuộn ngang để xem đầy đủ cột, tác quyền và thao tác</span></div>
             <div class="table-container" tabindex="0" role="region" aria-label="Bảng danh mục media đã đăng ký và bản quyền">
               <table class="data-table">
                 <thead>
@@ -1648,10 +1658,10 @@ export function renderStudioHtml(session: AuthSession): string {
                       <td>
                         <div style="display: flex; gap: 6px; flex-wrap: wrap;">
                           \${(currentUserRole === 'reviewer' || currentUserRole === 'admin') ?
-                            ('<button type="button" class="btn btn-secondary btn-sm" onclick="reviewMedia(\\'' + escapeHtml(a.id) + '\\', \\'approve\\')">Duyệt ✅</button>' +
-                             '<button type="button" class="btn btn-secondary btn-sm" onclick="reviewMedia(\\'' + escapeHtml(a.id) + '\\', \\'reject\\')">Từ chối ❌</button>') : ''}
+                            ('<button type="button" class="btn btn-secondary btn-sm" onclick="reviewMedia(\\'' + escapeHtml(a.id) + '\\', \\'approve\\')">Duyệt</button>' +
+                             '<button type="button" class="btn btn-secondary btn-sm" onclick="reviewMedia(\\'' + escapeHtml(a.id) + '\\', \\'reject\\')">Từ chối</button>') : ''}
                           \${(currentUserRole === 'editor' || currentUserRole === 'admin') ?
-                            ('<button type="button" class="btn btn-secondary btn-sm" style="color: #E53E3E;" onclick="deleteMedia(\\'' + escapeHtml(a.id) + '\\')">Xóa 🗑️</button>') : ''}
+                            ('<button type="button" class="btn btn-secondary btn-sm" style="color: #E53E3E;" onclick="deleteMedia(\\'' + escapeHtml(a.id) + '\\')">Xóa</button>') : ''}
                         </div>
                       </td>
                     </tr>
@@ -1762,7 +1772,7 @@ export function renderStudioHtml(session: AuthSession): string {
           <form id="productsForm" class="card">
             <div class="card-title">
               <span>Cấu hình Mở bán Sản phẩm Gây quỹ</span>
-              <button type="submit" class="btn btn-primary" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Lưu cấu hình mở bán 💾</button>
+              <button type="submit" class="btn btn-primary" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Lưu cấu hình mở bán</button>
             </div>
 
             <div class="alert alert-info">
@@ -1987,7 +1997,7 @@ export function renderStudioHtml(session: AuthSession): string {
           <form id="donationAccountForm" class="card">
             <div class="card-title">
               <span>Cấu hình Tài khoản Tiếp nhận & Mục tiêu Gây quỹ</span>
-              <button type="submit" class="btn btn-primary" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Lưu tài khoản & mục tiêu 💾</button>
+              <button type="submit" class="btn btn-primary" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Lưu tài khoản & mục tiêu</button>
             </div>
 
             <div class="form-row">
@@ -2082,7 +2092,7 @@ export function renderStudioHtml(session: AuthSession): string {
                 <label for="csvReconciledAt">Mốc ngày chốt đối soát (YYYY-MM-DD)</label>
                 <input type="date" id="csvReconciledAt" name="reconciledAt" class="form-control" value="\${escapeHtml(f.reconciledAt || '2026-10-31')}">
               </div>
-              <button type="submit" class="btn btn-primary" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Thẩm định tệp CSV 📋</button>
+              <button type="submit" class="btn btn-primary" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Thẩm định tệp CSV</button>
             </form>
             <div id="csvPreviewArea" style="display: none; margin-top: 12px;"></div>
           </div>
@@ -2102,7 +2112,7 @@ export function renderStudioHtml(session: AuthSession): string {
                   <p><strong>Thời điểm:</strong> \${new Date(f.firstSigner.signedAt).toLocaleString('vi-VN')}</p>
                 \` : \`
                   <p style="color: var(--color-neutral-mid); margin-bottom: 8px;">Chưa ký xác nhận nguồn.</p>
-                  <button type="button" class="btn btn-secondary btn-sm" id="signFirstBtn" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Ký xác nhận Người lập ✍️</button>
+                  <button type="button" class="btn btn-secondary btn-sm" id="signFirstBtn" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Ký xác nhận Người lập</button>
                 \`}
               </div>
               <div style="border: 1px solid var(--color-neutral-light); border-radius: 6px; padding: 14px; background: var(--color-bg-app);">
@@ -2113,7 +2123,7 @@ export function renderStudioHtml(session: AuthSession): string {
                   <p><strong>Thời điểm:</strong> \${new Date(f.secondSigner.signedAt).toLocaleString('vi-VN')}</p>
                 \` : \`
                   <p style="color: var(--color-neutral-mid); margin-bottom: 8px;">Chưa ký kiểm tra độc lập.</p>
-                  <button type="button" class="btn btn-secondary btn-sm" id="signSecondBtn" \${currentUserRole === 'editor' ? 'disabled' : ''}>Ký kiểm tra độc lập ✍️</button>
+                  <button type="button" class="btn btn-secondary btn-sm" id="signSecondBtn" \${currentUserRole === 'editor' ? 'disabled' : ''}>Ký kiểm tra độc lập</button>
                 \`}
               </div>
             </div>
@@ -2122,7 +2132,7 @@ export function renderStudioHtml(session: AuthSession): string {
           <!-- Thẻ 3: Bản chiếu giao dịch sao kê -->
           <div class="card">
             <div class="card-title">Bản chiếu giao dịch sao kê đã xử lý (\${(f.entries || []).length} khoản)</div>
-            <div class="table-scroll-hint">↔️ <span>Cuộn ngang để xem đầy đủ cột giao dịch</span></div>
+            <div class="table-scroll-hint"><span>Cuộn ngang để xem đầy đủ cột giao dịch</span></div>
             <div class="table-container" tabindex="0" role="region" aria-label="Bảng bản chiếu giao dịch sao kê đã xử lý">
               <table class="data-table">
                 <thead>
@@ -2151,7 +2161,7 @@ export function renderStudioHtml(session: AuthSession): string {
           <!-- Thẻ 4: Doanh thu bán hàng gây quỹ -->
           <div class="card">
             <div class="card-title">Doanh thu bán hàng gây quỹ (\${(f.sales || []).length} mục)</div>
-            <div class="table-scroll-hint">↔️ <span>Cuộn ngang để xem đầy đủ cột doanh thu</span></div>
+            <div class="table-scroll-hint"><span>Cuộn ngang để xem đầy đủ cột doanh thu</span></div>
             <div class="table-container" tabindex="0" role="region" aria-label="Bảng doanh thu bán hàng gây quỹ">
               <table class="data-table">
                 <thead>
@@ -2182,7 +2192,7 @@ export function renderStudioHtml(session: AuthSession): string {
           <!-- Thẻ 5: Khoản chi dự án -->
           <div class="card">
             <div class="card-title">Khoản chi dự án (\${(f.expenses || []).length} khoản)</div>
-            <div class="table-scroll-hint">↔️ <span>Cuộn ngang để xem đầy đủ cột chi phí</span></div>
+            <div class="table-scroll-hint"><span>Cuộn ngang để xem đầy đủ cột chi phí</span></div>
             <div class="table-container" tabindex="0" role="region" aria-label="Bảng chi phí dự án">
               <table class="data-table">
                 <thead>
@@ -2213,7 +2223,7 @@ export function renderStudioHtml(session: AuthSession): string {
           <!-- Thẻ 6: Tiếp nhận ủng hộ hiện vật -->
           <div class="card">
             <div class="card-title">Tiếp nhận ủng hộ hiện vật (\${(f.inKindDonations || []).length} hiện vật)</div>
-            <div class="table-scroll-hint">↔️ <span>Cuộn ngang để xem đầy đủ cột hiện vật</span></div>
+            <div class="table-scroll-hint"><span>Cuộn ngang để xem đầy đủ cột hiện vật</span></div>
             <div class="table-container" tabindex="0" role="region" aria-label="Bảng tiếp nhận ủng hộ hiện vật">
               <table class="data-table">
                 <thead>
@@ -2360,7 +2370,7 @@ export function renderStudioHtml(session: AuthSession): string {
                 <div class="alert alert-success" style="margin-top: 12px;">
                   Đã thẩm định CSV thành công! Tìm thấy <strong>\${json.rows.length}</strong> dòng hợp lệ, tổng tiền: <strong>\${Number(json.stats.totalAmount).toLocaleString('vi-VN')} đ</strong>.
                   <div style="margin-top: 8px;">
-                    <button type="button" class="btn btn-success btn-sm" id="applyCsvBtn" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Áp dụng vào sổ sao kê & Lưu nháp 💾</button>
+                    <button type="button" class="btn btn-success btn-sm" id="applyCsvBtn" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Áp dụng vào sổ sao kê & Lưu nháp</button>
                   </div>
                 </div>
               \`;
@@ -2440,7 +2450,7 @@ export function renderStudioHtml(session: AuthSession): string {
           <form id="teamForm" class="card">
             <div class="card-title">
               <span>Thông tin Nhóm, Thành viên, FAQs & SEO</span>
-              <button type="submit" class="btn btn-primary" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Lưu phân hệ Nhóm 💾</button>
+              <button type="submit" class="btn btn-primary" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Lưu phân hệ Nhóm</button>
             </div>
 
             <div class="form-row">
@@ -2644,13 +2654,13 @@ export function renderStudioHtml(session: AuthSession): string {
               Hệ thống tạo bản chụp bất biến (Immutable Snapshot) độc lập được làm sạch hoàn toàn. Yêu cầu xuất bản cần được phê duyệt bởi 2 tài khoản độc lập trước khi triển khai thực tế.
             </div>
             <div style="margin-bottom: 20px;">
-              <button class="btn btn-primary" id="requestPublishBtn" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Tạo yêu cầu xuất bản mới 📦</button>
+              <button class="btn btn-primary" id="requestPublishBtn" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Tạo yêu cầu xuất bản mới</button>
             </div>
           </div>
 
           <div class="card">
             <div class="card-title">Danh sách yêu cầu xuất bản (\${pubs.length})</div>
-            <div class="table-scroll-hint">↔️ <span>Cuộn ngang để xem đầy đủ cột, người duyệt và thao tác</span></div>
+            <div class="table-scroll-hint"><span>Cuộn ngang để xem đầy đủ cột, người duyệt và thao tác</span></div>
             <div class="table-container" tabindex="0" role="region" aria-label="Bảng danh sách yêu cầu xuất bản">
               <table class="data-table">
                 <thead>
@@ -2679,8 +2689,8 @@ export function renderStudioHtml(session: AuthSession): string {
                             '<button class="btn btn-success btn-sm" onclick="reviewPub(\\'' + p.id + '\\', \\'approve\\')" ' + (currentUserRole === 'editor' ? 'disabled' : '') + '>Duyệt</button>' +
                             '<button class="btn btn-danger btn-sm" onclick="reviewPub(\\'' + p.id + '\\', \\'reject\\')" ' + (currentUserRole === 'editor' ? 'disabled' : '') + '>Từ chối</button>'
                           ) : ''}
-                          <button class="btn btn-secondary btn-sm" onclick="exportPub('\${p.id}')" title="Trích xuất snapshot sang thư mục Astro">Xuất sang Astro 🚀</button>
-                          <button class="btn btn-secondary btn-sm" onclick="gitPublish('\${p.id}')" title="Tạo PR GitHub hoặc mô phỏng">Tạo PR Git 🐙</button>
+                          <button class="btn btn-secondary btn-sm" onclick="exportPub('\${p.id}')" title="Trích xuất snapshot sang thư mục Astro">Xuất sang Astro</button>
+                          <button class="btn btn-secondary btn-sm" onclick="gitPublish('\${p.id}')" title="Tạo PR GitHub hoặc mô phỏng">Tạo PR Git</button>
                         </div>
                       </td>
                     </tr>

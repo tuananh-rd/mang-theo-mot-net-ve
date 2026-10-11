@@ -1,0 +1,244 @@
+{
+  "testTimestamp": "2026-10-11T15:18:57.231Z",
+  "totalTabsTested": 8,
+  "viewportsTested": [
+    1440,
+    768,
+    375
+  ],
+  "errors": [],
+  "observations": [
+    {
+      "tab": "dashboard",
+      "viewport": 1440,
+      "overflow": false,
+      "formControls": 1,
+      "unlabelledControls": 0,
+      "navIcons": 0,
+      "elementsWithEmoji": [],
+      "pageHeading": "1. Tổng quan hệ thống"
+    },
+    {
+      "tab": "project",
+      "viewport": 1440,
+      "overflow": false,
+      "formControls": 26,
+      "unlabelledControls": 0,
+      "navIcons": 0,
+      "elementsWithEmoji": [],
+      "pageHeading": "2. Dự án & Thông điệp"
+    },
+    {
+      "tab": "journal",
+      "viewport": 1440,
+      "overflow": false,
+      "formControls": 0,
+      "unlabelledControls": 0,
+      "navIcons": 0,
+      "elementsWithEmoji": [],
+      "pageHeading": "3. Nhật ký hành trình"
+    },
+    {
+      "tab": "media",
+      "viewport": 1440,
+      "overflow": false,
+      "formControls": 8,
+      "unlabelledControls": 0,
+      "navIcons": 0,
+      "elementsWithEmoji": [],
+      "pageHeading": "4. Thư viện Media"
+    },
+    {
+      "tab": "products",
+      "viewport": 1440,
+      "overflow": false,
+      "formControls": 16,
+      "unlabelledControls": 0,
+      "navIcons": 0,
+      "elementsWithEmoji": [],
+      "pageHeading": "5. Sản phẩm & Mở bán"
+    },
+    {
+      "tab": "finance",
+      "viewport": 1440,
+      "overflow": false,
+      "formControls": 21,
+      "unlabelledControls": 0,
+      "navIcons": 0,
+      "elementsWithEmoji": [],
+      "pageHeading": "6. Tài chính & Sao kê"
+    },
+    {
+      "tab": "team",
+      "viewport": 1440,
+      "overflow": false,
+      "formControls": 61,
+      "unlabelledControls": 0,
+      "navIcons": 0,
+      "elementsWithEmoji": [],
+      "pageHeading": "7. Nhóm, FAQ & SEO"
+    },
+    {
+      "tab": "publish",
+      "viewport": 1440,
+      "overflow": false,
+      "formControls": 0,
+      "unlabelledControls": 0,
+      "navIcons": 0,
+      "elementsWithEmoji": [],
+      "pageHeading": "8. Lịch sử & Xuất bản"
+    },
+    {
+      "mobileDrawerLifecycle": {
+        "initial": {
+          "text": "Mở menu",
+          "ariaLabel": "Mở menu",
+          "ariaExpanded": "false",
+          "sidebarOpen": false
+        },
+        "opened": {
+          "text": "Đóng menu",
+          "ariaLabel": "Đóng menu",
+          "ariaExpanded": "true",
+          "sidebarOpen": true
+        },
+        "afterEscape": {
+          "text": "Mở menu",
+          "ariaLabel": "Mở menu",
+          "ariaExpanded": "false",
+          "sidebarOpen": false,
+          "activeElementId": "toggleSidebarBtn"
+        },
+        "escapeClosedProperly": true
+      }
+    },
+    {
+      "tab": "dashboard",
+      "viewport": 375,
+      "overflow": false,
+      "formControls": 1,
+      "unlabelledControls": 0,
+      "sidebarOpen": true
+    },
+    {
+      "tab": "project",
+      "viewport": 375,
+      "overflow": false,
+      "formControls": 26,
+      "unlabelledControls": 0,
+      "sidebarOpen": false
+    },
+    {
+      "tab": "journal",
+      "viewport": 375,
+      "overflow": false,
+      "formControls": 0,
+      "unlabelledControls": 0,
+      "sidebarOpen": false
+    },
+    {
+      "tab": "media",
+      "viewport": 375,
+      "overflow": false,
+      "formControls": 8,
+      "unlabelledControls": 0,
+      "sidebarOpen": false
+    },
+    {
+      "tab": "products",
+      "viewport": 375,
+      "overflow": false,
+      "formControls": 16,
+      "unlabelledControls": 0,
+      "sidebarOpen": false
+    },
+    {
+      "tab": "finance",
+      "viewport": 375,
+      "overflow": false,
+      "formControls": 21,
+      "unlabelledControls": 0,
+      "sidebarOpen": false
+    },
+    {
+      "tab": "team",
+      "viewport": 375,
+      "overflow": false,
+      "formControls": 61,
+      "unlabelledControls": 0,
+      "sidebarOpen": false
+    },
+    {
+      "tab": "publish",
+      "viewport": 375,
+      "overflow": false,
+      "formControls": 0,
+      "unlabelledControls": 0,
+      "sidebarOpen": false
+    },
+    {
+      "tab": "dashboard",
+      "viewport": 768,
+      "overflow": false,
+      "formControls": 1,
+      "unlabelledControls": 0,
+      "sidebarOpen": false
+    },
+    {
+      "tab": "project",
+      "viewport": 768,
+      "overflow": false,
+      "formControls": 26,
+      "unlabelledControls": 0,
+      "sidebarOpen": false
+    },
+    {
+      "tab": "journal",
+      "viewport": 768,
+      "overflow": false,
+      "formControls": 0,
+      "unlabelledControls": 0,
+      "sidebarOpen": false
+    },
+    {
+      "tab": "media",
+      "viewport": 768,
+      "overflow": false,
+      "formControls": 8,
+      "unlabelledControls": 0,
+      "sidebarOpen": false
+    },
+    {
+      "tab": "products",
+      "viewport": 768,
+      "overflow": false,
+      "formControls": 16,
+      "unlabelledControls": 0,
+      "sidebarOpen": false
+    },
+    {
+      "tab": "finance",
+      "viewport": 768,
+      "overflow": false,
+      "formControls": 21,
+      "unlabelledControls": 0,
+      "sidebarOpen": false
+    },
+    {
+      "tab": "team",
+      "viewport": 768,
+      "overflow": false,
+      "formControls": 61,
+      "unlabelledControls": 0,
+      "sidebarOpen": false
+    },
+    {
+      "tab": "publish",
+      "viewport": 768,
+      "overflow": false,
+      "formControls": 0,
+      "unlabelledControls": 0,
+      "sidebarOpen": false
+    }
+  ]
+}
