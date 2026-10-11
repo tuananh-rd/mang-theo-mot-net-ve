@@ -1,6 +1,6 @@
 {
-  "head": "833f2cc42db6c439fca1c546ad283498006cd45b",
-  "startedAt": "2026-10-11T05:17:12.762Z",
+  "head": "5b48e5339b6e46dc3e5e846b5f0efacd708952a4",
+  "startedAt": "2026-10-11T06:02:25.610Z",
   "pages": [
     {
       "route": "/",
@@ -1388,13 +1388,7 @@
         "/dong-hanh"
       ],
       "gradients": [],
-      "captions": [
-        {
-          "text": "Ảnh giới thiệu Mái ấm do nhóm cung cấp, được phép công bố. Đây không phải ảnh hoạt động của dự án.",
-          "ratio": 1,
-          "pass": true
-        }
-      ],
+      "captions": [],
       "contrast": {
         "samples": [
           {
@@ -1534,8 +1528,8 @@
           },
           {
             "tag": "SPAN",
-            "class": "chapter-tag",
-            "text": "Vì sao",
+            "class": "progress-current-stage",
+            "text": "· Chặng 01:",
             "foreground": "rgb(13, 107, 99)",
             "background": [
               255,
@@ -1785,13 +1779,7 @@
         "/dong-hanh"
       ],
       "gradients": [],
-      "captions": [
-        {
-          "text": "Ảnh giới thiệu Mái ấm do nhóm cung cấp, được phép công bố. Đây không phải ảnh hoạt động của dự án.",
-          "ratio": 1,
-          "pass": true
-        }
-      ],
+      "captions": [],
       "contrast": {
         "samples": [
           {
@@ -1930,6 +1918,21 @@
             "pass": true
           },
           {
+            "tag": "SPAN",
+            "class": "progress-current-stage",
+            "text": "· Chặng 01:",
+            "foreground": "rgb(13, 107, 99)",
+            "background": [
+              255,
+              255,
+              255,
+              1
+            ],
+            "ratio": 6.36,
+            "required": 4.5,
+            "pass": true
+          },
+          {
             "tag": "H3",
             "class": "timeline-title",
             "text": "Xác nhận và chuẩn bị",
@@ -1942,21 +1945,6 @@
             ],
             "ratio": 14.67,
             "required": 3,
-            "pass": true
-          },
-          {
-            "tag": "SPAN",
-            "class": "chapter-tag",
-            "text": "Vì sao",
-            "foreground": "rgb(13, 107, 99)",
-            "background": [
-              255,
-              255,
-              255,
-              1
-            ],
-            "ratio": 6.36,
-            "required": 4.5,
             "pass": true
           },
           {
@@ -2182,13 +2170,7 @@
         "/dong-hanh"
       ],
       "gradients": [],
-      "captions": [
-        {
-          "text": "Ảnh giới thiệu Mái ấm do nhóm cung cấp, được phép công bố. Đây không phải ảnh hoạt động của dự án.",
-          "ratio": 1,
-          "pass": true
-        }
-      ],
+      "captions": [],
       "contrast": {
         "samples": [
           {
@@ -2342,6 +2324,21 @@
             "pass": true
           },
           {
+            "tag": "SPAN",
+            "class": "progress-current-stage",
+            "text": "· Chặng 01:",
+            "foreground": "rgb(13, 107, 99)",
+            "background": [
+              255,
+              255,
+              255,
+              1
+            ],
+            "ratio": 6.36,
+            "required": 4.5,
+            "pass": true
+          },
+          {
             "tag": "H3",
             "class": "timeline-title",
             "text": "Xác nhận và chuẩn bị",
@@ -2354,21 +2351,6 @@
             ],
             "ratio": 14.67,
             "required": 3,
-            "pass": true
-          },
-          {
-            "tag": "SPAN",
-            "class": "chapter-tag",
-            "text": "Vì sao",
-            "foreground": "rgb(13, 107, 99)",
-            "background": [
-              255,
-              255,
-              255,
-              1
-            ],
-            "ratio": 6.36,
-            "required": 4.5,
             "pass": true
           },
           {
@@ -6120,7 +6102,7 @@
           {
             "tag": "A",
             "class": "doc-toc-link",
-            "text": "1. Tổng quan & Đối soát",
+            "text": "1. Tổng quan và đối soát",
             "foreground": "rgb(29, 43, 42)",
             "background": [
               238,
@@ -7262,7 +7244,7 @@
         "/",
         "/images/ung-ho/qr-ung-ho-techcombank.png",
         "/minh-bach#quy-trinh",
-        "/minh-bach#quy-trinh",
+        "/minh-bach#dong-tien",
         "/san-pham",
         "/du-an/mang-theo-mot-net-ve",
         "/",
@@ -7384,21 +7366,6 @@
           },
           {
             "tag": "CODE",
-            "class": "",
-            "text": "MTMNV Tên của bạn",
-            "foreground": "rgb(13, 107, 99)",
-            "background": [
-              238,
-              245,
-              242,
-              1
-            ],
-            "ratio": 5.75,
-            "required": 4.5,
-            "pass": true
-          },
-          {
-            "tag": "CODE",
             "class": "transfer-code",
             "text": "MTMNV Ten cua ban",
             "foreground": "rgb(29, 43, 42)",
@@ -7424,6 +7391,21 @@
               1
             ],
             "ratio": 6.29,
+            "required": 4.5,
+            "pass": true
+          },
+          {
+            "tag": "SPAN",
+            "class": "eyebrow",
+            "text": "Sao kê",
+            "foreground": "rgb(13, 107, 99)",
+            "background": [
+              238,
+              245,
+              242,
+              1
+            ],
+            "ratio": 5.75,
             "required": 4.5,
             "pass": true
           },
@@ -7501,21 +7483,6 @@
             "ratio": 12.12,
             "required": 4.5,
             "pass": true
-          },
-          {
-            "tag": "A",
-            "class": "btn btn-primary mobile-bar-donate",
-            "text": "Ủng hộ dự án",
-            "foreground": "rgb(29, 43, 42)",
-            "background": [
-              244,
-              162,
-              97,
-              1
-            ],
-            "ratio": 7.12,
-            "required": 4.5,
-            "pass": true
           }
         ],
         "fail": [],
@@ -7585,7 +7552,7 @@
         "/",
         "/images/ung-ho/qr-ung-ho-techcombank.png",
         "/minh-bach#quy-trinh",
-        "/minh-bach#quy-trinh",
+        "/minh-bach#dong-tien",
         "/san-pham",
         "/du-an/mang-theo-mot-net-ve",
         "/",
@@ -7893,7 +7860,7 @@
         "/",
         "/images/ung-ho/qr-ung-ho-techcombank.png",
         "/minh-bach#quy-trinh",
-        "/minh-bach#quy-trinh",
+        "/minh-bach#dong-tien",
         "/san-pham",
         "/du-an/mang-theo-mot-net-ve",
         "/",
@@ -8312,7 +8279,7 @@
           {
             "tag": "SPAN",
             "class": "eyebrow",
-            "text": "Tiến độ & Chia sẻ",
+            "text": "Tiến độ và chia sẻ",
             "foreground": "rgb(13, 107, 99)",
             "background": [
               255,
@@ -8637,7 +8604,7 @@
           {
             "tag": "SPAN",
             "class": "eyebrow",
-            "text": "Tiến độ & Chia sẻ",
+            "text": "Tiến độ và chia sẻ",
             "foreground": "rgb(13, 107, 99)",
             "background": [
               255,
@@ -8977,7 +8944,7 @@
           {
             "tag": "SPAN",
             "class": "eyebrow",
-            "text": "Tiến độ & Chia sẻ",
+            "text": "Tiến độ và chia sẻ",
             "foreground": "rgb(13, 107, 99)",
             "background": [
               255,
@@ -11533,6 +11500,12 @@
       "status": 200,
       "anchorOk": true,
       "pass": true
+    },
+    {
+      "link": "/minh-bach#dong-tien",
+      "status": 200,
+      "anchorOk": true,
+      "pass": true
     }
   ],
   "tempFixtures": {
@@ -11553,5 +11526,5 @@
     }
   },
   "pass": true,
-  "finishedAt": "2026-10-11T05:18:26.083Z"
+  "finishedAt": "2026-10-11T06:03:44.889Z"
 }
