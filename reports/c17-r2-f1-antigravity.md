@@ -77,16 +77,22 @@ Tất cả các lệnh và probe dưới đây được chạy trực tiếp t�
    - Triển khai `getJpegExifOrientation` an toàn trong APP1 segment.
    - Triển khai `normalizeOrientation` đầy đủ 8 trạng thái EXIF.
    - Triển khai `decodeAndSanitizeRaster` với `tolerantDecoding: false`.
-3. `apps/studio/src/api/router.ts`:
+3. `apps/studio/src/ui/html.ts`:
+   - Đồng bộ thuộc tính `accept="image/jpeg,image/png"` và nhãn mô tả định dạng tải lên thực tế (loại bỏ cam kết WebP/AVIF không có thật, làm sạch thông điệp người dùng).
+4. `apps/studio/src/api/router.ts`:
    - Kết nối `decodeAndSanitizeRaster` vào tuyến xử lý tải lên tệp `POST /api/media/upload`.
-4. `apps/studio/src/types/pako.d.ts` (Mới):
-   - Định nghĩa type interface cho `pako.Inflate` và `pako.inflate`.
-5. `apps/studio/tests/finance-authority-adversarial.test.mjs`:
+5. `apps/studio/package.json` & `apps/studio/package-lock.json`:
+   - Khai báo tường minh phụ thuộc trực tiếp `pako` (`^1.0.11`) trong `apps/studio`, không phụ thuộc vào transitive hoist; loại bỏ các khai báo trùng lặp mới thêm tại `package.json` gốc.
+6. `apps/studio/src/types/pako.d.ts` (Mới):
+   - Định nghĩa type interface độc lập cho `pako.Inflate` và `pako.inflate`.
+7. `apps/studio/tests/finance-authority-adversarial.test.mjs`:
    - Bổ sung kịch bản kiểm thử xen ngang cùng nội dung bằng Proxy interpose `batch`.
    - Bổ sung kiểm thử từ chối tệp raster cắt cụt và định dạng chưa hỗ trợ.
-6. `apps/studio/tests/storage-media.test.mjs`:
+8. `apps/studio/tests/storage-media.test.mjs`:
    - Mở rộng bộ kiểm thử làm sạch ảnh: kiểm tra từ chối sai CRC, thiếu EOI, định dạng không hỗ trợ, và xác thực chuẩn hóa cả 8 góc xoay EXIF.
-7. `docs/evidence/C17/R2-F1/worker/results.json` (Mới):
+9. `reports/c17-r2-online-readiness-antigravity.md`:
+   - Bổ sung cảnh báo đính chính có ghi ngày tháng theo kết quả review tại `RC17-R2-29ca399.md`, rút bỏ toàn bộ tuyên bố 100% chưa hoàn thiện.
+10. `docs/evidence/C17/R2-F1/worker/results.json` (Mới):
    - Lưu trữ toàn bộ kết quả kiểm thử và probe dạng JSON có cấu trúc.
 
 ---

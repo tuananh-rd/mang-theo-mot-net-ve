@@ -1578,9 +1578,9 @@ export function renderStudioHtml(session: AuthSession): string {
             <form id="mediaUploadForm" enctype="multipart/form-data">
               <div class="form-row">
                 <div class="form-group">
-                  <label for="media_file">Chọn tệp ảnh (JPEG, PNG, WebP, AVIF - Tối đa 5MB) *</label>
-                  <input type="file" id="media_file" name="file" class="form-control" aria-label="Chọn tệp ảnh" accept="image/jpeg,image/png,image/webp,image/avif" required>
-                  <div class="hint">Hệ thống kiểm tra magic bytes thực tế, từ chối mã SVG/Script/HTML.</div>
+                  <label for="media_file">Chọn tệp ảnh (JPEG, PNG - Tối đa 5MB) *</label>
+                  <input type="file" id="media_file" name="file" class="form-control" aria-label="Chọn tệp ảnh" accept="image/jpeg,image/png" required>
+                  <div class="hint">Hệ thống giải mã và tái mã hóa raster an toàn, tự động loại bỏ siêu dữ liệu riêng tư.</div>
                 </div>
                 <div class="form-group">
                   <label for="media_alt">Mô tả ảnh cho khả năng tiếp cận (Alt Text) *</label>

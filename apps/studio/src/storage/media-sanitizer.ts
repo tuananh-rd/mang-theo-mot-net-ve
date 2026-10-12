@@ -26,8 +26,8 @@ export interface ProcessedImageResult {
   error?: string;
 }
 
-export const MAX_IMAGE_DIMENSION = 4096;
-export const MAX_TOTAL_PIXELS = 4096 * 4096;
+export const MAX_IMAGE_DIMENSION = 2048;
+export const MAX_TOTAL_PIXELS = 2048 * 2048;
 export const MAX_UPLOAD_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 
 function toArrayBuffer(buf: Uint8Array): ArrayBuffer {
@@ -122,32 +122,27 @@ function decompressAndValidateIdat(
   expectedBytes: number
 ): { valid: boolean; error?: string } {
   let totalDecompressed = 0;
-  let hasError = false;
-  let errorMsg = '';
 
   const inflator = new pako.Inflate();
   inflator.onData = (chunk: Uint8Array) => {
     totalDecompressed += chunk.length;
     if (totalDecompressed > expectedBytes) {
-      hasError = true;
-      errorMsg = `Dữ liệu scanline giải nén vượt quá ngân sách cho phép (${totalDecompressed} > ${expectedBytes}).`;
-      (inflator as any).err = 1;
-      (inflator as any).msg = errorMsg;
+      throw new Error(`Dữ liệu scanline IDAT giải nén vượt quá ngân sách (${totalDecompressed} > ${expectedBytes}).`);
     }
   };
 
   try {
     inflator.push(allIdat, true);
-    if (inflator.err || hasError) {
+    if (inflator.err) {
       return {
         valid: false,
-        error: errorMsg || inflator.msg || 'Dữ liệu scanline IDAT giải nén vượt quá ngân sách.',
+        error: inflator.msg || 'Lỗi giải nén zlib IDAT.',
       };
     }
     if (totalDecompressed !== expectedBytes) {
       return {
         valid: false,
-        error: `Dữ liệu scanline IDAT giải nén không khớp với kích thước dự kiến (${totalDecompressed} != ${expectedBytes}).`,
+        error: `Dữ liệu scanline IDAT giải nén không khớp kích thước dự kiến (${totalDecompressed} != ${expectedBytes}).`,
       };
     }
     return { valid: true };
@@ -748,7 +743,6 @@ export function decodeAndSanitizeRaster(buffer: Uint8Array): ProcessedImageResul
   // 3. Từ chối định dạng khác (WebP, AVIF, SVG, HTML) với thông báo rõ ràng
   return {
     success: false,
-    error:
-      'Định dạng tệp không được hỗ trợ tải lên trực tiếp. Để đảm bảo an toàn tuyệt đối và khử sạch siêu dữ liệu riêng tư (EXIF, GPS, XMP, IPTC), hệ thống hiện chỉ chấp nhận tệp ảnh raster PNG và JPEG qua bộ giải mã và mã hóa lại hoàn toàn.',
+    error: 'Định dạng tệp không được hỗ trợ. Hệ thống chỉ chấp nhận tệp ảnh raster PNG và JPEG (kích thước tối đa 5MB).',
   };
 }

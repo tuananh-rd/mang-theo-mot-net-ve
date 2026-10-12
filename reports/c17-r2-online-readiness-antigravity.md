@@ -1,11 +1,21 @@
 # Báo Cáo Hoàn Thành Nhiệm Vụ C17-R2 — Functional Content Studio Online Readiness
 
+> [!WARNING] **ĐÍNH CHÍNH & CẬP NHẬT TRẠNG THÁI (12/10/2026):**
+> Báo cáo dưới đây được lập tại mốc commit `29ca39953d66788bca8cf04a50be8813ec003f10` (R2 candidate ban đầu).
+> Theo kết quả review độc lập của Coordinator Codex tại `docs/reviews/RC17-R2-29ca399.md` (kết luận **CHANGES_REQUIRED**):
+> - Các tuyên bố "sẵn sàng 100%" và hoàn tất preview/publisher tại thời điểm R2 ban đầu là chưa chính xác do còn các hạng mục kỹ thuật cốt lõi chưa hoàn thiện:
+>   1. Race condition khi ký cùng nội dung phiên bản mới (`same-content sign race`) trong D1 finance attestation.
+>   2. Thiếu quy trình giải mã/mã hóa raster thực tế chuẩn Worker (bounded decode/re-encode) để loại bỏ triệt để metadata (COM, APP13, EXIF) và chuẩn hóa 8 hướng xoay EXIF.
+>   3. Nhãn tải lên media trong Studio UI hứa hẹn WebP/AVIF trong khi bộ lọc chỉ chấp nhận JPEG/PNG.
+>   4. Bốn cổng lớn của Studio còn lại: Renderer xem trước bản nháp Astro có xác thực, quy trình biên tập đầy đủ 8 phân hệ, bộ adapter GitHub xuất bản hoàn chỉnh, và triển khai online.
+> - Các vấn đề cốt lõi trên được tách thành nhiệm vụ khắc phục bảo mật tập trung **C17-R2-F1** (`task_c91ae23182a2` / `ctx_1dd1c95d7553`). Toàn bộ bằng chứng đo lường thực tế và báo cáo cập nhật được lưu tại [`reports/c17-r2-f1-antigravity.md`](file:///C:/Users/tuana/Documents/Codex/2026-10-02/t/outputs/mang-theo-mot-net-ve/reports/c17-r2-f1-antigravity.md).
+
 - **Thực hiện:** Antigravity (Sole Application Developer)
 - **Quản lý & Review:** Codex (Coordinator & Reviewer)
 - **Mã nhiệm vụ (Task ID):** `task_150eee84b651`
 - **Mã điều phối (Dispatch ID):** `ctx_a8a66b2e0b52`
 - **Baseline Git:** `3657a44dbbf46ea9564016248f3daacd9d45cbd0` (Kế thừa từ R1 baseline `b5a4d4f`, đính chính commit lịch sử `e0bef` không phải HEAD ban đầu của R2)
-- **Thời gian hoàn thành:** 12/10/2026
+- **Thời gian hoàn thành:** 12/10/2026 (Đã bổ sung đính chính theo `RC17-R2-29ca399.md`)
 
 ---
 
@@ -25,9 +35,9 @@
    - *Cách ly số liệu thực tế:* Khi thiếu người duyệt thứ hai, số liệu thu chi thực tế bị che giấu hoàn toàn khỏi bản chiếu công khai (`entries: []`, `reconciled: false`, `publicApproval: 'pending'`), nhưng không ngăn cản việc biên tập và xuất bản các phân hệ độc lập khác (như Dự án, Nhật ký, Sản phẩm).
    - *Kiểm soát định dạng ảnh raster:* Bộ lọc phát hiện chính xác các tệp PNG bị hỏng cấu trúc (độ dài chunk đầu tiên khác 13 bytes hoặc thiếu chunk IHDR) và từ chối ở tầng tải lên (400) trước khi ghi vào kho lưu trữ R2.
 
-3. **Phạm vi còn lại cho bước kích hoạt (What's left):**
-   - Đã sẵn sàng 100% về mặt mã nguồn, kiểm thử tự động, giao diện và bảo mật cục bộ.
-   - Bước tiếp theo (Activation task) sẽ do người dùng cấp phép để thiết lập Cloudflare Access Service Token, tạo binding D1/R2 chính thức trên tài khoản Cloudflare và triển khai online tại `studio.mangtheomotnetve.website`.
+3. **Phạm vi còn lại cho bước kích hoạt (What's left - Đã đính chính theo RC17-R2-29ca399):**
+   - *Phạm vi cần khắc phục bảo mật (C17-R2-F1):* Sửa race condition khi ký cùng nội dung (bổ sung kiểm tra `latest_revision_id` trong D1), xây dựng pipeline raster bounded decode/re-encode (loại bỏ hoàn toàn EXIF/COM/APP13, xử lý 8 hướng xoay, giới hạn bộ nhớ Worker và abort ngay khi inflate vượt ngưỡng), đồng bộ nhãn UI `image/jpeg,image/png`.
+   - *Các cổng Studio còn lại:* Renderer xem trước bản nháp Astro có xác thực, quy trình chỉnh sửa đầy đủ cho 8 phân hệ, bộ adapter GitHub xuất bản hoàn chỉnh, và triển khai hạ tầng online sau khi người dùng phê duyệt.
 
 ---
 
