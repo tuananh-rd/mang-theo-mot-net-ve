@@ -854,7 +854,8 @@ export class StudioDbClient {
     const auditStmt = this.db
       .prepare(
         `INSERT INTO audit_logs (id, user_email, action, module_key, details_json, created_at)
-         VALUES (?, ?, ?, 'finance', ?, ?)`
+         SELECT ?, ?, ?, 'finance', ?, ?
+         WHERE changes() = 1`
       )
       .bind(
         auditId,
@@ -871,9 +872,29 @@ export class StudioDbClient {
       );
 
     if (typeof this.db.batch === 'function') {
-      await this.db.batch([updateDraftStmt, auditStmt]);
+      const batchResults = await this.db.batch([updateDraftStmt, auditStmt]);
+      for (const res of batchResults) {
+        if (res && res.success === false) {
+          throw new Error(res.error || 'Lỗi khi thực thi giao dịch hàng loạt (D1 Batch)');
+        }
+      }
+      const draftResult = batchResults[0];
+      if (!draftResult?.meta?.changes || draftResult.meta.changes === 0) {
+        const latest = await this.getDraft('finance');
+        throw new ConcurrencyConflictError(
+          `Xung đột đồng thời (Race condition) khi ký xác thực tài chính. Dữ liệu đã bị thay đổi bởi phiên khác.`,
+          latest?.revisionHash
+        );
+      }
     } else {
-      await updateDraftStmt.run();
+      const res = await updateDraftStmt.run();
+      if (!res?.meta?.changes || res.meta.changes === 0) {
+        const latest = await this.getDraft('finance');
+        throw new ConcurrencyConflictError(
+          `Xung đột đồng thời (Race condition) khi ký xác thực tài chính. Dữ liệu đã bị thay đổi bởi phiên khác.`,
+          latest?.revisionHash
+        );
+      }
       await auditStmt.run();
     }
 

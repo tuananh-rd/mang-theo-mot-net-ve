@@ -249,6 +249,13 @@ export async function handleApiRequest(
       return errorResponse(sniff.error || 'Tệp không hợp lệ hoặc bị từ chối.', 400);
     }
 
+    if (sniff.contentType === 'image/png') {
+      const text = new TextDecoder('latin1').decode(bytes);
+      if (!text.includes('IDAT') || !text.includes('IEND')) {
+        return errorResponse('Tệp PNG không đầy đủ hoặc bị cắt cụt (thiếu khối dữ liệu IDAT hoặc IEND).', 400);
+      }
+    }
+
     // Làm sạch siêu dữ liệu riêng tư (EXIF/GPS/comments)
     const sanitizedBytes = stripImageMetadata(bytes, sniff.contentType);
 
@@ -446,8 +453,34 @@ export async function handleApiRequest(
       expectedHash?: string;
     };
 
+    if (!body.expectedHash || typeof body.expectedHash !== 'string' || !body.expectedHash.trim()) {
+      return errorResponse('Bắt buộc phải cung cấp mã băm phiên bản (expectedHash) để chống ghi đè khi áp dụng CSV.', 400);
+    }
+
     if (!Array.isArray(body.rows) || body.rows.length === 0) {
       return errorResponse('Thiếu danh sách giao dịch rows hoặc mảng giao dịch rỗng.', 400);
+    }
+
+    const rowErrors: string[] = [];
+    for (let i = 0; i < body.rows.length; i++) {
+      const e = body.rows[i];
+      if (!e || typeof e !== 'object') {
+        rowErrors.push(`Dòng ${i + 1} không phải là đối tượng.`);
+        continue;
+      }
+      if (!e.date || !/^\d{4}-\d{2}-\d{2}$/.test(e.date) || isNaN(Date.parse(e.date))) {
+        rowErrors.push(`Dòng ${i + 1} có ngày không hợp lệ (${e.date}).`);
+      }
+      if (typeof e.amount !== 'number' || e.amount <= 0 || !Number.isInteger(e.amount)) {
+        rowErrors.push(`Dòng ${i + 1} có số tiền không hợp lệ (${e.amount}).`);
+      }
+      if (typeof e.donor !== 'string' || !e.donor.trim()) {
+        rowErrors.push(`Dòng ${i + 1} thiếu người ủng hộ (donor).`);
+      }
+    }
+
+    if (rowErrors.length > 0) {
+      return errorResponse(`Dữ liệu dòng giao dịch không hợp lệ: ${rowErrors.join('; ')}`, 400, { rowErrors });
     }
 
     const currentFinance = await dbClient.getDraft<FinanceModuleData>('finance');
@@ -455,7 +488,7 @@ export async function handleApiRequest(
       return errorResponse('Chưa tìm thấy bản nháp phân hệ tài chính.', 404);
     }
 
-    const currentHash = body.expectedHash || currentFinance.revisionHash;
+    const currentHash = body.expectedHash.trim();
     const updatedData: FinanceModuleData = {
       ...currentFinance.data,
       entries: body.rows,

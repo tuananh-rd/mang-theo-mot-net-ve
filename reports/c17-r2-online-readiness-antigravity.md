@@ -126,6 +126,15 @@ Tất cả các probe độc lập do Reviewer thiết lập đều đạt kết
     - Kết quả: **PASS**
 11. `reviewer-cloud-readiness.mjs`:
     - Kiểm tra read-only Cloudflare API: Zone 200, Pages 200 (1 dự án), R2 200 (0 bucket hiện tại).
+12. `reviewer-r2-supported-sign-race.mjs`:
+    - Xung đột đồng thời trong D1 runtime được phát hiện và xử lý chuẩn xác: khi có bản lưu xen ngang làm thay đổi `revision_hash`, lệnh cập nhật khớp 0 bản ghi (`changes() = 0`), audit log được bảo vệ bằng mệnh đề `WHERE changes() = 1` không bị ghi nhận oan (`attestationAuditCount: 0`), ném đúng lỗi `ConcurrencyConflictError` (`attestationReturnedSuccess: false`) và bảo tồn nguyên vẹn bản lưu cạnh tranh (`competingEditActuallyPersisted: true`).
+    - Kết quả: **PASS**
+13. `reviewer-r2-finance-media-probe.mjs` (Bộ đối chứng mở rộng):
+    - `invalidRasterUploadStatus: 400`
+    - `truncatedPngWithValidHeaderUploadStatus: 400` (loại bỏ tệp PNG cắt cụt thiếu IDAT/IEND)
+    - `csvApplyMissingHashStatus: 400` (bắt buộc expectedHash chống xung đột khi áp dụng CSV)
+    - `csvApplyInvalidRowsStatus: 400` (từ chối dòng sai định dạng ngày hoặc số tiền âm)
+    - Kết quả: **PASS**
 
 ### 3.5. Kiểm Tra Giao Diện Trình Duyệt 8 Phân Hệ (Browser 8 Tabs Desktop / Mobile / Tablet)
 - Lệnh thực thi: `node docs/evidence/C17/R2/worker/capture-worker-evidence.mjs`
