@@ -1,0 +1,127 @@
+================================================================================
+C17-R2-F2-R1 QUALITY GATES EXECUTION EVIDENCE
+================================================================================
+Timestamp: 2026-10-12T15:52:00Z
+Git SHA: 2a522e3644f9358a2f19cb775c83b4e1c90ddfac
+Branch: task/c17-online-studio
+Actor: Antigravity (Implementation Owner)
+
+1. Reviewer Schema Checkpoint:
+Command: node docs/evidence/C17/R2-F2-R1/reviewer-schema-checkpoint.mjs
+Exit Code: 0
+Output:
+{
+  "mismatches": [],
+  "count": 13
+}
+
+2. Studio TypeScript Build:
+Command: npm run studio:build
+Exit Code: 0
+Output:
+> mang-theo-mot-net-ve@0.0.1 studio:build
+> tsc -p apps/studio/tsconfig.json
+
+3. Studio TypeScript Typecheck:
+Command: npm run studio:typecheck
+Exit Code: 0
+Output:
+> mang-theo-mot-net-ve@0.0.1 studio:typecheck
+> tsc --noEmit -p apps/studio/tsconfig.json
+
+4. Studio Automated Test Suite (16/16 pass):
+Command: node --test apps/studio/tests/c17-r2-f2.test.mjs
+Exit Code: 0
+Output:
+▶ C17-R2-F2: Approved Media Registry & Authenticated Media Stream
+  ✔ Danh mục 22 tài sản chuẩn tắc: đúng 22 ảnh (kèm 2 ảnh hero mới), đường dẫn canonical, băm SHA-256 thật (6.963ms)
+  ✔ importApprovedRegistryIntoDb nạp vào D1 và R2, kiểm tra fail-closed khi thiếu bytes hoặc sai băm (93.7223ms)
+  ✔ GET /api/media/:id/file phục vụ tệp authenticated từ R2 với đầy đủ cờ bảo mật (59.2988ms)
+✔ C17-R2-F2: Approved Media Registry & Authenticated Media Stream (161.3637ms)
+▶ C17-R2-F2: Proxy Invariants, Price Semantics & Fail-Closed Projection
+  ✔ Proxy Invariants: length descriptor non-configurable và không ném TypeError (0.5875ms)
+  ✔ Price Semantics: bảo tồn nguyên vẹn proposal referencePrice tách biệt với official sale price (0.1444ms)
+  ✔ Fail-Closed Projection: tài sản chưa được duyệt bị loại trừ khỏi snapshot xuất bản (4.3846ms)
+✔ C17-R2-F2: Proxy Invariants, Price Semantics & Fail-Closed Projection (5.4804ms)
+▶ C17-R2-F2: Private Draft Preview SSR & Request-Scoped Isolation
+  ✔ renderPrivateDraftPreview đính kèm cờ bảo mật và viết lại liên kết nội bộ sang /preview/* (1.7573ms)
+  ✔ AsyncLocalStorage cách ly hoàn hảo giữa các yêu cầu đồng thời (Zero Cross-Talk) (23.4223ms)
+  ✔ workerd Preview Server: render hoàn chỉnh 6 trang công khai, từ chối unauth và cách ly dữ liệu nháp (3086.3515ms)
+✔ C17-R2-F2: Private Draft Preview SSR & Request-Scoped Isolation (3112.0925ms)
+▶ C17-R2-F2: Studio UI Workflows & Role Administration
+  ✔ Contact Removal Toggle: lưu contacts: null vào D1 và ẩn liên hệ không phục sinh fallback (6.0991ms)
+  ✔ Product Configuration: lưu tên, mô tả, xuất xứ, giá và bảo tồn ngữ nghĩa xóa null/rỗng (4.3993ms)
+  ✔ Finance Two-Person Policy & Interactive Tables (entries, sales, expenses, inKind, overview) (4.6642ms)
+  ✔ Publish View: Guarded Restore với OCC phát hiện xung đột 409 và cập nhật vai trò /api/users (8.2871ms)
+  ✔ Per-Route SEO Controls: lưu, đọc lại D1, lọc bỏ route không hợp lệ, giữ canonical và override render head (7.0673ms)
+  ✔ Nullable Finance Overview Invariants: bảo toàn 0 và null, cho phép âm với unfundedProjectedBalance, từ chối NaN/Infinity/âm với trường thu chi (5.384ms)
+  ✔ Actual Concurrent Astro HTML Renders: chứng minh cách ly yêu cầu đồng thời giữa các bản nháp khác nhau (Zero Cross-Talk) (27.0046ms)
+✔ C17-R2-F2: Studio UI Workflows & Role Administration (63.5611ms)
+ℹ tests 16
+ℹ suites 4
+ℹ pass 16
+ℹ fail 0
+ℹ duration_ms 3566.9602
+
+5. Root Test Suite (96/96 pass):
+Command: npm test
+Exit Code: 0
+Output:
+ℹ tests 96
+ℹ suites 13
+ℹ pass 96
+ℹ fail 0
+ℹ duration_ms 658.7717
+
+6. Astro Production Static Build (13/13 pages):
+Command: npm run build
+Exit Code: 0
+Output:
+generating static routes 
+  ├─ /404.html (+51ms) 
+  ├─ /dong-hanh/index.html (+57ms) 
+  ├─ /du-an/mang-theo-mot-net-ve/index.html (+28ms) 
+  ├─ /minh-bach/index.html (+27ms) 
+  ├─ /nhat-ky/ke-hoach-bon-goc-choi/index.html (+19ms) 
+  ├─ /nhat-ky/gioi-thieu-qua-luu-niem-gay-quy/index.html (+8ms) 
+  ├─ /nhat-ky/index.html (+16ms) 
+  ├─ /san-pham/chuon-chuon-tre-kem-de/index.html (+11ms) 
+  ├─ /san-pham/chuon-chuon-tre/index.html (+9ms) 
+  ├─ /san-pham/moc-khoa/index.html (+9ms) 
+  ├─ /san-pham/index.html (+19ms) 
+  ├─ /ve-nhom/index.html (+10ms) 
+  ├─ /index.html (+16ms) 
+✓ Completed in 377ms.
+[build] 13 page(s) built in 2.71s
+
+7. Astro Check Diagnostics:
+Command: npx astro check
+Exit Code: 0
+Output:
+Result (276 files): 
+- 0 errors
+- 0 warnings
+- 109 hints
+
+8. Astro Preview Cloudflare SSR Build:
+Command: npx astro build --config astro.preview.config.mjs
+Exit Code: 0
+Output:
+[build] output: "server"
+[build] mode: "server"
+[build] directory: dist-preview/
+[build] adapter: @astrojs/cloudflare
+Server built in 1.52s
+
+9. Real Browser Verification (Headless Chrome on workerd):
+Command: node docs/evidence/C17/R2-F2-R1/worker/browser-verification.mjs
+Exit Code: 0
+Summary:
+- Total Observations: 28
+- Page / Console Errors: 0
+- Media Registry Validated: 22/22
+- Contact Removal (#toggleContactBtn): Verified, persisted contacts: null, 0 tel links rendered
+- Finance Zero Preservation: 0 saved and reloaded in input
+- Per-Route SEO Controls: 7 canonical routes verified, title/desc edited and saved
+- Real Preview Render in workerd: HTTP 200, title & meta desc matching override, 0 tel links, cache-control private no-store, all internal links rewritten to /preview/
+================================================================================

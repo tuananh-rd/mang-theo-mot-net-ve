@@ -1,0 +1,66 @@
+{
+  "task": "task_ca18da0161af",
+  "dispatch": "ctx_02026e737657",
+  "baseline": "2a522e3644f9358a2f19cb775c83b4e1c90ddfac",
+  "completedAt": "2026-10-12T15:52:30Z",
+  "summary": {
+    "perRouteSeo": {
+      "canonicalRoutes": [
+        "/",
+        "/du-an/mang-theo-mot-net-ve",
+        "/dong-hanh",
+        "/san-pham",
+        "/minh-bach",
+        "/ve-nhom",
+        "/nhat-ky"
+      ],
+      "schemaValidation": "isValidCanonicalRoute rejects external/query/hash/traversal/unknown routes and array values",
+      "sanitizer": "sanitizeRouteSeo enforces canonical route allowlist and trims title/description",
+      "ui": "7 canonical route cards rendered in Team & SEO tab, persisted via teamForm",
+      "previewRendering": "Layout.astro reads siteMeta.routeSeo and overrides <title> and <meta name='description'>",
+      "browserTested": true
+    },
+    "nullableFinanceOverview": {
+      "types": "Numeric fields defined as number | null",
+      "invariants": "0 preserved, null preserved, safe integers required, negatives rejected for planned expenses/revenue, allowed for unfunded balance",
+      "reproduced13SchemaCases": "13/13 match in reviewer-schema-checkpoint.mjs",
+      "browserTested": true
+    },
+    "contactRemoval": {
+      "selector": "#toggleContactBtn",
+      "state": "contacts: null",
+      "persistence": "D1 save/readback confirmed",
+      "renderedPublicResult": "0 telephone links across affected pages in private preview",
+      "browserTested": true
+    },
+    "concurrencyIsolation": {
+      "mechanism": "AsyncLocalStorage (runWithSnapshot)",
+      "astroHtmlProof": "Simultaneous rendering of Alpha, Beta, and Gamma snapshots confirms zero cross-talk in HTML output",
+      "securityHeaders": "Cache-Control: private, no-store; X-Robots-Tag: noindex, nofollow; X-Studio-Private-Preview: true",
+      "unitTested": true
+    },
+    "cachesIgnored": {
+      "paths": [
+        ".astro-preview/",
+        ".wrangler/",
+        "dist-preview/"
+      ],
+      "configuredIn": ".gitignore"
+    },
+    "approvedMedia": {
+      "count": 22,
+      "byteSizeAndSha256Verified": true
+    }
+  },
+  "qualityGates": {
+    "schemaCheckpoint": "13/13 PASS",
+    "studioBuild": "PASS (exit 0)",
+    "studioTypecheck": "PASS (exit 0)",
+    "studioTests": "16/16 PASS (exit 0)",
+    "repoTests": "96/96 PASS (exit 0)",
+    "staticBuild": "13/13 pages PASS (exit 0)",
+    "astroCheck": "0 errors, 0 warnings (exit 0)",
+    "astroPreviewBuild": "PASS (exit 0)",
+    "browserVerification": "28 observations, 0 errors, PASS (exit 0)"
+  }
+}

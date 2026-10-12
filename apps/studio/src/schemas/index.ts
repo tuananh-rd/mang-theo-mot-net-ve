@@ -246,21 +246,23 @@ export interface LedgerProcessStep {
   description: string;
 }
 
+export interface FinanceOverviewData {
+  plannedExpenseTotal: number | null;
+  craftPlannedRevenue: number | null;
+  foodPlannedRevenue: number | null;
+  plannedRevenueScenario: number | null;
+  unfundedProjectedBalance: number | null;
+  actualStatusNotice?: string | null;
+  disclaimer?: string | null;
+}
+
 export interface FinanceModuleData {
   reconciled: boolean;
   reconciledAt: string | null;
   publicApproval: 'pending' | 'approved';
   reconciledBy: string[];
   entries: DonationEntry[];
-  overview: {
-    plannedExpenseTotal: number;
-    craftPlannedRevenue: number;
-    foodPlannedRevenue: number;
-    plannedRevenueScenario: number;
-    unfundedProjectedBalance: number;
-    actualStatusNotice: string;
-    disclaimer: string;
-  };
+  overview: FinanceOverviewData;
   donationAccount?: DonationAccountData;
   ledgerProcess?: LedgerProcessStep[];
   sales?: Array<{
@@ -295,6 +297,30 @@ export function validateFinanceModuleData(data: unknown): { isValid: boolean; er
   const f = data as Partial<FinanceModuleData>;
   if (typeof f.reconciled !== 'boolean') {
     errors.push('Trường reconciled phải là boolean.');
+  }
+  if (f.overview !== undefined && f.overview !== null) {
+    if (typeof f.overview !== 'object' || Array.isArray(f.overview)) {
+      errors.push('overview phải là một đối tượng tổng quan tài chính.');
+    } else {
+      const ov = f.overview;
+      const numFields: Array<keyof FinanceOverviewData> = [
+        'plannedExpenseTotal',
+        'craftPlannedRevenue',
+        'foodPlannedRevenue',
+        'plannedRevenueScenario',
+        'unfundedProjectedBalance',
+      ];
+      for (const field of numFields) {
+        const val = ov[field];
+        if (val !== undefined && val !== null) {
+          if (typeof val !== 'number' || !Number.isFinite(val) || !Number.isSafeInteger(val)) {
+            errors.push(`Trường overview.${field} phải là số nguyên an toàn hoặc null.`);
+          } else if (field !== 'unfundedProjectedBalance' && val < 0) {
+            errors.push(`Trường overview.${field} không được là số âm.`);
+          }
+        }
+      }
+    }
   }
   if (f.reconciled) {
     if (!f.reconciledAt || !/^\d{4}-\d{2}-\d{2}$/.test(f.reconciledAt)) {
@@ -364,6 +390,37 @@ export interface FaqItem {
   answer: string;
 }
 
+export interface RouteSeoItem {
+  title?: string | null;
+  description?: string | null;
+}
+
+export interface SiteMetaData {
+  siteTitle: string;
+  siteDescription: string;
+  ogImage: string;
+  routeSeo?: Record<string, RouteSeoItem>;
+}
+
+export const CANONICAL_SEO_ROUTES = [
+  '/',
+  '/du-an/mang-theo-mot-net-ve',
+  '/dong-hanh',
+  '/san-pham',
+  '/minh-bach',
+  '/ve-nhom',
+  '/nhat-ky',
+] as const;
+
+export function isValidCanonicalRoute(route: string): boolean {
+  if (typeof route !== 'string') return false;
+  if (!route.startsWith('/') || route.startsWith('//')) return false;
+  if (route.includes('..') || route.includes('?') || route.includes('#') || route.includes('\\') || /\s/.test(route)) return false;
+  if ((CANONICAL_SEO_ROUTES as readonly string[]).includes(route)) return true;
+  if (/^\/nhat-ky\/[a-z0-9-]+$/.test(route) || /^\/san-pham\/[a-z0-9-]+$/.test(route)) return true;
+  return false;
+}
+
 export interface TeamModuleData {
   info: {
     name: string;
@@ -386,11 +443,7 @@ export interface TeamModuleData {
   supportFaqs?: FaqItem[];
   transparencyFaqs?: FaqItem[];
   faqs?: FaqItem[];
-  siteMeta: {
-    siteTitle: string;
-    siteDescription: string;
-    ogImage: string;
-  };
+  siteMeta: SiteMetaData;
 }
 
 export function validateTeamModuleData(data: unknown): { isValid: boolean; errors: string[] } {
@@ -405,6 +458,42 @@ export function validateTeamModuleData(data: unknown): { isValid: boolean; error
   }
   if (!Array.isArray(t.areas) || t.areas.length === 0) {
     errors.push('Phải có danh sách phân công mảng việc.');
+  }
+  if (t.siteMeta !== undefined && t.siteMeta !== null) {
+    if (typeof t.siteMeta !== 'object' || Array.isArray(t.siteMeta)) {
+      errors.push('siteMeta phải là một đối tượng.');
+    } else {
+      if (t.siteMeta.siteTitle !== undefined && typeof t.siteMeta.siteTitle !== 'string') {
+        errors.push('siteTitle phải là chuỗi ký tự.');
+      }
+      if (t.siteMeta.siteDescription !== undefined && typeof t.siteMeta.siteDescription !== 'string') {
+        errors.push('siteDescription phải là chuỗi ký tự.');
+      }
+      if (t.siteMeta.ogImage !== undefined && typeof t.siteMeta.ogImage !== 'string') {
+        errors.push('ogImage phải là chuỗi ký tự.');
+      }
+      if (t.siteMeta.routeSeo !== undefined && t.siteMeta.routeSeo !== null) {
+        if (typeof t.siteMeta.routeSeo !== 'object' || Array.isArray(t.siteMeta.routeSeo)) {
+          errors.push('routeSeo phải là đối tượng cấu hình theo tuyến đường.');
+        } else {
+          for (const [routeKey, seoVal] of Object.entries(t.siteMeta.routeSeo)) {
+            if (!isValidCanonicalRoute(routeKey)) {
+              errors.push(`Đường dẫn '${routeKey}' trong routeSeo không hợp lệ hoặc không thuộc danh sách tuyến đường canonical.`);
+            }
+            if (seoVal !== null && (typeof seoVal !== 'object' || Array.isArray(seoVal))) {
+              errors.push(`Cấu hình SEO cho tuyến '${routeKey}' phải là đối tượng hoặc null.`);
+            } else if (seoVal) {
+              if (seoVal.title !== undefined && seoVal.title !== null && typeof seoVal.title !== 'string') {
+                errors.push(`Tiêu đề (title) cho tuyến '${routeKey}' phải là chuỗi ký tự hoặc null.`);
+              }
+              if (seoVal.description !== undefined && seoVal.description !== null && typeof seoVal.description !== 'string') {
+                errors.push(`Mô tả (description) cho tuyến '${routeKey}' phải là chuỗi ký tự hoặc null.`);
+              }
+            }
+          }
+        }
+      }
+    }
   }
   return { isValid: errors.length === 0, errors };
 }
@@ -856,6 +945,7 @@ export const DEFAULT_TEAM_DATA: TeamModuleData = {
     siteTitle: 'Mang Theo Một Nét Vẽ | Dự án thiện nguyện sinh viên FPT',
     siteDescription: 'Một buổi chơi phù hợp, một món quà đúng nhu cầu cho các em tại Mái ấm Thánh Tâm Xuy Xá.',
     ogImage: '/images/illustrations/a01.webp',
+    routeSeo: {},
   },
 };
 

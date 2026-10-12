@@ -2974,6 +2974,46 @@ export function renderStudioHtml(session: AuthSession): string {
               </div>
             </div>
 
+            <!-- Cấu hình Per-Route SEO -->
+            <div style="border-top: 1px solid var(--color-neutral-light); padding-top: 16px; margin-top: 16px;">
+              <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 6px; color: var(--color-primary);">Cấu hình SEO theo từng tuyến đường (Per-Route SEO)</h3>
+              <p style="font-size: 0.85rem; color: var(--color-neutral-mid); margin-bottom: 12px;">
+                Tùy chỉnh tiêu đề trang (&lt;title&gt;) và mô tả tìm kiếm (&lt;meta name="description"&gt;) riêng cho từng trang. Nếu để trống, hệ thống sẽ sử dụng tiêu đề và mô tả mặc định của trang.
+              </p>
+              <div id="routeSeoContainer">
+                \${[
+                  { path: '/', label: 'Trang chủ (/)' },
+                  { path: '/du-an/mang-theo-mot-net-ve', label: 'Giới thiệu dự án (/du-an/mang-theo-mot-net-ve)' },
+                  { path: '/dong-hanh', label: 'Đồng hành & Quyên góp (/dong-hanh)' },
+                  { path: '/san-pham', label: 'Sản phẩm gây quỹ (/san-pham)' },
+                  { path: '/minh-bach', label: 'Sao kê & Minh bạch (/minh-bach)' },
+                  { path: '/ve-nhom', label: 'Về nhóm Lăng Kính (/ve-nhom)' },
+                  { path: '/nhat-ky', label: 'Nhật ký hành trình (/nhat-ky)' },
+                ].map((r) => {
+                  const rData = (t.siteMeta?.routeSeo && t.siteMeta.routeSeo[r.path]) || {};
+                  const safeKey = r.path === '/' ? 'root' : r.path.replace(/[^a-zA-Z0-9]/g, '_');
+                  return \`
+                    <div class="route-seo-card" data-route="\${escapeHtml(r.path)}" style="background: var(--color-bg-app); border: 1px solid var(--color-neutral-light); border-radius: 6px; padding: 12px; margin-bottom: 12px;">
+                      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <strong style="color: var(--color-neutral-dark); font-size: 0.95rem;">\${escapeHtml(r.label)}</strong>
+                        <code style="font-size: 0.8rem; background: var(--color-neutral-light); padding: 2px 6px; border-radius: 4px;">\${escapeHtml(r.path)}</code>
+                      </div>
+                      <div class="form-row">
+                        <div class="form-group" style="flex: 1;">
+                          <label>Tiêu đề trang (Route SEO Title)</label>
+                          <input type="text" class="form-control route-seo-title" id="route_seo_title_\${safeKey}" name="route_seo_title_\${safeKey}" data-route="\${escapeHtml(r.path)}" value="\${escapeHtml(rData.title || '')}" placeholder="Tiêu đề trang \${escapeHtml(r.path)}">
+                        </div>
+                        <div class="form-group" style="flex: 1.5;">
+                          <label>Mô tả tìm kiếm (Route SEO Description)</label>
+                          <input type="text" class="form-control route-seo-desc" id="route_seo_desc_\${safeKey}" name="route_seo_desc_\${safeKey}" data-route="\${escapeHtml(r.path)}" value="\${escapeHtml(rData.description || '')}" placeholder="Mô tả meta description cho \${escapeHtml(r.path)}">
+                        </div>
+                      </div>
+                    </div>
+                  \`;
+                }).join('')}
+              </div>
+            </div>
+
             <div style="margin-top: 20px;">
               <button type="submit" class="btn btn-primary" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Lưu toàn bộ phân hệ Nhóm, Thành viên & FAQs</button>
             </div>
@@ -3122,6 +3162,22 @@ export function renderStudioHtml(session: AuthSession): string {
             answer: card.querySelector('.tfaq-a')?.value || '',
           })).filter(q => q.question.trim().length > 0);
 
+          const routeSeoCards = document.querySelectorAll('#routeSeoContainer .route-seo-card');
+          const updatedRouteSeo = {};
+          routeSeoCards.forEach(card => {
+            const route = card.getAttribute('data-route');
+            const titleInput = card.querySelector('.route-seo-title');
+            const descInput = card.querySelector('.route-seo-desc');
+            const title = (titleInput?.value || '').trim();
+            const description = (descInput?.value || '').trim();
+            if (route && (title || description)) {
+              updatedRouteSeo[route] = {
+                ...(title ? { title } : {}),
+                ...(description ? { description } : {})
+              };
+            }
+          });
+
           const updated = {
             ...activeDraft.data,
             info: {
@@ -3140,6 +3196,7 @@ export function renderStudioHtml(session: AuthSession): string {
               siteTitle: fd.get('siteTitle'),
               siteDescription: fd.get('siteDescription'),
               ogImage: fd.get('ogImage'),
+              routeSeo: updatedRouteSeo,
             }
           };
 

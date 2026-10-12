@@ -1,0 +1,292 @@
+{
+  "sha": "2a522e3644f9358a2f19cb775c83b4e1c90ddfac",
+  "timestamp": "2026-10-12T15:50:34.726Z",
+  "runId": "browser-r1-1791820218144",
+  "totalObservations": 28,
+  "pageErrors": [],
+  "mediaRegistryTotal": 22,
+  "mediaRegistryAllValid": true,
+  "observations": [
+    {
+      "type": "tab_navigation",
+      "section": "dashboard",
+      "viewport": "mobile",
+      "width": 375,
+      "observedSelector": "a[href=\"/preview/dong-hanh\"]",
+      "rendered": true,
+      "scrollableTableTested": true,
+      "screenshot": "dashboard-mobile-375.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "project",
+      "viewport": "mobile",
+      "width": 375,
+      "observedSelector": "#projectForm",
+      "rendered": true,
+      "scrollableTableTested": false,
+      "screenshot": "project-mobile-375.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "journal",
+      "viewport": "mobile",
+      "width": 375,
+      "observedSelector": "#addNewArticleBtn",
+      "rendered": true,
+      "scrollableTableTested": true,
+      "screenshot": "journal-mobile-375.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "media",
+      "viewport": "mobile",
+      "width": 375,
+      "observedSelector": "#mediaUploadForm",
+      "rendered": true,
+      "scrollableTableTested": true,
+      "screenshot": "media-mobile-375.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "products",
+      "viewport": "mobile",
+      "width": 375,
+      "observedSelector": "#productsForm",
+      "rendered": true,
+      "scrollableTableTested": false,
+      "screenshot": "products-mobile-375.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "finance",
+      "viewport": "mobile",
+      "width": 375,
+      "observedSelector": "#financeOverviewForm",
+      "rendered": true,
+      "scrollableTableTested": true,
+      "screenshot": "finance-mobile-375.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "team",
+      "viewport": "mobile",
+      "width": 375,
+      "observedSelector": "#teamForm",
+      "rendered": true,
+      "scrollableTableTested": false,
+      "screenshot": "team-mobile-375.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "publish",
+      "viewport": "mobile",
+      "width": 375,
+      "observedSelector": "#requestPublishBtn",
+      "rendered": true,
+      "scrollableTableTested": true,
+      "screenshot": "publish-mobile-375.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "dashboard",
+      "viewport": "tablet",
+      "width": 768,
+      "observedSelector": "a[href=\"/preview/dong-hanh\"]",
+      "rendered": true,
+      "screenshot": "dashboard-tablet-768.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "project",
+      "viewport": "tablet",
+      "width": 768,
+      "observedSelector": "#projectForm",
+      "rendered": true,
+      "screenshot": "project-tablet-768.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "journal",
+      "viewport": "tablet",
+      "width": 768,
+      "observedSelector": "#addNewArticleBtn",
+      "rendered": true,
+      "screenshot": "journal-tablet-768.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "media",
+      "viewport": "tablet",
+      "width": 768,
+      "observedSelector": "#mediaUploadForm",
+      "rendered": true,
+      "screenshot": "media-tablet-768.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "products",
+      "viewport": "tablet",
+      "width": 768,
+      "observedSelector": "#productsForm",
+      "rendered": true,
+      "screenshot": "products-tablet-768.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "finance",
+      "viewport": "tablet",
+      "width": 768,
+      "observedSelector": "#financeOverviewForm",
+      "rendered": true,
+      "screenshot": "finance-tablet-768.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "team",
+      "viewport": "tablet",
+      "width": 768,
+      "observedSelector": "#teamForm",
+      "rendered": true,
+      "screenshot": "team-tablet-768.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "publish",
+      "viewport": "tablet",
+      "width": 768,
+      "observedSelector": "#requestPublishBtn",
+      "rendered": true,
+      "screenshot": "publish-tablet-768.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "dashboard",
+      "viewport": "desktop",
+      "width": 1440,
+      "observedSelector": "a[href=\"/preview/dong-hanh\"]",
+      "rendered": true,
+      "screenshot": "dashboard-desktop-1440.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "project",
+      "viewport": "desktop",
+      "width": 1440,
+      "observedSelector": "#projectForm",
+      "rendered": true,
+      "screenshot": "project-desktop-1440.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "journal",
+      "viewport": "desktop",
+      "width": 1440,
+      "observedSelector": "#addNewArticleBtn",
+      "rendered": true,
+      "screenshot": "journal-desktop-1440.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "media",
+      "viewport": "desktop",
+      "width": 1440,
+      "observedSelector": "#mediaUploadForm",
+      "rendered": true,
+      "screenshot": "media-desktop-1440.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "products",
+      "viewport": "desktop",
+      "width": 1440,
+      "observedSelector": "#productsForm",
+      "rendered": true,
+      "screenshot": "products-desktop-1440.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "finance",
+      "viewport": "desktop",
+      "width": 1440,
+      "observedSelector": "#financeOverviewForm",
+      "rendered": true,
+      "screenshot": "finance-desktop-1440.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "team",
+      "viewport": "desktop",
+      "width": 1440,
+      "observedSelector": "#teamForm",
+      "rendered": true,
+      "screenshot": "team-desktop-1440.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "publish",
+      "viewport": "desktop",
+      "width": 1440,
+      "observedSelector": "#requestPublishBtn",
+      "rendered": true,
+      "screenshot": "publish-desktop-1440.png"
+    },
+    {
+      "type": "project_contact_toggle_null",
+      "buttonSelector": "#toggleContactBtn",
+      "buttonFound": true,
+      "clientUiNullNoticeVisible": true,
+      "clientUiFieldsHidden": true,
+      "saveHttpStatus": 200,
+      "persistedContacts": null,
+      "contactsAreNull": true,
+      "readbackAfterReloadConfirmed": true
+    },
+    {
+      "type": "finance_overview_zero_preservation",
+      "saveHttpStatus": 200,
+      "savedPlannedExpenseTotal": 0,
+      "zeroPreservedInResponse": true,
+      "readbackInputValueAfterReload": "0",
+      "zeroPreservedInUi": true
+    },
+    {
+      "type": "per_route_seo_controls",
+      "canonicalRoutesFound": [
+        "/",
+        "/du-an/mang-theo-mot-net-ve",
+        "/dong-hanh",
+        "/san-pham",
+        "/minh-bach",
+        "/ve-nhom",
+        "/nhat-ky"
+      ],
+      "all7CanonicalRoutesPresent": true,
+      "saveHttpStatus": 200,
+      "savedTitle": "Ủng hộ & Đồng hành cùng Lăng Kính (Browser Verified)",
+      "savedDesc": "Mô tả meta description cho trang Đồng hành được xác minh qua browser tự động.",
+      "readbackTitleAfterReload": "Ủng hộ & Đồng hành cùng Lăng Kính (Browser Verified)",
+      "readbackDescAfterReload": "Mô tả meta description cho trang Đồng hành được xác minh qua browser tự động.",
+      "routeSeoPersistedMatch": true
+    },
+    {
+      "type": "private_draft_preview_render",
+      "previewUrl": "/preview/dong-hanh?dev_role=admin",
+      "httpStatus": 200,
+      "securityHeaders": {
+        "cacheControl": "private, no-store",
+        "xRobotsTag": "noindex, nofollow",
+        "xStudioPrivatePreview": "true"
+      },
+      "renderedTitle": "Ủng hộ & Đồng hành cùng Lăng Kính (Browser Verified) | Mang Theo Một Nét Vẽ | Dự án thiện nguyện sinh viên FPT",
+      "renderedMetaDesc": "Mô tả meta description cho trang Đồng hành được xác minh qua browser tự động.",
+      "titleMatchesOverride": true,
+      "descMatchesOverride": true,
+      "telephoneLinksCount": 0,
+      "contactsSuccessfullyHidden": true,
+      "allInternalLinksRewrittenToPreview": true,
+      "reviewerButtonDisabledTested": true,
+      "screenshot": "preview-dong-hanh-rendered.png"
+    }
+  ]
+}

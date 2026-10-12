@@ -25,3 +25,8 @@ Thumbs.db
 # Local content studio backups and private scratch fixtures
 tools/content-studio/backups/
 scratch/
+
+# Private preview build output & caches (Task C17)
+.astro-preview/
+dist-preview/
+.wrangler/

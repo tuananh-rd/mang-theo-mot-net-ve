@@ -13,6 +13,7 @@ import {
   validateProductsModuleData,
   validateFinanceModuleData,
   validateTeamModuleData,
+  isValidCanonicalRoute,
   type ProjectModuleData,
   type JournalArticle,
   type ProductsModuleData,
@@ -361,11 +362,11 @@ function sanitizeFinanceForPublic(finance: FinanceModuleData): FinanceModuleData
         })
       : [],
     overview: {
-      plannedExpenseTotal: finance.overview?.plannedExpenseTotal ?? null as any,
-      craftPlannedRevenue: finance.overview?.craftPlannedRevenue ?? null as any,
-      foodPlannedRevenue: finance.overview?.foodPlannedRevenue ?? null as any,
-      plannedRevenueScenario: finance.overview?.plannedRevenueScenario ?? null as any,
-      unfundedProjectedBalance: finance.overview?.unfundedProjectedBalance ?? null as any,
+      plannedExpenseTotal: typeof finance.overview?.plannedExpenseTotal === 'number' && !Number.isNaN(finance.overview.plannedExpenseTotal) ? finance.overview.plannedExpenseTotal : null,
+      craftPlannedRevenue: typeof finance.overview?.craftPlannedRevenue === 'number' && !Number.isNaN(finance.overview.craftPlannedRevenue) ? finance.overview.craftPlannedRevenue : null,
+      foodPlannedRevenue: typeof finance.overview?.foodPlannedRevenue === 'number' && !Number.isNaN(finance.overview.foodPlannedRevenue) ? finance.overview.foodPlannedRevenue : null,
+      plannedRevenueScenario: typeof finance.overview?.plannedRevenueScenario === 'number' && !Number.isNaN(finance.overview.plannedRevenueScenario) ? finance.overview.plannedRevenueScenario : null,
+      unfundedProjectedBalance: typeof finance.overview?.unfundedProjectedBalance === 'number' && !Number.isNaN(finance.overview.unfundedProjectedBalance) ? finance.overview.unfundedProjectedBalance : null,
       actualStatusNotice: String(finance.overview?.actualStatusNotice || 'Chưa có số liệu thực tế được xác nhận.').trim(),
       disclaimer: String(finance.overview?.disclaimer || '').trim(),
     },
@@ -414,6 +415,32 @@ function sanitizeFinanceForPublic(finance: FinanceModuleData): FinanceModuleData
 }
 
 /**
+ * Làm sạch cấu hình per-route SEO: chỉ chấp nhận tuyến đường bắt đầu bằng '/',
+ * làm sạch title và description, loại bỏ trường lạ
+ */
+function sanitizeRouteSeo(routeSeo: unknown): Record<string, { title?: string; description?: string }> {
+  if (!routeSeo || typeof routeSeo !== 'object' || Array.isArray(routeSeo)) {
+    return {};
+  }
+  const result: Record<string, { title?: string; description?: string }> = {};
+  for (const [routeKey, rawItem] of Object.entries(routeSeo as Record<string, any>)) {
+    if (!isValidCanonicalRoute(routeKey)) continue;
+    if (!rawItem || typeof rawItem !== 'object' || Array.isArray(rawItem)) continue;
+    const cleanItem: { title?: string; description?: string } = {};
+    if (typeof rawItem.title === 'string' && rawItem.title.trim()) {
+      cleanItem.title = rawItem.title.trim();
+    }
+    if (typeof rawItem.description === 'string' && rawItem.description.trim()) {
+      cleanItem.description = rawItem.description.trim();
+    }
+    if (cleanItem.title !== undefined || cleanItem.description !== undefined) {
+      result[routeKey] = cleanItem;
+    }
+  }
+  return result;
+}
+
+/**
  * Làm sạch phân hệ Nhóm, FAQ & SEO theo allowlist
  */
 function sanitizeTeamForPublic(team: TeamModuleData, approvedMediaKeys?: Set<string>): TeamModuleData {
@@ -442,6 +469,7 @@ function sanitizeTeamForPublic(team: TeamModuleData, approvedMediaKeys?: Set<str
       siteTitle: String(team.siteMeta?.siteTitle || 'Mang Theo Một Nét Vẽ').trim(),
       siteDescription: String(team.siteMeta?.siteDescription || '').trim(),
       ogImage: String(team.siteMeta?.ogImage || '/images/illustrations/a01.webp').trim(),
+      routeSeo: sanitizeRouteSeo(team.siteMeta?.routeSeo),
     },
   };
 

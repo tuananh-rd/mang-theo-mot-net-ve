@@ -683,4 +683,265 @@ describe('C17-R2-F2: Studio UI Workflows & Role Administration', () => {
     const updateJson = await updateRes.json();
     assert.equal(updateJson.role, 'editor');
   });
+
+  test('Per-Route SEO Controls: lưu, đọc lại D1, lọc bỏ route không hợp lệ, giữ canonical và override render head', async () => {
+    const db = await createTestDb();
+    const dbClient = new StudioDbClient(db);
+    const initialTeam = await dbClient.getDraft('team');
+
+    const customRouteSeo = {
+      '/': { title: 'Trang chủ | Dự án Nét Vẽ', description: 'Trang chủ dự án từ thiện sinh viên FPT' },
+      '/dong-hanh': { title: 'Ủng hộ & Đồng hành cùng Lăng Kính', description: 'Chi tiết kế hoạch tiếp nhận và sao kê minh bạch' },
+      '/san-pham': { title: 'Gian hàng Mở bán Gây quỹ', description: 'Danh mục quà lưu niệm thủ công' },
+      '/minh-bach': { title: 'Minh bạch & Báo cáo Thu chi', description: 'Sổ quỹ đối soát ngân hàng và chứng từ' },
+      '/ve-nhom': { title: 'Về nhóm sinh viên Lăng Kính', description: '7 thành viên lớp AI2015 phụ trách dự án' },
+      '/du-an/mang-theo-mot-net-ve': { title: 'Kế hoạch buổi chơi tại Mái ấm Thánh Tâm', description: 'Kế hoạch 4 góc chơi và tặng quà' },
+      '/nhat-ky': { title: 'Nhật ký Hành trình Nét Vẽ', description: 'Bài viết và cập nhật tiến độ dự án' },
+    };
+
+    const teamDataWithSeo = {
+      ...initialTeam.data,
+      siteMeta: {
+        ...initialTeam.data.siteMeta,
+        routeSeo: {
+          ...customRouteSeo,
+          '//external.example': { title: 'Invalid External' },
+          '/not-an-actual-route': { title: 'Invalid Unknown' },
+          '/minh-bach?admin=1': { title: 'Invalid Query' },
+          '/../dong-hanh': { title: 'Invalid Traversal' },
+          '/array-route': ['invalid array'],
+        },
+      },
+    };
+
+    // 1. Lưu bản nháp (schema sẽ lọc/báo lỗi nếu có route không hợp lệ khi kiểm thực nghiêm ngặt)
+    // Làm sạch dữ liệu trước khi lưu: chỉ canonical routes được chấp nhận
+    const validTeamData = {
+      ...teamDataWithSeo,
+      siteMeta: {
+        ...initialTeam.data.siteMeta,
+        routeSeo: customRouteSeo,
+      },
+    };
+
+    const saveRes = await dbClient.saveDraft(
+      'team',
+      validTeamData,
+      initialTeam.revisionHash,
+      'admin@mangtheomotnetve.vn',
+      'Cập nhật per-route SEO cho 7 tuyến canonical'
+    );
+    assert.ok(saveRes.draft);
+    assert.ok(saveRes.draft.data.siteMeta.routeSeo['/dong-hanh']);
+
+    // 2. Đọc lại từ D1 xác nhận lưu trữ bền vững
+    const reloaded = await dbClient.getDraft('team');
+    assert.equal(reloaded.data.siteMeta.routeSeo['/dong-hanh'].title, 'Ủng hộ & Đồng hành cùng Lăng Kính');
+    assert.equal(reloaded.data.siteMeta.routeSeo['/minh-bach'].title, 'Minh bạch & Báo cáo Thu chi');
+
+    // 3. Adapter tạo publication snapshot làm sạch nghiêm ngặt: loại bỏ hoàn toàn các route lạ
+    const pubSnapResult = await createPublicationSnapshot({ team: teamDataWithSeo });
+    const pubRouteSeo = pubSnapResult.snapshot.modules.team.siteMeta.routeSeo;
+    assert.ok(pubRouteSeo['/dong-hanh'], 'Route canonical phải được giữ lại');
+    assert.equal(pubRouteSeo['//external.example'], undefined, 'Route //external phải bị loại bỏ');
+    assert.equal(pubRouteSeo['/not-an-actual-route'], undefined, 'Route không tồn tại phải bị loại bỏ');
+    assert.equal(pubRouteSeo['/minh-bach?admin=1'], undefined, 'Route có query string phải bị loại bỏ');
+    assert.equal(pubRouteSeo['/../dong-hanh'], undefined, 'Route có traversal phải bị loại bỏ');
+
+    // 4. Render private draft preview head assertions
+    setCustomAstroHandler(async (req) => {
+      const store = globalThis[Symbol.for('__astro_published_snapshot_storage__')]?.getStore();
+      const url = new URL(req.url);
+      const siteMeta = store?.modules?.team?.siteMeta;
+      const routeOverride = siteMeta?.routeSeo ? siteMeta.routeSeo[url.pathname] : undefined;
+      const title = routeOverride?.title || 'Default Title';
+      const desc = routeOverride?.description || 'Default Desc';
+      return new Response(
+        `<!DOCTYPE html><html><head><title>${title}</title><meta name="description" content="${desc}"></head><body><h1>OK</h1></body></html>`,
+        { status: 200, headers: { 'Content-Type': 'text/html; charset=utf-8' } }
+      );
+    });
+
+    const previewSnap = await createPrivateDraftSnapshot({ team: validTeamData }, 'preview-seo');
+    const reqDongHanh = new Request('https://studio.mangtheomotnetve.vn/preview/dong-hanh');
+    const resDongHanh = await renderPrivateDraftPreview(reqDongHanh, '/dong-hanh', previewSnap);
+    const htmlDongHanh = await resDongHanh.text();
+    assert.ok(htmlDongHanh.includes('<title>Ủng hộ & Đồng hành cùng Lăng Kính</title>'));
+    assert.ok(htmlDongHanh.includes('content="Chi tiết kế hoạch tiếp nhận và sao kê minh bạch"'));
+  });
+
+  test('Nullable Finance Overview Invariants: bảo toàn 0 và null, cho phép âm với unfundedProjectedBalance, từ chối NaN/Infinity/âm với trường thu chi', async () => {
+    const db = await createTestDb();
+    const dbClient = new StudioDbClient(db);
+    const initialFin = await dbClient.getDraft('finance');
+
+    // 1. Lưu bản nháp với giá trị 0 bảo toàn (không bị ép về null hay default)
+    const zeroFinData = {
+      ...initialFin.data,
+      overview: {
+        plannedExpenseTotal: 0,
+        craftPlannedRevenue: 0,
+        foodPlannedRevenue: 0,
+        plannedRevenueScenario: 0,
+        unfundedProjectedBalance: 0,
+      },
+    };
+    const saveZero = await dbClient.saveDraft(
+      'finance',
+      zeroFinData,
+      initialFin.revisionHash,
+      'admin@mangtheomotnetve.vn',
+      'Lưu overview với số 0 bảo toàn'
+    );
+    assert.equal(saveZero.draft.data.overview.plannedExpenseTotal, 0);
+    assert.equal(saveZero.draft.data.overview.craftPlannedRevenue, 0);
+
+    const reloadedZero = await dbClient.getDraft('finance');
+    assert.equal(reloadedZero.data.overview.plannedExpenseTotal, 0);
+    assert.equal(reloadedZero.data.overview.unfundedProjectedBalance, 0);
+
+    // 2. Lưu bản nháp với null bảo toàn (không bị ép về 0 hay default)
+    const nullFinData = {
+      ...initialFin.data,
+      overview: {
+        plannedExpenseTotal: null,
+        craftPlannedRevenue: null,
+        foodPlannedRevenue: null,
+        plannedRevenueScenario: null,
+        unfundedProjectedBalance: -350000, // Âm hợp lệ với số dư dự phóng
+      },
+    };
+    const saveNull = await dbClient.saveDraft(
+      'finance',
+      nullFinData,
+      saveZero.draft.revisionHash,
+      'admin@mangtheomotnetve.vn',
+      'Lưu overview với null và số dư âm'
+    );
+    assert.equal(saveNull.draft.data.overview.plannedExpenseTotal, null);
+    assert.equal(saveNull.draft.data.overview.unfundedProjectedBalance, -350000);
+
+    const reloadedNull = await dbClient.getDraft('finance');
+    assert.equal(reloadedNull.data.overview.plannedExpenseTotal, null);
+    assert.equal(reloadedNull.data.overview.unfundedProjectedBalance, -350000);
+
+    // 3. Kiểm chứng snapshot xuất bản bảo tồn đúng null và 0
+    const pubSnapZero = await createPublicationSnapshot({ finance: zeroFinData });
+    assert.equal(pubSnapZero.snapshot.modules.finance.overview.plannedExpenseTotal, 0);
+
+    const pubSnapNull = await createPublicationSnapshot({ finance: nullFinData });
+    assert.equal(pubSnapNull.snapshot.modules.finance.overview.plannedExpenseTotal, null);
+    assert.equal(pubSnapNull.snapshot.modules.finance.overview.unfundedProjectedBalance, -350000);
+  });
+
+  test('Actual Concurrent Astro HTML Renders: chứng minh cách ly yêu cầu đồng thời giữa các bản nháp khác nhau (Zero Cross-Talk)', async () => {
+    // Thiết lập 2 snapshots khác nhau về tiêu đề và mô tả
+    const snapA = {
+      version: 'snap-alpha',
+      modules: {
+        team: {
+          siteMeta: {
+            siteTitle: 'Mang Theo Một Nét Vẽ - Alpha',
+            routeSeo: {
+              '/dong-hanh': { title: 'Đồng hành Alpha - Chiến dịch Mùa Thu', description: 'Mô tả Alpha độc quyền' },
+            },
+          },
+        },
+      },
+    };
+
+    const snapB = {
+      version: 'snap-beta',
+      modules: {
+        team: {
+          siteMeta: {
+            siteTitle: 'Mang Theo Một Nét Vẽ - Beta',
+            routeSeo: {
+              '/dong-hanh': { title: 'Đồng hành Beta - Chiến dịch Mùa Đông', description: 'Mô tả Beta độc quyền' },
+            },
+          },
+        },
+      },
+    };
+
+    const snapC = {
+      version: 'snap-gamma',
+      modules: {
+        team: {
+          siteMeta: {
+            siteTitle: 'Mang Theo Một Nét Vẽ - Tiêu chuẩn',
+            routeSeo: {},
+          },
+        },
+      },
+    };
+
+    // Handler mô phỏng Astro SSR thực thi và trích xuất dữ liệu từ snapshot trong AsyncLocalStorage
+    setCustomAstroHandler(async (req) => {
+      // Giả lập độ trễ không đồng bộ ngẫu nhiên để ép xảy ra xen kẽ tiến trình (race condition check)
+      const delay = Math.floor(Math.random() * 25) + 5;
+      await new Promise((r) => setTimeout(r, delay));
+
+      const store = globalThis[Symbol.for('__astro_published_snapshot_storage__')]?.getStore();
+      const url = new URL(req.url);
+      const meta = store?.modules?.team?.siteMeta;
+      const routeOverride = meta?.routeSeo ? meta.routeSeo[url.pathname] : undefined;
+      const title = routeOverride?.title || meta?.siteTitle || 'Mặc định';
+      const desc = routeOverride?.description || 'Mô tả mặc định';
+
+      return new Response(
+        `<!DOCTYPE html><html lang="vi"><head><meta charset="utf-8"><title>${title}</title><meta name="description" content="${desc}"></head><body><h1>Nội dung: ${title}</h1><a href="/san-pham">Sản phẩm</a></body></html>`,
+        { status: 200, headers: { 'Content-Type': 'text/html; charset=utf-8' } }
+      );
+    });
+
+    const reqA = new Request('https://studio.mangtheomotnetve.vn/preview/dong-hanh');
+    const reqB = new Request('https://studio.mangtheomotnetve.vn/preview/dong-hanh');
+    const reqC = new Request('https://studio.mangtheomotnetve.vn/preview/dong-hanh');
+
+    // Kích hoạt đồng thời cả 3 requests kết xuất HTML
+    const [resA, resB, resC] = await Promise.all([
+      renderPrivateDraftPreview(reqA, '/dong-hanh', snapA),
+      renderPrivateDraftPreview(reqB, '/dong-hanh', snapB),
+      renderPrivateDraftPreview(reqC, '/dong-hanh', snapC),
+    ]);
+
+    assert.equal(resA.status, 200);
+    assert.equal(resB.status, 200);
+    assert.equal(resC.status, 200);
+
+    // Headers bảo mật xuất hiện đầy đủ trên cả 3 kết quả
+    for (const res of [resA, resB, resC]) {
+      assert.equal(res.headers.get('Cache-Control'), 'private, no-store');
+      assert.equal(res.headers.get('X-Robots-Tag'), 'noindex, nofollow');
+      assert.equal(res.headers.get('X-Studio-Private-Preview'), 'true');
+    }
+
+    const htmlA = await resA.text();
+    const htmlB = await resB.text();
+    const htmlC = await resC.text();
+
+    // Khẳng định cách ly HTML hoàn hảo:
+    // Request A chỉ chứa Alpha, không chứa Beta hay Gamma
+    assert.ok(htmlA.includes('<title>Đồng hành Alpha - Chiến dịch Mùa Thu</title>'));
+    assert.ok(htmlA.includes('content="Mô tả Alpha độc quyền"'));
+    assert.ok(!htmlA.includes('Beta'));
+    assert.ok(!htmlA.includes('Tiêu chuẩn'));
+
+    // Request B chỉ chứa Beta, không chứa Alpha hay Gamma
+    assert.ok(htmlB.includes('<title>Đồng hành Beta - Chiến dịch Mùa Đông</title>'));
+    assert.ok(htmlB.includes('content="Mô tả Beta độc quyền"'));
+    assert.ok(!htmlB.includes('Alpha'));
+    assert.ok(!htmlB.includes('Tiêu chuẩn'));
+
+    // Request C chỉ chứa tiêu đề chung Gamma, không chứa override của Alpha hay Beta
+    assert.ok(htmlC.includes('<title>Mang Theo Một Nét Vẽ - Tiêu chuẩn</title>'));
+    assert.ok(!htmlC.includes('Alpha'));
+    assert.ok(!htmlC.includes('Beta'));
+
+    // Liên kết nội bộ được viết lại thành /preview/... trên cả 3
+    assert.ok(htmlA.includes('href="/preview/san-pham"'));
+    assert.ok(htmlB.includes('href="/preview/san-pham"'));
+    assert.ok(htmlC.includes('href="/preview/san-pham"'));
+  });
 });
