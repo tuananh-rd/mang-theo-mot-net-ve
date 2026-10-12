@@ -2,12 +2,26 @@
 > @mang-theo-mot-net-ve/studio@1.0.0 test:supported
 > node --test tests/supported-runtime.test.mjs
 
-✔ Supported D1: draft save/read, mandatory expectedHash, và phát hiện xung đột lạc quan (759.1686ms)
-✔ Supported D1: Xung đột đồng thời (Race Condition) không sinh ghost revision hoặc audit log thừa (1106.278ms)
-✔ Supported D1: Tính nguyên tử (Atomicity Rollback) trong saveDraft khi audit log thất bại (1532.7728ms)
-✔ Supported D1: Khôi phục phiên bản (Restore Revision) với khóa lạc quan OCC và kiểm tra rollback khi từ chối (1773.4627ms)
-✔ Supported D1 & R2: Tính bền vững trên đĩa (Persistence Test) qua các lần khởi động lại runtime (2493.9464ms)
-✔ Supported R2: Các thao tác put, get, list, delete trên kho lưu trữ (1166.108ms)
+✔ Supported D1: draft save/read, mandatory expectedHash, và phát hiện xung đột lạc quan (1431.0139ms)
+✔ Supported D1: Xung đột đồng thời (Race Condition) không sinh ghost revision hoặc audit log thừa (2347.7564ms)
+✔ Supported D1: Tính nguyên tử (Atomicity Rollback) trong saveDraft khi audit log thất bại (1650.2873ms)
+✔ Supported D1: Khôi phục phiên bản (Restore Revision) với khóa lạc quan OCC và kiểm tra rollback khi từ chối (1187.7071ms)
+✔ Supported D1 & R2: Tính bền vững trên đĩa (Persistence Test) qua các lần khởi động lại runtime (1641.3316ms)
+✔ Supported R2: Các thao tác put, get, list, delete trên kho lưu trữ (645.534ms)
+✔ Worker Media Route: Khẳng định tuyến unauth không bao giờ gọi BUCKET.get() và auth hợp lệ có gọi (760.1743ms)
+Your Worker has access to the following bindings:
+Binding                                                                     Resource                  Mode
+env.DB (studio-d1)                                                          D1 Database               local
+env.BUCKET (studio-media)                                                   R2 Bucket                 local
+env.STUDIO_ENVIRONMENT ("production")                                       Environment Variable      local
+env.CF_ACCESS_TEAM_DOMAIN ("example-team.cloudflareaccess.com")             Environment Variable      local
+env.CF_ACCESS_AUD ("0000000000000000000000000000000000000...")              Environment Variable      local
+
+⎔ Starting local server...
+[wrangler:info] Ready on http://127.0.0.1:52742
+[wrangler:info] GET / 401 Unauthorized (311ms)
+[wrangler:info] GET /media/private-test.png 401 Unauthorized (11ms)
+⎔ Shutting down local server...
 Your Worker has access to the following bindings:
 Binding                                                                     Resource                  Mode
 env.DB (studio-d1)                                                          D1 Database               local
@@ -17,20 +31,23 @@ env.CF_ACCESS_TEAM_DOMAIN ("example-team.cloudflareaccess.com")             Envi
 env.CF_ACCESS_AUD ("0000000000000000000000000000000000000...")              Environment Variable      local
 
 ⎔ Starting local server...
-[wrangler:info] Ready on http://127.0.0.1:62296
-[wrangler:info] GET /media/private-test.png 401 Unauthorized (584ms)
-[wrangler:info] GET /media/private-test.png 401 Unauthorized (5ms)
-[wrangler:info] GET /api/me 200 OK (36ms)
-[wrangler:info] GET /media/private-test.png 200 OK (26ms)
-[wrangler:info] GET /media/non-existent-asset.png 404 Not Found (11ms)
+[wrangler:info] Ready on http://127.0.0.1:52761
+[wrangler:info] GET /media/private-test.png 401 Unauthorized (292ms)
+[wrangler:info] GET /api/me 200 OK (22ms)
+[wrangler:info] GET /api/drafts/project 200 OK (23ms)
+[wrangler:info] POST /api/drafts/project 200 OK (25ms)
+[wrangler:info] GET /api/drafts/project 200 OK (19ms)
+[wrangler:info] POST /api/drafts/project 409 Conflict (11ms)
+[wrangler:info] GET /media/private-test.png 200 OK (24ms)
+[wrangler:info] GET /media/non-existent-asset.png 404 Not Found (26ms)
 ⎔ Shutting down local server...
-✔ Supported Worker Runtime (unstable_dev): Khởi chạy Worker thật, fail-secure auth, bypass loopback và phục vụ media (2507.6752ms)
-✔ Worker Bundle Verification: Kiểm tra Worker không chứa module Node-only trong toàn bộ dependency graph (44.1321ms)
-ℹ tests 8
+✔ Supported Worker Runtime (unstable_dev): Khởi chạy Worker thật, kiểm tra quy trình API draft, auth và media (2698.1751ms)
+✔ Worker Bundle Verification: Kiểm tra Worker không chứa module Node-only trong toàn bộ dependency graph (43.2728ms)
+ℹ tests 9
 ℹ suites 0
-ℹ pass 8
+ℹ pass 9
 ℹ fail 0
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 12361.0214
+ℹ duration_ms 13551.2334
