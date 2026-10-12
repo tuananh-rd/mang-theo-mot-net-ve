@@ -2,15 +2,20 @@
   "task": "task_7db18e179a76",
   "dispatch": "ctx_977d3559c3a1",
   "baseline": "c55315703927956794aff756dc7438606ff1408a",
-  "timestamp": "2026-10-12T20:25:42+07:00",
+  "timestamp": "2026-10-12T20:44:14+07:00",
   "verificationSummary": {
     "studioTypecheck": "PASS (0 errors)",
-    "studioTests": "PASS (56/56 passing across 4 suites)",
+    "studioTests": "PASS (57/57 passing across 4 suites)",
     "npmTest": "PASS (96/96 passing across 13 suites)",
     "astroStaticBuild": "PASS (13 routes built in <1s)",
-    "astroSsrPreviewBuild": "PASS (Server entry built in <1s with @astrojs/cloudflare)"
+    "astroSsrPreviewBuild": "PASS (Statically compiled with @astrojs/cloudflare in <2s)",
+    "browserVerification": "PASS (8 sections x 3 viewports: 375, 768, 1440, 0 page errors, zero/null preserved)"
   },
   "sections": {
+    "dashboard": {
+      "status": "complete",
+      "features": ["snapshot_history", "publication_status", "clean_user_copy"]
+    },
     "project": {
       "status": "complete",
       "features": ["activities", "needs", "contact_toggle_null_persisted", "responsive_form"]
@@ -51,9 +56,11 @@
     "nodeModulesInBundle": false
   },
   "previewPipeline": {
+    "entrypoint": "apps/studio/src/preview/worker-entry.ts (statically imports @astrojs/cloudflare/handler)",
     "ssrAdapter": "@astrojs/cloudflare",
     "isolationMechanism": "AsyncLocalStorage (request-scoped)",
     "errorHandling": "explicit throw if ALS unavailable (fail-closed)",
+    "workerdCompiledBundle": "dist-preview/server/entry.mjs",
     "securityHeaders": {
       "Cache-Control": "private, no-cache, no-store, must-revalidate",
       "X-Robots-Tag": "noindex, nofollow",

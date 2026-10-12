@@ -28,34 +28,14 @@ export async function runWithSnapshot<R>(snapshot: any, fn: () => Promise<R> | R
   return storage.run(snapshot, fn);
 }
 
-let cachedServerEntry: any = null;
+let customAstroHandler: ((req: Request, env?: any, ctx?: any) => Promise<Response>) | null = null;
 
-async function getAstroServerEntry(): Promise<any> {
-  if (cachedServerEntry) return cachedServerEntry;
+export function setCustomAstroHandler(handler: ((req: Request, env?: any, ctx?: any) => Promise<Response>) | null) {
+  customAstroHandler = handler;
+}
 
-  // Thử nạp từ dist-preview (Astro Cloudflare SSR build)
-  try {
-    const previewEntryPath = ['..', '..', '..', '..', 'dist-preview', 'server', 'entry.mjs'].join('/');
-    // @ts-ignore
-    const entry = await import(/* @vite-ignore */ previewEntryPath);
-    if (entry && entry.default && typeof entry.default.fetch === 'function') {
-      cachedServerEntry = entry.default;
-      return cachedServerEntry;
-    }
-  } catch {}
-
-  // Dự phòng từ dist/server (nếu build không chỉ định outDir riêng)
-  try {
-    const serverEntryPath = ['..', '..', '..', '..', 'dist', 'server', 'entry.mjs'].join('/');
-    // @ts-ignore
-    const entry = await import(/* @vite-ignore */ serverEntryPath);
-    if (entry && entry.default && typeof entry.default.fetch === 'function') {
-      cachedServerEntry = entry.default;
-      return cachedServerEntry;
-    }
-  } catch {}
-
-  return null;
+export function getCustomAstroHandler() {
+  return customAstroHandler;
 }
 
 /**
@@ -79,9 +59,9 @@ export async function renderPrivateDraftPreview(
     headers: request.headers,
   });
 
-  const entry = await getAstroServerEntry();
+  const handler = getCustomAstroHandler();
 
-  if (!entry) {
+  if (!handler) {
     return new Response(
       '<!DOCTYPE html><html lang="vi"><head><meta charset="utf-8"><title>Chưa có bản dựng Preview SSR</title></head>' +
       '<body style="font-family:sans-serif;padding:2rem;text-align:center;">' +
@@ -105,7 +85,7 @@ export async function renderPrivateDraftPreview(
 
   // Thực thi bên trong AsyncLocalStorage của Snapshot Loader
   const response: Response = await runWithSnapshot(snapshot, async () => {
-    return entry.fetch(previewReq, workerEnv, executionCtx);
+    return handler(previewReq, workerEnv, executionCtx);
   });
 
   // Sao chép headers và đính kèm cờ bảo mật bắt buộc

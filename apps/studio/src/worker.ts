@@ -10,7 +10,7 @@ import { AuthError, AuthConfigMissingError } from './auth/jwt.js';
 import { StudioDbClient } from './db/client.js';
 import { createPublicationSnapshot, createPrivateDraftSnapshot } from './publish/adapter.js';
 import { APPROVED_MEDIA_REGISTRY } from './storage/media-registry.js';
-import { renderPrivateDraftPreview } from './preview/renderer.js';
+import { renderPrivateDraftPreview, getCustomAstroHandler } from './preview/renderer.js';
 
 export default {
   async fetch(request: Request, env: Env, ctx: any): Promise<Response> {
@@ -92,7 +92,22 @@ export default {
       return handleApiRequest(request, env, session);
     }
 
-    // 4. Phân luồng Xem trước Bản nháp Riêng tư (Authenticated Private Draft Preview)
+    // 4. Phục vụ tài nguyên tĩnh của Astro (CSS, JS, hình ảnh được xác thực)
+    const astroHandler = getCustomAstroHandler();
+    if (
+      astroHandler &&
+      (path.startsWith('/_astro/') ||
+        path.startsWith('/favicon.') ||
+        path.startsWith('/images/') ||
+        /\.(css|js|svg|png|jpg|jpeg|webp|ico|woff|woff2|ttf)$/i.test(path))
+    ) {
+      const assetRes = await astroHandler(request, env, ctx);
+      if (assetRes && assetRes.status !== 404) {
+        return assetRes;
+      }
+    }
+
+    // 5. Phân luồng Xem trước Bản nháp Riêng tư (Authenticated Private Draft Preview)
     if (path === '/preview' || path.startsWith('/preview/')) {
       const dbClient = new StudioDbClient(env.DB);
       const allDrafts = await dbClient.getAllDrafts();

@@ -1,0 +1,191 @@
+{
+  "sha": "355ef816820d286eeca572abd994133a37055cbe",
+  "timestamp": "2026-10-12T13:43:33.116Z",
+  "runId": "browser-1791812603848",
+  "totalObservations": 25,
+  "pageErrors": [],
+  "observations": [
+    {
+      "section": "dashboard",
+      "viewport": "mobile",
+      "width": 375,
+      "rendered": true,
+      "scrollableTableTested": true,
+      "screenshot": "dashboard-mobile-375.png"
+    },
+    {
+      "section": "project",
+      "viewport": "mobile",
+      "width": 375,
+      "rendered": true,
+      "scrollableTableTested": false,
+      "screenshot": "project-mobile-375.png"
+    },
+    {
+      "section": "journal",
+      "viewport": "mobile",
+      "width": 375,
+      "rendered": true,
+      "scrollableTableTested": true,
+      "screenshot": "journal-mobile-375.png"
+    },
+    {
+      "section": "media",
+      "viewport": "mobile",
+      "width": 375,
+      "rendered": true,
+      "scrollableTableTested": true,
+      "screenshot": "media-mobile-375.png"
+    },
+    {
+      "section": "products",
+      "viewport": "mobile",
+      "width": 375,
+      "rendered": true,
+      "scrollableTableTested": false,
+      "screenshot": "products-mobile-375.png"
+    },
+    {
+      "section": "finance",
+      "viewport": "mobile",
+      "width": 375,
+      "rendered": true,
+      "scrollableTableTested": true,
+      "screenshot": "finance-mobile-375.png"
+    },
+    {
+      "section": "team",
+      "viewport": "mobile",
+      "width": 375,
+      "rendered": true,
+      "scrollableTableTested": false,
+      "screenshot": "team-mobile-375.png"
+    },
+    {
+      "section": "publish",
+      "viewport": "mobile",
+      "width": 375,
+      "rendered": true,
+      "scrollableTableTested": true,
+      "screenshot": "publish-mobile-375.png"
+    },
+    {
+      "section": "dashboard",
+      "viewport": "tablet",
+      "width": 768,
+      "rendered": true,
+      "screenshot": "dashboard-tablet-768.png"
+    },
+    {
+      "section": "project",
+      "viewport": "tablet",
+      "width": 768,
+      "rendered": true,
+      "screenshot": "project-tablet-768.png"
+    },
+    {
+      "section": "journal",
+      "viewport": "tablet",
+      "width": 768,
+      "rendered": true,
+      "screenshot": "journal-tablet-768.png"
+    },
+    {
+      "section": "media",
+      "viewport": "tablet",
+      "width": 768,
+      "rendered": true,
+      "screenshot": "media-tablet-768.png"
+    },
+    {
+      "section": "products",
+      "viewport": "tablet",
+      "width": 768,
+      "rendered": true,
+      "screenshot": "products-tablet-768.png"
+    },
+    {
+      "section": "finance",
+      "viewport": "tablet",
+      "width": 768,
+      "rendered": true,
+      "screenshot": "finance-tablet-768.png"
+    },
+    {
+      "section": "team",
+      "viewport": "tablet",
+      "width": 768,
+      "rendered": true,
+      "screenshot": "team-tablet-768.png"
+    },
+    {
+      "section": "publish",
+      "viewport": "tablet",
+      "width": 768,
+      "rendered": true,
+      "screenshot": "publish-tablet-768.png"
+    },
+    {
+      "section": "dashboard",
+      "viewport": "desktop",
+      "width": 1440,
+      "rendered": true,
+      "screenshot": "dashboard-desktop-1440.png"
+    },
+    {
+      "section": "project",
+      "viewport": "desktop",
+      "width": 1440,
+      "rendered": true,
+      "screenshot": "project-desktop-1440.png"
+    },
+    {
+      "section": "journal",
+      "viewport": "desktop",
+      "width": 1440,
+      "rendered": true,
+      "screenshot": "journal-desktop-1440.png"
+    },
+    {
+      "section": "media",
+      "viewport": "desktop",
+      "width": 1440,
+      "rendered": true,
+      "screenshot": "media-desktop-1440.png"
+    },
+    {
+      "section": "products",
+      "viewport": "desktop",
+      "width": 1440,
+      "rendered": true,
+      "screenshot": "products-desktop-1440.png"
+    },
+    {
+      "section": "finance",
+      "viewport": "desktop",
+      "width": 1440,
+      "rendered": true,
+      "screenshot": "finance-desktop-1440.png"
+    },
+    {
+      "section": "team",
+      "viewport": "desktop",
+      "width": 1440,
+      "rendered": true,
+      "screenshot": "team-desktop-1440.png"
+    },
+    {
+      "section": "publish",
+      "viewport": "desktop",
+      "width": 1440,
+      "rendered": true,
+      "screenshot": "publish-desktop-1440.png"
+    },
+    {
+      "action": "finance_overview_zero_preservation",
+      "status": 200,
+      "savedPlannedExpenseTotal": 0,
+      "zeroPreserved": true
+    }
+  ]
+}

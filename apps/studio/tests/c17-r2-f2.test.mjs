@@ -30,7 +30,7 @@ import {
 } from '../dist/storage/media-registry.js';
 import { getDefaultModuleData } from '../dist/schemas/index.js';
 import { createPublicationSnapshot } from '../dist/publish/adapter.js';
-import { renderPrivateDraftPreview, runWithSnapshot } from '../dist/preview/renderer.js';
+import { renderPrivateDraftPreview, runWithSnapshot, setCustomAstroHandler } from '../dist/preview/renderer.js';
 import {
   PRODUCTS,
   PLANNED_SESSIONS,
@@ -262,21 +262,27 @@ describe('C17-R2-F2: Private Draft Preview SSR & Request-Scoped Isolation', () =
       },
     };
 
+    // Cài đặt handler để kiểm tra liên kết nội bộ được viết lại và headers bảo mật
+    setCustomAstroHandler(async (r) => {
+      return new Response(
+        '<!DOCTYPE html><html><body><a href="/dong-hanh">Đồng hành</a><a href="/preview/minh-bach">Minh bạch</a></body></html>',
+        { status: 200, headers: { 'Content-Type': 'text/html; charset=utf-8' } }
+      );
+    });
+
     const req = new Request('https://studio.mangtheomotnetve.vn/preview/dong-hanh');
     const res = await renderPrivateDraftPreview(req, '/dong-hanh', fakeSnapshot);
 
     // Kiểm tra headers bảo mật bắt buộc
+    assert.equal(res.status, 200);
     assert.equal(res.headers.get('Cache-Control'), 'private, no-store');
     assert.equal(res.headers.get('X-Robots-Tag'), 'noindex, nofollow');
     assert.equal(res.headers.get('X-Studio-Private-Preview'), 'true');
 
-    // Nếu có HTML trả về, kiểm tra liên kết nội bộ được viết lại
-    const contentType = res.headers.get('Content-Type') || '';
-    if (contentType.includes('text/html')) {
-      const text = await res.text();
-      // Không chứa href="/dong-hanh" mà phải là href="/preview/dong-hanh"
-      assert.ok(!text.includes('href="/dong-hanh"'), 'Liên kết nội bộ không được thoát khỏi /preview');
-    }
+    // Kiểm tra liên kết nội bộ được viết lại
+    const text = await res.text();
+    assert.ok(text.includes('href="/preview/dong-hanh"'), 'Liên kết href="/dong-hanh" phải được viết lại thành /preview/dong-hanh');
+    assert.ok(text.includes('href="/preview/minh-bach"'), 'Liên kết đã có tiền tố /preview phải được giữ nguyên');
   });
 
   test('AsyncLocalStorage cách ly hoàn hảo giữa các yêu cầu đồng thời (Zero Cross-Talk)', async () => {
@@ -296,6 +302,63 @@ describe('C17-R2-F2: Private Draft Preview SSR & Request-Scoped Isolation', () =
     const [resA, resB] = await Promise.all([taskA, taskB]);
     assert.equal(resA?.id, 'SNAPSHOT_A');
     assert.equal(resB?.id, 'SNAPSHOT_B');
+  });
+
+  test('workerd Preview Server: render hoàn chỉnh 6 trang công khai, từ chối unauth và cách ly dữ liệu nháp', async () => {
+    const { unstable_dev, getPlatformProxy, unstable_splitSqlQuery } = await import('wrangler');
+    
+    // Áp dụng schema D1 vào preview DB nếu chưa có
+    const sqlPath = path.resolve(rootDir, 'apps/studio/migrations/0001_initial_schema.sql');
+    const sql = fs.readFileSync(sqlPath, 'utf8');
+    const proxy = await getPlatformProxy({ configPath: path.resolve(rootDir, 'wrangler.preview.json') });
+    for (const st of unstable_splitSqlQuery(sql)) {
+      if (st.trim()) await proxy.env.DB.prepare(st).run();
+    }
+    await proxy.dispose();
+
+    const worker = await unstable_dev(path.resolve(rootDir, 'dist-preview/server/entry.mjs'), {
+      config: path.resolve(rootDir, 'wrangler.preview.json'),
+      vars: {
+        STUDIO_ENVIRONMENT: 'development',
+      },
+      experimental: { disableExperimentalWarning: true }
+    });
+    const origin = `http://127.0.0.1:${worker.port}`;
+
+    try {
+      // 1. Kiểm tra từ chối unauthenticated dứt khoát trên non-loopback URL
+      const unauthRes = await worker.fetch('http://example.com/preview/dong-hanh');
+      assert.equal(unauthRes.status, 401, 'Yêu cầu unauthenticated phải bị từ chối 401');
+
+      // 2. Kiểm tra duyệt hoàn chỉnh 6 trang công khai + /nhat-ky với quyền admin dev
+      const routes = [
+        '/',
+        '/dong-hanh',
+        '/du-an/mang-theo-mot-net-ve',
+        '/minh-bach',
+        '/san-pham',
+        '/ve-nhom',
+        '/nhat-ky',
+      ];
+
+      for (const r of routes) {
+        const pageRes = await worker.fetch(`${origin}/preview${r}?dev_role=admin`, {
+          headers: { Host: `127.0.0.1:${worker.port}` }
+        });
+        assert.equal(pageRes.status, 200, `Trang ${r} phải trả về 200 OK`);
+        assert.equal(pageRes.headers.get('x-studio-private-preview'), 'true', `Trang ${r} phải có header private preview`);
+        assert.equal(pageRes.headers.get('cache-control'), 'private, no-store', `Trang ${r} phải có Cache-Control private`);
+        assert.equal(pageRes.headers.get('x-robots-tag'), 'noindex, nofollow', `Trang ${r} phải có robots tag noindex`);
+
+        const body = await pageRes.text();
+        assert.ok(body.length > 5000, `Trang ${r} phải có nội dung HTML hoàn chỉnh (>5KB)`);
+        assert.ok(body.includes('<title>'), `Trang ${r} phải chứa thẻ <title>`);
+        // Kiểm tra không có liên kết nội bộ bị lộ ra ngoài /preview
+        assert.ok(!body.includes('href="/dong-hanh"'), `Liên kết trong trang ${r} phải được viết lại sang /preview`);
+      }
+    } finally {
+      await worker.stop();
+    }
   });
 });
 
