@@ -1,0 +1,318 @@
+{
+  "sha": "d3407f1b96505b85798d4331862eef276cb7c58f",
+  "timestamp": "2026-10-12T22:57:30.773Z",
+  "runId": "browser-r3-1791845831629",
+  "totalObservations": 32,
+  "pageErrors": [],
+  "mediaRegistryTotal": 22,
+  "mediaRegistryAllValid": true,
+  "observations": [
+    {
+      "type": "tab_navigation",
+      "section": "dashboard",
+      "viewport": "mobile",
+      "width": 375,
+      "observedSelector": "a[href=\"/preview/dong-hanh\"]",
+      "rendered": true,
+      "scrollableTableTested": true,
+      "screenshot": "dashboard-mobile-375.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "project",
+      "viewport": "mobile",
+      "width": 375,
+      "observedSelector": "#projectForm",
+      "rendered": true,
+      "scrollableTableTested": false,
+      "screenshot": "project-mobile-375.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "journal",
+      "viewport": "mobile",
+      "width": 375,
+      "observedSelector": "#addNewArticleBtn",
+      "rendered": true,
+      "scrollableTableTested": true,
+      "screenshot": "journal-mobile-375.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "media",
+      "viewport": "mobile",
+      "width": 375,
+      "observedSelector": "#mediaUploadForm",
+      "rendered": true,
+      "scrollableTableTested": true,
+      "screenshot": "media-mobile-375.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "products",
+      "viewport": "mobile",
+      "width": 375,
+      "observedSelector": "#productsForm",
+      "rendered": true,
+      "scrollableTableTested": false,
+      "screenshot": "products-mobile-375.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "finance",
+      "viewport": "mobile",
+      "width": 375,
+      "observedSelector": "#financeOverviewForm",
+      "rendered": true,
+      "scrollableTableTested": true,
+      "screenshot": "finance-mobile-375.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "team",
+      "viewport": "mobile",
+      "width": 375,
+      "observedSelector": "#teamForm",
+      "rendered": true,
+      "scrollableTableTested": false,
+      "screenshot": "team-mobile-375.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "publish",
+      "viewport": "mobile",
+      "width": 375,
+      "observedSelector": "#requestPublishBtn",
+      "rendered": true,
+      "scrollableTableTested": true,
+      "screenshot": "publish-mobile-375.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "dashboard",
+      "viewport": "tablet",
+      "width": 768,
+      "observedSelector": "a[href=\"/preview/dong-hanh\"]",
+      "rendered": true,
+      "screenshot": "dashboard-tablet-768.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "project",
+      "viewport": "tablet",
+      "width": 768,
+      "observedSelector": "#projectForm",
+      "rendered": true,
+      "screenshot": "project-tablet-768.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "journal",
+      "viewport": "tablet",
+      "width": 768,
+      "observedSelector": "#addNewArticleBtn",
+      "rendered": true,
+      "screenshot": "journal-tablet-768.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "media",
+      "viewport": "tablet",
+      "width": 768,
+      "observedSelector": "#mediaUploadForm",
+      "rendered": true,
+      "screenshot": "media-tablet-768.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "products",
+      "viewport": "tablet",
+      "width": 768,
+      "observedSelector": "#productsForm",
+      "rendered": true,
+      "screenshot": "products-tablet-768.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "finance",
+      "viewport": "tablet",
+      "width": 768,
+      "observedSelector": "#financeOverviewForm",
+      "rendered": true,
+      "screenshot": "finance-tablet-768.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "team",
+      "viewport": "tablet",
+      "width": 768,
+      "observedSelector": "#teamForm",
+      "rendered": true,
+      "screenshot": "team-tablet-768.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "publish",
+      "viewport": "tablet",
+      "width": 768,
+      "observedSelector": "#requestPublishBtn",
+      "rendered": true,
+      "screenshot": "publish-tablet-768.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "dashboard",
+      "viewport": "desktop",
+      "width": 1440,
+      "observedSelector": "a[href=\"/preview/dong-hanh\"]",
+      "rendered": true,
+      "screenshot": "dashboard-desktop-1440.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "project",
+      "viewport": "desktop",
+      "width": 1440,
+      "observedSelector": "#projectForm",
+      "rendered": true,
+      "screenshot": "project-desktop-1440.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "journal",
+      "viewport": "desktop",
+      "width": 1440,
+      "observedSelector": "#addNewArticleBtn",
+      "rendered": true,
+      "screenshot": "journal-desktop-1440.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "media",
+      "viewport": "desktop",
+      "width": 1440,
+      "observedSelector": "#mediaUploadForm",
+      "rendered": true,
+      "screenshot": "media-desktop-1440.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "products",
+      "viewport": "desktop",
+      "width": 1440,
+      "observedSelector": "#productsForm",
+      "rendered": true,
+      "screenshot": "products-desktop-1440.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "finance",
+      "viewport": "desktop",
+      "width": 1440,
+      "observedSelector": "#financeOverviewForm",
+      "rendered": true,
+      "screenshot": "finance-desktop-1440.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "team",
+      "viewport": "desktop",
+      "width": 1440,
+      "observedSelector": "#teamForm",
+      "rendered": true,
+      "screenshot": "team-desktop-1440.png"
+    },
+    {
+      "type": "tab_navigation",
+      "section": "publish",
+      "viewport": "desktop",
+      "width": 1440,
+      "observedSelector": "#requestPublishBtn",
+      "rendered": true,
+      "screenshot": "publish-desktop-1440.png"
+    },
+    {
+      "type": "project_editing_workflow",
+      "saveStatus": 200,
+      "savedAct1Title": "Hoạt động Vẽ Tranh & Tạo hình Đặc biệt R3 (Thay thế hoàn toàn)",
+      "savedAct1Badge": "",
+      "savedAct1Note": "",
+      "savedStg1Title": "Giai đoạn Khảo sát & Chuẩn bị R3 (Thay thế hoàn toàn)",
+      "savedNeed1Title": "Màu vẽ acrylic & giấy vẽ A3 R3 (Thay thế hoàn toàn)",
+      "act1TitleReplacedExactly": true,
+      "act1BadgeClearedSuccessfully": true,
+      "act1NoteClearedSuccessfully": true,
+      "stg1TitleReplacedExactly": true,
+      "need1TitleReplacedExactly": true,
+      "contactsNullPreserved": true,
+      "screenshot": "project-edited-save-reload.png"
+    },
+    {
+      "type": "products_editing_workflow",
+      "saveStatus": 200,
+      "chuonChuon": {
+        "price": "45000",
+        "status": "open",
+        "media": "/images/san-pham/chuon-chuon-tre.webp",
+        "narrative": "Câu chuyện chuồn chuồn mộc mạc gây quỹ lớp AI2015"
+      },
+      "mocKhoa": {
+        "price": "15000",
+        "status": "open",
+        "media": "",
+        "narrative": "Móc khóa kỷ niệm sinh viên FPT (Không ảnh)"
+      },
+      "noPhotoPreservedForMocKhoa": true,
+      "approvedMediaPreservedForChuonChuon": true,
+      "screenshot": "products-both-edited-save-reload.png"
+    },
+    {
+      "type": "journal_crud_workflow",
+      "saveStatus": 200,
+      "slug": "bai-viet-thuc-dia-r3-mv5ur30d",
+      "articleFoundInListAfterReload": true,
+      "previewStatus": 200,
+      "previewHasSecurityHeader": true,
+      "previewHasNoStoreHeader": true,
+      "renderedTitleMatches": true,
+      "renderedContentMatches": true,
+      "screenshot": "journal-draft-private-detail-preview.png"
+    },
+    {
+      "type": "team_and_faqs_workflow",
+      "saveStatus": 200,
+      "teamDescMatches": true,
+      "pfaq1MatchesExactly": true,
+      "sfaq1MatchesExactly": true,
+      "tfaq1MatchesExactly": true,
+      "screenshot": "team-and-3-faq-groups-edited.png"
+    },
+    {
+      "type": "seo_main_detail_preservation",
+      "detailNkPreservedAcrossTeamSave": true,
+      "detailSpPreservedAcrossTeamSave": true,
+      "dongHanhExplicitlyCleared": true,
+      "detailNkStillPersistsAfterClear": true,
+      "detailSpStillPersistsAfterClear": true
+    },
+    {
+      "type": "layout_route_seo_independence",
+      "detailPageUrl": "/preview/san-pham/chuon-chuon-tre-kem-de",
+      "renderedTitle": "Chuồn chuồn tre 12 cm kèm đế — Quà lưu niệm gây quỹ | Mang Theo Một Nét Vẽ | Dự án thiện nguyện sinh viên FPT — Lăng Kính",
+      "renderedStatus": 200
+    },
+    {
+      "type": "guarded_history_restore",
+      "totalRevisionsRendered": 2,
+      "occConflict409Confirmed": true
+    },
+    {
+      "type": "reviewer_role_authorization",
+      "projectSaveDisabled": true,
+      "productsSaveDisabled": true,
+      "teamSaveDisabled": true,
+      "allSaveButtonsDisabledForReviewer": true,
+      "screenshot": "reviewer-save-buttons-disabled.png"
+    }
+  ]
+}
