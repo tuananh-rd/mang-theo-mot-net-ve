@@ -1304,8 +1304,8 @@ export interface DonationAccount {
 export const DONATION_ACCOUNT: DonationAccount = {
   status: 'active',
   bankName: 'Techcombank',
-  accountNumber: '999927052006',
-  accountHolder: 'LE TUAN ANH',
+  accountNumber: '19072950239011',
+  accountHolder: 'NGUYEN NGOC KHOA',
   qrImage: '/images/ung-ho/qr-ung-ho-techcombank.png',
   transferPrefix: 'MTMNV',
   goalAmount: 3000000,
