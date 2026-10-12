@@ -7,10 +7,13 @@
 
 import type { AuthSession, UserRole } from '../types.js';
 import { escapeHtml } from '../auth/rbac.js';
+import { getDefaultModuleData, type ProjectModuleData } from '../schemas/index.js';
+import { APPROVED_MEDIA_REGISTRY } from '../storage/media-registry.js';
 
 export function renderStudioHtml(session: AuthSession): string {
   const user = session.user;
   const isDev = session.isDev;
+  const defaultProjectData = getDefaultModuleData('project') as ProjectModuleData;
 
   return `<!DOCTYPE html>
 <html lang="vi">
@@ -518,6 +521,9 @@ export function renderStudioHtml(session: AuthSession): string {
   </main>
 
   <script>
+    window.DEFAULT_PROJECT_DATA = ${JSON.stringify(defaultProjectData).replace(/</g, '\\u003c')};
+    window.APPROVED_MEDIA_REGISTRY = ${JSON.stringify(APPROVED_MEDIA_REGISTRY).replace(/</g, '\\u003c')};
+
     // Studio Core Client Application
     (function() {
       let currentTab = 'dashboard';
@@ -1020,29 +1026,13 @@ export function renderStudioHtml(session: AuthSession): string {
         }
         activeDraft = res.data.draft;
         const p = activeDraft.data || {};
-        const prog = p.progress || { currentWeek: 1, totalWeeks: 5, currentStageIndex: 0, updatedAt: '2026-10-09' };
-        const activities = (Array.isArray(p.activities) && p.activities.length > 0) ? p.activities : [
-          { id: 'chuon-chuon-tre', title: 'Chuồn chuồn tre và vẽ tranh', description: 'Trang trí những cánh chuồn chuồn tre thăng bằng và vẽ tranh tự do với màu sắc theo sở thích.', badge: 'Góc tạo hình', note: 'Người tham gia có quyền lựa chọn vẽ tranh, trang trí, quan sát hoặc nghỉ ngơi.' },
-          { id: 'to-tuong', title: 'Tô tượng sắc màu', description: 'Thỏa sức phối màu trên các mẫu tượng thạch cao đa dạng hình dáng và kích cỡ (10 cm).', badge: 'Góc tô màu', note: 'Hoạt động vui chơi trải nghiệm tại chỗ, không gắn với sản phẩm gây quỹ.' },
-          { id: 'hat-cung-nhau', title: 'Hát cùng nhau', description: 'Không gian văn nghệ kết nối, cùng hòa giọng trong những giai điệu thiếu nhi gần gũi.', badge: 'Góc âm nhạc', note: 'Tạo không khí ấm áp, vui tươi và không áp lực biểu diễn.' },
-          { id: 'tro-choi-nhe', title: 'Trò chơi tương tác nhẹ', description: 'Các trò chơi tương tác vừa sức: bowling mini, chuyền bóng nhẹ nhàng và thẻ màu ghép hình.', badge: 'Góc vận động', note: 'Mỗi em nhỏ tự quyết định mức độ tham gia phù hợp thể trạng.' },
-        ];
-        const stages = (Array.isArray(p.plannedStages) && p.plannedStages.length > 0) ? p.plannedStages : [
-          { step: '01', title: 'Xác nhận và chuẩn bị', description: 'Thống nhất với Mái ấm về lịch, hoạt động, vật liệu và danh mục quà; chuẩn bị đạo cụ an toàn.' },
-          { step: '02', title: 'Gây quỹ', description: 'Tiếp nhận ủng hộ qua chuyển khoản và dự kiến bán quà lưu niệm. Hai nguồn được ghi riêng; khoản ủng hộ được công bố sau đối soát.' },
-          { step: '03', title: 'Buổi chơi tại Mái ấm', description: '14:00 Thứ Bảy 24/10/2026 (dự kiến). Bốn góc hoạt động, có hai lần nghỉ; có thể rút ngắn theo ý Mái ấm.' },
-          { step: '04', title: 'Đối soát và trao quà', description: '14:00 Thứ Bảy 31/10/2026 (dự kiến). Chốt quỹ, mua vật phẩm theo danh mục Mái ấm xác nhận và trao tặng.' },
-        ];
-        const needs = (Array.isArray(p.needs) && p.needs.length > 0) ? p.needs : [
-          { title: 'Một buổi chơi linh hoạt', description: 'Có thời gian nghỉ và nhiều cách tham gia, vì các em ở nhiều độ tuổi và mức hỗ trợ khác nhau.' },
-          { title: 'Mái ấm giữ quyền quyết định', description: 'Về số người tham gia, vật liệu, hình ảnh và danh mục hỗ trợ.' },
-          { title: 'Hỗ trợ thiết thực, minh bạch', description: 'Chuyển nguồn quỹ thành hiện vật đúng danh mục Mái ấm xác nhận, có chứng từ và biên bản.' },
-        ];
-        const sessions = p.plannedSessions || [
-          { id: 'buoi-choi', title: 'Buổi chơi tại Mái ấm', date: '2026-10-24', time: '14:00', weekday: 'Thứ Bảy', description: 'Bốn góc hoạt động, khoảng 180 phút, có hai lần nghỉ.' },
-          { id: 'trao-qua', title: 'Gặp lại và trao quà', date: '2026-10-31', time: '14:00', weekday: 'Thứ Bảy', description: 'Trao vật phẩm theo danh mục Mái ấm xác nhận, khoảng 30–45 phút.' }
-        ];
-        const contacts = p.contacts !== undefined ? p.contacts : null;
+        const defaultProj = window.DEFAULT_PROJECT_DATA || {};
+        const prog = p.progress || defaultProj.progress || { currentWeek: 1, totalWeeks: 5, currentStageIndex: 0, updatedAt: '2026-10-09' };
+        const activities = (Array.isArray(p.activities) && p.activities.length > 0) ? p.activities : (defaultProj.activities || []);
+        const stages = (Array.isArray(p.plannedStages) && p.plannedStages.length > 0) ? p.plannedStages : (defaultProj.plannedStages || []);
+        const needs = (Array.isArray(p.needs) && p.needs.length > 0) ? p.needs : (defaultProj.needs || []);
+        const sessions = (Array.isArray(p.plannedSessions) && p.plannedSessions.length > 0) ? p.plannedSessions : (defaultProj.plannedSessions || []);
+        const contacts = p.contacts !== undefined ? p.contacts : (defaultProj.contacts !== undefined ? defaultProj.contacts : null);
 
         tabContent.innerHTML = \`
           <form id="projectForm" class="card">
@@ -1295,15 +1285,63 @@ export function renderStudioHtml(session: AuthSession): string {
           const fd = new FormData(form);
           const isContactActive = fd.get('contact_is_active') === '1';
 
+          // Kiểm thực tường minh các trường bắt buộc, không âm thầm phục hồi
+          const projTitle = fd.has('title') ? String(fd.get('title')).trim() : String(p.title || '').trim();
+          if (!projTitle) {
+            showToast('Tiêu đề dự án không được để trống.', 'error');
+            return;
+          }
+          const projSummary = fd.has('summary') ? String(fd.get('summary')).trim() : String(p.summary || '').trim();
+          if (!projSummary) {
+            showToast('Tóm tắt dự án không được để trống.', 'error');
+            return;
+          }
+
+          for (let idx = 0; idx < activities.length; idx++) {
+            const a = activities[idx];
+            const actTitle = fd.has(\`act_title_\${idx}\`) ? String(fd.get(\`act_title_\${idx}\`)).trim() : String(a.title || '').trim();
+            if (!actTitle) {
+              showToast(\`Tên hoạt động #\${idx + 1} không được để trống.\`, 'error');
+              return;
+            }
+          }
+
+          for (let idx = 0; idx < stages.length; idx++) {
+            const st = stages[idx];
+            const stTitle = fd.has(\`stage_title_\${idx}\`) ? String(fd.get(\`stage_title_\${idx}\`)).trim() : String(st.title || '').trim();
+            if (!stTitle) {
+              showToast(\`Tên giai đoạn #\${idx + 1} không được để trống.\`, 'error');
+              return;
+            }
+          }
+
+          for (let idx = 0; idx < needs.length; idx++) {
+            const nd = needs[idx];
+            const ndTitle = fd.has(\`need_title_\${idx}\`) ? String(fd.get(\`need_title_\${idx}\`)).trim() : String(nd.title || '').trim();
+            if (!ndTitle) {
+              showToast(\`Tiêu đề nhu cầu #\${idx + 1} không được để trống.\`, 'error');
+              return;
+            }
+          }
+
+          for (let idx = 0; idx < sessions.length; idx++) {
+            const s = sessions[idx];
+            const sessTitle = fd.has(\`sess_title_\${idx}\`) ? String(fd.get(\`sess_title_\${idx}\`)).trim() : String(s.title || '').trim();
+            if (!sessTitle) {
+              showToast(\`Tiêu đề buổi hoạt động #\${idx + 1} không được để trống.\`, 'error');
+              return;
+            }
+          }
+
           const updated = {
             ...activeDraft.data,
-            title: fd.get('title'),
-            slogan: fd.get('slogan'),
-            summary: fd.get('summary'),
-            location: fd.get('location'),
-            executionStatus: fd.get('executionStatus'),
-            statusNotice: fd.get('statusNotice'),
-            previewNotice: fd.get('previewNotice'),
+            title: projTitle,
+            slogan: fd.has('slogan') ? String(fd.get('slogan')).trim() : (p.slogan || ''),
+            summary: projSummary,
+            location: fd.has('location') ? String(fd.get('location')).trim() : (p.location || ''),
+            executionStatus: fd.has('executionStatus') ? fd.get('executionStatus') : (p.executionStatus || 'in_progress'),
+            statusNotice: fd.has('statusNotice') ? String(fd.get('statusNotice')).trim() : (p.statusNotice || ''),
+            previewNotice: fd.has('previewNotice') ? String(fd.get('previewNotice')).trim() : (p.previewNotice || ''),
             progress: {
               currentWeek: parseInt(fd.get('prog_currentWeek'), 10),
               totalWeeks: parseInt(fd.get('prog_totalWeeks'), 10),
@@ -1312,45 +1350,46 @@ export function renderStudioHtml(session: AuthSession): string {
             },
             plannedSessions: sessions.map((s, idx) => ({
               ...s,
-              title: fd.get(\`sess_title_\${idx}\`),
-              date: fd.get(\`sess_date_\${idx}\`),
-              time: fd.get(\`sess_time_\${idx}\`),
-              weekday: fd.get(\`sess_weekday_\${idx}\`),
-              description: fd.get(\`sess_desc_\${idx}\`),
+              id: s.id,
+              title: fd.has(\`sess_title_\${idx}\`) ? String(fd.get(\`sess_title_\${idx}\`)).trim() : s.title,
+              date: fd.has(\`sess_date_\${idx}\`) ? String(fd.get(\`sess_date_\${idx}\`)).trim() : (s.date || ''),
+              time: fd.has(\`sess_time_\${idx}\`) ? String(fd.get(\`sess_time_\${idx}\`)).trim() : (s.time || ''),
+              weekday: fd.has(\`sess_weekday_\${idx}\`) ? String(fd.get(\`sess_weekday_\${idx}\`)).trim() : (s.weekday || ''),
+              description: fd.has(\`sess_desc_\${idx}\`) ? String(fd.get(\`sess_desc_\${idx}\`)).trim() : (s.description || ''),
             })),
             activities: activities.map((a, idx) => ({
-              id: fd.get(\`act_id_\${idx}\`) || a.id,
-              title: fd.get(\`act_title_\${idx}\`) || a.title,
-              badge: fd.get(\`act_badge_\${idx}\`) || a.badge,
-              description: fd.get(\`act_desc_\${idx}\`) || a.description,
-              note: fd.get(\`act_note_\${idx}\`) || a.note,
+              id: fd.has(\`act_id_\${idx}\`) ? String(fd.get(\`act_id_\${idx}\`)).trim() : a.id,
+              title: fd.has(\`act_title_\${idx}\`) ? String(fd.get(\`act_title_\${idx}\`)).trim() : a.title,
+              badge: fd.has(\`act_badge_\${idx}\`) ? String(fd.get(\`act_badge_\${idx}\`)).trim() : (a.badge || ''),
+              description: fd.has(\`act_desc_\${idx}\`) ? String(fd.get(\`act_desc_\${idx}\`)).trim() : (a.description || ''),
+              note: fd.has(\`act_note_\${idx}\`) ? String(fd.get(\`act_note_\${idx}\`)).trim() : (a.note || ''),
             })),
             plannedStages: stages.map((st, idx) => ({
-              step: fd.get(\`stage_step_\${idx}\`) || st.step,
-              title: fd.get(\`stage_title_\${idx}\`) || st.title,
-              description: fd.get(\`stage_desc_\${idx}\`) || st.description,
+              step: fd.has(\`stage_step_\${idx}\`) ? String(fd.get(\`stage_step_\${idx}\`)).trim() : st.step,
+              title: fd.has(\`stage_title_\${idx}\`) ? String(fd.get(\`stage_title_\${idx}\`)).trim() : st.title,
+              description: fd.has(\`stage_desc_\${idx}\`) ? String(fd.get(\`stage_desc_\${idx}\`)).trim() : (st.description || ''),
             })),
             needs: needs.map((nd, idx) => ({
-              title: fd.get(\`need_title_\${idx}\`) || nd.title,
-              description: fd.get(\`need_desc_\${idx}\`) || nd.description,
+              title: fd.has(\`need_title_\${idx}\`) ? String(fd.get(\`need_title_\${idx}\`)).trim() : nd.title,
+              description: fd.has(\`need_desc_\${idx}\`) ? String(fd.get(\`need_desc_\${idx}\`)).trim() : (nd.description || ''),
             })),
             contacts: isContactActive ? {
               status: p.contacts?.status || 'unconfirmed',
               people: [
                 {
-                  name: fd.get('contact_name_0'),
+                  name: fd.has('contact_name_0') ? String(fd.get('contact_name_0')).trim() : '',
                   role: 'Trưởng dự án',
-                  phone: fd.get('contact_phone_0'),
+                  phone: fd.has('contact_phone_0') ? String(fd.get('contact_phone_0')).trim() : '',
                   phoneE164: '+84' + String(fd.get('contact_phone_0') || '').replace(/\\D/g, '').replace(/^0/, ''),
                 },
                 {
-                  name: fd.get('contact_name_1'),
+                  name: fd.has('contact_name_1') ? String(fd.get('contact_name_1')).trim() : '',
                   role: 'Đại diện đối ngoại',
-                  phone: fd.get('contact_phone_1'),
+                  phone: fd.has('contact_phone_1') ? String(fd.get('contact_phone_1')).trim() : '',
                   phoneE164: '+84' + String(fd.get('contact_phone_1') || '').replace(/\\D/g, '').replace(/^0/, ''),
                 },
               ].filter(person => Boolean(person.name && String(person.name).trim())),
-              fanpageUrl: fd.get('contact_fanpage') || '',
+              fanpageUrl: fd.has('contact_fanpage') ? String(fd.get('contact_fanpage')).trim() : '',
               sourceRef: p.contacts?.sourceRef || 'proposal-final',
               updatedAt: p.contacts?.updatedAt || new Date().toISOString().slice(0, 10),
             } : null,
@@ -1694,43 +1733,11 @@ export function renderStudioHtml(session: AuthSession): string {
         const res = await fetchApi('/api/media');
         const dbAssets = res.ok ? res.data.assets || [] : [];
 
-        // Hợp nhất danh mục media từ D1 và các tài nguyên chiến dịch đã được phê duyệt
-        const defaultApprovedAssets = [
-          {
-            id: 'ast-approved-01',
-            filename: 'a01.webp',
-            contentType: 'image/webp',
-            sizeBytes: 54200,
-            status: 'approved',
-            alt: 'Minh họa Chuồn chuồn tre thăng bằng',
-            caption: 'Ảnh minh họa sản phẩm gây quỹ thủ công',
-            creditName: 'Nhóm Lăng Kính',
-            source: 'Chiến dịch',
-            isIllustration: 1,
-            focalX: 50,
-            focalY: 50,
-            r2Key: 'images/illustrations/a01.webp',
-          },
-          {
-            id: 'ast-approved-02',
-            filename: 'qr-ung-ho-techcombank.png',
-            contentType: 'image/png',
-            sizeBytes: 88400,
-            status: 'approved',
-            alt: 'Mã QR tài khoản Techcombank chính thức',
-            caption: 'Mã QR tiếp nhận ủng hộ Techcombank',
-            creditName: 'Dự án MTMNV',
-            source: 'Tài khoản chính thức C07',
-            isIllustration: 0,
-            focalX: 50,
-            focalY: 50,
-            r2Key: 'images/ung-ho/qr-ung-ho-techcombank.png',
-          },
-        ];
-
+        // Hợp nhất danh mục media từ D1 và các tài nguyên chiến dịch đã được phê duyệt từ APPROVED_MEDIA_REGISTRY
+        const approvedRegistry = (window.APPROVED_MEDIA_REGISTRY || []).filter(function(a) { return a.status === 'approved'; });
         const allAssets = [...dbAssets];
-        for (const def of defaultApprovedAssets) {
-          if (!allAssets.some(a => a.filename === def.filename)) {
+        for (const def of approvedRegistry) {
+          if (!allAssets.some(a => a.id === def.id || a.filename === def.filename || (def.publicPath && a.publicPath === def.publicPath))) {
             allAssets.push(def);
           }
         }
@@ -2776,9 +2783,18 @@ export function renderStudioHtml(session: AuthSession): string {
           e.preventDefault();
           const fd = new FormData(accForm);
 
+          for (let idx = 0; idx < steps.length; idx++) {
+            const st = steps[idx];
+            const stepTitle = fd.has(\`step_title_\${idx}\`) ? String(fd.get(\`step_title_\${idx}\`)).trim() : String(st.title || '').trim();
+            if (!stepTitle) {
+              showToast(\`Tiêu đề bước #\${idx + 1} không được để trống.\`, 'error');
+              return;
+            }
+          }
+
           const updatedSteps = steps.map((st, idx) => ({
-            title: fd.get(\`step_title_\${idx}\`) || st.title,
-            description: fd.get(\`step_desc_\${idx}\`) || st.description,
+            title: fd.has(\`step_title_\${idx}\`) ? String(fd.get(\`step_title_\${idx}\`)).trim() : st.title,
+            description: fd.has(\`step_desc_\${idx}\`) ? String(fd.get(\`step_desc_\${idx}\`)).trim() : (st.description || ''),
           }));
 
           const updated = {

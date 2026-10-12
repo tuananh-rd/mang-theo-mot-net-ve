@@ -949,7 +949,61 @@ describe('C17-R2-F2: Studio UI Workflows & Role Administration', () => {
     assert.ok(htmlC.includes('href="/preview/san-pham"'));
   });
 
-  test('Regression: /nhat-ky/detail và /san-pham/detail SEO keys tồn tại bền vững qua lưu/tải lại UI và Layout render độc lập với parent route', async () => {
+  test('Project Data: cleared optional fields (badge, note, description) save and reload as empty strings, not reverting to defaults', async () => {
+    const db = await createTestDb();
+    const dbClient = new StudioDbClient(db);
+    const initialProject = await dbClient.getDraft('project');
+
+    // Cập nhật hoạt động đầu tiên với note, badge, description rỗng
+    const updatedActivities = [...initialProject.data.activities];
+    updatedActivities[0] = {
+      ...updatedActivities[0],
+      title: 'Hoạt động đã đổi tên hoàn toàn',
+      badge: '',
+      note: '',
+      description: '',
+    };
+
+    const updatedStages = [...initialProject.data.plannedStages];
+    updatedStages[0] = {
+      ...updatedStages[0],
+      title: 'Giai đoạn đã đổi tên hoàn toàn',
+      description: '',
+    };
+
+    const updatedNeeds = [...initialProject.data.needs];
+    updatedNeeds[0] = {
+      ...updatedNeeds[0],
+      title: 'Nhu cầu đã đổi tên hoàn toàn',
+      description: '',
+    };
+
+    const saveRes = await dbClient.saveDraft(
+      'project',
+      {
+        ...initialProject.data,
+        activities: updatedActivities,
+        plannedStages: updatedStages,
+        needs: updatedNeeds,
+      },
+      initialProject.revisionHash,
+      'admin@test.vn',
+      'Xóa trắng các trường tùy chọn'
+    );
+
+    assert.ok(saveRes.draft);
+    const reloaded = await dbClient.getDraft('project');
+    assert.equal(reloaded.data.activities[0].title, 'Hoạt động đã đổi tên hoàn toàn');
+    assert.equal(reloaded.data.activities[0].badge, '');
+    assert.equal(reloaded.data.activities[0].note, '');
+    assert.equal(reloaded.data.activities[0].description, '');
+    assert.equal(reloaded.data.plannedStages[0].title, 'Giai đoạn đã đổi tên hoàn toàn');
+    assert.equal(reloaded.data.plannedStages[0].description, '');
+    assert.equal(reloaded.data.needs[0].title, 'Nhu cầu đã đổi tên hoàn toàn');
+    assert.equal(reloaded.data.needs[0].description, '');
+  });
+
+  test('DB Regression: /nhat-ky/detail và /san-pham/detail SEO keys bảo toàn nguyên vẹn qua các thao tác lưu D1 và loại bỏ route rỗng', async () => {
     const db = await createTestDb();
     const dbClient = new StudioDbClient(db);
     const initialTeam = await dbClient.getDraft('team');
