@@ -326,11 +326,59 @@ describe('C17-R2-F2: Private Draft Preview SSR & Request-Scoped Isolation', () =
     const origin = `http://127.0.0.1:${worker.port}`;
 
     try {
-      // 1. Kiểm tra từ chối unauthenticated dứt khoát trên non-loopback URL
+      // 1. Lưu bản nháp có tiêu đề độc nhất và bài viết nhật ký status: draft vào D1 qua Worker API
+      const uniqueProjectTitle = 'DỰ ÁN XEM TRƯỚC BẢN NHÁP 2026';
+      const uniqueProjectSlogan = 'KHẨU HIỆU DỰ ÁN XEM TRƯỚC BẢN NHÁP 2026';
+      const getProj = await worker.fetch(`${origin}/api/drafts/project?dev_role=admin`);
+      const projJson = await getProj.json();
+      const customProject = { ...projJson.draft.data, title: uniqueProjectTitle, slogan: uniqueProjectSlogan };
+      await worker.fetch(`${origin}/api/drafts/project?dev_role=admin`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          data: customProject,
+          expectedHash: projJson.draft.revisionHash,
+          comment: 'Cập nhật tiêu đề và khẩu hiệu nháp',
+        }),
+      });
+
+      const uniqueDraftArticleTitle = 'BÀI VIẾT BẢN NHÁP CHƯA XUẤT BẢN';
+      const getJourn = await worker.fetch(`${origin}/api/drafts/journal?dev_role=admin`);
+      const journJson = await getJourn.json();
+      const existingJournal = (Array.isArray(journJson.draft.data) ? journJson.draft.data : []).filter(
+        (a) => a.slug !== 'bai-viet-nhap-can-xem-truoc'
+      );
+      const customJournal = [
+        ...existingJournal,
+        {
+          slug: 'bai-viet-nhap-can-xem-truoc',
+          title: uniqueDraftArticleTitle,
+          summary: 'Tóm tắt bài viết nháp cần xem trước',
+          category: 'ke-hoach',
+          publishedAt: '2026-10-12',
+          status: 'draft',
+          content: [{ type: 'paragraph', text: 'Nội dung bài viết nháp thử nghiệm' }],
+        },
+      ];
+      const jRes = await worker.fetch(`${origin}/api/drafts/journal?dev_role=admin`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          data: customJournal,
+          expectedHash: journJson.draft.revisionHash,
+          comment: 'Thêm bài viết nháp',
+        }),
+      });
+      if (jRes.status !== 200) {
+        const errText = await jRes.text();
+        assert.fail(`Lưu bài viết nháp thất bại status ${jRes.status}: ${errText}`);
+      }
+
+      // 2. Kiểm tra từ chối unauthenticated dứt khoát trên non-loopback URL
       const unauthRes = await worker.fetch('http://example.com/preview/dong-hanh');
       assert.equal(unauthRes.status, 401, 'Yêu cầu unauthenticated phải bị từ chối 401');
 
-      // 2. Kiểm tra duyệt hoàn chỉnh 6 trang công khai + /nhat-ky với quyền admin dev
+      // 3. Kiểm tra duyệt hoàn chỉnh 6 trang công khai + /nhat-ky với quyền admin dev
       const routes = [
         '/',
         '/dong-hanh',
@@ -355,7 +403,29 @@ describe('C17-R2-F2: Private Draft Preview SSR & Request-Scoped Isolation', () =
         assert.ok(body.includes('<title>'), `Trang ${r} phải chứa thẻ <title>`);
         // Kiểm tra không có liên kết nội bộ bị lộ ra ngoài /preview
         assert.ok(!body.includes('href="/dong-hanh"'), `Liên kết trong trang ${r} phải được viết lại sang /preview`);
+
+        // Khẳng định tiêu đề bản nháp độc nhất xuất hiện trên trang chủ xem trước
+        if (r === '/') {
+          assert.ok(body.includes(uniqueProjectTitle), 'Tiêu đề bản nháp độc nhất phải render trực tiếp trên SSR preview trang chủ');
+        }
+        // Khẳng định khẩu hiệu bản nháp độc nhất xuất hiện trên trang dự án xem trước
+        if (r === '/du-an/mang-theo-mot-net-ve') {
+          assert.ok(body.includes(uniqueProjectSlogan), 'Khẩu hiệu bản nháp độc nhất phải render trực tiếp trên SSR preview trang dự án');
+        }
       }
+
+      // 4. Khẳng định bài viết trạng thái draft xem trước được trên SSR preview
+      const journalDraftRes = await worker.fetch(`${origin}/preview/nhat-ky/bai-viet-nhap-can-xem-truoc?dev_role=admin`, {
+        headers: { Host: `127.0.0.1:${worker.port}` }
+      });
+      assert.equal(journalDraftRes.status, 200, 'Bài viết bản nháp trạng thái draft phải render 200 OK trong private preview');
+      const journalDraftBody = await journalDraftRes.text();
+      assert.ok(journalDraftBody.includes(uniqueDraftArticleTitle), 'Tiêu đề bài viết bản nháp phải render trực tiếp trên SSR preview');
+      assert.equal(journalDraftRes.headers.get('x-studio-private-preview'), 'true');
+
+      // 5. Khẳng định bài viết status=draft bị loại bỏ khỏi snapshot xuất bản công khai
+      const pubSnapshot = await createPublicationSnapshot({ journal: customJournal }, 'pub-snap', new Set());
+      assert.ok(!pubSnapshot.snapshot.modules.journal.some((a) => a.slug === 'bai-viet-nhap-can-xem-truoc'), 'Bài viết status=draft phải bị loại khỏi xuất bản công khai');
     } finally {
       await worker.stop();
     }
