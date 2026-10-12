@@ -726,15 +726,22 @@ export function renderStudioHtml(session: AuthSession): string {
             </div>
           </div>
 
-          <div class="card" style="border-left: 4px solid var(--color-teal);">
-            <div class="card-title">
-              <span>Cổng xem trước Website công khai</span>
-              <a href="http://127.0.0.1:4322/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">Mở website (Cổng 4322)</a>
-            </div>
-            <p style="color: var(--color-neutral-mid); font-size: 0.9rem;">
-              Địa chỉ xem trước website Astro SSR/SSG cục bộ: <code>http://127.0.0.1:4322/</code>. Dữ liệu công khai phản ánh các bản chụp (Snapshot) đã được duyệt và trích xuất.
-            </p>
-          </div>
+          \${(() => {
+            const isLocal = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+            const previewUrl = isLocal ? 'http://127.0.0.1:4322/' : (window.location.origin.replace('studio.', ''));
+            const previewText = isLocal ? 'Địa chỉ xem trước website Astro SSR/SSG cục bộ: <code>http://127.0.0.1:4322/</code>.' : 'Địa chỉ xem trước website công khai: <code>' + escapeHtml(previewUrl) + '</code>.';
+            return \`
+              <div class="card" style="border-left: 4px solid var(--color-teal);">
+                <div class="card-title">
+                  <span>Cổng xem trước Website công khai</span>
+                  <a href="\${escapeHtml(previewUrl)}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">Mở website xem trước</a>
+                </div>
+                <p style="color: var(--color-neutral-mid); font-size: 0.9rem;">
+                  \${previewText} Dữ liệu phản ánh các bản chụp (Snapshot) đã được duyệt và trích xuất.
+                </p>
+              </div>
+            \`;
+          })()}
 
           <div class="card">
             <div class="card-title">Lối tắt 7 phân hệ nghiệp vụ</div>
@@ -2294,30 +2301,20 @@ export function renderStudioHtml(session: AuthSession): string {
           }
         });
 
-        // Xử lý ký xác nhận Quy tắc 2 người
+        // Xử lý ký xác nhận Quy tắc 2 người (Two-Person Policy)
         document.getElementById('signFirstBtn')?.addEventListener('click', async () => {
-          const updated = {
-            ...activeDraft.data,
-            firstSigner: {
-              name: currentUserEmail,
-              role: currentUserRole,
-              signedAt: new Date().toISOString()
-            }
-          };
-          const saveRes = await fetchApi('/api/drafts/finance', {
+          const attestRes = await fetchApi('/api/finance/attest', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              data: updated,
               expectedHash: activeDraft.revisionHash,
-              comment: 'Ký xác nhận với tư cách Người lập số liệu (Preparer)'
             })
           });
-          if (saveRes.ok) {
-            showToast('Đã ký xác nhận Người lập thành công!', 'success');
+          if (attestRes.ok) {
+            showToast('Đã ký xác nhận Người lập thành công! ' + (attestRes.data.message || ''), 'success');
             renderFinanceEditor();
           } else {
-            showToast('Lỗi ký: ' + (saveRes.data.error || 'Không thể ký'), 'error');
+            showToast('Lỗi ký: ' + (attestRes.data.error || 'Không thể ký'), 'error');
           }
         });
 
@@ -2326,28 +2323,18 @@ export function renderStudioHtml(session: AuthSession): string {
             showToast('Quy tắc 2 người: Người kiểm tra độc lập không được trùng với Người lập!', 'error');
             return;
           }
-          const updated = {
-            ...activeDraft.data,
-            secondSigner: {
-              name: currentUserEmail,
-              role: currentUserRole,
-              signedAt: new Date().toISOString()
-            }
-          };
-          const saveRes = await fetchApi('/api/drafts/finance', {
+          const attestRes = await fetchApi('/api/finance/attest', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              data: updated,
               expectedHash: activeDraft.revisionHash,
-              comment: 'Ký xác nhận với tư cách Người kiểm tra độc lập (Reviewer)'
             })
           });
-          if (saveRes.ok) {
-            showToast('Đã ký xác nhận Người kiểm tra độc lập thành công!', 'success');
+          if (attestRes.ok) {
+            showToast('Đã ký xác nhận Người kiểm tra độc lập thành công! ' + (attestRes.data.message || ''), 'success');
             renderFinanceEditor();
           } else {
-            showToast('Lỗi ký: ' + (saveRes.data.error || 'Không thể ký'), 'error');
+            showToast('Lỗi ký: ' + (attestRes.data.error || 'Không thể ký'), 'error');
           }
         });
 
@@ -2375,27 +2362,21 @@ export function renderStudioHtml(session: AuthSession): string {
                 </div>
               \`;
               document.getElementById('applyCsvBtn')?.addEventListener('click', async () => {
-                const updated = {
-                  ...activeDraft.data,
-                  reconciled: true,
-                  reconciledAt: window.pendingReconciledAt || '2026-10-31',
-                  entries: window.pendingCsvRows,
-                };
-                const saveRes = await fetchApi('/api/drafts/finance', {
+                const applyRes = await fetchApi('/api/finance/apply-csv', {
                   method: 'POST',
                   headers: { 'Content-Type': 'application/json' },
                   body: JSON.stringify({
-                    data: updated,
+                    rows: window.pendingCsvRows,
+                    reconciledAt: window.pendingReconciledAt || '2026-10-31',
                     expectedHash: activeDraft.revisionHash,
-                    comment: 'Áp dụng sổ sao kê sau đối soát CSV (' + json.rows.length + ' dòng)'
                   })
                 });
-                if (saveRes.ok) {
+                if (applyRes.ok) {
                   setDirty(false);
-                  showToast('Đã áp dụng và lưu sổ sao kê thành công!', 'success');
+                  showToast(applyRes.data.message || 'Đã áp dụng và lưu sổ sao kê thành công!', 'success');
                   renderFinanceEditor();
                 } else {
-                  showToast('Lỗi lưu sổ sao kê: ' + (saveRes.data.error || 'Lỗi không xác định'), 'error');
+                  showToast('Lỗi lưu sổ sao kê: ' + (applyRes.data.error || 'Lỗi không xác định'), 'error');
                 }
               });
             }

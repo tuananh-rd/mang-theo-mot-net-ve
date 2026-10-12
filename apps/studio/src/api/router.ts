@@ -7,8 +7,8 @@ import type { Env, AuthSession, ModuleKey, MediaAssetRecord, UserRole } from '..
 import { StudioDbClient, ConcurrencyConflictError } from '../db/client.js';
 import { assertCanEdit, assertCanReview, assertCanPublish, assertCanManageUsers } from '../auth/rbac.js';
 import { validateCsrf } from '../auth/middleware.js';
-import { getDefaultModuleData, validateModuleData } from '../schemas/index.js';
-import { sniffImageFormat, MAX_FILE_SIZE_BYTES, checkAssetUsageInDrafts } from '../storage/media-sniffer.js';
+import { getDefaultModuleData, validateModuleData, type FinanceModuleData, type DonationEntry } from '../schemas/index.js';
+import { sniffImageFormat, MAX_FILE_SIZE_BYTES, checkAssetUsageInDrafts, stripImageMetadata } from '../storage/media-sniffer.js';
 import { createPublicationSnapshot } from '../publish/adapter.js';
 import { triggerGitHubPublication } from '../publish/github.js';
 import { validateDonationCSV } from '../../../../tools/content-studio/csv-validator.mjs';
@@ -104,8 +104,19 @@ export async function handleApiRequest(
       return errorResponse('Thiếu trường dữ liệu data trong payload.', 400);
     }
 
+    let payloadData = body.data;
+    if (moduleKey === 'finance' && payloadData && typeof payloadData === 'object') {
+      const f = payloadData as any;
+      f.reconciled = false;
+      f.publicApproval = 'pending';
+      f.reconciledAt = null;
+      f.reconciledBy = [];
+      f.firstSigner = null;
+      f.secondSigner = null;
+    }
+
     // Kiểm thực dữ liệu theo schema phân hệ
-    const validation = validateModuleData(moduleKey, body.data);
+    const validation = validateModuleData(moduleKey, payloadData);
     if (!validation.isValid) {
       return errorResponse('Dữ liệu không vượt qua kiểm tra tính hợp lệ.', 400, {
         validationErrors: validation.errors,
@@ -115,7 +126,7 @@ export async function handleApiRequest(
     try {
       const result = await dbClient.saveDraft(
         moduleKey,
-        body.data,
+        payloadData,
         body.expectedHash || null,
         user.email,
         body.comment
@@ -238,12 +249,15 @@ export async function handleApiRequest(
       return errorResponse(sniff.error || 'Tệp không hợp lệ hoặc bị từ chối.', 400);
     }
 
+    // Làm sạch siêu dữ liệu riêng tư (EXIF/GPS/comments)
+    const sanitizedBytes = stripImageMetadata(bytes, sniff.contentType);
+
     const assetId = `asset-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;
     const r2Key = `media/${assetId}.${sniff.extension}`;
 
     // Lưu vào R2
     if (env.BUCKET) {
-      await env.BUCKET.put(r2Key, bytes, {
+      await env.BUCKET.put(r2Key, sanitizedBytes, {
         httpMetadata: { contentType: sniff.contentType },
         customMetadata: { alt, uploadedBy: user.email },
       });
@@ -253,7 +267,7 @@ export async function handleApiRequest(
       id: assetId,
       filename: file.name,
       contentType: sniff.contentType,
-      sizeBytes: bytes.length,
+      sizeBytes: sanitizedBytes.length,
       r2Key,
       status: 'pending',
       alt,
@@ -307,12 +321,11 @@ export async function handleApiRequest(
     assertCanEdit(user.role);
 
     const assetId = deleteMediaMatch[1];
-    const allDrafts = await dbClient.getAllDrafts();
-    const usage = checkAssetUsageInDrafts(assetId, allDrafts);
+    const usage = await dbClient.checkAssetUsageAcrossSystem(assetId);
 
     if (usage.inUse) {
       return errorResponse(
-        `Không thể xóa ảnh vì đang được tham chiếu sử dụng trong các phân hệ: ${usage.usedIn.join(', ')}.`,
+        `Không thể xóa ảnh vì đang được tham chiếu sử dụng trong: ${usage.usedIn.join(', ')}.`,
         400,
         { inUse: true, usedIn: usage.usedIn }
       );
@@ -420,6 +433,105 @@ export async function handleApiRequest(
       rows: valResult.rows,
       stats: valResult.stats,
     });
+  }
+
+  // 13b. Áp dụng các dòng CSV đã kiểm thực vào bản nháp tài chính: POST /api/finance/apply-csv
+  if (path === '/api/finance/apply-csv' && method === 'POST') {
+    validateCsrf(request);
+    assertCanEdit(user.role);
+
+    const body = (await request.json().catch(() => ({}))) as {
+      rows?: DonationEntry[];
+      reconciledAt?: string;
+      expectedHash?: string;
+    };
+
+    if (!Array.isArray(body.rows) || body.rows.length === 0) {
+      return errorResponse('Thiếu danh sách giao dịch rows hoặc mảng giao dịch rỗng.', 400);
+    }
+
+    const currentFinance = await dbClient.getDraft<FinanceModuleData>('finance');
+    if (!currentFinance) {
+      return errorResponse('Chưa tìm thấy bản nháp phân hệ tài chính.', 404);
+    }
+
+    const currentHash = body.expectedHash || currentFinance.revisionHash;
+    const updatedData: FinanceModuleData = {
+      ...currentFinance.data,
+      entries: body.rows,
+      reconciled: false,
+      publicApproval: 'pending',
+      reconciledAt: null,
+      reconciledBy: [],
+      firstSigner: null,
+      secondSigner: null,
+    };
+
+    try {
+      const saveResult = await dbClient.saveDraft(
+        'finance',
+        updatedData,
+        currentHash,
+        user.email,
+        `Áp dụng sổ sao kê từ CSV (${body.rows.length} dòng)`
+      );
+
+      return jsonResponse({
+        success: true,
+        draft: saveResult.draft,
+        message: `Đã áp dụng thành công ${body.rows.length} dòng sao kê. Trạng thái: Chờ ký xác thực 2 người.`,
+      });
+    } catch (err: any) {
+      if (err instanceof ConcurrencyConflictError) {
+        return errorResponse(err.message, 409, { conflict: true, currentHash: err.currentHash });
+      }
+      return errorResponse(err.message || 'Lỗi lưu bản nháp.', 500);
+    }
+  }
+
+  // 13c. Xác thực 2 người cho tài chính (Two-Person Attestation): POST /api/finance/attest hoặc POST /api/finance/sign
+  if ((path === '/api/finance/attest' || path === '/api/finance/sign') && method === 'POST') {
+    validateCsrf(request);
+
+    const body = (await request.json().catch(() => ({}))) as { expectedHash?: string };
+    if (!body.expectedHash || typeof body.expectedHash !== 'string' || !body.expectedHash.trim()) {
+      return errorResponse('Bắt buộc phải cung cấp mã băm phiên bản (expectedHash) để chống xung đột.', 400);
+    }
+
+    const currentFin = await dbClient.getDraft<FinanceModuleData>('finance');
+    if (!currentFin) {
+      return errorResponse('Chưa tìm thấy bản nháp phân hệ tài chính.', 404);
+    }
+
+    try {
+      if (currentFin.data.firstSigner) {
+        // Đã có người ký 1 -> Bước 2 yêu cầu quyền phê duyệt độc lập (reviewer hoặc admin)
+        assertCanReview(user.role);
+      } else {
+        // Bước 1 yêu cầu quyền lập số liệu / biên tập (editor hoặc admin)
+        assertCanEdit(user.role);
+      }
+
+      const attestResult = await dbClient.attestFinanceDraft(
+        user.email,
+        user.role,
+        body.expectedHash.trim()
+      );
+      return jsonResponse({
+        success: true,
+        draft: attestResult.draft,
+        status: attestResult.status,
+        message: attestResult.message,
+      });
+    } catch (err: any) {
+      if (err instanceof ConcurrencyConflictError) {
+        return errorResponse(err.message, 409, {
+          conflict: true,
+          currentHash: err.currentHash,
+        });
+      }
+      return errorResponse(err.message || 'Lỗi khi ký xác nhận tài chính.', 400);
+    }
   }
 
   // 14. Trích xuất Bản chụp đã duyệt: POST /api/publications/:id/export

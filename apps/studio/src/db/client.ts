@@ -104,9 +104,20 @@ export class StudioDbClient {
       }
     }
 
-    const newHash = await calculateDataHash(data);
+    const sanitizedData = structuredClone(data);
+    if (moduleKey === 'finance') {
+      const f = sanitizedData as any;
+      f.reconciled = false;
+      f.publicApproval = 'pending';
+      f.reconciledAt = null;
+      f.reconciledBy = [];
+      f.firstSigner = null;
+      f.secondSigner = null;
+    }
+
+    const newHash = await calculateDataHash(sanitizedData);
     const now = new Date().toISOString();
-    const dataJson = JSON.stringify(data);
+    const dataJson = JSON.stringify(sanitizedData);
 
     // 2. Tính số thứ tự version mới
     const maxVerRow = await this.db
@@ -180,7 +191,7 @@ export class StudioDbClient {
 
     const draftRecord: DraftRecord<T> = {
       moduleKey,
-      data,
+      data: sanitizedData as T,
       revisionHash: newHash,
       updatedBy: userEmail,
       updatedAt: now,
@@ -190,7 +201,7 @@ export class StudioDbClient {
       id: revisionId,
       moduleKey,
       version: nextVersion,
-      data,
+      data: sanitizedData as T,
       revisionHash: newHash,
       createdBy: userEmail,
       createdAt: now,
@@ -685,5 +696,195 @@ export class StudioDbClient {
   /** Xóa Media Asset */
   async deleteMediaAsset(id: string): Promise<void> {
     await this.db.prepare('DELETE FROM media_assets WHERE id = ?').bind(id).run();
+  }
+
+  /**
+   * Kiểm tra liên kết tham chiếu ảnh trên toàn bộ hệ thống (Drafts, Revisions, Publications)
+   */
+  async checkAssetUsageAcrossSystem(assetIdentifier: string): Promise<{ inUse: boolean; usedIn: string[] }> {
+    const usedIn: string[] = [];
+    const searchNeedle = assetIdentifier.toLowerCase();
+
+    // 1. Kiểm tra drafts
+    const draftRows = await this.db
+      .prepare('SELECT module_key, data_json FROM drafts')
+      .all<{ module_key: string; data_json: string }>();
+    for (const row of draftRows.results || []) {
+      if (row.data_json && row.data_json.toLowerCase().includes(searchNeedle)) {
+        usedIn.push(`Bản nháp ${row.module_key}`);
+      }
+    }
+
+    // 2. Kiểm tra revisions
+    const revRows = await this.db
+      .prepare('SELECT id, module_key, data_json FROM revisions')
+      .all<{ id: string; module_key: string; data_json: string }>();
+    for (const row of revRows.results || []) {
+      if (row.data_json && row.data_json.toLowerCase().includes(searchNeedle)) {
+        usedIn.push(`Lịch sử ${row.module_key} (${row.id})`);
+      }
+    }
+
+    // 3. Kiểm tra publications
+    const pubRows = await this.db
+      .prepare('SELECT id, snapshot_json FROM publications')
+      .all<{ id: string; snapshot_json: string }>();
+    for (const row of pubRows.results || []) {
+      if (row.snapshot_json && row.snapshot_json.toLowerCase().includes(searchNeedle)) {
+        usedIn.push(`Xuất bản (${row.id})`);
+      }
+    }
+
+    return {
+      inUse: usedIn.length > 0,
+      usedIn,
+    };
+  }
+
+  /**
+   * Xác nhận / Ký duyệt phân hệ Tài chính gắn với phiên bản bất biến (Two-Person Policy)
+   */
+  async attestFinanceDraft(
+    signerEmail: string,
+    signerRole: UserRole,
+    expectedHash: string
+  ): Promise<{
+    draft: DraftRecord<any>;
+    status: 'pending_second_signer' | 'approved';
+    message: string;
+  }> {
+    const current = await this.getDraft<any>('finance');
+    if (!current) {
+      throw new Error('Chưa tìm thấy bản nháp phân hệ tài chính.');
+    }
+
+    if (current.revisionHash !== expectedHash) {
+      throw new ConcurrencyConflictError(
+        `Phiên bản tài chính đã bị thay đổi (${current.revisionHash}). Vui lòng tải lại trước khi ký duyệt.`,
+        current.revisionHash
+      );
+    }
+
+    // Lấy phiên bản bất biến mới nhất từ bảng revisions
+    const rev = await this.db
+      .prepare(
+        `SELECT id, version, revision_hash FROM revisions
+         WHERE module_key = 'finance'
+         ORDER BY version DESC LIMIT 1`
+      )
+      .first<{ id: string; version: number; revision_hash: string }>();
+
+    if (!rev) {
+      throw new Error('Chưa có phiên bản bất biến nào trong lịch sử để đối chiếu.');
+    }
+
+    const data = structuredClone(current.data);
+    const now = new Date().toISOString();
+    let status: 'pending_second_signer' | 'approved' = 'pending_second_signer';
+    let message = '';
+
+    if (!data.firstSigner) {
+      // Ký lần 1 (Người lập / Preparer)
+      data.firstSigner = {
+        name: signerEmail,
+        role: signerRole,
+        signedAt: now,
+        revisionId: rev.id,
+        revisionHash: rev.revision_hash,
+      };
+      data.secondSigner = null;
+      data.reconciled = false;
+      data.publicApproval = 'pending';
+      data.reconciledBy = [signerEmail];
+      status = 'pending_second_signer';
+      message = 'Đã ký xác nhận Người lập (Preparer). Đang chờ Người kiểm tra độc lập (Reviewer) thứ hai ký duyệt.';
+    } else {
+      // Đã có Người ký lần 1
+      if (data.firstSigner.revisionId !== rev.id || data.firstSigner.revisionHash !== rev.revision_hash) {
+        // Chữ ký 1 đã cũ/lỗi thời so với phiên bản sửa đổi mới
+        data.firstSigner = {
+          name: signerEmail,
+          role: signerRole,
+          signedAt: now,
+          revisionId: rev.id,
+          revisionHash: rev.revision_hash,
+        };
+        data.secondSigner = null;
+        data.reconciled = false;
+        data.publicApproval = 'pending';
+        data.reconciledBy = [signerEmail];
+        status = 'pending_second_signer';
+        message = 'Phiên bản đã thay đổi so với lần ký trước. Chữ ký trước bị hủy, đã ghi nhận chữ ký Người lập mới.';
+      } else {
+        // Chữ ký 1 hợp lệ -> Kiểm tra Four-Eyes / Chặn tự duyệt (Self-Review)
+        if (data.firstSigner.name.trim().toLowerCase() === signerEmail.trim().toLowerCase()) {
+          throw new Error('Quy tắc 2 người (Two-Person Policy): Người lập số liệu không được tự phê duyệt lần 2. Cần người duyệt độc lập khác.');
+        }
+
+        // Ký lần 2 (Người kiểm tra độc lập / Reviewer)
+        data.secondSigner = {
+          name: signerEmail,
+          role: signerRole,
+          signedAt: now,
+          revisionId: rev.id,
+          revisionHash: rev.revision_hash,
+        };
+        data.reconciled = true;
+        data.reconciledAt = now.slice(0, 10);
+        data.publicApproval = 'approved';
+        data.reconciledBy = [data.firstSigner.name, signerEmail];
+        status = 'approved';
+        message = 'Đã hoàn tất xác nhận 2 người (Two-Person Attestation). Dữ liệu tài chính đã sẵn sàng xuất bản.';
+      }
+    }
+
+    // Cập nhật lại bản nháp vào bảng drafts
+    const newHash = await calculateDataHash(data);
+    const dataJson = JSON.stringify(data);
+    const auditId = `aud-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;
+
+    const updateDraftStmt = this.db
+      .prepare(
+        `UPDATE drafts
+         SET data_json = ?, revision_hash = ?, updated_by = ?, updated_at = ?
+         WHERE module_key = 'finance' AND revision_hash = ?`
+      )
+      .bind(dataJson, newHash, signerEmail, now, expectedHash);
+
+    const auditStmt = this.db
+      .prepare(
+        `INSERT INTO audit_logs (id, user_email, action, module_key, details_json, created_at)
+         VALUES (?, ?, ?, 'finance', ?, ?)`
+      )
+      .bind(
+        auditId,
+        signerEmail,
+        status === 'approved' ? 'FINANCE_SECOND_SIGN' : 'FINANCE_FIRST_SIGN',
+        JSON.stringify({
+          revisionId: rev.id,
+          revisionHash: rev.revision_hash,
+          status,
+          firstSigner: data.firstSigner?.name,
+          secondSigner: data.secondSigner?.name,
+        }),
+        now
+      );
+
+    if (typeof this.db.batch === 'function') {
+      await this.db.batch([updateDraftStmt, auditStmt]);
+    } else {
+      await updateDraftStmt.run();
+      await auditStmt.run();
+    }
+
+    const updatedDraft: DraftRecord<any> = {
+      moduleKey: 'finance',
+      data,
+      revisionHash: newHash,
+      updatedBy: signerEmail,
+      updatedAt: now,
+    };
+
+    return { draft: updatedDraft, status, message };
   }
 }

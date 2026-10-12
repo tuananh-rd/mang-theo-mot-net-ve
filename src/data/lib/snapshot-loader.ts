@@ -213,10 +213,28 @@ export function getPublishedSessions<T>(baseline: T[]): T[] {
  * Áp dụng thông tin liên hệ chính thức từ bản chụp
  */
 export function getPublishedContacts<T extends Record<string, any>>(baseline: T): T {
-  if (!activeSnapshot?.modules?.project?.contacts) {
+  if (!activeSnapshot?.modules?.project) {
     return baseline;
   }
-  return { ...baseline, ...activeSnapshot.modules.project.contacts };
+  const snapContacts = activeSnapshot.modules.project.contacts;
+  if (snapContacts === null) {
+    return {
+      ...baseline,
+      status: 'unconfirmed',
+      people: [],
+      fanpageUrl: null,
+    };
+  }
+  if (snapContacts !== undefined) {
+    return {
+      status: snapContacts.status ?? 'unconfirmed',
+      people: Array.isArray(snapContacts.people) ? snapContacts.people : [],
+      fanpageUrl: snapContacts.fanpageUrl ?? null,
+      sourceRef: snapContacts.sourceRef ?? 'studio:snapshot',
+      updatedAt: snapContacts.updatedAt ?? (activeSnapshot.generatedAt ? activeSnapshot.generatedAt.slice(0, 10) : '2026-10-12'),
+    } as unknown as T;
+  }
+  return baseline;
 }
 
 /**

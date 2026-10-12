@@ -3,7 +3,7 @@ import { DONATION_ACCOUNT, OFFICIAL_CONTACT, CAMPAIGN_PROJECT, PROJECT_PROGRESS 
 import { isDonationOpen, formatViDate } from '../lib/donations';
 
 const donationOpen = isDonationOpen(DONATION_ACCOUNT);
-const contactReady = OFFICIAL_CONTACT.status === 'confirmed';
+const contactReady = OFFICIAL_CONTACT.status === 'confirmed' && ((OFFICIAL_CONTACT.people && OFFICIAL_CONTACT.people.length > 0) || Boolean(OFFICIAL_CONTACT.fanpageUrl));
 const navLinks = [
   { href: '/', label: 'Trang chủ' },
   { href: '/du-an/mang-theo-mot-net-ve', label: 'Dự án' },

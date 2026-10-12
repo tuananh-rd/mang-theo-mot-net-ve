@@ -195,7 +195,42 @@ function sanitizeProductsForPublic(products: ProductsModuleData) {
  * Khử PII của người đối soát (thay bằng vai trò), che mã tham chiếu (...XXXX)
  */
 function sanitizeFinanceForPublic(finance: FinanceModuleData): FinanceModuleData {
-  const isReconciled = Boolean(finance.reconciled && finance.publicApproval === 'approved');
+  const hasFirstSigner = Boolean(
+    finance.firstSigner &&
+    typeof finance.firstSigner.name === 'string' &&
+    finance.firstSigner.name.trim() &&
+    finance.firstSigner.revisionId &&
+    finance.firstSigner.revisionHash
+  );
+
+  const hasSecondSigner = Boolean(
+    finance.secondSigner &&
+    typeof finance.secondSigner.name === 'string' &&
+    finance.secondSigner.name.trim() &&
+    finance.secondSigner.revisionId &&
+    finance.secondSigner.revisionHash
+  );
+
+  const distinctSigners = Boolean(
+    hasFirstSigner &&
+    hasSecondSigner &&
+    finance.firstSigner!.name.trim().toLowerCase() !== finance.secondSigner!.name.trim().toLowerCase()
+  );
+
+  const matchingRevision = Boolean(
+    distinctSigners &&
+    finance.firstSigner!.revisionId === finance.secondSigner!.revisionId &&
+    finance.firstSigner!.revisionHash === finance.secondSigner!.revisionHash
+  );
+
+  // Chỉ khi hội tụ đầy đủ: cờ reconciled=true, publicApproval='approved',
+  // hai người ký xác thực độc lập khác nhau, và cùng ký trên một phiên bản bất biến
+  const isReconciled = Boolean(
+    finance.reconciled &&
+    finance.publicApproval === 'approved' &&
+    distinctSigners &&
+    matchingRevision
+  );
 
   // Khử PII người đối soát: gán nhãn vai trò thay vì hiển thị email cá nhân
   const sanitizedRoles = (finance.reconciledBy || []).map((entry) => {

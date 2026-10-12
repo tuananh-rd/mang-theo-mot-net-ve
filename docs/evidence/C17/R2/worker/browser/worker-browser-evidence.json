@@ -1,0 +1,219 @@
+{
+  "sha": "3657a44dbbf46ea9564016248f3daacd9d45cbd0",
+  "capturedAt": "2026-10-12T02:22:33.839Z",
+  "viewports": [
+    {
+      "viewport": "1440",
+      "width": 1440,
+      "height": 900,
+      "tabs": [
+        {
+          "tab": "dashboard",
+          "title": "Content Studio | Mang Theo Một Nét Vẽ",
+          "formControls": 1,
+          "buttons": 4,
+          "overflow": false,
+          "screenshot": "dashboard-1440.png"
+        },
+        {
+          "tab": "project",
+          "title": "Content Studio | Mang Theo Một Nét Vẽ",
+          "formControls": 26,
+          "buttons": 3,
+          "overflow": false,
+          "screenshot": "project-1440.png"
+        },
+        {
+          "tab": "journal",
+          "title": "Content Studio | Mang Theo Một Nét Vẽ",
+          "formControls": 0,
+          "buttons": 4,
+          "overflow": false,
+          "screenshot": "journal-1440.png"
+        },
+        {
+          "tab": "media",
+          "title": "Content Studio | Mang Theo Một Nét Vẽ",
+          "formControls": 8,
+          "buttons": 8,
+          "overflow": false,
+          "screenshot": "media-1440.png"
+        },
+        {
+          "tab": "products",
+          "title": "Content Studio | Mang Theo Một Nét Vẽ",
+          "formControls": 16,
+          "buttons": 3,
+          "overflow": false,
+          "screenshot": "products-1440.png"
+        },
+        {
+          "tab": "finance",
+          "title": "Content Studio | Mang Theo Một Nét Vẽ",
+          "formControls": 21,
+          "buttons": 6,
+          "overflow": false,
+          "screenshot": "finance-1440.png"
+        },
+        {
+          "tab": "team",
+          "title": "Content Studio | Mang Theo Một Nét Vẽ",
+          "formControls": 61,
+          "buttons": 3,
+          "overflow": false,
+          "screenshot": "team-1440.png"
+        },
+        {
+          "tab": "publish",
+          "title": "Content Studio | Mang Theo Một Nét Vẽ",
+          "formControls": 0,
+          "buttons": 30,
+          "overflow": false,
+          "screenshot": "publish-1440.png"
+        }
+      ]
+    },
+    {
+      "viewport": "768",
+      "width": 768,
+      "height": 1024,
+      "tabs": [
+        {
+          "tab": "dashboard",
+          "title": "Content Studio | Mang Theo Một Nét Vẽ",
+          "formControls": 1,
+          "buttons": 4,
+          "overflow": false,
+          "screenshot": "dashboard-768.png"
+        },
+        {
+          "tab": "project",
+          "title": "Content Studio | Mang Theo Một Nét Vẽ",
+          "formControls": 26,
+          "buttons": 3,
+          "overflow": false,
+          "screenshot": "project-768.png"
+        },
+        {
+          "tab": "journal",
+          "title": "Content Studio | Mang Theo Một Nét Vẽ",
+          "formControls": 0,
+          "buttons": 4,
+          "overflow": false,
+          "screenshot": "journal-768.png"
+        },
+        {
+          "tab": "media",
+          "title": "Content Studio | Mang Theo Một Nét Vẽ",
+          "formControls": 8,
+          "buttons": 8,
+          "overflow": false,
+          "screenshot": "media-768.png"
+        },
+        {
+          "tab": "products",
+          "title": "Content Studio | Mang Theo Một Nét Vẽ",
+          "formControls": 16,
+          "buttons": 3,
+          "overflow": false,
+          "screenshot": "products-768.png"
+        },
+        {
+          "tab": "finance",
+          "title": "Content Studio | Mang Theo Một Nét Vẽ",
+          "formControls": 21,
+          "buttons": 6,
+          "overflow": false,
+          "screenshot": "finance-768.png"
+        },
+        {
+          "tab": "team",
+          "title": "Content Studio | Mang Theo Một Nét Vẽ",
+          "formControls": 61,
+          "buttons": 3,
+          "overflow": false,
+          "screenshot": "team-768.png"
+        },
+        {
+          "tab": "publish",
+          "title": "Content Studio | Mang Theo Một Nét Vẽ",
+          "formControls": 0,
+          "buttons": 30,
+          "overflow": false,
+          "screenshot": "publish-768.png"
+        }
+      ]
+    },
+    {
+      "viewport": "375",
+      "width": 375,
+      "height": 812,
+      "tabs": [
+        {
+          "tab": "dashboard",
+          "title": "Content Studio | Mang Theo Một Nét Vẽ",
+          "formControls": 1,
+          "buttons": 4,
+          "overflow": false,
+          "screenshot": "dashboard-375.png"
+        },
+        {
+          "tab": "project",
+          "title": "Content Studio | Mang Theo Một Nét Vẽ",
+          "formControls": 26,
+          "buttons": 3,
+          "overflow": false,
+          "screenshot": "project-375.png"
+        },
+        {
+          "tab": "journal",
+          "title": "Content Studio | Mang Theo Một Nét Vẽ",
+          "formControls": 0,
+          "buttons": 4,
+          "overflow": false,
+          "screenshot": "journal-375.png"
+        },
+        {
+          "tab": "media",
+          "title": "Content Studio | Mang Theo Một Nét Vẽ",
+          "formControls": 8,
+          "buttons": 8,
+          "overflow": false,
+          "screenshot": "media-375.png"
+        },
+        {
+          "tab": "products",
+          "title": "Content Studio | Mang Theo Một Nét Vẽ",
+          "formControls": 16,
+          "buttons": 3,
+          "overflow": false,
+          "screenshot": "products-375.png"
+        },
+        {
+          "tab": "finance",
+          "title": "Content Studio | Mang Theo Một Nét Vẽ",
+          "formControls": 21,
+          "buttons": 6,
+          "overflow": false,
+          "screenshot": "finance-375.png"
+        },
+        {
+          "tab": "team",
+          "title": "Content Studio | Mang Theo Một Nét Vẽ",
+          "formControls": 61,
+          "buttons": 3,
+          "overflow": false,
+          "screenshot": "team-375.png"
+        },
+        {
+          "tab": "publish",
+          "title": "Content Studio | Mang Theo Một Nét Vẽ",
+          "formControls": 0,
+          "buttons": 30,
+          "overflow": false,
+          "screenshot": "publish-375.png"
+        }
+      ]
+    }
+  ]
+}

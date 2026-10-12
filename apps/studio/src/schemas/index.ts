@@ -280,8 +280,8 @@ export interface FinanceModuleData {
     estimatedValue: number;
     donorName: string;
   }>;
-  firstSigner?: { name: string; role: string; signedAt: string } | null;
-  secondSigner?: { name: string; role: string; signedAt: string } | null;
+  firstSigner?: { name: string; role: string; signedAt: string; revisionId?: string; revisionHash?: string } | null;
+  secondSigner?: { name: string; role: string; signedAt: string; revisionId?: string; revisionHash?: string } | null;
 }
 
 export function validateFinanceModuleData(data: unknown): { isValid: boolean; errors: string[] } {
