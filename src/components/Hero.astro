@@ -25,7 +25,7 @@ const HERO_PHOTO = {
     <img
       src={HERO_PHOTO.src}
       srcset={`${HERO_PHOTO.srcSmall} 900w, ${HERO_PHOTO.src} 1672w`}
-      sizes="(min-width: 1360px) 120vw, 100vw"
+      sizes="(min-width: 1360px) 125vw, 100vw"
       width={HERO_PHOTO.width}
       height={HERO_PHOTO.height}
       alt={HERO_PHOTO.alt}
@@ -219,9 +219,9 @@ const HERO_PHOTO = {
   /* Desktop rộng (>= 1360px): ảnh phủ toàn dải, thẻ nội dung bên trái, nhãn ảnh góc phải */
   @media (min-width: 1360px) {
     .hero-section {
-      min-height: 720px;
+      min-height: 700px;
       display: flex;
-      align-items: flex-end;
+      align-items: center;
       padding-top: var(--space-18);
       padding-bottom: calc(var(--space-18) + 64px);
     }
@@ -232,16 +232,17 @@ const HERO_PHOTO = {
       z-index: 0;
     }
 
-    /* Ảnh phóng 120%, neo trái: chuồn chuồn nằm bên phải thẻ nội dung, chỉ chạm đầu cánh trái */
+    /* Ảnh phóng 125%, neo trái: chuồn chuồn nằm bên phải thẻ nội dung, thẻ chỉ chạm đầu cánh trái */
     .hero-media img {
       position: absolute;
       left: 0;
       top: 0;
-      width: 120%;
-      max-width: none;
+      width: 125%;
+      min-width: 100%;
+      max-width: 2200px; /* tránh phóng quá nhiều so với ảnh nguồn 1672 px */
       height: 100%;
       object-fit: cover;
-      object-position: 0% 28%;
+      object-position: 0% 32%;
     }
 
     .hero-caption {
@@ -262,8 +263,13 @@ const HERO_PHOTO = {
     }
 
     .hero-card {
-      max-width: 540px;
-      padding: var(--space-8) var(--space-10);
+      max-width: 480px;
+      padding: var(--space-8);
+    }
+
+    .hero-summary {
+      font-size: 1.0625rem;
+      line-height: 1.7;
     }
   }
 
@@ -282,9 +288,9 @@ const HERO_PHOTO = {
 
   @media (max-width: 767px) {
     .hero-media img {
-      aspect-ratio: 16 / 10;
+      aspect-ratio: 4 / 3;
       object-fit: cover;
-      object-position: 52% 30%;
+      object-position: 51% 24%;
     }
 
     .hero-title {
