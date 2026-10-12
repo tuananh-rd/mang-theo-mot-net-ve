@@ -39,6 +39,39 @@ export function getCustomAstroHandler() {
 }
 
 /**
+ * Viết lại các liên kết nội bộ trong trang xem trước để người dùng không bị thoát ra trang công khai
+ */
+export function rewritePreviewHref(href: string): string {
+  // Bỏ qua external, protocol-relative, anchor tương đối (không bắt đầu bằng /), mailto, tel
+  if (!href.startsWith('/') || href.startsWith('//')) {
+    return href;
+  }
+  // Bỏ qua static assets, media nội bộ, API
+  if (
+    href.startsWith('/_astro') ||
+    href.startsWith('/favicon') ||
+    href.startsWith('/images/') ||
+    href.startsWith('/media/') ||
+    href.startsWith('/api/') ||
+    href === '/api'
+  ) {
+    return href;
+  }
+  // Bỏ qua nếu đã nằm trong preview (chống bypass kiểu /previewevil bằng cách kiểm tra dấu phân cách rõ ràng)
+  if (
+    href === '/preview' ||
+    href === '/preview/' ||
+    href.startsWith('/preview/') ||
+    href.startsWith('/preview?') ||
+    href.startsWith('/preview#')
+  ) {
+    return href;
+  }
+  // Giữ nguyên fragment và query string đằng sau route
+  return `/preview${href}`;
+}
+
+/**
  * Xử lý yêu cầu xem trước riêng tư với snapshot dữ liệu bản nháp đã xác thực
  */
 export async function renderPrivateDraftPreview(
@@ -98,11 +131,8 @@ export async function renderPrivateDraftPreview(
   if (contentType.includes('text/html')) {
     let bodyText = await response.text();
     // Viết lại các liên kết nội bộ để người dùng điều hướng bên trong chế độ xem trước không bị thoát ra trang công khai
-    bodyText = bodyText.replace(/href="(\/(?:[a-zA-Z0-9_-]+(?:\/[a-zA-Z0-9_-]+)*)?)"/g, (match, p1) => {
-      if (p1.startsWith('/_astro') || p1.startsWith('/preview') || p1.startsWith('/api') || p1.startsWith('/favicon')) {
-        return match;
-      }
-      return `href="/preview${p1 === '/' ? '/' : p1}"`;
+    bodyText = bodyText.replace(/href=(["'])(\/[^"'\s]*)\1/g, (_match, quote, p1) => {
+      return `href=${quote}${rewritePreviewHref(p1)}${quote}`;
     });
     return new Response(bodyText, {
       status: response.status,

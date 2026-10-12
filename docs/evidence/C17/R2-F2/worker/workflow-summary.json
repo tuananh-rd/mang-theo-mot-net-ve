@@ -2,14 +2,16 @@
   "task": "task_7db18e179a76",
   "dispatch": "ctx_977d3559c3a1",
   "baseline": "c55315703927956794aff756dc7438606ff1408a",
-  "timestamp": "2026-10-12T20:44:14+07:00",
+  "remoteMainAdvanced": "0848d1212ea8a2177e76f076a9171c519155dd8a",
+  "timestamp": "2026-10-12T22:22:00+07:00",
   "verificationSummary": {
     "studioTypecheck": "PASS (0 errors)",
-    "studioTests": "PASS (57/57 passing across 4 suites)",
+    "studioTests": "PASS (58/58 passing across 4 suites)",
     "npmTest": "PASS (96/96 passing across 13 suites)",
-    "astroStaticBuild": "PASS (13 routes built in <1s)",
-    "astroSsrPreviewBuild": "PASS (Statically compiled with @astrojs/cloudflare in <2s)",
-    "browserVerification": "PASS (8 sections x 3 viewports: 375, 768, 1440, 0 page errors, zero/null preserved)"
+    "astroStaticBuild": "PASS (13 routes built clean in <1s)",
+    "astroCheck": "PASS (0 errors, 0 warnings)",
+    "astroSsrPreviewBuild": "PASS (Statically compiled with @astrojs/cloudflare in 1.38s)",
+    "browserVerification": "PASS (8 sections x 3 viewports: 375, 768, 1440, 25 observations, 0 page errors, zero/null preserved)"
   },
   "sections": {
     "dashboard": {
@@ -26,11 +28,11 @@
     },
     "products": {
       "status": "complete",
-      "features": ["narrative", "reference_price_preserved", "sale_status", "official_price", "stock_available", "media_key_binding"]
+      "features": ["narrative", "name", "description", "originText", "reference_price_preserved", "sale_status", "official_price", "stock_available", "media_key_binding", "no_photo_option", "null_deletion_semantics"]
     },
     "finance": {
       "status": "complete",
-      "features": ["two_person_attestation", "reconciled_entries", "sales_table", "expenses_table", "in_kind_table", "overview_null_zero_preserved"]
+      "features": ["two_person_attestation", "reconciled_entries", "sales_table", "expenses_table", "in_kind_table", "overview_null_zero_preserved", "techcombank_19072950239011_nguyen_ngoc_khoa"]
     },
     "journal": {
       "status": "complete",
@@ -38,7 +40,7 @@
     },
     "team": {
       "status": "complete",
-      "features": ["members_table", "roles", "responsibilities"]
+      "features": ["members_table", "roles", "responsibilities", "seed_equivalence"]
     },
     "faqs": {
       "status": "complete",
@@ -50,7 +52,10 @@
     }
   },
   "mediaRegistry": {
-    "totalCanonicalAssets": 20,
+    "totalCanonicalAssets": 22,
+    "historicalCount": 20,
+    "currentHeroAssetsAdded": 2,
+    "currentBankQrPreserved": true,
     "sha256Verification": "strict",
     "workerNativeOnly": true,
     "nodeModulesInBundle": false
@@ -62,11 +67,11 @@
     "errorHandling": "explicit throw if ALS unavailable (fail-closed)",
     "workerdCompiledBundle": "dist-preview/server/entry.mjs",
     "securityHeaders": {
-      "Cache-Control": "private, no-cache, no-store, must-revalidate",
+      "Cache-Control": "private, no-store",
       "X-Robots-Tag": "noindex, nofollow",
       "X-Studio-Private-Preview": "true"
     },
-    "linkRewriting": "/preview/*"
+    "linkRewriting": "/preview/* with anchors, queries, trailing slashes, and prefix protection"
   },
   "proxyInvariants": {
     "campaignProxy": "configurable: false preserved on length property",

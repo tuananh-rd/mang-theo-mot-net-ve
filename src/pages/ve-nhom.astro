@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/PageHero.astro';
 import ContactCard from '../components/ContactCard.astro';
-import { TEAM_PRINCIPLES, TEAM_MEMBERS } from '../data/campaign';
+import { TEAM_PRINCIPLES, TEAM_MEMBERS, TEAM_INFO } from '../data/campaign';
 
 const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Về nhóm' }];
 ---
@@ -16,10 +16,10 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Về nhóm' 
     variant="masthead"
     breadcrumbs={breadcrumbs}
     eyebrow="Về nhóm"
-    title="Nhóm Lăng Kính"
+    title={TEAM_INFO.name ? `Nhóm ${TEAM_INFO.name}` : "Nhóm Lăng Kính"}
     titleId="team-heading"
     lead="Bảy sinh viên muốn mang đến một buổi chơi phù hợp và một món quà đúng nhu cầu."
-    description="7 sinh viên lớp AI2015 · Đại học FPT Hà Nội · Nhóm tự chuẩn bị buổi chơi, làm quà lưu niệm gây quỹ, ghi sổ ủng hộ và công bố báo cáo kết quả."
+    description={TEAM_INFO.description || "7 sinh viên lớp AI2015 · Đại học FPT Hà Nội · Nhóm tự chuẩn bị buổi chơi, làm quà lưu niệm gây quỹ, ghi sổ ủng hộ và công bố báo cáo kết quả."}
   />
 
   <section class="section section-members" aria-labelledby="members-heading">

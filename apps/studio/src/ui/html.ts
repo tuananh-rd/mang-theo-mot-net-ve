@@ -1804,10 +1804,7 @@ export function renderStudioHtml(session: AuthSession): string {
         const approvedDbAssets = dbAssets.filter(function(a) { return a.status === 'approved'; });
 
         const mediaOptions = [
-          { path: '/images/san-pham/chuon-chuon-tre.webp', label: 'Chuồn chuồn tre kèm đế (Mẫu gốc)' },
-          { path: '/images/san-pham/moc-khoa.webp', label: 'Móc khóa Lăng Kính (Mẫu phôi)' },
-          { path: '/images/illustrations/a01.webp', label: 'Minh họa Chuồn chuồn tre thăng bằng (a01.webp)' },
-          { path: '/images/ung-ho/qr-ung-ho-techcombank.png', label: 'Mã QR Techcombank (qr-ung-ho-techcombank.png)' }
+          { path: '/images/san-pham/chuon-chuon-tre.webp', label: 'Chuồn chuồn tre kèm đế (Mẫu gốc)' }
         ];
 
         for (var i = 0; i < approvedDbAssets.length; i++) {
@@ -1824,13 +1821,13 @@ export function renderStudioHtml(session: AuthSession): string {
         }
 
         const ccMediaVal = chuonChuon.mediaKey || '/images/san-pham/chuon-chuon-tre.webp';
-        const mkMediaVal = mocKhoa.mediaKey || '/images/san-pham/moc-khoa.webp';
+        const mkMediaVal = mocKhoa.mediaKey || '';
 
-        var ccOptionsHtml = mediaOptions.map(function(opt) {
+        var ccOptionsHtml = '<option value=""' + (!ccMediaVal ? ' selected' : '') + '>-- Không sử dụng ảnh đại diện --</option>' + mediaOptions.map(function(opt) {
           return '<option value="' + escapeHtml(opt.path) + '"' + (ccMediaVal === opt.path ? ' selected' : '') + '>' + escapeHtml(opt.label) + ' (' + escapeHtml(opt.path) + ')</option>';
         }).join('');
 
-        var mkOptionsHtml = mediaOptions.map(function(opt) {
+        var mkOptionsHtml = '<option value=""' + (!mkMediaVal ? ' selected' : '') + '>-- Chưa có ảnh đại diện (Chờ ảnh thật) --</option>' + mediaOptions.map(function(opt) {
           return '<option value="' + escapeHtml(opt.path) + '"' + (mkMediaVal === opt.path ? ' selected' : '') + '>' + escapeHtml(opt.label) + ' (' + escapeHtml(opt.path) + ')</option>';
         }).join('');
 
@@ -1848,6 +1845,20 @@ export function renderStudioHtml(session: AuthSession): string {
             <!-- Sản phẩm 1: Chuồn chuồn tre -->
             <div style="border: 1px solid var(--color-neutral-light); border-radius: 6px; padding: 16px; margin-bottom: 20px;">
               <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 12px; color: var(--color-primary);">1. Chuồn chuồn tre 12 cm kèm đế (chuon-chuon-tre-kem-de)</h3>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="cc_name">Tên sản phẩm *</label>
+                  <input type="text" id="cc_name" class="form-control" name="cc_name" value="\${escapeHtml(chuonChuon.name || 'Chuồn chuồn tre 12 cm kèm đế')}">
+                </div>
+                <div class="form-group">
+                  <label for="cc_originText">Nguồn gốc / Xuất xứ</label>
+                  <input type="text" id="cc_originText" class="form-control" name="cc_originText" value="\${escapeHtml(chuonChuon.originText || 'Phôi tre mộc; nguồn gốc trang trí chưa xác nhận')}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="cc_description">Mô tả sản phẩm</label>
+                <textarea id="cc_description" class="form-control" name="cc_description" rows="2">\${escapeHtml(chuonChuon.description || 'Phôi tre mộc mạc cân bằng trên mỏ, đi kèm chân đế trưng bày trang nhã.')}</textarea>
+              </div>
               <div class="form-row">
                 <div class="form-group">
                   <label for="cc_saleStatus">Trạng thái mở bán *</label>
@@ -1893,8 +1904,8 @@ export function renderStudioHtml(session: AuthSession): string {
                   \${ccOptionsHtml}
                 </select>
                 <div id="cc_mediaPreview" style="margin-top: 8px; display: flex; align-items: center; gap: 12px; padding: 8px; background: #f8fafc; border-radius: 4px; border: 1px solid var(--color-neutral-light);">
-                  <img id="cc_mediaThumb" src="\${escapeHtml(ccMediaVal)}" alt="Xem trước ảnh chuồn chuồn tre" style="max-height: 80px; max-width: 120px; border-radius: 4px; border: 1px solid var(--color-neutral-light); object-fit: contain; background: #ffffff;">
-                  <span id="cc_mediaLabel" style="font-size: 0.82rem; color: var(--color-neutral-mid); font-family: monospace;">\${escapeHtml(ccMediaVal)}</span>
+                  <img id="cc_mediaThumb" src="\${escapeHtml(ccMediaVal)}" alt="Xem trước ảnh chuồn chuồn tre" style="max-height: 80px; max-width: 120px; border-radius: 4px; border: 1px solid var(--color-neutral-light); object-fit: contain; background: #ffffff; \${ccMediaVal ? '' : 'display: none;'}">
+                  <span id="cc_mediaLabel" style="font-size: 0.82rem; color: var(--color-neutral-mid); font-family: monospace; \${ccMediaVal ? '' : 'font-style: italic;'}">\${escapeHtml(ccMediaVal || 'Chưa gán ảnh (Trống)')}</span>
                 </div>
               </div>
             </div>
@@ -1902,6 +1913,20 @@ export function renderStudioHtml(session: AuthSession): string {
             <!-- Sản phẩm 2: Móc khóa -->
             <div style="border: 1px solid var(--color-neutral-light); border-radius: 6px; padding: 16px;">
               <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 12px; color: var(--color-primary);">2. Móc khóa Lăng Kính (moc-khoa)</h3>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="mk_name">Tên sản phẩm *</label>
+                  <input type="text" id="mk_name" class="form-control" name="mk_name" value="\${escapeHtml(mocKhoa.name || 'Móc khóa Lăng Kính')}">
+                </div>
+                <div class="form-group">
+                  <label for="mk_originText">Nguồn gốc / Xuất xứ</label>
+                  <input type="text" id="mk_originText" class="form-control" name="mk_originText" value="\${escapeHtml(mocKhoa.originText || 'Nhóm Lăng Kính chuẩn bị và hoàn thiện mẫu')}">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="mk_description">Mô tả sản phẩm</label>
+                <textarea id="mk_description" class="form-control" name="mk_description" rows="2">\${escapeHtml(mocKhoa.description || 'Móc khóa lưu niệm nhóm sinh viên Lăng Kính chuẩn bị và hoàn thiện theo kế hoạch.')}</textarea>
+              </div>
               <div class="form-row">
                 <div class="form-group">
                   <label for="mk_saleStatus">Trạng thái mở bán *</label>
@@ -1947,8 +1972,8 @@ export function renderStudioHtml(session: AuthSession): string {
                   \${mkOptionsHtml}
                 </select>
                 <div id="mk_mediaPreview" style="margin-top: 8px; display: flex; align-items: center; gap: 12px; padding: 8px; background: #f8fafc; border-radius: 4px; border: 1px solid var(--color-neutral-light);">
-                  <img id="mk_mediaThumb" src="\${escapeHtml(mkMediaVal)}" alt="Xem trước ảnh móc khóa" style="max-height: 80px; max-width: 120px; border-radius: 4px; border: 1px solid var(--color-neutral-light); object-fit: contain; background: #ffffff;">
-                  <span id="mk_mediaLabel" style="font-size: 0.82rem; color: var(--color-neutral-mid); font-family: monospace;">\${escapeHtml(mkMediaVal)}</span>
+                  <img id="mk_mediaThumb" src="\${escapeHtml(mkMediaVal)}" alt="Xem trước ảnh móc khóa" style="max-height: 80px; max-width: 120px; border-radius: 4px; border: 1px solid var(--color-neutral-light); object-fit: contain; background: #ffffff; \${mkMediaVal ? '' : 'display: none;'}">
+                  <span id="mk_mediaLabel" style="font-size: 0.82rem; color: var(--color-neutral-mid); font-family: monospace; \${mkMediaVal ? '' : 'font-style: italic;'}">\${escapeHtml(mkMediaVal || 'Chưa gán ảnh (Trống)')}</span>
                 </div>
               </div>
             </div>
@@ -1964,8 +1989,18 @@ export function renderStudioHtml(session: AuthSession): string {
         const ccLabel = document.getElementById('cc_mediaLabel');
         if (ccSelect && ccThumb && ccLabel) {
           ccSelect.addEventListener('change', function() {
-            ccThumb.src = ccSelect.value;
-            ccLabel.textContent = ccSelect.value;
+            var val = ccSelect.value;
+            if (val) {
+              ccThumb.src = val;
+              ccThumb.style.display = 'block';
+              ccLabel.textContent = val;
+              ccLabel.style.fontStyle = 'normal';
+            } else {
+              ccThumb.src = '';
+              ccThumb.style.display = 'none';
+              ccLabel.textContent = 'Chưa gán ảnh (Trống)';
+              ccLabel.style.fontStyle = 'italic';
+            }
             setDirty(true);
           });
         }
@@ -1975,8 +2010,18 @@ export function renderStudioHtml(session: AuthSession): string {
         const mkLabel = document.getElementById('mk_mediaLabel');
         if (mkSelect && mkThumb && mkLabel) {
           mkSelect.addEventListener('change', function() {
-            mkThumb.src = mkSelect.value;
-            mkLabel.textContent = mkSelect.value;
+            var val = mkSelect.value;
+            if (val) {
+              mkThumb.src = val;
+              mkThumb.style.display = 'block';
+              mkLabel.textContent = val;
+              mkLabel.style.fontStyle = 'normal';
+            } else {
+              mkThumb.src = '';
+              mkThumb.style.display = 'none';
+              mkLabel.textContent = 'Chưa gán ảnh (Trống)';
+              mkLabel.style.fontStyle = 'italic';
+            }
             setDirty(true);
           });
         }
@@ -1988,6 +2033,9 @@ export function renderStudioHtml(session: AuthSession): string {
           const fd = new FormData(form);
           const updated = {
             'chuon-chuon-tre-kem-de': {
+              name: fd.get('cc_name') ? String(fd.get('cc_name')).trim() : null,
+              description: fd.get('cc_description') ? String(fd.get('cc_description')).trim() : null,
+              originText: fd.get('cc_originText') ? String(fd.get('cc_originText')).trim() : null,
               saleStatus: fd.get('cc_saleStatus'),
               officialPrice: fd.get('cc_officialPrice') ? parseInt(fd.get('cc_officialPrice'), 10) : null,
               stockAvailable: fd.get('cc_stockAvailable') ? parseInt(fd.get('cc_stockAvailable'), 10) : null,
@@ -1998,6 +2046,9 @@ export function renderStudioHtml(session: AuthSession): string {
               mediaKey: fd.get('cc_mediaKey') || null,
             },
             'moc-khoa': {
+              name: fd.get('mk_name') ? String(fd.get('mk_name')).trim() : null,
+              description: fd.get('mk_description') ? String(fd.get('mk_description')).trim() : null,
+              originText: fd.get('mk_originText') ? String(fd.get('mk_originText')).trim() : null,
               saleStatus: fd.get('mk_saleStatus'),
               officialPrice: fd.get('mk_officialPrice') ? parseInt(fd.get('mk_officialPrice'), 10) : null,
               stockAvailable: fd.get('mk_stockAvailable') ? parseInt(fd.get('mk_stockAvailable'), 10) : null,
@@ -2043,8 +2094,8 @@ export function renderStudioHtml(session: AuthSession): string {
         const acc = f.donationAccount || {
           status: 'active',
           bankName: 'Techcombank',
-          accountNumber: '999927052006',
-          accountHolder: 'LE TUAN ANH',
+          accountNumber: '19072950239011',
+          accountHolder: 'NGUYEN NGOC KHOA',
           qrImage: '/images/ung-ho/qr-ung-ho-techcombank.png',
           transferPrefix: 'MTMNV',
           goalAmount: 3000000,
@@ -2089,11 +2140,11 @@ export function renderStudioHtml(session: AuthSession): string {
               </div>
               <div class="form-group">
                 <label>Số tài khoản *</label>
-                <input type="text" class="form-control" name="acc_accountNumber" value="\${escapeHtml(acc.accountNumber || '999927052006')}" required>
+                <input type="text" class="form-control" name="acc_accountNumber" value="\${escapeHtml(acc.accountNumber || '19072950239011')}" required>
               </div>
               <div class="form-group">
                 <label>Tên chủ tài khoản *</label>
-                <input type="text" class="form-control" name="acc_accountHolder" value="\${escapeHtml(acc.accountHolder || 'LE TUAN ANH')}" required>
+                <input type="text" class="form-control" name="acc_accountHolder" value="\${escapeHtml(acc.accountHolder || 'NGUYEN NGOC KHOA')}" required>
               </div>
             </div>
 

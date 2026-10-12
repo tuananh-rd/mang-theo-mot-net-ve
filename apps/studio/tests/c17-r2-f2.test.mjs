@@ -17,6 +17,7 @@ import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
+import os from 'node:os';
 import { fileURLToPath } from 'node:url';
 import crypto from 'node:crypto';
 
@@ -29,7 +30,7 @@ import {
   importApprovedRegistryIntoDb,
 } from '../dist/storage/media-registry.js';
 import { getDefaultModuleData } from '../dist/schemas/index.js';
-import { createPublicationSnapshot } from '../dist/publish/adapter.js';
+import { createPublicationSnapshot, createPrivateDraftSnapshot } from '../dist/publish/adapter.js';
 import { renderPrivateDraftPreview, runWithSnapshot, setCustomAstroHandler } from '../dist/preview/renderer.js';
 import {
   PRODUCTS,
@@ -38,6 +39,7 @@ import {
   OFFICIAL_CONTACT,
   getOfficialContact,
 } from '../../../src/data/campaign.ts';
+import { getCraftProductBySlug } from '../../../src/lib/products.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, '../../..');
@@ -71,8 +73,8 @@ function diskByteLoader(asset) {
 }
 
 describe('C17-R2-F2: Approved Media Registry & Authenticated Media Stream', () => {
-  test('Danh mục 20 tài sản chuẩn tắc: đúng 20 ảnh, đường dẫn canonical, băm SHA-256 thật', async () => {
-    assert.equal(APPROVED_MEDIA_REGISTRY.length, 20, 'Danh mục phải có đúng 20 tài sản đã duyệt');
+  test('Danh mục 22 tài sản chuẩn tắc: đúng 22 ảnh (kèm 2 ảnh hero mới), đường dẫn canonical, băm SHA-256 thật', async () => {
+    assert.equal(APPROVED_MEDIA_REGISTRY.length, 22, 'Danh mục phải có đúng 22 tài sản đã duyệt');
 
     for (const asset of APPROVED_MEDIA_REGISTRY) {
       assert.ok(!asset.publicPath.includes('\\'), `publicPath không được chứa backslash: ${asset.publicPath}`);
@@ -96,7 +98,7 @@ describe('C17-R2-F2: Approved Media Registry & Authenticated Media Stream', () =
 
     // 1. Nạp thành công với diskByteLoader
     const result = await importApprovedRegistryIntoDb(db, bucket, diskByteLoader);
-    assert.equal(result.importedCount, 20, 'Phải nạp thành công cả 20 tài sản');
+    assert.equal(result.importedCount, 22, 'Phải nạp thành công cả 22 tài sản');
     assert.equal(result.existingCount, 0);
 
     // Kiểm tra trong R2 bucket
@@ -110,7 +112,7 @@ describe('C17-R2-F2: Approved Media Registry & Authenticated Media Stream', () =
     // 2. Chạy lại lần 2: phải bỏ qua vì đã tồn tại (idempotent)
     const rerun = await importApprovedRegistryIntoDb(db, bucket, diskByteLoader);
     assert.equal(rerun.importedCount, 0);
-    assert.equal(rerun.existingCount, 20);
+    assert.equal(rerun.existingCount, 22);
 
     // 3. Kiểm tra fail-closed: byteLoader trả về dữ liệu sai hash
     const corruptDb = await createTestDb();
@@ -265,7 +267,16 @@ describe('C17-R2-F2: Private Draft Preview SSR & Request-Scoped Isolation', () =
     // Cài đặt handler để kiểm tra liên kết nội bộ được viết lại và headers bảo mật
     setCustomAstroHandler(async (r) => {
       return new Response(
-        '<!DOCTYPE html><html><body><a href="/dong-hanh">Đồng hành</a><a href="/preview/minh-bach">Minh bạch</a></body></html>',
+        '<!DOCTYPE html><html><body>' +
+        '<a href="/dong-hanh">Đồng hành</a>' +
+        '<a href="/dong-hanh#sao-ke">Sao kê</a>' +
+        '<a href="/minh-bach#quy-trinh">Quy trình</a>' +
+        '<a href="/du-an/mang-theo-mot-net-ve#corners-heading">Góc chơi</a>' +
+        '<a href="/dong-hanh/">Đồng hành slash</a>' +
+        '<a href="/san-pham?sort=price">Sản phẩm sort</a>' +
+        '<a href="/previewevil">Evil bypass check</a>' +
+        '<a href="/preview/minh-bach">Minh bạch</a>' +
+        '</body></html>',
         { status: 200, headers: { 'Content-Type': 'text/html; charset=utf-8' } }
       );
     });
@@ -282,6 +293,12 @@ describe('C17-R2-F2: Private Draft Preview SSR & Request-Scoped Isolation', () =
     // Kiểm tra liên kết nội bộ được viết lại
     const text = await res.text();
     assert.ok(text.includes('href="/preview/dong-hanh"'), 'Liên kết href="/dong-hanh" phải được viết lại thành /preview/dong-hanh');
+    assert.ok(text.includes('href="/preview/dong-hanh#sao-ke"'), 'Liên kết fragment /dong-hanh#sao-ke phải được viết lại');
+    assert.ok(text.includes('href="/preview/minh-bach#quy-trinh"'), 'Liên kết fragment /minh-bach#quy-trinh phải được viết lại');
+    assert.ok(text.includes('href="/preview/du-an/mang-theo-mot-net-ve#corners-heading"'), 'Liên kết fragment góc chơi phải được viết lại');
+    assert.ok(text.includes('href="/preview/dong-hanh/"'), 'Liên kết trailing slash /dong-hanh/ phải được viết lại');
+    assert.ok(text.includes('href="/preview/san-pham?sort=price"'), 'Liên kết query /san-pham?sort=price phải được viết lại');
+    assert.ok(text.includes('href="/preview/previewevil"'), 'Liên kết /previewevil không được bypass');
     assert.ok(text.includes('href="/preview/minh-bach"'), 'Liên kết đã có tiền tố /preview phải được giữ nguyên');
   });
 
@@ -307,10 +324,16 @@ describe('C17-R2-F2: Private Draft Preview SSR & Request-Scoped Isolation', () =
   test('workerd Preview Server: render hoàn chỉnh 6 trang công khai, từ chối unauth và cách ly dữ liệu nháp', async () => {
     const { unstable_dev, getPlatformProxy, unstable_splitSqlQuery } = await import('wrangler');
     
-    // Áp dụng schema D1 vào preview DB nếu chưa có
+    // Tạo thư mục lưu trữ SQLite biệt lập hoàn toàn cho lần chạy này
+    const tempPersistDir = fs.mkdtempSync(path.join(os.tmpdir(), 'c17-preview-persist-'));
+
+    // Áp dụng schema D1 vào preview DB biệt lập
     const sqlPath = path.resolve(rootDir, 'apps/studio/migrations/0001_initial_schema.sql');
     const sql = fs.readFileSync(sqlPath, 'utf8');
-    const proxy = await getPlatformProxy({ configPath: path.resolve(rootDir, 'wrangler.preview.json') });
+    const proxy = await getPlatformProxy({
+      configPath: path.resolve(rootDir, 'wrangler.preview.json'),
+      persist: { path: path.join(tempPersistDir, 'v3') },
+    });
     for (const st of unstable_splitSqlQuery(sql)) {
       if (st.trim()) await proxy.env.DB.prepare(st).run();
     }
@@ -318,6 +341,7 @@ describe('C17-R2-F2: Private Draft Preview SSR & Request-Scoped Isolation', () =
 
     const worker = await unstable_dev(path.resolve(rootDir, 'dist-preview/server/entry.mjs'), {
       config: path.resolve(rootDir, 'wrangler.preview.json'),
+      persistTo: tempPersistDir,
       vars: {
         STUDIO_ENVIRONMENT: 'development',
       },
@@ -326,13 +350,20 @@ describe('C17-R2-F2: Private Draft Preview SSR & Request-Scoped Isolation', () =
     const origin = `http://127.0.0.1:${worker.port}`;
 
     try {
-      // 1. Lưu bản nháp có tiêu đề độc nhất và bài viết nhật ký status: draft vào D1 qua Worker API
-      const uniqueProjectTitle = 'DỰ ÁN XEM TRƯỚC BẢN NHÁP 2026';
-      const uniqueProjectSlogan = 'KHẨU HIỆU DỰ ÁN XEM TRƯỚC BẢN NHÁP 2026';
+      const runMarker = Date.now().toString(36);
+      const uniqueProjectTitle = `DỰ ÁN XEM TRƯỚC BẢN NHÁP ${runMarker}`;
+      const uniqueProjectSlogan = `KHẨU HIỆU DỰ ÁN XEM TRƯỚC BẢN NHÁP ${runMarker}`;
+      const testArticleSlug = `bai-viet-nhap-${runMarker}`;
+      const uniqueDraftArticleTitle = `BÀI VIẾT BẢN NHÁP CHƯA XUẤT BẢN ${runMarker}`;
+
+      const localHeaders = {};
+
+      // 1. Lưu bản nháp project vào D1 qua Worker API, khẳng định cả POST 200 và GET readback
       const getProj = await worker.fetch(`${origin}/api/drafts/project?dev_role=admin`);
+      assert.equal(getProj.status, 200);
       const projJson = await getProj.json();
       const customProject = { ...projJson.draft.data, title: uniqueProjectTitle, slogan: uniqueProjectSlogan };
-      await worker.fetch(`${origin}/api/drafts/project?dev_role=admin`, {
+      const saveProjRes = await worker.fetch(`${origin}/api/drafts/project?dev_role=admin`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -341,17 +372,21 @@ describe('C17-R2-F2: Private Draft Preview SSR & Request-Scoped Isolation', () =
           comment: 'Cập nhật tiêu đề và khẩu hiệu nháp',
         }),
       });
+      assert.equal(saveProjRes.status, 200, 'Lưu bản nháp project phải thành công 200');
+      // Readback assertion: đọc lại từ D1 khẳng định giá trị đã lưu
+      const readbackProjRes = await worker.fetch(`${origin}/api/drafts/project?dev_role=admin`);
+      const readbackProjJson = await readbackProjRes.json();
+      assert.equal(readbackProjJson.draft.data.title, uniqueProjectTitle, 'Readback phải khớp tiêu đề độc nhất');
 
-      const uniqueDraftArticleTitle = 'BÀI VIẾT BẢN NHÁP CHƯA XUẤT BẢN';
+      // 2. Lưu bài viết nhật ký status: draft vào D1 qua Worker API, khẳng định POST 200 và GET readback
       const getJourn = await worker.fetch(`${origin}/api/drafts/journal?dev_role=admin`);
+      assert.equal(getJourn.status, 200);
       const journJson = await getJourn.json();
-      const existingJournal = (Array.isArray(journJson.draft.data) ? journJson.draft.data : []).filter(
-        (a) => a.slug !== 'bai-viet-nhap-can-xem-truoc'
-      );
+      const existingJournal = Array.isArray(journJson.draft.data) ? journJson.draft.data : [];
       const customJournal = [
         ...existingJournal,
         {
-          slug: 'bai-viet-nhap-can-xem-truoc',
+          slug: testArticleSlug,
           title: uniqueDraftArticleTitle,
           summary: 'Tóm tắt bài viết nháp cần xem trước',
           category: 'ke-hoach',
@@ -366,19 +401,20 @@ describe('C17-R2-F2: Private Draft Preview SSR & Request-Scoped Isolation', () =
         body: JSON.stringify({
           data: customJournal,
           expectedHash: journJson.draft.revisionHash,
-          comment: 'Thêm bài viết nháp',
+          comment: 'Thêm bài viết nháp độc nhất',
         }),
       });
-      if (jRes.status !== 200) {
-        const errText = await jRes.text();
-        assert.fail(`Lưu bài viết nháp thất bại status ${jRes.status}: ${errText}`);
-      }
+      assert.equal(jRes.status, 200, 'Lưu bản nháp journal phải thành công 200');
+      // Readback assertion: đọc lại từ D1 khẳng định bài viết mới tồn tại
+      const readbackJournRes = await worker.fetch(`${origin}/api/drafts/journal?dev_role=admin`);
+      const readbackJournJson = await readbackJournRes.json();
+      assert.ok(readbackJournJson.draft.data.some((a) => a.slug === testArticleSlug), 'Readback phải chứa bài viết nháp mới tạo');
 
-      // 2. Kiểm tra từ chối unauthenticated dứt khoát trên non-loopback URL
+      // 3. Kiểm tra từ chối unauthenticated dứt khoát trên non-loopback URL
       const unauthRes = await worker.fetch('http://example.com/preview/dong-hanh');
       assert.equal(unauthRes.status, 401, 'Yêu cầu unauthenticated phải bị từ chối 401');
 
-      // 3. Kiểm tra duyệt hoàn chỉnh 6 trang công khai + /nhat-ky với quyền admin dev
+      // 4. Kiểm tra duyệt hoàn chỉnh 6 trang công khai + /nhat-ky với quyền admin dev
       const routes = [
         '/',
         '/dong-hanh',
@@ -390,9 +426,7 @@ describe('C17-R2-F2: Private Draft Preview SSR & Request-Scoped Isolation', () =
       ];
 
       for (const r of routes) {
-        const pageRes = await worker.fetch(`${origin}/preview${r}?dev_role=admin`, {
-          headers: { Host: `127.0.0.1:${worker.port}` }
-        });
+        const pageRes = await worker.fetch(`${origin}/preview${r}?dev_role=admin`);
         assert.equal(pageRes.status, 200, `Trang ${r} phải trả về 200 OK`);
         assert.equal(pageRes.headers.get('x-studio-private-preview'), 'true', `Trang ${r} phải có header private preview`);
         assert.equal(pageRes.headers.get('cache-control'), 'private, no-store', `Trang ${r} phải có Cache-Control private`);
@@ -414,20 +448,21 @@ describe('C17-R2-F2: Private Draft Preview SSR & Request-Scoped Isolation', () =
         }
       }
 
-      // 4. Khẳng định bài viết trạng thái draft xem trước được trên SSR preview
-      const journalDraftRes = await worker.fetch(`${origin}/preview/nhat-ky/bai-viet-nhap-can-xem-truoc?dev_role=admin`, {
-        headers: { Host: `127.0.0.1:${worker.port}` }
-      });
+      // 5. Khẳng định bài viết trạng thái draft xem trước được trên SSR preview
+      const journalDraftRes = await worker.fetch(`${origin}/preview/nhat-ky/${testArticleSlug}?dev_role=admin`);
       assert.equal(journalDraftRes.status, 200, 'Bài viết bản nháp trạng thái draft phải render 200 OK trong private preview');
       const journalDraftBody = await journalDraftRes.text();
       assert.ok(journalDraftBody.includes(uniqueDraftArticleTitle), 'Tiêu đề bài viết bản nháp phải render trực tiếp trên SSR preview');
       assert.equal(journalDraftRes.headers.get('x-studio-private-preview'), 'true');
 
-      // 5. Khẳng định bài viết status=draft bị loại bỏ khỏi snapshot xuất bản công khai
+      // 6. Khẳng định bài viết status=draft bị loại bỏ khỏi snapshot xuất bản công khai
       const pubSnapshot = await createPublicationSnapshot({ journal: customJournal }, 'pub-snap', new Set());
-      assert.ok(!pubSnapshot.snapshot.modules.journal.some((a) => a.slug === 'bai-viet-nhap-can-xem-truoc'), 'Bài viết status=draft phải bị loại khỏi xuất bản công khai');
+      assert.ok(!pubSnapshot.snapshot.modules.journal.some((a) => a.slug === testArticleSlug), 'Bài viết status=draft phải bị loại khỏi xuất bản công khai');
     } finally {
       await worker.stop();
+      try {
+        fs.rmSync(tempPersistDir, { recursive: true, force: true });
+      } catch {}
     }
   });
 });
@@ -457,6 +492,80 @@ describe('C17-R2-F2: Studio UI Workflows & Role Administration', () => {
     // 2. Đọc lại từ DB: xác nhận contacts vẫn là null
     const reloaded = await dbClient.getDraft('project');
     assert.equal(reloaded.data.contacts, null, 'contacts: null phải được lưu bền vững trong D1');
+
+    // 3. Khẳng định snapshot adapter giữ contacts: null (không omit và không fallback)
+    const pubSnap = await createPublicationSnapshot({ project: updatedProject }, 'snap-test');
+    assert.equal(pubSnap.snapshot.modules.project.contacts, null, 'Publication snapshot phải giữ contacts: null');
+    const previewSnap = await createPrivateDraftSnapshot({ project: updatedProject }, 'preview-test');
+    assert.equal(previewSnap.modules.project.contacts, null, 'Private preview snapshot phải giữ contacts: null');
+
+    // 4. Khẳng định snapshot loader và view model hạ cờ unconfirmed và xóa danh sách liên hệ (CTA ẩn hoàn toàn)
+    runWithSnapshot(previewSnap, () => {
+      const contacts = getOfficialContact();
+      assert.equal(contacts.status, 'unconfirmed');
+      assert.equal(contacts.people.length, 0);
+      assert.equal(contacts.fanpageUrl, null);
+    });
+  });
+
+  test('Product Configuration: lưu tên, mô tả, xuất xứ, giá và bảo tồn ngữ nghĩa xóa null/rỗng', async () => {
+    const db = await createTestDb();
+    const dbClient = new StudioDbClient(db);
+
+    const initialDraft = await dbClient.getDraft('products');
+    const updatedProducts = {
+      ...initialDraft.data,
+      'chuon-chuon-tre-kem-de': {
+        ...initialDraft.data['chuon-chuon-tre-kem-de'],
+        name: 'Chuồn chuồn tre mỹ nghệ Lăng Kính (Đã sửa)',
+        description: 'Mô tả mới được biên tập từ Content Studio',
+        originText: 'Xưởng tre làng nghề Thạch Thất (Xác nhận)',
+        officialPrice: 45000,
+        stockAvailable: 25,
+        saleStatus: 'open',
+        publicApproval: 'approved',
+        narrative: null, // Chủ ý xóa câu chuyện -> không phục sinh baseline
+        mediaKey: null, // Chủ ý xóa ảnh -> không phục sinh baseline
+      },
+    };
+
+    const saveRes = await dbClient.saveDraft(
+      'products',
+      updatedProducts,
+      initialDraft.revisionHash,
+      'admin@mangtheomotnetve.vn',
+      'Cập nhật tên, mô tả, xuất xứ sản phẩm và xóa media/narrative'
+    );
+    assert.ok(saveRes.draft);
+    assert.equal(saveRes.draft.data['chuon-chuon-tre-kem-de'].name, 'Chuồn chuồn tre mỹ nghệ Lăng Kính (Đã sửa)');
+
+    // Đọc lại từ D1 xác nhận giá trị bền vững
+    const reloaded = await dbClient.getDraft('products');
+    assert.equal(reloaded.data['chuon-chuon-tre-kem-de'].name, 'Chuồn chuồn tre mỹ nghệ Lăng Kính (Đã sửa)');
+    assert.equal(reloaded.data['chuon-chuon-tre-kem-de'].originText, 'Xưởng tre làng nghề Thạch Thất (Xác nhận)');
+    assert.equal(reloaded.data['chuon-chuon-tre-kem-de'].narrative, null);
+    assert.equal(reloaded.data['chuon-chuon-tre-kem-de'].mediaKey, null);
+
+    // Chiếu sang preview snapshot
+    const previewSnap = await createPrivateDraftSnapshot({ products: updatedProducts }, 'preview-prod');
+    assert.equal(previewSnap.modules.products['chuon-chuon-tre-kem-de'].name, 'Chuồn chuồn tre mỹ nghệ Lăng Kính (Đã sửa)');
+    assert.equal(previewSnap.modules.products['chuon-chuon-tre-kem-de'].originText, 'Xưởng tre làng nghề Thạch Thất (Xác nhận)');
+    assert.equal(previewSnap.modules.products['chuon-chuon-tre-kem-de'].narrative, null);
+    assert.equal(previewSnap.modules.products['chuon-chuon-tre-kem-de'].mediaKey, null);
+
+    // Kiểm tra view model trong AsyncLocalStorage
+    runWithSnapshot(previewSnap, () => {
+      const prod = PRODUCTS.find((p) => p.id === 'chuon-chuon-tre-kem-de');
+      assert.equal(prod?.name, 'Chuồn chuồn tre mỹ nghệ Lăng Kính (Đã sửa)');
+      assert.equal(prod?.originText, 'Xưởng tre làng nghề Thạch Thất (Xác nhận)');
+      assert.equal(prod?.description, 'Mô tả mới được biên tập từ Content Studio');
+      assert.equal(prod?.saleStatus, 'open');
+
+      const detail = getCraftProductBySlug('chuon-chuon-tre-kem-de');
+      assert.equal(detail?.product.name, 'Chuồn chuồn tre mỹ nghệ Lăng Kính (Đã sửa)');
+      assert.equal(detail?.narrative, null);
+      assert.equal(detail?.image, undefined); // Bảo tồn xóa ảnh, không phục sinh baseline
+    });
   });
 
   test('Finance Two-Person Policy & Interactive Tables (entries, sales, expenses, inKind, overview)', async () => {

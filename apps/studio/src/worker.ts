@@ -36,7 +36,14 @@ export default {
       if (!session || !['admin', 'editor', 'reviewer'].includes(session.user.role)) {
         return new Response(
           JSON.stringify({ error: 'Không đủ quyền hạn xem tệp media riêng tư.', code: 'FORBIDDEN_MEDIA' }),
-          { status: 403, headers: { 'Content-Type': 'application/json; charset=utf-8' } }
+          {
+            status: 403,
+            headers: {
+              'Content-Type': 'application/json; charset=utf-8',
+              'Cache-Control': 'private, no-store, no-cache, must-revalidate',
+              'X-Robots-Tag': 'noindex, nofollow',
+            },
+          }
         );
       }
 
@@ -48,11 +55,19 @@ export default {
               'Content-Type': object.httpMetadata?.contentType || 'application/octet-stream',
               'ETag': object.etag,
               'Cache-Control': 'private, no-store',
+              'X-Robots-Tag': 'noindex, nofollow',
+              'X-Studio-Private-Preview': 'true',
             },
           });
         }
       }
-      return new Response('Media Not Found', { status: 404 });
+      return new Response('Media Not Found', {
+        status: 404,
+        headers: {
+          'Cache-Control': 'private, no-store, no-cache, must-revalidate',
+          'X-Robots-Tag': 'noindex, nofollow',
+        },
+      });
     }
 
     // 2. Xác thực phiên làm việc
@@ -103,7 +118,15 @@ export default {
     ) {
       const assetRes = await astroHandler(request, env, ctx);
       if (assetRes && assetRes.status !== 404) {
-        return assetRes;
+        const headers = new Headers(assetRes.headers);
+        headers.set('Cache-Control', 'private, no-store');
+        headers.set('X-Robots-Tag', 'noindex, nofollow');
+        headers.set('X-Studio-Private-Preview', 'true');
+        return new Response(assetRes.body, {
+          status: assetRes.status,
+          statusText: assetRes.statusText,
+          headers,
+        });
       }
     }
 

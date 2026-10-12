@@ -52,14 +52,20 @@ export interface CraftProductDetail {
 /**
  * Lấy cấu hình mở bán chính thức của sản phẩm từ product-sales-config.json và bản chụp xuất bản.
  */
-export function getProductSalesConfig(productId: string): (ProductSalesConfigEntry & { narrative?: string | null; mediaKey?: string | null }) | undefined {
+export function getProductSalesConfig(productId: string): (ProductSalesConfigEntry & {
+  name?: string | null;
+  description?: string | null;
+  originText?: string | null;
+  narrative?: string | null;
+  mediaKey?: string | null;
+}) | undefined {
   const baseline = (productSalesConfig as Record<string, ProductSalesConfigEntry>)[productId];
   const published = getPublishedProductConfig(productId);
   if (!published) return baseline;
   return {
     ...baseline,
     ...published,
-  } as ProductSalesConfigEntry & { narrative?: string | null; mediaKey?: string | null };
+  };
 }
 
 /**
@@ -306,24 +312,35 @@ export function getCraftProductBySlug(slug: string): CraftProductDetail | undefi
   const published = getPublishedProductConfig(item.product.id);
   if (!published) return item;
 
+  const liveProduct = PRODUCTS.find((p) => p.id === item.product.id) || item.product;
   const cloned: CraftProductDetail = {
     ...item,
-    product: PRODUCTS.find((p) => p.id === item.product.id) || item.product,
+    product: liveProduct,
   };
 
-  if (published.narrative) {
-    cloned.narrative = published.narrative;
+  if (published.narrative !== undefined) {
+    cloned.narrative = published.narrative || null;
   }
 
-  if (published.mediaKey) {
-    cloned.image = {
-      src: published.mediaKey,
-      alt: item.image?.alt || `Ảnh sản phẩm ${item.product.name}`,
-      width: item.image?.width || 1117,
-      height: item.image?.height || 541,
-      caption: item.image?.caption || `Ảnh ${item.product.name} được phê duyệt từ Content Studio.`,
-      isReferenceOnly: item.image?.isReferenceOnly ?? false,
-    };
+  if (published.mediaKey !== undefined) {
+    if (published.mediaKey) {
+      cloned.image = {
+        src: published.mediaKey,
+        alt: item.image?.alt || `Ảnh sản phẩm ${liveProduct.name}`,
+        width: item.image?.width || 1117,
+        height: item.image?.height || 541,
+        caption: item.image?.caption || `Ảnh ${liveProduct.name} được phê duyệt từ Content Studio.`,
+        isReferenceOnly: item.image?.isReferenceOnly ?? false,
+      };
+    } else {
+      cloned.image = undefined;
+    }
+  }
+
+  if (published.originText !== undefined) {
+    if (published.originText) {
+      cloned.originDetails = published.originText;
+    }
   }
 
   return cloned;

@@ -172,6 +172,9 @@ export function validateJournalModuleData(data: unknown): { isValid: boolean; er
 // 3. Phân hệ Sản phẩm & Mở bán (Products)
 // ==========================================
 export interface ProductConfigItem {
+  name?: string | null;
+  description?: string | null;
+  originText?: string | null;
   saleStatus: 'unconfirmed' | 'open' | 'closed';
   officialPrice: number | null;
   stockAvailable: number | null;
@@ -639,20 +642,30 @@ export const DEFAULT_JOURNAL_DATA: JournalArticle[] = [
 
 export const DEFAULT_PRODUCTS_DATA: ProductsModuleData = {
   'chuon-chuon-tre-kem-de': {
+    name: 'Chuồn chuồn tre 12 cm kèm đế',
+    description: 'Phôi tre mộc mạc cân bằng trên mỏ, đi kèm chân đế trưng bày trang nhã.',
+    originText: 'Phôi tre mộc; nguồn gốc trang trí chưa xác nhận',
     saleStatus: 'unconfirmed',
     officialPrice: null,
     stockAvailable: null,
     salesChannel: 'FPT Hòa Lạc',
     returnPolicy: null,
     publicApproval: 'pending',
+    narrative: null,
+    mediaKey: '/images/san-pham/chuon-chuon-tre.webp',
   },
   'moc-khoa': {
+    name: 'Móc khóa Lăng Kính',
+    description: 'Móc khóa lưu niệm nhóm sinh viên Lăng Kính chuẩn bị và hoàn thiện theo kế hoạch.',
+    originText: 'Nhóm Lăng Kính chuẩn bị và hoàn thiện mẫu',
     saleStatus: 'unconfirmed',
     officialPrice: null,
     stockAvailable: null,
     salesChannel: 'FPT Hòa Lạc',
     returnPolicy: null,
     publicApproval: 'pending',
+    narrative: null,
+    mediaKey: null,
   },
 };
 
@@ -675,8 +688,8 @@ export const DEFAULT_FINANCE_DATA: FinanceModuleData = {
   donationAccount: {
     status: 'active',
     bankName: 'Techcombank',
-    accountNumber: '999927052006',
-    accountHolder: 'LE TUAN ANH',
+    accountNumber: '19072950239011',
+    accountHolder: 'NGUYEN NGOC KHOA',
     qrImage: '/images/ung-ho/qr-ung-ho-techcombank.png',
     transferPrefix: 'MTMNV',
     goalAmount: 3000000,
@@ -734,7 +747,7 @@ export const DEFAULT_TEAM_DATA: TeamModuleData = {
     },
     {
       title: 'Nhóm tự chuẩn bị sản phẩm gây quỹ',
-      description: 'Sản phẩm gây quỹ do nhóm chuẩn bị và hoàn thiện. Hoạt động tại Mái ấm hoàn toàn là vui chơi sáng tạo.',
+      description: 'Sản phẩm gây quỹ do nhóm chuẩn bị và hoàn thiện. Hoạt động tại Mái ấm hoàn toàn là vui chơi sáng tạo, các em giữ lại sản phẩm do mình làm ra.',
     },
     {
       title: 'Minh bạch từng khoản',

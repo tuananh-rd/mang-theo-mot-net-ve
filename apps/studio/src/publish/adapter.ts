@@ -70,8 +70,8 @@ function sanitizeProjectForPublic(project: ProjectModuleData) {
 
   if (project.progress) {
     result.progress = {
-      currentWeek: Number(project.progress.currentWeek || 1),
-      totalWeeks: Number(project.progress.totalWeeks || 5),
+      currentWeek: typeof project.progress.currentWeek === 'number' ? project.progress.currentWeek : Number(project.progress.currentWeek ?? 1),
+      totalWeeks: typeof project.progress.totalWeeks === 'number' ? project.progress.totalWeeks : Number(project.progress.totalWeeks ?? 5),
       updatedAt: String(project.progress.updatedAt || '2026-10-09').trim(),
       currentStageIndex: Number(project.progress.currentStageIndex ?? 0),
     };
@@ -88,7 +88,9 @@ function sanitizeProjectForPublic(project: ProjectModuleData) {
     }));
   }
 
-  if (project.contacts) {
+  if (project.contacts === null) {
+    result.contacts = null;
+  } else if (project.contacts) {
     result.contacts = {
       status: String(project.contacts.status || 'confirmed').trim(),
       people: (project.contacts.people || []).map((p) => ({
@@ -247,7 +249,7 @@ function sanitizeJournalForPrivateDraft(articles: JournalArticle[], approvedMedi
 /**
  * Làm sạch phân hệ Sản phẩm theo allowlist và ngăn chặn rò rỉ media chưa duyệt (Fail-Closed)
  */
-function sanitizeProductsForPublic(products: ProductsModuleData, approvedMediaKeys?: Set<string>) {
+function sanitizeProductsForPublic(products: ProductsModuleData, approvedMediaKeys?: Set<string>): ProductsModuleData {
   const result: ProductsModuleData = {};
   for (const [id, item] of Object.entries(products)) {
     result[id] = {
@@ -258,14 +260,27 @@ function sanitizeProductsForPublic(products: ProductsModuleData, approvedMediaKe
       returnPolicy: item.returnPolicy ? String(item.returnPolicy).trim() : null,
       publicApproval: item.publicApproval || 'pending',
     };
-    if (item.narrative !== undefined && item.narrative !== null && String(item.narrative).trim()) {
-      result[id].narrative = String(item.narrative).trim();
+    if (item.name !== undefined) {
+      result[id].name = item.name !== null && String(item.name).trim() ? String(item.name).trim() : null;
     }
-    if (item.mediaKey !== undefined && item.mediaKey !== null && String(item.mediaKey).trim()) {
-      const key = String(item.mediaKey).trim();
-      // Fail-closed: Không cho phép prefix bypass; bắt buộc phải có trong approvedMediaKeys
-      if (approvedMediaKeys && approvedMediaKeys.has(key)) {
-        result[id].mediaKey = key;
+    if (item.description !== undefined) {
+      result[id].description = item.description !== null && String(item.description).trim() ? String(item.description).trim() : null;
+    }
+    if (item.originText !== undefined) {
+      result[id].originText = item.originText !== null && String(item.originText).trim() ? String(item.originText).trim() : null;
+    }
+    if (item.narrative !== undefined) {
+      result[id].narrative = item.narrative !== null && String(item.narrative).trim() ? String(item.narrative).trim() : null;
+    }
+    if (item.mediaKey !== undefined) {
+      if (item.mediaKey === null || item.mediaKey === '') {
+        result[id].mediaKey = null;
+      } else {
+        const key = String(item.mediaKey).trim();
+        // Fail-closed: Không cho phép prefix bypass; bắt buộc phải có trong approvedMediaKeys
+        if (approvedMediaKeys && approvedMediaKeys.has(key)) {
+          result[id].mediaKey = key;
+        }
       }
     }
   }
@@ -372,6 +387,26 @@ function sanitizeFinanceForPublic(finance: FinanceModuleData): FinanceModuleData
     result.ledgerProcess = finance.ledgerProcess.map((p) => ({
       title: String(p.title || '').trim(),
       description: String(p.description || '').trim(),
+    }));
+  }
+
+  if (Array.isArray((finance as any).plannedExpenses)) {
+    (result as any).plannedExpenses = (finance as any).plannedExpenses.map((p: any) => ({
+      id: String(p.id || '').trim(),
+      category: String(p.category || '').trim(),
+      title: String(p.title || '').trim(),
+      calculationText: String(p.calculationText || '').trim(),
+      amount: p.amount ? {
+        value: typeof p.amount.value === 'number' ? p.amount.value : null,
+        unit: String(p.amount.unit || 'đ').trim(),
+        kind: 'planned',
+        verification: p.amount.verification || 'unverified',
+        sourceRef: p.amount.sourceRef || null,
+        updatedAt: p.amount.updatedAt || null,
+        publicApproval: p.amount.publicApproval || 'pending',
+      } : { value: null, unit: 'đ', kind: 'planned', verification: 'unverified', sourceRef: null, updatedAt: null, publicApproval: 'pending' },
+      note: String(p.note || '').trim(),
+      isEstimated: Boolean(p.isEstimated),
     }));
   }
 

@@ -3,6 +3,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import MobileDonationBar from '../components/MobileDonationBar.astro';
 import '../styles/global.css';
+import { getPublishedSiteMeta } from '../data/lib/snapshot-loader';
 
 interface Props {
   title: string;
@@ -11,12 +12,23 @@ interface Props {
 }
 
 const {
-  title,
-  description = 'Dự án “Mang Theo Một Nét Vẽ” của nhóm Lăng Kính (7 sinh viên lớp AI2015, học phần SSG105, Đại học FPT Hà Nội).',
+  title: propTitle,
+  description: propDescription,
   currentPath = undefined,
 } = Astro.props;
 
-const BRAND_PROJECT = 'Mang Theo Một Nét Vẽ';
+const siteMeta = getPublishedSiteMeta({
+  siteTitle: 'Mang Theo Một Nét Vẽ',
+  siteDescription: 'Dự án “Mang Theo Một Nét Vẽ” của nhóm Lăng Kính (7 sinh viên lớp AI2015, học phần SSG105, Đại học FPT Hà Nội).',
+  ogImage: '/images/illustrations/a01.webp',
+  routeSeo: {} as Record<string, { title?: string; description?: string }>,
+});
+
+const routeOverride = currentPath && siteMeta.routeSeo ? siteMeta.routeSeo[currentPath] : undefined;
+const title = routeOverride?.title || propTitle;
+const description = routeOverride?.description || propDescription || siteMeta.siteDescription;
+
+const BRAND_PROJECT = siteMeta.siteTitle || 'Mang Theo Một Nét Vẽ';
 const BRAND_TEAM = 'Lăng Kính';
 
 // Chuẩn hóa title: mỗi title riêng, tên dự án xuất hiện đúng một lần và tên nhóm hợp lý.

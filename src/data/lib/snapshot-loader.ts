@@ -12,6 +12,7 @@
 
 // @ts-ignore: node:crypto có sẵn trong môi trường Node.js SSG
 import { createHash } from 'node:crypto';
+// @ts-ignore: node:async_hooks có sẵn trong Node.js / Cloudflare AsyncLocalStorage
 import { AsyncLocalStorage } from 'node:async_hooks';
 import rawSnapshot from '../published-snapshot.json' with { type: 'json' };
 
@@ -38,6 +39,7 @@ export interface SnapshotProjectModule {
   progress?: any;
   plannedSessions?: any[];
   contacts?: any;
+  needs?: any[];
 }
 
 export interface SnapshotModules {
@@ -118,8 +120,8 @@ export function loadValidatedSnapshot(): LoadedSnapshot | null {
     if (p.progress !== undefined && (typeof p.progress !== 'object' || p.progress === null || Array.isArray(p.progress))) {
       throw new Error('Malformed Published Snapshot: Trường "project.progress" phải là một đối tượng.');
     }
-    if (p.contacts !== undefined && (typeof p.contacts !== 'object' || p.contacts === null || Array.isArray(p.contacts))) {
-      throw new Error('Malformed Published Snapshot: Trường "project.contacts" phải là một đối tượng.');
+    if (p.contacts !== undefined && p.contacts !== null && (typeof p.contacts !== 'object' || Array.isArray(p.contacts))) {
+      throw new Error('Malformed Published Snapshot: Trường "project.contacts" phải là một đối tượng hoặc null.');
     }
   }
   if (snap.modules.journal !== undefined && !Array.isArray(snap.modules.journal)) {
@@ -134,6 +136,15 @@ export function loadValidatedSnapshot(): LoadedSnapshot | null {
         throw new Error(`Malformed Published Snapshot: Dữ liệu sản phẩm "${prodId}" không đúng định dạng đối tượng.`);
       }
       const p = prod as Record<string, any>;
+      if (p.name !== undefined && p.name !== null && typeof p.name !== 'string') {
+        throw new Error(`Malformed Published Snapshot: Trường "products.${prodId}.name" phải là chuỗi ký tự.`);
+      }
+      if (p.description !== undefined && p.description !== null && typeof p.description !== 'string') {
+        throw new Error(`Malformed Published Snapshot: Trường "products.${prodId}.description" phải là chuỗi ký tự.`);
+      }
+      if (p.originText !== undefined && p.originText !== null && typeof p.originText !== 'string') {
+        throw new Error(`Malformed Published Snapshot: Trường "products.${prodId}.originText" phải là chuỗi ký tự.`);
+      }
       if (p.narrative !== undefined && p.narrative !== null && typeof p.narrative !== 'string') {
         throw new Error(`Malformed Published Snapshot: Trường "products.${prodId}.narrative" phải là chuỗi ký tự.`);
       }
@@ -320,6 +331,9 @@ export function getPublishedFaqs<T extends { productFaqs: any[]; supportFaqs: an
  * Lấy cấu hình mở bán sản phẩm đã xuất bản (bao gồm narrative và mediaKey)
  */
 export function getPublishedProductConfig(productId: string): {
+  name?: string | null;
+  description?: string | null;
+  originText?: string | null;
   saleStatus?: 'unconfirmed' | 'open' | 'closed';
   officialPrice?: number | null;
   stockAvailable?: number | null;
@@ -386,5 +400,71 @@ export function getPublishedFinanceOverview<T extends Record<string, any>>(basel
     ...baseline,
     ...fin.overview,
   };
+}
+
+/**
+ * Áp dụng danh sách nhu cầu dự án từ bản chụp
+ */
+export function getPublishedProjectNeeds<T>(baseline: T[]): T[] {
+  const snap = getActiveSnapshot();
+  if (Array.isArray(snap?.modules?.project?.needs)) {
+    return snap.modules.project.needs as T[];
+  }
+  return baseline;
+}
+
+/**
+ * Áp dụng thông tin nhóm từ bản chụp
+ */
+export function getPublishedTeamInfo<T extends Record<string, any>>(baseline: T): T {
+  const snap = getActiveSnapshot();
+  if (!snap?.modules?.team?.info) {
+    return baseline;
+  }
+  return { ...baseline, ...snap.modules.team.info };
+}
+
+/**
+ * Áp dụng các nguyên tắc nhóm từ bản chụp
+ */
+export function getPublishedTeamPrinciples<T>(baseline: T[]): T[] {
+  const snap = getActiveSnapshot();
+  if (Array.isArray(snap?.modules?.team?.principles)) {
+    return snap.modules.team.principles as T[];
+  }
+  return baseline;
+}
+
+/**
+ * Áp dụng các mảng phân công nhóm từ bản chụp
+ */
+export function getPublishedTeamAreas<T>(baseline: T[]): T[] {
+  const snap = getActiveSnapshot();
+  if (Array.isArray(snap?.modules?.team?.areas)) {
+    return snap.modules.team.areas as T[];
+  }
+  return baseline;
+}
+
+/**
+ * Áp dụng danh mục dự toán chi từ bản chụp
+ */
+export function getPublishedPlannedExpenses<T>(baseline: T[]): T[] {
+  const snap = getActiveSnapshot();
+  if (Array.isArray(snap?.modules?.finance?.plannedExpenses)) {
+    return snap.modules.finance.plannedExpenses as T[];
+  }
+  return baseline;
+}
+
+/**
+ * Lấy cấu hình metadata SEO từ bản chụp
+ */
+export function getPublishedSiteMeta<T extends Record<string, any>>(baseline: T): T {
+  const snap = getActiveSnapshot();
+  if (!snap?.modules?.team?.siteMeta) {
+    return baseline;
+  }
+  return { ...baseline, ...snap.modules.team.siteMeta };
 }
 

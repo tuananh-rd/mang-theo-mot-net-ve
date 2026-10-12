@@ -19,6 +19,11 @@ import {
   getPublishedProductConfig,
   getPublishedFinanceLedger,
   getPublishedFinanceOverview,
+  getPublishedProjectNeeds,
+  getPublishedTeamInfo,
+  getPublishedTeamPrinciples,
+  getPublishedTeamAreas,
+  getPublishedPlannedExpenses,
 } from './lib/snapshot-loader.ts';
 
 export function createDynamicProxy<T extends object>(getter: () => T, baseline: T): T {
@@ -428,8 +433,9 @@ export function getCampaignProducts(): Product[] {
     if (!conf) return prod;
     return {
       ...prod,
-      name: conf.name ? String(conf.name).trim() : prod.name,
-      originText: conf.originText ? String(conf.originText).trim() : prod.originText,
+      name: conf.name !== undefined ? (conf.name !== null && String(conf.name).trim() ? String(conf.name).trim() : '') : prod.name,
+      description: conf.description !== undefined ? (conf.description !== null && String(conf.description).trim() ? String(conf.description).trim() : '') : prod.description,
+      originText: conf.originText !== undefined ? (conf.originText !== null && String(conf.originText).trim() ? String(conf.originText).trim() : '') : prod.originText,
       saleStatus: conf.saleStatus ?? prod.saleStatus,
       referencePrice: {
         ...prod.referencePrice,
@@ -465,7 +471,7 @@ export const SUPPORT_METHODS: SupportMethod[] = [
   },
 ];
 
-export const TEAM_INFO = {
+export const BASELINE_TEAM_INFO = {
   name: 'Lăng Kính',
   description:
     'Lăng Kính là nhóm gồm 7 sinh viên lớp AI2015, học phần SSG105 (Kỹ năng làm việc nhóm), Đại học FPT Hà Nội. Nhóm xây dựng dự án để kết nối một buổi vui chơi có lựa chọn với việc hỗ trợ hiện vật theo nhu cầu thực tế tại Mái ấm Thánh Tâm Xuy Xá.',
@@ -473,6 +479,12 @@ export const TEAM_INFO = {
   classId: 'AI2015',
   size: 7,
 };
+
+export function getTeamInfo() {
+  return getPublishedTeamInfo(BASELINE_TEAM_INFO);
+}
+
+export const TEAM_INFO = createDynamicProxy(getTeamInfo, BASELINE_TEAM_INFO);
 
 export interface FinanceOverview {
   plannedExpenseTotal: number;
@@ -547,7 +559,7 @@ export interface ProductFaq {
   answer: string;
 }
 
-export const TEAM_PRINCIPLES: TeamPrinciple[] = [
+export const BASELINE_TEAM_PRINCIPLES: TeamPrinciple[] = [
   {
     title: 'Các em được chọn',
     description: 'Chơi, đổi hoạt động, ngồi xem hay nghỉ đều được tôn trọng; không giao chỉ tiêu hoàn thành sản phẩm cho các em.',
@@ -570,8 +582,14 @@ export const TEAM_PRINCIPLES: TeamPrinciple[] = [
   },
 ];
 
+export function getTeamPrinciples(): TeamPrinciple[] {
+  return getPublishedTeamPrinciples(BASELINE_TEAM_PRINCIPLES);
+}
+
+export const TEAM_PRINCIPLES: TeamPrinciple[] = createDynamicProxy(getTeamPrinciples, BASELINE_TEAM_PRINCIPLES);
+
 /** Năm mảng việc, gom từ bảng phân công 7 vai trò trong hồ sơ dự án. Không hiển thị tên khi chưa có đồng ý. */
-export const TEAM_AREAS: TeamArea[] = [
+export const BASELINE_TEAM_AREAS: TeamArea[] = [
   { title: 'Điều phối', members: 1, description: 'Lên lịch, theo dõi tiến độ và kết nối các mảng việc của nhóm.' },
   { title: 'Tài chính', members: 1, description: 'Giữ sổ thu chi, hóa đơn, đối soát sau mỗi đợt bán và mua quà theo danh mục.' },
   { title: 'Hậu cần và chương trình', members: 2, description: 'Chuẩn bị vật tư, đạo cụ, quầy quà lưu niệm và di chuyển cho buổi chơi.' },
@@ -579,13 +597,19 @@ export const TEAM_AREAS: TeamArea[] = [
   { title: 'Đối ngoại', members: 1, description: 'Làm việc với Mái ấm và các đơn vị hỗ trợ.' },
 ];
 
+export function getTeamAreas(): TeamArea[] {
+  return getPublishedTeamAreas(BASELINE_TEAM_AREAS);
+}
+
+export const TEAM_AREAS: TeamArea[] = createDynamicProxy(getTeamAreas, BASELINE_TEAM_AREAS);
+
 export interface ProjectNeed {
   title: string;
   description: string;
 }
 
 /** Ba nhu cầu chính nhóm xác định sau trao đổi với Mái ấm (trang 5). */
-export const PROJECT_NEEDS: ProjectNeed[] = [
+export const BASELINE_PROJECT_NEEDS: ProjectNeed[] = [
   {
     title: 'Một buổi chơi linh hoạt',
     description: 'Có thời gian nghỉ và nhiều cách tham gia, vì các em ở nhiều độ tuổi và mức hỗ trợ khác nhau.',
@@ -599,6 +623,12 @@ export const PROJECT_NEEDS: ProjectNeed[] = [
     description: 'Chuyển nguồn quỹ thành hiện vật đúng danh mục Mái ấm xác nhận, có chứng từ và biên bản.',
   },
 ];
+
+export function getProjectNeeds(): ProjectNeed[] {
+  return getPublishedProjectNeeds(BASELINE_PROJECT_NEEDS);
+}
+
+export const PROJECT_NEEDS: ProjectNeed[] = createDynamicProxy(getProjectNeeds, BASELINE_PROJECT_NEEDS);
 
 /** Thực hành an toàn chính (rút gọn từ kế hoạch và danh mục kiểm tra trước buổi chơi). */
 export const SAFETY_PRACTICES: string[] = [
@@ -671,7 +701,7 @@ export interface PlannedExpenseItem {
   isEstimated: boolean;
 }
 
-export const PLANNED_EXPENSES: PlannedExpenseItem[] = [
+export const BASELINE_PLANNED_EXPENSES: PlannedExpenseItem[] = [
   // Nhóm 1: Nguyên liệu gây quỹ — trang 29 (14 khoản, Tổng 2.480.000đ)
   {
     id: 'nem-tran-cong-chau',
@@ -1087,6 +1117,12 @@ export const PLANNED_EXPENSES: PlannedExpenseItem[] = [
   },
 ];
 
+export function getPlannedExpenses(): PlannedExpenseItem[] {
+  return getPublishedPlannedExpenses(BASELINE_PLANNED_EXPENSES);
+}
+
+export const PLANNED_EXPENSES: PlannedExpenseItem[] = createDynamicProxy(getPlannedExpenses, BASELINE_PLANNED_EXPENSES);
+
 export interface FinanceScenario {
   id: string;
   title: string;
@@ -1406,8 +1442,8 @@ export interface DonationAccount {
 export const BASELINE_DONATION_ACCOUNT: DonationAccount = {
   status: 'active',
   bankName: 'Techcombank',
-  accountNumber: '999927052006',
-  accountHolder: 'LE TUAN ANH',
+  accountNumber: '19072950239011',
+  accountHolder: 'NGUYEN NGOC KHOA',
   qrImage: '/images/ung-ho/qr-ung-ho-techcombank.png',
   transferPrefix: 'MTMNV',
   goalAmount: 3000000,
