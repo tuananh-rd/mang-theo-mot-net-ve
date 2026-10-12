@@ -6,22 +6,32 @@
 
 const SNAPSHOT_STORAGE_SYMBOL = Symbol.for('__astro_published_snapshot_storage__');
 
-export async function runWithSnapshot<R>(snapshot: any, fn: () => Promise<R> | R): Promise<R> {
-  let storage = (globalThis as any)[SNAPSHOT_STORAGE_SYMBOL];
-  if (!storage) {
-    let ALS = (globalThis as any).AsyncLocalStorage;
-    if (!ALS) {
-      try {
-        const modName = 'node:async_hooks';
-        const mod = await import(/* @vite-ignore */ modName);
-        ALS = mod.AsyncLocalStorage;
-      } catch {}
-    }
-    if (ALS) {
-      storage = (globalThis as any)[SNAPSHOT_STORAGE_SYMBOL] = new ALS();
-    }
+let initPromise: Promise<any> | null = null;
+async function ensureStorage(): Promise<any> {
+  if ((globalThis as any)[SNAPSHOT_STORAGE_SYMBOL]) {
+    return (globalThis as any)[SNAPSHOT_STORAGE_SYMBOL];
   }
+  if (!initPromise) {
+    initPromise = (async () => {
+      let ALS = (globalThis as any).AsyncLocalStorage;
+      if (!ALS) {
+        try {
+          const modName = 'node:async_hooks';
+          const mod = await import(/* @vite-ignore */ modName);
+          ALS = mod.AsyncLocalStorage;
+        } catch {}
+      }
+      if (ALS && !(globalThis as any)[SNAPSHOT_STORAGE_SYMBOL]) {
+        (globalThis as any)[SNAPSHOT_STORAGE_SYMBOL] = new ALS();
+      }
+      return (globalThis as any)[SNAPSHOT_STORAGE_SYMBOL];
+    })();
+  }
+  return initPromise;
+}
 
+export async function runWithSnapshot<R>(snapshot: any, fn: () => Promise<R> | R): Promise<R> {
+  const storage = await ensureStorage();
   if (!storage || typeof storage.run !== 'function') {
     throw new Error('AsyncLocalStorage is required for private preview snapshot isolation. Refusing fallback to un-isolated global.');
   }

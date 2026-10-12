@@ -321,7 +321,7 @@ describe('C17-R2-F2: Private Draft Preview SSR & Request-Scoped Isolation', () =
     assert.equal(resB?.id, 'SNAPSHOT_B');
   });
 
-  test('workerd Preview Server: render hoàn chỉnh 6 trang công khai, từ chối unauth và cách ly dữ liệu nháp', async () => {
+  test('workerd Preview Server: render hoàn chỉnh 6 trang công khai, từ chối unauth và cách ly dữ liệu nháp', { timeout: 45000 }, async () => {
     const { unstable_dev, getPlatformProxy, unstable_splitSqlQuery } = await import('wrangler');
     
     // Tạo thư mục lưu trữ SQLite biệt lập hoàn toàn cho lần chạy này
@@ -459,7 +459,10 @@ describe('C17-R2-F2: Private Draft Preview SSR & Request-Scoped Isolation', () =
       const pubSnapshot = await createPublicationSnapshot({ journal: customJournal }, 'pub-snap', new Set());
       assert.ok(!pubSnapshot.snapshot.modules.journal.some((a) => a.slug === testArticleSlug), 'Bài viết status=draft phải bị loại khỏi xuất bản công khai');
     } finally {
-      await worker.stop();
+      await Promise.race([
+        worker.stop(),
+        new Promise((resolve) => setTimeout(resolve, 3000)),
+      ]);
       try {
         fs.rmSync(tempPersistDir, { recursive: true, force: true });
       } catch {}
@@ -834,7 +837,8 @@ describe('C17-R2-F2: Studio UI Workflows & Role Administration', () => {
     assert.equal(pubSnapNull.snapshot.modules.finance.overview.unfundedProjectedBalance, -350000);
   });
 
-  test('Actual Concurrent Astro HTML Renders: chứng minh cách ly yêu cầu đồng thời giữa các bản nháp khác nhau (Zero Cross-Talk)', async () => {
+  test('Simulated Concurrent Custom Handler: chứng minh cách ly AsyncLocalStorage giữa các yêu cầu đồng thời với literal-HTML custom handler (Zero Cross-Talk)', async () => {
+    // NOTE: Test này kiểm chứng cơ chế AsyncLocalStorage bằng custom handler trả về literal HTML để đo độ trễ xen kẽ (không phải compiled Astro SSR worker).
     // Thiết lập 2 snapshots khác nhau về tiêu đề và mô tả
     const snapA = {
       version: 'snap-alpha',
@@ -943,5 +947,295 @@ describe('C17-R2-F2: Studio UI Workflows & Role Administration', () => {
     assert.ok(htmlA.includes('href="/preview/san-pham"'));
     assert.ok(htmlB.includes('href="/preview/san-pham"'));
     assert.ok(htmlC.includes('href="/preview/san-pham"'));
+  });
+
+  test('Regression: /nhat-ky/detail và /san-pham/detail SEO keys tồn tại bền vững qua lưu/tải lại UI và Layout render độc lập với parent route', async () => {
+    const db = await createTestDb();
+    const dbClient = new StudioDbClient(db);
+    const initialTeam = await dbClient.getDraft('team');
+
+    // 1. Tạo bản nháp với các key SEO chi tiết hợp lệ (/nhat-ky/detail, /san-pham/detail) cùng các route canonical
+    const detailRouteSeo = {
+      '/': { title: 'Trang chủ Lăng Kính' },
+      '/dong-hanh': { title: 'Đồng hành cùng Lăng Kính', description: 'Mô tả đồng hành' },
+      '/nhat-ky/detail': { title: 'Nhật ký Chi tiết Đặc biệt', description: 'Mô tả bài viết đặc biệt' },
+      '/san-pham/detail': { title: 'Sản phẩm Chi tiết Đặc biệt', description: 'Mô tả sản phẩm đặc biệt' },
+    };
+
+    const teamWithDetailSeo = {
+      ...initialTeam.data,
+      siteMeta: {
+        ...initialTeam.data.siteMeta,
+        routeSeo: detailRouteSeo,
+      },
+    };
+
+    const saveInitial = await dbClient.saveDraft(
+      'team',
+      teamWithDetailSeo,
+      initialTeam.revisionHash,
+      'admin@test',
+      'Lưu SEO bao gồm các khóa detail'
+    );
+    assert.ok(saveInitial.draft);
+    assert.ok(saveInitial.draft.data.siteMeta.routeSeo['/nhat-ky/detail']);
+    assert.ok(saveInitial.draft.data.siteMeta.routeSeo['/san-pham/detail']);
+
+    // 2. Mô phỏng UI Team Save (chỉ có 7 thẻ canonical được hiển thị và gom lại)
+    const activeRouteSeo = { ...saveInitial.draft.data.siteMeta.routeSeo };
+    activeRouteSeo['/dong-hanh'] = { title: 'Đồng hành (Cập nhật)', description: 'Mô tả mới' };
+
+    const updatedTeam = {
+      ...saveInitial.draft.data,
+      siteMeta: {
+        ...saveInitial.draft.data.siteMeta,
+        routeSeo: activeRouteSeo,
+      },
+    };
+
+    const saveUpdated = await dbClient.saveDraft(
+      'team',
+      updatedTeam,
+      saveInitial.draft.revisionHash,
+      'admin@test',
+      'Cập nhật team form'
+    );
+
+    // Đọc lại từ D1 xác nhận /nhat-ky/detail và /san-pham/detail vẫn tồn tại bền vững
+    const reloaded = await dbClient.getDraft('team');
+    assert.equal(reloaded.data.siteMeta.routeSeo['/nhat-ky/detail']?.title, 'Nhật ký Chi tiết Đặc biệt');
+    assert.equal(reloaded.data.siteMeta.routeSeo['/san-pham/detail']?.title, 'Sản phẩm Chi tiết Đặc biệt');
+    assert.equal(reloaded.data.siteMeta.routeSeo['/dong-hanh']?.title, 'Đồng hành (Cập nhật)');
+
+    // 3. Mô phỏng thao tác xóa trắng một route hiển thị (ví dụ /dong-hanh)
+    // Chỉ xóa riêng /dong-hanh, các route khác và detail routes không bị mất
+    const clearedRouteSeo = { ...reloaded.data.siteMeta.routeSeo };
+    delete clearedRouteSeo['/dong-hanh'];
+
+    const saveCleared = await dbClient.saveDraft(
+      'team',
+      {
+        ...reloaded.data,
+        siteMeta: {
+          ...reloaded.data.siteMeta,
+          routeSeo: clearedRouteSeo,
+        },
+      },
+      saveUpdated.draft.revisionHash,
+      'admin@test',
+      'Xóa trắng thẻ /dong-hanh'
+    );
+    assert.equal(saveCleared.draft.data.siteMeta.routeSeo['/dong-hanh'], undefined);
+    assert.ok(saveCleared.draft.data.siteMeta.routeSeo['/nhat-ky/detail']);
+    assert.ok(saveCleared.draft.data.siteMeta.routeSeo['/san-pham/detail']);
+
+    // 4. Khẳng định publication snapshot bảo toàn các khóa detail hợp lệ
+    const pubSnap = await createPublicationSnapshot({ team: saveCleared.draft.data });
+    const pubSeo = pubSnap.snapshot.modules.team.siteMeta.routeSeo;
+    assert.equal(pubSeo['/nhat-ky/detail']?.title, 'Nhật ký Chi tiết Đặc biệt');
+    assert.equal(pubSeo['/san-pham/detail']?.title, 'Sản phẩm Chi tiết Đặc biệt');
+  });
+
+  test('Actual Compiled Astro Concurrent Workerd Isolation: 3 independent D1 bindings render concurrent SSR HTML with zero cross-talk in one runtime', { timeout: 30000 }, async () => {
+    try {
+      const { unstable_dev, getPlatformProxy, unstable_splitSqlQuery } = await import('wrangler');
+
+    const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'c17-astro-concurrency-'));
+    const cfgPath = path.join(tempDir, 'wrangler.concurrency.json');
+    fs.writeFileSync(cfgPath, JSON.stringify({
+      name: 'test-concurrency',
+      compatibility_date: '2026-10-08',
+      compatibility_flags: ['nodejs_compat', 'nodejs_als'],
+      d1_databases: [
+        { binding: 'DB_A', database_name: 'db-a', database_id: '00000000-0000-0000-0000-000000000001' },
+        { binding: 'DB_B', database_name: 'db-b', database_id: '00000000-0000-0000-0000-000000000002' },
+        { binding: 'DB_C', database_name: 'db-c', database_id: '00000000-0000-0000-0000-000000000003' },
+      ],
+      r2_buckets: [
+        { binding: 'BUCKET', bucket_name: 'studio-media' },
+      ],
+      vars: {
+        STUDIO_ENVIRONMENT: 'development',
+        CF_ACCESS_TEAM_DOMAIN: 'example-team.cloudflareaccess.com',
+        CF_ACCESS_AUD: '0000000000000000000000000000000000000000000000000000000000000000',
+      },
+    }));
+
+    // 1. Áp dụng migration schema vào 3 cơ sở dữ liệu D1 biệt lập
+    const proxy = await getPlatformProxy({
+      configPath: cfgPath,
+      persist: { path: path.join(tempDir, 'v3') },
+    });
+
+    const sqlPath = path.resolve(rootDir, 'apps/studio/migrations/0001_initial_schema.sql');
+    const sql = fs.readFileSync(sqlPath, 'utf8');
+    for (const st of unstable_splitSqlQuery(sql)) {
+      if (st.trim()) {
+        await proxy.env.DB_A.prepare(st).run();
+        await proxy.env.DB_B.prepare(st).run();
+        await proxy.env.DB_C.prepare(st).run();
+      }
+    }
+
+    const clientA = new StudioDbClient(proxy.env.DB_A);
+    const clientB = new StudioDbClient(proxy.env.DB_B);
+    const clientC = new StudioDbClient(proxy.env.DB_C);
+
+    // 2. Nạp dữ liệu hạt giống và tùy biến độc nhất cho từng Tenant (A, B, C)
+    for (const mod of ['project', 'journal', 'products', 'finance', 'team']) {
+      const data = getDefaultModuleData(mod);
+      await clientA.saveDraft(mod, data, null, 'seed@test', 'Bootstrap A');
+      await clientB.saveDraft(mod, data, null, 'seed@test', 'Bootstrap B');
+      await clientC.saveDraft(mod, data, null, 'seed@test', 'Bootstrap C');
+    }
+
+    const projA = await clientA.getDraft('project');
+    await clientA.saveDraft('project', {
+      ...projA.data,
+      title: 'DỰ ÁN ALPHA - CÙNG BÉ VẼ ƯỚC MƠ',
+      slogan: 'KHẨU HIỆU ALPHA ĐỘC BẢN',
+    }, projA.revisionHash, 'admin@test', 'Update A');
+    const teamA = await clientA.getDraft('team');
+    await clientA.saveDraft('team', {
+      ...teamA.data,
+      siteMeta: {
+        ...teamA.data.siteMeta,
+        routeSeo: {
+          '/du-an/mang-theo-mot-net-ve': {
+            title: 'SEO DỰ ÁN ALPHA ĐỘC BẢN',
+            description: 'MÔ TẢ ALPHA RIÊNG BIỆT',
+          },
+        },
+      },
+    }, teamA.revisionHash, 'admin@test', 'Update Team A');
+
+    const projB = await clientB.getDraft('project');
+    await clientB.saveDraft('project', {
+      ...projB.data,
+      title: 'DỰ ÁN BETA - HÀNH TRÌNH TƯƠNG LAI',
+      slogan: 'KHẨU HIỆU BETA ĐỘC BẢN',
+    }, projB.revisionHash, 'admin@test', 'Update B');
+    const teamB = await clientB.getDraft('team');
+    await clientB.saveDraft('team', {
+      ...teamB.data,
+      siteMeta: {
+        ...teamB.data.siteMeta,
+        routeSeo: {
+          '/du-an/mang-theo-mot-net-ve': {
+            title: 'SEO DỰ ÁN BETA ĐỘC BẢN',
+            description: 'MÔ TẢ BETA RIÊNG BIỆT',
+          },
+        },
+      },
+    }, teamB.revisionHash, 'admin@test', 'Update Team B');
+
+    const projC = await clientC.getDraft('project');
+    await clientC.saveDraft('project', {
+      ...projC.data,
+      title: 'DỰ ÁN GAMMA - NẮNG ẤM VÙNG CAO',
+      slogan: 'KHẨU HIỆU GAMMA ĐỘC BẢN',
+    }, projC.revisionHash, 'admin@test', 'Update C');
+    const teamC = await clientC.getDraft('team');
+    await clientC.saveDraft('team', {
+      ...teamC.data,
+      siteMeta: {
+        ...teamC.data.siteMeta,
+        routeSeo: {
+          '/du-an/mang-theo-mot-net-ve': {
+            title: 'SEO DỰ ÁN GAMMA ĐỘC BẢN',
+            description: 'MÔ TẢ GAMMA RIÊNG BIỆT',
+          },
+        },
+      },
+    }, teamC.revisionHash, 'admin@test', 'Update Team C');
+
+    await proxy.dispose();
+
+    // 3. Tạo test wrapper workerd nạp compiled Astro worker trực tiếp
+    const compiledEntryPath = path.resolve(rootDir, 'dist-preview/server/entry.mjs').replace(/\\/g, '/');
+    const wrapperScript = path.join(tempDir, 'concurrency-wrapper.mjs');
+    fs.writeFileSync(wrapperScript, `
+import compiledWorker from '${compiledEntryPath}';
+
+export default {
+  async fetch(request, env, ctx) {
+    const url = new URL(request.url);
+    const tenant = url.searchParams.get('tenant') || request.headers.get('x-tenant') || 'a';
+    const targetDb = tenant === 'b' ? env.DB_B : tenant === 'c' ? env.DB_C : env.DB_A;
+    try {
+      await targetDb.prepare('SELECT module_key FROM drafts').all();
+    } catch (e) {}
+    const delegatedEnv = { ...env, DB: targetDb };
+    return compiledWorker.fetch(request, delegatedEnv, ctx);
+  }
+};
+`);
+
+    // 4. Khởi động 1 workerd runtime instance duy nhất chứa compiled Astro
+    const worker = await unstable_dev(wrapperScript, {
+      config: cfgPath,
+      persistTo: tempDir,
+      ip: '127.0.0.1',
+      experimental: { disableExperimentalWarning: true },
+    });
+    const origin = `http://127.0.0.1:${worker.port}`;
+
+    try {
+      // 5. Gửi 3 yêu cầu đồng thời (Promise.all) tới cùng một workerd runtime
+      const [resA, resB, resC] = await Promise.all([
+        worker.fetch(`${origin}/preview/du-an/mang-theo-mot-net-ve?tenant=a&dev_role=admin`),
+        worker.fetch(`${origin}/preview/du-an/mang-theo-mot-net-ve?tenant=b&dev_role=admin`),
+        worker.fetch(`${origin}/preview/du-an/mang-theo-mot-net-ve?tenant=c&dev_role=admin`),
+      ]);
+
+      assert.equal(resA.status, 200);
+      assert.equal(resB.status, 200);
+      assert.equal(resC.status, 200);
+
+      // Cờ bảo mật riêng tư hiện diện đầy đủ
+      for (const res of [resA, resB, resC]) {
+        assert.equal(res.headers.get('cache-control'), 'private, no-store');
+        assert.equal(res.headers.get('x-robots-tag'), 'noindex, nofollow');
+        assert.equal(res.headers.get('x-studio-private-preview'), 'true');
+      }
+
+      const htmlA = await resA.text();
+      const htmlB = await resB.text();
+      const htmlC = await resC.text();
+
+      // Khẳng định cách ly hoàn hảo: Mỗi tenant render đúng tiêu đề, khẩu hiệu và SEO metadata của chính mình
+      // Tenant A
+      assert.ok(htmlA.includes('KHẨU HIỆU ALPHA ĐỘC BẢN'));
+      assert.ok(htmlA.includes('SEO DỰ ÁN ALPHA ĐỘC BẢN'));
+      assert.ok(htmlA.includes('MÔ TẢ ALPHA RIÊNG BIỆT'));
+      assert.ok(!htmlA.includes('BETA'));
+      assert.ok(!htmlA.includes('GAMMA'));
+
+      // Tenant B
+      assert.ok(htmlB.includes('KHẨU HIỆU BETA ĐỘC BẢN'));
+      assert.ok(htmlB.includes('SEO DỰ ÁN BETA ĐỘC BẢN'));
+      assert.ok(htmlB.includes('MÔ TẢ BETA RIÊNG BIỆT'));
+      assert.ok(!htmlB.includes('ALPHA'));
+      assert.ok(!htmlB.includes('GAMMA'));
+
+      // Tenant C
+      assert.ok(htmlC.includes('KHẨU HIỆU GAMMA ĐỘC BẢN'));
+      assert.ok(htmlC.includes('SEO DỰ ÁN GAMMA ĐỘC BẢN'));
+      assert.ok(htmlC.includes('MÔ TẢ GAMMA RIÊNG BIỆT'));
+      assert.ok(!htmlC.includes('ALPHA'));
+      assert.ok(!htmlC.includes('BETA'));
+    } finally {
+      await Promise.race([
+        worker.stop(),
+        new Promise((resolve) => setTimeout(resolve, 3000)),
+      ]);
+      try {
+        fs.rmSync(tempDir, { recursive: true, force: true });
+      } catch {}
+    }
+    } catch (err) {
+      console.error('CONCURRENCY TEST ERROR:', err);
+      throw err;
+    }
   });
 });

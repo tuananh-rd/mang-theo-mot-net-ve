@@ -1021,6 +1021,23 @@ export function renderStudioHtml(session: AuthSession): string {
         activeDraft = res.data.draft;
         const p = activeDraft.data || {};
         const prog = p.progress || { currentWeek: 1, totalWeeks: 5, currentStageIndex: 0, updatedAt: '2026-10-09' };
+        const activities = (Array.isArray(p.activities) && p.activities.length > 0) ? p.activities : [
+          { id: 'chuon-chuon-tre', title: 'Chuồn chuồn tre và vẽ tranh', description: 'Trang trí những cánh chuồn chuồn tre thăng bằng và vẽ tranh tự do với màu sắc theo sở thích.', badge: 'Góc tạo hình', note: 'Người tham gia có quyền lựa chọn vẽ tranh, trang trí, quan sát hoặc nghỉ ngơi.' },
+          { id: 'to-tuong', title: 'Tô tượng sắc màu', description: 'Thỏa sức phối màu trên các mẫu tượng thạch cao đa dạng hình dáng và kích cỡ (10 cm).', badge: 'Góc tô màu', note: 'Hoạt động vui chơi trải nghiệm tại chỗ, không gắn với sản phẩm gây quỹ.' },
+          { id: 'hat-cung-nhau', title: 'Hát cùng nhau', description: 'Không gian văn nghệ kết nối, cùng hòa giọng trong những giai điệu thiếu nhi gần gũi.', badge: 'Góc âm nhạc', note: 'Tạo không khí ấm áp, vui tươi và không áp lực biểu diễn.' },
+          { id: 'tro-choi-nhe', title: 'Trò chơi tương tác nhẹ', description: 'Các trò chơi tương tác vừa sức: bowling mini, chuyền bóng nhẹ nhàng và thẻ màu ghép hình.', badge: 'Góc vận động', note: 'Mỗi em nhỏ tự quyết định mức độ tham gia phù hợp thể trạng.' },
+        ];
+        const stages = (Array.isArray(p.plannedStages) && p.plannedStages.length > 0) ? p.plannedStages : [
+          { step: '01', title: 'Xác nhận và chuẩn bị', description: 'Thống nhất với Mái ấm về lịch, hoạt động, vật liệu và danh mục quà; chuẩn bị đạo cụ an toàn.' },
+          { step: '02', title: 'Gây quỹ', description: 'Tiếp nhận ủng hộ qua chuyển khoản và dự kiến bán quà lưu niệm. Hai nguồn được ghi riêng; khoản ủng hộ được công bố sau đối soát.' },
+          { step: '03', title: 'Buổi chơi tại Mái ấm', description: '14:00 Thứ Bảy 24/10/2026 (dự kiến). Bốn góc hoạt động, có hai lần nghỉ; có thể rút ngắn theo ý Mái ấm.' },
+          { step: '04', title: 'Đối soát và trao quà', description: '14:00 Thứ Bảy 31/10/2026 (dự kiến). Chốt quỹ, mua vật phẩm theo danh mục Mái ấm xác nhận và trao tặng.' },
+        ];
+        const needs = (Array.isArray(p.needs) && p.needs.length > 0) ? p.needs : [
+          { title: 'Một buổi chơi linh hoạt', description: 'Có thời gian nghỉ và nhiều cách tham gia, vì các em ở nhiều độ tuổi và mức hỗ trợ khác nhau.' },
+          { title: 'Mái ấm giữ quyền quyết định', description: 'Về số người tham gia, vật liệu, hình ảnh và danh mục hỗ trợ.' },
+          { title: 'Hỗ trợ thiết thực, minh bạch', description: 'Chuyển nguồn quỹ thành hiện vật đúng danh mục Mái ấm xác nhận, có chứng từ và biên bản.' },
+        ];
         const sessions = p.plannedSessions || [
           { id: 'buoi-choi', title: 'Buổi chơi tại Mái ấm', date: '2026-10-24', time: '14:00', weekday: 'Thứ Bảy', description: 'Bốn góc hoạt động, khoảng 180 phút, có hai lần nghỉ.' },
           { id: 'trao-qua', title: 'Gặp lại và trao quà', date: '2026-10-31', time: '14:00', weekday: 'Thứ Bảy', description: 'Trao vật phẩm theo danh mục Mái ấm xác nhận, khoảng 30–45 phút.' }
@@ -1130,6 +1147,77 @@ export function renderStudioHtml(session: AuthSession): string {
             </div>
 
             <div style="border-top: 1px solid var(--color-neutral-light); padding-top: 16px; margin-top: 16px;">
+              <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 12px; color: var(--color-primary);">Bốn góc Hoạt động Dự án (Project Activities)</h3>
+              <div id="projectActivitiesContainer">
+                \${activities.map((a, idx) => \`
+                  <div class="activity-card" style="background: var(--color-bg-app); border: 1px solid var(--color-neutral-light); border-radius: 6px; padding: 12px; margin-bottom: 12px;">
+                    <input type="hidden" name="act_id_\${idx}" value="\${escapeHtml(a.id || '')}">
+                    <div class="form-row">
+                      <div class="form-group" style="flex: 2;">
+                        <label for="act_title_\${idx}">Tên hoạt động *</label>
+                        <input type="text" id="act_title_\${idx}" class="form-control act-title" name="act_title_\${idx}" value="\${escapeHtml(a.title || '')}" required>
+                      </div>
+                      <div class="form-group" style="flex: 1;">
+                        <label for="act_badge_\${idx}">Nhãn góc (Badge)</label>
+                        <input type="text" id="act_badge_\${idx}" class="form-control act-badge" name="act_badge_\${idx}" value="\${escapeHtml(a.badge || '')}">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="act_desc_\${idx}">Mô tả hoạt động</label>
+                      <input type="text" id="act_desc_\${idx}" class="form-control act-desc" name="act_desc_\${idx}" value="\${escapeHtml(a.description || '')}">
+                    </div>
+                    <div class="form-group">
+                      <label for="act_note_\${idx}">Ghi chú thêm</label>
+                      <input type="text" id="act_note_\${idx}" class="form-control act-note" name="act_note_\${idx}" value="\${escapeHtml(a.note || '')}">
+                    </div>
+                  </div>
+                \`).join('')}
+              </div>
+            </div>
+
+            <div style="border-top: 1px solid var(--color-neutral-light); padding-top: 16px; margin-top: 16px;">
+              <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 12px; color: var(--color-primary);">Lộ trình & Các Giai đoạn Thực hiện (Progress Stages)</h3>
+              <div id="projectStagesContainer">
+                \${stages.map((st, idx) => \`
+                  <div class="stage-card" style="background: var(--color-bg-app); border: 1px solid var(--color-neutral-light); border-radius: 6px; padding: 12px; margin-bottom: 12px;">
+                    <div class="form-row">
+                      <div class="form-group" style="flex: 0.5;">
+                        <label for="stage_step_\${idx}">Bước (Step)</label>
+                        <input type="text" id="stage_step_\${idx}" class="form-control stage-step" name="stage_step_\${idx}" value="\${escapeHtml(st.step || '')}">
+                      </div>
+                      <div class="form-group" style="flex: 2;">
+                        <label for="stage_title_\${idx}">Tên giai đoạn *</label>
+                        <input type="text" id="stage_title_\${idx}" class="form-control stage-title" name="stage_title_\${idx}" value="\${escapeHtml(st.title || '')}" required>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="stage_desc_\${idx}">Mô tả giai đoạn</label>
+                      <input type="text" id="stage_desc_\${idx}" class="form-control stage-desc" name="stage_desc_\${idx}" value="\${escapeHtml(st.description || '')}">
+                    </div>
+                  </div>
+                \`).join('')}
+              </div>
+            </div>
+
+            <div style="border-top: 1px solid var(--color-neutral-light); padding-top: 16px; margin-top: 16px;">
+              <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 12px; color: var(--color-primary);">Danh mục Nhu cầu Thực tế tại Mái ấm (Project Needs)</h3>
+              <div id="projectNeedsContainer">
+                \${needs.map((nd, idx) => \`
+                  <div class="need-card" style="background: var(--color-bg-app); border: 1px solid var(--color-neutral-light); border-radius: 6px; padding: 12px; margin-bottom: 12px;">
+                    <div class="form-group">
+                      <label for="need_title_\${idx}">Nhu cầu / Hạng mục *</label>
+                      <input type="text" id="need_title_\${idx}" class="form-control need-title" name="need_title_\${idx}" value="\${escapeHtml(nd.title || '')}" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="need_desc_\${idx}">Mô tả chi tiết</label>
+                      <input type="text" id="need_desc_\${idx}" class="form-control need-desc" name="need_desc_\${idx}" value="\${escapeHtml(nd.description || '')}">
+                    </div>
+                  </div>
+                \`).join('')}
+              </div>
+            </div>
+
+            <div style="border-top: 1px solid var(--color-neutral-light); padding-top: 16px; margin-top: 16px;">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
                 <h3 style="font-size: 1rem; font-weight: 700; color: var(--color-primary); margin: 0;">Đầu mối Liên hệ Chính thức (Official Contacts)</h3>
                 <button type="button" class="btn btn-danger btn-sm" id="toggleContactBtn">
@@ -1229,6 +1317,22 @@ export function renderStudioHtml(session: AuthSession): string {
               time: fd.get(\`sess_time_\${idx}\`),
               weekday: fd.get(\`sess_weekday_\${idx}\`),
               description: fd.get(\`sess_desc_\${idx}\`),
+            })),
+            activities: activities.map((a, idx) => ({
+              id: fd.get(\`act_id_\${idx}\`) || a.id,
+              title: fd.get(\`act_title_\${idx}\`) || a.title,
+              badge: fd.get(\`act_badge_\${idx}\`) || a.badge,
+              description: fd.get(\`act_desc_\${idx}\`) || a.description,
+              note: fd.get(\`act_note_\${idx}\`) || a.note,
+            })),
+            plannedStages: stages.map((st, idx) => ({
+              step: fd.get(\`stage_step_\${idx}\`) || st.step,
+              title: fd.get(\`stage_title_\${idx}\`) || st.title,
+              description: fd.get(\`stage_desc_\${idx}\`) || st.description,
+            })),
+            needs: needs.map((nd, idx) => ({
+              title: fd.get(\`need_title_\${idx}\`) || nd.title,
+              description: fd.get(\`need_desc_\${idx}\`) || nd.description,
             })),
             contacts: isContactActive ? {
               status: p.contacts?.status || 'unconfirmed',
@@ -2994,17 +3098,17 @@ export function renderStudioHtml(session: AuthSession): string {
                   const safeKey = r.path === '/' ? 'root' : r.path.replace(/[^a-zA-Z0-9]/g, '_');
                   return \`
                     <div class="route-seo-card" data-route="\${escapeHtml(r.path)}" style="background: var(--color-bg-app); border: 1px solid var(--color-neutral-light); border-radius: 6px; padding: 12px; margin-bottom: 12px;">
-                      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                        <strong style="color: var(--color-neutral-dark); font-size: 0.95rem;">\${escapeHtml(r.label)}</strong>
-                        <code style="font-size: 0.8rem; background: var(--color-neutral-light); padding: 2px 6px; border-radius: 4px;">\${escapeHtml(r.path)}</code>
+                      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 6px;">
+                        <strong style="color: var(--color-neutral-dark); font-size: 0.95rem; word-break: break-word;">\${escapeHtml(r.label)}</strong>
+                        <code style="font-size: 0.8rem; background: var(--color-neutral-light); padding: 2px 6px; border-radius: 4px; word-break: break-all;">\${escapeHtml(r.path)}</code>
                       </div>
                       <div class="form-row">
                         <div class="form-group" style="flex: 1;">
-                          <label>Tiêu đề trang (Route SEO Title)</label>
+                          <label for="route_seo_title_\${safeKey}">Tiêu đề trang (Route SEO Title)</label>
                           <input type="text" class="form-control route-seo-title" id="route_seo_title_\${safeKey}" name="route_seo_title_\${safeKey}" data-route="\${escapeHtml(r.path)}" value="\${escapeHtml(rData.title || '')}" placeholder="Tiêu đề trang \${escapeHtml(r.path)}">
                         </div>
                         <div class="form-group" style="flex: 1.5;">
-                          <label>Mô tả tìm kiếm (Route SEO Description)</label>
+                          <label for="route_seo_desc_\${safeKey}">Mô tả tìm kiếm (Route SEO Description)</label>
                           <input type="text" class="form-control route-seo-desc" id="route_seo_desc_\${safeKey}" name="route_seo_desc_\${safeKey}" data-route="\${escapeHtml(r.path)}" value="\${escapeHtml(rData.description || '')}" placeholder="Mô tả meta description cho \${escapeHtml(r.path)}">
                         </div>
                       </div>
@@ -3163,18 +3267,24 @@ export function renderStudioHtml(session: AuthSession): string {
           })).filter(q => q.question.trim().length > 0);
 
           const routeSeoCards = document.querySelectorAll('#routeSeoContainer .route-seo-card');
-          const updatedRouteSeo = {};
+          const existingRouteSeo = (activeDraft.data && activeDraft.data.siteMeta && typeof activeDraft.data.siteMeta.routeSeo === 'object' && !Array.isArray(activeDraft.data.siteMeta.routeSeo))
+            ? { ...activeDraft.data.siteMeta.routeSeo }
+            : {};
+          const updatedRouteSeo = { ...existingRouteSeo };
           routeSeoCards.forEach(card => {
             const route = card.getAttribute('data-route');
+            if (!route) return;
             const titleInput = card.querySelector('.route-seo-title');
             const descInput = card.querySelector('.route-seo-desc');
             const title = (titleInput?.value || '').trim();
             const description = (descInput?.value || '').trim();
-            if (route && (title || description)) {
+            if (title || description) {
               updatedRouteSeo[route] = {
                 ...(title ? { title } : {}),
                 ...(description ? { description } : {})
               };
+            } else {
+              delete updatedRouteSeo[route];
             }
           });
 

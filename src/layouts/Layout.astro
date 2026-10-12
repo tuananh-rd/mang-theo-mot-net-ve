@@ -9,12 +9,14 @@ interface Props {
   title: string;
   description?: string;
   currentPath?: string;
+  seoRoute?: string;
 }
 
 const {
   title: propTitle,
   description: propDescription,
   currentPath = undefined,
+  seoRoute = undefined,
 } = Astro.props;
 
 const siteMeta = getPublishedSiteMeta({
@@ -24,7 +26,9 @@ const siteMeta = getPublishedSiteMeta({
   routeSeo: {} as Record<string, { title?: string; description?: string }>,
 });
 
-const routeOverride = currentPath && siteMeta.routeSeo ? siteMeta.routeSeo[currentPath] : undefined;
+const rawPath = seoRoute || Astro.url?.pathname || currentPath || '/';
+const normalizedRoute = rawPath !== '/' ? rawPath.replace(/\/+$/, '') : '/';
+const routeOverride = siteMeta.routeSeo ? (siteMeta.routeSeo[normalizedRoute] || (rawPath ? siteMeta.routeSeo[rawPath] : undefined)) : undefined;
 const title = routeOverride?.title || propTitle;
 const description = routeOverride?.description || propDescription || siteMeta.siteDescription;
 
