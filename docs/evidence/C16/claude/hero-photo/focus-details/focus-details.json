@@ -1,0 +1,69 @@
+{
+  "head": "bc52df301c873a08c7236e9750b090678825db42",
+  "cases": [
+    {
+      "name": "sticky header focus preserves reading position",
+      "pass": true,
+      "details": {
+        "before": 1400,
+        "after": 1400
+      }
+    },
+    {
+      "name": "skip link reaches main without covering the first heading",
+      "pass": true,
+      "details": {
+        "id": "main-content",
+        "headerBottom": 101.59375,
+        "h1Top": 506.96875
+      }
+    },
+    {
+      "name": "Shift+Tab keeps content focus unobscured",
+      "pass": true,
+      "details": [
+        {
+          "text": "Tiền bán quà lưu niệm có cộng vào tổng ủng hộ không?",
+          "visible": true
+        },
+        {
+          "text": "Vì sao tổng ủng hộ đang ghi “Chưa cập nhật”?",
+          "visible": true
+        },
+        {
+          "text": "Thông tin tài khoản chuyển khoản",
+          "visible": true
+        },
+        {
+          "text": "Xem sao kê từng khoản đã đối soát →",
+          "visible": true
+        },
+        {
+          "text": "5. Câu hỏi thường gặp",
+          "visible": true
+        },
+        {
+          "text": "4. Báo cáo và cam kết",
+          "visible": true
+        },
+        {
+          "text": "3. Quy trình áp dụng",
+          "visible": true
+        },
+        {
+          "text": "2. Bốn bước dòng tiền",
+          "visible": true
+        },
+        {
+          "text": "1. Tổng quan và đối soát",
+          "visible": true
+        },
+        {
+          "text": "Trang chủ",
+          "visible": true
+        }
+      ]
+    }
+  ],
+  "pass": true
+}

@@ -121,3 +121,14 @@ Token `--space-16` không tồn tại; các khai báo dùng nó bị trình duy�
 - Logo trong `public` giữ nguyên (xanh navy/đỏ đậm); không chỉnh asset.
 - Chưa có ảnh mẫu thật cho móc khóa; giữ placeholder nét đứt và ghi chú. Codex đã đọc ảnh tham khảo của họ (`docs/evidence/C16/reference/`); báo cáo này dựa trên số đo và ảnh tự chụp ở mục 1. Các trang con đang dùng nền trắng khá nhiều, có thể thêm ảnh nền hoạt động thật khi nhóm có ảnh được phép.
 - Chưa xin duyệt chủ dự án; đây là bản xem trước local, chưa phát hành.
+
+## 9. Bổ sung 12/10/2026 — ảnh chuồn chuồn làm nền đầu Trang chủ
+
+Theo yêu cầu trực tiếp của chủ dự án: bỏ ảnh cọ vẽ A01 ở Trang chủ và dùng ảnh "Chuồn chuồn gỗ xanh họa tiết dân gian" làm nền phần đầu.
+
+- Nhánh `task/c16-hero-photo` (từ `task/c16-reference-ui` @ `89e82e6`), code commit `bc52df301c873a08c7236e9750b090678825db42`. Làm trong git worktree riêng để không đụng nhánh `task/c17-online-studio` đang checkout ở thư mục chính.
+- Ảnh nguồn `D:\Downloads\Chuồn chuồn gỗ xanh họa tiết dân gian.png` (1672×941) được đổi sang WebP, lưu `public/images/hero/chuon-chuon-go-xanh.webp` (1672 px, 75 KB) và `-900.webp` (900 px, 34 KB); không filter, không phủ lớp màu.
+- `src/components/Hero.astro` viết lại: ≥1360 px ảnh phủ toàn dải (phóng 120%, neo trái) với thẻ trắng nội dung bên trái và nhãn ảnh góc phải; dưới 1360 px ảnh nằm trên, nhãn ảnh ngay dưới ảnh, rồi thẻ nội dung. A01 không còn xuất hiện ở Trang chủ (dữ liệu `illustrations.ts` giữ nguyên vì Dự án/Nhật ký vẫn dùng).
+- Nhãn ảnh: "Ảnh minh họa chuồn chuồn gỗ họa tiết dân gian do chủ dự án cung cấp — chưa phải sản phẩm thực tế của nhóm." Nhóm cần xác nhận quyền dùng và nguồn ảnh trước khi phát hành; chưa có thông tin tác giả/nguồn nên chưa ghi credit.
+- Kiểm ở `bc52df3` trên bản build trong worktree (preview loopback `127.0.0.1:4324`): build exit 0 (13 trang); check 0 lỗi, 0 cảnh báo; 92/92 test; diff-check exit 0; ma trận trình duyệt 42/42; layout, tương tác, focus chi tiết đạt; bàn phím 105/105; audit build-output đạt (46 file, 23 hash khớp). JSON nằm trong `docs/evidence/C16/claude/hero-photo/`; ảnh Trang chủ 375/768/1024/1360/1440 trong `hero-photo/screens/`.
+- Preview chính 4322 vẫn phục vụ bản dựng của thư mục chính (nhánh C17); muốn xem hero mới ở cổng đó cần build lại trên nhánh `task/c16-hero-photo`.

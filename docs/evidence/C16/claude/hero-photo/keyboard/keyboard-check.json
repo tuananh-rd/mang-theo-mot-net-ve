@@ -1,0 +1,1793 @@
+{
+  "head": "bc52df301c873a08c7236e9750b090678825db42",
+  "cases": [
+    {
+      "route": "/",
+      "step": 3,
+      "tag": "A",
+      "id": "",
+      "text": "Ủng hộ dự án →",
+      "href": "/dong-hanh",
+      "rect": {
+        "x": 44,
+        "y": 397.5625,
+        "w": 287,
+        "h": 56
+      },
+      "hit": "<a href=\"/dong-hanh\" class=\"btn btn-primary btn-arrow hero-btn\" data-astro-cid-ge2uvauf=\"\">Ủng hộ dự án <span class=\"arrow\" aria-hidden=\"true\" data-astro-cid-ge2uvauf=\"\">→</span></a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/",
+      "step": 4,
+      "tag": "A",
+      "id": "",
+      "text": "Tìm hiểu dự án",
+      "href": "/du-an/mang-theo-mot-net-ve",
+      "rect": {
+        "x": 44,
+        "y": 461.5625,
+        "w": 287,
+        "h": 56
+      },
+      "hit": "<a href=\"/du-an/mang-theo-mot-net-ve\" class=\"btn btn-secondary hero-btn\" data-astro-cid-ge2uvauf=\"\">Tìm hiểu dự án</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/",
+      "step": 5,
+      "tag": "A",
+      "id": "",
+      "text": "Xem chi tiết kế hoạch bốn góc chơi →",
+      "href": "/du-an/mang-theo-mot-net-ve#corners-heading",
+      "rect": {
+        "x": 20,
+        "y": 403.9375,
+        "w": 273.453125,
+        "h": 44
+      },
+      "hit": "<a href=\"/du-an/mang-theo-mot-net-ve#corners-heading\" class=\"link-arrow\" data-astro-cid-lcdefpme=\"\">Xem chi tiết kế hoạch bốn góc chơi <span class=\"arrow\" aria-hidden=\"true\" data-astro-cid-lcdefpme=\"\"",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/",
+      "step": 6,
+      "tag": "A",
+      "id": "",
+      "text": "Ủng hộ dự án",
+      "href": "/dong-hanh",
+      "rect": {
+        "x": 20,
+        "y": 399.9375,
+        "w": 335,
+        "h": 52
+      },
+      "hit": "<a href=\"/dong-hanh\" class=\"btn btn-primary\" data-astro-cid-lcdefpme=\"\">Ủng hộ dự án</a>",
+      "obscured": false,
+      "outline": "rgb(255, 255, 255) solid 3px"
+    },
+    {
+      "route": "/",
+      "step": 7,
+      "tag": "A",
+      "id": "",
+      "text": "Xem sao kê →",
+      "href": "/dong-hanh#sao-ke",
+      "rect": {
+        "x": 20,
+        "y": 459.9375,
+        "w": 100.609375,
+        "h": 44
+      },
+      "hit": "<a href=\"/dong-hanh#sao-ke\" class=\"link-arrow link-arrow--light\" data-astro-cid-lcdefpme=\"\">Xem sao kê <span class=\"arrow\" aria-hidden=\"true\" data-astro-cid-lcdefpme=\"\">→</span></a>",
+      "obscured": false,
+      "outline": "rgb(255, 255, 255) solid 3px"
+    },
+    {
+      "route": "/",
+      "step": 8,
+      "tag": "A",
+      "id": "",
+      "text": "Xem quà lưu niệm →",
+      "href": "/san-pham",
+      "rect": {
+        "x": 20,
+        "y": 404.375,
+        "w": 150.609375,
+        "h": 44
+      },
+      "hit": "<a href=\"/san-pham\" class=\"link-arrow\" data-astro-cid-lcdefpme=\"\">Xem quà lưu niệm <span class=\"arrow\" aria-hidden=\"true\" data-astro-cid-lcdefpme=\"\">→</span></a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/",
+      "step": 9,
+      "tag": "A",
+      "id": "",
+      "text": "Kế hoạch bốn góc chơi có lựa chọn tại Mái ấm Thánh Tâm",
+      "href": "/nhat-ky/ke-hoach-bon-goc-choi",
+      "rect": {
+        "x": 53,
+        "y": 595.375,
+        "w": 243.40625,
+        "h": 48.296875
+      },
+      "hit": "<a href=\"/nhat-ky/ke-hoach-bon-goc-choi\" data-astro-cid-lcdefpme=\"\">Kế hoạch bốn góc chơi có lựa chọn tại Mái ấm Thánh Tâm</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/",
+      "step": 10,
+      "tag": "A",
+      "id": "",
+      "text": "Đọc chi tiết →",
+      "href": "/nhat-ky/ke-hoach-bon-goc-choi",
+      "rect": {
+        "x": 53,
+        "y": 403.96875,
+        "w": 269,
+        "h": 44
+      },
+      "hit": "<a href=\"/nhat-ky/ke-hoach-bon-goc-choi\" class=\"link-arrow\" data-astro-cid-lcdefpme=\"\">Đọc chi tiết <span class=\"arrow\" aria-hidden=\"true\" data-astro-cid-lcdefpme=\"\">→</span></a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/",
+      "step": 11,
+      "tag": "A",
+      "id": "",
+      "text": "Giới thiệu hai món quà lưu niệm gây quỹ và kế hoạch mở bán",
+      "href": "/nhat-ky/gioi-thieu-qua-luu-niem-gay-quy",
+      "rect": {
+        "x": 53,
+        "y": 530.96875,
+        "w": 268.15625,
+        "h": 48.296875
+      },
+      "hit": "<a href=\"/nhat-ky/gioi-thieu-qua-luu-niem-gay-quy\" data-astro-cid-lcdefpme=\"\">Giới thiệu hai món quà lưu niệm gây quỹ và kế hoạch mở bán</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/",
+      "step": 12,
+      "tag": "A",
+      "id": "",
+      "text": "Đọc chi tiết →",
+      "href": "/nhat-ky/gioi-thieu-qua-luu-niem-gay-quy",
+      "rect": {
+        "x": 53,
+        "y": 599.5625,
+        "w": 269,
+        "h": 44
+      },
+      "hit": "<a href=\"/nhat-ky/gioi-thieu-qua-luu-niem-gay-quy\" class=\"link-arrow\" data-astro-cid-lcdefpme=\"\">Đọc chi tiết <span class=\"arrow\" aria-hidden=\"true\" data-astro-cid-lcdefpme=\"\">→</span></a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/",
+      "step": 13,
+      "tag": "A",
+      "id": "",
+      "text": "Xem tất cả bài viết nhật ký →",
+      "href": "/nhat-ky",
+      "rect": {
+        "x": 53,
+        "y": 591.5625,
+        "w": 260.84375,
+        "h": 52
+      },
+      "hit": "<a href=\"/nhat-ky\" class=\"btn btn-secondary\" data-astro-cid-lcdefpme=\"\">Xem tất cả bài viết nhật ký →</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/",
+      "step": 14,
+      "tag": "A",
+      "id": "",
+      "text": "Về nhóm Lăng Kính →",
+      "href": "/ve-nhom",
+      "rect": {
+        "x": 20,
+        "y": 403.5625,
+        "w": 159.546875,
+        "h": 44
+      },
+      "hit": "<a href=\"/ve-nhom\" class=\"link-arrow\" data-astro-cid-lcdefpme=\"\">Về nhóm Lăng Kính <span class=\"arrow\" aria-hidden=\"true\" data-astro-cid-lcdefpme=\"\">→</span></a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/",
+      "step": 32,
+      "tag": "A",
+      "id": "",
+      "text": "Ủng hộ dự án →",
+      "href": "/dong-hanh",
+      "rect": {
+        "x": 44,
+        "y": 397.5625,
+        "w": 287,
+        "h": 56
+      },
+      "hit": "<a href=\"/dong-hanh\" class=\"btn btn-primary btn-arrow hero-btn\" data-astro-cid-ge2uvauf=\"\">Ủng hộ dự án <span class=\"arrow\" aria-hidden=\"true\" data-astro-cid-ge2uvauf=\"\">→</span></a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/",
+      "step": 33,
+      "tag": "A",
+      "id": "",
+      "text": "Tìm hiểu dự án",
+      "href": "/du-an/mang-theo-mot-net-ve",
+      "rect": {
+        "x": 44,
+        "y": 461.5625,
+        "w": 287,
+        "h": 56
+      },
+      "hit": "<a href=\"/du-an/mang-theo-mot-net-ve\" class=\"btn btn-secondary hero-btn\" data-astro-cid-ge2uvauf=\"\">Tìm hiểu dự án</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/",
+      "step": 34,
+      "tag": "A",
+      "id": "",
+      "text": "Xem chi tiết kế hoạch bốn góc chơi →",
+      "href": "/du-an/mang-theo-mot-net-ve#corners-heading",
+      "rect": {
+        "x": 20,
+        "y": 403.9375,
+        "w": 273.453125,
+        "h": 44
+      },
+      "hit": "<a href=\"/du-an/mang-theo-mot-net-ve#corners-heading\" class=\"link-arrow\" data-astro-cid-lcdefpme=\"\">Xem chi tiết kế hoạch bốn góc chơi <span class=\"arrow\" aria-hidden=\"true\" data-astro-cid-lcdefpme=\"\"",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/nhat-ky",
+      "step": 3,
+      "tag": "A",
+      "id": "",
+      "text": "Trang chủ",
+      "href": "/",
+      "rect": {
+        "x": 20,
+        "y": 117.59375,
+        "w": 60.4375,
+        "h": 36
+      },
+      "hit": "<a href=\"/\" class=\"breadcrumb-link\" data-astro-cid-75ysl5lo=\"\">Trang chủ</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/nhat-ky",
+      "step": 4,
+      "tag": "A",
+      "id": "",
+      "text": "Kế hoạch bốn góc chơi có lựa chọn tại Mái ấm Thánh Tâm",
+      "href": "/nhat-ky/ke-hoach-bon-goc-choi",
+      "rect": {
+        "x": 37,
+        "y": 378.75,
+        "w": 224.015625,
+        "h": 94.375
+      },
+      "hit": "<a href=\"/nhat-ky/ke-hoach-bon-goc-choi\" class=\"journal-title-link\" data-astro-cid-rerz24zj=\"\">Kế hoạch bốn góc chơi có lựa chọn tại Mái ấm Thánh Tâm</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/nhat-ky",
+      "step": 5,
+      "tag": "A",
+      "id": "",
+      "text": "Đọc toàn bộ bài viết →",
+      "href": "/nhat-ky/ke-hoach-bon-goc-choi",
+      "rect": {
+        "x": 37,
+        "y": 599.6875,
+        "w": 164.46875,
+        "h": 44
+      },
+      "hit": "<a href=\"/nhat-ky/ke-hoach-bon-goc-choi\" class=\"link-arrow\" data-astro-cid-rerz24zj=\"\">Đọc toàn bộ bài viết <span class=\"arrow\" aria-hidden=\"true\" data-astro-cid-rerz24zj=\"\">→</span></a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/nhat-ky",
+      "step": 6,
+      "tag": "A",
+      "id": "",
+      "text": "Giới thiệu hai món quà lưu niệm gây quỹ và kế hoạch mở bán",
+      "href": "/nhat-ky/gioi-thieu-qua-luu-niem-gay-quy",
+      "rect": {
+        "x": 20,
+        "y": 395.78125,
+        "w": 327.75,
+        "h": 60.796875
+      },
+      "hit": "<a href=\"/nhat-ky/gioi-thieu-qua-luu-niem-gay-quy\" class=\"journal-title-link\" data-astro-cid-rerz24zj=\"\">Giới thiệu hai món quà lưu niệm gây quỹ và kế hoạch mở bán</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/nhat-ky",
+      "step": 7,
+      "tag": "A",
+      "id": "",
+      "text": "Đọc tiếp →",
+      "href": "/nhat-ky/gioi-thieu-qua-luu-niem-gay-quy",
+      "rect": {
+        "x": 20,
+        "y": 540.546875,
+        "w": 335,
+        "h": 44
+      },
+      "hit": "<a href=\"/nhat-ky/gioi-thieu-qua-luu-niem-gay-quy\" class=\"link-arrow\" data-astro-cid-rerz24zj=\"\">Đọc tiếp <span class=\"arrow\" aria-hidden=\"true\" data-astro-cid-rerz24zj=\"\">→</span></a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/nhat-ky",
+      "step": 8,
+      "tag": "A",
+      "id": "",
+      "text": "Ủng hộ dự án",
+      "href": "/dong-hanh",
+      "rect": {
+        "x": 20,
+        "y": 399.546875,
+        "w": 335,
+        "h": 52
+      },
+      "hit": "<a href=\"/dong-hanh\" class=\"btn btn-primary\" data-astro-cid-rerz24zj=\"\">Ủng hộ dự án</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/nhat-ky",
+      "step": 9,
+      "tag": "A",
+      "id": "",
+      "text": "Tìm hiểu dự án →",
+      "href": "/du-an/mang-theo-mot-net-ve",
+      "rect": {
+        "x": 20,
+        "y": 459.546875,
+        "w": 126.828125,
+        "h": 44
+      },
+      "hit": "<a href=\"/du-an/mang-theo-mot-net-ve\" class=\"link-arrow\" data-astro-cid-rerz24zj=\"\">Tìm hiểu dự án <span class=\"arrow\" aria-hidden=\"true\" data-astro-cid-rerz24zj=\"\">→</span></a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/nhat-ky",
+      "step": 27,
+      "tag": "A",
+      "id": "",
+      "text": "Trang chủ",
+      "href": "/",
+      "rect": {
+        "x": 20,
+        "y": 117.59375,
+        "w": 60.4375,
+        "h": 36
+      },
+      "hit": "<a href=\"/\" class=\"breadcrumb-link\" data-astro-cid-75ysl5lo=\"\">Trang chủ</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/nhat-ky",
+      "step": 28,
+      "tag": "A",
+      "id": "",
+      "text": "Kế hoạch bốn góc chơi có lựa chọn tại Mái ấm Thánh Tâm",
+      "href": "/nhat-ky/ke-hoach-bon-goc-choi",
+      "rect": {
+        "x": 37,
+        "y": 378.75,
+        "w": 224.015625,
+        "h": 94.375
+      },
+      "hit": "<a href=\"/nhat-ky/ke-hoach-bon-goc-choi\" class=\"journal-title-link\" data-astro-cid-rerz24zj=\"\">Kế hoạch bốn góc chơi có lựa chọn tại Mái ấm Thánh Tâm</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/nhat-ky",
+      "step": 29,
+      "tag": "A",
+      "id": "",
+      "text": "Đọc toàn bộ bài viết →",
+      "href": "/nhat-ky/ke-hoach-bon-goc-choi",
+      "rect": {
+        "x": 37,
+        "y": 599.6875,
+        "w": 164.46875,
+        "h": 44
+      },
+      "hit": "<a href=\"/nhat-ky/ke-hoach-bon-goc-choi\" class=\"link-arrow\" data-astro-cid-rerz24zj=\"\">Đọc toàn bộ bài viết <span class=\"arrow\" aria-hidden=\"true\" data-astro-cid-rerz24zj=\"\">→</span></a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/nhat-ky",
+      "step": 30,
+      "tag": "A",
+      "id": "",
+      "text": "Giới thiệu hai món quà lưu niệm gây quỹ và kế hoạch mở bán",
+      "href": "/nhat-ky/gioi-thieu-qua-luu-niem-gay-quy",
+      "rect": {
+        "x": 20,
+        "y": 395.78125,
+        "w": 327.75,
+        "h": 60.796875
+      },
+      "hit": "<a href=\"/nhat-ky/gioi-thieu-qua-luu-niem-gay-quy\" class=\"journal-title-link\" data-astro-cid-rerz24zj=\"\">Giới thiệu hai món quà lưu niệm gây quỹ và kế hoạch mở bán</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/nhat-ky",
+      "step": 31,
+      "tag": "A",
+      "id": "",
+      "text": "Đọc tiếp →",
+      "href": "/nhat-ky/gioi-thieu-qua-luu-niem-gay-quy",
+      "rect": {
+        "x": 20,
+        "y": 540.546875,
+        "w": 335,
+        "h": 44
+      },
+      "hit": "<a href=\"/nhat-ky/gioi-thieu-qua-luu-niem-gay-quy\" class=\"link-arrow\" data-astro-cid-rerz24zj=\"\">Đọc tiếp <span class=\"arrow\" aria-hidden=\"true\" data-astro-cid-rerz24zj=\"\">→</span></a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/nhat-ky",
+      "step": 32,
+      "tag": "A",
+      "id": "",
+      "text": "Ủng hộ dự án",
+      "href": "/dong-hanh",
+      "rect": {
+        "x": 20,
+        "y": 399.546875,
+        "w": 335,
+        "h": 52
+      },
+      "hit": "<a href=\"/dong-hanh\" class=\"btn btn-primary\" data-astro-cid-rerz24zj=\"\">Ủng hộ dự án</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/nhat-ky",
+      "step": 33,
+      "tag": "A",
+      "id": "",
+      "text": "Tìm hiểu dự án →",
+      "href": "/du-an/mang-theo-mot-net-ve",
+      "rect": {
+        "x": 20,
+        "y": 459.546875,
+        "w": 126.828125,
+        "h": 44
+      },
+      "hit": "<a href=\"/du-an/mang-theo-mot-net-ve\" class=\"link-arrow\" data-astro-cid-rerz24zj=\"\">Tìm hiểu dự án <span class=\"arrow\" aria-hidden=\"true\" data-astro-cid-rerz24zj=\"\">→</span></a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/san-pham",
+      "step": 3,
+      "tag": "A",
+      "id": "",
+      "text": "Trang chủ",
+      "href": "/",
+      "rect": {
+        "x": 20,
+        "y": 113.59375,
+        "w": 60.4375,
+        "h": 36
+      },
+      "hit": "<a href=\"/\" class=\"breadcrumb-link\" data-astro-cid-75ysl5lo=\"\">Trang chủ</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/san-pham",
+      "step": 4,
+      "tag": "A",
+      "id": "",
+      "text": "Chuồn chuồn tre 12 cm kèm đế",
+      "href": "/san-pham/chuon-chuon-tre-kem-de",
+      "rect": {
+        "x": 45,
+        "y": 394.34375,
+        "w": 190.796875,
+        "h": 63.1875
+      },
+      "hit": "<a href=\"/san-pham/chuon-chuon-tre-kem-de\" class=\"catalogue-title-link\" data-astro-cid-7vvvriqi=\"\">Chuồn chuồn tre 12 cm kèm đế</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/san-pham",
+      "step": 5,
+      "tag": "A",
+      "id": "",
+      "text": "Xem chi tiết sản phẩm →",
+      "href": "/san-pham/chuon-chuon-tre-kem-de",
+      "rect": {
+        "x": 45,
+        "y": 591.71875,
+        "w": 285,
+        "h": 52
+      },
+      "hit": "<a href=\"/san-pham/chuon-chuon-tre-kem-de\" class=\"btn btn-secondary\" data-astro-cid-7vvvriqi=\"\">Xem chi tiết sản phẩm <span aria-hidden=\"true\" data-astro-cid-7vvvriqi=\"\">→</span></a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/san-pham",
+      "step": 6,
+      "tag": "A",
+      "id": "",
+      "text": "Móc khóa Lăng Kính",
+      "href": "/san-pham/moc-khoa",
+      "rect": {
+        "x": 45,
+        "y": 410.46875,
+        "w": 234.625,
+        "h": 32
+      },
+      "hit": "<a href=\"/san-pham/moc-khoa\" class=\"catalogue-title-link\" data-astro-cid-7vvvriqi=\"\">Móc khóa Lăng Kính</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/san-pham",
+      "step": 7,
+      "tag": "A",
+      "id": "",
+      "text": "Xem chi tiết sản phẩm →",
+      "href": "/san-pham/moc-khoa",
+      "rect": {
+        "x": 45,
+        "y": 591.65625,
+        "w": 285,
+        "h": 52
+      },
+      "hit": "<a href=\"/san-pham/moc-khoa\" class=\"btn btn-secondary\" data-astro-cid-7vvvriqi=\"\">Xem chi tiết sản phẩm <span aria-hidden=\"true\" data-astro-cid-7vvvriqi=\"\">→</span></a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/san-pham",
+      "step": 8,
+      "tag": "SUMMARY",
+      "id": "",
+      "text": "Giá trên trang có phải giá bán chính thức?",
+      "href": null,
+      "rect": {
+        "x": 21,
+        "y": 390.65625,
+        "w": 333,
+        "h": 70.375
+      },
+      "hit": "<span class=\"faq-q-text\" data-astro-cid-25eicpmf=\"\">Giá trên trang có phải giá bán chính thức?</span>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/san-pham",
+      "step": 9,
+      "tag": "SUMMARY",
+      "id": "",
+      "text": "Ai làm các sản phẩm này?",
+      "href": null,
+      "rect": {
+        "x": 21,
+        "y": 471.03125,
+        "w": 333,
+        "h": 56
+      },
+      "hit": "<span class=\"faq-q-text\" data-astro-cid-25eicpmf=\"\">Ai làm các sản phẩm này?</span>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/san-pham",
+      "step": 10,
+      "tag": "SUMMARY",
+      "id": "",
+      "text": "Khi nào có thể đặt mua?",
+      "href": null,
+      "rect": {
+        "x": 21,
+        "y": 537.03125,
+        "w": 333,
+        "h": 56
+      },
+      "hit": "<span class=\"faq-q-text\" data-astro-cid-25eicpmf=\"\">Khi nào có thể đặt mua?</span>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/san-pham",
+      "step": 11,
+      "tag": "SUMMARY",
+      "id": "",
+      "text": "Tiền bán hàng được dùng thế nào?",
+      "href": null,
+      "rect": {
+        "x": 21,
+        "y": 588.03125,
+        "w": 333,
+        "h": 56
+      },
+      "hit": "<span class=\"faq-q-text\" data-astro-cid-25eicpmf=\"\">Tiền bán hàng được dùng thế nào?</span>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/san-pham",
+      "step": 12,
+      "tag": "A",
+      "id": "",
+      "text": "Ủng hộ dự án",
+      "href": "/dong-hanh",
+      "rect": {
+        "x": 20,
+        "y": 400.03125,
+        "w": 335,
+        "h": 52
+      },
+      "hit": "<a href=\"/dong-hanh\" class=\"btn btn-primary\" data-astro-cid-zamtr6kr=\"\">Ủng hộ dự án</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/san-pham",
+      "step": 13,
+      "tag": "A",
+      "id": "",
+      "text": "Xem minh bạch →",
+      "href": "/minh-bach",
+      "rect": {
+        "x": 20,
+        "y": 460.03125,
+        "w": 131.015625,
+        "h": 44
+      },
+      "hit": "<a href=\"/minh-bach\" class=\"link-arrow\" data-astro-cid-zamtr6kr=\"\">Xem minh bạch <span class=\"arrow\" aria-hidden=\"true\" data-astro-cid-zamtr6kr=\"\">→</span></a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/san-pham",
+      "step": 31,
+      "tag": "A",
+      "id": "",
+      "text": "Trang chủ",
+      "href": "/",
+      "rect": {
+        "x": 20,
+        "y": 113.59375,
+        "w": 60.4375,
+        "h": 36
+      },
+      "hit": "<a href=\"/\" class=\"breadcrumb-link\" data-astro-cid-75ysl5lo=\"\">Trang chủ</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/san-pham",
+      "step": 32,
+      "tag": "A",
+      "id": "",
+      "text": "Chuồn chuồn tre 12 cm kèm đế",
+      "href": "/san-pham/chuon-chuon-tre-kem-de",
+      "rect": {
+        "x": 45,
+        "y": 394.34375,
+        "w": 190.796875,
+        "h": 63.1875
+      },
+      "hit": "<a href=\"/san-pham/chuon-chuon-tre-kem-de\" class=\"catalogue-title-link\" data-astro-cid-7vvvriqi=\"\">Chuồn chuồn tre 12 cm kèm đế</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/san-pham",
+      "step": 33,
+      "tag": "A",
+      "id": "",
+      "text": "Xem chi tiết sản phẩm →",
+      "href": "/san-pham/chuon-chuon-tre-kem-de",
+      "rect": {
+        "x": 45,
+        "y": 591.71875,
+        "w": 285,
+        "h": 52
+      },
+      "hit": "<a href=\"/san-pham/chuon-chuon-tre-kem-de\" class=\"btn btn-secondary\" data-astro-cid-7vvvriqi=\"\">Xem chi tiết sản phẩm <span aria-hidden=\"true\" data-astro-cid-7vvvriqi=\"\">→</span></a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/san-pham",
+      "step": 34,
+      "tag": "A",
+      "id": "",
+      "text": "Móc khóa Lăng Kính",
+      "href": "/san-pham/moc-khoa",
+      "rect": {
+        "x": 45,
+        "y": 410.46875,
+        "w": 234.625,
+        "h": 32
+      },
+      "hit": "<a href=\"/san-pham/moc-khoa\" class=\"catalogue-title-link\" data-astro-cid-7vvvriqi=\"\">Móc khóa Lăng Kính</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/minh-bach",
+      "step": 3,
+      "tag": "A",
+      "id": "",
+      "text": "Trang chủ",
+      "href": "/",
+      "rect": {
+        "x": 20,
+        "y": 113.59375,
+        "w": 60.4375,
+        "h": 36
+      },
+      "hit": "<a href=\"/\" class=\"breadcrumb-link\" data-astro-cid-75ysl5lo=\"\">Trang chủ</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/minh-bach",
+      "step": 4,
+      "tag": "A",
+      "id": "",
+      "text": "1. Tổng quan và đối soát",
+      "href": "#tong-quan",
+      "rect": {
+        "x": 41,
+        "y": 580.59375,
+        "w": 180.34375,
+        "h": 44
+      },
+      "hit": "<a href=\"#tong-quan\" class=\"doc-toc-link\" data-astro-cid-fftjge74=\"\">1. Tổng quan và đối soát</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/minh-bach",
+      "step": 5,
+      "tag": "A",
+      "id": "",
+      "text": "2. Bốn bước dòng tiền",
+      "href": "#dong-tien",
+      "rect": {
+        "x": 41,
+        "y": 599.59375,
+        "w": 167.578125,
+        "h": 44
+      },
+      "hit": "<a href=\"#dong-tien\" class=\"doc-toc-link\" data-astro-cid-fftjge74=\"\">2. Bốn bước dòng tiền</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/minh-bach",
+      "step": 6,
+      "tag": "A",
+      "id": "",
+      "text": "3. Quy trình áp dụng",
+      "href": "#quy-trinh",
+      "rect": {
+        "x": 41,
+        "y": 599.59375,
+        "w": 157.578125,
+        "h": 44
+      },
+      "hit": "<a href=\"#quy-trinh\" class=\"doc-toc-link\" data-astro-cid-fftjge74=\"\">3. Quy trình áp dụng</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/minh-bach",
+      "step": 7,
+      "tag": "A",
+      "id": "",
+      "text": "4. Báo cáo và cam kết",
+      "href": "#bao-cao",
+      "rect": {
+        "x": 41,
+        "y": 599.59375,
+        "w": 163.375,
+        "h": 44
+      },
+      "hit": "<a href=\"#bao-cao\" class=\"doc-toc-link\" data-astro-cid-fftjge74=\"\">4. Báo cáo và cam kết</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/minh-bach",
+      "step": 8,
+      "tag": "A",
+      "id": "",
+      "text": "5. Câu hỏi thường gặp",
+      "href": "#faq",
+      "rect": {
+        "x": 41,
+        "y": 599.59375,
+        "w": 168.1875,
+        "h": 44
+      },
+      "hit": "<a href=\"#faq\" class=\"doc-toc-link\" data-astro-cid-fftjge74=\"\">5. Câu hỏi thường gặp</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/minh-bach",
+      "step": 9,
+      "tag": "A",
+      "id": "",
+      "text": "Xem sao kê từng khoản đã đối soát →",
+      "href": "/dong-hanh#sao-ke",
+      "rect": {
+        "x": 45,
+        "y": 404.375,
+        "w": 274.25,
+        "h": 44
+      },
+      "hit": "<a href=\"/dong-hanh#sao-ke\" class=\"link-arrow\" data-astro-cid-fftjge74=\"\">Xem sao kê từng khoản đã đối soát <span class=\"arrow\" aria-hidden=\"true\" data-astro-cid-fftjge74=\"\">→</span></a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/minh-bach",
+      "step": 10,
+      "tag": "A",
+      "id": "",
+      "text": "Thông tin tài khoản chuyển khoản",
+      "href": "/dong-hanh#chuyen-khoan",
+      "rect": {
+        "x": 45,
+        "y": 464.375,
+        "w": 285,
+        "h": 78
+      },
+      "hit": "<a href=\"/dong-hanh#chuyen-khoan\" class=\"btn btn-secondary\" data-astro-cid-fftjge74=\"\">Thông tin tài khoản chuyển khoản</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/minh-bach",
+      "step": 11,
+      "tag": "SUMMARY",
+      "id": "",
+      "text": "Vì sao tổng ủng hộ đang ghi “Chưa cập nhật”?",
+      "href": null,
+      "rect": {
+        "x": 21,
+        "y": 390.40625,
+        "w": 333,
+        "h": 70.375
+      },
+      "hit": "<span class=\"faq-q-text\" data-astro-cid-25eicpmf=\"\">Vì sao tổng ủng hộ đang ghi “Chưa cập nhật”?</span>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/minh-bach",
+      "step": 12,
+      "tag": "SUMMARY",
+      "id": "",
+      "text": "Tiền bán quà lưu niệm có cộng vào tổng ủng hộ không?",
+      "href": null,
+      "rect": {
+        "x": 21,
+        "y": 470.78125,
+        "w": 333,
+        "h": 70.375
+      },
+      "hit": "<span class=\"faq-q-text\" data-astro-cid-25eicpmf=\"\">Tiền bán quà lưu niệm có cộng vào tổng ủng hộ không?</span>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/minh-bach",
+      "step": 13,
+      "tag": "SUMMARY",
+      "id": "",
+      "text": "Trường hợp số tiền ủng hộ vượt mục tiêu 3.000.000đ thì xử lý thế nào?",
+      "href": null,
+      "rect": {
+        "x": 21,
+        "y": 550.15625,
+        "w": 333,
+        "h": 93.5625
+      },
+      "hit": "<span class=\"faq-q-text\" data-astro-cid-25eicpmf=\"\">Trường hợp số tiền ủng hộ vượt mục tiêu 3.000.000đ thì xử lý thế nào?</span>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/minh-bach",
+      "step": 14,
+      "tag": "SUMMARY",
+      "id": "",
+      "text": "Khi nào nhóm công bố báo cáo tổng kết dự án?",
+      "href": null,
+      "rect": {
+        "x": 21,
+        "y": 573.71875,
+        "w": 333,
+        "h": 70.375
+      },
+      "hit": "<span class=\"faq-q-text\" data-astro-cid-25eicpmf=\"\">Khi nào nhóm công bố báo cáo tổng kết dự án?</span>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/minh-bach",
+      "step": 15,
+      "tag": "A",
+      "id": "",
+      "text": "Ủng hộ qua chuyển khoản",
+      "href": "/dong-hanh",
+      "rect": {
+        "x": 20,
+        "y": 400.09375,
+        "w": 335,
+        "h": 52
+      },
+      "hit": "<a href=\"/dong-hanh\" class=\"btn btn-primary\" data-astro-cid-fftjge74=\"\">Ủng hộ qua chuyển khoản</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/minh-bach",
+      "step": 16,
+      "tag": "A",
+      "id": "",
+      "text": "Xem quà lưu niệm →",
+      "href": "/san-pham",
+      "rect": {
+        "x": 20,
+        "y": 460.09375,
+        "w": 150.609375,
+        "h": 44
+      },
+      "hit": "<a href=\"/san-pham\" class=\"link-arrow\" data-astro-cid-fftjge74=\"\">Xem quà lưu niệm <span class=\"arrow\" aria-hidden=\"true\" data-astro-cid-fftjge74=\"\">→</span></a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/minh-bach",
+      "step": 34,
+      "tag": "A",
+      "id": "",
+      "text": "Trang chủ",
+      "href": "/",
+      "rect": {
+        "x": 20,
+        "y": 113.59375,
+        "w": 60.4375,
+        "h": 36
+      },
+      "hit": "<a href=\"/\" class=\"breadcrumb-link\" data-astro-cid-75ysl5lo=\"\">Trang chủ</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/du-an/mang-theo-mot-net-ve",
+      "step": 3,
+      "tag": "A",
+      "id": "",
+      "text": "Trang chủ",
+      "href": "/",
+      "rect": {
+        "x": 20,
+        "y": 117.59375,
+        "w": 60.4375,
+        "h": 36
+      },
+      "hit": "<a href=\"/\" class=\"breadcrumb-link\" data-astro-cid-75ysl5lo=\"\">Trang chủ</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/du-an/mang-theo-mot-net-ve",
+      "step": 4,
+      "tag": "A",
+      "id": "",
+      "text": "Nhật ký: Kế hoạch bốn góc chơi tại Mái ấm Thánh Tâm →",
+      "href": "/nhat-ky/ke-hoach-bon-goc-choi",
+      "rect": {
+        "x": 20,
+        "y": 389.28125,
+        "w": 321.65625,
+        "h": 73
+      },
+      "hit": "<a href=\"/nhat-ky/ke-hoach-bon-goc-choi\" class=\"link-inline\" data-astro-cid-ltujgfdf=\"\">Nhật ký: Kế hoạch bốn góc chơi tại Mái ấm Thánh Tâm →</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/du-an/mang-theo-mot-net-ve",
+      "step": 5,
+      "tag": "A",
+      "id": "",
+      "text": "Kế hoạch bốn góc chơi có lựa chọn tại Mái ấm Thánh Tâm",
+      "href": "/nhat-ky/ke-hoach-bon-goc-choi",
+      "rect": {
+        "x": 45,
+        "y": 401.578125,
+        "w": 243.40625,
+        "h": 49.1875
+      },
+      "hit": "<a href=\"/nhat-ky/ke-hoach-bon-goc-choi\" class=\"journal-link\" data-astro-cid-ltujgfdf=\"\">Kế hoạch bốn góc chơi có lựa chọn tại Mái ấm Thánh Tâm</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/du-an/mang-theo-mot-net-ve",
+      "step": 6,
+      "tag": "A",
+      "id": "",
+      "text": "Đọc bài viết →",
+      "href": "/nhat-ky/ke-hoach-bon-goc-choi",
+      "rect": {
+        "x": 45,
+        "y": 538.953125,
+        "w": 285,
+        "h": 44
+      },
+      "hit": "<a href=\"/nhat-ky/ke-hoach-bon-goc-choi\" class=\"link-arrow\" data-astro-cid-ltujgfdf=\"\">Đọc bài viết <span class=\"arrow\" aria-hidden=\"true\" data-astro-cid-ltujgfdf=\"\">→</span></a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/du-an/mang-theo-mot-net-ve",
+      "step": 7,
+      "tag": "A",
+      "id": "",
+      "text": "Giới thiệu hai món quà lưu niệm gây quỹ và kế hoạch mở bán",
+      "href": "/nhat-ky/gioi-thieu-qua-luu-niem-gay-quy",
+      "rect": {
+        "x": 45,
+        "y": 594.953125,
+        "w": 268.15625,
+        "h": 49.1875
+      },
+      "hit": "<a href=\"/nhat-ky/gioi-thieu-qua-luu-niem-gay-quy\" class=\"journal-link\" data-astro-cid-ltujgfdf=\"\">Giới thiệu hai món quà lưu niệm gây quỹ và kế hoạch mở bán</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/du-an/mang-theo-mot-net-ve",
+      "step": 8,
+      "tag": "A",
+      "id": "",
+      "text": "Đọc bài viết →",
+      "href": "/nhat-ky/gioi-thieu-qua-luu-niem-gay-quy",
+      "rect": {
+        "x": 45,
+        "y": 404.328125,
+        "w": 285,
+        "h": 44
+      },
+      "hit": "<a href=\"/nhat-ky/gioi-thieu-qua-luu-niem-gay-quy\" class=\"link-arrow\" data-astro-cid-ltujgfdf=\"\">Đọc bài viết <span class=\"arrow\" aria-hidden=\"true\" data-astro-cid-ltujgfdf=\"\">→</span></a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/du-an/mang-theo-mot-net-ve",
+      "step": 9,
+      "tag": "A",
+      "id": "",
+      "text": "Xem tất cả bài viết nhật ký →",
+      "href": "/nhat-ky",
+      "rect": {
+        "x": 20,
+        "y": 497.328125,
+        "w": 260.84375,
+        "h": 52
+      },
+      "hit": "<a href=\"/nhat-ky\" class=\"btn btn-secondary\" data-astro-cid-ltujgfdf=\"\">Xem tất cả bài viết nhật ký →</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/du-an/mang-theo-mot-net-ve",
+      "step": 10,
+      "tag": "A",
+      "id": "",
+      "text": "Ủng hộ dự án",
+      "href": "/dong-hanh",
+      "rect": {
+        "x": 20,
+        "y": 400.328125,
+        "w": 335,
+        "h": 52
+      },
+      "hit": "<a href=\"/dong-hanh\" class=\"btn btn-primary\" data-astro-cid-ltujgfdf=\"\">Ủng hộ dự án</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/du-an/mang-theo-mot-net-ve",
+      "step": 11,
+      "tag": "A",
+      "id": "",
+      "text": "Minh bạch →",
+      "href": "/minh-bach",
+      "rect": {
+        "x": 20,
+        "y": 460.328125,
+        "w": 94.65625,
+        "h": 44
+      },
+      "hit": "<a href=\"/minh-bach\" class=\"link-arrow\" data-astro-cid-ltujgfdf=\"\">Minh bạch <span class=\"arrow\" aria-hidden=\"true\" data-astro-cid-ltujgfdf=\"\">→</span></a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/du-an/mang-theo-mot-net-ve",
+      "step": 29,
+      "tag": "A",
+      "id": "",
+      "text": "Trang chủ",
+      "href": "/",
+      "rect": {
+        "x": 20,
+        "y": 117.59375,
+        "w": 60.4375,
+        "h": 36
+      },
+      "hit": "<a href=\"/\" class=\"breadcrumb-link\" data-astro-cid-75ysl5lo=\"\">Trang chủ</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/du-an/mang-theo-mot-net-ve",
+      "step": 30,
+      "tag": "A",
+      "id": "",
+      "text": "Nhật ký: Kế hoạch bốn góc chơi tại Mái ấm Thánh Tâm →",
+      "href": "/nhat-ky/ke-hoach-bon-goc-choi",
+      "rect": {
+        "x": 20,
+        "y": 389.28125,
+        "w": 321.65625,
+        "h": 73
+      },
+      "hit": "<a href=\"/nhat-ky/ke-hoach-bon-goc-choi\" class=\"link-inline\" data-astro-cid-ltujgfdf=\"\">Nhật ký: Kế hoạch bốn góc chơi tại Mái ấm Thánh Tâm →</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/du-an/mang-theo-mot-net-ve",
+      "step": 31,
+      "tag": "A",
+      "id": "",
+      "text": "Kế hoạch bốn góc chơi có lựa chọn tại Mái ấm Thánh Tâm",
+      "href": "/nhat-ky/ke-hoach-bon-goc-choi",
+      "rect": {
+        "x": 45,
+        "y": 401.578125,
+        "w": 243.40625,
+        "h": 49.1875
+      },
+      "hit": "<a href=\"/nhat-ky/ke-hoach-bon-goc-choi\" class=\"journal-link\" data-astro-cid-ltujgfdf=\"\">Kế hoạch bốn góc chơi có lựa chọn tại Mái ấm Thánh Tâm</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/du-an/mang-theo-mot-net-ve",
+      "step": 32,
+      "tag": "A",
+      "id": "",
+      "text": "Đọc bài viết →",
+      "href": "/nhat-ky/ke-hoach-bon-goc-choi",
+      "rect": {
+        "x": 45,
+        "y": 538.953125,
+        "w": 285,
+        "h": 44
+      },
+      "hit": "<a href=\"/nhat-ky/ke-hoach-bon-goc-choi\" class=\"link-arrow\" data-astro-cid-ltujgfdf=\"\">Đọc bài viết <span class=\"arrow\" aria-hidden=\"true\" data-astro-cid-ltujgfdf=\"\">→</span></a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/du-an/mang-theo-mot-net-ve",
+      "step": 33,
+      "tag": "A",
+      "id": "",
+      "text": "Giới thiệu hai món quà lưu niệm gây quỹ và kế hoạch mở bán",
+      "href": "/nhat-ky/gioi-thieu-qua-luu-niem-gay-quy",
+      "rect": {
+        "x": 45,
+        "y": 594.953125,
+        "w": 268.15625,
+        "h": 49.1875
+      },
+      "hit": "<a href=\"/nhat-ky/gioi-thieu-qua-luu-niem-gay-quy\" class=\"journal-link\" data-astro-cid-ltujgfdf=\"\">Giới thiệu hai món quà lưu niệm gây quỹ và kế hoạch mở bán</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/du-an/mang-theo-mot-net-ve",
+      "step": 34,
+      "tag": "A",
+      "id": "",
+      "text": "Đọc bài viết →",
+      "href": "/nhat-ky/gioi-thieu-qua-luu-niem-gay-quy",
+      "rect": {
+        "x": 45,
+        "y": 404.328125,
+        "w": 285,
+        "h": 44
+      },
+      "hit": "<a href=\"/nhat-ky/gioi-thieu-qua-luu-niem-gay-quy\" class=\"link-arrow\" data-astro-cid-ltujgfdf=\"\">Đọc bài viết <span class=\"arrow\" aria-hidden=\"true\" data-astro-cid-ltujgfdf=\"\">→</span></a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/ve-nhom",
+      "step": 3,
+      "tag": "A",
+      "id": "",
+      "text": "Trang chủ",
+      "href": "/",
+      "rect": {
+        "x": 20,
+        "y": 117.59375,
+        "w": 60.4375,
+        "h": 36
+      },
+      "hit": "<a href=\"/\" class=\"breadcrumb-link\" data-astro-cid-75ysl5lo=\"\">Trang chủ</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/ve-nhom",
+      "step": 4,
+      "tag": "A",
+      "id": "",
+      "text": "0984 441 726",
+      "href": "tel:+84984441726",
+      "rect": {
+        "x": 53,
+        "y": 403.6875,
+        "w": 269,
+        "h": 44
+      },
+      "hit": "<a class=\"contact-tel\" href=\"tel:+84984441726\" aria-label=\"Gọi Trưởng dự án Nguyễn Chí Trung: 0984 441 726\" data-astro-cid-qox7tg37=\"\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" strok",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/ve-nhom",
+      "step": 5,
+      "tag": "A",
+      "id": "",
+      "text": "0343 999 199",
+      "href": "tel:+84343999199",
+      "rect": {
+        "x": 53,
+        "y": 545.6875,
+        "w": 269,
+        "h": 44
+      },
+      "hit": "<a class=\"contact-tel\" href=\"tel:+84343999199\" aria-label=\"Gọi Đại diện đối ngoại Lê Tuấn Anh: 0343 999 199\" data-astro-cid-qox7tg37=\"\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stro",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/ve-nhom",
+      "step": 6,
+      "tag": "A",
+      "id": "",
+      "text": "Fanpage Mang Theo Một Nét Vẽ ↗(mở trong thẻ mới)",
+      "href": "https://www.facebook.com/mangtheomotnetve",
+      "rect": {
+        "x": 37,
+        "y": 599.6875,
+        "w": 252.609375,
+        "h": 44
+      },
+      "hit": "<a class=\"contact-fanpage\" href=\"https://www.facebook.com/mangtheomotnetve\" target=\"_blank\" rel=\"noopener noreferrer\" data-astro-cid-qox7tg37=\"\">Fanpage Mang Theo Một Nét Vẽ <span class=\"arrow\" aria-h",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/ve-nhom",
+      "step": 7,
+      "tag": "A",
+      "id": "",
+      "text": "Xem dự án",
+      "href": "/du-an/mang-theo-mot-net-ve",
+      "rect": {
+        "x": 20,
+        "y": 399.6875,
+        "w": 335,
+        "h": 52
+      },
+      "hit": "<a href=\"/du-an/mang-theo-mot-net-ve\" class=\"btn btn-primary\" data-astro-cid-warzzuuy=\"\">Xem dự án</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/ve-nhom",
+      "step": 8,
+      "tag": "A",
+      "id": "",
+      "text": "Ủng hộ dự án →",
+      "href": "/dong-hanh",
+      "rect": {
+        "x": 20,
+        "y": 459.6875,
+        "w": 117.421875,
+        "h": 44
+      },
+      "hit": "<a href=\"/dong-hanh\" class=\"link-arrow\" data-astro-cid-warzzuuy=\"\">Ủng hộ dự án <span class=\"arrow\" aria-hidden=\"true\" data-astro-cid-warzzuuy=\"\">→</span></a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/ve-nhom",
+      "step": 26,
+      "tag": "A",
+      "id": "",
+      "text": "Trang chủ",
+      "href": "/",
+      "rect": {
+        "x": 20,
+        "y": 117.59375,
+        "w": 60.4375,
+        "h": 36
+      },
+      "hit": "<a href=\"/\" class=\"breadcrumb-link\" data-astro-cid-75ysl5lo=\"\">Trang chủ</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/ve-nhom",
+      "step": 27,
+      "tag": "A",
+      "id": "",
+      "text": "0984 441 726",
+      "href": "tel:+84984441726",
+      "rect": {
+        "x": 53,
+        "y": 403.6875,
+        "w": 269,
+        "h": 44
+      },
+      "hit": "<a class=\"contact-tel\" href=\"tel:+84984441726\" aria-label=\"Gọi Trưởng dự án Nguyễn Chí Trung: 0984 441 726\" data-astro-cid-qox7tg37=\"\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" strok",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/ve-nhom",
+      "step": 28,
+      "tag": "A",
+      "id": "",
+      "text": "0343 999 199",
+      "href": "tel:+84343999199",
+      "rect": {
+        "x": 53,
+        "y": 545.6875,
+        "w": 269,
+        "h": 44
+      },
+      "hit": "<a class=\"contact-tel\" href=\"tel:+84343999199\" aria-label=\"Gọi Đại diện đối ngoại Lê Tuấn Anh: 0343 999 199\" data-astro-cid-qox7tg37=\"\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stro",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/ve-nhom",
+      "step": 29,
+      "tag": "A",
+      "id": "",
+      "text": "Fanpage Mang Theo Một Nét Vẽ ↗(mở trong thẻ mới)",
+      "href": "https://www.facebook.com/mangtheomotnetve",
+      "rect": {
+        "x": 37,
+        "y": 599.6875,
+        "w": 252.609375,
+        "h": 44
+      },
+      "hit": "<a class=\"contact-fanpage\" href=\"https://www.facebook.com/mangtheomotnetve\" target=\"_blank\" rel=\"noopener noreferrer\" data-astro-cid-qox7tg37=\"\">Fanpage Mang Theo Một Nét Vẽ <span class=\"arrow\" aria-h",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/ve-nhom",
+      "step": 30,
+      "tag": "A",
+      "id": "",
+      "text": "Xem dự án",
+      "href": "/du-an/mang-theo-mot-net-ve",
+      "rect": {
+        "x": 20,
+        "y": 399.6875,
+        "w": 335,
+        "h": 52
+      },
+      "hit": "<a href=\"/du-an/mang-theo-mot-net-ve\" class=\"btn btn-primary\" data-astro-cid-warzzuuy=\"\">Xem dự án</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/ve-nhom",
+      "step": 31,
+      "tag": "A",
+      "id": "",
+      "text": "Ủng hộ dự án →",
+      "href": "/dong-hanh",
+      "rect": {
+        "x": 20,
+        "y": 459.6875,
+        "w": 117.421875,
+        "h": 44
+      },
+      "hit": "<a href=\"/dong-hanh\" class=\"link-arrow\" data-astro-cid-warzzuuy=\"\">Ủng hộ dự án <span class=\"arrow\" aria-hidden=\"true\" data-astro-cid-warzzuuy=\"\">→</span></a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/dong-hanh",
+      "step": 3,
+      "tag": "A",
+      "id": "",
+      "text": "Trang chủ",
+      "href": "/",
+      "rect": {
+        "x": 20,
+        "y": 113.59375,
+        "w": 60.4375,
+        "h": 36
+      },
+      "hit": "<a href=\"/\" class=\"breadcrumb-link\" data-astro-cid-75ysl5lo=\"\">Trang chủ</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/dong-hanh",
+      "step": 4,
+      "tag": "A",
+      "id": "",
+      "text": "Tải ảnh QR để quét từ thư viện ảnh",
+      "href": "/images/ung-ho/qr-ung-ho-techcombank.png",
+      "rect": {
+        "x": 75.90625,
+        "y": 404.328125,
+        "w": 223.1875,
+        "h": 44
+      },
+      "hit": "<a class=\"qr-download\" href=\"/images/ung-ho/qr-ung-ho-techcombank.png\" download=\"QR-ung-ho-Mang-Theo-Mot-Net-Ve.png\" data-astro-cid-6ixw7li2=\"\">Tải ảnh QR để quét từ thư viện ảnh</a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/dong-hanh",
+      "step": 5,
+      "tag": "BUTTON",
+      "id": "",
+      "text": "Sao chép",
+      "href": null,
+      "rect": {
+        "x": 172.90625,
+        "y": 608.328125,
+        "w": 83.75,
+        "h": 36
+      },
+      "hit": "<button type=\"button\" class=\"copy-btn\" data-copy=\"999927052006\" data-astro-cid-6ixw7li2=\"\">Sao chép</button>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/dong-hanh",
+      "step": 6,
+      "tag": "BUTTON",
+      "id": "",
+      "text": "Sao chép",
+      "href": null,
+      "rect": {
+        "x": 224.375,
+        "y": 408.328125,
+        "w": 83.75,
+        "h": 36
+      },
+      "hit": "<button type=\"button\" class=\"copy-btn\" data-copy=\"MTMNV \" data-astro-cid-6ixw7li2=\"\">Sao chép</button>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/dong-hanh",
+      "step": 7,
+      "tag": "A",
+      "id": "",
+      "text": "Xem tiến độ và sổ đối soát bên dưới ↓",
+      "href": "#sao-ke",
+      "rect": {
+        "x": 37,
+        "y": 404.328125,
+        "w": 274.015625,
+        "h": 44
+      },
+      "hit": "<a href=\"#sao-ke\" class=\"link-arrow\" data-astro-cid-6ixw7li2=\"\">Xem tiến độ và sổ đối soát bên dưới <span class=\"arrow\" aria-hidden=\"true\" data-astro-cid-6ixw7li2=\"\">↓</span></a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/dong-hanh",
+      "step": 8,
+      "tag": "BUTTON",
+      "id": "",
+      "text": "Chia sẻ trang này tới bạn bè",
+      "href": null,
+      "rect": {
+        "x": 37,
+        "y": 460.328125,
+        "w": 248.109375,
+        "h": 40
+      },
+      "hit": "<span data-astro-cid-6ixw7li2=\"\">Chia sẻ trang này tới bạn bè</span>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/dong-hanh",
+      "step": 9,
+      "tag": "A",
+      "id": "",
+      "text": "Xem quy trình đối soát và công bố →",
+      "href": "/minh-bach#quy-trinh",
+      "rect": {
+        "x": 20,
+        "y": 404.328125,
+        "w": 268.140625,
+        "h": 44
+      },
+      "hit": "<a href=\"/minh-bach#quy-trinh\" class=\"link-arrow\" data-astro-cid-hzcvpkbr=\"\">Xem quy trình đối soát và công bố <span class=\"arrow\" aria-hidden=\"true\" data-astro-cid-hzcvpkbr=\"\">→</span></a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/dong-hanh",
+      "step": 10,
+      "tag": "A",
+      "id": "",
+      "text": "Xem quy trình nhận, đối soát, công bố và trao quà →",
+      "href": "/minh-bach#dong-tien",
+      "rect": {
+        "x": 20,
+        "y": 400.328125,
+        "w": 335,
+        "h": 52
+      },
+      "hit": "<a href=\"/minh-bach#dong-tien\" class=\"link-arrow\" data-astro-cid-hzcvpkbr=\"\">Xem quy trình nhận, đối soát, công bố và trao quà <span class=\"arrow\" aria-hidden=\"true\" data-astro-cid-hzcvpkbr=\"\">→</span",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/dong-hanh",
+      "step": 11,
+      "tag": "A",
+      "id": "",
+      "text": "Xem quà lưu niệm →",
+      "href": "/san-pham",
+      "rect": {
+        "x": 37,
+        "y": 404.328125,
+        "w": 150.609375,
+        "h": 44
+      },
+      "hit": "<a href=\"/san-pham\" class=\"link-arrow\" data-astro-cid-hzcvpkbr=\"\">Xem quà lưu niệm <span class=\"arrow\" aria-hidden=\"true\" data-astro-cid-hzcvpkbr=\"\">→</span></a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/dong-hanh",
+      "step": 12,
+      "tag": "A",
+      "id": "",
+      "text": "Liên hệ nhóm →",
+      "href": "#lien-he",
+      "rect": {
+        "x": 37,
+        "y": 588.328125,
+        "w": 116.640625,
+        "h": 44
+      },
+      "hit": "<a href=\"#lien-he\" class=\"link-arrow\" data-astro-cid-hzcvpkbr=\"\">Liên hệ nhóm <span class=\"arrow\" aria-hidden=\"true\" data-astro-cid-hzcvpkbr=\"\">→</span></a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/dong-hanh",
+      "step": 13,
+      "tag": "A",
+      "id": "",
+      "text": "Đọc về dự án →",
+      "href": "/du-an/mang-theo-mot-net-ve",
+      "rect": {
+        "x": 37,
+        "y": 404.328125,
+        "w": 113.5,
+        "h": 44
+      },
+      "hit": "<a href=\"/du-an/mang-theo-mot-net-ve\" class=\"link-arrow\" data-astro-cid-hzcvpkbr=\"\">Đọc về dự án <span class=\"arrow\" aria-hidden=\"true\" data-astro-cid-hzcvpkbr=\"\">→</span></a>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/dong-hanh",
+      "step": 14,
+      "tag": "A",
+      "id": "",
+      "text": "0984 441 726",
+      "href": "tel:+84984441726",
+      "rect": {
+        "x": 53,
+        "y": 404.328125,
+        "w": 269,
+        "h": 44
+      },
+      "hit": "<a class=\"contact-tel\" href=\"tel:+84984441726\" aria-label=\"Gọi Trưởng dự án Nguyễn Chí Trung: 0984 441 726\" data-astro-cid-qox7tg37=\"\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" strok",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/dong-hanh",
+      "step": 15,
+      "tag": "A",
+      "id": "",
+      "text": "0343 999 199",
+      "href": "tel:+84343999199",
+      "rect": {
+        "x": 53,
+        "y": 546.328125,
+        "w": 269,
+        "h": 44
+      },
+      "hit": "<a class=\"contact-tel\" href=\"tel:+84343999199\" aria-label=\"Gọi Đại diện đối ngoại Lê Tuấn Anh: 0343 999 199\" data-astro-cid-qox7tg37=\"\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stro",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/dong-hanh",
+      "step": 16,
+      "tag": "A",
+      "id": "",
+      "text": "Fanpage Mang Theo Một Nét Vẽ ↗(mở trong thẻ mới)",
+      "href": "https://www.facebook.com/mangtheomotnetve",
+      "rect": {
+        "x": 37,
+        "y": 600.328125,
+        "w": 252.609375,
+        "h": 44
+      },
+      "hit": "<a class=\"contact-fanpage\" href=\"https://www.facebook.com/mangtheomotnetve\" target=\"_blank\" rel=\"noopener noreferrer\" data-astro-cid-qox7tg37=\"\">Fanpage Mang Theo Một Nét Vẽ <span class=\"arrow\" aria-h",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/dong-hanh",
+      "step": 17,
+      "tag": "SUMMARY",
+      "id": "",
+      "text": "Làm sao để tên tôi xuất hiện trong sao kê?",
+      "href": null,
+      "rect": {
+        "x": 21,
+        "y": 390.328125,
+        "w": 333,
+        "h": 70.375
+      },
+      "hit": "<span class=\"faq-q-text\" data-astro-cid-25eicpmf=\"\">Làm sao để tên tôi xuất hiện trong sao kê?</span>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/dong-hanh",
+      "step": 18,
+      "tag": "SUMMARY",
+      "id": "",
+      "text": "Khi nào khoản ủng hộ của tôi được cập nhật?",
+      "href": null,
+      "rect": {
+        "x": 21,
+        "y": 470.703125,
+        "w": 333,
+        "h": 70.375
+      },
+      "hit": "<span class=\"faq-q-text\" data-astro-cid-25eicpmf=\"\">Khi nào khoản ủng hộ của tôi được cập nhật?</span>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/dong-hanh",
+      "step": 19,
+      "tag": "SUMMARY",
+      "id": "",
+      "text": "Tôi chuyển nhầm số tiền hoặc chuyển trùng thì sao?",
+      "href": null,
+      "rect": {
+        "x": 21,
+        "y": 551.078125,
+        "w": 333,
+        "h": 70.375
+      },
+      "hit": "<span class=\"faq-q-text\" data-astro-cid-25eicpmf=\"\">Tôi chuyển nhầm số tiền hoặc chuyển trùng thì sao?</span>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/dong-hanh",
+      "step": 20,
+      "tag": "SUMMARY",
+      "id": "",
+      "text": "Tiền ủng hộ được dùng vào việc gì?",
+      "href": null,
+      "rect": {
+        "x": 21,
+        "y": 573.453125,
+        "w": 333,
+        "h": 70.375
+      },
+      "hit": "<span class=\"faq-q-text\" data-astro-cid-25eicpmf=\"\">Tiền ủng hộ được dùng vào việc gì?</span>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    },
+    {
+      "route": "/dong-hanh",
+      "step": 21,
+      "tag": "SUMMARY",
+      "id": "",
+      "text": "Tôi có thể cùng đến Mái ấm không?",
+      "href": null,
+      "rect": {
+        "x": 21,
+        "y": 573.828125,
+        "w": 333,
+        "h": 70.375
+      },
+      "hit": "<span class=\"faq-q-text\" data-astro-cid-25eicpmf=\"\">Tôi có thể cùng đến Mái ấm không?</span>",
+      "obscured": false,
+      "outline": "rgb(19, 38, 75) solid 3px"
+    }
+  ],
+  "startedAt": "2026-10-12T03:05:58.290Z",
+  "pass": true,
+  "finishedAt": "2026-10-12T03:06:39.514Z"
+}

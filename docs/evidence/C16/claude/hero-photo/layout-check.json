@@ -1,0 +1,123 @@
+{
+  "head": "bc52df301c873a08c7236e9750b090678825db42",
+  "time": "2026-10-12T03:04:40.759Z",
+  "cases": [
+    {
+      "name": "QR appears early on 375x812 without clipping instructions",
+      "pass": true,
+      "details": {
+        "qrTop": 494.59375
+      }
+    },
+    {
+      "name": "heading order and valid figure captions /dong-hanh",
+      "pass": true
+    },
+    {
+      "name": "heading order and valid figure captions /minh-bach",
+      "pass": true
+    },
+    {
+      "name": "finance TOC anchor remains below sticky header #tong-quan",
+      "pass": true,
+      "details": {
+        "headerBottom": 81,
+        "targetTop": 175.59375,
+        "tocTop": 175.59375
+      }
+    },
+    {
+      "name": "finance TOC anchor remains below sticky header #dong-tien",
+      "pass": true,
+      "details": {
+        "headerBottom": 81,
+        "targetTop": 176.1875,
+        "tocTop": 88
+      }
+    },
+    {
+      "name": "finance TOC anchor remains below sticky header #quy-trinh",
+      "pass": true,
+      "details": {
+        "headerBottom": 81,
+        "targetTop": 175.71875,
+        "tocTop": 88
+      }
+    },
+    {
+      "name": "finance TOC anchor remains below sticky header #bao-cao",
+      "pass": true,
+      "details": {
+        "headerBottom": 81,
+        "targetTop": 176.3125,
+        "tocTop": 88
+      }
+    },
+    {
+      "name": "finance TOC anchor remains below sticky header #faq",
+      "pass": true,
+      "details": {
+        "headerBottom": 81,
+        "targetTop": 175.90625,
+        "tocTop": 88
+      }
+    },
+    {
+      "name": "heading order and valid figure captions /nhat-ky",
+      "pass": true
+    },
+    {
+      "name": "project retains both planned dates, time and gift duration",
+      "pass": true
+    },
+    {
+      "name": "heading order and valid figure captions /du-an/mang-theo-mot-net-ve",
+      "pass": true
+    }
+  ],
+  "metrics": [
+    {
+      "route": "/dong-hanh",
+      "heroHeight": 359,
+      "qrTop": 494.59375,
+      "date24": false,
+      "date31": false,
+      "time14": false,
+      "giftDuration": false,
+      "jumps": [],
+      "badCaptions": []
+    },
+    {
+      "route": "/minh-bach",
+      "heroHeight": 379,
+      "date24": false,
+      "date31": false,
+      "time14": false,
+      "giftDuration": false,
+      "jumps": [],
+      "badCaptions": []
+    },
+    {
+      "route": "/nhat-ky",
+      "heroHeight": 329,
+      "date24": true,
+      "date31": false,
+      "time14": false,
+      "giftDuration": false,
+      "jumps": [],
+      "badCaptions": []
+    },
+    {
+      "route": "/du-an/mang-theo-mot-net-ve",
+      "heroHeight": 1053,
+      "date24": true,
+      "date31": true,
+      "time14": true,
+      "giftDuration": true,
+      "jumps": [],
+      "badCaptions": []
+    }
+  ],
+  "headAfter": "bc52df301c873a08c7236e9750b090678825db42",
+  "pass": true
+}

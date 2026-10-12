@@ -1,0 +1,471 @@
+{
+  "head": "bc52df301c873a08c7236e9750b090678825db42",
+  "startedAt": "2026-10-12T03:04:57.416Z",
+  "cases": [
+    {
+      "name": "menu opens, hidden mobile CTA is inert, Escape restores focus",
+      "pass": true
+    },
+    {
+      "name": "share fallback copies real public domain, never localhost",
+      "pass": true
+    },
+    {
+      "name": "mobile menu link navigates to journal",
+      "pass": true
+    },
+    {
+      "name": "journal single-category list hides redundant filters and retains two real entries",
+      "pass": true,
+      "details": {
+        "categories": [
+          "ke-hoach"
+        ]
+      }
+    },
+    {
+      "name": "bank number copy equals approved DOM data; QR hides quick CTA",
+      "pass": true,
+      "details": {
+        "qr": {
+          "src": "/images/ung-ho/qr-ung-ho-techcombank.png",
+          "ok": true
+        }
+      }
+    },
+    {
+      "name": "donation panel share fallback copies real public domain",
+      "pass": true,
+      "details": {
+        "copied": "https://mangtheomotnetve.website/"
+      }
+    },
+    {
+      "name": "mobile share success",
+      "pass": true,
+      "details": {
+        "mode": "success",
+        "status": "Đã mở hộp thoại chia sẻ."
+      }
+    },
+    {
+      "name": "mobile share abort",
+      "pass": true,
+      "details": {
+        "mode": "abort",
+        "status": ""
+      }
+    },
+    {
+      "name": "mobile share failure",
+      "pass": true,
+      "details": {
+        "mode": "failure",
+        "status": "Đã sao chép liên kết dự án vào bộ nhớ tạm!"
+      }
+    },
+    {
+      "name": "mobile share clipboard-failure",
+      "pass": true,
+      "details": {
+        "mode": "clipboard-failure",
+        "status": "Không thể sao chép tự động. Hãy sao chép địa chỉ trang web."
+      }
+    },
+    {
+      "name": "panel share success",
+      "pass": true,
+      "details": {
+        "mode": "success",
+        "status": "Đã mở hộp thoại chia sẻ."
+      }
+    },
+    {
+      "name": "panel share abort",
+      "pass": true,
+      "details": {
+        "mode": "abort",
+        "status": ""
+      }
+    },
+    {
+      "name": "panel share failure",
+      "pass": true,
+      "details": {
+        "mode": "failure",
+        "status": "Đã sao chép liên kết chia sẻ!"
+      }
+    },
+    {
+      "name": "panel share clipboard-failure",
+      "pass": true,
+      "details": {
+        "mode": "clipboard-failure",
+        "status": "Không thể sao chép liên kết tự động."
+      }
+    },
+    {
+      "name": "denied bank clipboard announces manual-copy fallback without page error",
+      "pass": true
+    },
+    {
+      "name": "768px direct/reload /",
+      "pass": true,
+      "details": {
+        "viewport": 768,
+        "scrollWidth": 768,
+        "h1": 1
+      }
+    },
+    {
+      "name": "768px direct/reload /du-an/mang-theo-mot-net-ve",
+      "pass": true,
+      "details": {
+        "viewport": 768,
+        "scrollWidth": 768,
+        "h1": 1
+      }
+    },
+    {
+      "name": "768px direct/reload /san-pham",
+      "pass": true,
+      "details": {
+        "viewport": 768,
+        "scrollWidth": 768,
+        "h1": 1
+      }
+    },
+    {
+      "name": "768px direct/reload /minh-bach",
+      "pass": true,
+      "details": {
+        "viewport": 768,
+        "scrollWidth": 768,
+        "h1": 1
+      }
+    },
+    {
+      "name": "768px direct/reload /ve-nhom",
+      "pass": true,
+      "details": {
+        "viewport": 768,
+        "scrollWidth": 768,
+        "h1": 1
+      }
+    },
+    {
+      "name": "768px direct/reload /dong-hanh",
+      "pass": true,
+      "details": {
+        "viewport": 768,
+        "scrollWidth": 768,
+        "h1": 1
+      }
+    },
+    {
+      "name": "768px direct/reload /nhat-ky",
+      "pass": true,
+      "details": {
+        "viewport": 768,
+        "scrollWidth": 768,
+        "h1": 1
+      }
+    },
+    {
+      "name": "768px direct/reload /nhat-ky/ke-hoach-bon-goc-choi",
+      "pass": true,
+      "details": {
+        "viewport": 768,
+        "scrollWidth": 768,
+        "h1": 1
+      }
+    },
+    {
+      "name": "768px direct/reload /nhat-ky/gioi-thieu-qua-luu-niem-gay-quy",
+      "pass": true,
+      "details": {
+        "viewport": 768,
+        "scrollWidth": 768,
+        "h1": 1
+      }
+    },
+    {
+      "name": "768px direct/reload /san-pham/chuon-chuon-tre-kem-de",
+      "pass": true,
+      "details": {
+        "viewport": 768,
+        "scrollWidth": 768,
+        "h1": 1
+      }
+    },
+    {
+      "name": "768px direct/reload /san-pham/moc-khoa",
+      "pass": true,
+      "details": {
+        "viewport": 768,
+        "scrollWidth": 768,
+        "h1": 1
+      }
+    },
+    {
+      "name": "768px direct/reload /404",
+      "pass": true,
+      "details": {
+        "viewport": 768,
+        "scrollWidth": 768,
+        "h1": 1
+      }
+    },
+    {
+      "name": "JS off mobile content/navigation /",
+      "pass": true,
+      "details": {
+        "h1": 1,
+        "viewport": 375,
+        "scrollWidth": 375,
+        "nav": [
+          "/",
+          "/du-an/mang-theo-mot-net-ve",
+          "/nhat-ky",
+          "/san-pham",
+          "/minh-bach",
+          "/ve-nhom",
+          "/dong-hanh"
+        ],
+        "buyForm": false
+      }
+    },
+    {
+      "name": "JS off mobile content/navigation /du-an/mang-theo-mot-net-ve",
+      "pass": true,
+      "details": {
+        "h1": 1,
+        "viewport": 375,
+        "scrollWidth": 375,
+        "nav": [
+          "/",
+          "/",
+          "/du-an/mang-theo-mot-net-ve",
+          "/nhat-ky",
+          "/san-pham",
+          "/minh-bach",
+          "/ve-nhom",
+          "/dong-hanh"
+        ],
+        "buyForm": false
+      }
+    },
+    {
+      "name": "JS off mobile content/navigation /san-pham",
+      "pass": true,
+      "details": {
+        "h1": 1,
+        "viewport": 375,
+        "scrollWidth": 375,
+        "nav": [
+          "/",
+          "/",
+          "/du-an/mang-theo-mot-net-ve",
+          "/nhat-ky",
+          "/san-pham",
+          "/minh-bach",
+          "/ve-nhom",
+          "/dong-hanh"
+        ],
+        "buyForm": false
+      }
+    },
+    {
+      "name": "JS off mobile content/navigation /minh-bach",
+      "pass": true,
+      "details": {
+        "h1": 1,
+        "viewport": 375,
+        "scrollWidth": 375,
+        "nav": [
+          "/",
+          "#tong-quan",
+          "#dong-tien",
+          "#quy-trinh",
+          "#bao-cao",
+          "#faq",
+          "/",
+          "/du-an/mang-theo-mot-net-ve",
+          "/nhat-ky",
+          "/san-pham",
+          "/minh-bach",
+          "/ve-nhom",
+          "/dong-hanh"
+        ],
+        "buyForm": false
+      }
+    },
+    {
+      "name": "JS off mobile content/navigation /ve-nhom",
+      "pass": true,
+      "details": {
+        "h1": 1,
+        "viewport": 375,
+        "scrollWidth": 375,
+        "nav": [
+          "/",
+          "/",
+          "/du-an/mang-theo-mot-net-ve",
+          "/nhat-ky",
+          "/san-pham",
+          "/minh-bach",
+          "/ve-nhom",
+          "/dong-hanh"
+        ],
+        "buyForm": false
+      }
+    },
+    {
+      "name": "JS off mobile content/navigation /dong-hanh",
+      "pass": true,
+      "details": {
+        "h1": 1,
+        "viewport": 375,
+        "scrollWidth": 375,
+        "nav": [
+          "/",
+          "/",
+          "/du-an/mang-theo-mot-net-ve",
+          "/nhat-ky",
+          "/san-pham",
+          "/minh-bach",
+          "/ve-nhom",
+          "/dong-hanh"
+        ],
+        "buyForm": false
+      }
+    },
+    {
+      "name": "JS off mobile content/navigation /nhat-ky",
+      "pass": true,
+      "details": {
+        "h1": 1,
+        "viewport": 375,
+        "scrollWidth": 375,
+        "nav": [
+          "/",
+          "/",
+          "/du-an/mang-theo-mot-net-ve",
+          "/nhat-ky",
+          "/san-pham",
+          "/minh-bach",
+          "/ve-nhom",
+          "/dong-hanh"
+        ],
+        "buyForm": false
+      }
+    },
+    {
+      "name": "JS off mobile content/navigation /nhat-ky/ke-hoach-bon-goc-choi",
+      "pass": true,
+      "details": {
+        "h1": 1,
+        "viewport": 375,
+        "scrollWidth": 375,
+        "nav": [
+          "/",
+          "/nhat-ky",
+          "/",
+          "/du-an/mang-theo-mot-net-ve",
+          "/nhat-ky",
+          "/san-pham",
+          "/minh-bach",
+          "/ve-nhom",
+          "/dong-hanh"
+        ],
+        "buyForm": false
+      }
+    },
+    {
+      "name": "JS off mobile content/navigation /nhat-ky/gioi-thieu-qua-luu-niem-gay-quy",
+      "pass": true,
+      "details": {
+        "h1": 1,
+        "viewport": 375,
+        "scrollWidth": 375,
+        "nav": [
+          "/",
+          "/nhat-ky",
+          "/",
+          "/du-an/mang-theo-mot-net-ve",
+          "/nhat-ky",
+          "/san-pham",
+          "/minh-bach",
+          "/ve-nhom",
+          "/dong-hanh"
+        ],
+        "buyForm": false
+      }
+    },
+    {
+      "name": "JS off mobile content/navigation /san-pham/chuon-chuon-tre-kem-de",
+      "pass": true,
+      "details": {
+        "h1": 1,
+        "viewport": 375,
+        "scrollWidth": 375,
+        "nav": [
+          "/",
+          "/san-pham",
+          "/",
+          "/du-an/mang-theo-mot-net-ve",
+          "/nhat-ky",
+          "/san-pham",
+          "/minh-bach",
+          "/ve-nhom",
+          "/dong-hanh"
+        ],
+        "buyForm": false
+      }
+    },
+    {
+      "name": "JS off mobile content/navigation /san-pham/moc-khoa",
+      "pass": true,
+      "details": {
+        "h1": 1,
+        "viewport": 375,
+        "scrollWidth": 375,
+        "nav": [
+          "/",
+          "/san-pham",
+          "/",
+          "/du-an/mang-theo-mot-net-ve",
+          "/nhat-ky",
+          "/san-pham",
+          "/minh-bach",
+          "/ve-nhom",
+          "/dong-hanh"
+        ],
+        "buyForm": false
+      }
+    },
+    {
+      "name": "JS off mobile content/navigation /404",
+      "pass": true,
+      "details": {
+        "h1": 1,
+        "viewport": 375,
+        "scrollWidth": 375,
+        "nav": [
+          "/",
+          "/du-an/mang-theo-mot-net-ve",
+          "/nhat-ky",
+          "/san-pham",
+          "/minh-bach",
+          "/ve-nhom",
+          "/dong-hanh"
+        ],
+        "buyForm": false
+      }
+    }
+  ],
+  "errors": [],
+  "headAfter": "bc52df301c873a08c7236e9750b090678825db42",
+  "pass": true,
+  "finishedAt": "2026-10-12T03:05:56.478Z"
+}

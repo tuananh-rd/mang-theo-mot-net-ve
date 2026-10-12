@@ -1,0 +1,43 @@
+{
+ "headSha": "bc52df301c873a08c7236e9750b090678825db42",
+ "appDirty": "",
+ "at": "2026-10-12T03:06:56.010Z",
+ "shots": [
+  {
+   "name": "home",
+   "path": "/",
+   "w": 1440,
+   "status": 200,
+   "docH": 4899
+  },
+  {
+   "name": "home",
+   "path": "/",
+   "w": 1360,
+   "status": 200,
+   "docH": 4899
+  },
+  {
+   "name": "home",
+   "path": "/",
+   "w": 1024,
+   "status": 200,
+   "docH": 5302
+  },
+  {
+   "name": "home",
+   "path": "/",
+   "w": 768,
+   "status": 200,
+   "docH": 6889
+  },
+  {
+   "name": "home",
+   "path": "/",
+   "w": 375,
+   "status": 200,
+   "docH": 8119
+  }
+ ],
+ "browser": "Chrome/154.0.8037.98"
+}
