@@ -1,0 +1,60 @@
+{
+  "sha": "b5a4d4f382ded911d487b3c6e46ae9298651f5fa",
+  "appWorkingTreeDirty": true,
+  "fixtureOnly": true,
+  "mode": "stale",
+  "scenario": "restore after another edit",
+  "status": 409,
+  "expectedHashPreserved": true,
+  "before": {
+    "drafts": 1,
+    "revisions": 2,
+    "audit_logs": 2
+  },
+  "after": {
+    "drafts": 1,
+    "revisions": 2,
+    "audit_logs": 2
+  },
+  "expected": "reject stale or missing hash; preserve newer draft, revisions and audit counts"
+}
+{
+  "sha": "b5a4d4f382ded911d487b3c6e46ae9298651f5fa",
+  "appWorkingTreeDirty": true,
+  "fixtureOnly": true,
+  "mode": "missing",
+  "scenario": "restore after another edit",
+  "status": 400,
+  "expectedHashPreserved": true,
+  "before": {
+    "drafts": 1,
+    "revisions": 2,
+    "audit_logs": 2
+  },
+  "after": {
+    "drafts": 1,
+    "revisions": 2,
+    "audit_logs": 2
+  },
+  "expected": "reject stale or missing hash; preserve newer draft, revisions and audit counts"
+}
+{
+  "sha": "b5a4d4f382ded911d487b3c6e46ae9298651f5fa",
+  "appWorkingTreeDirty": true,
+  "fixtureOnly": true,
+  "mode": "current",
+  "scenario": "restore after another edit",
+  "status": 200,
+  "expectedHashPreserved": true,
+  "before": {
+    "drafts": 1,
+    "revisions": 2,
+    "audit_logs": 2
+  },
+  "after": {
+    "drafts": 1,
+    "revisions": 3,
+    "audit_logs": 3
+  },
+  "expected": "200; restore selected content as exactly one new revision with an audit trail"
+}

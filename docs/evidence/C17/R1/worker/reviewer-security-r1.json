@@ -1,0 +1,22 @@
+{
+  "sha": "b5a4d4f382ded911d487b3c6e46ae9298651f5fa",
+  "appWorkingTreeDirty": true,
+  "fixtureOnly": true,
+  "unauthenticatedMedia": {
+    "status": 401,
+    "bucketReads": 0,
+    "cache": null,
+    "expected": "deny before reading private bucket"
+  },
+  "unauthenticatedRoot": {
+    "status": 401
+  },
+  "remoteUrlWithForgedLoopbackHost": {
+    "status": 401,
+    "expected": "deny local identity bypass on a remote request URL, even with dev flag misconfigured"
+  },
+  "crossOriginWithoutHostHeader": {
+    "accepted": false,
+    "expected": false
+  }
+}

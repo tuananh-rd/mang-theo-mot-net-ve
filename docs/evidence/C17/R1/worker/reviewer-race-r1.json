@@ -1,0 +1,42 @@
+{
+  "sha": "b5a4d4f382ded911d487b3c6e46ae9298651f5fa",
+  "appWorkingTreeDirty": true,
+  "fixtureOnly": true,
+  "sameTargetData": false,
+  "scenario": "winner changes hash between precheck and conditional batch",
+  "rejected": true,
+  "errorName": "ConcurrencyConflictError",
+  "winnerPreserved": true,
+  "before": {
+    "drafts": 1,
+    "revisions": 1,
+    "audit_logs": 1
+  },
+  "after": {
+    "drafts": 1,
+    "revisions": 1,
+    "audit_logs": 1
+  },
+  "expected": "reject losing save with no additional revisions/audit; keep winning draft"
+}
+{
+  "sha": "b5a4d4f382ded911d487b3c6e46ae9298651f5fa",
+  "appWorkingTreeDirty": true,
+  "fixtureOnly": true,
+  "sameTargetData": true,
+  "scenario": "winner changes hash between precheck and conditional batch",
+  "rejected": true,
+  "errorName": "ConcurrencyConflictError",
+  "winnerPreserved": true,
+  "before": {
+    "drafts": 1,
+    "revisions": 1,
+    "audit_logs": 1
+  },
+  "after": {
+    "drafts": 1,
+    "revisions": 1,
+    "audit_logs": 1
+  },
+  "expected": "reject losing save with no additional revisions/audit; keep winning draft"
+}

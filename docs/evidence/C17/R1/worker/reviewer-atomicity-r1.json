@@ -1,0 +1,19 @@
+{
+  "sha": "b5a4d4f382ded911d487b3c6e46ae9298651f5fa",
+  "fixtureOnly": true,
+  "scenario": "audit insertion fails after draft/revision writes",
+  "saveResolved": false,
+  "persistedCounts": {
+    "drafts": 0,
+    "revisions": 0,
+    "audit_logs": 0
+  },
+  "expected": {
+    "saveResolved": false,
+    "persistedCounts": {
+      "drafts": 0,
+      "revisions": 0,
+      "audit_logs": 0
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "sha": "b5a4d4f382ded911d487b3c6e46ae9298651f5fa",
+  "syntheticFixtureOnly": true,
+  "realGitHubRequests": 0,
+  "missingGitHubCredential": {
+    "success": false,
+    "isSimulated": false,
+    "fakeCommitReturned": false,
+    "expected": "not_configured, no fabricated success/ref"
+  },
+  "pendingPublicationExport": {
+    "status": 400,
+    "wrotePublicSnapshot": false,
+    "expected": "deny pending before any write"
+  }
+}

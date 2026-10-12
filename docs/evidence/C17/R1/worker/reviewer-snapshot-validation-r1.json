@@ -1,0 +1,49 @@
+{
+  "sha": "b5a4d4f382ded911d487b3c6e46ae9298651f5fa",
+  "fixtureOnly": true,
+  "applicationFilesWritten": false,
+  "observations": [
+    {
+      "scenario": "tampered hash",
+      "accepted": false,
+      "error": "Malformed Published Snapshot: Mã băm sha256 (0000000000000000000000000000000000000000000000000000000000000000) không khớp với nội dung phân hệ (d792e788e6cc27ad6c28b6972b544956694cabea19c2823cf24913ae2bb63c1a).",
+      "expectedAccepted": false,
+      "expected": "reject malformed or tampered nonempty snapshot"
+    },
+    {
+      "scenario": "invalid module shape",
+      "accepted": false,
+      "error": "Malformed Published Snapshot: Phân hệ \"project\" không đúng định dạng đối tượng.",
+      "expectedAccepted": false,
+      "expected": "reject malformed or tampered nonempty snapshot"
+    },
+    {
+      "scenario": "invalid generatedAt",
+      "accepted": false,
+      "error": "Malformed Published Snapshot: Trường \"generatedAt\" bắt buộc phải là chuỗi thời gian ISO hợp lệ.",
+      "expectedAccepted": false,
+      "expected": "reject malformed or tampered nonempty snapshot"
+    },
+    {
+      "scenario": "valid canonical snapshot",
+      "accepted": true,
+      "fixtureActuallyLoaded": true,
+      "expectedAccepted": true,
+      "expected": "accept valid canonical snapshot"
+    },
+    {
+      "scenario": "invalid nested project field with valid hash",
+      "accepted": false,
+      "error": "Malformed Published Snapshot: Trường \"project.title\" phải là chuỗi ký tự.",
+      "expectedAccepted": false,
+      "expected": "reject malformed or tampered nonempty snapshot"
+    },
+    {
+      "scenario": "nonexistent calendar day",
+      "accepted": false,
+      "error": "Malformed Published Snapshot: Trường \"generatedAt\" bắt buộc phải là chuỗi thời gian ISO hợp lệ.",
+      "expectedAccepted": false,
+      "expected": "reject malformed or tampered nonempty snapshot"
+    }
+  ]
+}
