@@ -17,7 +17,9 @@
     "studio:build": "tsc -p apps/studio/tsconfig.json"
   },
   "dependencies": {
-    "astro": "^7.3.5"
+    "astro": "^7.3.5",
+    "jpeg-js": "^0.4.4",
+    "upng-js": "^2.1.0"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",

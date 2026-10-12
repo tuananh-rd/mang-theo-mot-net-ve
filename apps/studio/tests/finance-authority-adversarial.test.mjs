@@ -19,6 +19,7 @@ function createTestHarness() {
     const {
       method = 'GET',
       body,
+      formData,
       role = 'admin',
       email = 'admin@internal.local',
       origin = 'https://studio.example.local',
@@ -28,10 +29,13 @@ function createTestHarness() {
       Origin: origin,
       'Content-Type': 'application/json',
     };
+    if (formData) {
+      delete headers['Content-Type'];
+    }
     const req = new Request(`${origin}${path}`, {
       method,
       headers,
-      body: body ? JSON.stringify(body) : undefined,
+      body: formData ? formData : body ? JSON.stringify(body) : undefined,
     });
     const session = {
       user: { email, role, id: `user-${email}` },
@@ -375,3 +379,85 @@ test('Integrity: Prevent deleting media assets referenced anywhere in system', a
   assert.equal(delRes.status, 400);
   assert.match(delRes.data.error, /Không thể xóa ảnh vì đang được tham chiếu/);
 });
+
+test('Adversarial: Concurrent edit with same content creating new revision causes attestation conflict (409) and 0 audit logs', async () => {
+  const { d1, dbClient } = createTestHarness();
+
+  // Khởi tạo draft finance ban đầu
+  const initialData = structuredClone(getDefaultModuleData('finance'));
+  const saved = await dbClient.saveDraft('finance', initialData, null, 'preparer@internal.local');
+
+  let armed = true;
+  let competingRevisionId = null;
+  const proxyD1 = new Proxy(d1, {
+    get(target, prop, receiver) {
+      if (prop === 'batch') {
+        return async (statements) => {
+          if (armed) {
+            armed = false;
+            // Mô phỏng sửa xen ngang với cùng nội dung nhưng tạo ra revision mới
+            const competing = await dbClient.saveDraft('finance', initialData, saved.draft.revisionHash, 'editor@internal.local');
+            competingRevisionId = competing.revision.id;
+          }
+          return target.batch(statements);
+        };
+      }
+      const val = Reflect.get(target, prop, receiver);
+      return typeof val === 'function' ? val.bind(target) : val;
+    },
+  });
+
+  const racedClient = new StudioDbClient(proxyD1);
+
+  // Cố ký với revision cũ -> Phải ném lỗi ConcurrencyConflictError
+  await assert.rejects(
+    async () => {
+      await racedClient.attestFinanceDraft('preparer@internal.local', 'admin', saved.draft.revisionHash);
+    },
+    (err) => {
+      assert.equal(err.name, 'ConcurrencyConflictError');
+      return true;
+    }
+  );
+
+  // Draft hiện tại không bị ghi đè thông tin ký
+  const persisted = await dbClient.getDraft('finance');
+  assert.equal(persisted.data.firstSigner, null);
+
+  // Không có audit log nào bị ghi oan
+  const logs = await dbClient.listAuditLogs(10);
+  const signLogs = logs.filter((l) => l.action === 'FINANCE_FIRST_SIGN');
+  assert.equal(signLogs.length, 0, 'Không được ghi nhận audit log khi ký thất bại');
+});
+
+test('Security: Upload endpoint rejects truncated raster and unsupported formats before storage', async () => {
+  const { api } = createTestHarness();
+
+  // 1. Upload truncated PNG -> 400
+  const truncatedPng = new Uint8Array([137, 80, 78, 71, 13, 10, 26, 10, 0, 0, 0, 0]);
+  const form = new FormData();
+  form.append('file', new File([truncatedPng], 'truncated.png', { type: 'image/png' }));
+  form.append('alt', 'Truncated test');
+
+  const res = await api('/api/media/upload', {
+    method: 'POST',
+    role: 'admin',
+    formData: form,
+  });
+  assert.equal(res.status, 400);
+
+  // 2. Upload WebP -> 400 (Honest format restriction: only clean decoded PNG/JPEG accepted)
+  const webpBytes = new Uint8Array([0x52, 0x49, 0x46, 0x46, 0x24, 0x00, 0x00, 0x00, 0x57, 0x45, 0x42, 0x50, 0x56, 0x50, 0x38, 0x20]);
+  const webpForm = new FormData();
+  webpForm.append('file', new File([webpBytes], 'test.webp', { type: 'image/webp' }));
+  webpForm.append('alt', 'Webp test');
+
+  const webpRes = await api('/api/media/upload', {
+    method: 'POST',
+    role: 'admin',
+    formData: webpForm,
+  });
+  assert.equal(webpRes.status, 400);
+  assert.match(webpRes.data.error, /chỉ chấp nhận tệp ảnh raster PNG và JPEG/);
+});
+

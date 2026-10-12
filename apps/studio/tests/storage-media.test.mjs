@@ -4,6 +4,7 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as os from 'node:os';
 import { sniffImageFormat, checkAssetUsageInDrafts } from '../dist/storage/media-sniffer.js';
+import { decodeAndSanitizeRaster, normalizeOrientation } from '../dist/storage/media-sanitizer.js';
 import { LocalR2Bucket } from '../dist/storage/emulator.js';
 
 test('Media Sniffer: Nhận diện chính xác định dạng ảnh qua Magic Bytes', () => {
@@ -162,3 +163,95 @@ test('Media Auth: Tệp media pending/chưa duyệt từ chối yêu cầu unaut
     }
   }
 });
+
+test('Raster Pipeline: decodeAndSanitizeRaster giải mã và tái mã hóa sạch sẽ, từ chối tệp lỗi trước lưu trữ', async () => {
+  const jpeg = (await import('jpeg-js')).default;
+  const UPNG = (await import('upng-js')).default;
+
+  // 1. JPEG hợp lệ: giải mã thành công, tái mã hóa loại bỏ EXIF
+  const dummyRgba = new Uint8Array([
+    255, 0, 0, 255,   0, 255, 0, 255,
+    0, 0, 255, 255,   255, 255, 0, 255,
+  ]);
+  const sampleJpeg = jpeg.encode({ data: dummyRgba, width: 2, height: 2 }, 85);
+  const jpegRes = decodeAndSanitizeRaster(sampleJpeg.data);
+  assert.equal(jpegRes.success, true);
+  assert.equal(jpegRes.contentType, 'image/jpeg');
+  assert.equal(jpegRes.extension, 'jpg');
+  assert.equal(jpegRes.width, 2);
+  assert.equal(jpegRes.height, 2);
+  assert.ok(jpegRes.sanitizedBytes && jpegRes.sanitizedBytes.length > 0);
+
+  // 2. JPEG cắt cụt: từ chối, không trả về byte nguyên bản
+  const truncatedJpeg = sampleJpeg.data.subarray(0, 15);
+  const truncJpegRes = decodeAndSanitizeRaster(truncatedJpeg);
+  assert.equal(truncJpegRes.success, false);
+  assert.equal(truncJpegRes.sanitizedBytes, undefined);
+
+  // 3. PNG hợp lệ: giải mã và tái mã hóa
+  const pngEncoded = new Uint8Array(UPNG.encode([dummyRgba.buffer], 2, 2, 0, undefined, true));
+  const pngRes = decodeAndSanitizeRaster(pngEncoded);
+  assert.equal(pngRes.success, true);
+  assert.equal(pngRes.contentType, 'image/png');
+  assert.equal(pngRes.extension, 'png');
+  assert.equal(pngRes.width, 2);
+  assert.equal(pngRes.height, 2);
+  assert.ok(pngRes.sanitizedBytes && pngRes.sanitizedBytes.length > 0);
+
+  // 4. PNG cắt cụt (thiếu IDAT/IEND): từ chối
+  const truncatedPng = pngEncoded.subarray(0, 33);
+  const truncPngRes = decodeAndSanitizeRaster(truncatedPng);
+  assert.equal(truncPngRes.success, false);
+  assert.equal(truncPngRes.sanitizedBytes, undefined);
+
+  // 5. PNG sai CRC (hỏng dữ liệu chunk): từ chối dứt khoát
+  const corruptCrcPng = new Uint8Array(pngEncoded);
+  corruptCrcPng[29] ^= 1;
+  const corruptCrcRes = decodeAndSanitizeRaster(corruptCrcPng);
+  assert.equal(corruptCrcRes.success, false);
+  assert.match(corruptCrcRes.error || '', /CRC/);
+
+  // 6. JPEG thiếu marker EOI (FF D9): từ chối dứt khoát
+  const missingEoiJpeg = sampleJpeg.data.subarray(0, sampleJpeg.data.length - 2);
+  const missingEoiRes = decodeAndSanitizeRaster(missingEoiJpeg);
+  assert.equal(missingEoiRes.success, false);
+  assert.match(missingEoiRes.error || '', /EOI/);
+
+  // 7. Từ chối định dạng khác (WebP/SVG/AVIF)
+  const webpBytes = new Uint8Array([0x52, 0x49, 0x46, 0x46, 0x24, 0x00, 0x00, 0x00, 0x57, 0x45, 0x42, 0x50, 0x56, 0x50, 0x38, 0x20]);
+  const webpRes = decodeAndSanitizeRaster(webpBytes);
+  assert.equal(webpRes.success, false);
+  assert.match(webpRes.error || '', /chỉ chấp nhận tệp ảnh raster PNG và JPEG/);
+
+  // 8. Chuẩn hóa góc xoay EXIF: Kiểm tra đủ 8 orientations
+  const testPixels = new Uint8Array([
+    255, 0, 0, 255,   0, 255, 0, 255,   0, 0, 255, 255,
+    255, 255, 0, 255, 255, 0, 255, 255, 0, 255, 255, 255,
+  ]);
+  const expectedOrientations = {
+    1: [0, 1, 2, 3, 4, 5],
+    2: [2, 1, 0, 5, 4, 3],
+    3: [5, 4, 3, 2, 1, 0],
+    4: [3, 4, 5, 0, 1, 2],
+    5: [0, 3, 1, 4, 2, 5],
+    6: [3, 0, 4, 1, 5, 2],
+    7: [5, 2, 4, 1, 3, 0],
+    8: [2, 5, 1, 4, 0, 3],
+  };
+  for (let ori = 1; ori <= 8; ori++) {
+    const rotated = normalizeOrientation(testPixels, 3, 2, ori);
+    const expectedW = ori >= 5 ? 2 : 3;
+    const expectedH = ori >= 5 ? 3 : 2;
+    assert.equal(rotated.width, expectedW);
+    assert.equal(rotated.height, expectedH);
+    const indices = [];
+    for (let i = 0; i < rotated.data.length; i += 4) {
+      const idx = Array.from({ length: 6 }, (_, k) => k).find(
+        (k) => testPixels.subarray(k * 4, k * 4 + 4).every((v, j) => v === rotated.data[i + j])
+      );
+      indices.push(idx);
+    }
+    assert.deepEqual(indices, expectedOrientations[ori]);
+  }
+});
+

@@ -1,0 +1,485 @@
+{
+  "baselineHead": "29ca39953d66788bca8cf04a50be8813ec003f10",
+  "timestamp": "2026-10-12T03:39:44.445Z",
+  "targetMilestone": "C17-R2-F1",
+  "task": "task_c91ae23182a2",
+  "dispatch": "ctx_1dd1c95d7553",
+  "summary": {
+    "studioBuildExitCode": 0,
+    "studioTestsPassed": 45,
+    "studioTestsFailed": 0,
+    "rootTestsPassed": 92,
+    "rootTestsFailed": 0,
+    "astroPagesBuilt": 13,
+    "allProbesPassed": true
+  },
+  "commands": [
+    {
+      "name": "Studio Typecheck & Build",
+      "cmd": "npm --prefix apps/studio run build",
+      "exitCode": 0,
+      "durationMs": 4608,
+      "stdout": "> @mang-theo-mot-net-ve/studio@1.0.0 build\n> tsc",
+      "stderr": ""
+    },
+    {
+      "name": "Studio Tests (45 tests)",
+      "cmd": "node --test apps/studio/tests/*.test.mjs",
+      "exitCode": 0,
+      "durationMs": 20903,
+      "stdout": "✔ JWT: Fail-secure khi thiếu cấu hình hoặc dùng giá trị placeholder (3.0961ms)\n✔ JWT: Giải mã và xác thực chữ ký RS256 hợp lệ (117.6691ms)\n✔ JWT: Từ chối token hết hạn (exp) (112.688ms)\n✔ JWT: Từ chối token sai issuer hoặc audience (34.0034ms)\n✔ JWT: Từ chối token có chữ ký bị giả mạo / sửa đổi (48.1681ms)\n✔ Khóa lạc quan & Revisions: Phát hiện xung đột 409 và khôi phục an toàn (21.903ms)\n✔ D1 Database: Tính bền vững trên đĩa qua các lần khởi động lại (Persistence Test) (126.1866ms)\n✔ Adversarial: Client spoofing reconciled & publicApproval flags in draft save cannot authorize projection (69.9279ms)\n✔ Adversarial: Client spoofing signer objects in draft save are stripped by server (15.0606ms)\n✔ Adversarial: Self-review attempt (same email as first and second signer) is rejected (12.4432ms)\n✔ Adversarial: Missing second reviewer holds finance projection without blocking other modules (11.0742ms)\n✔ Workflow: Valid Two-Person Attestation authorizes sanitized projection with PII stripped (17.8099ms)\n✔ Security: Media Sniffer strips EXIF and private metadata chunks (0.7036ms)\n✔ Integrity: Prevent deleting media assets referenced anywhere in system (12.543ms)\n✔ Adversarial: Concurrent edit with same content creating new revision causes attestation conflict (409) and 0 audit logs (4.7453ms)\n✔ Security: Upload endpoint rejects truncated raster and unsupported formats before storage (7.66ms)\n✔ Four-Eyes: Nghiêm cấm tự phê duyệt (Self-Review Forbidden) (1.296ms)\n✔ Four-Eyes: Người duyệt thứ hai phải độc lập với người duyệt thứ nhất (0.3665ms)\n✔ Quy tắc 2 người: Đúng 2 danh tính độc lập (Người lập + Người duyệt độc lập) (0.5331ms)\n✔ CSV Parser: Tuân thủ RFC 4180, từ chối unclosed quotes và dòng sai số cột (1.5608ms)\n✔ Cú pháp tiền tệ: Chỉ chấp nhận số nguyên dương hoặc phân cách 3 chữ số hợp lệ (0.7421ms)\n✔ Làm sạch dữ liệu: Che giấu mã tham chiếu riêng tư (PII Masking) và ẩn danh (0.4767ms)\n✔ Bản chiếu công khai: Từ chối bản chiếu chưa đối soát hoặc chưa duyệt (2.0679ms)\n✔ Xuất bản: Tạo bản chụp bất biến (Immutable Snapshot) và tính SHA-256 (18.9388ms)\n✔ Xuất bản: Kiểm tra tính Idempotency và Four-Eyes trong D1 (4.0814ms)\n✔ Xuất bản: Trích xuất Snapshot được duyệt sang dữ liệu tĩnh Astro (Snapshot Consumer) (11.5661ms)\n✔ RBAC: Kiểm tra ma trận quyền hạn các vai trò (1.8145ms)\n✔ RBAC: Quyền thao tác bị từ chối chính xác (1.3961ms)\n✔ Bảo mật: Kiểm tra CSRF chặn yêu cầu nguy hiểm (34.1869ms)\n✔ Bảo mật: Thoát ký tự HTML nguy hiểm (XSS Escape) (0.3888ms)\n✔ Media Sniffer: Nhận diện chính xác định dạng ảnh qua Magic Bytes (1.2451ms)\n✔ Media Sniffer: Từ chối dứt khoát SVG và tệp chứa script / mã độc (0.3925ms)\n✔ Media Sniffer: Kiểm tra ràng buộc tham chiếu trước khi xóa ảnh (1.1729ms)\n✔ Storage R2: Hoạt động bền vững của LocalR2Bucket (put, get, list, delete) (12.5374ms)\n✔ Media Auth: Tệp media pending/chưa duyệt từ chối yêu cầu unauthenticated (401), tệp approved được phục vụ công khai (57.5225ms)\n✔ Raster Pipeline: decodeAndSanitizeRaster giải mã và tái mã hóa sạch sẽ, từ chối tệp lỗi trước lưu trữ (51.5965ms)\n✔ Supported D1: draft save/read, mandatory expectedHash, và phát hiện xung đột lạc quan (1436.6118ms)\n✔ Supported D1: Xung đột đồng thời (Race Condition) không sinh ghost revision hoặc audit log thừa (2418.3908ms)\n✔ Supported D1: Tính nguyên tử (Atomicity Rollback) trong saveDraft khi audit log thất bại (1944.504ms)\n✔ Supported D1: Khôi phục phiên bản (Restore Revision) với khóa lạc quan OCC và kiểm tra rollback khi từ chối (2197.3961ms)\n✔ Supported D1 & R2: Tính bền vững trên đĩa (Persistence Test) qua các lần khởi động lại runtime (3232.7181ms)\n✔ Supported R2: Các thao tác put, get, list, delete trên kho lưu trữ (1599.7048ms)\n✔ Worker Media Route: Khẳng định tuyến unauth không bao giờ gọi BUCKET.get() và auth hợp lệ có gọi (1697.4823ms)\nYour Worker has access to the following bindings:\nBinding                                                                     Resource                  Mode\nenv.DB (studio-d1)                                                          D1 Database               local\nenv.BUCKET (studio-media)                                                   R2 Bucket                 local\nenv.STUDIO_ENVIRONMENT (\"production\")                                       Environment Variable      local\nenv.CF_ACCESS_TEAM_DOMAIN (\"example-team.cloudflareaccess.com\")             Environment Variable      local\nenv.CF_ACCESS_AUD (\"0000000000000000000000000000000000000...\")              Environment Variable      local\n\n⎔ Starting local server...\n[wrangler:info] Ready on http://127.0.0.1:65276\n[wrangler:info] GET / 401 Unauthorized (738ms)\n[wrangler:info] GET /media/private-test.png 401 Unauthorized (17ms)\n⎔ Shutting down local server...\nYour Worker has access to the following bindings:\nBinding                                                                     Resource                  Mode\nenv.DB (studio-d1)                                                          D1 Database               local\nenv.BUCKET (studio-media)                                                   R2 Bucket                 local\nenv.STUDIO_ENVIRONMENT (\"development\")                                      Environment Variable      local\nenv.CF_ACCESS_TEAM_DOMAIN (\"example-team.cloudflareaccess.com\")             Environment Variable      local\nenv.CF_ACCESS_AUD (\"0000000000000000000000000000000000000...\")              Environment Variable      local\n\n⎔ Starting local server...\n[wrangler:info] Ready on http://127.0.0.1:65296\n[wrangler:info] GET /media/private-test.png 401 Unauthorized (550ms)\n[wrangler:info] GET /api/me 200 OK (56ms)\n[wrangler:info] GET /api/drafts/project 200 OK (41ms)\n[wrangler:info] POST /api/drafts/project 200 OK (26ms)\n[wrangler:info] GET /api/drafts/project 200 OK (20ms)\n[wrangler:info] POST /api/drafts/project 409 Conflict (19ms)\n[wrangler:info] GET /media/private-test.png 200 OK (19ms)\n[wrangler:info] GET /media/non-existent-asset.png 404 Not Found (19ms)\n⎔ Shutting down local server...\n✔ Supported Worker Runtime (unstable_dev): Khởi chạy Worker thật, kiểm tra quy trình API draft, auth và media (4395.6783ms)\n✔ Worker Bundle Verification: Kiểm tra Worker không chứa module Node-only trong toàn bộ dependency graph (64.0178ms)\nℹ tests 45\nℹ suites 0\nℹ pass 45\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 20730.2641",
+      "stderr": ""
+    },
+    {
+      "name": "Root Unit Tests (92 tests)",
+      "cmd": "npm test",
+      "exitCode": 0,
+      "durationMs": 2079,
+      "stdout": "> mang-theo-mot-net-ve@0.0.1 test\n> node --test tests/*.test.mjs\n\n▶ Kiểm thử Công cụ Đối soát CSV Content Studio (Task C14)\n  ✔ Phân tích đúng CSV có BOM, dấu phẩy trong ngoặc kép và khoảng trắng (2.1822ms)\n  ✔ Bắt lỗi unclosed quote theo chuẩn RFC 4180 và chỉ rõ dòng bị lỗi (1.1749ms)\n  ✔ Bắt lỗi khi độ rộng dòng (row width) không khớp với tiêu đề (0.5085ms)\n  ✔ Bắt lỗi khi có cột tiêu đề bị trùng lặp hoặc xung đột trường dữ liệu (0.4021ms)\n  ✔ Kiểm tra ngữ pháp số tiền nguyên dương nghiêm ngặt (từ chối 5e4, 50.50, chỉ cho phép grouping 3 số) (3.5473ms)\n  ✔ Bắt buộc ngày chốt đối soát (reconciledAt) khi xuất/áp dụng sổ chính thức (0.4706ms)\n  ✔ Chuẩn hóa đúng các định dạng ngày YYYY-MM-DD và DD/MM/YYYY (0.3825ms)\n  ✔ Xác thực hợp lệ tệp CSV mẫu và chuẩn hóa người ủng hộ ẩn danh (0.5203ms)\n  ✔ Bắt lỗi khi thiếu các cột bắt buộc (id, date, amount) (0.5166ms)\n  ✔ Bắt lỗi trùng lặp mã giao dịch (không phân biệt hoa thường) (0.5042ms)\n  ✔ Bắt lỗi khi ngày giao dịch xảy ra sau ngày chốt đối soát (0.3428ms)\n  ✔ An toàn dữ liệu: Bản chiếu công khai (safe projection) không chứa nội dung giao dịch ngân hàng thô (0.41ms)\n  ✔ Kiểm thử cơ chế sao lưu tự động và băm SHA-256 trên thư mục tạm (15.1978ms)\n✔ Kiểm thử Công cụ Đối soát CSV Content Studio (Task C14) (29.6246ms)\n▶ Kiểm thử Xác thực và Làm sạch Bài viết Nhật ký (Task C14)\n  ✔ Kiểm tra ngày theo lịch thực tế (từ chối ngày không tồn tại 2026-02-31) (0.4622ms)\n  ✔ Kiểm tra đường dẫn ảnh nằm trong danh mục đã duyệt (allowlist) (0.2925ms)\n  ✔ Bắt buộc chú thích caption khi có ảnh bìa hoặc khối ảnh (1.0979ms)\n  ✔ Từ chối văn bản chứa từ khóa kỹ thuật nội bộ (PLAY_FLOW / SAFETY_PRACTICES) (0.2306ms)\n  ✔ validateJournalEntriesList xác thực đúng danh sách và phát hiện slug trùng lặp (0.3786ms)\n  ✔ sanitizeJournalEntry loại bỏ triệt để mọi trường lạ hoặc prototype keys (0.3808ms)\n  ✔ Từ chối dứt khoát ảnh path traversal (..), query string và ảnh unapproved (0.193ms)\n✔ Kiểm thử Xác thực và Làm sạch Bài viết Nhật ký (Task C14) (3.4066ms)\n▶ Kiểm thử Xác thực Cấu hình Mở bán Sản phẩm (Task C14)\n  ✔ Chấp nhận cấu hình sản phẩm hợp lệ ban đầu (0.4922ms)\n  ✔ Bắt lỗi khi có ID sản phẩm lạ hoặc thiếu ID bắt buộc (0.1444ms)\n  ✔ Bắt lỗi giá âm (-20), số lượng âm, hoặc enum không hợp lệ (0.1984ms)\n  ✔ Bắt lỗi khi chuyển sang open mà thiếu điều kiện (giá, chính sách, phê duyệt, stock) (0.1718ms)\n  ✔ sanitizeProductSalesConfig chuẩn hóa và loại bỏ trường lạ (0.1964ms)\n  ✔ Kiểm thử CLI donations với JSON: validate, dry-run, hash mismatch, backup và 2 người đối soát trong thư mục tạm (111.8216ms)\n  ✔ Bảo toàn trạng thái eventStatus (planned, in_progress, completed, cancelled) khi chỉnh sửa bài viết (0.3828ms)\n  ✔ Tệp mẫu sample-donations.csv bị từ chối áp dụng và báo lỗi yêu cầu nhập dữ liệu đối soát thật (0.6251ms)\n  ✔ Hàm validateDonationProjection kiểm tra tính toàn vẹn và mốc thời gian đối soát (0.5345ms)\n  ✔ Hàm sanitizeDonationEntry tuân thủ allowlist, ẩn danh an toàn và che giấu mã tham chiếu (0.2542ms)\n  ✔ Áp dụng JSON sổ đối soát: Từ chối nâng cấp bản pending, bắt buộc 2 người đối soát và che giấu mã tham chiếu an toàn (705.2113ms)\n✔ Kiểm thử Xác thực Cấu hình Mở bán Sản phẩm (Task C14) (820.6445ms)\n▶ Tài khoản và sổ ủng hộ hiện tại (C07S)\n  ✔ Tài khoản Techcombank do nhóm cung cấp đang mở, mục tiêu 3.000.000đ (0.8944ms)\n  ✔ Chưa có sổ đối soát: tổng và tỷ lệ là null, không phải 0đ, dù tài khoản đã mở (0.9855ms)\n  ✔ Liên hệ, lịch, tiến độ và thành viên khớp tài liệu bổ sung (0.3905ms)\n✔ Tài khoản và sổ ủng hộ hiện tại (C07S) (3.5932ms)\n▶ Logic sổ ủng hộ (C07S)\n  ✔ isDonationOpen chỉ đúng khi active và đủ 4 trường (0.3884ms)\n  ✔ Sổ đã đối soát nhưng chưa có khoản nào: tổng 0đ, 0% (1.2513ms)\n  ✔ Tổng dẫn xuất từ các dòng sổ; tỷ lệ theo mục tiêu (0.3937ms)\n  ✔ Vượt mục tiêu: thanh giới hạn 100% nhưng tổng giữ số thật (0.2677ms)\n  ✔ Không cộng trùng: mã giao dịch lặp lại (không phân biệt hoa thường) bị từ chối (0.6745ms)\n  ✔ Sổ chưa đối soát mà có dòng, hoặc đối soát thiếu ngày: báo lỗi (0.2838ms)\n  ✔ Khoản có ngày sau ngày đối soát bị từ chối (0.3092ms)\n  ✔ validateDonation từ chối số tiền, ngày và tên không hợp lệ (0.6938ms)\n  ✔ Mục tiêu không hợp lệ bị từ chối; không có mục tiêu thì không có tỷ lệ (0.2656ms)\n  ✔ Sắp xếp mới nhất trước, không đổi mảng gốc; định dạng ngày (0.2471ms)\n✔ Logic sổ ủng hộ (C07S) (5.5545ms)\n▶ Kiểm thử logic tài chính và tính toán (Task C06 - Final PDF)\n  ✔ Tổng dự toán chi của 24 khoản mục đúng bằng 5.470.000đ theo 3 nhóm cụ thể (1.1826ms)\n  ✔ sumPlannedExpenses ném lỗi khi có khoản mục null (không tự coi là 0) (0.6266ms)\n  ✔ Doanh thu kịch bản từng sản phẩm thủ công tính đúng theo giá tham khảo × số lượng kế hoạch (0.448ms)\n  ✔ Doanh thu kịch bản ẩm thực cơ sở tính đúng 50 set × 79.000đ + 50 bánh su kem × 20.000đ = 4.950.000đ (0.25ms)\n  ✔ Bắt lỗi cộng nhầm combo vào doanh thu cơ sở (3 combo nem bị loại khỏi kịch bản cơ sở) (0.503ms)\n  ✔ calculateCombinedPlannedRevenue kết hợp đúng doanh thu thủ công và ẩm thực cơ sở (2.200.000đ + 4.950.000đ = 7.150.000đ) (0.23ms)\n  ✔ calculateCombinedPlannedRevenue propagate null khi một trong hai nguồn là null (không tự về 0) (0.1539ms)\n  ✔ Bắt lỗi trừ su kem hai lần trong đối soát lãi ẩm thực (làm rõ khoản chênh 400.000đ) (0.6697ms)\n  ✔ Đối soát lãi thủ công làm rõ khoản chênh 400.000đ do phân bổ chi phí nội bộ (0.4548ms)\n  ✔ Chênh lệch 400.000đ bù trừ giữa ẩm thực và thủ công, tổng số dư toàn dự án khớp chuẩn xác 1.680.000đ (0.2879ms)\n  ✔ Kịch bản cơ sở — Chi 5.470.000đ, Thu cơ sở 7.150.000đ => Dư trước quà +1.680.000đ (24.6942ms)\n  ✔ Bắt lỗi hiện vật cộng vào doanh thu (hiện vật chỉ giảm chi tiền còn lại, không tăng doanh thu tiền) (0.4954ms)\n  ✔ Tất cả 5 kịch bản tài trợ tại trang 32 khớp chuẩn xác số dư theo đề xuất Final (0.5911ms)\n  ✔ calculateScenario trả về null khi dữ liệu doanh thu hoặc chi phí chưa biết (null) (0.1053ms)\n  ✔ calculateScenario ném lỗi khi hiện vật vượt quá tổng chi hoặc là số âm (0.2712ms)\n  ✔ Định dạng formatVND xử lý chuẩn xác số dương, 0 và null (0.3426ms)\n✔ Kiểm thử logic tài chính và tính toán (Task C06 - Final PDF) (33.4142ms)\n▶ Kiểm tra tính toàn vẹn dữ liệu và an toàn thông tin (Task C06)\n  ✔ Toàn bộ số liệu thực tế được khởi tạo ở trạng thái null / chưa xác nhận (không tự gán 0) (0.1393ms)\n  ✔ Kênh liên hệ đã xác nhận có số điện thoại hợp lệ cho liên kết tel: (0.2946ms)\n  ✔ Sản phẩm gây quỹ có đủ 7 SKUs, actualStock null và saleStatus unconfirmed (0.1068ms)\n  ✔ Toàn bộ 24 khoản dự toán có sourceRef theo mẫu proposal-final:page-N (không còn proposal cũ) (0.135ms)\n  ✔ Không còn tham chiếu tới túi bút hoặc túi vải cũ trong sản phẩm và chi phí (0.1383ms)\n✔ Kiểm tra tính toàn vẹn dữ liệu và an toàn thông tin (Task C06) (1.0474ms)\n▶ Kiểm thử helpers hiển thị và quy tắc định dạng (Task C06)\n  ✔ formatProductQuantity dẫn xuất đúng số lượng cho cả 7 SKUs (0.2189ms)\n  ✔ formatProductPrice định dạng chuẩn cho cả 7 SKUs và không ghép đơn vị khi giá null (1.1735ms)\n  ✔ formatScenarioBalance phân biệt chính xác 4 trạng thái: âm, 0, dương, và unknown (0.4344ms)\n✔ Kiểm thử helpers hiển thị và quy tắc định dạng (Task C06) (1.9895ms)\n▶ Kiểm thử phân nhóm chi phí dự toán (Task C06)\n  ✔ groupPlannedExpensesByCategory phân đúng 3 nhóm từ PLANNED_EXPENSES với tổng phụ 2.480k, 1.860k, 1.130k (1.0691ms)\n  ✔ groupPlannedExpensesByCategory bảo vệ an toàn khi có khoản mục unknown (subtotal = null, không crash) (0.1728ms)\n✔ Kiểm thử phân nhóm chi phí dự toán (Task C06) (1.3608ms)\n▶ Kiểm thử hồi quy: Lan truyền null trong calculateFoodReconciliation\n  ✔ Khi đầy đủ dữ liệu ẩm thực, cho kết quả chuẩn xác 4.950.000đ, 7.150.000đ, 1.680.000đ (0.1373ms)\n  ✔ Khi suKemQuantity là null: giữ subtotal của set, nhưng lan truyền null cho coreFood, combined, balance, profit và gap (0.0915ms)\n  ✔ Khi suKemQuantity là undefined: lan truyền null tương tự (0.0672ms)\n  ✔ Khi suKemQuantity là QuantitativeFact với value: null: lan truyền null tương tự (0.074ms)\n  ✔ Khi hypotheticalSets hoặc setPrice là null/undefined/fact(null): giữ subtotal của su kem nhưng lan truyền null cho tổng (0.0716ms)\n✔ Kiểm thử hồi quy: Lan truyền null trong calculateFoodReconciliation (0.5834ms)\n▶ Kiểm thử danh mục sản phẩm hiển thị (Task C07)\n  ✔ buildProductCatalog: 4 mặt hàng cơ sở cộng đúng 7.150.000đ, 3 combo không có doanh thu kịch bản (0.7632ms)\n  ✔ buildProductCatalog giữ null khi thiếu số lượng và tổng trả về null thay vì bỏ qua (0.5481ms)\n✔ Kiểm thử danh mục sản phẩm hiển thị (Task C07) (1.4258ms)\n▶ Kiểm thử Dữ liệu và Schema Nhật ký dự án (Task C14)\n  ✔ Khởi tạo đúng 2 bài viết kế hoạch ban đầu (1.9751ms)\n  ✔ Toàn bộ bài viết ban đầu đều ở trạng thái published và hợp lệ theo validator (13.8916ms)\n  ✔ Tìm kiếm bài viết theo slug hoạt động chính xác (0.4963ms)\n  ✔ Cách ly bài viết bản nháp (draft isolation): draft không xuất hiện trong getPublishedJournalEntries (2.036ms)\n  ✔ Hàm getPublishedJournalEntries sắp xếp bài viết theo thứ tự mới nhất trước (newest-first) từ danh sách chưa sắp xếp (0.4194ms)\n  ✔ Bắt lỗi khi bài viết vi phạm schema (slug sai, thiếu title, khối nội dung rỗng) (0.363ms)\n  ✔ Phát hiện và ngăn chặn mã script nguy hiểm trong nội dung (XSS protection) (0.6352ms)\n  ✔ Các danh mục nhật ký khớp chuẩn quy định (0.2157ms)\n✔ Kiểm thử Dữ liệu và Schema Nhật ký dự án (Task C14) (22.3055ms)\n▶ Kiểm thử Chi tiết Sản phẩm & Luồng Soạn Yêu cầu Mua (Task C14)\n  ✔ Chỉ có đúng 2 sản phẩm thủ công có trang chi tiết, không chứa đồ ăn cũ (2.9935ms)\n  ✔ Hỗ trợ tìm kiếm theo slug chính thức và alias (0.3141ms)\n  ✔ Baseline hiện tại: canInitiatePurchase trả về false cho toàn bộ sản phẩm (0.6473ms)\n  ✔ Kiểm thử gating toàn diện với fixture kiểm thử (open, confirmed, approval, policies) (0.2712ms)\n  ✔ Hàm formatPurchaseInquiry sinh đúng cấu trúc văn bản và tính tạm tính chuẩn xác (21.4543ms)\n  ✔ Mô hình xem hiệu lực (effective sale view-model): đồng bộ giá chính thức khác giá kế hoạch, kho và kênh bán (0.4062ms)\n  ✔ Khóa luồng đặt mua khi số lượng có sẵn (stockAvailable) bằng 0 (0.1854ms)\n✔ Kiểm thử Chi tiết Sản phẩm & Luồng Soạn Yêu cầu Mua (Task C14) (28.4905ms)\nℹ tests 92\nℹ suites 13\nℹ pass 92\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 1098.3572",
+      "stderr": ""
+    },
+    {
+      "name": "Astro Static Build (13 pages)",
+      "cmd": "npm run build",
+      "exitCode": 0,
+      "durationMs": 3517,
+      "stdout": "> mang-theo-mot-net-ve@0.0.1 build\n> astro build\n\n\u001b[2m10:39:22\u001b[22m \u001b[34m[vite]\u001b[39m Re-optimizing dependencies because vite config has changed\n\u001b[2m10:39:22\u001b[22m \u001b[34m[types]\u001b[39m Generated \u001b[2m312ms\u001b[22m\n\u001b[2m10:39:22\u001b[22m \u001b[34m[build]\u001b[39m output: \u001b[34m\"static\"\u001b[39m\n\u001b[2m10:39:22\u001b[22m \u001b[34m[build]\u001b[39m mode: \u001b[34m\"static\"\u001b[39m\n\u001b[2m10:39:22\u001b[22m \u001b[34m[build]\u001b[39m directory: \u001b[34mC:\\Users\\tuana\\Documents\\Codex\\2026-10-02\\t\\outputs\\mang-theo-mot-net-ve\\dist\\\u001b[39m\n\u001b[2m10:39:22\u001b[22m \u001b[34m[build]\u001b[39m Collecting build info...\n\u001b[2m10:39:22\u001b[22m \u001b[34m[build]\u001b[39m \u001b[32m✓ Completed in 371ms.\u001b[39m\n\u001b[2m10:39:22\u001b[22m \u001b[34m[build]\u001b[39m Building static entrypoints...\n\u001b[2m10:39:23\u001b[22m \u001b[34m[vite]\u001b[39m \u001b[32m✓ built in 423ms\u001b[39m\n\u001b[2m10:39:23\u001b[22m \u001b[34m[vite]\u001b[39m \u001b[32m✓ built in 58ms\u001b[39m\n\u001b[2m10:39:23\u001b[22m \u001b[34m[build]\u001b[39m Rearranging server assets...\n\n\u001b[42m\u001b[30m generating static routes \u001b[39m\u001b[49m\n\u001b[2m10:39:23\u001b[22m   \u001b[34m├─\u001b[39m \u001b[2m/404.html\u001b[22m \u001b[2m(+17ms)\u001b[22m \n\u001b[2m10:39:23\u001b[22m   \u001b[34m├─\u001b[39m \u001b[2m/dong-hanh/index.html\u001b[22m \u001b[2m(+16ms)\u001b[22m \n\u001b[2m10:39:23\u001b[22m   \u001b[34m├─\u001b[39m \u001b[2m/du-an/mang-theo-mot-net-ve/index.html\u001b[22m \u001b[2m(+11ms)\u001b[22m \n\u001b[2m10:39:23\u001b[22m   \u001b[34m├─\u001b[39m \u001b[2m/minh-bach/index.html\u001b[22m \u001b[2m(+7ms)\u001b[22m \n\u001b[2m10:39:23\u001b[22m   \u001b[34m├─\u001b[39m \u001b[2m/nhat-ky/ke-hoach-bon-goc-choi/index.html\u001b[22m \u001b[2m(+6ms)\u001b[22m \n\u001b[2m10:39:23\u001b[22m   \u001b[34m├─\u001b[39m \u001b[2m/nhat-ky/gioi-thieu-qua-luu-niem-gay-quy/index.html\u001b[22m \u001b[2m(+5ms)\u001b[22m \n\u001b[2m10:39:23\u001b[22m   \u001b[34m├─\u001b[39m \u001b[2m/nhat-ky/index.html\u001b[22m \u001b[2m(+67ms)\u001b[22m \n\u001b[2m10:39:23\u001b[22m   \u001b[34m├─\u001b[39m \u001b[2m/san-pham/chuon-chuon-tre-kem-de/index.html\u001b[22m \u001b[2m(+11ms)\u001b[22m \n\u001b[2m10:39:23\u001b[22m   \u001b[34m├─\u001b[39m \u001b[2m/san-pham/chuon-chuon-tre/index.html\u001b[22m \u001b[2m(+8ms)\u001b[22m \n\u001b[2m10:39:23\u001b[22m   \u001b[34m├─\u001b[39m \u001b[2m/san-pham/moc-khoa/index.html\u001b[22m \u001b[2m(+8ms)\u001b[22m \n\u001b[2m10:39:23\u001b[22m   \u001b[34m├─\u001b[39m \u001b[2m/san-pham/index.html\u001b[22m \u001b[2m(+15ms)\u001b[22m \n\u001b[2m10:39:23\u001b[22m   \u001b[34m├─\u001b[39m \u001b[2m/ve-nhom/index.html\u001b[22m \u001b[2m(+11ms)\u001b[22m \n\u001b[2m10:39:23\u001b[22m   \u001b[34m├─\u001b[39m \u001b[2m/index.html\u001b[22m \u001b[2m(+18ms)\u001b[22m \n\u001b[2m10:39:23\u001b[22m \u001b[32m✓ Completed in 240ms.\n\u001b[39m\n\u001b[2m10:39:23\u001b[22m \u001b[34m[build]\u001b[39m \u001b[32m✓ Completed in 840ms.\u001b[39m\n\u001b[2m10:39:23\u001b[22m \u001b[34m[build]\u001b[39m 13 page(s) built in \u001b[1m1.23s\u001b[22m\n\u001b[2m10:39:23\u001b[22m \u001b[34m[build]\u001b[39m \u001b[1mComplete!\u001b[22m",
+      "stderr": ""
+    }
+  ],
+  "probes": [
+    {
+      "name": "Reviewer Race Probe (same-content)",
+      "exitCode": 0,
+      "parsed": {
+        "head": "29ca39953d66788bca8cf04a50be8813ec003f10",
+        "candidate": "dirty in-progress build; not final acceptance",
+        "runtime": "Wrangler getPlatformProxy supported local D1",
+        "fixtureOnly": true,
+        "userStoreTouched": false,
+        "scenario": "same-content-new-revision",
+        "competingEditActuallyPersisted": true,
+        "attestationReturnedSuccess": false,
+        "exceptionName": "ConcurrencyConflictError",
+        "attestationActuallyPersisted": false,
+        "storedSignerTargetsCurrentRevision": null,
+        "attestationAuditCount": 0,
+        "expected": {
+          "attestationReturnedSuccess": false,
+          "attestationAuditCount": 0,
+          "competingEditPreserved": true
+        }
+      }
+    },
+    {
+      "name": "Reviewer Race Probe (different-content)",
+      "exitCode": 0,
+      "parsed": {
+        "head": "29ca39953d66788bca8cf04a50be8813ec003f10",
+        "candidate": "dirty in-progress build; not final acceptance",
+        "runtime": "Wrangler getPlatformProxy supported local D1",
+        "fixtureOnly": true,
+        "userStoreTouched": false,
+        "scenario": "different-content-new-revision",
+        "competingEditActuallyPersisted": true,
+        "attestationReturnedSuccess": false,
+        "exceptionName": "ConcurrencyConflictError",
+        "attestationActuallyPersisted": false,
+        "storedSignerTargetsCurrentRevision": null,
+        "attestationAuditCount": 0,
+        "expected": {
+          "attestationReturnedSuccess": false,
+          "attestationAuditCount": 0,
+          "competingEditPreserved": true
+        }
+      }
+    },
+    {
+      "name": "Reviewer F1 Raster Probe",
+      "exitCode": 0,
+      "parsed": {
+        "head": "29ca39953d66788bca8cf04a50be8813ec003f10",
+        "runtime": "Node direct sanitizer observation; not Worker/API proof",
+        "userStoreTouched": false,
+        "observations": [
+          {
+            "name": "PNG valid roundtrip",
+            "pass": true,
+            "success": true
+          },
+          {
+            "name": "PNG header only",
+            "pass": true,
+            "success": false
+          },
+          {
+            "name": "PNG missing IEND",
+            "pass": true,
+            "success": false
+          },
+          {
+            "name": "PNG corrupt IHDR CRC",
+            "pass": true,
+            "success": false
+          },
+          {
+            "name": "PNG duplicate IHDR",
+            "pass": true,
+            "success": false
+          },
+          {
+            "name": "PNG excess decompressed scanline bytes",
+            "pass": true,
+            "success": false
+          },
+          {
+            "name": "JPEG valid roundtrip",
+            "pass": true,
+            "success": true
+          },
+          {
+            "name": "JPEG missing EOI",
+            "pass": true,
+            "success": false
+          },
+          {
+            "name": "EXIF orientation 1",
+            "pass": true,
+            "indices": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "width": 3,
+            "height": 2
+          },
+          {
+            "name": "EXIF orientation 2",
+            "pass": true,
+            "indices": [
+              2,
+              1,
+              0,
+              5,
+              4,
+              3
+            ],
+            "width": 3,
+            "height": 2
+          },
+          {
+            "name": "EXIF orientation 3",
+            "pass": true,
+            "indices": [
+              5,
+              4,
+              3,
+              2,
+              1,
+              0
+            ],
+            "width": 3,
+            "height": 2
+          },
+          {
+            "name": "EXIF orientation 4",
+            "pass": true,
+            "indices": [
+              3,
+              4,
+              5,
+              0,
+              1,
+              2
+            ],
+            "width": 3,
+            "height": 2
+          },
+          {
+            "name": "EXIF orientation 5",
+            "pass": true,
+            "indices": [
+              0,
+              3,
+              1,
+              4,
+              2,
+              5
+            ],
+            "width": 2,
+            "height": 3
+          },
+          {
+            "name": "EXIF orientation 6",
+            "pass": true,
+            "indices": [
+              3,
+              0,
+              4,
+              1,
+              5,
+              2
+            ],
+            "width": 2,
+            "height": 3
+          },
+          {
+            "name": "EXIF orientation 7",
+            "pass": true,
+            "indices": [
+              5,
+              2,
+              4,
+              1,
+              3,
+              0
+            ],
+            "width": 2,
+            "height": 3
+          },
+          {
+            "name": "EXIF orientation 8",
+            "pass": true,
+            "indices": [
+              2,
+              5,
+              1,
+              4,
+              0,
+              3
+            ],
+            "width": 2,
+            "height": 3
+          }
+        ],
+        "pass": true
+      }
+    },
+    {
+      "name": "Reviewer R2 Finance Media Probe",
+      "exitCode": 0,
+      "parsed": {
+        "head": "29ca39953d66788bca8cf04a50be8813ec003f10",
+        "candidate": "in-progress dirty working tree; not final-commit acceptance",
+        "runtime": "custom local adapter; not supported D1 proof",
+        "userStoreTouched": false,
+        "fixtureOnly": true,
+        "financeSave": 200,
+        "firstAttestation": 200,
+        "draftDataHashMatchesStoredHash": true,
+        "editorSecondAttestationStatus": 400,
+        "editorSecondApproved": false,
+        "invalidRasterUploadStatus": 400,
+        "truncatedPngWithValidHeaderUploadStatus": 400,
+        "csvApplyMissingHashStatus": 400,
+        "csvApplyInvalidRowsStatus": 400,
+        "expected": {
+          "hashIntegrity": true,
+          "editorCannotReview": true,
+          "invalidRasterRejectedBeforeStorage": true
+        }
+      }
+    },
+    {
+      "name": "Reviewer Finance Authority Probe",
+      "exitCode": 0,
+      "parsed": {
+        "sha": "29ca39953d66788bca8cf04a50be8813ec003f10",
+        "fixtureOnly": true,
+        "userStoreTouched": false,
+        "runtime": "custom local adapter; not supported D1 proof",
+        "forgedFinanceSaveStatus": 200,
+        "publicationRequestStatus": 201,
+        "unsignedActualEntryIncluded": false,
+        "sourceAttestationsSupplied": 0,
+        "expected": "Unsigned client approval flags cannot authorize actual financial data in public snapshot"
+      }
+    },
+    {
+      "name": "Reviewer Snapshot Validation Probe",
+      "exitCode": 0,
+      "parsed": {
+        "sha": "29ca39953d66788bca8cf04a50be8813ec003f10",
+        "fixtureOnly": true,
+        "applicationFilesWritten": false,
+        "observations": [
+          {
+            "scenario": "tampered hash",
+            "accepted": false,
+            "error": "Malformed Published Snapshot: Mã băm sha256 (0000000000000000000000000000000000000000000000000000000000000000) không khớp với nội dung phân hệ (d792e788e6cc27ad6c28b6972b544956694cabea19c2823cf24913ae2bb63c1a).",
+            "expectedAccepted": false,
+            "expected": "reject malformed or tampered nonempty snapshot"
+          },
+          {
+            "scenario": "invalid module shape",
+            "accepted": false,
+            "error": "Malformed Published Snapshot: Phân hệ \"project\" không đúng định dạng đối tượng.",
+            "expectedAccepted": false,
+            "expected": "reject malformed or tampered nonempty snapshot"
+          },
+          {
+            "scenario": "invalid generatedAt",
+            "accepted": false,
+            "error": "Malformed Published Snapshot: Trường \"generatedAt\" bắt buộc phải là chuỗi thời gian ISO hợp lệ.",
+            "expectedAccepted": false,
+            "expected": "reject malformed or tampered nonempty snapshot"
+          },
+          {
+            "scenario": "valid canonical snapshot",
+            "accepted": true,
+            "fixtureActuallyLoaded": true,
+            "expectedAccepted": true,
+            "expected": "accept valid canonical snapshot"
+          },
+          {
+            "scenario": "invalid nested project field with valid hash",
+            "accepted": false,
+            "error": "Malformed Published Snapshot: Trường \"project.title\" phải là chuỗi ký tự.",
+            "expectedAccepted": false,
+            "expected": "reject malformed or tampered nonempty snapshot"
+          },
+          {
+            "scenario": "nonexistent calendar day",
+            "accepted": false,
+            "error": "Malformed Published Snapshot: Trường \"generatedAt\" bắt buộc phải là chuỗi thời gian ISO hợp lệ.",
+            "expectedAccepted": false,
+            "expected": "reject malformed or tampered nonempty snapshot"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Reviewer Publication Probe",
+      "exitCode": 0,
+      "parsed": {
+        "sha": "29ca39953d66788bca8cf04a50be8813ec003f10",
+        "syntheticFixtureOnly": true,
+        "realGitHubRequests": 0,
+        "missingGitHubCredential": {
+          "success": false,
+          "isSimulated": false,
+          "fakeCommitReturned": false,
+          "expected": "not_configured, no fabricated success/ref"
+        },
+        "pendingPublicationExport": {
+          "status": 400,
+          "wrotePublicSnapshot": false,
+          "expected": "deny pending before any write"
+        }
+      }
+    },
+    {
+      "name": "Reviewer F1 Supported Media Probe",
+      "exitCode": 0,
+      "parsed": {
+        "head": "29ca39953d66788bca8cf04a50be8813ec003f10",
+        "runtime": "Wrangler unstable_dev actual workerd with supported D1/R2",
+        "fixture": "C:\\Users\\tuana\\AppData\\Local\\Temp\\c17-root-f1-media-2M2j5u",
+        "userStoreTouched": false,
+        "observations": [
+          {
+            "name": "Workerd PNG upload pending",
+            "pass": true,
+            "status": 201,
+            "error": null
+          },
+          {
+            "name": "Supported R2 PNG bytes decode and private cache",
+            "pass": true
+          },
+          {
+            "name": "Workerd JPEG metadata upload pending",
+            "pass": true,
+            "status": 201,
+            "error": null
+          },
+          {
+            "name": "Supported JPEG oriented and private markers removed",
+            "pass": true
+          },
+          {
+            "name": "Unauthenticated media denied",
+            "pass": true,
+            "status": 401
+          },
+          {
+            "name": "PNG header only rejected before storage",
+            "pass": true,
+            "status": 400
+          },
+          {
+            "name": "JPEG truncated rejected before storage",
+            "pass": true,
+            "status": 400
+          },
+          {
+            "name": "SVG unsupported rejected before storage",
+            "pass": true,
+            "status": 400
+          },
+          {
+            "name": "API lists only two accepted assets",
+            "pass": true,
+            "count": 2
+          },
+          {
+            "name": "Supported D1/R2 reject cases leave no orphan writes",
+            "pass": true,
+            "media": 2,
+            "audit": 2,
+            "objects": 2
+          }
+        ],
+        "pass": true
+      }
+    },
+    {
+      "name": "Reviewer F1 Finance Atomicity Probe",
+      "exitCode": 0,
+      "parsed": {
+        "head": "29ca39953d66788bca8cf04a50be8813ec003f10",
+        "runtime": "Wrangler getPlatformProxy actual supported D1",
+        "userStoreTouched": false,
+        "observations": [
+          {
+            "name": "Concurrent first signers: one success and one audit",
+            "pass": true,
+            "fulfilled": 1,
+            "rejected": 1,
+            "audits": 1
+          },
+          {
+            "name": "Audit-trigger failure rolls back actual signature/hash",
+            "pass": true,
+            "rejected": true,
+            "signerPersisted": false,
+            "hashUnchanged": true,
+            "audits": 1
+          },
+          {
+            "name": "Two distinct signers approve same immutable revision",
+            "pass": true
+          },
+          {
+            "name": "Save invalidates previous approval flags/signers",
+            "pass": true
+          },
+          {
+            "name": "Restore creates new unsigned revision",
+            "pass": true
+          }
+        ],
+        "pass": true
+      }
+    }
+  ],
+  "remainingGatesPending": [
+    "Complete authenticated Astro draft preview renderer (replace live static link with actual draft state preview)",
+    "Full interactive editing workflows for all 8 modules (sales, expenses, in-kind, project, product, team, history, media)",
+    "Approved media registry import and static asset export pipeline (consumer.ts, github.ts integration)",
+    "Production Cloudflare Access AUD & D1/R2 online activation and deployment artifact validation"
+  ]
+}

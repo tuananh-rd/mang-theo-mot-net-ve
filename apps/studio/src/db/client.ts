@@ -847,9 +847,11 @@ export class StudioDbClient {
       .prepare(
         `UPDATE drafts
          SET data_json = ?, revision_hash = ?, updated_by = ?, updated_at = ?
-         WHERE module_key = 'finance' AND revision_hash = ?`
+         WHERE module_key = 'finance'
+           AND revision_hash = ?
+           AND (SELECT id FROM revisions WHERE module_key = 'finance' ORDER BY version DESC LIMIT 1) = ?`
       )
-      .bind(dataJson, newHash, signerEmail, now, expectedHash);
+      .bind(dataJson, newHash, signerEmail, now, expectedHash, rev.id);
 
     const auditStmt = this.db
       .prepare(

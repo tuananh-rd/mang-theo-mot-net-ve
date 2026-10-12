@@ -9,6 +9,7 @@ import { assertCanEdit, assertCanReview, assertCanPublish, assertCanManageUsers 
 import { validateCsrf } from '../auth/middleware.js';
 import { getDefaultModuleData, validateModuleData, type FinanceModuleData, type DonationEntry } from '../schemas/index.js';
 import { sniffImageFormat, MAX_FILE_SIZE_BYTES, checkAssetUsageInDrafts, stripImageMetadata } from '../storage/media-sniffer.js';
+import { decodeAndSanitizeRaster } from '../storage/media-sanitizer.js';
 import { createPublicationSnapshot } from '../publish/adapter.js';
 import { triggerGitHubPublication } from '../publish/github.js';
 import { validateDonationCSV } from '../../../../tools/content-studio/csv-validator.mjs';
@@ -244,28 +245,18 @@ export async function handleApiRequest(
       return errorResponse('Kích thước tệp vượt quá giới hạn cho phép (tối đa 5MB).', 400);
     }
 
-    const sniff = sniffImageFormat(bytes);
-    if (!sniff.valid || !sniff.contentType || !sniff.extension) {
-      return errorResponse(sniff.error || 'Tệp không hợp lệ hoặc bị từ chối.', 400);
+    const processed = decodeAndSanitizeRaster(bytes);
+    if (!processed.success || !processed.sanitizedBytes || !processed.contentType || !processed.extension) {
+      return errorResponse(processed.error || 'Tệp ảnh không hợp lệ hoặc bị từ chối.', 400);
     }
-
-    if (sniff.contentType === 'image/png') {
-      const text = new TextDecoder('latin1').decode(bytes);
-      if (!text.includes('IDAT') || !text.includes('IEND')) {
-        return errorResponse('Tệp PNG không đầy đủ hoặc bị cắt cụt (thiếu khối dữ liệu IDAT hoặc IEND).', 400);
-      }
-    }
-
-    // Làm sạch siêu dữ liệu riêng tư (EXIF/GPS/comments)
-    const sanitizedBytes = stripImageMetadata(bytes, sniff.contentType);
 
     const assetId = `asset-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;
-    const r2Key = `media/${assetId}.${sniff.extension}`;
+    const r2Key = `media/${assetId}.${processed.extension}`;
 
-    // Lưu vào R2
+    // Lưu vào R2 (chỉ lưu các byte ảnh đã được giải mã và mã hóa lại sạch sẽ)
     if (env.BUCKET) {
-      await env.BUCKET.put(r2Key, sanitizedBytes, {
-        httpMetadata: { contentType: sniff.contentType },
+      await env.BUCKET.put(r2Key, processed.sanitizedBytes, {
+        httpMetadata: { contentType: processed.contentType },
         customMetadata: { alt, uploadedBy: user.email },
       });
     }
@@ -273,8 +264,8 @@ export async function handleApiRequest(
     const assetRecord: MediaAssetRecord = {
       id: assetId,
       filename: file.name,
-      contentType: sniff.contentType,
-      sizeBytes: sanitizedBytes.length,
+      contentType: processed.contentType,
+      sizeBytes: processed.sanitizedBytes.length,
       r2Key,
       status: 'pending',
       alt,
