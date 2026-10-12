@@ -6,7 +6,7 @@ import { StudioDbClient, ConcurrencyConflictError } from '../dist/db/client.js';
 import { LocalD1Database } from '../dist/db/emulator.js';
 
 test('Khóa lạc quan & Revisions: Phát hiện xung đột 409 và khôi phục an toàn', async () => {
-  const schemaSql = fs.readFileSync(path.resolve(process.cwd(), 'apps/studio/src/db/schema.sql'), 'utf-8');
+  const schemaSql = fs.readFileSync(new URL('../src/db/schema.sql', import.meta.url), 'utf-8');
   const d1 = new LocalD1Database(':memory:', schemaSql);
   const client = new StudioDbClient(d1);
 

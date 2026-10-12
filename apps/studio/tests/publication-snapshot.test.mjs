@@ -52,7 +52,7 @@ test('Xuất bản: Tạo bản chụp bất biến (Immutable Snapshot) và tí
 });
 
 test('Xuất bản: Kiểm tra tính Idempotency và Four-Eyes trong D1', async () => {
-  const schemaSql = fs.readFileSync(path.resolve(process.cwd(), 'apps/studio/src/db/schema.sql'), 'utf-8');
+  const schemaSql = fs.readFileSync(new URL('../src/db/schema.sql', import.meta.url), 'utf-8');
   const d1 = new LocalD1Database(':memory:', schemaSql);
   const client = new StudioDbClient(d1);
 

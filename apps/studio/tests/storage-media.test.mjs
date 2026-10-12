@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import * as os from 'node:os';
 import { sniffImageFormat, checkAssetUsageInDrafts } from '../dist/storage/media-sniffer.js';
 import { LocalR2Bucket } from '../dist/storage/emulator.js';
 
@@ -68,7 +69,7 @@ test('Media Sniffer: Kiểm tra ràng buộc tham chiếu trước khi xóa ản
 });
 
 test('Storage R2: Hoạt động bền vững của LocalR2Bucket (put, get, list, delete)', async () => {
-  const testDir = path.resolve(process.cwd(), 'apps/studio/data/test-r2-' + Date.now());
+  const testDir = path.join(os.tmpdir(), 'test-r2-' + Date.now());
   const bucket = new LocalR2Bucket(testDir);
 
   try {
@@ -110,8 +111,8 @@ test('Storage R2: Hoạt động bền vững của LocalR2Bucket (put, get, lis
 test('Media Auth: Tệp media pending/chưa duyệt từ chối yêu cầu unauthenticated (401), tệp approved được phục vụ công khai', async () => {
   const { default: worker } = await import('../dist/worker.js');
   const { LocalD1Database } = await import('../dist/db/emulator.js');
-  const schemaSql = fs.readFileSync(path.resolve(process.cwd(), 'apps/studio/src/db/schema.sql'), 'utf-8');
-  const testDir = path.resolve(process.cwd(), 'apps/studio/data/test-media-auth-' + Date.now());
+  const schemaSql = fs.readFileSync(new URL('../src/db/schema.sql', import.meta.url), 'utf-8');
+  const testDir = path.join(os.tmpdir(), 'test-media-auth-' + Date.now());
   const bucket = new LocalR2Bucket(testDir);
   const db = new LocalD1Database(':memory:', schemaSql);
 

@@ -2,13 +2,14 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import * as os from 'node:os';
 import { LocalD1Database } from '../dist/db/emulator.js';
 import { StudioDbClient } from '../dist/db/client.js';
 
 test('D1 Database: Tính bền vững trên đĩa qua các lần khởi động lại (Persistence Test)', async () => {
-  const testDir = path.resolve(process.cwd(), 'apps/studio/data/test-d1-' + Date.now());
+  const testDir = path.join(os.tmpdir(), 'test-d1-' + Date.now());
   const sqliteFile = path.join(testDir, 'studio-persist-test.sqlite');
-  const schemaSql = fs.readFileSync(path.resolve(process.cwd(), 'apps/studio/src/db/schema.sql'), 'utf-8');
+  const schemaSql = fs.readFileSync(new URL('../src/db/schema.sql', import.meta.url), 'utf-8');
 
   try {
     // 1. Khởi tạo instance 1 và lưu dữ liệu
