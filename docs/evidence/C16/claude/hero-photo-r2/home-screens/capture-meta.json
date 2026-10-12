@@ -1,0 +1,50 @@
+{
+ "headSha": "9ab2d354f7ede83499480ec9866e56e8c807436e",
+ "appDirty": "",
+ "at": "2026-10-12T03:25:41.505Z",
+ "shots": [
+  {
+   "name": "home",
+   "path": "/",
+   "w": 1920,
+   "status": 200,
+   "docH": 4886
+  },
+  {
+   "name": "home",
+   "path": "/",
+   "w": 1440,
+   "status": 200,
+   "docH": 4886
+  },
+  {
+   "name": "home",
+   "path": "/",
+   "w": 1360,
+   "status": 200,
+   "docH": 4886
+  },
+  {
+   "name": "home",
+   "path": "/",
+   "w": 1024,
+   "status": 200,
+   "docH": 5302
+  },
+  {
+   "name": "home",
+   "path": "/",
+   "w": 768,
+   "status": 200,
+   "docH": 6889
+  },
+  {
+   "name": "home",
+   "path": "/",
+   "w": 375,
+   "status": 200,
+   "docH": 8166
+  }
+ ],
+ "browser": "Chrome/154.0.8037.98"
+}

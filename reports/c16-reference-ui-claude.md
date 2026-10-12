@@ -132,3 +132,9 @@ Theo yêu cầu trực tiếp của chủ dự án: bỏ ảnh cọ vẽ A01 ở
 - Nhãn ảnh: "Ảnh minh họa chuồn chuồn gỗ họa tiết dân gian do chủ dự án cung cấp — chưa phải sản phẩm thực tế của nhóm." Nhóm cần xác nhận quyền dùng và nguồn ảnh trước khi phát hành; chưa có thông tin tác giả/nguồn nên chưa ghi credit.
 - Kiểm ở `bc52df3` trên bản build trong worktree (preview loopback `127.0.0.1:4324`): build exit 0 (13 trang); check 0 lỗi, 0 cảnh báo; 92/92 test; diff-check exit 0; ma trận trình duyệt 42/42; layout, tương tác, focus chi tiết đạt; bàn phím 105/105; audit build-output đạt (46 file, 23 hash khớp). JSON nằm trong `docs/evidence/C16/claude/hero-photo/`; ảnh Trang chủ 375/768/1024/1360/1440 trong `hero-photo/screens/`.
 - Preview chính 4322 vẫn phục vụ bản dựng của thư mục chính (nhánh C17); muốn xem hero mới ở cổng đó cần build lại trên nhánh `task/c16-hero-photo`.
+
+### 9.1 Căn chỉnh lại ảnh nền (12/10/2026, code `9ab2d354f7ede83499480ec9866e56e8c807436e`)
+
+- Desktop ≥1360 px: thẻ nội dung hẹp 480 px, ảnh phóng 125% neo trái (`min-width:100%`, `max-width:2200px` để không phóng quá nhiều so với ảnh nguồn 1672 px) nên chuồn chuồn gần như nguyên vẹn bên phải thẻ, chỉ đầu cánh trái chạm mép thẻ; thẻ căn giữa dọc, nhãn ảnh góc phải.
+- 768–1359 px: ảnh 2:1 phía trên, nhãn ảnh, rồi thẻ nội dung. Dưới 768 px: ảnh 4:3 (chuồn chuồn lớn hơn bản trước), nhãn ảnh, thẻ nội dung.
+- Kiểm tại `9ab2d35`: build/check (0 lỗi, 0 cảnh báo)/92 test/diff-check exit 0; ma trận trình duyệt 42/42; layout, tương tác, focus chi tiết đạt; bàn phím 105/105; build-output đạt (46 file, 23 hash khớp). JSON và ảnh Trang chủ 375/768/1024/1360/1440/1920 trong `docs/evidence/C16/claude/hero-photo-r2/`.
