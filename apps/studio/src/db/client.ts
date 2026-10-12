@@ -688,6 +688,33 @@ export class StudioDbClient {
     }));
   }
 
+  /** Lấy chi tiết một Media Asset theo id */
+  async getMediaAsset(id: string): Promise<MediaAssetRecord | null> {
+    const r = await this.db
+      .prepare('SELECT * FROM media_assets WHERE id = ?')
+      .bind(id)
+      .first<any>();
+    if (!r) return null;
+    return {
+      id: r.id,
+      filename: r.filename,
+      contentType: r.content_type,
+      sizeBytes: r.size_bytes,
+      r2Key: r.r2_key,
+      status: r.status,
+      alt: r.alt,
+      caption: r.caption || undefined,
+      creditName: r.credit_name || undefined,
+      creditUrl: r.credit_url || undefined,
+      source: r.source || undefined,
+      isIllustration: Boolean(r.is_illustration),
+      focalX: r.focal_x,
+      focalY: r.focal_y,
+      createdBy: r.created_by,
+      createdAt: r.created_at,
+    };
+  }
+
   /** Cập nhật trạng thái duyệt của Media Asset */
   async updateMediaAssetStatus(id: string, status: 'approved' | 'rejected'): Promise<void> {
     await this.db.prepare('UPDATE media_assets SET status = ? WHERE id = ?').bind(status, id).run();

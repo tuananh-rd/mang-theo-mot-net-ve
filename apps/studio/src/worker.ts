@@ -7,6 +7,10 @@ import { authenticateRequest } from './auth/middleware.js';
 import { handleApiRequest } from './api/router.js';
 import { renderStudioHtml } from './ui/html.js';
 import { AuthError, AuthConfigMissingError } from './auth/jwt.js';
+import { StudioDbClient } from './db/client.js';
+import { createPublicationSnapshot, createPrivateDraftSnapshot } from './publish/adapter.js';
+import { APPROVED_MEDIA_REGISTRY } from './storage/media-registry.js';
+import { renderPrivateDraftPreview } from './preview/renderer.js';
 
 export default {
   async fetch(request: Request, env: Env, ctx: any): Promise<Response> {
@@ -86,6 +90,33 @@ export default {
     // 3. Phân luồng API REST
     if (path.startsWith('/api/')) {
       return handleApiRequest(request, env, session);
+    }
+
+    // 4. Phân luồng Xem trước Bản nháp Riêng tư (Authenticated Private Draft Preview)
+    if (path === '/preview' || path.startsWith('/preview/')) {
+      const dbClient = new StudioDbClient(env.DB);
+      const allDrafts = await dbClient.getAllDrafts();
+      const dbAssets = await dbClient.listMediaAssets(500);
+      const approvedKeys = new Set<string>();
+      for (const reg of APPROVED_MEDIA_REGISTRY) {
+        approvedKeys.add(reg.publicPath);
+        approvedKeys.add(reg.r2Key);
+        approvedKeys.add(reg.id);
+        approvedKeys.add(`/media/${reg.id}`);
+      }
+      for (const a of dbAssets) {
+        if (a.status === 'approved') {
+          approvedKeys.add(a.r2Key);
+          approvedKeys.add(a.id);
+          approvedKeys.add(`/media/${a.id}`);
+          const reg = APPROVED_MEDIA_REGISTRY.find((r) => r.id === a.id || r.r2Key === a.r2Key);
+          if (reg) approvedKeys.add(reg.publicPath);
+        }
+      }
+      const previewSnapshot = await createPrivateDraftSnapshot(allDrafts, `preview-${Date.now()}`, approvedKeys);
+
+      const subPath = path.replace(/^\/preview/, '') || '/';
+      return renderPrivateDraftPreview(request, subPath, previewSnapshot, env, ctx);
     }
 
     // 4. Phục vụ giao diện HTML Studio

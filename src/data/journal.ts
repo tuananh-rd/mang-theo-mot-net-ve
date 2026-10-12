@@ -9,6 +9,7 @@
 
 import rawEntries from './journal-entries.json' with { type: 'json' };
 import { validateJournalEntriesList } from '../../tools/content-studio/journal-validator.mjs';
+import { getActiveSnapshot } from './lib/snapshot-loader.ts';
 
 // Kiểm tra schema nghiêm ngặt tại read/build boundary
 const _journalValidation = validateJournalEntriesList(rawEntries);
@@ -61,25 +62,62 @@ export function getCategoryLabel(category: JournalCategory): string {
   return match ? match.label : category;
 }
 
+export function getAllJournalEntries(): JournalEntry[] {
+  const activeSnap = getActiveSnapshot();
+  if (activeSnap?.modules?.journal && Array.isArray(activeSnap.modules.journal)) {
+    return activeSnap.modules.journal as JournalEntry[];
+  }
+  return rawEntries as JournalEntry[];
+}
+
 /**
- * Danh sách toàn bộ các bài viết nhật ký trong hệ thống.
+ * Danh sách toàn bộ các bài viết nhật ký trong hệ thống (Proxy động theo request-context).
  * Bao gồm cả published và draft (nội bộ).
  */
-export const JOURNAL_ENTRIES: JournalEntry[] = rawEntries as JournalEntry[];
+export const JOURNAL_ENTRIES: JournalEntry[] = new Proxy(rawEntries as JournalEntry[], {
+  get(_target, prop, receiver) {
+    const list = getAllJournalEntries();
+    const val = Reflect.get(list, prop, receiver);
+    return typeof val === 'function' ? val.bind(list) : val;
+  },
+  has(_target, prop) {
+    return Reflect.has(getAllJournalEntries(), prop);
+  },
+  ownKeys(_target) {
+    return Reflect.ownKeys(getAllJournalEntries());
+  },
+  getOwnPropertyDescriptor(_target, prop) {
+    const desc = Object.getOwnPropertyDescriptor(getAllJournalEntries(), prop);
+    if (!desc) {
+      return undefined;
+    }
+    const targetDesc = Reflect.getOwnPropertyDescriptor(_target, prop);
+    if (targetDesc && !targetDesc.configurable) {
+      desc.configurable = false;
+    } else {
+      desc.configurable = true;
+    }
+    return desc;
+  }
+});
 
 /**
  * Lấy danh sách các bài viết đã được duyệt công bố (published), sắp xếp mới nhất trước (newest-first).
- * Các bài draft bị loại bỏ hoàn toàn, không xuất hiện trên giao diện công khai hay route tĩnh.
+ * Các bài draft bị loại bỏ hoàn toàn trên route công khai.
  */
-export function getPublishedJournalEntries(entries: JournalEntry[] = JOURNAL_ENTRIES): JournalEntry[] {
-  return [...entries]
+export function getPublishedJournalEntries(entries?: JournalEntry[]): JournalEntry[] {
+  const list = entries || getAllJournalEntries();
+  return [...list]
     .filter((entry) => entry.status === 'published')
     .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
 }
 
 /**
- * Lấy một bài viết đã công bố theo slug.
+ * Lấy một bài viết đã công bố theo slug (hoặc bài draft nếu đang trong phiên xem trước preview).
  */
 export function getJournalEntryBySlug(slug: string): JournalEntry | undefined {
-  return JOURNAL_ENTRIES.find((entry) => entry.slug === slug && entry.status === 'published');
+  const list = getAllJournalEntries();
+  const activeSnap = getActiveSnapshot();
+  const isPreview = Boolean(activeSnap && (activeSnap as any).isPreview);
+  return list.find((entry) => entry.slug === slug && (isPreview || entry.status === 'published'));
 }

@@ -1,0 +1,303 @@
+﻿=== npm run studio:typecheck ===
+
+> mang-theo-mot-net-ve@0.0.1 studio:typecheck
+> tsc --noEmit -p apps/studio/tsconfig.json
+
+=== npm run studio:test ===
+
+> mang-theo-mot-net-ve@0.0.1 studio:test
+> node --test apps/studio/tests/*.test.mjs
+
+✔ JWT: Fail-secure khi thiếu cấu hình hoặc dùng giá trị placeholder (2.1527ms)
+✔ JWT: Giải mã và xác thực chữ ký RS256 hợp lệ (130.4411ms)
+✔ JWT: Từ chối token hết hạn (exp) (40.9554ms)
+✔ JWT: Từ chối token sai issuer hoặc audience (45.0388ms)
+✔ JWT: Từ chối token có chữ ký bị giả mạo / sửa đổi (54.1413ms)
+▶ C17-R2-F2: Approved Media Registry & Authenticated Media Stream
+  ✔ Danh mục 20 tài sản chuẩn tắc: đúng 20 ảnh, đường dẫn canonical, băm SHA-256 thật (7.0387ms)
+  ✔ importApprovedRegistryIntoDb nạp vào D1 và R2, kiểm tra fail-closed khi thiếu bytes hoặc sai băm (89.3884ms)
+  ✔ GET /api/media/:id/file phục vụ tệp authenticated từ R2 với đầy đủ cờ bảo mật (54.1677ms)
+✔ C17-R2-F2: Approved Media Registry & Authenticated Media Stream (152.2201ms)
+▶ C17-R2-F2: Proxy Invariants, Price Semantics & Fail-Closed Projection
+  ✔ Proxy Invariants: length descriptor non-configurable và không ném TypeError (0.6894ms)
+  ✔ Price Semantics: bảo tồn nguyên vẹn proposal referencePrice tách biệt với official sale price (0.1221ms)
+  ✔ Fail-Closed Projection: tài sản chưa được duyệt bị loại trừ khỏi snapshot xuất bản (2.3591ms)
+✔ C17-R2-F2: Proxy Invariants, Price Semantics & Fail-Closed Projection (3.4767ms)
+▶ C17-R2-F2: Private Draft Preview SSR & Request-Scoped Isolation
+  ✔ renderPrivateDraftPreview đính kèm cờ bảo mật và viết lại liên kết nội bộ sang /preview/* (13.1985ms)
+  ✔ AsyncLocalStorage cách ly hoàn hảo giữa các yêu cầu đồng thời (Zero Cross-Talk) (21.86ms)
+✔ C17-R2-F2: Private Draft Preview SSR & Request-Scoped Isolation (35.438ms)
+▶ C17-R2-F2: Studio UI Workflows & Role Administration
+  ✔ Contact Removal Toggle: lưu contacts: null vào D1 và ẩn liên hệ không phục sinh fallback (4.6882ms)
+  ✔ Finance Two-Person Policy & Interactive Tables (entries, sales, expenses, inKind, overview) (6.5657ms)
+  ✔ Publish View: Guarded Restore với OCC phát hiện xung đột 409 và cập nhật vai trò /api/users (9.9557ms)
+✔ C17-R2-F2: Studio UI Workflows & Role Administration (21.6362ms)
+✔ Khóa lạc quan & Revisions: Phát hiện xung đột 409 và khôi phục an toàn (19.2707ms)
+✔ D1 Database: Tính bền vững trên đĩa qua các lần khởi động lại (Persistence Test) (53.122ms)
+✔ Adversarial: Client spoofing reconciled & publicApproval flags in draft save cannot authorize projection (56.4564ms)
+✔ Adversarial: Client spoofing signer objects in draft save are stripped by server (9.6174ms)
+✔ Adversarial: Self-review attempt (same email as first and second signer) is rejected (8.7068ms)
+✔ Adversarial: Missing second reviewer holds finance projection without blocking other modules (8.3784ms)
+✔ Workflow: Valid Two-Person Attestation authorizes sanitized projection with PII stripped (15.1374ms)
+✔ Security: Media Sniffer strips EXIF and private metadata chunks (0.5612ms)
+✔ Integrity: Prevent deleting media assets referenced anywhere in system (8.578ms)
+✔ Adversarial: Concurrent edit with same content creating new revision causes attestation conflict (409) and 0 audit logs (3.1571ms)
+✔ Security: Upload endpoint rejects truncated raster and unsupported formats before storage (6.1418ms)
+✔ Four-Eyes: Nghiêm cấm tự phê duyệt (Self-Review Forbidden) (1.4878ms)
+✔ Four-Eyes: Người duyệt thứ hai phải độc lập với người duyệt thứ nhất (0.3076ms)
+✔ Quy tắc 2 người: Đúng 2 danh tính độc lập (Người lập + Người duyệt độc lập) (0.3438ms)
+✔ CSV Parser: Tuân thủ RFC 4180, từ chối unclosed quotes và dòng sai số cột (1.0544ms)
+✔ Cú pháp tiền tệ: Chỉ chấp nhận số nguyên dương hoặc phân cách 3 chữ số hợp lệ (0.6678ms)
+✔ Làm sạch dữ liệu: Che giấu mã tham chiếu riêng tư (PII Masking) và ẩn danh (0.3265ms)
+✔ Bản chiếu công khai: Từ chối bản chiếu chưa đối soát hoặc chưa duyệt (1.5634ms)
+✔ Xuất bản: Tạo bản chụp bất biến (Immutable Snapshot) và tính SHA-256 (12.686ms)
+✔ Xuất bản: Kiểm tra tính Idempotency và Four-Eyes trong D1 (4.4376ms)
+✔ Xuất bản: Trích xuất Snapshot được duyệt sang dữ liệu tĩnh Astro (Snapshot Consumer) (5.7651ms)
+✔ RBAC: Kiểm tra ma trận quyền hạn các vai trò (1.121ms)
+✔ RBAC: Quyền thao tác bị từ chối chính xác (0.6961ms)
+✔ Bảo mật: Kiểm tra CSRF chặn yêu cầu nguy hiểm (27.2479ms)
+✔ Bảo mật: Thoát ký tự HTML nguy hiểm (XSS Escape) (0.1787ms)
+✔ Media Sniffer: Nhận diện chính xác định dạng ảnh qua Magic Bytes (1.0031ms)
+✔ Media Sniffer: Từ chối dứt khoát SVG và tệp chứa script / mã độc (0.3428ms)
+✔ Media Sniffer: Kiểm tra ràng buộc tham chiếu trước khi xóa ảnh (0.9336ms)
+✔ Storage R2: Hoạt động bền vững của LocalR2Bucket (put, get, list, delete) (7.4965ms)
+✔ Media Auth: Tệp media pending/chưa duyệt từ chối yêu cầu unauthenticated (401), tệp approved được phục vụ công khai (43.2042ms)
+✔ Raster Pipeline: decodeAndSanitizeRaster giải mã và tái mã hóa sạch sẽ, từ chối tệp lỗi trước lưu trữ (50.1085ms)
+✔ Supported D1: draft save/read, mandatory expectedHash, và phát hiện xung đột lạc quan (903.0822ms)
+✔ Supported D1: Xung đột đồng thời (Race Condition) không sinh ghost revision hoặc audit log thừa (976.1426ms)
+✔ Supported D1: Tính nguyên tử (Atomicity Rollback) trong saveDraft khi audit log thất bại (1471.8228ms)
+✔ Supported D1: Khôi phục phiên bản (Restore Revision) với khóa lạc quan OCC và kiểm tra rollback khi từ chối (1934.3851ms)
+✔ Supported D1 & R2: Tính bền vững trên đĩa (Persistence Test) qua các lần khởi động lại runtime (2308.1822ms)
+✔ Supported R2: Các thao tác put, get, list, delete trên kho lưu trữ (978.1482ms)
+✔ Worker Media Route: Khẳng định tuyến unauth không bao giờ gọi BUCKET.get() và auth hợp lệ có gọi (1323.643ms)
+Your Worker has access to the following bindings:
+Binding                                                                     Resource                  Mode
+env.DB (studio-d1)                                                          D1 Database               local
+env.BUCKET (studio-media)                                                   R2 Bucket                 local
+env.STUDIO_ENVIRONMENT ("production")                                       Environment Variable      local
+env.CF_ACCESS_TEAM_DOMAIN ("example-team.cloudflareaccess.com")             Environment Variable      local
+env.CF_ACCESS_AUD ("0000000000000000000000000000000000000...")              Environment Variable      local
+
+⎔ Starting local server...
+[wrangler:info] Ready on http://127.0.0.1:50423
+[wrangler:info] GET / 401 Unauthorized (526ms)
+[wrangler:info] GET /media/private-test.png 401 Unauthorized (9ms)
+⎔ Shutting down local server...
+Your Worker has access to the following bindings:
+Binding                                                                     Resource                  Mode
+env.DB (studio-d1)                                                          D1 Database               local
+env.BUCKET (studio-media)                                                   R2 Bucket                 local
+env.STUDIO_ENVIRONMENT ("development")                                      Environment Variable      local
+env.CF_ACCESS_TEAM_DOMAIN ("example-team.cloudflareaccess.com")             Environment Variable      local
+env.CF_ACCESS_AUD ("0000000000000000000000000000000000000...")              Environment Variable      local
+
+⎔ Starting local server...
+[wrangler:info] Ready on http://127.0.0.1:50442
+[wrangler:info] GET /media/private-test.png 401 Unauthorized (380ms)
+[wrangler:info] GET /api/me 200 OK (38ms)
+[wrangler:info] GET /api/drafts/project 200 OK (47ms)
+[wrangler:info] POST /api/drafts/project 200 OK (33ms)
+[wrangler:info] GET /api/drafts/project 200 OK (21ms)
+[wrangler:info] POST /api/drafts/project 409 Conflict (12ms)
+[wrangler:info] GET /media/private-test.png 200 OK (21ms)
+[wrangler:info] GET /media/non-existent-asset.png 404 Not Found (8ms)
+⎔ Shutting down local server...
+✔ Supported Worker Runtime (unstable_dev): Khởi chạy Worker thật, kiểm tra quy trình API draft, auth và media (3488.141ms)
+✔ Worker Bundle Verification: Kiểm tra Worker không chứa module Node-only trong toàn bộ dependency graph (41.9905ms)
+ℹ tests 56
+ℹ suites 4
+ℹ pass 56
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 14634.1471
+=== npm test ===
+
+> mang-theo-mot-net-ve@0.0.1 test
+> node --test tests/*.test.mjs
+
+▶ Kiểm thử Công cụ Đối soát CSV Content Studio (Task C14)
+  ✔ Phân tích đúng CSV có BOM, dấu phẩy trong ngoặc kép và khoảng trắng (1.1238ms)
+  ✔ Bắt lỗi unclosed quote theo chuẩn RFC 4180 và chỉ rõ dòng bị lỗi (0.5295ms)
+  ✔ Bắt lỗi khi độ rộng dòng (row width) không khớp với tiêu đề (0.2789ms)
+  ✔ Bắt lỗi khi có cột tiêu đề bị trùng lặp hoặc xung đột trường dữ liệu (0.1667ms)
+  ✔ Kiểm tra ngữ pháp số tiền nguyên dương nghiêm ngặt (từ chối 5e4, 50.50, chỉ cho phép grouping 3 số) (2.5267ms)
+  ✔ Bắt buộc ngày chốt đối soát (reconciledAt) khi xuất/áp dụng sổ chính thức (0.2842ms)
+  ✔ Chuẩn hóa đúng các định dạng ngày YYYY-MM-DD và DD/MM/YYYY (0.2087ms)
+  ✔ Xác thực hợp lệ tệp CSV mẫu và chuẩn hóa người ủng hộ ẩn danh (0.2791ms)
+  ✔ Bắt lỗi khi thiếu các cột bắt buộc (id, date, amount) (0.3066ms)
+  ✔ Bắt lỗi trùng lặp mã giao dịch (không phân biệt hoa thường) (0.4111ms)
+  ✔ Bắt lỗi khi ngày giao dịch xảy ra sau ngày chốt đối soát (0.224ms)
+  ✔ An toàn dữ liệu: Bản chiếu công khai (safe projection) không chứa nội dung giao dịch ngân hàng thô (0.367ms)
+  ✔ Kiểm thử cơ chế sao lưu tự động và băm SHA-256 trên thư mục tạm (5.9141ms)
+✔ Kiểm thử Công cụ Đối soát CSV Content Studio (Task C14) (14.3401ms)
+▶ Kiểm thử Xác thực và Làm sạch Bài viết Nhật ký (Task C14)
+  ✔ Kiểm tra ngày theo lịch thực tế (từ chối ngày không tồn tại 2026-02-31) (0.3711ms)
+  ✔ Kiểm tra đường dẫn ảnh nằm trong danh mục đã duyệt (allowlist) (0.2703ms)
+  ✔ Bắt buộc chú thích caption khi có ảnh bìa hoặc khối ảnh (1.0226ms)
+  ✔ Từ chối văn bản chứa từ khóa kỹ thuật nội bộ (PLAY_FLOW / SAFETY_PRACTICES) (0.1681ms)
+  ✔ validateJournalEntriesList xác thực đúng danh sách và phát hiện slug trùng lặp (0.2861ms)
+  ✔ sanitizeJournalEntry loại bỏ triệt để mọi trường lạ hoặc prototype keys (0.289ms)
+  ✔ Từ chối dứt khoát ảnh path traversal (..), query string và ảnh unapproved (0.133ms)
+✔ Kiểm thử Xác thực và Làm sạch Bài viết Nhật ký (Task C14) (2.8286ms)
+▶ Kiểm thử Xác thực Cấu hình Mở bán Sản phẩm (Task C14)
+  ✔ Chấp nhận cấu hình sản phẩm hợp lệ ban đầu (0.3941ms)
+  ✔ Bắt lỗi khi có ID sản phẩm lạ hoặc thiếu ID bắt buộc (0.1078ms)
+  ✔ Bắt lỗi giá âm (-20), số lượng âm, hoặc enum không hợp lệ (0.1359ms)
+  ✔ Bắt lỗi khi chuyển sang open mà thiếu điều kiện (giá, chính sách, phê duyệt, stock) (0.1219ms)
+  ✔ sanitizeProductSalesConfig chuẩn hóa và loại bỏ trường lạ (0.1497ms)
+  ✔ Kiểm thử CLI donations với JSON: validate, dry-run, hash mismatch, backup và 2 người đối soát trong thư mục tạm (102.2704ms)
+  ✔ Bảo toàn trạng thái eventStatus (planned, in_progress, completed, cancelled) khi chỉnh sửa bài viết (0.46ms)
+  ✔ Tệp mẫu sample-donations.csv bị từ chối áp dụng và báo lỗi yêu cầu nhập dữ liệu đối soát thật (0.7808ms)
+  ✔ Hàm validateDonationProjection kiểm tra tính toàn vẹn và mốc thời gian đối soát (0.6718ms)
+  ✔ Hàm sanitizeDonationEntry tuân thủ allowlist, ẩn danh an toàn và che giấu mã tham chiếu (0.3285ms)
+  ✔ Áp dụng JSON sổ đối soát: Từ chối nâng cấp bản pending, bắt buộc 2 người đối soát và che giấu mã tham chiếu an toàn (362.1334ms)
+✔ Kiểm thử Xác thực Cấu hình Mở bán Sản phẩm (Task C14) (468.0122ms)
+▶ Tài khoản và sổ ủng hộ hiện tại (C07S)
+  ✔ Tài khoản Techcombank do nhóm cung cấp đang mở, mục tiêu 3.000.000đ (1.2401ms)
+  ✔ Chưa có sổ đối soát: tổng và tỷ lệ là null, không phải 0đ, dù tài khoản đã mở (1.3025ms)
+  ✔ Liên hệ, lịch, tiến độ và thành viên khớp tài liệu bổ sung (0.7239ms)
+✔ Tài khoản và sổ ủng hộ hiện tại (C07S) (5.0304ms)
+▶ Logic sổ ủng hộ (C07S)
+  ✔ isDonationOpen chỉ đúng khi active và đủ 4 trường (0.7965ms)
+  ✔ Sổ đã đối soát nhưng chưa có khoản nào: tổng 0đ, 0% (1.985ms)
+  ✔ Tổng dẫn xuất từ các dòng sổ; tỷ lệ theo mục tiêu (0.7207ms)
+  ✔ Vượt mục tiêu: thanh giới hạn 100% nhưng tổng giữ số thật (0.4346ms)
+  ✔ Không cộng trùng: mã giao dịch lặp lại (không phân biệt hoa thường) bị từ chối (1.0826ms)
+  ✔ Sổ chưa đối soát mà có dòng, hoặc đối soát thiếu ngày: báo lỗi (0.5015ms)
+  ✔ Khoản có ngày sau ngày đối soát bị từ chối (0.5133ms)
+  ✔ validateDonation từ chối số tiền, ngày và tên không hợp lệ (0.8999ms)
+  ✔ Mục tiêu không hợp lệ bị từ chối; không có mục tiêu thì không có tỷ lệ (0.3202ms)
+  ✔ Sắp xếp mới nhất trước, không đổi mảng gốc; định dạng ngày (0.5866ms)
+✔ Logic sổ ủng hộ (C07S) (9.1264ms)
+▶ Kiểm thử logic tài chính và tính toán (Task C06 - Final PDF)
+  ✔ Tổng dự toán chi của 24 khoản mục đúng bằng 5.470.000đ theo 3 nhóm cụ thể (1.9615ms)
+  ✔ sumPlannedExpenses ném lỗi khi có khoản mục null (không tự coi là 0) (1.1484ms)
+  ✔ Doanh thu kịch bản từng sản phẩm thủ công tính đúng theo giá tham khảo × số lượng kế hoạch (0.7638ms)
+  ✔ Doanh thu kịch bản ẩm thực cơ sở tính đúng 50 set × 79.000đ + 50 bánh su kem × 20.000đ = 4.950.000đ (0.3751ms)
+  ✔ Bắt lỗi cộng nhầm combo vào doanh thu cơ sở (3 combo nem bị loại khỏi kịch bản cơ sở) (0.5166ms)
+  ✔ calculateCombinedPlannedRevenue kết hợp đúng doanh thu thủ công và ẩm thực cơ sở (2.200.000đ + 4.950.000đ = 7.150.000đ) (0.3239ms)
+  ✔ calculateCombinedPlannedRevenue propagate null khi một trong hai nguồn là null (không tự về 0) (0.3494ms)
+  ✔ Bắt lỗi trừ su kem hai lần trong đối soát lãi ẩm thực (làm rõ khoản chênh 400.000đ) (0.8941ms)
+  ✔ Đối soát lãi thủ công làm rõ khoản chênh 400.000đ do phân bổ chi phí nội bộ (0.5576ms)
+  ✔ Chênh lệch 400.000đ bù trừ giữa ẩm thực và thủ công, tổng số dư toàn dự án khớp chuẩn xác 1.680.000đ (0.3966ms)
+  ✔ Kịch bản cơ sở — Chi 5.470.000đ, Thu cơ sở 7.150.000đ => Dư trước quà +1.680.000đ (26.4395ms)
+  ✔ Bắt lỗi hiện vật cộng vào doanh thu (hiện vật chỉ giảm chi tiền còn lại, không tăng doanh thu tiền) (0.4703ms)
+  ✔ Tất cả 5 kịch bản tài trợ tại trang 32 khớp chuẩn xác số dư theo đề xuất Final (0.5413ms)
+  ✔ calculateScenario trả về null khi dữ liệu doanh thu hoặc chi phí chưa biết (null) (0.1693ms)
+  ✔ calculateScenario ném lỗi khi hiện vật vượt quá tổng chi hoặc là số âm (0.3275ms)
+  ✔ Định dạng formatVND xử lý chuẩn xác số dương, 0 và null (0.5141ms)
+✔ Kiểm thử logic tài chính và tính toán (Task C06 - Final PDF) (38.8837ms)
+▶ Kiểm tra tính toàn vẹn dữ liệu và an toàn thông tin (Task C06)
+  ✔ Toàn bộ số liệu thực tế được khởi tạo ở trạng thái null / chưa xác nhận (không tự gán 0) (0.2232ms)
+  ✔ Kênh liên hệ đã xác nhận có số điện thoại hợp lệ cho liên kết tel: (0.4403ms)
+  ✔ Sản phẩm gây quỹ có đủ 7 SKUs, actualStock null và saleStatus unconfirmed (0.1473ms)
+  ✔ Toàn bộ 24 khoản dự toán có sourceRef theo mẫu proposal-final:page-N (không còn proposal cũ) (0.1866ms)
+  ✔ Không còn tham chiếu tới túi bút hoặc túi vải cũ trong sản phẩm và chi phí (0.2046ms)
+✔ Kiểm tra tính toàn vẹn dữ liệu và an toàn thông tin (Task C06) (1.5051ms)
+▶ Kiểm thử helpers hiển thị và quy tắc định dạng (Task C06)
+  ✔ formatProductQuantity dẫn xuất đúng số lượng cho cả 7 SKUs (1.2254ms)
+  ✔ formatProductPrice định dạng chuẩn cho cả 7 SKUs và không ghép đơn vị khi giá null (0.8247ms)
+  ✔ formatScenarioBalance phân biệt chính xác 4 trạng thái: âm, 0, dương, và unknown (0.3462ms)
+✔ Kiểm thử helpers hiển thị và quy tắc định dạng (Task C06) (2.5903ms)
+▶ Kiểm thử phân nhóm chi phí dự toán (Task C06)
+  ✔ groupPlannedExpensesByCategory phân đúng 3 nhóm từ PLANNED_EXPENSES với tổng phụ 2.480k, 1.860k, 1.130k (1.377ms)
+  ✔ groupPlannedExpensesByCategory bảo vệ an toàn khi có khoản mục unknown (subtotal = null, không crash) (0.2417ms)
+✔ Kiểm thử phân nhóm chi phí dự toán (Task C06) (1.7896ms)
+▶ Kiểm thử hồi quy: Lan truyền null trong calculateFoodReconciliation
+  ✔ Khi đầy đủ dữ liệu ẩm thực, cho kết quả chuẩn xác 4.950.000đ, 7.150.000đ, 1.680.000đ (0.2168ms)
+  ✔ Khi suKemQuantity là null: giữ subtotal của set, nhưng lan truyền null cho coreFood, combined, balance, profit và gap (0.1284ms)
+  ✔ Khi suKemQuantity là undefined: lan truyền null tương tự (0.0713ms)
+  ✔ Khi suKemQuantity là QuantitativeFact với value: null: lan truyền null tương tự (0.0949ms)
+  ✔ Khi hypotheticalSets hoặc setPrice là null/undefined/fact(null): giữ subtotal của su kem nhưng lan truyền null cho tổng (0.1116ms)
+✔ Kiểm thử hồi quy: Lan truyền null trong calculateFoodReconciliation (0.8338ms)
+▶ Kiểm thử danh mục sản phẩm hiển thị (Task C07)
+  ✔ buildProductCatalog: 4 mặt hàng cơ sở cộng đúng 7.150.000đ, 3 combo không có doanh thu kịch bản (1.0267ms)
+  ✔ buildProductCatalog giữ null khi thiếu số lượng và tổng trả về null thay vì bỏ qua (0.6556ms)
+✔ Kiểm thử danh mục sản phẩm hiển thị (Task C07) (1.8174ms)
+▶ Kiểm thử Dữ liệu và Schema Nhật ký dự án (Task C14)
+  ✔ Khởi tạo đúng 2 bài viết kế hoạch ban đầu (2.4691ms)
+  ✔ Toàn bộ bài viết ban đầu đều ở trạng thái published và hợp lệ theo validator (16.8665ms)
+  ✔ Tìm kiếm bài viết theo slug hoạt động chính xác (0.3974ms)
+  ✔ Cách ly bài viết bản nháp (draft isolation): draft không xuất hiện trong getPublishedJournalEntries (0.3872ms)
+  ✔ Hàm getPublishedJournalEntries sắp xếp bài viết theo thứ tự mới nhất trước (newest-first) từ danh sách chưa sắp xếp (0.3571ms)
+  ✔ Bắt lỗi khi bài viết vi phạm schema (slug sai, thiếu title, khối nội dung rỗng) (0.325ms)
+  ✔ Phát hiện và ngăn chặn mã script nguy hiểm trong nội dung (XSS protection) (0.5142ms)
+  ✔ Các danh mục nhật ký khớp chuẩn quy định (0.337ms)
+✔ Kiểm thử Dữ liệu và Schema Nhật ký dự án (Task C14) (23.8551ms)
+▶ Kiểm thử Chi tiết Sản phẩm & Luồng Soạn Yêu cầu Mua (Task C14)
+  ✔ Chỉ có đúng 2 sản phẩm thủ công có trang chi tiết, không chứa đồ ăn cũ (3.1883ms)
+  ✔ Hỗ trợ tìm kiếm theo slug chính thức và alias (0.3092ms)
+  ✔ Baseline hiện tại: canInitiatePurchase trả về false cho toàn bộ sản phẩm (0.2537ms)
+  ✔ Kiểm thử gating toàn diện với fixture kiểm thử (open, confirmed, approval, policies) (0.1942ms)
+  ✔ Hàm formatPurchaseInquiry sinh đúng cấu trúc văn bản và tính tạm tính chuẩn xác (20.6671ms)
+  ✔ Mô hình xem hiệu lực (effective sale view-model): đồng bộ giá chính thức khác giá kế hoạch, kho và kênh bán (0.341ms)
+  ✔ Khóa luồng đặt mua khi số lượng có sẵn (stockAvailable) bằng 0 (0.1796ms)
+✔ Kiểm thử Chi tiết Sản phẩm & Luồng Soạn Yêu cầu Mua (Task C14) (26.8899ms)
+✔ Proxy invariants: array length descriptor must be non-configurable (1.5146ms)
+✔ Proxy reflection: array functions, iteration and serialization (1.1463ms)
+✔ Proxy invariants: objects reflection and properties (0.8851ms)
+✔ AsyncLocalStorage: Cách ly hoàn hảo giữa 2 snapshot đồng thời và 1 baseline request (No Cross-Contamination) (71.8799ms)
+ℹ tests 96
+ℹ suites 13
+ℹ pass 96
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 647.1042
+=== npm run build ===
+
+> mang-theo-mot-net-ve@0.0.1 build
+> astro build
+
+[2m20:25:37[22m [34m[vite][39m Re-optimizing dependencies because vite config has changed
+[2m20:25:37[22m [34m[types][39m Generated [2m175ms[22m
+[2m20:25:37[22m [34m[build][39m output: [34m"static"[39m
+[2m20:25:37[22m [34m[build][39m mode: [34m"static"[39m
+[2m20:25:37[22m [34m[build][39m directory: [34mC:\Users\tuana\Documents\Codex\2026-10-02\t\outputs\mang-theo-mot-net-ve\dist\[39m
+[2m20:25:37[22m [34m[build][39m Collecting build info...
+[2m20:25:37[22m [34m[build][39m [32m✓ Completed in 264ms.[39m
+[2m20:25:37[22m [34m[build][39m Building static entrypoints...
+[2m20:25:38[22m [34m[vite][39m [32m✓ built in 363ms[39m
+[2m20:25:38[22m [34m[vite][39m [32m✓ built in 62ms[39m
+[2m20:25:38[22m [34m[build][39m Rearranging server assets...
+
+[42m[30m generating static routes [39m[49m
+[2m20:25:38[22m   [34m├─[39m [2m/404.html[22m [2m(+12ms)[22m 
+[2m20:25:38[22m   [34m├─[39m [2m/dong-hanh/index.html[22m [2m(+11ms)[22m 
+[2m20:25:38[22m   [34m├─[39m [2m/du-an/mang-theo-mot-net-ve/index.html[22m [2m(+7ms)[22m 
+[2m20:25:38[22m   [34m├─[39m [2m/minh-bach/index.html[22m [2m(+5ms)[22m 
+[2m20:25:38[22m   [34m├─[39m [2m/nhat-ky/ke-hoach-bon-goc-choi/index.html[22m [2m(+5ms)[22m 
+[2m20:25:38[22m   [34m├─[39m [2m/nhat-ky/gioi-thieu-qua-luu-niem-gay-quy/index.html[22m [2m(+2ms)[22m 
+[2m20:25:38[22m   [34m├─[39m [2m/nhat-ky/index.html[22m [2m(+4ms)[22m 
+[2m20:25:38[22m   [34m├─[39m [2m/san-pham/chuon-chuon-tre-kem-de/index.html[22m [2m(+4ms)[22m 
+[2m20:25:38[22m   [34m├─[39m [2m/san-pham/chuon-chuon-tre/index.html[22m [2m(+3ms)[22m 
+[2m20:25:38[22m   [34m├─[39m [2m/san-pham/moc-khoa/index.html[22m [2m(+3ms)[22m 
+[2m20:25:38[22m   [34m├─[39m [2m/san-pham/index.html[22m [2m(+5ms)[22m 
+[2m20:25:38[22m   [34m├─[39m [2m/ve-nhom/index.html[22m [2m(+3ms)[22m 
+[2m20:25:38[22m   [34m├─[39m [2m/index.html[22m [2m(+5ms)[22m 
+[2m20:25:38[22m [32m✓ Completed in 89ms.
+[39m
+[2m20:25:38[22m [34m[build][39m [32m✓ Completed in 609ms.[39m
+[2m20:25:38[22m [34m[build][39m 13 page(s) built in [1m885ms[22m
+[2m20:25:38[22m [34m[build][39m [1mComplete![22m
+=== npx astro build --config astro.preview.config.mjs ===
+[2m20:25:41[22m [34m[vite][39m Re-optimizing dependencies because vite config has changed
+[2m20:25:41[22m [34m[types][39m Generated [2m276ms[22m
+[2m20:25:41[22m [34m[build][39m output: [34m"server"[39m
+[2m20:25:41[22m [34m[build][39m mode: [34m"server"[39m
+[2m20:25:41[22m [34m[build][39m directory: [34mC:\Users\tuana\Documents\Codex\2026-10-02\t\outputs\mang-theo-mot-net-ve\dist-preview\[39m
+[2m20:25:41[22m [34m[build][39m adapter: [32m@astrojs/cloudflare[39m
+[2m20:25:41[22m [34m[build][39m Collecting build info...
+[2m20:25:41[22m [34m[build][39m [32m✓ Completed in 335ms.[39m
+[2m20:25:41[22m [34m[build][39m Building server entrypoints...
+[2m20:25:41[22m [34m[vite][39m [32m✓ built in 237ms[39m
+[2m20:25:41[22m [34m[vite][39m [32m✓ built in 90ms[39m
+[2m20:25:41[22m [34m[vite][39m [32m✓ built in 53ms[39m
+[2m20:25:41[22m [34m[build][39m Rearranging server assets...
+[2m20:25:41[22m [34m[build][39m [32m✓ Completed in 449ms.[39m
+[2m20:25:41[22m [34m[@astrojs/cloudflare][39m Injected immutable Cache-Control for /_astro/* into _headers.
+[2m20:25:41[22m [34m[build][39m Server built in [1m798ms[22m
+[2m20:25:41[22m [34m[build][39m [1mComplete![22m

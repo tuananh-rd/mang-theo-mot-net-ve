@@ -199,6 +199,30 @@ export function renderStudioHtml(session: AuthSession): string {
       margin: 0 auto;
     }
 
+    /* Modal Dialogs */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    .modal-content {
+      background: #FFFFFF;
+      border-radius: 8px;
+      max-width: 800px;
+      width: 90%;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 24px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+
     /* Cards and Forms */
     .card {
       background: var(--color-bg-card);
@@ -726,22 +750,25 @@ export function renderStudioHtml(session: AuthSession): string {
             </div>
           </div>
 
-          \${(() => {
-            const isLocal = ['localhost', '127.0.0.1'].includes(window.location.hostname);
-            const previewUrl = isLocal ? 'http://127.0.0.1:4322/' : (window.location.origin.replace('studio.', ''));
-            const previewText = isLocal ? 'Địa chỉ xem trước website Astro SSR/SSG cục bộ: <code>http://127.0.0.1:4322/</code>.' : 'Địa chỉ xem trước website công khai: <code>' + escapeHtml(previewUrl) + '</code>.';
-            return \`
-              <div class="card" style="border-left: 4px solid var(--color-teal);">
-                <div class="card-title">
-                  <span>Cổng xem trước Website công khai</span>
-                  <a href="\${escapeHtml(previewUrl)}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">Mở website xem trước</a>
-                </div>
-                <p style="color: var(--color-neutral-mid); font-size: 0.9rem;">
-                  \${previewText} Dữ liệu phản ánh các bản chụp (Snapshot) đã được duyệt và trích xuất.
-                </p>
-              </div>
-            \`;
-          })()}
+          <div class="card" style="border-left: 4px solid var(--color-teal);">
+            <div class="card-title">
+              <span>Xem trước Bản nháp Nội bộ (Private Draft Preview)</span>
+              <span class="role-badge" style="background:#E6FFFA; color:#2C7A7B;">Bản xem trước bảo mật</span>
+            </div>
+            <p style="color: var(--color-neutral-mid); font-size: 0.9rem; margin-bottom: 12px;">
+              Xem trước trực quan giao diện thực tế của toàn bộ các trang với dữ liệu bản nháp mới nhất trước khi quyết định xuất bản. Trang xem trước chỉ mở cho tài khoản nội bộ đã đăng nhập, không lưu bộ nhớ đệm công khai và ngăn công cụ tìm kiếm lập chỉ mục.
+            </p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+              <a href="/preview/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" style="text-align:center;">Trang chủ (/)</a>
+              <a href="/preview/du-an/mang-theo-mot-net-ve" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" style="text-align:center;">Dự án (/du-an)</a>
+              <a href="/preview/dong-hanh" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" style="text-align:center;">Đồng hành (/dong-hanh)</a>
+              <a href="/preview/minh-bach" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" style="text-align:center;">Minh bạch (/minh-bach)</a>
+              <a href="/preview/san-pham" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" style="text-align:center;">Sản phẩm (/san-pham)</a>
+              <a href="/preview/ve-nhom" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" style="text-align:center;">Về nhóm (/ve-nhom)</a>
+              <a href="/preview/nhat-ky" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" style="text-align:center;">Nhật ký (/nhat-ky)</a>
+              <a href="/preview/404" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" style="text-align:center;">Trang 404 (/404)</a>
+            </div>
+          </div>
 
           <div class="card">
             <div class="card-title">Lối tắt 7 phân hệ nghiệp vụ</div>
@@ -998,16 +1025,7 @@ export function renderStudioHtml(session: AuthSession): string {
           { id: 'buoi-choi', title: 'Buổi chơi tại Mái ấm', date: '2026-10-24', time: '14:00', weekday: 'Thứ Bảy', description: 'Bốn góc hoạt động, khoảng 180 phút, có hai lần nghỉ.' },
           { id: 'trao-qua', title: 'Gặp lại và trao quà', date: '2026-10-31', time: '14:00', weekday: 'Thứ Bảy', description: 'Trao vật phẩm theo danh mục Mái ấm xác nhận, khoảng 30–45 phút.' }
         ];
-        const contacts = p.contacts || {
-          status: 'confirmed',
-          people: [
-            { name: 'Nguyễn Chí Trung', role: 'Trưởng dự án', phone: '0984 441 726', phoneE164: '+84984441726' },
-            { name: 'Lê Tuấn Anh', role: 'Đại diện đối ngoại', phone: '0343 999 199', phoneE164: '+84343999199' }
-          ],
-          fanpageUrl: 'https://www.facebook.com/mangtheomotnetve',
-          sourceRef: 'supplement-c07:muc-6',
-          updatedAt: '2026-10-09'
-        };
+        const contacts = p.contacts !== undefined ? p.contacts : null;
 
         tabContent.innerHTML = \`
           <form id="projectForm" class="card">
@@ -1112,30 +1130,44 @@ export function renderStudioHtml(session: AuthSession): string {
             </div>
 
             <div style="border-top: 1px solid var(--color-neutral-light); padding-top: 16px; margin-top: 16px;">
-              <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 12px; color: var(--color-primary);">Đầu mối Liên hệ Chính thức (Official Contacts)</h3>
-              <div class="form-row">
-                <div class="form-group">
-                  <label>Trưởng dự án</label>
-                  <input type="text" class="form-control" name="contact_name_0" value="\${escapeHtml(contacts.people[0]?.name ?? '')}">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <h3 style="font-size: 1rem; font-weight: 700; color: var(--color-primary); margin: 0;">Đầu mối Liên hệ Chính thức (Official Contacts)</h3>
+                <button type="button" class="btn btn-danger btn-sm" id="toggleContactBtn">
+                  \${contacts !== null ? 'Ẩn thông tin liên hệ chính thức' : 'Bật hiển thị thông tin liên hệ'}
+                </button>
+              </div>
+
+              <input type="hidden" id="contactActiveState" name="contact_is_active" value="\${contacts !== null ? '1' : '0'}">
+
+              <div id="contactFieldsWrapper" style="\${contacts === null ? 'display: none;' : ''}">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Trưởng dự án</label>
+                    <input type="text" class="form-control" name="contact_name_0" value="\${escapeHtml(contacts?.people?.[0]?.name ?? '')}">
+                  </div>
+                  <div class="form-group">
+                    <label>Số điện thoại</label>
+                    <input type="text" class="form-control" name="contact_phone_0" value="\${escapeHtml(contacts?.people?.[0]?.phone ?? '')}">
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Đại diện đối ngoại</label>
+                    <input type="text" class="form-control" name="contact_name_1" value="\${escapeHtml(contacts?.people?.[1]?.name ?? '')}">
+                  </div>
+                  <div class="form-group">
+                    <label>Số điện thoại</label>
+                    <input type="text" class="form-control" name="contact_phone_1" value="\${escapeHtml(contacts?.people?.[1]?.phone ?? '')}">
+                  </div>
                 </div>
                 <div class="form-group">
-                  <label>Số điện thoại</label>
-                  <input type="text" class="form-control" name="contact_phone_0" value="\${escapeHtml(contacts.people[0]?.phone ?? '')}">
+                  <label>Trang Facebook / Fanpage Dự án</label>
+                  <input type="url" class="form-control" name="contact_fanpage" value="\${escapeHtml(contacts?.fanpageUrl ?? '')}">
                 </div>
               </div>
-              <div class="form-row">
-                <div class="form-group">
-                  <label>Đại diện đối ngoại</label>
-                  <input type="text" class="form-control" name="contact_name_1" value="\${escapeHtml(contacts.people[1]?.name ?? '')}">
-                </div>
-                <div class="form-group">
-                  <label>Số điện thoại</label>
-                  <input type="text" class="form-control" name="contact_phone_1" value="\${escapeHtml(contacts.people[1]?.phone ?? '')}">
-                </div>
-              </div>
-              <div class="form-group">
-                <label>Trang Facebook / Fanpage Dự án</label>
-                <input type="url" class="form-control" name="contact_fanpage" value="\${escapeHtml(contacts.fanpageUrl ?? '')}">
+
+              <div id="contactNullNotice" style="\${contacts === null ? '' : 'display: none;'} background: #FFF5F5; border: 1px solid #FEB2B2; border-radius: 6px; padding: 12px; color: #C53030; font-size: 0.9rem;">
+                <strong>Đầu mối liên hệ đang tạm ẩn:</strong> Nút kêu gọi hành động (CTA) và kênh liên hệ sẽ không hiển thị trên website công khai và bản xem trước để bảo vệ thông tin khi chưa sẵn sàng tiếp nhận.
               </div>
             </div>
 
@@ -1146,10 +1178,35 @@ export function renderStudioHtml(session: AuthSession): string {
         \`;
 
         const form = document.getElementById('projectForm');
+        const toggleBtn = document.getElementById('toggleContactBtn');
+        const contactWrapper = document.getElementById('contactFieldsWrapper');
+        const contactNotice = document.getElementById('contactNullNotice');
+        const contactState = document.getElementById('contactActiveState');
+
+        if (toggleBtn) {
+          toggleBtn.addEventListener('click', () => {
+            const isCurrentlyActive = contactState.value === '1';
+            if (isCurrentlyActive) {
+              contactState.value = '0';
+              contactWrapper.style.display = 'none';
+              contactNotice.style.display = 'block';
+              toggleBtn.textContent = 'Bật hiển thị thông tin liên hệ';
+            } else {
+              contactState.value = '1';
+              contactWrapper.style.display = 'block';
+              contactNotice.style.display = 'none';
+              toggleBtn.textContent = 'Ẩn thông tin liên hệ chính thức';
+            }
+            setDirty(true);
+          });
+        }
+
         form.addEventListener('input', () => setDirty(true));
         form.addEventListener('submit', async (e) => {
           e.preventDefault();
           const fd = new FormData(form);
+          const isContactActive = fd.get('contact_is_active') === '1';
+
           const updated = {
             ...activeDraft.data,
             title: fd.get('title'),
@@ -1173,24 +1230,26 @@ export function renderStudioHtml(session: AuthSession): string {
               weekday: fd.get(\`sess_weekday_\${idx}\`),
               description: fd.get(\`sess_desc_\${idx}\`),
             })),
-            contacts: {
-              ...contacts,
+            contacts: isContactActive ? {
+              status: p.contacts?.status || 'unconfirmed',
               people: [
                 {
                   name: fd.get('contact_name_0'),
                   role: 'Trưởng dự án',
                   phone: fd.get('contact_phone_0'),
-                  phoneE164: '+84' + String(fd.get('contact_phone_0')).replace(/\\D/g, '').replace(/^0/, ''),
+                  phoneE164: '+84' + String(fd.get('contact_phone_0') || '').replace(/\\D/g, '').replace(/^0/, ''),
                 },
                 {
                   name: fd.get('contact_name_1'),
                   role: 'Đại diện đối ngoại',
                   phone: fd.get('contact_phone_1'),
-                  phoneE164: '+84' + String(fd.get('contact_phone_1')).replace(/\\D/g, '').replace(/^0/, ''),
+                  phoneE164: '+84' + String(fd.get('contact_phone_1') || '').replace(/\\D/g, '').replace(/^0/, ''),
                 },
-              ],
-              fanpageUrl: fd.get('contact_fanpage'),
-            },
+              ].filter(person => Boolean(person.name && String(person.name).trim())),
+              fanpageUrl: fd.get('contact_fanpage') || '',
+              sourceRef: p.contacts?.sourceRef || 'proposal-final',
+              updatedAt: p.contacts?.updatedAt || new Date().toISOString().slice(0, 10),
+            } : null,
           };
 
           const saveRes = await fetchApi('/api/drafts/project', {
@@ -1999,6 +2058,8 @@ export function renderStudioHtml(session: AuthSession): string {
           { title: 'Tôn trọng riêng tư', description: 'Không công khai số tài khoản, ngân hàng hay thông tin cá nhân của người gửi; chứng từ chỉ công bố bản đã che thông tin.' },
         ];
 
+        const ov = f.overview || {};
+
         tabContent.innerHTML = \`
           <!-- Thẻ 1: Cấu hình Tài khoản Tiếp nhận & Mục tiêu Gây quỹ -->
           <form id="donationAccountForm" class="card">
@@ -2136,9 +2197,51 @@ export function renderStudioHtml(session: AuthSession): string {
             </div>
           </div>
 
+          <!-- Thẻ 2c: Tổng quan Kế hoạch Tài chính & Dự toán (Finance Overview) -->
+          <form id="financeOverviewForm" class="card">
+            <div class="card-title">
+              <span>Tổng quan Kế hoạch Tài chính & Dự toán (Finance Overview)</span>
+              <button type="submit" class="btn btn-primary" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Lưu tổng quan dự toán</button>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Tổng chi phí dự toán (plannedExpenseTotal)</label>
+                <input type="number" class="form-control" name="ov_plannedExpenseTotal" value="\${ov.plannedExpenseTotal !== null && ov.plannedExpenseTotal !== undefined ? ov.plannedExpenseTotal : ''}" placeholder="Dự toán (VNĐ)">
+              </div>
+              <div class="form-group">
+                <label>Doanh thu thủ công dự kiến (craftPlannedRevenue)</label>
+                <input type="number" class="form-control" name="ov_craftPlannedRevenue" value="\${ov.craftPlannedRevenue !== null && ov.craftPlannedRevenue !== undefined ? ov.craftPlannedRevenue : ''}" placeholder="Doanh thu thủ công (VNĐ)">
+              </div>
+              <div class="form-group">
+                <label>Doanh thu đồ ăn dự kiến (foodPlannedRevenue)</label>
+                <input type="number" class="form-control" name="ov_foodPlannedRevenue" value="\${ov.foodPlannedRevenue !== null && ov.foodPlannedRevenue !== undefined ? ov.foodPlannedRevenue : ''}" placeholder="Doanh thu đồ ăn (VNĐ)">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Doanh thu kịch bản cơ sở (plannedRevenueScenario)</label>
+                <input type="number" class="form-control" name="ov_plannedRevenueScenario" value="\${ov.plannedRevenueScenario !== null && ov.plannedRevenueScenario !== undefined ? ov.plannedRevenueScenario : ''}" placeholder="Kịch bản cơ sở (VNĐ)">
+              </div>
+              <div class="form-group">
+                <label>Số dư dự kiến chưa tài trợ (unfundedProjectedBalance)</label>
+                <input type="number" class="form-control" name="ov_unfundedProjectedBalance" value="\${ov.unfundedProjectedBalance !== null && ov.unfundedProjectedBalance !== undefined ? ov.unfundedProjectedBalance : ''}" placeholder="Số dư dự kiến (VNĐ)">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Thông báo trạng thái thực tế (actualStatusNotice)</label>
+              <input type="text" class="form-control" name="ov_actualStatusNotice" value="\${escapeHtml(ov.actualStatusNotice ?? '')}" placeholder="Thông báo trạng thái thực tế">
+            </div>
+            <div class="form-group">
+              <label>Tuyên bố miễn trừ & giải trình (disclaimer)</label>
+              <textarea class="form-control" name="ov_disclaimer" placeholder="Tuyên bố giải trình">\${escapeHtml(ov.disclaimer ?? '')}</textarea>
+            </div>
+          </form>
+
           <!-- Thẻ 3: Bản chiếu giao dịch sao kê -->
           <div class="card">
-            <div class="card-title">Bản chiếu giao dịch sao kê đã xử lý (\${(f.entries || []).length} khoản)</div>
+            <div class="card-title">
+              <span>Bản chiếu giao dịch sao kê đã xử lý (\${(f.entries || []).length} khoản)</span>
+            </div>
             <div class="table-scroll-hint"><span>Cuộn ngang để xem đầy đủ cột giao dịch</span></div>
             <div class="table-container" tabindex="0" role="region" aria-label="Bảng bản chiếu giao dịch sao kê đã xử lý">
               <table class="data-table">
@@ -2148,26 +2251,56 @@ export function renderStudioHtml(session: AuthSession): string {
                     <th>Số tiền (VNĐ)</th>
                     <th>Người ủng hộ</th>
                     <th>Mã tham chiếu (Đã che)</th>
+                    <th>Thao tác</th>
                   </tr>
                 </thead>
                 <tbody>
-                  \${(f.entries || []).map(e => \`
+                  \${(f.entries || []).map((e, eIdx) => \`
                     <tr>
                       <td>\${escapeHtml(e.date)}</td>
                       <td><strong>\${Number(e.amount).toLocaleString('vi-VN')} đ</strong></td>
                       <td>\${escapeHtml(e.donor)}</td>
                       <td><code>\${escapeHtml(e.reference || '(Trống)')}</code></td>
+                      <td>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="deleteFinanceEntry(\${eIdx})" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Xóa</button>
+                      </td>
                     </tr>
                   \`).join('')}
-                  \${(f.entries || []).length === 0 ? '<tr><td colspan="4" style="text-align: center; color: var(--color-neutral-mid);">Chưa có khoản ủng hộ nào được phê duyệt công khai.</td></tr>' : ''}
+                  \${(f.entries || []).length === 0 ? '<tr><td colspan="5" style="text-align: center; color: var(--color-neutral-mid);">Chưa có khoản ủng hộ nào được phê duyệt công khai.</td></tr>' : ''}
                 </tbody>
               </table>
             </div>
+
+            <!-- Thêm khoản ủng hộ thủ công -->
+            <form id="addEntryForm" style="margin-top: 16px; padding: 12px; background: var(--color-bg-app); border-radius: 6px; border: 1px solid var(--color-neutral-light);">
+              <strong style="display: block; margin-bottom: 8px; color: var(--color-primary);">Thêm dòng ủng hộ thủ công</strong>
+              <div class="form-row">
+                <div class="form-group" style="flex: 1;">
+                  <label>Ngày (YYYY-MM-DD) *</label>
+                  <input type="date" class="form-control" name="entry_date" required value="\${new Date().toISOString().slice(0, 10)}">
+                </div>
+                <div class="form-group" style="flex: 1;">
+                  <label>Số tiền (VNĐ) *</label>
+                  <input type="number" class="form-control" name="entry_amount" required min="1000" step="1000" placeholder="50000">
+                </div>
+                <div class="form-group" style="flex: 1.5;">
+                  <label>Người ủng hộ *</label>
+                  <input type="text" class="form-control" name="entry_donor" required placeholder="Nguyễn Văn A / Ẩn danh">
+                </div>
+                <div class="form-group" style="flex: 1.5;">
+                  <label>Mã tham chiếu</label>
+                  <input type="text" class="form-control" name="entry_reference" placeholder="REF***123">
+                </div>
+              </div>
+              <button type="submit" class="btn btn-secondary btn-sm" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>+ Thêm khoản ủng hộ</button>
+            </form>
           </div>
 
           <!-- Thẻ 4: Doanh thu bán hàng gây quỹ -->
           <div class="card">
-            <div class="card-title">Doanh thu bán hàng gây quỹ (\${(f.sales || []).length} mục)</div>
+            <div class="card-title">
+              <span>Doanh thu bán hàng gây quỹ (\${(f.sales || []).length} mục)</span>
+            </div>
             <div class="table-scroll-hint"><span>Cuộn ngang để xem đầy đủ cột doanh thu</span></div>
             <div class="table-container" tabindex="0" role="region" aria-label="Bảng doanh thu bán hàng gây quỹ">
               <table class="data-table">
@@ -2178,27 +2311,56 @@ export function renderStudioHtml(session: AuthSession): string {
                     <th>Đơn giá</th>
                     <th>Thành tiền</th>
                     <th>Kênh bán</th>
+                    <th>Thao tác</th>
                   </tr>
                 </thead>
                 <tbody>
-                  \${(f.sales || []).map(s => \`
+                  \${(f.sales || []).map((s, sIdx) => \`
                     <tr>
                       <td>\${escapeHtml(s.item)}</td>
                       <td>\${s.quantity}</td>
                       <td>\${Number(s.unitPrice).toLocaleString('vi-VN')} đ</td>
                       <td><strong>\${Number(s.totalAmount).toLocaleString('vi-VN')} đ</strong></td>
                       <td>\${escapeHtml(s.channel)}</td>
+                      <td>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="deleteFinanceSale(\${sIdx})" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Xóa</button>
+                      </td>
                     </tr>
                   \`).join('')}
-                  \${(f.sales || []).length === 0 ? '<tr><td colspan="5" style="text-align: center; color: var(--color-neutral-mid);">Chưa có dữ liệu bán hàng gây quỹ được ghi nhận.</td></tr>' : ''}
+                  \${(f.sales || []).length === 0 ? '<tr><td colspan="6" style="text-align: center; color: var(--color-neutral-mid);">Chưa có dữ liệu bán hàng gây quỹ được ghi nhận.</td></tr>' : ''}
                 </tbody>
               </table>
             </div>
+
+            <form id="addSaleForm" style="margin-top: 16px; padding: 12px; background: var(--color-bg-app); border-radius: 6px; border: 1px solid var(--color-neutral-light);">
+              <strong style="display: block; margin-bottom: 8px; color: var(--color-primary);">Thêm mặt hàng bán gây quỹ</strong>
+              <div class="form-row">
+                <div class="form-group" style="flex: 2;">
+                  <label>Mặt hàng *</label>
+                  <input type="text" class="form-control" name="sale_item" required placeholder="Móc khóa len / Bánh su kem">
+                </div>
+                <div class="form-group" style="flex: 1;">
+                  <label>Số lượng *</label>
+                  <input type="number" class="form-control" name="sale_quantity" required min="1" value="1">
+                </div>
+                <div class="form-group" style="flex: 1;">
+                  <label>Đơn giá (VNĐ) *</label>
+                  <input type="number" class="form-control" name="sale_unitPrice" required min="1000" step="1000" placeholder="20000">
+                </div>
+                <div class="form-group" style="flex: 1.5;">
+                  <label>Kênh bán</label>
+                  <input type="text" class="form-control" name="sale_channel" placeholder="Quầy trực tiếp / Đặt trước">
+                </div>
+              </div>
+              <button type="submit" class="btn btn-secondary btn-sm" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>+ Thêm mặt hàng bán</button>
+            </form>
           </div>
 
           <!-- Thẻ 5: Khoản chi dự án -->
           <div class="card">
-            <div class="card-title">Khoản chi dự án (\${(f.expenses || []).length} khoản)</div>
+            <div class="card-title">
+              <span>Khoản chi dự án (\${(f.expenses || []).length} khoản)</span>
+            </div>
             <div class="table-scroll-hint"><span>Cuộn ngang để xem đầy đủ cột chi phí</span></div>
             <div class="table-container" tabindex="0" role="region" aria-label="Bảng chi phí dự án">
               <table class="data-table">
@@ -2209,27 +2371,63 @@ export function renderStudioHtml(session: AuthSession): string {
                     <th>Số tiền</th>
                     <th>Hình thức</th>
                     <th>Ghi chú</th>
+                    <th>Thao tác</th>
                   </tr>
                 </thead>
                 <tbody>
-                  \${(f.expenses || []).map(ex => \`
+                  \${(f.expenses || []).map((ex, exIdx) => \`
                     <tr>
                       <td>\${escapeHtml(ex.category)}</td>
                       <td>\${escapeHtml(ex.item)}</td>
                       <td><strong>\${Number(ex.amount).toLocaleString('vi-VN')} đ</strong></td>
                       <td>\${ex.isCash ? 'Tiền mặt' : 'Chuyển khoản'}</td>
                       <td>\${escapeHtml(ex.notes || '')}</td>
+                      <td>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="deleteFinanceExpense(\${exIdx})" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Xóa</button>
+                      </td>
                     </tr>
                   \`).join('')}
-                  \${(f.expenses || []).length === 0 ? '<tr><td colspan="5" style="text-align: center; color: var(--color-neutral-mid);">Chưa có khoản chi nào được ghi nhận.</td></tr>' : ''}
+                  \${(f.expenses || []).length === 0 ? '<tr><td colspan="6" style="text-align: center; color: var(--color-neutral-mid);">Chưa có khoản chi nào được ghi nhận.</td></tr>' : ''}
                 </tbody>
               </table>
             </div>
+
+            <form id="addExpenseForm" style="margin-top: 16px; padding: 12px; background: var(--color-bg-app); border-radius: 6px; border: 1px solid var(--color-neutral-light);">
+              <strong style="display: block; margin-bottom: 8px; color: var(--color-primary);">Thêm khoản chi dự án</strong>
+              <div class="form-row">
+                <div class="form-group" style="flex: 1.5;">
+                  <label>Danh mục *</label>
+                  <input type="text" class="form-control" name="exp_category" required placeholder="Vật tư / Quà tặng / Di chuyển">
+                </div>
+                <div class="form-group" style="flex: 2;">
+                  <label>Nội dung chi *</label>
+                  <input type="text" class="form-control" name="exp_item" required placeholder="Mua bút màu / Thuê xe">
+                </div>
+                <div class="form-group" style="flex: 1;">
+                  <label>Số tiền (VNĐ) *</label>
+                  <input type="number" class="form-control" name="exp_amount" required min="1000" step="1000" placeholder="150000">
+                </div>
+                <div class="form-group" style="flex: 1;">
+                  <label>Hình thức</label>
+                  <select class="form-control" name="exp_isCash">
+                    <option value="true">Tiền mặt</option>
+                    <option value="false">Chuyển khoản</option>
+                  </select>
+                </div>
+                <div class="form-group" style="flex: 2;">
+                  <label>Ghi chú</label>
+                  <input type="text" class="form-control" name="exp_notes" placeholder="Hóa đơn VAT số...">
+                </div>
+              </div>
+              <button type="submit" class="btn btn-secondary btn-sm" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>+ Thêm khoản chi</button>
+            </form>
           </div>
 
           <!-- Thẻ 6: Tiếp nhận ủng hộ hiện vật -->
           <div class="card">
-            <div class="card-title">Tiếp nhận ủng hộ hiện vật (\${(f.inKindDonations || []).length} hiện vật)</div>
+            <div class="card-title">
+              <span>Tiếp nhận ủng hộ hiện vật (\${(f.inKindDonations || []).length} hiện vật)</span>
+            </div>
             <div class="table-scroll-hint"><span>Cuộn ngang để xem đầy đủ cột hiện vật</span></div>
             <div class="table-container" tabindex="0" role="region" aria-label="Bảng tiếp nhận ủng hộ hiện vật">
               <table class="data-table">
@@ -2239,23 +2437,183 @@ export function renderStudioHtml(session: AuthSession): string {
                     <th>Số lượng</th>
                     <th>Ước tính giá trị</th>
                     <th>Đơn vị / Cá nhân ủng hộ</th>
+                    <th>Thao tác</th>
                   </tr>
                 </thead>
                 <tbody>
-                  \${(f.inKindDonations || []).map(k => \`
+                  \${(f.inKindDonations || []).map((k, kIdx) => \`
                     <tr>
                       <td>\${escapeHtml(k.item)}</td>
                       <td>\${k.quantity}</td>
                       <td>\${Number(k.estimatedValue).toLocaleString('vi-VN')} đ</td>
                       <td>\${escapeHtml(k.donorName)}</td>
+                      <td>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="deleteFinanceInKind(\${kIdx})" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Xóa</button>
+                      </td>
                     </tr>
                   \`).join('')}
-                  \${(f.inKindDonations || []).length === 0 ? '<tr><td colspan="4" style="text-align: center; color: var(--color-neutral-mid);">Chưa có hiện vật nào được tiếp nhận.</td></tr>' : ''}
+                  \${(f.inKindDonations || []).length === 0 ? '<tr><td colspan="5" style="text-align: center; color: var(--color-neutral-mid);">Chưa có hiện vật nào được tiếp nhận.</td></tr>' : ''}
                 </tbody>
               </table>
             </div>
+
+            <form id="addInKindForm" style="margin-top: 16px; padding: 12px; background: var(--color-bg-app); border-radius: 6px; border: 1px solid var(--color-neutral-light);">
+              <strong style="display: block; margin-bottom: 8px; color: var(--color-primary);">Thêm hiện vật tiếp nhận</strong>
+              <div class="form-row">
+                <div class="form-group" style="flex: 2;">
+                  <label>Hiện vật / Vật tư *</label>
+                  <input type="text" class="form-control" name="ink_item" required placeholder="Bút màu / Giấy vẽ / Bánh kẹo">
+                </div>
+                <div class="form-group" style="flex: 1;">
+                  <label>Số lượng *</label>
+                  <input type="number" class="form-control" name="ink_quantity" required min="1" value="1">
+                </div>
+                <div class="form-group" style="flex: 1;">
+                  <label>Giá trị ước tính (VNĐ)</label>
+                  <input type="number" class="form-control" name="ink_estimatedValue" min="0" step="1000" placeholder="200000">
+                </div>
+                <div class="form-group" style="flex: 1.5;">
+                  <label>Người / Tổ chức tặng *</label>
+                  <input type="text" class="form-control" name="ink_donorName" required placeholder="Nhà hảo tâm X">
+                </div>
+              </div>
+              <button type="submit" class="btn btn-secondary btn-sm" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>+ Thêm hiện vật</button>
+            </form>
           </div>
         \`;
+
+        async function saveFinanceDraft(newData, comment) {
+          const saveRes = await fetchApi('/api/drafts/finance', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              data: newData,
+              expectedHash: activeDraft.revisionHash,
+              comment: comment
+            })
+          });
+          if (saveRes.ok) {
+            setDirty(false);
+            activeDraft = saveRes.data.draft;
+            showToast('Đã lưu thành công: ' + comment, 'success');
+            renderFinanceEditor();
+          } else {
+            showToast('Lỗi lưu: ' + (saveRes.data.error || 'Lỗi không xác định'), 'error');
+          }
+        }
+
+        window.deleteFinanceEntry = async function(idx) {
+          if (!confirm('Bạn có chắc chắn muốn xóa dòng sao kê này không?')) return;
+          const list = [...(f.entries || [])];
+          list.splice(idx, 1);
+          await saveFinanceDraft({ ...activeDraft.data, entries: list }, 'Xóa dòng sao kê');
+        };
+
+        window.deleteFinanceSale = async function(idx) {
+          if (!confirm('Bạn có chắc chắn muốn xóa mặt hàng này không?')) return;
+          const list = [...(f.sales || [])];
+          list.splice(idx, 1);
+          await saveFinanceDraft({ ...activeDraft.data, sales: list }, 'Xóa mặt hàng bán gây quỹ');
+        };
+
+        window.deleteFinanceExpense = async function(idx) {
+          if (!confirm('Bạn có chắc chắn muốn xóa khoản chi này không?')) return;
+          const list = [...(f.expenses || [])];
+          list.splice(idx, 1);
+          await saveFinanceDraft({ ...activeDraft.data, expenses: list }, 'Xóa khoản chi dự án');
+        };
+
+        window.deleteFinanceInKind = async function(idx) {
+          if (!confirm('Bạn có chắc chắn muốn xóa hiện vật này không?')) return;
+          const list = [...(f.inKindDonations || [])];
+          list.splice(idx, 1);
+          await saveFinanceDraft({ ...activeDraft.data, inKindDonations: list }, 'Xóa hiện vật tiếp nhận');
+        };
+
+        const ovForm = document.getElementById('financeOverviewForm');
+        ovForm?.addEventListener('input', () => setDirty(true));
+        ovForm?.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const fd = new FormData(ovForm);
+          const parseNumOrNull = (val) => {
+            if (val === null || val === undefined) return null;
+            const str = String(val).trim();
+            if (str === '') return null;
+            const num = parseInt(str, 10);
+            return isNaN(num) ? null : num;
+          };
+          const updatedOverview = {
+            ...(f.overview || {}),
+            plannedExpenseTotal: parseNumOrNull(fd.get('ov_plannedExpenseTotal')),
+            craftPlannedRevenue: parseNumOrNull(fd.get('ov_craftPlannedRevenue')),
+            foodPlannedRevenue: parseNumOrNull(fd.get('ov_foodPlannedRevenue')),
+            plannedRevenueScenario: parseNumOrNull(fd.get('ov_plannedRevenueScenario')),
+            unfundedProjectedBalance: parseNumOrNull(fd.get('ov_unfundedProjectedBalance')),
+            actualStatusNotice: String(fd.get('ov_actualStatusNotice') || '').trim(),
+            disclaimer: String(fd.get('ov_disclaimer') || '').trim(),
+          };
+          await saveFinanceDraft({ ...activeDraft.data, overview: updatedOverview }, 'Cập nhật tổng quan dự toán tài chính');
+        });
+
+        const addEntryForm = document.getElementById('addEntryForm');
+        addEntryForm?.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const fd = new FormData(addEntryForm);
+          const newEntry = {
+            date: fd.get('entry_date'),
+            amount: parseInt(fd.get('entry_amount'), 10),
+            donor: fd.get('entry_donor'),
+            reference: fd.get('entry_reference') || undefined,
+          };
+          const list = [...(f.entries || []), newEntry];
+          await saveFinanceDraft({ ...activeDraft.data, entries: list }, 'Thêm dòng sao kê thủ công');
+        });
+
+        const addSaleForm = document.getElementById('addSaleForm');
+        addSaleForm?.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const fd = new FormData(addSaleForm);
+          const qty = parseInt(fd.get('sale_quantity'), 10) || 1;
+          const uPrice = parseInt(fd.get('sale_unitPrice'), 10) || 0;
+          const newSale = {
+            item: fd.get('sale_item'),
+            quantity: qty,
+            unitPrice: uPrice,
+            totalAmount: qty * uPrice,
+            channel: fd.get('sale_channel') || 'Quầy trực tiếp',
+          };
+          const list = [...(f.sales || []), newSale];
+          await saveFinanceDraft({ ...activeDraft.data, sales: list }, 'Thêm mặt hàng bán gây quỹ');
+        });
+
+        const addExpForm = document.getElementById('addExpenseForm');
+        addExpForm?.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const fd = new FormData(addExpForm);
+          const newExp = {
+            category: fd.get('exp_category'),
+            item: fd.get('exp_item'),
+            amount: parseInt(fd.get('exp_amount'), 10) || 0,
+            isCash: fd.get('exp_isCash') === 'true',
+            notes: fd.get('exp_notes') || undefined,
+          };
+          const list = [...(f.expenses || []), newExp];
+          await saveFinanceDraft({ ...activeDraft.data, expenses: list }, 'Thêm khoản chi dự án');
+        });
+
+        const addInkForm = document.getElementById('addInKindForm');
+        addInkForm?.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const fd = new FormData(addInkForm);
+          const newInk = {
+            item: fd.get('ink_item'),
+            quantity: parseInt(fd.get('ink_quantity'), 10) || 1,
+            estimatedValue: parseInt(fd.get('ink_estimatedValue'), 10) || 0,
+            donorName: fd.get('ink_donorName'),
+          };
+          const list = [...(f.inKindDonations || []), newInk];
+          await saveFinanceDraft({ ...activeDraft.data, inKindDonations: list }, 'Thêm hiện vật tiếp nhận');
+        });
 
         const accForm = document.getElementById('donationAccountForm');
         accForm?.addEventListener('input', () => setDirty(true));
@@ -2282,23 +2640,7 @@ export function renderStudioHtml(session: AuthSession): string {
             ledgerProcess: updatedSteps,
           };
 
-          const saveRes = await fetchApi('/api/drafts/finance', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              data: updated,
-              expectedHash: activeDraft.revisionHash,
-              comment: 'Cập nhật tài khoản ủng hộ và quy trình đối soát'
-            })
-          });
-
-          if (saveRes.ok) {
-            setDirty(false);
-            activeDraft = saveRes.data.draft;
-            showToast('Đã lưu cấu hình tài khoản ủng hộ và quy trình đối soát thành công!', 'success');
-          } else {
-            showToast('Lỗi lưu: ' + (saveRes.data.error || 'Lỗi không xác định'), 'error');
-          }
+          await saveFinanceDraft(updated, 'Cập nhật tài khoản ủng hộ và quy trình đối soát');
         });
 
         // Xử lý ký xác nhận Quy tắc 2 người (Two-Person Policy)
@@ -2456,75 +2798,110 @@ export function renderStudioHtml(session: AuthSession): string {
 
             <!-- Bảy thành viên nhóm -->
             <div style="border-top: 1px solid var(--color-neutral-light); padding-top: 16px; margin-top: 16px;">
-              <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 12px; color: var(--color-primary);">Hồ sơ 7 Thành viên Nhóm (Team Members)</h3>
-              \${members.map((m, mIdx) => \`
-                <div style="background: var(--color-bg-app); border: 1px solid var(--color-neutral-light); border-radius: 6px; padding: 12px; margin-bottom: 12px;">
-                  <strong style="display:block; margin-bottom: 8px;">Thành viên \${mIdx + 1}: \${escapeHtml(m.name)} (\${escapeHtml(m.role)})</strong>
-                  <div class="form-row">
-                    <div class="form-group">
-                      <label>Họ và tên</label>
-                      <input type="text" class="form-control" name="mem_name_\${mIdx}" value="\${escapeHtml(m.name)}">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <h3 style="font-size: 1rem; font-weight: 700; color: var(--color-primary); margin: 0;">Hồ sơ Thành viên Nhóm (Team Members)</h3>
+                <button type="button" class="btn btn-secondary btn-sm" id="addMemberBtn" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>+ Thêm thành viên</button>
+              </div>
+              <div id="teamMembersContainer">
+                \${members.map((m, mIdx) => \`
+                  <div class="member-card" style="background: var(--color-bg-app); border: 1px solid var(--color-neutral-light); border-radius: 6px; padding: 12px; margin-bottom: 12px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                      <strong>Thành viên: \${escapeHtml(m.name)} (\${escapeHtml(m.role)})</strong>
+                      <button type="button" class="btn btn-danger btn-sm" onclick="this.closest('.member-card').remove(); setDirty(true);" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Xóa thành viên</button>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group">
+                        <label>Họ và tên</label>
+                        <input type="text" class="form-control mem-name" value="\${escapeHtml(m.name)}">
+                      </div>
+                      <div class="form-group">
+                        <label>Vai trò phụ trách</label>
+                        <input type="text" class="form-control mem-role" value="\${escapeHtml(m.role)}">
+                      </div>
+                      <div class="form-group">
+                        <label>Đường dẫn ảnh đại diện</label>
+                        <input type="text" class="form-control mem-photo" value="\${escapeHtml(m.photo)}">
+                      </div>
                     </div>
                     <div class="form-group">
-                      <label>Vai trò phụ trách</label>
-                      <input type="text" class="form-control" name="mem_role_\${mIdx}" value="\${escapeHtml(m.role)}">
-                    </div>
-                    <div class="form-group">
-                      <label>Đường dẫn ảnh đại diện</label>
-                      <input type="text" class="form-control" name="mem_photo_\${mIdx}" value="\${escapeHtml(m.photo)}">
+                      <label>Mô tả nhiệm vụ & đóng góp</label>
+                      <input type="text" class="form-control mem-desc" value="\${escapeHtml(m.description)}">
                     </div>
                   </div>
-                  <div class="form-group">
-                    <label>Mô tả nhiệm vụ & đóng góp</label>
-                    <input type="text" class="form-control" name="mem_desc_\${mIdx}" value="\${escapeHtml(m.description)}">
-                  </div>
-                </div>
-              \`).join('')}
+                \`).join('')}
+              </div>
             </div>
 
             <!-- 3 Nhóm FAQs -->
             <div style="border-top: 1px solid var(--color-neutral-light); padding-top: 16px; margin-top: 16px;">
-              <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 12px; color: var(--color-primary);">1. FAQ Sản phẩm (Product FAQs - \${pFaqs.length} câu)</h3>
-              \${pFaqs.map((q, qIdx) => \`
-                <div style="background: var(--color-bg-app); border: 1px solid var(--color-neutral-light); border-radius: 6px; padding: 10px; margin-bottom: 10px;">
-                  <div class="form-group">
-                    <label>Câu hỏi \${qIdx + 1}</label>
-                    <input type="text" class="form-control" name="pfaq_q_\${qIdx}" value="\${escapeHtml(q.question)}">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <h3 style="font-size: 1rem; font-weight: 700; color: var(--color-primary); margin: 0;">1. FAQ Sản phẩm (Product FAQs)</h3>
+                <button type="button" class="btn btn-secondary btn-sm" id="addPFaqBtn" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>+ Thêm FAQ Sản phẩm</button>
+              </div>
+              <div id="pfaqContainer">
+                \${pFaqs.map((q, qIdx) => \`
+                  <div class="faq-card" style="background: var(--color-bg-app); border: 1px solid var(--color-neutral-light); border-radius: 6px; padding: 10px; margin-bottom: 10px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                      <strong>Câu hỏi \${qIdx + 1}</strong>
+                      <button type="button" class="btn btn-danger btn-sm" onclick="this.closest('.faq-card').remove(); setDirty(true);" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Xóa câu hỏi</button>
+                    </div>
+                    <div class="form-group">
+                      <label>Câu hỏi</label>
+                      <input type="text" class="form-control pfaq-q" value="\${escapeHtml(q.question)}">
+                    </div>
+                    <div class="form-group">
+                      <label>Câu trả lời</label>
+                      <textarea class="form-control pfaq-a">\${escapeHtml(q.answer)}</textarea>
+                    </div>
                   </div>
-                  <div class="form-group">
-                    <label>Câu trả lời</label>
-                    <textarea class="form-control" name="pfaq_a_\${qIdx}">\${escapeHtml(q.answer)}</textarea>
-                  </div>
-                </div>
-              \`).join('')}
+                \`).join('')}
+              </div>
 
-              <h3 style="font-size: 1rem; font-weight: 700; margin: 20px 0 12px; color: var(--color-primary);">2. FAQ Đồng hành & Tiếp nhận Ủng hộ (Support FAQs - \${sFaqs.length} câu)</h3>
-              \${sFaqs.map((q, qIdx) => \`
-                <div style="background: var(--color-bg-app); border: 1px solid var(--color-neutral-light); border-radius: 6px; padding: 10px; margin-bottom: 10px;">
-                  <div class="form-group">
-                    <label>Câu hỏi \${qIdx + 1}</label>
-                    <input type="text" class="form-control" name="sfaq_q_\${qIdx}" value="\${escapeHtml(q.question)}">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin: 20px 0 12px;">
+                <h3 style="font-size: 1rem; font-weight: 700; color: var(--color-primary); margin: 0;">2. FAQ Đồng hành & Tiếp nhận Ủng hộ (Support FAQs)</h3>
+                <button type="button" class="btn btn-secondary btn-sm" id="addSFaqBtn" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>+ Thêm FAQ Đồng hành</button>
+              </div>
+              <div id="sfaqContainer">
+                \${sFaqs.map((q, qIdx) => \`
+                  <div class="faq-card" style="background: var(--color-bg-app); border: 1px solid var(--color-neutral-light); border-radius: 6px; padding: 10px; margin-bottom: 10px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                      <strong>Câu hỏi \${qIdx + 1}</strong>
+                      <button type="button" class="btn btn-danger btn-sm" onclick="this.closest('.faq-card').remove(); setDirty(true);" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Xóa câu hỏi</button>
+                    </div>
+                    <div class="form-group">
+                      <label>Câu hỏi</label>
+                      <input type="text" class="form-control sfaq-q" value="\${escapeHtml(q.question)}">
+                    </div>
+                    <div class="form-group">
+                      <label>Câu trả lời</label>
+                      <textarea class="form-control sfaq-a">\${escapeHtml(q.answer)}</textarea>
+                    </div>
                   </div>
-                  <div class="form-group">
-                    <label>Câu trả lời</label>
-                    <textarea class="form-control" name="sfaq_a_\${qIdx}">\${escapeHtml(q.answer)}</textarea>
-                  </div>
-                </div>
-              \`).join('')}
+                \`).join('')}
+              </div>
 
-              <h3 style="font-size: 1rem; font-weight: 700; margin: 20px 0 12px; color: var(--color-primary);">3. FAQ Minh bạch & Sao kê (Transparency FAQs - \${tFaqs.length} câu)</h3>
-              \${tFaqs.map((q, qIdx) => \`
-                <div style="background: var(--color-bg-app); border: 1px solid var(--color-neutral-light); border-radius: 6px; padding: 10px; margin-bottom: 10px;">
-                  <div class="form-group">
-                    <label>Câu hỏi \${qIdx + 1}</label>
-                    <input type="text" class="form-control" name="tfaq_q_\${qIdx}" value="\${escapeHtml(q.question)}">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin: 20px 0 12px;">
+                <h3 style="font-size: 1rem; font-weight: 700; color: var(--color-primary); margin: 0;">3. FAQ Minh bạch & Sao kê (Transparency FAQs)</h3>
+                <button type="button" class="btn btn-secondary btn-sm" id="addTFaqBtn" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>+ Thêm FAQ Minh bạch</button>
+              </div>
+              <div id="tfaqContainer">
+                \${tFaqs.map((q, qIdx) => \`
+                  <div class="faq-card" style="background: var(--color-bg-app); border: 1px solid var(--color-neutral-light); border-radius: 6px; padding: 10px; margin-bottom: 10px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                      <strong>Câu hỏi \${qIdx + 1}</strong>
+                      <button type="button" class="btn btn-danger btn-sm" onclick="this.closest('.faq-card').remove(); setDirty(true);" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Xóa câu hỏi</button>
+                    </div>
+                    <div class="form-group">
+                      <label>Câu hỏi</label>
+                      <input type="text" class="form-control tfaq-q" value="\${escapeHtml(q.question)}">
+                    </div>
+                    <div class="form-group">
+                      <label>Câu trả lời</label>
+                      <textarea class="form-control tfaq-a">\${escapeHtml(q.answer)}</textarea>
+                    </div>
                   </div>
-                  <div class="form-group">
-                    <label>Câu trả lời</label>
-                    <textarea class="form-control" name="tfaq_a_\${qIdx}">\${escapeHtml(q.answer)}</textarea>
-                  </div>
-                </div>
-              \`).join('')}
+                \`).join('')}
+              </div>
             </div>
 
             <!-- SEO & Social Meta -->
@@ -2552,33 +2929,147 @@ export function renderStudioHtml(session: AuthSession): string {
           </form>
         \`;
 
+        // Sự kiện thêm thành viên
+        document.getElementById('addMemberBtn')?.addEventListener('click', () => {
+          const container = document.getElementById('teamMembersContainer');
+          if (!container) return;
+          const newCard = document.createElement('div');
+          newCard.className = 'member-card';
+          newCard.style.cssText = 'background: var(--color-bg-app); border: 1px solid var(--color-neutral-light); border-radius: 6px; padding: 12px; margin-bottom: 12px;';
+          newCard.innerHTML = \`
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <strong>Thành viên mới</strong>
+              <button type="button" class="btn btn-danger btn-sm" onclick="this.closest('.member-card').remove(); setDirty(true);">Xóa thành viên</button>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Họ và tên</label>
+                <input type="text" class="form-control mem-name" placeholder="Nguyễn Văn A">
+              </div>
+              <div class="form-group">
+                <label>Vai trò phụ trách</label>
+                <input type="text" class="form-control mem-role" placeholder="Tình nguyện viên">
+              </div>
+              <div class="form-group">
+                <label>Đường dẫn ảnh đại diện</label>
+                <input type="text" class="form-control mem-photo" placeholder="/images/thanh-vien/avatar.webp">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Mô tả nhiệm vụ & đóng góp</label>
+              <input type="text" class="form-control mem-desc" placeholder="Đóng góp cho dự án...">
+            </div>
+          \`;
+          container.appendChild(newCard);
+          setDirty(true);
+        });
+
+        // Sự kiện thêm FAQ Sản phẩm
+        document.getElementById('addPFaqBtn')?.addEventListener('click', () => {
+          const container = document.getElementById('pfaqContainer');
+          if (!container) return;
+          const newCard = document.createElement('div');
+          newCard.className = 'faq-card';
+          newCard.style.cssText = 'background: var(--color-bg-app); border: 1px solid var(--color-neutral-light); border-radius: 6px; padding: 10px; margin-bottom: 10px;';
+          newCard.innerHTML = \`
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <strong>Câu hỏi mới</strong>
+              <button type="button" class="btn btn-danger btn-sm" onclick="this.closest('.faq-card').remove(); setDirty(true);">Xóa câu hỏi</button>
+            </div>
+            <div class="form-group">
+              <label>Câu hỏi</label>
+              <input type="text" class="form-control pfaq-q" placeholder="Câu hỏi về sản phẩm...">
+            </div>
+            <div class="form-group">
+              <label>Câu trả lời</label>
+              <textarea class="form-control pfaq-a" placeholder="Câu trả lời..."></textarea>
+            </div>
+          \`;
+          container.appendChild(newCard);
+          setDirty(true);
+        });
+
+        // Sự kiện thêm FAQ Đồng hành
+        document.getElementById('addSFaqBtn')?.addEventListener('click', () => {
+          const container = document.getElementById('sfaqContainer');
+          if (!container) return;
+          const newCard = document.createElement('div');
+          newCard.className = 'faq-card';
+          newCard.style.cssText = 'background: var(--color-bg-app); border: 1px solid var(--color-neutral-light); border-radius: 6px; padding: 10px; margin-bottom: 10px;';
+          newCard.innerHTML = \`
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <strong>Câu hỏi mới</strong>
+              <button type="button" class="btn btn-danger btn-sm" onclick="this.closest('.faq-card').remove(); setDirty(true);">Xóa câu hỏi</button>
+            </div>
+            <div class="form-group">
+              <label>Câu hỏi</label>
+              <input type="text" class="form-control sfaq-q" placeholder="Câu hỏi về đồng hành...">
+            </div>
+            <div class="form-group">
+              <label>Câu trả lời</label>
+              <textarea class="form-control sfaq-a" placeholder="Câu trả lời..."></textarea>
+            </div>
+          \`;
+          container.appendChild(newCard);
+          setDirty(true);
+        });
+
+        // Sự kiện thêm FAQ Minh bạch
+        document.getElementById('addTFaqBtn')?.addEventListener('click', () => {
+          const container = document.getElementById('tfaqContainer');
+          if (!container) return;
+          const newCard = document.createElement('div');
+          newCard.className = 'faq-card';
+          newCard.style.cssText = 'background: var(--color-bg-app); border: 1px solid var(--color-neutral-light); border-radius: 6px; padding: 10px; margin-bottom: 10px;';
+          newCard.innerHTML = \`
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <strong>Câu hỏi mới</strong>
+              <button type="button" class="btn btn-danger btn-sm" onclick="this.closest('.faq-card').remove(); setDirty(true);">Xóa câu hỏi</button>
+            </div>
+            <div class="form-group">
+              <label>Câu hỏi</label>
+              <input type="text" class="form-control tfaq-q" placeholder="Câu hỏi về sao kê minh bạch...">
+            </div>
+            <div class="form-group">
+              <label>Câu trả lời</label>
+              <textarea class="form-control tfaq-a" placeholder="Câu trả lời..."></textarea>
+            </div>
+          \`;
+          container.appendChild(newCard);
+          setDirty(true);
+        });
+
         const form = document.getElementById('teamForm');
         form?.addEventListener('input', () => setDirty(true));
         form?.addEventListener('submit', async (e) => {
           e.preventDefault();
           const fd = new FormData(form);
 
-          const updatedMembers = members.map((m, idx) => ({
-            name: fd.get(\`mem_name_\${idx}\`) || m.name,
-            role: fd.get(\`mem_role_\${idx}\`) || m.role,
-            photo: fd.get(\`mem_photo_\${idx}\`) || m.photo,
-            description: fd.get(\`mem_desc_\${idx}\`) || m.description,
-          }));
+          const memCards = document.querySelectorAll('#teamMembersContainer .member-card');
+          const updatedMembers = Array.from(memCards).map(card => ({
+            name: card.querySelector('.mem-name')?.value || '',
+            role: card.querySelector('.mem-role')?.value || '',
+            photo: card.querySelector('.mem-photo')?.value || '',
+            description: card.querySelector('.mem-desc')?.value || '',
+          })).filter(m => m.name.trim().length > 0);
 
-          const updatedPFaqs = pFaqs.map((q, idx) => ({
-            question: fd.get(\`pfaq_q_\${idx}\`) || q.question,
-            answer: fd.get(\`pfaq_a_\${idx}\`) || q.answer,
-          }));
+          const pFaqCards = document.querySelectorAll('#pfaqContainer .faq-card');
+          const updatedPFaqs = Array.from(pFaqCards).map(card => ({
+            question: card.querySelector('.pfaq-q')?.value || '',
+            answer: card.querySelector('.pfaq-a')?.value || '',
+          })).filter(q => q.question.trim().length > 0);
 
-          const updatedSFaqs = sFaqs.map((q, idx) => ({
-            question: fd.get(\`sfaq_q_\${idx}\`) || q.question,
-            answer: fd.get(\`sfaq_a_\${idx}\`) || q.answer,
-          }));
+          const sFaqCards = document.querySelectorAll('#sfaqContainer .faq-card');
+          const updatedSFaqs = Array.from(sFaqCards).map(card => ({
+            question: card.querySelector('.sfaq-q')?.value || '',
+            answer: card.querySelector('.sfaq-a')?.value || '',
+          })).filter(q => q.question.trim().length > 0);
 
-          const updatedTFaqs = tFaqs.map((q, idx) => ({
-            question: fd.get(\`tfaq_q_\${idx}\`) || q.question,
-            answer: fd.get(\`tfaq_a_\${idx}\`) || q.answer,
-          }));
+          const tFaqCards = document.querySelectorAll('#tfaqContainer .faq-card');
+          const updatedTFaqs = Array.from(tFaqCards).map(card => ({
+            question: card.querySelector('.tfaq-q')?.value || '',
+            answer: card.querySelector('.tfaq-a')?.value || '',
+          })).filter(q => q.question.trim().length > 0);
 
           const updated = {
             ...activeDraft.data,
@@ -2607,7 +3098,7 @@ export function renderStudioHtml(session: AuthSession): string {
             body: JSON.stringify({
               data: updated,
               expectedHash: activeDraft.revisionHash,
-              comment: 'Cập nhật thông tin nhóm, 7 thành viên và 3 nhóm FAQs'
+              comment: 'Cập nhật thông tin nhóm, danh sách thành viên và các nhóm FAQs'
             })
           });
 
@@ -2625,8 +3116,12 @@ export function renderStudioHtml(session: AuthSession): string {
       // Tab 8: Publish Workflow & History
       // ==========================================
       async function renderPublishView() {
-        const res = await fetchApi('/api/publications');
-        const pubs = res.ok ? res.data.publications || [] : [];
+        const [pubsRes, usersRes] = await Promise.all([
+          fetchApi('/api/publications'),
+          currentUserRole === 'admin' ? fetchApi('/api/users') : Promise.resolve({ ok: false, data: { users: [] } })
+        ]);
+        const pubs = pubsRes.ok ? pubsRes.data.publications || [] : [];
+        const users = usersRes.ok ? usersRes.data.users || [] : [];
 
         tabContent.innerHTML = \`
           <div class="card">
@@ -2681,6 +3176,72 @@ export function renderStudioHtml(session: AuthSession): string {
               </table>
             </div>
           </div>
+
+          <!-- Thẻ 3: Lịch sử Phiên bản & So sánh Thay đổi (Revisions & Diff Viewer) -->
+          <div class="card">
+            <div class="card-title">
+              <span>Lịch sử Phiên bản & So sánh Thay đổi (Revisions & Diff Viewer)</span>
+            </div>
+            <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 16px;">
+              <label style="font-weight: 600;">Chọn phân hệ:</label>
+              <select id="pubModuleSelect" class="form-control" style="max-width: 200px;">
+                <option value="project">Dự án (project)</option>
+                <option value="finance">Tài chính (finance)</option>
+                <option value="products">Sản phẩm (products)</option>
+                <option value="journal">Nhật ký (journal)</option>
+                <option value="team">Nhóm & SEO (team)</option>
+              </select>
+              <button type="button" class="btn btn-secondary btn-sm" id="loadPubRevisionsBtn">Tải lịch sử phiên bản</button>
+            </div>
+            <div id="pubRevisionsArea">
+              <p style="color: var(--color-neutral-mid);">Nhấn "Tải lịch sử phiên bản" để xem các phiên bản đã lưu.</p>
+            </div>
+          </div>
+
+          <!-- Thẻ 4: Quản trị Người dùng & Phân quyền (/api/users) -->
+          <div class="card">
+            <div class="card-title">
+              <span>Quản trị Người dùng & Phân quyền (Role Administration - /api/users)</span>
+            </div>
+            \${currentUserRole === 'admin' ? \`
+              <div class="table-scroll-hint"><span>Cuộn ngang để xem đầy đủ cột người dùng</span></div>
+              <div class="table-container" tabindex="0" role="region" aria-label="Bảng quản trị người dùng">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Email Người dùng</th>
+                      <th>Vai trò hiện tại</th>
+                      <th>Cập nhật vai trò mới</th>
+                      <th>Thao tác</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    \${users.map((u, uIdx) => \`
+                      <tr>
+                        <td><strong>\${escapeHtml(u.email)}</strong></td>
+                        <td><span class="role-badge" style="background:#E2E8F0; color:#2D3748;">\${u.role}</span></td>
+                        <td>
+                          <select id="userRoleSelect_\${uIdx}" class="form-control" style="max-width: 160px; display: inline-block;">
+                            <option value="admin" \${u.role === 'admin' ? 'selected' : ''}>Admin</option>
+                            <option value="editor" \${u.role === 'editor' ? 'selected' : ''}>Editor</option>
+                            <option value="reviewer" \${u.role === 'reviewer' ? 'selected' : ''}>Reviewer</option>
+                          </select>
+                        </td>
+                        <td>
+                          <button type="button" class="btn btn-primary btn-sm" onclick="updateUserRoleAction('\${u.email}', 'userRoleSelect_\${uIdx}')">Lưu vai trò</button>
+                        </td>
+                      </tr>
+                    \`).join('')}
+                    \${users.length === 0 ? '<tr><td colspan="4" style="text-align:center; color:var(--color-neutral-mid);">Chưa có danh sách người dùng.</td></tr>' : ''}
+                  </tbody>
+                </table>
+              </div>
+            \` : \`
+              <div class="alert alert-info">
+                Chỉ tài khoản Quản trị viên (Admin) mới có quyền xem và thay đổi phân quyền người dùng trong hệ thống.
+              </div>
+            \`}
+          </div>
         \`;
 
         const requestBtn = document.getElementById('requestPublishBtn');
@@ -2699,6 +3260,148 @@ export function renderStudioHtml(session: AuthSession): string {
             }
           });
         }
+
+        document.getElementById('loadPubRevisionsBtn')?.addEventListener('click', async () => {
+          const modSelect = document.getElementById('pubModuleSelect');
+          const modKey = modSelect ? modSelect.value : 'project';
+          const area = document.getElementById('pubRevisionsArea');
+          if (!area) return;
+          area.innerHTML = '<p>Đang tải...</p>';
+
+          const [revRes, draftRes] = await Promise.all([
+            fetchApi('/api/revisions/' + modKey + '?limit=10'),
+            fetchApi('/api/drafts/' + modKey)
+          ]);
+          if (!revRes.ok) {
+            area.innerHTML = '<div class="alert alert-danger">Lỗi tải lịch sử phiên bản: ' + (revRes.data.error || '') + '</div>';
+            return;
+          }
+          const revs = revRes.data.revisions || [];
+          const currentDraftHash = (draftRes.ok && draftRes.data && draftRes.data.draft) ? draftRes.data.draft.revisionHash : '';
+
+          if (revs.length === 0) {
+            area.innerHTML = '<p style="color: var(--color-neutral-mid);">Chưa có phiên bản lịch sử nào cho phân hệ này.</p>';
+            return;
+          }
+
+          area.innerHTML = \`
+            <div class="table-scroll-hint"><span>Cuộn ngang để xem đầy đủ cột phiên bản</span></div>
+            <div class="table-container" tabindex="0" role="region" aria-label="Bảng phiên bản phân hệ">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Phiên bản</th>
+                    <th>Thời gian</th>
+                    <th>Người lưu</th>
+                    <th>Ghi chú</th>
+                    <th>Mã băm</th>
+                    <th>Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  \${revs.map(r => \`
+                    <tr>
+                      <td><strong>v\${r.version}</strong></td>
+                      <td>\${new Date(r.createdAt).toLocaleString('vi-VN')}</td>
+                      <td>\${escapeHtml(r.createdBy)}</td>
+                      <td>\${escapeHtml(r.comment || '(Không có ghi chú)')}</td>
+                      <td><code>\${escapeHtml(r.revisionHash ? r.revisionHash.substring(0, 10) + '...' : '')}</code></td>
+                      <td>
+                        <div style="display:flex; gap:6px;">
+                          <button type="button" class="btn btn-secondary btn-sm" onclick="showDiffModal('\${modKey}', '\${r.id}')">So sánh Diff</button>
+                          <button type="button" class="btn btn-secondary btn-sm" onclick="restorePubRevision('\${modKey}', '\${r.id}', '\${currentDraftHash}')" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>Khôi phục</button>
+                        </div>
+                      </td>
+                    </tr>
+                  \`).join('')}
+                </tbody>
+              </table>
+            </div>
+          \`;
+        });
+
+        window.showDiffModal = async function(modKey, revId) {
+          const [revRes, draftRes] = await Promise.all([
+            fetchApi('/api/revisions/' + modKey + '/' + revId),
+            fetchApi('/api/drafts/' + modKey)
+          ]);
+          if (!revRes.ok || !draftRes.ok) {
+            showToast('Không thể tải dữ liệu để so sánh diff.', 'error');
+            return;
+          }
+          const rev = revRes.data.revision;
+          const currentDraft = draftRes.data.draft;
+          const revJson = JSON.stringify(rev.data, null, 2);
+          const currentJson = JSON.stringify(currentDraft.data, null, 2);
+
+          const overlay = document.createElement('div');
+          overlay.className = 'modal-overlay';
+          overlay.id = 'diffModalOverlay';
+          overlay.innerHTML = \`
+            <div class="modal-content">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                <h3 style="margin:0; color:var(--color-primary);">So sánh Phiên bản v\${rev.version} & Bản nháp Hiện tại (\${modKey})</h3>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="document.getElementById('diffModalOverlay').remove()">Đóng</button>
+              </div>
+              <p><strong>Người tạo:</strong> \${escapeHtml(rev.createdBy)} | <strong>Thời gian:</strong> \${new Date(rev.createdAt).toLocaleString('vi-VN')}</p>
+              <p><strong>Ghi chú:</strong> \${escapeHtml(rev.comment || 'Không có ghi chú')}</p>
+              <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-top:12px;">
+                <div>
+                  <h4 style="margin-bottom:6px; color:#2B6CB0;">Phiên bản v\${rev.version} (Hash: \${escapeHtml(rev.revisionHash ? rev.revisionHash.substring(0, 8) : '')})</h4>
+                  <pre style="background:#F7FAFC; padding:12px; border:1px solid #E2E8F0; border-radius:6px; font-size:0.8rem; max-height:400px; overflow:auto;">\${escapeHtml(revJson)}</pre>
+                </div>
+                <div>
+                  <h4 style="margin-bottom:6px; color:#2F855A;">Bản nháp Hiện tại (Hash: \${escapeHtml(currentDraft.revisionHash ? currentDraft.revisionHash.substring(0, 8) : '')})</h4>
+                  <pre style="background:#F7FAFC; padding:12px; border:1px solid #E2E8F0; border-radius:6px; font-size:0.8rem; max-height:400px; overflow:auto;">\${escapeHtml(currentJson)}</pre>
+                </div>
+              </div>
+              <div style="margin-top:16px; display:flex; justify-content:flex-end; gap:8px;">
+                <button type="button" class="btn btn-secondary" onclick="document.getElementById('diffModalOverlay').remove()">Đóng</button>
+                <button type="button" class="btn btn-primary" onclick="restoreFromModal('\${modKey}', '\${rev.id}', '\${currentDraft.revisionHash}')">Khôi phục về phiên bản này</button>
+              </div>
+            </div>
+          \`;
+          document.body.appendChild(overlay);
+        };
+
+        window.restoreFromModal = async function(modKey, revId, expectedHash) {
+          document.getElementById('diffModalOverlay')?.remove();
+          await restorePubRevision(modKey, revId, expectedHash);
+        };
+
+        window.restorePubRevision = async function(modKey, revId, expectedHash) {
+          if (!confirm('Bạn có chắc chắn muốn khôi phục phân hệ ' + modKey + ' về phiên bản này không?')) return;
+          const res = await fetchApi('/api/revisions/' + modKey + '/' + revId + '/restore', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ expectedHash })
+          });
+          if (res.ok) {
+            showToast('Đã khôi phục phiên bản thành công!', 'success');
+            renderPublishView();
+          } else if (res.status === 409) {
+            showToast('Xung đột phiên bản (409): Phân hệ đã có chỉnh sửa mới hơn kể từ khi bạn mở danh sách.', 'error');
+          } else {
+            showToast('Lỗi khôi phục: ' + (res.data.error || 'Lỗi không xác định'), 'error');
+          }
+        };
+
+        window.updateUserRoleAction = async function(email, selectId) {
+          const sel = document.getElementById(selectId);
+          if (!sel) return;
+          const newRole = sel.value;
+          const res = await fetchApi('/api/users/' + encodeURIComponent(email) + '/role', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ role: newRole })
+          });
+          if (res.ok) {
+            showToast('Đã cập nhật vai trò người dùng ' + email + ' thành ' + newRole, 'success');
+            renderPublishView();
+          } else {
+            showToast('Lỗi phân quyền: ' + (res.data.error || 'Lỗi không xác định'), 'error');
+          }
+        };
 
         window.reviewPub = async function(pubId, action) {
           const res = await fetchApi('/api/publications/' + pubId + '/review', {

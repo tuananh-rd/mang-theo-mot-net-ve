@@ -16,7 +16,40 @@ import {
   getPublishedProductFaqs,
   getPublishedSupportFaqs,
   getPublishedTransparencyFaqs,
+  getPublishedProductConfig,
+  getPublishedFinanceLedger,
+  getPublishedFinanceOverview,
 } from './lib/snapshot-loader.ts';
+
+export function createDynamicProxy<T extends object>(getter: () => T, baseline: T): T {
+  return new Proxy(baseline, {
+    get(_target, prop, receiver) {
+      const current = getter();
+      const val = Reflect.get(current, prop, receiver);
+      return typeof val === 'function' ? val.bind(current) : val;
+    },
+    has(_target, prop) {
+      return Reflect.has(getter(), prop);
+    },
+    ownKeys(_target) {
+      return Reflect.ownKeys(getter());
+    },
+    getOwnPropertyDescriptor(_target, prop) {
+      const current = getter();
+      const desc = Reflect.getOwnPropertyDescriptor(current, prop);
+      if (!desc) {
+        return undefined;
+      }
+      const targetDesc = Reflect.getOwnPropertyDescriptor(_target, prop);
+      if (targetDesc && !targetDesc.configurable) {
+        desc.configurable = false;
+      } else {
+        desc.configurable = true;
+      }
+      return desc;
+    }
+  });
+}
 
 export interface QuantitativeFact {
   value: number | null;
@@ -80,7 +113,7 @@ export interface SupportMethod {
   statusText: string;
 }
 
-export const CAMPAIGN_PROJECT: Project = getPublishedProject({
+export const BASELINE_PROJECT: Project = {
   slug: 'mang-theo-mot-net-ve',
   title: 'Mang Theo Một Nét Vẽ',
   slogan: 'Một buổi chơi phù hợp, một món quà đúng nhu cầu.',
@@ -146,9 +179,15 @@ export const CAMPAIGN_PROJECT: Project = getPublishedProject({
         '14:00 Thứ Bảy 31/10/2026 (dự kiến). Chốt quỹ, mua vật phẩm theo danh mục Mái ấm xác nhận và trao tặng.',
     },
   ],
-});
+};
 
-export const PRODUCTS: Product[] = [
+export function getCampaignProject(): Project {
+  return getPublishedProject(BASELINE_PROJECT);
+}
+
+export const CAMPAIGN_PROJECT: Project = createDynamicProxy(getCampaignProject, BASELINE_PROJECT);
+
+export const BASELINE_PRODUCTS: Product[] = [
   {
     id: 'chuon-chuon-tre-kem-de',
     name: 'Chuồn chuồn tre 12 cm kèm đế',
@@ -383,6 +422,28 @@ export const PRODUCTS: Product[] = [
   },
 ];
 
+export function getCampaignProducts(): Product[] {
+  return BASELINE_PRODUCTS.map((prod) => {
+    const conf = getPublishedProductConfig(prod.id);
+    if (!conf) return prod;
+    return {
+      ...prod,
+      name: conf.name ? String(conf.name).trim() : prod.name,
+      originText: conf.originText ? String(conf.originText).trim() : prod.originText,
+      saleStatus: conf.saleStatus ?? prod.saleStatus,
+      referencePrice: {
+        ...prod.referencePrice,
+        // Bảo tồn nguyên vẹn giá đề xuất cơ sở (proposal reference price); không ghi đè bằng officialPrice
+        publicApproval: conf.publicApproval ?? prod.referencePrice.publicApproval,
+      },
+      actualStock: conf.stockAvailable !== undefined ? conf.stockAvailable : prod.actualStock,
+      assetId: conf.mediaKey !== undefined ? conf.mediaKey : prod.assetId,
+    };
+  });
+}
+
+export const PRODUCTS: Product[] = createDynamicProxy(getCampaignProducts, BASELINE_PRODUCTS);
+
 export const SUPPORT_METHODS: SupportMethod[] = [
   {
     id: 'vat-tu',
@@ -434,7 +495,7 @@ export interface FinanceOverview {
   craftProfitGap: number;
 }
 
-export const FINANCE_OVERVIEW: FinanceOverview = {
+export const BASELINE_FINANCE_OVERVIEW: FinanceOverview = {
   plannedExpenseTotal: 5470000,
   craftPlannedRevenue: 2200000,
   foodPlannedRevenueAssumption: {
@@ -463,6 +524,12 @@ export const FINANCE_OVERVIEW: FinanceOverview = {
   craftRevenueMinusWorkshopCosts: 340000,
   craftProfitGap: 400000,
 };
+
+export function getFinanceOverview(): FinanceOverview {
+  return getPublishedFinanceOverview(BASELINE_FINANCE_OVERVIEW);
+}
+
+export const FINANCE_OVERVIEW: FinanceOverview = createDynamicProxy(getFinanceOverview, BASELINE_FINANCE_OVERVIEW);
 
 export interface TeamPrinciple {
   title: string;
@@ -567,7 +634,7 @@ export const SUPPORT_RULES: string[] = [
   'Thu chi, hóa đơn và biên bản bàn giao được công khai sau dự án.',
 ];
 
-export const PRODUCT_FAQS: ProductFaq[] = getPublishedProductFaqs([
+export const BASELINE_PRODUCT_FAQS: ProductFaq[] = [
   {
     question: 'Giá trên trang có phải giá bán chính thức?',
     answer: 'Chưa. Đây là giá tham khảo trong kế hoạch. Giá, mẫu và số lượng chính thức sẽ được công bố khi mở bán.',
@@ -586,7 +653,13 @@ export const PRODUCT_FAQS: ProductFaq[] = getPublishedProductFaqs([
     answer:
       'Trước hết bù chi phí nguyên liệu và tổ chức. Phần còn lại dùng mua vật phẩm theo danh mục Mái ấm xác nhận, có hóa đơn và biên bản bàn giao.',
   },
-]);
+];
+
+export function getProductFaqs(): ProductFaq[] {
+  return getPublishedProductFaqs(BASELINE_PRODUCT_FAQS);
+}
+
+export const PRODUCT_FAQS: ProductFaq[] = createDynamicProxy(getProductFaqs, BASELINE_PRODUCT_FAQS);
 
 export interface PlannedExpenseItem {
   id: string;
@@ -1192,7 +1265,7 @@ export interface OfficialContact {
 }
 
 /** Liên hệ do chủ dự án cung cấp trong tài liệu bổ sung C07 (09/10/2026). */
-export const OFFICIAL_CONTACT: OfficialContact = getPublishedContacts({
+export const BASELINE_OFFICIAL_CONTACT: OfficialContact = {
   status: 'confirmed',
   people: [
     { name: 'Nguyễn Chí Trung', role: 'Trưởng dự án', phone: '0984 441 726', phoneE164: '+84984441726' },
@@ -1201,7 +1274,13 @@ export const OFFICIAL_CONTACT: OfficialContact = getPublishedContacts({
   fanpageUrl: 'https://www.facebook.com/mangtheomotnetve',
   sourceRef: 'supplement-c07:muc-6',
   updatedAt: '2026-10-09',
-});
+};
+
+export function getOfficialContact(): OfficialContact {
+  return getPublishedContacts(BASELINE_OFFICIAL_CONTACT);
+}
+
+export const OFFICIAL_CONTACT: OfficialContact = createDynamicProxy(getOfficialContact, BASELINE_OFFICIAL_CONTACT);
 
 export interface SupportWorkflowStep {
   step: string;
@@ -1235,7 +1314,7 @@ export interface SupportFaq {
   answer: string;
 }
 
-export const SUPPORT_FAQS: SupportFaq[] = getPublishedSupportFaqs([
+export const BASELINE_SUPPORT_FAQS: SupportFaq[] = [
   {
     question: 'Làm sao để tên tôi xuất hiện trong sao kê?',
     answer:
@@ -1260,14 +1339,20 @@ export const SUPPORT_FAQS: SupportFaq[] = getPublishedSupportFaqs([
     question: 'Tôi có thể cùng đến Mái ấm không?',
     answer: 'Chỉ khi Mái ấm đồng ý trước. Nhóm không tuyển người tự do đến Mái ấm, để bảo đảm an toàn và riêng tư cho các em.',
   },
-]);
+];
+
+export function getSupportFaqs(): SupportFaq[] {
+  return getPublishedSupportFaqs(BASELINE_SUPPORT_FAQS);
+}
+
+export const SUPPORT_FAQS: SupportFaq[] = createDynamicProxy(getSupportFaqs, BASELINE_SUPPORT_FAQS);
 
 export interface TransparencyFaq {
   question: string;
   answer: string;
 }
 
-export const TRANSPARENCY_FAQS: TransparencyFaq[] = getPublishedTransparencyFaqs([
+export const BASELINE_TRANSPARENCY_FAQS: TransparencyFaq[] = [
   {
     question: 'Vì sao tổng ủng hộ đang ghi “Chưa cập nhật”?',
     answer:
@@ -1287,7 +1372,13 @@ export const TRANSPARENCY_FAQS: TransparencyFaq[] = getPublishedTransparencyFaqs
     answer:
       'Sau buổi trao quà và khi thành viên tài chính cùng một thành viên khác hoàn tất đối soát. Chứng từ chỉ công bố bản đã che thông tin riêng tư.',
   },
-]);
+];
+
+export function getTransparencyFaqs(): TransparencyFaq[] {
+  return getPublishedTransparencyFaqs(BASELINE_TRANSPARENCY_FAQS);
+}
+
+export const TRANSPARENCY_FAQS: TransparencyFaq[] = createDynamicProxy(getTransparencyFaqs, BASELINE_TRANSPARENCY_FAQS);
 
 
 /* ------------------------------------------------------------------
@@ -1312,7 +1403,7 @@ export interface DonationAccount {
 }
 
 /** Tài khoản do chủ dự án cung cấp trong tài liệu bổ sung C07 (09/10/2026); mục tiêu 3.000.000đ duyệt cùng ngày. */
-export const DONATION_ACCOUNT: DonationAccount = getPublishedDonationAccount({
+export const BASELINE_DONATION_ACCOUNT: DonationAccount = {
   status: 'active',
   bankName: 'Techcombank',
   accountNumber: '999927052006',
@@ -1320,7 +1411,13 @@ export const DONATION_ACCOUNT: DonationAccount = getPublishedDonationAccount({
   qrImage: '/images/ung-ho/qr-ung-ho-techcombank.png',
   transferPrefix: 'MTMNV',
   goalAmount: 3000000,
-});
+};
+
+export function getDonationAccount(): DonationAccount {
+  return getPublishedDonationAccount(BASELINE_DONATION_ACCOUNT);
+}
+
+export const DONATION_ACCOUNT: DonationAccount = createDynamicProxy(getDonationAccount, BASELINE_DONATION_ACCOUNT);
 
 export interface DonationEntry {
   /** Ngày nhận theo sao kê ngân hàng, dạng YYYY-MM-DD */
@@ -1384,11 +1481,13 @@ function projectPublicDonationLedger(raw: unknown): DonationLedger {
   };
 }
 
-/**
- * Sổ ủng hộ. Tài liệu bổ sung chưa có sao kê, nên chưa có sổ đã đối soát.
- * Sổ trống ở đây không chứng minh chưa nhận được tiền.
- */
-export const DONATION_LEDGER: DonationLedger = projectPublicDonationLedger(initialReconciledDonations);
+export const BASELINE_DONATION_LEDGER: DonationLedger = projectPublicDonationLedger(initialReconciledDonations);
+
+export function getDonationLedger(): DonationLedger {
+  return getPublishedFinanceLedger(BASELINE_DONATION_LEDGER);
+}
+
+export const DONATION_LEDGER: DonationLedger = createDynamicProxy(getDonationLedger, BASELINE_DONATION_LEDGER);
 
 export interface ProjectProgress {
   currentWeek: number;
@@ -1399,12 +1498,18 @@ export interface ProjectProgress {
   currentStageIndex: number;
 }
 
-export const PROJECT_PROGRESS: ProjectProgress = getPublishedProgress({
+export const BASELINE_PROJECT_PROGRESS: ProjectProgress = {
   currentWeek: 1,
   totalWeeks: 5,
   updatedAt: '2026-10-09',
   currentStageIndex: 0,
-});
+};
+
+export function getProjectProgress(): ProjectProgress {
+  return getPublishedProgress(BASELINE_PROJECT_PROGRESS);
+}
+
+export const PROJECT_PROGRESS: ProjectProgress = createDynamicProxy(getProjectProgress, BASELINE_PROJECT_PROGRESS);
 
 export interface PlannedSession {
   id: string;
@@ -1415,8 +1520,7 @@ export interface PlannedSession {
   description: string;
 }
 
-/** Lịch hai buổi tại Mái ấm theo nhóm cung cấp (tài liệu bổ sung C07, mục 4). */
-export const PLANNED_SESSIONS: PlannedSession[] = getPublishedSessions([
+export const BASELINE_PLANNED_SESSIONS: PlannedSession[] = [
   {
     id: 'buoi-choi',
     title: 'Buổi chơi tại Mái ấm',
@@ -1433,7 +1537,13 @@ export const PLANNED_SESSIONS: PlannedSession[] = getPublishedSessions([
     weekday: 'Thứ Bảy',
     description: 'Trao vật phẩm theo danh mục Mái ấm xác nhận, khoảng 30–45 phút.',
   },
-]);
+];
+
+export function getPlannedSessions(): PlannedSession[] {
+  return getPublishedSessions(BASELINE_PLANNED_SESSIONS);
+}
+
+export const PLANNED_SESSIONS: PlannedSession[] = createDynamicProxy(getPlannedSessions, BASELINE_PLANNED_SESSIONS);
 
 export interface TeamMember {
   name: string;
@@ -1442,8 +1552,7 @@ export interface TeamMember {
   description: string;
 }
 
-/** Bảy thành viên và ảnh do chủ dự án cung cấp (tài liệu bổ sung C07, map theo từng đoạn). */
-export const TEAM_MEMBERS: TeamMember[] = getPublishedTeamMembers([
+export const BASELINE_TEAM_MEMBERS: TeamMember[] = [
   { name: 'Nguyễn Chí Trung', role: 'Trưởng dự án', photo: '/images/thanh-vien/nguyen-chi-trung.webp', description: 'Lên lịch, theo dõi tiến độ và điều phối hoạt động của nhóm.' },
   { name: 'Nguyễn Ngọc Khoa', role: 'Tài chính', photo: '/images/thanh-vien/nguyen-ngoc-khoa.webp', description: 'Giữ sổ ủng hộ, đối chiếu sao kê và mua quà theo danh mục.' },
   { name: 'Nguyễn Như Huy', role: 'Hậu cần', photo: '/images/thanh-vien/nguyen-nhu-huy.webp', description: 'Chuẩn bị vật tư, đạo cụ và chương trình buổi chơi.' },
@@ -1451,7 +1560,13 @@ export const TEAM_MEMBERS: TeamMember[] = getPublishedTeamMembers([
   { name: 'Trần Bình Trọng', role: 'Thiết kế', photo: '/images/thanh-vien/tran-binh-trong.webp', description: 'Thiết kế ấn phẩm, poster và nhận diện của dự án.' },
   { name: 'Lê Tuấn Anh', role: 'Đối ngoại', photo: '/images/thanh-vien/le-tuan-anh.webp', description: 'Làm việc với Mái ấm và các đơn vị hỗ trợ.' },
   { name: 'Nguyễn Anh Khoa', role: 'Hậu cần', photo: '/images/thanh-vien/nguyen-anh-khoa.webp', description: 'Chuẩn bị quà lưu niệm, quầy và di chuyển.' },
-]);
+];
+
+export function getTeamMembers(): TeamMember[] {
+  return getPublishedTeamMembers(BASELINE_TEAM_MEMBERS);
+}
+
+export const TEAM_MEMBERS: TeamMember[] = createDynamicProxy(getTeamMembers, BASELINE_TEAM_MEMBERS);
 
 export interface ProcessStep {
   title: string;

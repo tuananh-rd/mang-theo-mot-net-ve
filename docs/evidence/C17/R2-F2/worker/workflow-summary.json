@@ -1,0 +1,69 @@
+{
+  "task": "task_7db18e179a76",
+  "dispatch": "ctx_977d3559c3a1",
+  "baseline": "c55315703927956794aff756dc7438606ff1408a",
+  "timestamp": "2026-10-12T20:25:42+07:00",
+  "verificationSummary": {
+    "studioTypecheck": "PASS (0 errors)",
+    "studioTests": "PASS (56/56 passing across 4 suites)",
+    "npmTest": "PASS (96/96 passing across 13 suites)",
+    "astroStaticBuild": "PASS (13 routes built in <1s)",
+    "astroSsrPreviewBuild": "PASS (Server entry built in <1s with @astrojs/cloudflare)"
+  },
+  "sections": {
+    "project": {
+      "status": "complete",
+      "features": ["activities", "needs", "contact_toggle_null_persisted", "responsive_form"]
+    },
+    "progress": {
+      "status": "complete",
+      "features": ["timeline", "current_stage", "progress_weeks", "dates"]
+    },
+    "products": {
+      "status": "complete",
+      "features": ["narrative", "reference_price_preserved", "sale_status", "official_price", "stock_available", "media_key_binding"]
+    },
+    "finance": {
+      "status": "complete",
+      "features": ["two_person_attestation", "reconciled_entries", "sales_table", "expenses_table", "in_kind_table", "overview_null_zero_preserved"]
+    },
+    "journal": {
+      "status": "complete",
+      "features": ["articles_crud", "cover_media", "blocks", "private_draft_projection_isolated"]
+    },
+    "team": {
+      "status": "complete",
+      "features": ["members_table", "roles", "responsibilities"]
+    },
+    "faqs": {
+      "status": "complete",
+      "features": ["product_faqs", "support_faqs", "transparency_faqs", "category_isolation"]
+    },
+    "settings_and_admin": {
+      "status": "complete",
+      "features": ["rbac_roles", "history_diff", "guarded_restore_occ_409", "publication_attestation"]
+    }
+  },
+  "mediaRegistry": {
+    "totalCanonicalAssets": 20,
+    "sha256Verification": "strict",
+    "workerNativeOnly": true,
+    "nodeModulesInBundle": false
+  },
+  "previewPipeline": {
+    "ssrAdapter": "@astrojs/cloudflare",
+    "isolationMechanism": "AsyncLocalStorage (request-scoped)",
+    "errorHandling": "explicit throw if ALS unavailable (fail-closed)",
+    "securityHeaders": {
+      "Cache-Control": "private, no-cache, no-store, must-revalidate",
+      "X-Robots-Tag": "noindex, nofollow",
+      "X-Studio-Private-Preview": "true"
+    },
+    "linkRewriting": "/preview/*"
+  },
+  "proxyInvariants": {
+    "campaignProxy": "configurable: false preserved on length property",
+    "journalProxy": "configurable: false preserved on length property",
+    "typeErrorPrevented": true
+  }
+}

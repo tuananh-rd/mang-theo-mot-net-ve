@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getPublishedJournalEntries, type JournalEntry } from '../../data/journal';
+import { getPublishedJournalEntries, getJournalEntryBySlug, type JournalEntry } from '../../data/journal';
 
 export function getStaticPaths() {
   const publishedEntries = getPublishedJournalEntries();
@@ -11,10 +11,14 @@ export function getStaticPaths() {
 }
 
 interface Props {
-  entry: JournalEntry;
+  entry?: JournalEntry;
 }
 
-const { entry } = Astro.props;
+const entry = Astro.props.entry || (Astro.params.slug ? getJournalEntryBySlug(Astro.params.slug) : undefined);
+
+if (!entry) {
+  return Astro.redirect('/404');
+}
 
 function formatDate(d: string): string {
   const parts = d.split('-');

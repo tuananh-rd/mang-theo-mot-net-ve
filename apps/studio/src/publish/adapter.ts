@@ -6,6 +6,7 @@
  */
 
 import type { PublicationSnapshot } from '../types.js';
+import { APPROVED_MEDIA_REGISTRY } from '../storage/media-registry.js';
 import {
   validateProjectData,
   validateJournalModuleData,
@@ -108,7 +109,7 @@ function sanitizeProjectForPublic(project: ProjectModuleData) {
 /**
  * Làm sạch và chuẩn hóa bài viết nhật ký cho bản chiếu công khai theo allowlist
  */
-function sanitizeJournalForPublic(articles: JournalArticle[]): JournalArticle[] {
+function sanitizeJournalForPublic(articles: JournalArticle[], approvedMediaKeys?: Set<string>): JournalArticle[] {
   return articles
     .filter((a) => a.status === 'published') // Bắt buộc chỉ xuất bản bài đã duyệt (draft isolation)
     .map((a) => {
@@ -122,7 +123,81 @@ function sanitizeJournalForPublic(articles: JournalArticle[]): JournalArticle[] 
         eventDate: a.eventDate ? String(a.eventDate).trim() : null,
         eventStatus: a.eventStatus || null,
         status: 'published',
-        content: (a.content || []).map((block) => {
+        content: (a.content || [])
+          .map((block) => {
+            switch (block.type) {
+              case 'paragraph':
+              case 'callout':
+              case 'quote':
+                return { type: block.type, text: String(block.text || '').trim() };
+              case 'heading':
+                return { type: 'heading', level: block.level === 3 ? 3 : 2, text: String(block.text || '').trim() };
+              case 'list':
+                return {
+                  type: 'list',
+                  items: (block.items || []).map((it) => String(it).trim()).filter(Boolean),
+                };
+              case 'image': {
+                const src = String(block.src || '').trim();
+                // Fail-closed: Loại bỏ ảnh nội dung chưa được phê duyệt khỏi bản xuất bản công khai
+                if (!approvedMediaKeys || !approvedMediaKeys.has(src)) {
+                  return null;
+                }
+                return {
+                  type: 'image',
+                  src,
+                  alt: String(block.alt || '').trim(),
+                  caption: String(block.caption || '').trim(),
+                  creditName: block.creditName ? String(block.creditName).trim() : undefined,
+                  creditSource: block.creditSource ? String(block.creditSource).trim() : undefined,
+                  creditUrl: block.creditUrl ? String(block.creditUrl).trim() : undefined,
+                };
+              }
+              default:
+                return { type: 'paragraph', text: '' };
+            }
+          })
+          .filter(Boolean) as any,
+      };
+
+      if (a.coverImage && a.coverImage.src) {
+        const coverSrc = String(a.coverImage.src).trim();
+        // Fail-closed: Chỉ xuất bản ảnh bìa khi nằm trong danh mục media đã duyệt
+        if (approvedMediaKeys && approvedMediaKeys.has(coverSrc)) {
+          cleanArticle.coverImage = {
+            src: coverSrc,
+            alt: String(a.coverImage.alt || '').trim(),
+            caption: String(a.coverImage.caption || '').trim(),
+            creditName: a.coverImage.creditName ? String(a.coverImage.creditName).trim() : undefined,
+            creditSource: a.coverImage.creditSource ? String(a.coverImage.creditSource).trim() : undefined,
+            creditUrl: a.coverImage.creditUrl ? String(a.coverImage.creditUrl).trim() : undefined,
+          };
+        }
+      }
+
+      return cleanArticle;
+    });
+}
+
+/**
+ * Làm sạch và chuẩn hóa bài viết nhật ký cho bản xem trước riêng tư (Private Draft Preview).
+ * Khác với bản chiếu công khai, bản xem trước riêng tư giữ nguyên cả các bài viết 'draft'
+ * để người biên tập có thể xem trước bài viết nháp trước khi bấm xuất bản.
+ */
+function sanitizeJournalForPrivateDraft(articles: JournalArticle[], approvedMediaKeys?: Set<string>): JournalArticle[] {
+  return articles.map((a) => {
+    const cleanArticle: JournalArticle = {
+      slug: String(a.slug || '').trim(),
+      title: String(a.title || '').trim(),
+      summary: String(a.summary || '').trim(),
+      category: a.category,
+      categoryLabel: a.categoryLabel ? String(a.categoryLabel).trim() : undefined,
+      publishedAt: String(a.publishedAt || '').trim(),
+      eventDate: a.eventDate ? String(a.eventDate).trim() : null,
+      eventStatus: a.eventStatus || null,
+      status: a.status === 'published' ? 'published' : 'draft',
+      content: (a.content || [])
+        .map((block) => {
           switch (block.type) {
             case 'paragraph':
             case 'callout':
@@ -135,41 +210,44 @@ function sanitizeJournalForPublic(articles: JournalArticle[]): JournalArticle[] 
                 type: 'list',
                 items: (block.items || []).map((it) => String(it).trim()).filter(Boolean),
               };
-            case 'image':
+            case 'image': {
+              const src = String(block.src || '').trim();
               return {
                 type: 'image',
-                src: String(block.src || '').trim(),
+                src,
                 alt: String(block.alt || '').trim(),
                 caption: String(block.caption || '').trim(),
                 creditName: block.creditName ? String(block.creditName).trim() : undefined,
                 creditSource: block.creditSource ? String(block.creditSource).trim() : undefined,
                 creditUrl: block.creditUrl ? String(block.creditUrl).trim() : undefined,
               };
+            }
             default:
               return { type: 'paragraph', text: '' };
           }
-        }),
+        })
+        .filter(Boolean) as any,
+    };
+
+    if (a.coverImage && a.coverImage.src) {
+      cleanArticle.coverImage = {
+        src: String(a.coverImage.src).trim(),
+        alt: String(a.coverImage.alt || '').trim(),
+        caption: String(a.coverImage.caption || '').trim(),
+        creditName: a.coverImage.creditName ? String(a.coverImage.creditName).trim() : undefined,
+        creditSource: a.coverImage.creditSource ? String(a.coverImage.creditSource).trim() : undefined,
+        creditUrl: a.coverImage.creditUrl ? String(a.coverImage.creditUrl).trim() : undefined,
       };
+    }
 
-      if (a.coverImage && a.coverImage.src) {
-        cleanArticle.coverImage = {
-          src: String(a.coverImage.src).trim(),
-          alt: String(a.coverImage.alt || '').trim(),
-          caption: String(a.coverImage.caption || '').trim(),
-          creditName: a.coverImage.creditName ? String(a.coverImage.creditName).trim() : undefined,
-          creditSource: a.coverImage.creditSource ? String(a.coverImage.creditSource).trim() : undefined,
-          creditUrl: a.coverImage.creditUrl ? String(a.coverImage.creditUrl).trim() : undefined,
-        };
-      }
-
-      return cleanArticle;
-    });
+    return cleanArticle;
+  });
 }
 
 /**
- * Làm sạch phân hệ Sản phẩm theo allowlist
+ * Làm sạch phân hệ Sản phẩm theo allowlist và ngăn chặn rò rỉ media chưa duyệt (Fail-Closed)
  */
-function sanitizeProductsForPublic(products: ProductsModuleData) {
+function sanitizeProductsForPublic(products: ProductsModuleData, approvedMediaKeys?: Set<string>) {
   const result: ProductsModuleData = {};
   for (const [id, item] of Object.entries(products)) {
     result[id] = {
@@ -184,7 +262,11 @@ function sanitizeProductsForPublic(products: ProductsModuleData) {
       result[id].narrative = String(item.narrative).trim();
     }
     if (item.mediaKey !== undefined && item.mediaKey !== null && String(item.mediaKey).trim()) {
-      result[id].mediaKey = String(item.mediaKey).trim();
+      const key = String(item.mediaKey).trim();
+      // Fail-closed: Không cho phép prefix bypass; bắt buộc phải có trong approvedMediaKeys
+      if (approvedMediaKeys && approvedMediaKeys.has(key)) {
+        result[id].mediaKey = key;
+      }
     }
   }
   return result;
@@ -299,7 +381,7 @@ function sanitizeFinanceForPublic(finance: FinanceModuleData): FinanceModuleData
 /**
  * Làm sạch phân hệ Nhóm, FAQ & SEO theo allowlist
  */
-function sanitizeTeamForPublic(team: TeamModuleData): TeamModuleData {
+function sanitizeTeamForPublic(team: TeamModuleData, approvedMediaKeys?: Set<string>): TeamModuleData {
   const result: any = {
     info: {
       name: String(team.info?.name || 'Lăng Kính').trim(),
@@ -329,12 +411,16 @@ function sanitizeTeamForPublic(team: TeamModuleData): TeamModuleData {
   };
 
   if (Array.isArray(team.members)) {
-    result.members = team.members.map((m) => ({
-      name: String(m.name || '').trim(),
-      role: String(m.role || '').trim(),
-      photo: String(m.photo || '').trim(),
-      description: String(m.description || '').trim(),
-    }));
+    result.members = team.members.map((m) => {
+      const photoKey = String(m.photo || '').trim();
+      return {
+        name: String(m.name || '').trim(),
+        role: String(m.role || '').trim(),
+        // Fail-closed: Chỉ xuất bản đường dẫn ảnh chân dung khi đã duyệt
+        photo: approvedMediaKeys && approvedMediaKeys.has(photoKey) ? photoKey : '',
+        description: String(m.description || '').trim(),
+      };
+    });
   }
 
   if (Array.isArray(team.productFaqs)) {
@@ -366,9 +452,13 @@ function sanitizeTeamForPublic(team: TeamModuleData): TeamModuleData {
  */
 export async function createPublicationSnapshot(
   drafts: Record<string, unknown>,
-  versionTag: string = `v${Date.now()}`
+  versionTag: string = `v${Date.now()}`,
+  approvedMediaKeys?: Set<string>
 ): Promise<SnapshotGenerationResult> {
   const validationErrors: Record<string, string[]> = {};
+  const mediaKeys = approvedMediaKeys !== undefined ? approvedMediaKeys : new Set<string>(
+    APPROVED_MEDIA_REGISTRY.flatMap((r) => [r.publicPath, r.r2Key, r.id, `/media/${r.id}`])
+  );
 
   const projectData = (drafts.project || {}) as ProjectModuleData;
   const projectVal = validateProjectData(projectData);
@@ -378,9 +468,33 @@ export async function createPublicationSnapshot(
   const journalVal = validateJournalModuleData(journalData);
   if (!journalVal.isValid) validationErrors.journal = journalVal.errors;
 
+  // Kiểm tra ảnh chưa duyệt trong bài viết nhật ký đã xuất bản
+  for (const art of journalData) {
+    if (art.status === 'published') {
+      if (art.coverImage?.src && !mediaKeys.has(art.coverImage.src.trim())) {
+        validationErrors.journal = validationErrors.journal || [];
+        validationErrors.journal.push(`Bài viết '${art.slug}' sử dụng ảnh bìa '${art.coverImage.src}' chưa được phê duyệt.`);
+      }
+      for (const block of art.content || []) {
+        if (block.type === 'image' && block.src && !mediaKeys.has(block.src.trim())) {
+          validationErrors.journal = validationErrors.journal || [];
+          validationErrors.journal.push(`Bài viết '${art.slug}' chứa ảnh nội dung '${block.src}' chưa được phê duyệt.`);
+        }
+      }
+    }
+  }
+
   const productsData = (drafts.products || {}) as ProductsModuleData;
   const productsVal = validateProductsModuleData(productsData);
   if (!productsVal.isValid) validationErrors.products = productsVal.errors;
+
+  // Kiểm tra ảnh chưa duyệt trong sản phẩm (Fail-closed)
+  for (const [prodId, prod] of Object.entries(productsData)) {
+    if (prod.mediaKey && !mediaKeys.has(prod.mediaKey.trim())) {
+      validationErrors.products = validationErrors.products || [];
+      validationErrors.products.push(`Sản phẩm '${prodId}' đang sử dụng hình ảnh '${prod.mediaKey}' chưa được duyệt.`);
+    }
+  }
 
   const financeData = (drafts.finance || {}) as FinanceModuleData;
   const financeVal = validateFinanceModuleData(financeData);
@@ -390,13 +504,21 @@ export async function createPublicationSnapshot(
   const teamVal = validateTeamModuleData(teamData);
   if (!teamVal.isValid) validationErrors.team = teamVal.errors;
 
-  // Làm sạch dữ liệu cho bản chiếu công khai theo từng nested allowlist riêng biệt
+  // Kiểm tra ảnh chân dung chưa duyệt trong thành viên nhóm
+  for (const m of teamData.members || []) {
+    if (m.photo && !mediaKeys.has(m.photo.trim())) {
+      validationErrors.team = validationErrors.team || [];
+      validationErrors.team.push(`Thành viên '${m.name}' sử dụng ảnh chân dung '${m.photo}' chưa được phê duyệt.`);
+    }
+  }
+
+  // Làm sạch dữ liệu cho bản chiếu công khai theo từng nested allowlist riêng biệt (Fail-closed)
   const sanitizedModules = {
     project: sanitizeProjectForPublic(projectData),
-    journal: sanitizeJournalForPublic(journalData),
-    products: sanitizeProductsForPublic(productsData),
+    journal: sanitizeJournalForPublic(journalData, mediaKeys),
+    products: sanitizeProductsForPublic(productsData, mediaKeys),
     finance: sanitizeFinanceForPublic(financeData),
-    team: sanitizeTeamForPublic(teamData),
+    team: sanitizeTeamForPublic(teamData, mediaKeys),
   };
 
   const modulesJson = JSON.stringify(sanitizedModules);
@@ -416,5 +538,46 @@ export async function createPublicationSnapshot(
     snapshot,
     validationErrors,
     isEligibleForPublish,
+  };
+}
+
+/**
+ * Tạo bản chụp nháp riêng tư (Private Draft Snapshot) dành riêng cho luồng xem trước /preview/*
+ * Khác với xuất bản công khai, bản xem trước riêng tư giữ nguyên các bài viết trạng thái 'draft'
+ * và cờ isPreview: true để các route kiểm thử hiển thị đầy đủ dữ liệu mới tạo trước khi xuất bản.
+ */
+export async function createPrivateDraftSnapshot(
+  drafts: Record<string, unknown>,
+  versionTag: string = `preview-${Date.now()}`,
+  approvedMediaKeys?: Set<string>
+): Promise<PublicationSnapshot & { isPreview: true }> {
+  const mediaKeys = approvedMediaKeys !== undefined ? approvedMediaKeys : new Set<string>(
+    APPROVED_MEDIA_REGISTRY.flatMap((r) => [r.publicPath, r.r2Key, r.id, `/media/${r.id}`])
+  );
+
+  const projectData = (drafts.project || {}) as ProjectModuleData;
+  const journalData = (Array.isArray(drafts.journal) ? drafts.journal : []) as JournalArticle[];
+  const productsData = (drafts.products || {}) as ProductsModuleData;
+  const financeData = (drafts.finance || {}) as FinanceModuleData;
+  const teamData = (drafts.team || {}) as TeamModuleData;
+
+  const sanitizedModules = {
+    project: sanitizeProjectForPublic(projectData),
+    journal: sanitizeJournalForPrivateDraft(journalData, mediaKeys),
+    products: sanitizeProductsForPublic(productsData, mediaKeys),
+    finance: sanitizeFinanceForPublic(financeData),
+    team: sanitizeTeamForPublic(teamData, mediaKeys),
+  };
+
+  const modulesJson = JSON.stringify(sanitizedModules);
+  const sha256 = await computeSha256(modulesJson);
+  const now = new Date().toISOString();
+
+  return {
+    version: versionTag,
+    generatedAt: now,
+    sha256,
+    modules: sanitizedModules,
+    isPreview: true,
   };
 }

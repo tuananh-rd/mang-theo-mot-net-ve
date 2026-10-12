@@ -13,6 +13,7 @@ import { decodeAndSanitizeRaster } from '../storage/media-sanitizer.js';
 import { createPublicationSnapshot } from '../publish/adapter.js';
 import { triggerGitHubPublication } from '../publish/github.js';
 import { validateDonationCSV } from '../../../../tools/content-studio/csv-validator.mjs';
+import { importApprovedRegistryIntoDb, APPROVED_MEDIA_REGISTRY } from '../storage/media-registry.js';
 
 const VALID_MODULES: ModuleKey[] = ['project', 'journal', 'products', 'finance', 'team'];
 
@@ -210,10 +211,46 @@ export async function handleApiRequest(
     }
   }
 
-  // 6. Danh sách Media Assets: GET /api/media
+  // 6. Danh sách Media Assets: GET /api/media (Pure read, không gây side-effect import)
   if (path === '/api/media' && method === 'GET') {
-    const assets = await dbClient.listMediaAssets(100);
+    const assets = await dbClient.listMediaAssets(200);
     return jsonResponse({ assets, success: true });
+  }
+
+  // 6a. Đọc tệp Media từ R2 đã xác thực: GET /api/media/:id/file
+  const mediaFileMatch = path.match(/^\/api\/media\/([^/]+)\/file$/);
+  if (mediaFileMatch && method === 'GET') {
+    const assetId = mediaFileMatch[1];
+    const asset = await dbClient.getMediaAsset(assetId);
+    if (!asset) {
+      return errorResponse('Không tìm thấy tài sản media.', 404);
+    }
+    if (env.BUCKET) {
+      const obj = await env.BUCKET.get(asset.r2Key);
+      if (obj) {
+        return new Response(obj.body, {
+          status: 200,
+          headers: {
+            'Content-Type': asset.contentType,
+            'Cache-Control': 'private, no-store',
+            'X-Robots-Tag': 'noindex, nofollow',
+          },
+        });
+      }
+    }
+    return errorResponse('Tệp media chưa có sẵn trong kho lưu trữ R2.', 404);
+  }
+
+  // 6b. Nhập danh mục Media đã duyệt: POST /api/media/import-registry
+  if (path === '/api/media/import-registry' && method === 'POST') {
+    validateCsrf(request);
+    assertCanEdit(user.role);
+    try {
+      const result = await importApprovedRegistryIntoDb(env.DB, env.BUCKET);
+      return jsonResponse({ success: true, ...result });
+    } catch (err: any) {
+      return errorResponse(err.message || 'Lỗi nhập danh mục media đã duyệt', 400);
+    }
   }
 
   // 7. Tải lên tệp Media: POST /api/media/upload
@@ -355,7 +392,26 @@ export async function handleApiRequest(
 
     const body = (await request.json().catch(() => ({}))) as { idempotencyKey?: string };
     const allDrafts = await dbClient.getAllDrafts();
-    const snapshotResult = await createPublicationSnapshot(allDrafts);
+    const dbAssets = await dbClient.listMediaAssets(500);
+    const approvedKeys = new Set<string>();
+    for (const reg of APPROVED_MEDIA_REGISTRY) {
+      approvedKeys.add(reg.publicPath);
+      approvedKeys.add(reg.r2Key);
+      approvedKeys.add(reg.id);
+      approvedKeys.add(`/media/${reg.id}`);
+    }
+    for (const a of dbAssets) {
+      if (a.status === 'approved') {
+        approvedKeys.add(a.r2Key);
+        approvedKeys.add(a.id);
+        approvedKeys.add(`/media/${a.id}`);
+        const reg = APPROVED_MEDIA_REGISTRY.find((r) => r.id === a.id || r.r2Key === a.r2Key);
+        if (reg) {
+          approvedKeys.add(reg.publicPath);
+        }
+      }
+    }
+    const snapshotResult = await createPublicationSnapshot(allDrafts, `v${Date.now()}`, approvedKeys);
 
     if (!snapshotResult.isEligibleForPublish) {
       return errorResponse(

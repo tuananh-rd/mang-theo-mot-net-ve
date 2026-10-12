@@ -12,7 +12,16 @@
 
 // @ts-ignore: node:crypto có sẵn trong môi trường Node.js SSG
 import { createHash } from 'node:crypto';
+import { AsyncLocalStorage } from 'node:async_hooks';
 import rawSnapshot from '../published-snapshot.json' with { type: 'json' };
+
+const SNAPSHOT_STORAGE_SYMBOL = Symbol.for('__astro_published_snapshot_storage__');
+export const snapshotStorage: AsyncLocalStorage<LoadedSnapshot | null> =
+  ((globalThis as any)[SNAPSHOT_STORAGE_SYMBOL] ??= new AsyncLocalStorage<LoadedSnapshot | null>());
+
+export function runWithSnapshot<R>(snapshot: LoadedSnapshot | null, fn: () => R): R {
+  return snapshotStorage.run(snapshot, fn);
+}
 
 export interface SnapshotProjectModule {
   slug?: string;
@@ -157,9 +166,13 @@ export function loadValidatedSnapshot(): LoadedSnapshot | null {
 const activeSnapshot = loadValidatedSnapshot();
 
 /**
- * Lấy đối tượng Snapshot đang hoạt động (nếu có)
+ * Lấy đối tượng Snapshot đang hoạt động (theo request-context hoặc baseline tĩnh)
  */
 export function getActiveSnapshot(): LoadedSnapshot | null {
+  const store = snapshotStorage.getStore();
+  if (store !== undefined) {
+    return store;
+  }
   return activeSnapshot;
 }
 
@@ -168,11 +181,12 @@ export function getActiveSnapshot(): LoadedSnapshot | null {
  * Bảo toàn ngữ nghĩa của các giá trị rỗng hoặc null do người dùng chủ ý thiết lập.
  */
 export function getPublishedProject<T extends Record<string, any>>(baseline: T): T {
-  if (!activeSnapshot?.modules?.project) {
+  const snap = getActiveSnapshot();
+  if (!snap?.modules?.project) {
     return baseline;
   }
 
-  const p = activeSnapshot.modules.project;
+  const p = snap.modules.project;
   const result: any = { ...baseline };
 
   if (p.title !== undefined) result.title = p.title;
@@ -193,18 +207,20 @@ export function getPublishedProject<T extends Record<string, any>>(baseline: T):
  * Áp dụng tiến độ dự án từ bản chụp
  */
 export function getPublishedProgress<T extends Record<string, any>>(baseline: T): T {
-  if (!activeSnapshot?.modules?.project?.progress) {
+  const snap = getActiveSnapshot();
+  if (!snap?.modules?.project?.progress) {
     return baseline;
   }
-  return { ...baseline, ...activeSnapshot.modules.project.progress };
+  return { ...baseline, ...snap.modules.project.progress };
 }
 
 /**
  * Áp dụng danh sách các buổi hoạt động từ bản chụp
  */
 export function getPublishedSessions<T>(baseline: T[]): T[] {
-  if (Array.isArray(activeSnapshot?.modules?.project?.plannedSessions)) {
-    return activeSnapshot.modules.project.plannedSessions as T[];
+  const snap = getActiveSnapshot();
+  if (Array.isArray(snap?.modules?.project?.plannedSessions)) {
+    return snap.modules.project.plannedSessions as T[];
   }
   return baseline;
 }
@@ -213,10 +229,11 @@ export function getPublishedSessions<T>(baseline: T[]): T[] {
  * Áp dụng thông tin liên hệ chính thức từ bản chụp
  */
 export function getPublishedContacts<T extends Record<string, any>>(baseline: T): T {
-  if (!activeSnapshot?.modules?.project) {
+  const snap = getActiveSnapshot();
+  if (!snap?.modules?.project) {
     return baseline;
   }
-  const snapContacts = activeSnapshot.modules.project.contacts;
+  const snapContacts = snap.modules.project.contacts;
   if (snapContacts === null) {
     return {
       ...baseline,
@@ -231,7 +248,7 @@ export function getPublishedContacts<T extends Record<string, any>>(baseline: T)
       people: Array.isArray(snapContacts.people) ? snapContacts.people : [],
       fanpageUrl: snapContacts.fanpageUrl ?? null,
       sourceRef: snapContacts.sourceRef ?? 'studio:snapshot',
-      updatedAt: snapContacts.updatedAt ?? (activeSnapshot.generatedAt ? activeSnapshot.generatedAt.slice(0, 10) : '2026-10-12'),
+      updatedAt: snapContacts.updatedAt ?? (snap.generatedAt ? snap.generatedAt.slice(0, 10) : '2026-10-12'),
     } as unknown as T;
   }
   return baseline;
@@ -241,39 +258,44 @@ export function getPublishedContacts<T extends Record<string, any>>(baseline: T)
  * Áp dụng thông tin tài khoản quyên góp từ bản chụp
  */
 export function getPublishedDonationAccount<T extends Record<string, any>>(baseline: T): T {
-  if (!activeSnapshot?.modules?.finance?.donationAccount) {
+  const snap = getActiveSnapshot();
+  if (!snap?.modules?.finance?.donationAccount) {
     return baseline;
   }
-  return { ...baseline, ...activeSnapshot.modules.finance.donationAccount };
+  return { ...baseline, ...snap.modules.finance.donationAccount };
 }
 
 /**
  * Áp dụng danh sách thành viên nhóm từ bản chụp
  */
 export function getPublishedTeamMembers<T>(baseline: T[]): T[] {
-  if (Array.isArray(activeSnapshot?.modules?.team?.members)) {
-    return activeSnapshot.modules.team.members as T[];
+  const snap = getActiveSnapshot();
+  if (Array.isArray(snap?.modules?.team?.members)) {
+    return snap.modules.team.members as T[];
   }
   return baseline;
 }
 
 export function getPublishedProductFaqs<T>(baseline: T[]): T[] {
-  if (Array.isArray(activeSnapshot?.modules?.team?.productFaqs)) {
-    return activeSnapshot.modules.team.productFaqs as T[];
+  const snap = getActiveSnapshot();
+  if (Array.isArray(snap?.modules?.team?.productFaqs)) {
+    return snap.modules.team.productFaqs as T[];
   }
   return baseline;
 }
 
 export function getPublishedSupportFaqs<T>(baseline: T[]): T[] {
-  if (Array.isArray(activeSnapshot?.modules?.team?.supportFaqs)) {
-    return activeSnapshot.modules.team.supportFaqs as T[];
+  const snap = getActiveSnapshot();
+  if (Array.isArray(snap?.modules?.team?.supportFaqs)) {
+    return snap.modules.team.supportFaqs as T[];
   }
   return baseline;
 }
 
 export function getPublishedTransparencyFaqs<T>(baseline: T[]): T[] {
-  if (Array.isArray(activeSnapshot?.modules?.team?.transparencyFaqs)) {
-    return activeSnapshot.modules.team.transparencyFaqs as T[];
+  const snap = getActiveSnapshot();
+  if (Array.isArray(snap?.modules?.team?.transparencyFaqs)) {
+    return snap.modules.team.transparencyFaqs as T[];
   }
   return baseline;
 }
@@ -282,7 +304,8 @@ export function getPublishedTransparencyFaqs<T>(baseline: T[]): T[] {
  * Áp dụng danh sách câu hỏi thường gặp FAQ từ bản chụp
  */
 export function getPublishedFaqs<T extends { productFaqs: any[]; supportFaqs: any[]; transparencyFaqs: any[] }>(baseline: T): T {
-  const team = activeSnapshot?.modules?.team;
+  const snap = getActiveSnapshot();
+  const team = snap?.modules?.team;
   if (!team) return baseline;
 
   return {
@@ -306,20 +329,22 @@ export function getPublishedProductConfig(productId: string): {
   narrative?: string | null;
   mediaKey?: string | null;
 } | null {
-  if (!activeSnapshot?.modules?.products) {
+  const snap = getActiveSnapshot();
+  if (!snap?.modules?.products) {
     return null;
   }
-  return (activeSnapshot.modules.products as Record<string, any>)[productId] || null;
+  return (snap.modules.products as Record<string, any>)[productId] || null;
 }
 
 /**
  * Áp dụng cấu hình sản phẩm từ bản chụp xuất bản lên danh mục baseline
  */
 export function getPublishedProducts<T extends Record<string, any>>(baseline: T): T {
-  if (!activeSnapshot?.modules?.products) {
+  const snap = getActiveSnapshot();
+  if (!snap?.modules?.products) {
     return baseline;
   }
-  const snapProds = activeSnapshot.modules.products as Record<string, any>;
+  const snapProds = snap.modules.products as Record<string, any>;
   const result: any = { ...baseline };
   for (const [id, conf] of Object.entries(snapProds)) {
     if (result[id]) {
@@ -330,3 +355,36 @@ export function getPublishedProducts<T extends Record<string, any>>(baseline: T)
   }
   return result as T;
 }
+
+/**
+ * Áp dụng sổ thu chi quyên góp từ phân hệ tài chính của bản chụp
+ */
+export function getPublishedFinanceLedger<T extends { reconciled: boolean; reconciledAt: string | null; entries: any[] }>(baseline: T): T {
+  const snap = getActiveSnapshot();
+  const fin = snap?.modules?.finance;
+  if (!fin || !Array.isArray(fin.entries)) {
+    return baseline;
+  }
+  return {
+    ...baseline,
+    reconciled: Boolean(fin.reconciled),
+    reconciledAt: fin.reconciledAt || null,
+    entries: fin.entries,
+  };
+}
+
+/**
+ * Áp dụng tổng quan dự toán tài chính từ bản chụp
+ */
+export function getPublishedFinanceOverview<T extends Record<string, any>>(baseline: T): T {
+  const snap = getActiveSnapshot();
+  const fin = snap?.modules?.finance;
+  if (!fin || !fin.overview) {
+    return baseline;
+  }
+  return {
+    ...baseline,
+    ...fin.overview,
+  };
+}
+

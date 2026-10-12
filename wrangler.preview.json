@@ -1,0 +1,11 @@
+{
+  "name": "mang-theo-mot-net-ve-studio-preview",
+  "main": "./apps/studio/src/worker.ts",
+  "compatibility_date": "2026-10-08",
+  "compatibility_flags": ["nodejs_compat", "nodejs_als"],
+  "assets": {
+    "binding": "ASSETS",
+    "directory": "./dist-preview/client",
+    "run_worker_first": true
+  }
+}

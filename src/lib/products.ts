@@ -308,6 +308,7 @@ export function getCraftProductBySlug(slug: string): CraftProductDetail | undefi
 
   const cloned: CraftProductDetail = {
     ...item,
+    product: PRODUCTS.find((p) => p.id === item.product.id) || item.product,
   };
 
   if (published.narrative) {
