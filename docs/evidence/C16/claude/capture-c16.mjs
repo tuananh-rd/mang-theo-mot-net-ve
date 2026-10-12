@@ -8,7 +8,7 @@ const [outDir,repo,widthsArg,namesArg]=process.argv.slice(2);
 const widths=(widthsArg||'1440,375').split(',').map(Number);
 const only=namesArg&&namesArg!=='all'?namesArg.split(','):null;
 fs.mkdirSync(outDir,{recursive:true});
-const base='http://127.0.0.1:4322';
+const base=process.env.C16_BASE||'http://127.0.0.1:4322';
 const routes=[['home','/'],['project','/du-an/mang-theo-mot-net-ve'],['products','/san-pham'],['finance','/minh-bach'],['team','/ve-nhom'],['support','/dong-hanh'],['journal','/nhat-ky'],['journal-detail-1','/nhat-ky/ke-hoach-bon-goc-choi'],['journal-detail-2','/nhat-ky/gioi-thieu-qua-luu-niem-gay-quy'],['product-detail-1','/san-pham/chuon-chuon-tre-kem-de'],['product-detail-2','/san-pham/moc-khoa'],['not-found','/khong-ton-tai-c16']];
 const git=(...a)=>execFileSync('git',['-C',repo,...a],{encoding:'utf8'}).trim();
 const meta={headSha:git('rev-parse','HEAD'),appDirty:git('status','--porcelain','--','src','public','tools','tests','package.json','package-lock.json','astro.config.mjs'),at:new Date().toISOString(),shots:[]};
