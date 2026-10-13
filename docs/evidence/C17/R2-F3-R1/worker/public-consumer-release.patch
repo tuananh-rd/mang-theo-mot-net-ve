@@ -1,0 +1,1341 @@
+diff --git a/src/components/Footer.astro b/src/components/Footer.astro
+index 90730a6..61279b5 100644
+--- a/src/components/Footer.astro
++++ b/src/components/Footer.astro
+@@ -3,7 +3,7 @@ import { DONATION_ACCOUNT, OFFICIAL_CONTACT, CAMPAIGN_PROJECT, PROJECT_PROGRESS
+ import { isDonationOpen, formatViDate } from '../lib/donations';
+ 
+ const donationOpen = isDonationOpen(DONATION_ACCOUNT);
+-const contactReady = OFFICIAL_CONTACT.status === 'confirmed';
++const contactReady = OFFICIAL_CONTACT.status === 'confirmed' && ((OFFICIAL_CONTACT.people && OFFICIAL_CONTACT.people.length > 0) || Boolean(OFFICIAL_CONTACT.fanpageUrl));
+ const navLinks = [
+   { href: '/', label: 'Trang chủ' },
+   { href: '/du-an/mang-theo-mot-net-ve', label: 'Dự án' },
+diff --git a/src/components/ProductGrid.astro b/src/components/ProductGrid.astro
+index 745dfbb..e4a8034 100644
+--- a/src/components/ProductGrid.astro
++++ b/src/components/ProductGrid.astro
+@@ -4,6 +4,7 @@ import StatusChip from './StatusChip.astro';
+ import type { Product } from '../data/campaign';
+ import { buildProductCatalog } from '../lib/finance';
+ import { getEffectiveProductSaleModel } from '../lib/products';
++import { getPublishedProductConfig } from '../data/lib/snapshot-loader.ts';
+ 
+ interface Props {
+   products: Product[];
+@@ -45,10 +46,19 @@ const pendingNote: Record<string, string> = {
+   {
+     rows.map((r) => {
+       const saleModel = r.product.category === 'craft' ? getEffectiveProductSaleModel(r.product) : null;
++      const publishedConf = getPublishedProductConfig(r.product.id);
+       const priceVal = saleModel && saleModel.effectivePrice !== null ? saleModel.priceText : r.priceText;
+       const unitVal = saleModel ? saleModel.unitSuffix : 'chiếc';
+       const noteVal = saleModel ? saleModel.priceTypeLabel : 'Giá tham khảo';
+-      const photo = photoFor[r.product.id];
++      const photo = publishedConf?.mediaKey
++        ? {
++            src: publishedConf.mediaKey,
++            width: photoFor[r.product.id]?.width || 1117,
++            height: photoFor[r.product.id]?.height || 541,
++            alt: photoFor[r.product.id]?.alt || r.product.name,
++            caption: photoFor[r.product.id]?.caption || 'Ảnh sản phẩm được phê duyệt.',
++          }
++        : photoFor[r.product.id];
+ 
+       return (
+         <li class="catalogue-card">
+@@ -94,6 +104,11 @@ const pendingNote: Record<string, string> = {
+             </Heading>
+ 
+             <p class="catalogue-desc">{r.product.description}</p>
++            {publishedConf?.narrative && (
++              <p class="catalogue-narrative-note" style="font-size: 0.85rem; color: var(--ink-2); margin-top: 4px; font-style: italic;">
++                {publishedConf.narrative}
++              </p>
++            )}
+ 
+             <div class="catalogue-price-box">
+               <div class="price-row">
+diff --git a/src/data/campaign.ts b/src/data/campaign.ts
+index 4e48ad1..41119c8 100644
+--- a/src/data/campaign.ts
++++ b/src/data/campaign.ts
+@@ -6,6 +6,55 @@
+ 
+ import initialReconciledDonations from './reconciled-donations.json' with { type: 'json' };
+ import { validateDonationProjection, sanitizeDonationEntry } from '../../tools/content-studio/csv-validator.mjs';
++import {
++  getPublishedProject,
++  getPublishedProgress,
++  getPublishedSessions,
++  getPublishedContacts,
++  getPublishedDonationAccount,
++  getPublishedTeamMembers,
++  getPublishedProductFaqs,
++  getPublishedSupportFaqs,
++  getPublishedTransparencyFaqs,
++  getPublishedProductConfig,
++  getPublishedFinanceLedger,
++  getPublishedFinanceOverview,
++  getPublishedProjectNeeds,
++  getPublishedTeamInfo,
++  getPublishedTeamPrinciples,
++  getPublishedTeamAreas,
++  getPublishedPlannedExpenses,
++} from './lib/snapshot-loader.ts';
++
++export function createDynamicProxy<T extends object>(getter: () => T, baseline: T): T {
++  return new Proxy(baseline, {
++    get(_target, prop, receiver) {
++      const current = getter();
++      const val = Reflect.get(current, prop, receiver);
++      return typeof val === 'function' ? val.bind(current) : val;
++    },
++    has(_target, prop) {
++      return Reflect.has(getter(), prop);
++    },
++    ownKeys(_target) {
++      return Reflect.ownKeys(getter());
++    },
++    getOwnPropertyDescriptor(_target, prop) {
++      const current = getter();
++      const desc = Reflect.getOwnPropertyDescriptor(current, prop);
++      if (!desc) {
++        return undefined;
++      }
++      const targetDesc = Reflect.getOwnPropertyDescriptor(_target, prop);
++      if (targetDesc && !targetDesc.configurable) {
++        desc.configurable = false;
++      } else {
++        desc.configurable = true;
++      }
++      return desc;
++    }
++  });
++}
+ 
+ export interface QuantitativeFact {
+   value: number | null;
+@@ -69,7 +118,7 @@ export interface SupportMethod {
+   statusText: string;
+ }
+ 
+-export const CAMPAIGN_PROJECT: Project = {
++export const BASELINE_PROJECT: Project = {
+   slug: 'mang-theo-mot-net-ve',
+   title: 'Mang Theo Một Nét Vẽ',
+   slogan: 'Một buổi chơi phù hợp, một món quà đúng nhu cầu.',
+@@ -137,7 +186,13 @@ export const CAMPAIGN_PROJECT: Project = {
+   ],
+ };
+ 
+-export const PRODUCTS: Product[] = [
++export function getCampaignProject(): Project {
++  return getPublishedProject(BASELINE_PROJECT);
++}
++
++export const CAMPAIGN_PROJECT: Project = createDynamicProxy(getCampaignProject, BASELINE_PROJECT);
++
++export const BASELINE_PRODUCTS: Product[] = [
+   {
+     id: 'chuon-chuon-tre-kem-de',
+     name: 'Chuồn chuồn tre 12 cm kèm đế',
+@@ -372,6 +427,29 @@ export const PRODUCTS: Product[] = [
+   },
+ ];
+ 
++export function getCampaignProducts(): Product[] {
++  return BASELINE_PRODUCTS.map((prod) => {
++    const conf = getPublishedProductConfig(prod.id);
++    if (!conf) return prod;
++    return {
++      ...prod,
++      name: conf.name !== undefined ? (conf.name !== null && String(conf.name).trim() ? String(conf.name).trim() : '') : prod.name,
++      description: conf.description !== undefined ? (conf.description !== null && String(conf.description).trim() ? String(conf.description).trim() : '') : prod.description,
++      originText: conf.originText !== undefined ? (conf.originText !== null && String(conf.originText).trim() ? String(conf.originText).trim() : '') : prod.originText,
++      saleStatus: conf.saleStatus ?? prod.saleStatus,
++      referencePrice: {
++        ...prod.referencePrice,
++        // Bảo tồn nguyên vẹn giá đề xuất cơ sở (proposal reference price); không ghi đè bằng officialPrice
++        publicApproval: conf.publicApproval ?? prod.referencePrice.publicApproval,
++      },
++      actualStock: conf.stockAvailable !== undefined ? conf.stockAvailable : prod.actualStock,
++      assetId: conf.mediaKey !== undefined ? conf.mediaKey : prod.assetId,
++    };
++  });
++}
++
++export const PRODUCTS: Product[] = createDynamicProxy(getCampaignProducts, BASELINE_PRODUCTS);
++
+ export const SUPPORT_METHODS: SupportMethod[] = [
+   {
+     id: 'vat-tu',
+@@ -393,7 +471,7 @@ export const SUPPORT_METHODS: SupportMethod[] = [
+   },
+ ];
+ 
+-export const TEAM_INFO = {
++export const BASELINE_TEAM_INFO = {
+   name: 'Lăng Kính',
+   description:
+     'Lăng Kính là nhóm gồm 7 sinh viên lớp AI2015, học phần SSG105 (Kỹ năng làm việc nhóm), Đại học FPT Hà Nội. Nhóm xây dựng dự án để kết nối một buổi vui chơi có lựa chọn với việc hỗ trợ hiện vật theo nhu cầu thực tế tại Mái ấm Thánh Tâm Xuy Xá.',
+@@ -402,6 +480,12 @@ export const TEAM_INFO = {
+   size: 7,
+ };
+ 
++export function getTeamInfo() {
++  return getPublishedTeamInfo(BASELINE_TEAM_INFO);
++}
++
++export const TEAM_INFO = createDynamicProxy(getTeamInfo, BASELINE_TEAM_INFO);
++
+ export interface FinanceOverview {
+   plannedExpenseTotal: number;
+   craftPlannedRevenue: number;
+@@ -423,7 +507,7 @@ export interface FinanceOverview {
+   craftProfitGap: number;
+ }
+ 
+-export const FINANCE_OVERVIEW: FinanceOverview = {
++export const BASELINE_FINANCE_OVERVIEW: FinanceOverview = {
+   plannedExpenseTotal: 5470000,
+   craftPlannedRevenue: 2200000,
+   foodPlannedRevenueAssumption: {
+@@ -453,6 +537,12 @@ export const FINANCE_OVERVIEW: FinanceOverview = {
+   craftProfitGap: 400000,
+ };
+ 
++export function getFinanceOverview(): FinanceOverview {
++  return getPublishedFinanceOverview(BASELINE_FINANCE_OVERVIEW);
++}
++
++export const FINANCE_OVERVIEW: FinanceOverview = createDynamicProxy(getFinanceOverview, BASELINE_FINANCE_OVERVIEW);
++
+ export interface TeamPrinciple {
+   title: string;
+   description: string;
+@@ -469,7 +559,7 @@ export interface ProductFaq {
+   answer: string;
+ }
+ 
+-export const TEAM_PRINCIPLES: TeamPrinciple[] = [
++export const BASELINE_TEAM_PRINCIPLES: TeamPrinciple[] = [
+   {
+     title: 'Các em được chọn',
+     description: 'Chơi, đổi hoạt động, ngồi xem hay nghỉ đều được tôn trọng; không giao chỉ tiêu hoàn thành sản phẩm cho các em.',
+@@ -492,8 +582,14 @@ export const TEAM_PRINCIPLES: TeamPrinciple[] = [
+   },
+ ];
+ 
++export function getTeamPrinciples(): TeamPrinciple[] {
++  return getPublishedTeamPrinciples(BASELINE_TEAM_PRINCIPLES);
++}
++
++export const TEAM_PRINCIPLES: TeamPrinciple[] = createDynamicProxy(getTeamPrinciples, BASELINE_TEAM_PRINCIPLES);
++
+ /** Năm mảng việc, gom từ bảng phân công 7 vai trò trong hồ sơ dự án. Không hiển thị tên khi chưa có đồng ý. */
+-export const TEAM_AREAS: TeamArea[] = [
++export const BASELINE_TEAM_AREAS: TeamArea[] = [
+   { title: 'Điều phối', members: 1, description: 'Lên lịch, theo dõi tiến độ và kết nối các mảng việc của nhóm.' },
+   { title: 'Tài chính', members: 1, description: 'Giữ sổ thu chi, hóa đơn, đối soát sau mỗi đợt bán và mua quà theo danh mục.' },
+   { title: 'Hậu cần và chương trình', members: 2, description: 'Chuẩn bị vật tư, đạo cụ, quầy quà lưu niệm và di chuyển cho buổi chơi.' },
+@@ -501,13 +597,19 @@ export const TEAM_AREAS: TeamArea[] = [
+   { title: 'Đối ngoại', members: 1, description: 'Làm việc với Mái ấm và các đơn vị hỗ trợ.' },
+ ];
+ 
++export function getTeamAreas(): TeamArea[] {
++  return getPublishedTeamAreas(BASELINE_TEAM_AREAS);
++}
++
++export const TEAM_AREAS: TeamArea[] = createDynamicProxy(getTeamAreas, BASELINE_TEAM_AREAS);
++
+ export interface ProjectNeed {
+   title: string;
+   description: string;
+ }
+ 
+ /** Ba nhu cầu chính nhóm xác định sau trao đổi với Mái ấm (trang 5). */
+-export const PROJECT_NEEDS: ProjectNeed[] = [
++export const BASELINE_PROJECT_NEEDS: ProjectNeed[] = [
+   {
+     title: 'Một buổi chơi linh hoạt',
+     description: 'Có thời gian nghỉ và nhiều cách tham gia, vì các em ở nhiều độ tuổi và mức hỗ trợ khác nhau.',
+@@ -522,6 +624,12 @@ export const PROJECT_NEEDS: ProjectNeed[] = [
+   },
+ ];
+ 
++export function getProjectNeeds(): ProjectNeed[] {
++  return getPublishedProjectNeeds(BASELINE_PROJECT_NEEDS);
++}
++
++export const PROJECT_NEEDS: ProjectNeed[] = createDynamicProxy(getProjectNeeds, BASELINE_PROJECT_NEEDS);
++
+ /** Thực hành an toàn chính (rút gọn từ kế hoạch và danh mục kiểm tra trước buổi chơi). */
+ export const SAFETY_PRACTICES: string[] = [
+   'Chuồn chuồn mài nhẵn, màu gốc nước, tượng không cạnh nhọn.',
+@@ -556,7 +664,7 @@ export const SUPPORT_RULES: string[] = [
+   'Thu chi, hóa đơn và biên bản bàn giao được công khai sau dự án.',
+ ];
+ 
+-export const PRODUCT_FAQS: ProductFaq[] = [
++export const BASELINE_PRODUCT_FAQS: ProductFaq[] = [
+   {
+     question: 'Giá trên trang có phải giá bán chính thức?',
+     answer: 'Chưa. Đây là giá tham khảo trong kế hoạch. Giá, mẫu và số lượng chính thức sẽ được công bố khi mở bán.',
+@@ -577,6 +685,12 @@ export const PRODUCT_FAQS: ProductFaq[] = [
+   },
+ ];
+ 
++export function getProductFaqs(): ProductFaq[] {
++  return getPublishedProductFaqs(BASELINE_PRODUCT_FAQS);
++}
++
++export const PRODUCT_FAQS: ProductFaq[] = createDynamicProxy(getProductFaqs, BASELINE_PRODUCT_FAQS);
++
+ export interface PlannedExpenseItem {
+   id: string;
+   category: string;
+@@ -587,7 +701,7 @@ export interface PlannedExpenseItem {
+   isEstimated: boolean;
+ }
+ 
+-export const PLANNED_EXPENSES: PlannedExpenseItem[] = [
++export const BASELINE_PLANNED_EXPENSES: PlannedExpenseItem[] = [
+   // Nhóm 1: Nguyên liệu gây quỹ — trang 29 (14 khoản, Tổng 2.480.000đ)
+   {
+     id: 'nem-tran-cong-chau',
+@@ -1003,6 +1117,12 @@ export const PLANNED_EXPENSES: PlannedExpenseItem[] = [
+   },
+ ];
+ 
++export function getPlannedExpenses(): PlannedExpenseItem[] {
++  return getPublishedPlannedExpenses(BASELINE_PLANNED_EXPENSES);
++}
++
++export const PLANNED_EXPENSES: PlannedExpenseItem[] = createDynamicProxy(getPlannedExpenses, BASELINE_PLANNED_EXPENSES);
++
+ export interface FinanceScenario {
+   id: string;
+   title: string;
+@@ -1181,7 +1301,7 @@ export interface OfficialContact {
+ }
+ 
+ /** Liên hệ do chủ dự án cung cấp trong tài liệu bổ sung C07 (09/10/2026). */
+-export const OFFICIAL_CONTACT: OfficialContact = {
++export const BASELINE_OFFICIAL_CONTACT: OfficialContact = {
+   status: 'confirmed',
+   people: [
+     { name: 'Nguyễn Chí Trung', role: 'Trưởng dự án', phone: '0984 441 726', phoneE164: '+84984441726' },
+@@ -1192,6 +1312,12 @@ export const OFFICIAL_CONTACT: OfficialContact = {
+   updatedAt: '2026-10-09',
+ };
+ 
++export function getOfficialContact(): OfficialContact {
++  return getPublishedContacts(BASELINE_OFFICIAL_CONTACT);
++}
++
++export const OFFICIAL_CONTACT: OfficialContact = createDynamicProxy(getOfficialContact, BASELINE_OFFICIAL_CONTACT);
++
+ export interface SupportWorkflowStep {
+   step: string;
+   title: string;
+@@ -1224,7 +1350,7 @@ export interface SupportFaq {
+   answer: string;
+ }
+ 
+-export const SUPPORT_FAQS: SupportFaq[] = [
++export const BASELINE_SUPPORT_FAQS: SupportFaq[] = [
+   {
+     question: 'Làm sao để tên tôi xuất hiện trong sao kê?',
+     answer:
+@@ -1251,12 +1377,18 @@ export const SUPPORT_FAQS: SupportFaq[] = [
+   },
+ ];
+ 
++export function getSupportFaqs(): SupportFaq[] {
++  return getPublishedSupportFaqs(BASELINE_SUPPORT_FAQS);
++}
++
++export const SUPPORT_FAQS: SupportFaq[] = createDynamicProxy(getSupportFaqs, BASELINE_SUPPORT_FAQS);
++
+ export interface TransparencyFaq {
+   question: string;
+   answer: string;
+ }
+ 
+-export const TRANSPARENCY_FAQS: TransparencyFaq[] = [
++export const BASELINE_TRANSPARENCY_FAQS: TransparencyFaq[] = [
+   {
+     question: 'Vì sao tổng ủng hộ đang ghi “Chưa cập nhật”?',
+     answer:
+@@ -1278,6 +1410,12 @@ export const TRANSPARENCY_FAQS: TransparencyFaq[] = [
+   },
+ ];
+ 
++export function getTransparencyFaqs(): TransparencyFaq[] {
++  return getPublishedTransparencyFaqs(BASELINE_TRANSPARENCY_FAQS);
++}
++
++export const TRANSPARENCY_FAQS: TransparencyFaq[] = createDynamicProxy(getTransparencyFaqs, BASELINE_TRANSPARENCY_FAQS);
++
+ 
+ /* ------------------------------------------------------------------
+  * Ủng hộ trực tuyến (C07 vòng 3).
+@@ -1301,7 +1439,7 @@ export interface DonationAccount {
+ }
+ 
+ /** Tài khoản do chủ dự án cung cấp trong tài liệu bổ sung C07 (09/10/2026); mục tiêu 3.000.000đ duyệt cùng ngày. */
+-export const DONATION_ACCOUNT: DonationAccount = {
++export const BASELINE_DONATION_ACCOUNT: DonationAccount = {
+   status: 'active',
+   bankName: 'Techcombank',
+   accountNumber: '19072950239011',
+@@ -1311,6 +1449,12 @@ export const DONATION_ACCOUNT: DonationAccount = {
+   goalAmount: 3000000,
+ };
+ 
++export function getDonationAccount(): DonationAccount {
++  return getPublishedDonationAccount(BASELINE_DONATION_ACCOUNT);
++}
++
++export const DONATION_ACCOUNT: DonationAccount = createDynamicProxy(getDonationAccount, BASELINE_DONATION_ACCOUNT);
++
+ export interface DonationEntry {
+   /** Ngày nhận theo sao kê ngân hàng, dạng YYYY-MM-DD */
+   date: string;
+@@ -1373,11 +1517,13 @@ function projectPublicDonationLedger(raw: unknown): DonationLedger {
+   };
+ }
+ 
+-/**
+- * Sổ ủng hộ. Tài liệu bổ sung chưa có sao kê, nên chưa có sổ đã đối soát.
+- * Sổ trống ở đây không chứng minh chưa nhận được tiền.
+- */
+-export const DONATION_LEDGER: DonationLedger = projectPublicDonationLedger(initialReconciledDonations);
++export const BASELINE_DONATION_LEDGER: DonationLedger = projectPublicDonationLedger(initialReconciledDonations);
++
++export function getDonationLedger(): DonationLedger {
++  return getPublishedFinanceLedger(BASELINE_DONATION_LEDGER);
++}
++
++export const DONATION_LEDGER: DonationLedger = createDynamicProxy(getDonationLedger, BASELINE_DONATION_LEDGER);
+ 
+ export interface ProjectProgress {
+   currentWeek: number;
+@@ -1388,13 +1534,19 @@ export interface ProjectProgress {
+   currentStageIndex: number;
+ }
+ 
+-export const PROJECT_PROGRESS: ProjectProgress = {
++export const BASELINE_PROJECT_PROGRESS: ProjectProgress = {
+   currentWeek: 1,
+   totalWeeks: 5,
+   updatedAt: '2026-10-09',
+   currentStageIndex: 0,
+ };
+ 
++export function getProjectProgress(): ProjectProgress {
++  return getPublishedProgress(BASELINE_PROJECT_PROGRESS);
++}
++
++export const PROJECT_PROGRESS: ProjectProgress = createDynamicProxy(getProjectProgress, BASELINE_PROJECT_PROGRESS);
++
+ export interface PlannedSession {
+   id: string;
+   title: string;
+@@ -1404,8 +1556,7 @@ export interface PlannedSession {
+   description: string;
+ }
+ 
+-/** Lịch hai buổi tại Mái ấm theo nhóm cung cấp (tài liệu bổ sung C07, mục 4). */
+-export const PLANNED_SESSIONS: PlannedSession[] = [
++export const BASELINE_PLANNED_SESSIONS: PlannedSession[] = [
+   {
+     id: 'buoi-choi',
+     title: 'Buổi chơi tại Mái ấm',
+@@ -1424,6 +1575,12 @@ export const PLANNED_SESSIONS: PlannedSession[] = [
+   },
+ ];
+ 
++export function getPlannedSessions(): PlannedSession[] {
++  return getPublishedSessions(BASELINE_PLANNED_SESSIONS);
++}
++
++export const PLANNED_SESSIONS: PlannedSession[] = createDynamicProxy(getPlannedSessions, BASELINE_PLANNED_SESSIONS);
++
+ export interface TeamMember {
+   name: string;
+   role: string;
+@@ -1431,8 +1588,7 @@ export interface TeamMember {
+   description: string;
+ }
+ 
+-/** Bảy thành viên và ảnh do chủ dự án cung cấp (tài liệu bổ sung C07, map theo từng đoạn). */
+-export const TEAM_MEMBERS: TeamMember[] = [
++export const BASELINE_TEAM_MEMBERS: TeamMember[] = [
+   { name: 'Nguyễn Chí Trung', role: 'Trưởng dự án', photo: '/images/thanh-vien/nguyen-chi-trung.webp', description: 'Lên lịch, theo dõi tiến độ và điều phối hoạt động của nhóm.' },
+   { name: 'Nguyễn Ngọc Khoa', role: 'Tài chính', photo: '/images/thanh-vien/nguyen-ngoc-khoa.webp', description: 'Giữ sổ ủng hộ, đối chiếu sao kê và mua quà theo danh mục.' },
+   { name: 'Nguyễn Như Huy', role: 'Hậu cần', photo: '/images/thanh-vien/nguyen-nhu-huy.webp', description: 'Chuẩn bị vật tư, đạo cụ và chương trình buổi chơi.' },
+@@ -1442,6 +1598,12 @@ export const TEAM_MEMBERS: TeamMember[] = [
+   { name: 'Nguyễn Anh Khoa', role: 'Hậu cần', photo: '/images/thanh-vien/nguyen-anh-khoa.webp', description: 'Chuẩn bị quà lưu niệm, quầy và di chuyển.' },
+ ];
+ 
++export function getTeamMembers(): TeamMember[] {
++  return getPublishedTeamMembers(BASELINE_TEAM_MEMBERS);
++}
++
++export const TEAM_MEMBERS: TeamMember[] = createDynamicProxy(getTeamMembers, BASELINE_TEAM_MEMBERS);
++
+ export interface ProcessStep {
+   title: string;
+   description: string;
+diff --git a/src/data/journal.ts b/src/data/journal.ts
+index ebc1e8c..cff5c3e 100644
+--- a/src/data/journal.ts
++++ b/src/data/journal.ts
+@@ -9,6 +9,7 @@
+ 
+ import rawEntries from './journal-entries.json' with { type: 'json' };
+ import { validateJournalEntriesList } from '../../tools/content-studio/journal-validator.mjs';
++import { getActiveSnapshot } from './lib/snapshot-loader.ts';
+ 
+ // Kiểm tra schema nghiêm ngặt tại read/build boundary
+ const _journalValidation = validateJournalEntriesList(rawEntries);
+@@ -61,25 +62,62 @@ export function getCategoryLabel(category: JournalCategory): string {
+   return match ? match.label : category;
+ }
+ 
++export function getAllJournalEntries(): JournalEntry[] {
++  const activeSnap = getActiveSnapshot();
++  if (activeSnap?.modules?.journal && Array.isArray(activeSnap.modules.journal)) {
++    return activeSnap.modules.journal as JournalEntry[];
++  }
++  return rawEntries as JournalEntry[];
++}
++
+ /**
+- * Danh sách toàn bộ các bài viết nhật ký trong hệ thống.
++ * Danh sách toàn bộ các bài viết nhật ký trong hệ thống (Proxy động theo request-context).
+  * Bao gồm cả published và draft (nội bộ).
+  */
+-export const JOURNAL_ENTRIES: JournalEntry[] = rawEntries as JournalEntry[];
++export const JOURNAL_ENTRIES: JournalEntry[] = new Proxy(rawEntries as JournalEntry[], {
++  get(_target, prop, receiver) {
++    const list = getAllJournalEntries();
++    const val = Reflect.get(list, prop, receiver);
++    return typeof val === 'function' ? val.bind(list) : val;
++  },
++  has(_target, prop) {
++    return Reflect.has(getAllJournalEntries(), prop);
++  },
++  ownKeys(_target) {
++    return Reflect.ownKeys(getAllJournalEntries());
++  },
++  getOwnPropertyDescriptor(_target, prop) {
++    const desc = Object.getOwnPropertyDescriptor(getAllJournalEntries(), prop);
++    if (!desc) {
++      return undefined;
++    }
++    const targetDesc = Reflect.getOwnPropertyDescriptor(_target, prop);
++    if (targetDesc && !targetDesc.configurable) {
++      desc.configurable = false;
++    } else {
++      desc.configurable = true;
++    }
++    return desc;
++  }
++});
+ 
+ /**
+  * Lấy danh sách các bài viết đã được duyệt công bố (published), sắp xếp mới nhất trước (newest-first).
+- * Các bài draft bị loại bỏ hoàn toàn, không xuất hiện trên giao diện công khai hay route tĩnh.
++ * Các bài draft bị loại bỏ hoàn toàn trên route công khai.
+  */
+-export function getPublishedJournalEntries(entries: JournalEntry[] = JOURNAL_ENTRIES): JournalEntry[] {
+-  return [...entries]
++export function getPublishedJournalEntries(entries?: JournalEntry[]): JournalEntry[] {
++  const list = entries || getAllJournalEntries();
++  return [...list]
+     .filter((entry) => entry.status === 'published')
+     .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
+ }
+ 
+ /**
+- * Lấy một bài viết đã công bố theo slug.
++ * Lấy một bài viết đã công bố theo slug (hoặc bài draft nếu đang trong phiên xem trước preview).
+  */
+ export function getJournalEntryBySlug(slug: string): JournalEntry | undefined {
+-  return JOURNAL_ENTRIES.find((entry) => entry.slug === slug && entry.status === 'published');
++  const list = getAllJournalEntries();
++  const activeSnap = getActiveSnapshot();
++  const isPreview = Boolean(activeSnap && (activeSnap as any).isPreview);
++  return list.find((entry) => entry.slug === slug && (isPreview || entry.status === 'published'));
+ }
+diff --git a/src/data/lib/snapshot-loader.ts b/src/data/lib/snapshot-loader.ts
+new file mode 100644
+index 0000000..4b7fc60
+--- /dev/null
++++ b/src/data/lib/snapshot-loader.ts
+@@ -0,0 +1,470 @@
++/**
++ * Bộ nạp Bản chụp Xuất bản (Publication Snapshot Loader) cho Astro (Task C17)
++ * Đọc dữ liệu từ bản chụp đã làm sạch và được duyệt (published-snapshot.json).
++ * Tuân thủ cấu trúc hợp đồng duy nhất: PublicationSnapshot { version, generatedAt, sha256, modules }.
++ * 
++ * Quy tắc:
++ * 1. Kiểm tra nghiêm ngặt tính toàn vẹn (Strict Schema & Hash Validation).
++ * 2. Nếu tệp snapshot có dữ liệu nhưng sai cấu trúc -> Ném lỗi ngay (fail-fast, không nuốt lỗi).
++ * 3. Nếu tệp snapshot vắng/rỗng ({}) -> Sử dụng dữ liệu cơ sở (baseline fallback).
++ * 4. Không dùng fallback ngầm để khôi phục giá trị rỗng/null do người dùng chủ ý xóa.
++ */
++
++// @ts-ignore: node:crypto có sẵn trong môi trường Node.js SSG
++import { createHash } from 'node:crypto';
++// @ts-ignore: node:async_hooks có sẵn trong Node.js / Cloudflare AsyncLocalStorage
++import { AsyncLocalStorage } from 'node:async_hooks';
++import rawSnapshot from '../published-snapshot.json' with { type: 'json' };
++
++const SNAPSHOT_STORAGE_SYMBOL = Symbol.for('__astro_published_snapshot_storage__');
++export const snapshotStorage: AsyncLocalStorage<LoadedSnapshot | null> =
++  ((globalThis as any)[SNAPSHOT_STORAGE_SYMBOL] ??= new AsyncLocalStorage<LoadedSnapshot | null>());
++
++export function runWithSnapshot<R>(snapshot: LoadedSnapshot | null, fn: () => R): R {
++  return snapshotStorage.run(snapshot, fn);
++}
++
++export interface SnapshotProjectModule {
++  slug?: string;
++  title?: string;
++  slogan?: string;
++  summary?: string;
++  location?: string;
++  executionStatus?: string;
++  statusNotice?: string;
++  previewNotice?: string;
++  activities?: any[];
++  plannedStages?: any[];
++  safetyPractices?: string[];
++  progress?: any;
++  plannedSessions?: any[];
++  contacts?: any;
++  needs?: any[];
++}
++
++export interface SnapshotModules {
++  project?: SnapshotProjectModule;
++  journal?: any[];
++  products?: Record<string, any>;
++  finance?: any;
++  team?: any;
++}
++
++export interface LoadedSnapshot {
++  version: string;
++  generatedAt: string;
++  sha256: string;
++  modules: SnapshotModules;
++}
++
++function isValidCalendarIsoDate(isoStr: string): boolean {
++  if (typeof isoStr !== 'string') return false;
++  const match = isoStr.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})/);
++  if (!match) return false;
++  const year = parseInt(match[1], 10);
++  const month = parseInt(match[2], 10);
++  const day = parseInt(match[3], 10);
++  const date = new Date(isoStr);
++  if (Number.isNaN(date.getTime())) return false;
++  if (date.getUTCFullYear() !== year || (date.getUTCMonth() + 1) !== month || date.getUTCDate() !== day) {
++    return false;
++  }
++  return true;
++}
++
++/**
++ * Nạp và kiểm định bản chụp xuất bản đã phê duyệt
++ */
++export function loadValidatedSnapshot(): LoadedSnapshot | null {
++  if (!rawSnapshot || typeof rawSnapshot !== 'object' || Object.keys(rawSnapshot).length === 0) {
++    return null; // Không có bản chụp -> dùng baseline
++  }
++
++  const snap = rawSnapshot as Record<string, any>;
++
++  // Kiểm thực nghiêm ngặt cấu trúc PublicationSnapshot
++  if (typeof snap.version !== 'string' || !snap.version.trim()) {
++    throw new Error('Malformed Published Snapshot: Trường "version" không hợp lệ.');
++  }
++
++  if (typeof snap.generatedAt !== 'string' || !isValidCalendarIsoDate(snap.generatedAt)) {
++    throw new Error('Malformed Published Snapshot: Trường "generatedAt" bắt buộc phải là chuỗi thời gian ISO hợp lệ.');
++  }
++
++  if (typeof snap.sha256 !== 'string' || !/^[a-f0-9]{64}$/i.test(snap.sha256)) {
++    throw new Error('Malformed Published Snapshot: Trường "sha256" bắt buộc là chuỗi băm hex 64 ký tự hợp lệ.');
++  }
++
++  if (!snap.modules || typeof snap.modules !== 'object' || Array.isArray(snap.modules)) {
++    throw new Error('Malformed Published Snapshot: Trường "modules" bắt buộc phải là một đối tượng phân hệ.');
++  }
++
++  // Xác thực sâu cấu trúc từng phân hệ (Deep Canonical Module Schema)
++  if (snap.modules.project !== undefined) {
++    const p = snap.modules.project;
++    if (typeof p !== 'object' || p === null || Array.isArray(p)) {
++      throw new Error('Malformed Published Snapshot: Phân hệ "project" không đúng định dạng đối tượng.');
++    }
++    const stringFields = ['slug', 'title', 'slogan', 'summary', 'location', 'executionStatus', 'statusNotice', 'previewNotice'];
++    for (const f of stringFields) {
++      if (p[f] !== undefined && typeof p[f] !== 'string') {
++        throw new Error(`Malformed Published Snapshot: Trường "project.${f}" phải là chuỗi ký tự.`);
++      }
++    }
++    const arrayFields = ['activities', 'plannedStages', 'safetyPractices', 'plannedSessions'];
++    for (const f of arrayFields) {
++      if (p[f] !== undefined && !Array.isArray(p[f])) {
++        throw new Error(`Malformed Published Snapshot: Trường "project.${f}" phải là một mảng.`);
++      }
++    }
++    if (p.progress !== undefined && (typeof p.progress !== 'object' || p.progress === null || Array.isArray(p.progress))) {
++      throw new Error('Malformed Published Snapshot: Trường "project.progress" phải là một đối tượng.');
++    }
++    if (p.contacts !== undefined && p.contacts !== null && (typeof p.contacts !== 'object' || Array.isArray(p.contacts))) {
++      throw new Error('Malformed Published Snapshot: Trường "project.contacts" phải là một đối tượng hoặc null.');
++    }
++  }
++  if (snap.modules.journal !== undefined && !Array.isArray(snap.modules.journal)) {
++    throw new Error('Malformed Published Snapshot: Phân hệ "journal" phải là một mảng bài viết.');
++  }
++  if (snap.modules.products !== undefined) {
++    if (typeof snap.modules.products !== 'object' || snap.modules.products === null || Array.isArray(snap.modules.products)) {
++      throw new Error('Malformed Published Snapshot: Phân hệ "products" không đúng định dạng đối tượng.');
++    }
++    for (const [prodId, prod] of Object.entries(snap.modules.products)) {
++      if (typeof prod !== 'object' || prod === null || Array.isArray(prod)) {
++        throw new Error(`Malformed Published Snapshot: Dữ liệu sản phẩm "${prodId}" không đúng định dạng đối tượng.`);
++      }
++      const p = prod as Record<string, any>;
++      if (p.name !== undefined && p.name !== null && typeof p.name !== 'string') {
++        throw new Error(`Malformed Published Snapshot: Trường "products.${prodId}.name" phải là chuỗi ký tự.`);
++      }
++      if (p.description !== undefined && p.description !== null && typeof p.description !== 'string') {
++        throw new Error(`Malformed Published Snapshot: Trường "products.${prodId}.description" phải là chuỗi ký tự.`);
++      }
++      if (p.originText !== undefined && p.originText !== null && typeof p.originText !== 'string') {
++        throw new Error(`Malformed Published Snapshot: Trường "products.${prodId}.originText" phải là chuỗi ký tự.`);
++      }
++      if (p.narrative !== undefined && p.narrative !== null && typeof p.narrative !== 'string') {
++        throw new Error(`Malformed Published Snapshot: Trường "products.${prodId}.narrative" phải là chuỗi ký tự.`);
++      }
++      if (p.mediaKey !== undefined && p.mediaKey !== null && typeof p.mediaKey !== 'string') {
++        throw new Error(`Malformed Published Snapshot: Trường "products.${prodId}.mediaKey" phải là chuỗi ký tự.`);
++      }
++    }
++  }
++  if (snap.modules.finance !== undefined && (typeof snap.modules.finance !== 'object' || snap.modules.finance === null || Array.isArray(snap.modules.finance))) {
++    throw new Error('Malformed Published Snapshot: Phân hệ "finance" không đúng định dạng đối tượng.');
++  }
++  if (snap.modules.team !== undefined && (typeof snap.modules.team !== 'object' || snap.modules.team === null || Array.isArray(snap.modules.team))) {
++    throw new Error('Malformed Published Snapshot: Phân hệ "team" không đúng định dạng đối tượng.');
++  }
++
++  // Tái tính toán và kiểm tra mã băm sha256 đối chiếu với JSON.stringify(modules)
++  const computedHash = createHash('sha256').update(JSON.stringify(snap.modules)).digest('hex');
++  if (snap.sha256.toLowerCase() !== computedHash.toLowerCase()) {
++    throw new Error(`Malformed Published Snapshot: Mã băm sha256 (${snap.sha256}) không khớp với nội dung phân hệ (${computedHash}).`);
++  }
++
++  return {
++    version: snap.version,
++    generatedAt: snap.generatedAt,
++    sha256: snap.sha256.toLowerCase(),
++    modules: snap.modules as SnapshotModules,
++  };
++}
++
++const activeSnapshot = loadValidatedSnapshot();
++
++/**
++ * Lấy đối tượng Snapshot đang hoạt động (theo request-context hoặc baseline tĩnh)
++ */
++export function getActiveSnapshot(): LoadedSnapshot | null {
++  const store = snapshotStorage.getStore();
++  if (store !== undefined) {
++    return store;
++  }
++  return activeSnapshot;
++}
++
++/**
++ * Áp dụng dữ liệu dự án từ bản chụp xuất bản lên đối tượng cơ sở (baseline)
++ * Bảo toàn ngữ nghĩa của các giá trị rỗng hoặc null do người dùng chủ ý thiết lập.
++ */
++export function getPublishedProject<T extends Record<string, any>>(baseline: T): T {
++  const snap = getActiveSnapshot();
++  if (!snap?.modules?.project) {
++    return baseline;
++  }
++
++  const p = snap.modules.project;
++  const result: any = { ...baseline };
++
++  if (p.title !== undefined) result.title = p.title;
++  if (p.slogan !== undefined) result.slogan = p.slogan;
++  if (p.summary !== undefined) result.summary = p.summary;
++  if (p.location !== undefined) result.location = p.location;
++  if (p.executionStatus !== undefined) result.executionStatus = p.executionStatus;
++  if (p.statusNotice !== undefined) result.statusNotice = p.statusNotice;
++  if (p.previewNotice !== undefined) result.previewNotice = p.previewNotice;
++  if (Array.isArray(p.activities)) result.activities = p.activities;
++  if (Array.isArray(p.plannedStages)) result.plannedStages = p.plannedStages;
++  if (Array.isArray(p.safetyPractices)) result.safetyPractices = p.safetyPractices;
++
++  return result as T;
++}
++
++/**
++ * Áp dụng tiến độ dự án từ bản chụp
++ */
++export function getPublishedProgress<T extends Record<string, any>>(baseline: T): T {
++  const snap = getActiveSnapshot();
++  if (!snap?.modules?.project?.progress) {
++    return baseline;
++  }
++  return { ...baseline, ...snap.modules.project.progress };
++}
++
++/**
++ * Áp dụng danh sách các buổi hoạt động từ bản chụp
++ */
++export function getPublishedSessions<T>(baseline: T[]): T[] {
++  const snap = getActiveSnapshot();
++  if (Array.isArray(snap?.modules?.project?.plannedSessions)) {
++    return snap.modules.project.plannedSessions as T[];
++  }
++  return baseline;
++}
++
++/**
++ * Áp dụng thông tin liên hệ chính thức từ bản chụp
++ */
++export function getPublishedContacts<T extends Record<string, any>>(baseline: T): T {
++  const snap = getActiveSnapshot();
++  if (!snap?.modules?.project) {
++    return baseline;
++  }
++  const snapContacts = snap.modules.project.contacts;
++  if (snapContacts === null) {
++    return {
++      ...baseline,
++      status: 'unconfirmed',
++      people: [],
++      fanpageUrl: null,
++    };
++  }
++  if (snapContacts !== undefined) {
++    return {
++      status: snapContacts.status ?? 'unconfirmed',
++      people: Array.isArray(snapContacts.people) ? snapContacts.people : [],
++      fanpageUrl: snapContacts.fanpageUrl ?? null,
++      sourceRef: snapContacts.sourceRef ?? 'studio:snapshot',
++      updatedAt: snapContacts.updatedAt ?? (snap.generatedAt ? snap.generatedAt.slice(0, 10) : '2026-10-12'),
++    } as unknown as T;
++  }
++  return baseline;
++}
++
++/**
++ * Áp dụng thông tin tài khoản quyên góp từ bản chụp
++ */
++export function getPublishedDonationAccount<T extends Record<string, any>>(baseline: T): T {
++  const snap = getActiveSnapshot();
++  if (!snap?.modules?.finance?.donationAccount) {
++    return baseline;
++  }
++  return { ...baseline, ...snap.modules.finance.donationAccount };
++}
++
++/**
++ * Áp dụng danh sách thành viên nhóm từ bản chụp
++ */
++export function getPublishedTeamMembers<T>(baseline: T[]): T[] {
++  const snap = getActiveSnapshot();
++  if (Array.isArray(snap?.modules?.team?.members)) {
++    return snap.modules.team.members as T[];
++  }
++  return baseline;
++}
++
++export function getPublishedProductFaqs<T>(baseline: T[]): T[] {
++  const snap = getActiveSnapshot();
++  if (Array.isArray(snap?.modules?.team?.productFaqs)) {
++    return snap.modules.team.productFaqs as T[];
++  }
++  return baseline;
++}
++
++export function getPublishedSupportFaqs<T>(baseline: T[]): T[] {
++  const snap = getActiveSnapshot();
++  if (Array.isArray(snap?.modules?.team?.supportFaqs)) {
++    return snap.modules.team.supportFaqs as T[];
++  }
++  return baseline;
++}
++
++export function getPublishedTransparencyFaqs<T>(baseline: T[]): T[] {
++  const snap = getActiveSnapshot();
++  if (Array.isArray(snap?.modules?.team?.transparencyFaqs)) {
++    return snap.modules.team.transparencyFaqs as T[];
++  }
++  return baseline;
++}
++
++/**
++ * Áp dụng danh sách câu hỏi thường gặp FAQ từ bản chụp
++ */
++export function getPublishedFaqs<T extends { productFaqs: any[]; supportFaqs: any[]; transparencyFaqs: any[] }>(baseline: T): T {
++  const snap = getActiveSnapshot();
++  const team = snap?.modules?.team;
++  if (!team) return baseline;
++
++  return {
++    ...baseline,
++    productFaqs: Array.isArray(team.productFaqs) ? team.productFaqs : baseline.productFaqs,
++    supportFaqs: Array.isArray(team.supportFaqs) ? team.supportFaqs : baseline.supportFaqs,
++    transparencyFaqs: Array.isArray(team.transparencyFaqs) ? team.transparencyFaqs : baseline.transparencyFaqs,
++  };
++}
++
++/**
++ * Lấy cấu hình mở bán sản phẩm đã xuất bản (bao gồm narrative và mediaKey)
++ */
++export function getPublishedProductConfig(productId: string): {
++  name?: string | null;
++  description?: string | null;
++  originText?: string | null;
++  saleStatus?: 'unconfirmed' | 'open' | 'closed';
++  officialPrice?: number | null;
++  stockAvailable?: number | null;
++  salesChannel?: string;
++  returnPolicy?: string | null;
++  publicApproval?: 'pending' | 'approved';
++  narrative?: string | null;
++  mediaKey?: string | null;
++} | null {
++  const snap = getActiveSnapshot();
++  if (!snap?.modules?.products) {
++    return null;
++  }
++  return (snap.modules.products as Record<string, any>)[productId] || null;
++}
++
++/**
++ * Áp dụng cấu hình sản phẩm từ bản chụp xuất bản lên danh mục baseline
++ */
++export function getPublishedProducts<T extends Record<string, any>>(baseline: T): T {
++  const snap = getActiveSnapshot();
++  if (!snap?.modules?.products) {
++    return baseline;
++  }
++  const snapProds = snap.modules.products as Record<string, any>;
++  const result: any = { ...baseline };
++  for (const [id, conf] of Object.entries(snapProds)) {
++    if (result[id]) {
++      result[id] = { ...result[id], ...conf };
++    } else {
++      result[id] = conf;
++    }
++  }
++  return result as T;
++}
++
++/**
++ * Áp dụng sổ thu chi quyên góp từ phân hệ tài chính của bản chụp
++ */
++export function getPublishedFinanceLedger<T extends { reconciled: boolean; reconciledAt: string | null; entries: any[] }>(baseline: T): T {
++  const snap = getActiveSnapshot();
++  const fin = snap?.modules?.finance;
++  if (!fin || !Array.isArray(fin.entries)) {
++    return baseline;
++  }
++  return {
++    ...baseline,
++    reconciled: Boolean(fin.reconciled),
++    reconciledAt: fin.reconciledAt || null,
++    entries: fin.entries,
++  };
++}
++
++/**
++ * Áp dụng tổng quan dự toán tài chính từ bản chụp
++ */
++export function getPublishedFinanceOverview<T extends Record<string, any>>(baseline: T): T {
++  const snap = getActiveSnapshot();
++  const fin = snap?.modules?.finance;
++  if (!fin || !fin.overview) {
++    return baseline;
++  }
++  return {
++    ...baseline,
++    ...fin.overview,
++  };
++}
++
++/**
++ * Áp dụng danh sách nhu cầu dự án từ bản chụp
++ */
++export function getPublishedProjectNeeds<T>(baseline: T[]): T[] {
++  const snap = getActiveSnapshot();
++  if (Array.isArray(snap?.modules?.project?.needs)) {
++    return snap.modules.project.needs as T[];
++  }
++  return baseline;
++}
++
++/**
++ * Áp dụng thông tin nhóm từ bản chụp
++ */
++export function getPublishedTeamInfo<T extends Record<string, any>>(baseline: T): T {
++  const snap = getActiveSnapshot();
++  if (!snap?.modules?.team?.info) {
++    return baseline;
++  }
++  return { ...baseline, ...snap.modules.team.info };
++}
++
++/**
++ * Áp dụng các nguyên tắc nhóm từ bản chụp
++ */
++export function getPublishedTeamPrinciples<T>(baseline: T[]): T[] {
++  const snap = getActiveSnapshot();
++  if (Array.isArray(snap?.modules?.team?.principles)) {
++    return snap.modules.team.principles as T[];
++  }
++  return baseline;
++}
++
++/**
++ * Áp dụng các mảng phân công nhóm từ bản chụp
++ */
++export function getPublishedTeamAreas<T>(baseline: T[]): T[] {
++  const snap = getActiveSnapshot();
++  if (Array.isArray(snap?.modules?.team?.areas)) {
++    return snap.modules.team.areas as T[];
++  }
++  return baseline;
++}
++
++/**
++ * Áp dụng danh mục dự toán chi từ bản chụp
++ */
++export function getPublishedPlannedExpenses<T>(baseline: T[]): T[] {
++  const snap = getActiveSnapshot();
++  if (Array.isArray(snap?.modules?.finance?.plannedExpenses)) {
++    return snap.modules.finance.plannedExpenses as T[];
++  }
++  return baseline;
++}
++
++/**
++ * Lấy cấu hình metadata SEO từ bản chụp
++ */
++export function getPublishedSiteMeta<T extends Record<string, any>>(baseline: T): T {
++  const snap = getActiveSnapshot();
++  if (!snap?.modules?.team?.siteMeta) {
++    return baseline;
++  }
++  return { ...baseline, ...snap.modules.team.siteMeta };
++}
++
+diff --git a/src/data/published-snapshot.json b/src/data/published-snapshot.json
+new file mode 100644
+index 0000000..0967ef4
+--- /dev/null
++++ b/src/data/published-snapshot.json
+@@ -0,0 +1 @@
++{}
+diff --git a/src/layouts/Layout.astro b/src/layouts/Layout.astro
+index 4e64cd1..454ea3f 100644
+--- a/src/layouts/Layout.astro
++++ b/src/layouts/Layout.astro
+@@ -3,20 +3,36 @@ import Header from '../components/Header.astro';
+ import Footer from '../components/Footer.astro';
+ import MobileDonationBar from '../components/MobileDonationBar.astro';
+ import '../styles/global.css';
++import { getPublishedSiteMeta } from '../data/lib/snapshot-loader';
+ 
+ interface Props {
+   title: string;
+   description?: string;
+   currentPath?: string;
++  seoRoute?: string;
+ }
+ 
+ const {
+-  title,
+-  description = 'Dự án “Mang Theo Một Nét Vẽ” của nhóm Lăng Kính (7 sinh viên lớp AI2015, học phần SSG105, Đại học FPT Hà Nội).',
++  title: propTitle,
++  description: propDescription,
+   currentPath = undefined,
++  seoRoute = undefined,
+ } = Astro.props;
+ 
+-const BRAND_PROJECT = 'Mang Theo Một Nét Vẽ';
++const siteMeta = getPublishedSiteMeta({
++  siteTitle: 'Mang Theo Một Nét Vẽ',
++  siteDescription: 'Dự án “Mang Theo Một Nét Vẽ” của nhóm Lăng Kính (7 sinh viên lớp AI2015, học phần SSG105, Đại học FPT Hà Nội).',
++  ogImage: '/images/illustrations/a01.webp',
++  routeSeo: {} as Record<string, { title?: string; description?: string }>,
++});
++
++const rawPath = seoRoute || Astro.url?.pathname || currentPath || '/';
++const normalizedRoute = rawPath !== '/' ? rawPath.replace(/\/+$/, '') : '/';
++const routeOverride = siteMeta.routeSeo ? (siteMeta.routeSeo[normalizedRoute] || (rawPath ? siteMeta.routeSeo[rawPath] : undefined)) : undefined;
++const title = routeOverride?.title || propTitle;
++const description = routeOverride?.description || propDescription || siteMeta.siteDescription;
++
++const BRAND_PROJECT = siteMeta.siteTitle || 'Mang Theo Một Nét Vẽ';
+ const BRAND_TEAM = 'Lăng Kính';
+ 
+ // Chuẩn hóa title: mỗi title riêng, tên dự án xuất hiện đúng một lần và tên nhóm hợp lý.
+diff --git a/src/lib/products.ts b/src/lib/products.ts
+index eb833ec..d92e08e 100644
+--- a/src/lib/products.ts
++++ b/src/lib/products.ts
+@@ -11,6 +11,7 @@ import { PRODUCTS, type Product } from '../data/campaign.ts';
+ import { formatVND } from './finance.ts';
+ import productSalesConfig from '../data/product-sales-config.json' with { type: 'json' };
+ import { validateProductSalesConfig } from '../../tools/content-studio/product-validator.mjs';
++import { getPublishedProductConfig } from '../data/lib/snapshot-loader.ts';
+ 
+ // Kiểm tra schema dữ liệu tại read/build boundary
+ const _configValidation = validateProductSalesConfig(productSalesConfig);
+@@ -45,13 +46,26 @@ export interface CraftProductDetail {
+     isReferenceOnly: boolean;
+   };
+   imagePendingNote?: string;
++  narrative?: string | null;
+ }
+ 
+ /**
+- * Lấy cấu hình mở bán chính thức của sản phẩm từ product-sales-config.json.
++ * Lấy cấu hình mở bán chính thức của sản phẩm từ product-sales-config.json và bản chụp xuất bản.
+  */
+-export function getProductSalesConfig(productId: string): ProductSalesConfigEntry | undefined {
+-  return (productSalesConfig as Record<string, ProductSalesConfigEntry>)[productId];
++export function getProductSalesConfig(productId: string): (ProductSalesConfigEntry & {
++  name?: string | null;
++  description?: string | null;
++  originText?: string | null;
++  narrative?: string | null;
++  mediaKey?: string | null;
++}) | undefined {
++  const baseline = (productSalesConfig as Record<string, ProductSalesConfigEntry>)[productId];
++  const published = getPublishedProductConfig(productId);
++  if (!published) return baseline;
++  return {
++    ...baseline,
++    ...published,
++  };
+ }
+ 
+ /**
+@@ -289,8 +303,45 @@ export function formatPurchaseInquiry(options: {
+ }
+ 
+ /**
+- * Tìm sản phẩm thủ công theo slug (hỗ trợ cả slug alias như chuon-chuon-tre).
++ * Tìm sản phẩm thủ công theo slug (hỗ trợ cả slug alias như chuon-chuon-tre) và hợp nhất dữ liệu từ snapshot xuất bản.
+  */
+ export function getCraftProductBySlug(slug: string): CraftProductDetail | undefined {
+-  return CRAFT_PRODUCT_DETAILS.find((item) => item.slug === slug || (item.aliases && item.aliases.includes(slug)));
++  const item = CRAFT_PRODUCT_DETAILS.find((detail) => detail.slug === slug || (detail.aliases && detail.aliases.includes(slug)));
++  if (!item) return undefined;
++
++  const published = getPublishedProductConfig(item.product.id);
++  if (!published) return item;
++
++  const liveProduct = PRODUCTS.find((p) => p.id === item.product.id) || item.product;
++  const cloned: CraftProductDetail = {
++    ...item,
++    product: liveProduct,
++  };
++
++  if (published.narrative !== undefined) {
++    cloned.narrative = published.narrative || null;
++  }
++
++  if (published.mediaKey !== undefined) {
++    if (published.mediaKey) {
++      cloned.image = {
++        src: published.mediaKey,
++        alt: item.image?.alt || `Ảnh sản phẩm ${liveProduct.name}`,
++        width: item.image?.width || 1117,
++        height: item.image?.height || 541,
++        caption: item.image?.caption || `Ảnh ${liveProduct.name} được phê duyệt từ Content Studio.`,
++        isReferenceOnly: item.image?.isReferenceOnly ?? false,
++      };
++    } else {
++      cloned.image = undefined;
++    }
++  }
++
++  if (published.originText !== undefined) {
++    if (published.originText) {
++      cloned.originDetails = published.originText;
++    }
++  }
++
++  return cloned;
+ }
+diff --git a/src/pages/_meta/snapshot-status.json.ts b/src/pages/_meta/snapshot-status.json.ts
+new file mode 100644
+index 0000000..8f8d490
+--- /dev/null
++++ b/src/pages/_meta/snapshot-status.json.ts
+@@ -0,0 +1,26 @@
++import type { APIRoute } from 'astro';
++import { loadValidatedSnapshot } from '../../data/lib/snapshot-loader';
++
++export const prerender = true;
++
++export const GET: APIRoute = async () => {
++  const snapshot = loadValidatedSnapshot();
++  const nodeEnv = (globalThis as any).process?.env ?? {};
++  const metaEnv = (import.meta as any).env ?? {};
++  const commitSha = nodeEnv.CF_PAGES_COMMIT_SHA || nodeEnv.GITHUB_SHA || metaEnv.CF_PAGES_COMMIT_SHA || metaEnv.GITHUB_SHA || null;
++
++  const payload = {
++    sha256: snapshot ? snapshot.sha256 : null,
++    commitSha: commitSha ? String(commitSha).trim() : null,
++    generatedAt: snapshot ? snapshot.generatedAt : null,
++    schemaVersion: snapshot ? snapshot.version : '1.0.0',
++  };
++
++  return new Response(JSON.stringify(payload, null, 2), {
++    status: 200,
++    headers: {
++      'Content-Type': 'application/json; charset=utf-8',
++      'Cache-Control': 'public, max-age=60',
++    },
++  });
++};
+diff --git a/src/pages/nhat-ky/[slug].astro b/src/pages/nhat-ky/[slug].astro
+index 6ebc380..ae80bf7 100644
+--- a/src/pages/nhat-ky/[slug].astro
++++ b/src/pages/nhat-ky/[slug].astro
+@@ -1,6 +1,6 @@
+ ---
+ import Layout from '../../layouts/Layout.astro';
+-import { getPublishedJournalEntries, type JournalEntry } from '../../data/journal';
++import { getPublishedJournalEntries, getJournalEntryBySlug, type JournalEntry } from '../../data/journal';
+ 
+ export function getStaticPaths() {
+   const publishedEntries = getPublishedJournalEntries();
+@@ -11,10 +11,14 @@ export function getStaticPaths() {
+ }
+ 
+ interface Props {
+-  entry: JournalEntry;
++  entry?: JournalEntry;
+ }
+ 
+-const { entry } = Astro.props;
++const entry = Astro.props.entry || (Astro.params.slug ? getJournalEntryBySlug(Astro.params.slug) : undefined);
++
++if (!entry) {
++  return Astro.redirect('/404');
++}
+ 
+ function formatDate(d: string): string {
+   const parts = d.split('-');
+diff --git a/src/pages/san-pham/[slug].astro b/src/pages/san-pham/[slug].astro
+index 9998d70..8d67b99 100644
+--- a/src/pages/san-pham/[slug].astro
++++ b/src/pages/san-pham/[slug].astro
+@@ -110,6 +110,13 @@ if (saleModel.saleStatus === 'closed') {
+           <h1 id="product-title" class="product-sheet-title">{product.name}</h1>
+           <p class="product-sheet-lead">{product.description}</p>
+ 
++          {detail.narrative && (
++            <div class="product-narrative-box">
++              <span class="narrative-tag">Ý nghĩa sản phẩm:</span>
++              <p class="narrative-content">{detail.narrative}</p>
++            </div>
++          )}
++
+           <div class="product-price-box">
+             <div class="price-main-row">
+               <span class="price-amount">{saleModel.priceText}</span>
+@@ -272,6 +279,13 @@ if (saleModel.saleStatus === 'closed') {
+             <dd>{detail.originDetails}</dd>
+           </div>
+ 
++          {detail.narrative && (
++            <div class="spec-item">
++              <dt>Ý nghĩa và câu chuyện</dt>
++              <dd>{detail.narrative}</dd>
++            </div>
++          )}
++
+           <div class="spec-item">
+             <dt>Địa điểm và kế hoạch nhận quà</dt>
+             <dd>{saleModel.salesChannel}</dd>
+@@ -522,6 +536,31 @@ if (saleModel.saleStatus === 'closed') {
+     text-wrap: balance;
+   }
+ 
++  .product-narrative-box {
++    background: var(--surface-alt);
++    border-left: 3px solid var(--brand);
++    border-radius: var(--radius-sm);
++    padding: var(--space-3) var(--space-4);
++    margin-top: var(--space-3);
++  }
++
++  .narrative-tag {
++    display: block;
++    font-size: var(--font-size-small);
++    font-weight: 700;
++    color: var(--brand);
++    margin-bottom: var(--space-1);
++    text-transform: uppercase;
++    letter-spacing: 0.05em;
++  }
++
++  .narrative-content {
++    font-size: var(--font-size-body);
++    line-height: 1.6;
++    color: var(--ink);
++    margin: 0;
++  }
++
+   /* Hộp hiển thị giá nổi bật */
+   .product-price-box {
+     background: var(--surface-alt);
+diff --git a/src/pages/ve-nhom.astro b/src/pages/ve-nhom.astro
+index 086a00a..f022305 100644
+--- a/src/pages/ve-nhom.astro
++++ b/src/pages/ve-nhom.astro
+@@ -2,7 +2,7 @@
+ import Layout from '../layouts/Layout.astro';
+ import PageHero from '../components/PageHero.astro';
+ import ContactCard from '../components/ContactCard.astro';
+-import { TEAM_PRINCIPLES, TEAM_MEMBERS } from '../data/campaign';
++import { TEAM_PRINCIPLES, TEAM_MEMBERS, TEAM_INFO } from '../data/campaign';
+ 
+ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Về nhóm' }];
+ ---
+@@ -16,10 +16,10 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Về nhóm'
+     variant="masthead"
+     breadcrumbs={breadcrumbs}
+     eyebrow="Về nhóm"
+-    title="Nhóm Lăng Kính"
++    title={TEAM_INFO.name ? `Nhóm ${TEAM_INFO.name}` : "Nhóm Lăng Kính"}
+     titleId="team-heading"
+     lead="Bảy sinh viên muốn mang đến một buổi chơi phù hợp và một món quà đúng nhu cầu."
+-    description="7 sinh viên lớp AI2015 · Đại học FPT Hà Nội · Nhóm tự chuẩn bị buổi chơi, làm quà lưu niệm gây quỹ, ghi sổ ủng hộ và công bố báo cáo kết quả."
++    description={TEAM_INFO.description || "7 sinh viên lớp AI2015 · Đại học FPT Hà Nội · Nhóm tự chuẩn bị buổi chơi, làm quà lưu niệm gây quỹ, ghi sổ ủng hộ và công bố báo cáo kết quả."}
+   />
+ 
+   <section class="section section-members" aria-labelledby="members-heading">

@@ -1,0 +1,83 @@
+{
+  "sha": "17cd429d9b2bdb81d7f1a849dc6e2f6001190b26",
+  "task": "C17-R2-F3-R1",
+  "timestamp": "2026-10-13T01:19:40.000Z",
+  "baseline": {
+    "reviewBaseline": "db51b9dfef6eece7f0655e05a30e7fc954845a70",
+    "originMainSha": "0848d1212ea8a2177e76f076a9171c519155dd8a",
+    "heroPreserved": true,
+    "techcombankQrPreserved": true,
+    "techcombankAccountPreserved": true
+  },
+  "qualityGates": {
+    "studioBuild": { "command": "npm run studio:build", "exitCode": 0, "status": "PASS" },
+    "studioTypecheck": { "command": "npm run studio:typecheck", "exitCode": 0, "status": "PASS" },
+    "astroCheck": { "command": "npm run check", "exitCode": 0, "filesChecked": 248, "errors": 0, "warnings": 0, "hints": 40, "status": "PASS" },
+    "rootTests": { "command": "npm test", "exitCode": 0, "total": 96, "passed": 96, "failed": 0, "status": "PASS" },
+    "studioTests": { "command": "npm run studio:test", "exitCode": 0, "total": 82, "passed": 82, "failed": 0, "suites": 4, "status": "PASS" },
+    "astroStaticBuild": { "command": "npm run build", "exitCode": 0, "status": "PASS", "routes": 13, "metaStatusPrerendered": true },
+    "astroPreviewBuild": { "command": "npx astro build --config astro.preview.config.mjs", "exitCode": 0, "status": "PASS" }
+  },
+  "findingsClosed": {
+    "finding1_verifier_requires_commit_sha": {
+      "status": "CLOSED",
+      "behavior": "verifyLiveDeployment requires both sha256 and commitSha to match expected; missing commitSha in either artifact or publication returns pending with honest text; mismatched commit returns mismatch",
+      "testCoverage": [
+        "Live Verifier: Xác thực thành công khi artifact khớp chính xác cả SHA-256 và commitSha",
+        "Live Verifier: Trả về pending khi artifact thiếu commitSha",
+        "Live Verifier: Trả về pending khi publication thiếu expectedCommitSha",
+        "Live Verifier: Phát hiện không khớp commitSha (mismatch commit)",
+        "Live Verifier: Phát hiện bản triển khai cũ (Stale) và không khớp mã băm (Mismatch Hash)",
+        "Live Verifier: Xử lý máy chủ không thể kết nối (Unreachable) và phản hồi sai lệch (Malformed JSON)",
+        "Live Verifier: Webhook Secret Authentication (Bảo vệ bí mật)"
+      ]
+    },
+    "finding2_status_artifact_producer": {
+      "status": "CLOSED",
+      "endpoint": "/_meta/snapshot-status.json",
+      "source": "src/pages/_meta/snapshot-status.json.ts",
+      "fields": ["sha256", "commitSha", "generatedAt", "schemaVersion"],
+      "noPrivateDataLeaks": true,
+      "testCoverage": "Status Artifact Producer: /_meta/snapshot-status.json trong bản build chứa đúng định dạng và không rò rỉ trường nhạy cảm"
+    },
+    "finding3_harden_bootstrap_production": {
+      "status": "CLOSED",
+      "tool": "tools/content-studio/bootstrap-production.mjs",
+      "emailValidation": "Strict regex rejecting quotes, whitespace, illegal characters, and injection attempts",
+      "sqlEscaping": "Comprehensive single-quote escaping",
+      "deterministicIds": "Deterministic revision ids and timestamps without Date.now",
+      "safeOutPath": "Defaults preview SQL to docs/evidence/C17/R2-F3-R1/worker/bootstrap-preview.sql; no repo tree pollution",
+      "isolatedDbVerification": "Verified on in-memory SQLite (5 drafts, 5 revisions, 22 media, only configured users, 0 synthetic data)",
+      "testCoverage": "Production Bootstrap: Validate email, SQL escaping, ID tất định và áp dụng sạch sẽ trên D1/SQLite"
+    },
+    "finding4_release_delta_tool": {
+      "status": "CLOSED",
+      "tool": "tools/content-studio/release-delta.mjs",
+      "mode": "read-only (no git push, no branch creation on remote)",
+      "baseSha": "0848d1212ea8a2177e76f076a9171c519155dd8a",
+      "matchingFilesCount": 12,
+      "matchingFiles": [
+        "src/components/Footer.astro",
+        "src/components/ProductGrid.astro",
+        "src/data/campaign.ts",
+        "src/data/journal.ts",
+        "src/data/lib/snapshot-loader.ts",
+        "src/data/published-snapshot.json",
+        "src/layouts/Layout.astro",
+        "src/lib/products.ts",
+        "src/pages/_meta/snapshot-status.json.ts",
+        "src/pages/nhat-ky/[slug].astro",
+        "src/pages/san-pham/[slug].astro",
+        "src/pages/ve-nhom.astro"
+      ],
+      "forbiddenPrefixesAsserted": ["apps/", "tools/", "docs/", "reports/", "tests/"],
+      "assetsPreserved": {
+        "heroImages": true,
+        "techcombankQr": true,
+        "accountNumber": "19072950239011"
+      },
+      "patchPreviewFile": "docs/evidence/C17/R2-F3-R1/worker/public-consumer-release.patch",
+      "testCoverage": "Release Delta: Chỉ đọc, lọc đúng 12 tệp consumer công khai, loại trừ nghiêm ngặt các tệp cấm và bảo toàn Hero & Techcombank 19072950239011"
+    }
+  }
+}
