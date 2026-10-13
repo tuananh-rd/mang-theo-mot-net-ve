@@ -83,7 +83,7 @@ export interface PublicationRecord {
   secondReviewer: string | null;
   publishedAt: string | null;
   gitRef: string | null;
-  deployStatus: 'unknown' | 'building' | 'success' | 'failed';
+  deployStatus: 'unknown' | 'pending' | 'building' | 'success' | 'failed' | 'mismatch' | 'stale';
   errorMessage?: string | null;
   idempotencyKey?: string | null;
   deploymentVerifiedAt?: string | null;
@@ -213,4 +213,6 @@ export interface Env {
   GITHUB_REPO?: string;
   GITHUB_BASE_BRANCH?: string;
   GITHUB_SIMULATE?: string;
+  DEPLOYMENT_WEBHOOK_SECRET?: string;
+  PRODUCTION_SITE_ORIGIN?: string;
 }

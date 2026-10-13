@@ -592,9 +592,10 @@ export class StudioDbClient {
   /** Cập nhật trạng thái triển khai / xuất bản thực tế */
   async updatePublicationDeployStatus(
     publicationId: string,
-    deployStatus: 'building' | 'success' | 'failed',
+    deployStatus: 'unknown' | 'pending' | 'building' | 'success' | 'failed' | 'mismatch' | 'stale',
     gitRef?: string,
-    errorMessage?: string
+    errorMessage?: string,
+    verifiedAtTimestamp?: string
   ): Promise<void> {
     const now = new Date().toISOString();
     let publishedAt: string | null = null;
@@ -602,10 +603,10 @@ export class StudioDbClient {
     let status = 'approved';
 
     if (deployStatus === 'success') {
-      publishedAt = now;
-      verifiedAt = now;
+      publishedAt = verifiedAtTimestamp || now;
+      verifiedAt = verifiedAtTimestamp || now;
       status = 'published';
-    } else if (deployStatus === 'failed') {
+    } else {
       status = 'approved';
     }
 

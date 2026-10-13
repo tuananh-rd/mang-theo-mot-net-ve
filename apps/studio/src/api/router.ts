@@ -12,6 +12,7 @@ import { sniffImageFormat, MAX_FILE_SIZE_BYTES, checkAssetUsageInDrafts, stripIm
 import { decodeAndSanitizeRaster } from '../storage/media-sanitizer.js';
 import { createPublicationSnapshot } from '../publish/adapter.js';
 import { triggerGitHubPublication } from '../publish/github.js';
+import { verifyLiveDeployment, verifyDeploymentWebhookSecret } from '../publish/verifier.js';
 import { validateDonationCSV } from '../../../../tools/content-studio/csv-validator.mjs';
 import { importApprovedRegistryIntoDb, APPROVED_MEDIA_REGISTRY } from '../storage/media-registry.js';
 
@@ -663,20 +664,129 @@ export async function handleApiRequest(
       return errorResponse(`Yêu cầu xuất bản chưa được phê duyệt (trạng thái: ${pub.status}). Chỉ có thể xuất bản lên GitHub khi đã được duyệt.`, 400);
     }
 
-    const gitResult = await triggerGitHubPublication(pub, env);
+    const body = (await request.json().catch(() => ({}))) as { options?: any };
+    const gitResult = await triggerGitHubPublication(pub, env, body.options);
     if (!gitResult.success) {
-      return errorResponse(`Lỗi tích hợp GitHub: ${gitResult.error || gitResult.message}`, gitResult.error === 'not_configured' ? 503 : 500, {
+      const statusCode = gitResult.errorCode === 'not_configured' ? 503 : gitResult.errorCode === 'conflicting_branch' ? 409 : 500;
+      return errorResponse(`Lỗi tích hợp GitHub: ${gitResult.error || gitResult.message}`, statusCode, {
         gitResult,
       });
     }
 
+    // Cập nhật git_ref trong D1
+    await dbClient.updatePublicationDeployStatus(pubId, 'building', gitResult.branchName);
+
     await dbClient.recordAuditLog(user.email, 'TRIGGER_GIT_PUBLISH', 'system', {
       pubId,
       branchName: gitResult.branchName,
+      commitSha: gitResult.commitSha,
+      prUrl: gitResult.prUrl,
       isSimulated: gitResult.isSimulated,
     });
 
     return jsonResponse({ success: true, gitResult });
+  }
+
+  // 15b. Xác thực Triển khai Live Thực tế: POST /api/publications/:id/verify-deploy
+  const verifyDeployMatch = path.match(/^\/api\/publications\/([^/]+)\/verify-deploy$/);
+  if (verifyDeployMatch && method === 'POST') {
+    validateCsrf(request);
+    assertCanPublish(user.role);
+
+    const pubId = verifyDeployMatch[1];
+    const pub = await dbClient.getPublication(pubId);
+    if (!pub) {
+      return errorResponse('Không tìm thấy yêu cầu xuất bản.', 404);
+    }
+
+    const body = (await request.json().catch(() => ({}))) as { options?: any };
+    const verifyResult = await verifyLiveDeployment(pub, env, body.options);
+
+    if (verifyResult.verified) {
+      await dbClient.updatePublicationDeployStatus(
+        pubId,
+        'success',
+        verifyResult.deployedCommitSha || pub.gitRef || undefined,
+        undefined,
+        verifyResult.verifiedAt
+      );
+      await dbClient.recordAuditLog(user.email, 'VERIFY_DEPLOYMENT_SUCCESS', 'publish', {
+        pubId,
+        deployedSha256: verifyResult.deployedSha256,
+        deployedCommitSha: verifyResult.deployedCommitSha,
+      });
+    } else {
+      await dbClient.updatePublicationDeployStatus(
+        pubId,
+        verifyResult.deployStatus as any,
+        undefined,
+        verifyResult.message
+      );
+      await dbClient.recordAuditLog(user.email, 'VERIFY_DEPLOYMENT_FAILED', 'publish', {
+        pubId,
+        deployStatus: verifyResult.deployStatus,
+        message: verifyResult.message,
+      });
+    }
+
+    return jsonResponse({ success: true, verifyResult });
+  }
+
+  // 15c. Webhook tiếp nhận thông báo triển khai từ máy chủ CI/CD: POST /api/publications/webhook/deployment
+  if (path === '/api/publications/webhook/deployment' && method === 'POST') {
+    const isWebhookAuthorized = verifyDeploymentWebhookSecret(request, env.DEPLOYMENT_WEBHOOK_SECRET);
+    if (!isWebhookAuthorized) {
+      return errorResponse('Truy cập bị từ chối: Webhook secret không hợp lệ hoặc thiếu cấu hình.', 401);
+    }
+
+    const body = (await request.json().catch(() => null)) as any;
+    if (!body || typeof body !== 'object' || !body.publicationId) {
+      return errorResponse('Dữ liệu webhook thiếu publicationId.', 400);
+    }
+
+    const pubId = String(body.publicationId);
+    const pub = await dbClient.getPublication(pubId);
+    if (!pub) {
+      return errorResponse(`Không tìm thấy yêu cầu xuất bản '${pubId}'.`, 404);
+    }
+
+    const webhookSha = String(body.snapshotSha256 || '').trim().toLowerCase();
+    const expectedSha = pub.snapshot.sha256.trim().toLowerCase();
+
+    if (webhookSha !== expectedSha) {
+      await dbClient.updatePublicationDeployStatus(
+        pubId,
+        'mismatch',
+        undefined,
+        `Mã băm trong webhook không khớp: '${webhookSha.slice(0, 8)}' !== '${expectedSha.slice(0, 8)}'.`
+      );
+      return errorResponse('Mã SHA-256 của bản chụp không khớp với yêu cầu xuất bản.', 400, {
+        expectedSha,
+        providedSha: webhookSha,
+      });
+    }
+
+    const now = new Date().toISOString();
+    await dbClient.updatePublicationDeployStatus(
+      pubId,
+      'success',
+      body.commitSha || pub.gitRef || undefined,
+      undefined,
+      now
+    );
+
+    await dbClient.recordAuditLog('webhook@deployment.system', 'WEBHOOK_DEPLOYMENT_VERIFIED', 'publish', {
+      pubId,
+      snapshotSha256: webhookSha,
+      commitSha: body.commitSha,
+    });
+
+    return jsonResponse({
+      success: true,
+      message: 'Ghi nhận triển khai thành công qua webhook.',
+      pubId,
+      verifiedAt: now,
+    });
   }
 
   // 16. Quản lý người dùng: GET /api/users

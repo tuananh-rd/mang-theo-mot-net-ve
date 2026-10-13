@@ -1,0 +1,46 @@
+# Cấu hình Triển khai Production cho Content Studio - Task C17-R2-F3
+# Tên miền chính thức: studio.mangtheomotnetve.website
+# Lưu ý: Cấu hình này tuân thủ nguyên tắc Fail-secure, không kích hoạt tài nguyên thực
+# cho đến khi hoàn tất bước kích hoạt trực tuyến (Milestone C17-Activation-Online).
+
+name = "mang-theo-mot-net-ve-studio-prod"
+main = "src/worker.ts"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+# Tên miền tùy chỉnh liên kết với Cloudflare Worker
+routes = [
+  { pattern = "studio.mangtheomotnetve.website/*", custom_domain = true }
+]
+
+# Cơ sở dữ liệu D1 Production chuyên dụng (Dedicated Production D1)
+# Bắt buộc tạo bằng lệnh: wrangler d1 create studio-d1-prod
+[[d1_databases]]
+binding = "DB"
+database_name = "studio-d1-prod"
+database_id = "00000000-0000-0000-0000-000000000000" # Placeholder: Cần thay bằng database_id thật sau khi tạo
+
+# Kho lưu trữ ảnh riêng tư R2 Production (Private Production R2 Bucket)
+# Bắt buộc tạo bằng lệnh: wrangler r2 bucket create studio-media-prod
+[[r2_buckets]]
+binding = "BUCKET"
+bucket_name = "studio-media-prod"
+
+# Biến môi trường công khai (Non-sensitive Environment Variables)
+[vars]
+STUDIO_ENVIRONMENT = "production"
+# CF_ACCESS_TEAM_DOMAIN và CF_ACCESS_AUD do Cloudflare Zero Trust cung cấp khi thiết lập ứng dụng Self-hosted
+CF_ACCESS_TEAM_DOMAIN = "example-team.cloudflareaccess.com" # Thay bằng team domain thực tế của dự án
+CF_ACCESS_AUD = "0000000000000000000000000000000000000000000000000000000000000000" # Thay bằng Application AUD
+GITHUB_OWNER = "tuananh-rd"
+GITHUB_REPO = "mang-theo-mot-net-ve"
+GITHUB_BASE_BRANCH = "main"
+PRODUCTION_SITE_ORIGIN = "https://mangtheomotnetve.website"
+
+# BÍ MẬT SERVER (Production Secrets - Phải nạp qua cơ chế bảo mật mà không echo mã bí mật):
+# 1. GITHUB_TOKEN:
+#    Lệnh nạp: wrangler secret put GITHUB_TOKEN --config wrangler.production.toml
+#    Quyền yêu cầu: Contents (Read & Write), Pull requests (Read & Write)
+# 2. DEPLOYMENT_WEBHOOK_SECRET:
+#    Lệnh nạp: wrangler secret put DEPLOYMENT_WEBHOOK_SECRET --config wrangler.production.toml
+#    Khóa bí mật xác thực webhook từ Cloudflare Pages hoặc GitHub Actions
