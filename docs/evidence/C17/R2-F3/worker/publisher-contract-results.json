@@ -1,0 +1,133 @@
+{
+  "sha": "e7e74b953aac73edfbae4e6da16d4b8b6e4e2bd3",
+  "task": "C17-R2-F3",
+  "timestamp": "2026-10-13T00:56:45.000Z",
+  "baseline": {
+    "sourceBranchHead": "40491cf54199fcb63bc0d9841f3e7b2693895e69",
+    "originMainCheckpoint": "0848d1212ea8a2177e76f076a9171c519155dd8a",
+    "preservedHeroAssets": true,
+    "preservedTechcombankQR": true
+  },
+  "qualityGates": {
+    "studioBuild": {
+      "command": "npm run studio:build",
+      "exitCode": 0,
+      "status": "PASS"
+    },
+    "studioTypecheck": {
+      "command": "npm run studio:typecheck",
+      "exitCode": 0,
+      "status": "PASS"
+    },
+    "astroCheck": {
+      "command": "npm run check",
+      "exitCode": 0,
+      "filesChecked": 246,
+      "errors": 0,
+      "warnings": 0,
+      "hints": 40,
+      "status": "PASS"
+    },
+    "rootTests": {
+      "command": "npm test",
+      "exitCode": 0,
+      "total": 96,
+      "passed": 96,
+      "failed": 0,
+      "status": "PASS"
+    },
+    "studioTests": {
+      "command": "npm run studio:test",
+      "exitCode": 0,
+      "total": 76,
+      "passed": 76,
+      "failed": 0,
+      "suites": 4,
+      "status": "PASS"
+    },
+    "astroPreviewBuild": {
+      "command": "npx astro build --config astro.preview.config.mjs",
+      "exitCode": 0,
+      "status": "PASS"
+    },
+    "astroStaticBuild": {
+      "command": "npm run build",
+      "exitCode": 0,
+      "routesGenerated": 13,
+      "status": "PASS"
+    }
+  },
+  "publisherContract": {
+    "testFile": "apps/studio/tests/publisher-contract.test.mjs",
+    "testsCount": 12,
+    "allPassed": true,
+    "scenarios": [
+      {
+        "name": "Publisher: Thiếu GITHUB_TOKEN trả về not_configured và không mô phỏng ngầm",
+        "verified": true,
+        "behavior": "Missing GITHUB_TOKEN returns { success: false, error: 'not_configured' } without faking"
+      },
+      {
+        "name": "Publisher: Thành công end-to-end với đầy đủ chu trình ref -> commit -> tree -> commit -> ref -> PR",
+        "verified": true,
+        "behavior": "7-stage pipeline (init -> base_ref -> base_commit -> blobs -> tree -> commit -> branch_ref -> pull_request) successfully creates branch and PR"
+      },
+      {
+        "name": "Publisher: Xóa bỏ token (Token Scrubbing) trong mọi phản hồi lỗi",
+        "verified": true,
+        "behavior": "Scrub token from URLs and headers in error messages (ghp_secretToken becomes [REDACTED_TOKEN])"
+      },
+      {
+        "name": "Publisher: Phát hiện phản hồi sai lệch (Malformed Response) tại từng bước",
+        "verified": true,
+        "behavior": "Malformed JSON, unexpected HTTP status codes, or missing fields fail-fast with error and stage information"
+      },
+      {
+        "name": "Publisher: Idempotent Retry tái sử dụng nhánh và Pull Request đã có",
+        "verified": true,
+        "behavior": "Reusing existing branch with matching commit SHA and existing open PR returns success without creating duplicates"
+      },
+      {
+        "name": "Publisher: Từ chối ghi đè khi nhánh đã có commit phân kỳ xung đột (Conflicting Branch)",
+        "verified": true,
+        "behavior": "Conflicting diverged branch returns HTTP 409 conflicting_branch and never force-pushes"
+      },
+      {
+        "name": "Live Verifier: Xác thực thành công khi artifact khớp chính xác SHA-256",
+        "verified": true,
+        "behavior": "Fetches /.well-known/publication-deployment.json from PRODUCTION_SITE_ORIGIN, verifies publicationHash and commitSha, updates status to success"
+      },
+      {
+        "name": "Live Verifier: Phát hiện bản triển khai cũ (Stale) và không khớp (Mismatch)",
+        "verified": true,
+        "behavior": "Detects stale build/deploy times or hash mismatch and sets deployStatus to stale or mismatch without accepting caller booleans"
+      },
+      {
+        "name": "Live Verifier: Webhook Secret Authentication (Bảo vệ bí mật)",
+        "verified": true,
+        "behavior": "Timing-safe verification of X-Deployment-Webhook-Secret rejects missing, empty, or wrong secrets"
+      },
+      {
+        "name": "Snapshot Exporter: Thẩm định sâu, từ chối bài draft và ghi tệp an toàn",
+        "verified": true,
+        "behavior": "Deep schema validation prevents draft articles or unreconciled finance from being exported, writes atomically to isolated destination"
+      },
+      {
+        "name": "Production Config: wrangler.production.toml cấu hình chuẩn và fail-secure",
+        "verified": true,
+        "behavior": "Production wrangler configuration binds studio-d1-prod, studio-media-prod, fail-secure Access domain/AUD placeholders, and zero dev bypasses"
+      },
+      {
+        "name": "Production Bootstrap: generateProductionBootstrapSql sinh đúng kịch bản schema, RBAC, 5 phân hệ và 22 media",
+        "verified": true,
+        "behavior": "Generates 22 approved canonical media records, baseline settings, users, and D1 tables without copying local dev test data"
+      }
+    ]
+  },
+  "workerSecurity": {
+    "nodeModulesInBundle": 0,
+    "hasTestSecretsInProductionToml": false,
+    "devBypassInProduction": false,
+    "publicDataUnintendedChanges": false
+  }
+}
