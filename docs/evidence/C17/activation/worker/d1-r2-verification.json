@@ -1,0 +1,161 @@
+{
+  "timestamp": "2026-10-13T01:46:52.550Z",
+  "methodology": {
+    "d1": "Queried live remote D1 database 'studio-d1-prod' (5f365054-31fc-4b99-a7cd-69fe2494e8d9) via Cloudflare REST API endpoint 'POST /accounts/ce11030376680d55523c6636de073814/d1/database/5f365054-31fc-4b99-a7cd-69fe2494e8d9/query'",
+    "r2": "Queried live remote R2 bucket 'studio-media-prod' via Cloudflare REST API endpoint 'GET /accounts/ce11030376680d55523c6636de073814/r2/buckets/studio-media-prod/objects?per_page=100'"
+  },
+  "d1": {
+    "databaseName": "studio-d1-prod",
+    "databaseId": "5f365054-31fc-4b99-a7cd-69fe2494e8d9",
+    "tables": [
+      "_cf_KV",
+      "audit_logs",
+      "drafts",
+      "media_assets",
+      "publications",
+      "revisions",
+      "users"
+    ],
+    "counts": {
+      "drafts": 5,
+      "revisions": 5,
+      "media_assets": 22,
+      "users": 2,
+      "audit_logs": 0,
+      "publications": 0
+    },
+    "users": [
+      {
+        "id": "usr-admin-69aea02c",
+        "role": "admin",
+        "email": "<redacted:admin>",
+        "createdAt": "2026-10-13T01:35:34.574Z",
+        "updatedAt": "2026-10-13T01:35:34.574Z"
+      },
+      {
+        "id": "usr-rev-5b872bda",
+        "role": "reviewer",
+        "email": "<redacted:reviewer>",
+        "createdAt": "2026-10-13T01:35:34.574Z",
+        "updatedAt": "2026-10-13T01:35:34.574Z"
+      }
+    ],
+    "verified": true
+  },
+  "r2": {
+    "bucketName": "studio-media-prod",
+    "objectCount": 22,
+    "objects": [
+      {
+        "key": "media/images/apple-touch-icon.png",
+        "size": 6141,
+        "etag": "542e079fe1e4dce484c0a8eb3179f0c5"
+      },
+      {
+        "key": "media/images/favicon-32x32.png",
+        "size": 1263,
+        "etag": "e296cf22316e2a4a2ccb4eac9aa5e4d7"
+      },
+      {
+        "key": "media/images/hero/chuon-chuon-go-xanh-900.webp",
+        "size": 34006,
+        "etag": "6089ce5914923173ebca4970c0651efc"
+      },
+      {
+        "key": "media/images/hero/chuon-chuon-go-xanh.webp",
+        "size": 74728,
+        "etag": "5dc0e25b22d7eb2e0f391145724f166b"
+      },
+      {
+        "key": "media/images/illustrations/a01.webp",
+        "size": 100518,
+        "etag": "da5e462cce2c91e6f60dc2e50009495b"
+      },
+      {
+        "key": "media/images/illustrations/a02.webp",
+        "size": 30248,
+        "etag": "5b1d7319e586de43ecac2d8c1bf16559"
+      },
+      {
+        "key": "media/images/illustrations/a03.webp",
+        "size": 89352,
+        "etag": "c01e4bd63024e54c5d186d5942733fb0"
+      },
+      {
+        "key": "media/images/illustrations/a04.webp",
+        "size": 67214,
+        "etag": "b2d7717298c34f095c041eb8b5fc5888"
+      },
+      {
+        "key": "media/images/illustrations/a05.webp",
+        "size": 101026,
+        "etag": "a539d130a9cffeb3860ab35eb98835de"
+      },
+      {
+        "key": "media/images/logo_lang_kinh_2048.png",
+        "size": 78915,
+        "etag": "466e38b98e9b6dc4015b1e605b9d7826"
+      },
+      {
+        "key": "media/images/logo_option5_horizontal.png",
+        "size": 37399,
+        "etag": "1a9dce3d6dcdce51b9202e5918ed5569"
+      },
+      {
+        "key": "media/images/mai-am/mai-am-1.webp",
+        "size": 39476,
+        "etag": "8f213b51b2c23756f34543370ab7708a"
+      },
+      {
+        "key": "media/images/mai-am/mai-am-2.webp",
+        "size": 38894,
+        "etag": "a2d987ca56e831f8e50a5a9e5cd0d1dc"
+      },
+      {
+        "key": "media/images/san-pham/chuon-chuon-tre.webp",
+        "size": 124230,
+        "etag": "b271a336f8a8146f212b558dd60cf0c4"
+      },
+      {
+        "key": "media/images/thanh-vien/le-tuan-anh.webp",
+        "size": 61620,
+        "etag": "1a88c1ffb23158681e6ab3e39def11ae"
+      },
+      {
+        "key": "media/images/thanh-vien/nguyen-anh-khoa.webp",
+        "size": 18546,
+        "etag": "1b09eceb28e040d9bb988cc6fa75ae95"
+      },
+      {
+        "key": "media/images/thanh-vien/nguyen-chi-trung.webp",
+        "size": 22586,
+        "etag": "89e01880ba006f97828b491a3e227231"
+      },
+      {
+        "key": "media/images/thanh-vien/nguyen-ngoc-khoa.webp",
+        "size": 17854,
+        "etag": "bbb0ee44c94218f67711f2bdb092a1dc"
+      },
+      {
+        "key": "media/images/thanh-vien/nguyen-nhu-huy.webp",
+        "size": 38856,
+        "etag": "169bf1acf4f1e4be3fb55e1d6d798032"
+      },
+      {
+        "key": "media/images/thanh-vien/tran-binh-trong.webp",
+        "size": 101100,
+        "etag": "68ff2a18a443a04d6111af62db99bea4"
+      },
+      {
+        "key": "media/images/thanh-vien/trinh-hien-lan.webp",
+        "size": 39822,
+        "etag": "0fecbf6064cf3a098deb9cb9de8362c6"
+      },
+      {
+        "key": "media/images/ung-ho/qr-ung-ho-techcombank.png",
+        "size": 174683,
+        "etag": "84d6fd94d8ac3027097374c57f08d326"
+      }
+    ]
+  }
+}

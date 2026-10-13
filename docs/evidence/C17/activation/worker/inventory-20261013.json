@@ -1,0 +1,48 @@
+{
+  "checkedAt": "2026-10-13T01:33:59.290Z",
+  "accountId": "ce11030376680d55523c6636de073814",
+  "zone": {
+    "found": true,
+    "id": "5465be90f8c8232f598e38017c49165a",
+    "name": "mangtheomotnetve.website",
+    "status": "active"
+  },
+  "accessApps": {
+    "status": 200,
+    "count": 0,
+    "apps": []
+  },
+  "r2Buckets": {
+    "status": 200,
+    "count": 0,
+    "buckets": []
+  },
+  "d1Databases": {
+    "status": 200,
+    "count": 0,
+    "databases": []
+  },
+  "workers": {
+    "status": 200,
+    "count": 0,
+    "scripts": []
+  },
+  "pagesProjects": {
+    "status": 200,
+    "count": 1,
+    "projects": [
+      {
+        "name": "mang-theo-mot-net-ve",
+        "domains": [
+          "mang-theo-mot-net-ve.pages.dev",
+          "mangtheomotnetve.website"
+        ]
+      }
+    ]
+  },
+  "dnsRecords": {
+    "status": 403,
+    "count": 0,
+    "records": []
+  }
+}

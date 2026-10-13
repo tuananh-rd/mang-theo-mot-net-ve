@@ -10,7 +10,7 @@ compatibility_flags = ["nodejs_compat"]
 
 # Tên miền tùy chỉnh liên kết với Cloudflare Worker
 routes = [
-  { pattern = "studio.mangtheomotnetve.website/*", custom_domain = true }
+  { pattern = "studio.mangtheomotnetve.website", custom_domain = true }
 ]
 
 # Cơ sở dữ liệu D1 Production chuyên dụng (Dedicated Production D1)
@@ -18,7 +18,7 @@ routes = [
 [[d1_databases]]
 binding = "DB"
 database_name = "studio-d1-prod"
-database_id = "00000000-0000-0000-0000-000000000000" # Placeholder: Cần thay bằng database_id thật sau khi tạo
+database_id = "5f365054-31fc-4b99-a7cd-69fe2494e8d9"
 
 # Kho lưu trữ ảnh riêng tư R2 Production (Private Production R2 Bucket)
 # Bắt buộc tạo bằng lệnh: wrangler r2 bucket create studio-media-prod

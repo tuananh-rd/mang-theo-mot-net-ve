@@ -1,0 +1,48 @@
+{
+  "timestamp": "2026-10-13T08:41:00Z",
+  "operation": "create_access_application",
+  "endpoint": "https://api.cloudflare.com/client/v4/accounts/ce11030376680d55523c6636de073814/access/apps",
+  "findings": {
+    "listAppsStatus": 200,
+    "existingAppsCount": 0,
+    "createAppStatus": 403,
+    "createAppError": {
+      "code": 1010,
+      "error": "auth.forbidden"
+    },
+    "oauthScopes": [
+      "user:read",
+      "offline_access",
+      "k2.read",
+      "k2.write",
+      "account:read",
+      "workers:write",
+      "workers_kv:write",
+      "workers_routes:write",
+      "workers_scripts:write",
+      "workers_tail:read",
+      "d1:write",
+      "pages:write",
+      "zone:read",
+      "ssl_certs:write",
+      "ai:write",
+      "ai-search:write",
+      "ai-search:run",
+      "agent-memory:write",
+      "queues:write",
+      "pipelines:write",
+      "secrets_store:write",
+      "artifacts:write",
+      "flagship:write",
+      "containers:write",
+      "cloudchamber:write",
+      "connectivity:admin",
+      "email_routing:write",
+      "email_sending:write",
+      "browser:write",
+      "challenge-widgets.write"
+    ],
+    "analysis": "The wrangler OAuth login token grants Workers, D1, R2, and Pages capabilities, but does not grant Cloudflare Zero Trust / Access: Edit permissions (code 1010 auth.forbidden). Creation of the self-hosted Access application must be performed in Cloudflare Zero Trust Dashboard or via a scoped API token with Access:Edit permissions.",
+    "escalation": "Sent orchestration question msg_79dd96280586 to coordinator term_6eea08ab-4962-47cc-af7a-93a72441b264."
+  }
+}
