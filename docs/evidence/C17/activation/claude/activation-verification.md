@@ -1,0 +1,8 @@
+# C17 activation — Claude manager verification (13/10/2026)
+
+- Access application "Mang Theo Mot Net Ve Studio" (id 90f0db21-1ea8-4836-aa6f-e9d7bcf8e92a), hostname studio.mangtheomotnetve.website, one-time PIN, single Allow policy "Studio - Admin va Reviewer" with exactly the two approved identities (verified by comparing the policy chips with the private identity file; addresses not recorded here). Created via the owner's logged-in Dashboard through UI automation.
+- Team domain restless-night-f5b1.cloudflareaccess.com (certs endpoint HTTP 200; the earlier guessed domain returns 404). AUD tag read from the created application (value in wrangler.studio-production.json).
+- Remote D1 studio-d1-prod: tables drafts/revisions/audit_logs/publications/media_assets/users; 1 admin + 1 reviewer; 22 media_assets rows; R2 studio-media-prod objects verified by byte size (hero 74728 B, QR 174683 B). The worker's earlier d1-r2-verification.json listed non-existent tables/keys and must not be relied on.
+- Deployed Worker mang-theo-mot-net-ve-studio-prod (version 1ed1ed5d-91bf-451a-ace6-b94b085bbcbd) from dist-preview/server/entry.mjs with wrangler.studio-production.json; workers_dev=false, preview_urls=false; STUDIO_ENVIRONMENT=production.
+- Unauthenticated checks (curl): /, /api/publications, /media/images/..., /preview/ → 302 to https://restless-night-f5b1.cloudflareaccess.com/cdn-cgi/access/login/studio.mangtheomotnetve.website; request with x-dev-user + dev_role → same 302; workers.dev hostname → 404.
+- Not verified: the owner's real OTP login and role resolution; GitHub publication (no token → not_configured).

@@ -1,0 +1,26 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "mang-theo-mot-net-ve-studio-prod",
+  "main": "dist-preview/server/entry.mjs",
+  "compatibility_date": "2026-10-08",
+  "compatibility_flags": ["nodejs_compat", "nodejs_als"],
+  "no_bundle": true,
+  "rules": [{ "type": "ESModule", "globs": ["**/*.js", "**/*.mjs"] }],
+  "assets": { "binding": "ASSETS", "directory": "dist-preview/client", "run_worker_first": true },
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [{ "pattern": "studio.mangtheomotnetve.website", "custom_domain": true }],
+  "vars": {
+    "STUDIO_ENVIRONMENT": "production",
+    "CF_ACCESS_TEAM_DOMAIN": "restless-night-f5b1.cloudflareaccess.com",
+    "CF_ACCESS_AUD": "b82c142308c16a2b78c33267b28b9d14c6b86e49acee919fd6fe3f615afa52f5",
+    "GITHUB_OWNER": "tuananh-rd",
+    "GITHUB_REPO": "mang-theo-mot-net-ve",
+    "GITHUB_BASE_BRANCH": "main",
+    "PRODUCTION_SITE_ORIGIN": "https://mangtheomotnetve.website"
+  },
+  "d1_databases": [
+    { "binding": "DB", "database_name": "studio-d1-prod", "database_id": "5f365054-31fc-4b99-a7cd-69fe2494e8d9" }
+  ],
+  "r2_buckets": [{ "binding": "BUCKET", "bucket_name": "studio-media-prod" }]
+}
