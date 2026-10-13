@@ -153,8 +153,32 @@ export async function verifyLiveDeployment(
       };
     }
 
-    // 3. Kiểm tra Commit SHA nếu có chỉ định kỳ vọng
-    if (expectedCommitSha && deployedCommitSha && expectedCommitSha.trim() !== deployedCommitSha.trim()) {
+    // 3. Yêu cầu bắt buộc commitSha: thành công chỉ khi cả sha256 VÀ commitSha đều hiện diện và khớp
+    if (!deployedCommitSha) {
+      return {
+        verified: false,
+        deployStatus: 'pending',
+        deployedSha256,
+        deployedCommitSha: undefined,
+        expectedSha256,
+        expectedCommitSha,
+        message: 'Artifact kiểm chứng chưa có thông tin commitSha của bản build. Trạng thái triển khai giữ nguyên là pending.',
+      };
+    }
+
+    if (!expectedCommitSha) {
+      return {
+        verified: false,
+        deployStatus: 'pending',
+        deployedSha256,
+        deployedCommitSha,
+        expectedSha256,
+        expectedCommitSha: undefined,
+        message: 'Bản ghi xuất bản chưa có commitSha kỳ vọng để đối soát. Trạng thái triển khai giữ nguyên là pending.',
+      };
+    }
+
+    if (expectedCommitSha.trim().toLowerCase() !== deployedCommitSha.trim().toLowerCase()) {
       return {
         verified: false,
         deployStatus: 'mismatch',
@@ -162,11 +186,11 @@ export async function verifyLiveDeployment(
         deployedCommitSha,
         expectedSha256,
         expectedCommitSha,
-        message: `Commit SHA triển khai không khớp: '${deployedCommitSha}' !== '${expectedCommitSha}'.`,
+        message: `Commit SHA triển khai không khớp (mismatch commit): '${deployedCommitSha}' !== '${expectedCommitSha}'.`,
       };
     }
 
-    // Xác thực thành công hoàn toàn
+    // Xác thực thành công hoàn toàn: cả sha256 và commitSha đều khớp chính xác
     const now = new Date().toISOString();
     return {
       verified: true,
@@ -175,7 +199,7 @@ export async function verifyLiveDeployment(
       deployedCommitSha,
       expectedSha256,
       expectedCommitSha,
-      message: 'Xác thực triển khai Live thành công: Mã băm và artifact khớp chính xác.',
+      message: 'Xác thực triển khai Live thành công: Cả mã băm sha256 và commitSha đều khớp chính xác.',
       verifiedAt: now,
     };
   } catch (err: any) {

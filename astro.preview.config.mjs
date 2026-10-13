@@ -10,4 +10,17 @@ export default defineConfig({
   }),
   session: false,
   trailingSlash: 'never',
+  integrations: [
+    {
+      name: 'snapshot-status-endpoint',
+      hooks: {
+        'astro:config:setup': ({ injectRoute }) => {
+          injectRoute({
+            pattern: '/_meta/snapshot-status.json',
+            entrypoint: './src/pages/_meta/snapshot-status.json.ts',
+          });
+        },
+      },
+    },
+  ],
 });

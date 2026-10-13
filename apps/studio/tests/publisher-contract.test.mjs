@@ -240,46 +240,124 @@ test('Publisher: Từ chối ghi đè khi nhánh đã có commit phân kỳ xung
   assert.ok(res.error?.includes('xung đột lịch sử'));
 });
 
-test('Live Verifier: Xác thực thành công khi artifact khớp chính xác SHA-256', { timeout: 10000 }, async () => {
+test('Live Verifier: Xác thực thành công khi artifact khớp chính xác cả SHA-256 và commitSha', { timeout: 10000 }, async () => {
   const env = { PRODUCTION_SITE_ORIGIN: 'https://mangtheomotnetve.website' };
+  const mockPub = { ...MOCK_PUBLICATION, gitRef: 'commit_target_123' };
   const mockFetch = async () => {
     return new Response(JSON.stringify({
-      sha256: MOCK_PUBLICATION.snapshot.sha256,
-      commitSha: 'commit_123',
+      sha256: mockPub.snapshot.sha256,
+      commitSha: 'commit_target_123',
       generatedAt: '2026-10-13T06:05:00.000Z',
     }), { status: 200 });
   };
 
-  const res = await verifyLiveDeployment(MOCK_PUBLICATION, env, { fetchFn: mockFetch });
+  const res = await verifyLiveDeployment(mockPub, env, { fetchFn: mockFetch });
   assert.equal(res.verified, true);
   assert.equal(res.deployStatus, 'success');
+  assert.equal(res.deployedCommitSha, 'commit_target_123');
   assert.ok(res.verifiedAt);
 });
 
-test('Live Verifier: Phát hiện bản triển khai cũ (Stale) và không khớp (Mismatch)', { timeout: 10000 }, async () => {
+test('Live Verifier: Trả về pending khi artifact thiếu commitSha', { timeout: 10000 }, async () => {
   const env = { PRODUCTION_SITE_ORIGIN: 'https://mangtheomotnetve.website' };
+  const mockPub = { ...MOCK_PUBLICATION, gitRef: 'commit_target_123' };
+  const mockFetch = async () => {
+    return new Response(JSON.stringify({
+      sha256: mockPub.snapshot.sha256,
+      // thiếu commitSha
+      generatedAt: '2026-10-13T06:05:00.000Z',
+    }), { status: 200 });
+  };
+
+  const res = await verifyLiveDeployment(mockPub, env, { fetchFn: mockFetch });
+  assert.equal(res.verified, false);
+  assert.equal(res.deployStatus, 'pending');
+  assert.ok(res.message.includes('chưa có thông tin commitSha'));
+});
+
+test('Live Verifier: Trả về pending khi publication thiếu expectedCommitSha', { timeout: 10000 }, async () => {
+  const env = { PRODUCTION_SITE_ORIGIN: 'https://mangtheomotnetve.website' };
+  const mockPub = { ...MOCK_PUBLICATION, gitRef: null };
+  const mockFetch = async () => {
+    return new Response(JSON.stringify({
+      sha256: mockPub.snapshot.sha256,
+      commitSha: 'commit_live_123',
+      generatedAt: '2026-10-13T06:05:00.000Z',
+    }), { status: 200 });
+  };
+
+  const res = await verifyLiveDeployment(mockPub, env, { fetchFn: mockFetch });
+  assert.equal(res.verified, false);
+  assert.equal(res.deployStatus, 'pending');
+  assert.ok(res.message.includes('chưa có commitSha kỳ vọng'));
+});
+
+test('Live Verifier: Phát hiện không khớp commitSha (mismatch commit)', { timeout: 10000 }, async () => {
+  const env = { PRODUCTION_SITE_ORIGIN: 'https://mangtheomotnetve.website' };
+  const mockPub = { ...MOCK_PUBLICATION, gitRef: 'commit_expected_111' };
+  const mockFetch = async () => {
+    return new Response(JSON.stringify({
+      sha256: mockPub.snapshot.sha256,
+      commitSha: 'commit_different_222',
+      generatedAt: '2026-10-13T06:05:00.000Z',
+    }), { status: 200 });
+  };
+
+  const res = await verifyLiveDeployment(mockPub, env, { fetchFn: mockFetch });
+  assert.equal(res.verified, false);
+  assert.equal(res.deployStatus, 'mismatch');
+  assert.ok(res.message.includes('mismatch commit'));
+});
+
+test('Live Verifier: Phát hiện bản triển khai cũ (Stale) và không khớp mã băm (Mismatch Hash)', { timeout: 10000 }, async () => {
+  const env = { PRODUCTION_SITE_ORIGIN: 'https://mangtheomotnetve.website' };
+  const mockPub = { ...MOCK_PUBLICATION, gitRef: 'commit_123' };
 
   // 1. Bản cũ (Stale)
   const staleFetch = async () => {
     return new Response(JSON.stringify({
       sha256: 'old_sha_0000000000000000000000000000000000000000000000000000000000000000',
+      commitSha: 'commit_123',
       generatedAt: '2026-10-10T00:00:00.000Z', // Cũ hơn generatedAt của MOCK_PUBLICATION (2026-10-13)
     }), { status: 200 });
   };
-  const resStale = await verifyLiveDeployment(MOCK_PUBLICATION, env, { fetchFn: staleFetch });
+  const resStale = await verifyLiveDeployment(mockPub, env, { fetchFn: staleFetch });
   assert.equal(resStale.verified, false);
   assert.equal(resStale.deployStatus, 'stale');
 
-  // 2. Không khớp (Mismatch)
+  // 2. Không khớp mã băm (Mismatch Hash)
   const mismatchFetch = async () => {
     return new Response(JSON.stringify({
       sha256: 'other_sha_1111111111111111111111111111111111111111111111111111111111111111',
+      commitSha: 'commit_123',
       generatedAt: '2026-10-14T00:00:00.000Z', // Mới hơn nhưng khác hash
     }), { status: 200 });
   };
-  const resMismatch = await verifyLiveDeployment(MOCK_PUBLICATION, env, { fetchFn: mismatchFetch });
+  const resMismatch = await verifyLiveDeployment(mockPub, env, { fetchFn: mismatchFetch });
   assert.equal(resMismatch.verified, false);
   assert.equal(resMismatch.deployStatus, 'mismatch');
+});
+
+test('Live Verifier: Xử lý máy chủ không thể kết nối (Unreachable) và phản hồi sai lệch (Malformed JSON)', { timeout: 10000 }, async () => {
+  const env = { PRODUCTION_SITE_ORIGIN: 'https://mangtheomotnetve.website' };
+  const mockPub = { ...MOCK_PUBLICATION, gitRef: 'commit_123' };
+
+  // 1. Máy chủ trả về lỗi HTTP 503
+  const unreachableFetch = async () => {
+    return new Response('Service Unavailable', { status: 503, statusText: 'Service Unavailable' });
+  };
+  const resUnreachable = await verifyLiveDeployment(mockPub, env, { fetchFn: unreachableFetch });
+  assert.equal(resUnreachable.verified, false);
+  assert.equal(resUnreachable.deployStatus, 'unreachable');
+
+  // 2. Phản hồi không phải JSON
+  const malformedFetch = async () => {
+    return new Response('NOT_A_JSON_STRING', { status: 200 });
+  };
+  const resMalformed = await verifyLiveDeployment(mockPub, env, { fetchFn: malformedFetch });
+  assert.equal(resMalformed.verified, false);
+  assert.equal(resMalformed.deployStatus, 'failed');
+  assert.ok(resMalformed.message.includes('JSON'));
 });
 
 test('Live Verifier: Webhook Secret Authentication (Bảo vệ bí mật)', { timeout: 10000 }, async () => {
@@ -362,24 +440,96 @@ test('Production Config: wrangler.production.toml cấu hình chuẩn và fail-s
   assert.ok(content.includes('CF_ACCESS_AUD'), 'Phải khai báo biến Cloudflare Access Application AUD');
 });
 
-test('Production Bootstrap: generateProductionBootstrapSql sinh đúng kịch bản schema, RBAC, 5 phân hệ và 22 media', { timeout: 10000 }, async () => {
-  const { generateProductionBootstrapSql } = await import('../../../tools/content-studio/bootstrap-production.mjs');
-  const res = await generateProductionBootstrapSql({
+test('Production Bootstrap: Validate email, SQL escaping, ID tất định và áp dụng sạch sẽ trên D1/SQLite', { timeout: 10000 }, async () => {
+  const { generateProductionBootstrapSql, validateEmail } = await import('../../../tools/content-studio/bootstrap-production.mjs');
+  const { DatabaseSync } = await import('node:sqlite');
+
+  // 1. Kiểm tra xác thực email nghiêm ngặt
+  assert.equal(validateEmail('admin@mangtheomotnetve.website'), 'admin@mangtheomotnetve.website');
+  assert.throws(() => validateEmail("admin'--@test.com"), /illegal characters/);
+  assert.throws(() => validateEmail('admin @test.com'), /illegal characters/);
+  assert.throws(() => validateEmail('not-an-email'), /not a valid email/);
+
+  // 2. Kiểm tra tính tất định (Deterministic Output)
+  const res1 = await generateProductionBootstrapSql({
     adminEmail: 'admin@mangtheomotnetve.website',
     reviewerEmail: 'reviewer@mangtheomotnetve.website',
+    timestamp: '2026-10-13T00:00:00.000Z',
   });
+  const res2 = await generateProductionBootstrapSql({
+    adminEmail: 'admin@mangtheomotnetve.website',
+    reviewerEmail: 'reviewer@mangtheomotnetve.website',
+    timestamp: '2026-10-13T00:00:00.000Z',
+  });
+  assert.equal(res1.sql, res2.sql, 'Kịch bản SQL giữa 2 lần chạy phải giống hệt nhau byte-for-byte');
 
-  assert.equal(res.adminConfigured, true);
-  assert.equal(res.reviewerConfigured, true);
-  assert.equal(res.modulesInitialized, 5);
-  assert.equal(res.mediaAssetsInitialized, 22);
+  // 3. Khẳng định số lượng phân hệ và media
+  assert.equal(res1.modulesInitialized, 5);
+  assert.equal(res1.mediaAssetsInitialized, 22);
+  assert.equal(res1.adminConfigured, true);
+  assert.equal(res1.reviewerConfigured, true);
 
-  assert.ok(res.sql.includes('CREATE TABLE IF NOT EXISTS users'));
-  assert.ok(res.sql.includes('CREATE TABLE IF NOT EXISTS publications'));
-  assert.ok(res.sql.includes('INSERT OR IGNORE INTO users'));
-  assert.ok(res.sql.includes('admin@mangtheomotnetve.website'));
-  assert.ok(res.sql.includes('reviewer@mangtheomotnetve.website'));
-  assert.ok(res.sql.includes('INSERT OR IGNORE INTO drafts'));
-  assert.ok(res.sql.includes('INSERT OR IGNORE INTO media_assets'));
+  // 4. Thực thi trực tiếp trên cơ sở dữ liệu SQLite cô lập
+  const db = new DatabaseSync(':memory:');
+  db.exec(res1.sql);
+
+  const draftsCount = db.prepare('SELECT count(*) as c FROM drafts').get();
+  assert.equal(draftsCount.c, 5, 'Phải tạo đúng 5 bản nháp cho 5 phân hệ');
+
+  const revisionsCount = db.prepare('SELECT count(*) as c FROM revisions').get();
+  assert.equal(revisionsCount.c, 5, 'Phải tạo đúng 5 revision ban đầu');
+
+  const mediaCount = db.prepare('SELECT count(*) as c FROM media_assets').get();
+  assert.equal(mediaCount.c, 22, 'Phải nạp đúng 22 tài sản media chuẩn tắc');
+
+  const usersCount = db.prepare('SELECT count(*) as c FROM users').get();
+  assert.equal(usersCount.c, 2, 'Chỉ chứa đúng 2 người dùng được cấu hình (admin và reviewer), không có người dùng giả lập');
+
+  db.close();
 });
+
+test('Status Artifact Producer: /_meta/snapshot-status.json trong bản build chứa đúng định dạng và không rò rỉ trường nhạy cảm', { timeout: 10000 }, async () => {
+  const artifactPath = path.resolve(process.cwd(), 'dist/_meta/snapshot-status.json');
+  assert.ok(fs.existsSync(artifactPath), 'dist/_meta/snapshot-status.json phải được tạo ra sau build');
+
+  const content = JSON.parse(fs.readFileSync(artifactPath, 'utf-8'));
+  assert.ok('sha256' in content, 'Phải chứa trường sha256');
+  assert.ok('commitSha' in content, 'Phải chứa trường commitSha');
+  assert.ok('generatedAt' in content, 'Phải chứa trường generatedAt');
+  assert.ok('schemaVersion' in content, 'Phải chứa trường schemaVersion');
+
+  // Khẳng định không rò rỉ bất kỳ dữ liệu nhạy cảm nào
+  const rawText = fs.readFileSync(artifactPath, 'utf-8');
+  assert.equal(rawText.includes('modules'), false, 'Không được chứa trường modules');
+  assert.equal(rawText.includes('users'), false, 'Không được chứa thông tin người dùng');
+  assert.equal(rawText.includes('token'), false, 'Không được chứa secret/token');
+  assert.equal(rawText.includes('reconciled'), false, 'Không được chứa dữ liệu tài chính nội bộ');
+});
+
+test('Release Delta: Chỉ đọc, lọc đúng 12 tệp consumer công khai, loại trừ nghiêm ngặt các tệp cấm và bảo toàn Hero & Techcombank 19072950239011', { timeout: 10000 }, async () => {
+  const { analyzeReleaseDelta, PUBLIC_CONSUMER_ALLOWLIST, FORBIDDEN_PREFIXES } = await import('../../../tools/content-studio/release-delta.mjs');
+  const tempPatch = path.resolve(process.cwd(), `docs/evidence/C17/R2-F3-R1/worker/test-release-${Date.now()}.patch`);
+
+  try {
+    const res = await analyzeReleaseDelta({ outPath: tempPatch });
+    assert.equal(res.matchingFiles.length, 12, 'Phải khớp đúng 12 tệp consumer công khai');
+    assert.equal(res.heroPreserved, true, 'Hero assets phải được bảo toàn');
+    assert.equal(res.techcombankPreserved, true, 'Tài khoản Techcombank 19072950239011 phải được bảo toàn');
+    assert.ok(fs.existsSync(tempPatch), 'Tệp patch xem trước phải được tạo');
+    assert.ok(res.patchSizeBytes > 0, 'Kích thước patch phải lớn hơn 0');
+
+    // Khẳng định không có tệp nào trong matchingFiles vi phạm allowlist hoặc tiền tố cấm
+    for (const f of res.matchingFiles) {
+      assert.ok(PUBLIC_CONSUMER_ALLOWLIST.includes(f), `Tệp ${f} phải nằm trong allowlist`);
+      for (const forbidden of FORBIDDEN_PREFIXES) {
+        assert.ok(!f.startsWith(forbidden), `Tệp ${f} không được bắt đầu bằng ${forbidden}`);
+      }
+    }
+  } finally {
+    if (fs.existsSync(tempPatch)) {
+      fs.unlinkSync(tempPatch);
+    }
+  }
+});
+
 
