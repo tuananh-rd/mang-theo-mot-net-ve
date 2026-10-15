@@ -1,5 +1,6 @@
 /**
  * Hợp đồng dữ liệu và nội dung bản xem trước (C06 - Final PDF)
+ * Cập nhật nguồn sang đề xuất V3 40 trang ngày 15/10/2026 (docs/source-intake/V3-40-trang-delta-20261015.md).
  * Tuân thủ docs/task-specs/C06.md, docs/final-pdf-intake.md và docs/evidence/C06/source-calculations.json.
  * Lưu ý: Số liệu thực tế chưa có để null, không gán 0 hoặc số kế hoạch làm thành tích.
  */
@@ -77,34 +78,38 @@ export const CAMPAIGN_PROJECT: Project = {
     'Bảy sinh viên Đại học FPT Hà Nội sẽ tổ chức một buổi vui chơi sáng tạo cho các em tại Mái ấm Thánh Tâm Xuy Xá, và gây quỹ để tặng những vật phẩm Mái ấm đang cần.',
   location: 'Mái ấm Thánh Tâm Xuy Xá (Mỹ Đức, Hà Nội) & Campus FPT Hòa Lạc',
   executionStatus: 'in_progress',
-  statusNotice: 'Đang triển khai · tuần 1',
-  previewNotice: 'Bản xem trước — nội dung theo đề xuất Final, chờ xác nhận.',
+  statusNotice: 'Đang triển khai · tuần 2',
+  previewNotice: 'Bản xem trước — nội dung theo đề xuất V3 (tháng 10/2026), chờ xác nhận.',
   activities: [
     {
       id: 'chuon-chuon-tre',
-      title: 'Chuồn chuồn tre và vẽ tranh',
-      description: 'Trang trí những cánh chuồn chuồn tre thăng bằng và vẽ tranh tự do với màu sắc theo sở thích.',
+      title: 'Trang trí chuồn chuồn tre',
+      description:
+        'Phiên sáng tạo 1 (khoảng 50 phút): các em chọn màu, thêm họa tiết hoặc tô cùng sinh viên; người hỗ trợ giữ phôi khi cần. Em muốn tiếp tục vẫn được làm tiếp ở phiên sau.',
       badge: 'Góc tạo hình',
-      note: 'Người tham gia có quyền lựa chọn vẽ tranh, trang trí, quan sát hoặc nghỉ ngơi.',
+      note: 'Mỗi em được chọn trang trí, quan sát, đổi hoạt động hoặc nghỉ; sản phẩm của các em được để khô và giữ lại Mái ấm.',
     },
     {
       id: 'to-tuong',
-      title: 'Tô tượng sắc màu',
-      description: 'Thỏa sức phối màu trên các mẫu tượng thạch cao đa dạng hình dáng và kích cỡ (10 cm).',
+      title: 'Tô tượng và giấy ước mơ',
+      description:
+        'Phiên sáng tạo 2 (khoảng 50 phút): tô tượng 10 cm trên khay chắc, tô từng vùng cùng sinh viên; có thêm hoạt động giấy ước mơ.',
       badge: 'Góc tô màu',
-      note: 'Hoạt động vui chơi trải nghiệm tại chỗ, không gắn với sản phẩm gây quỹ.',
+      note: 'Hoạt động vui chơi tại chỗ, không đặt chỉ tiêu hoàn thành và không gắn với hàng gây quỹ.',
     },
     {
       id: 'hat-cung-nhau',
-      title: 'Hát cùng nhau',
-      description: 'Không gian văn nghệ kết nối, cùng hòa giọng trong những giai điệu thiếu nhi gần gũi.',
+      title: 'Hát, trò chuyện và chia sẻ',
+      description:
+        'Hát các bài quen theo gợi ý của Mái ấm và trò chuyện; em nào muốn có thể giới thiệu sản phẩm của mình, hai cụ cùng hát hoặc trò chuyện.',
       badge: 'Góc âm nhạc',
       note: 'Tạo không khí ấm áp, vui tươi và không áp lực biểu diễn.',
     },
     {
       id: 'tro-choi-nhe',
       title: 'Trò chơi tương tác nhẹ',
-      description: 'Các trò chơi tương tác vừa sức: bowling mini, chuyền bóng nhẹ nhàng và thẻ màu ghép hình.',
+      description:
+        'Bowling bóng mềm rồi chuyền bóng theo nhạc, lượt ngắn và có thể chơi khi ngồi; khi nhạc dừng, em cầm bóng có thể chọn một cử chỉ vui hoặc bỏ lượt. Có trò "Gương vui" nhẹ ở giờ nghỉ.',
       badge: 'Góc vận động',
       note: 'Mỗi em nhỏ tự quyết định mức độ tham gia phù hợp thể trạng.',
     },
@@ -120,19 +125,19 @@ export const CAMPAIGN_PROJECT: Project = {
       step: '02',
       title: 'Gây quỹ',
       description:
-        'Tiếp nhận ủng hộ qua chuyển khoản và dự kiến bán quà lưu niệm. Hai nguồn được ghi riêng; khoản ủng hộ được công bố sau đối soát.',
+        'Tiếp nhận ủng hộ qua chuyển khoản và dự kiến bán quà lưu niệm; dự kiến mở đặt trước từ tuần 6 và bán chính ở tuần 7–8. Hai nguồn được ghi riêng; khoản ủng hộ được công bố sau đối soát.',
     },
     {
       step: '03',
       title: 'Buổi chơi tại Mái ấm',
       description:
-        '14:00 Thứ Bảy 24/10/2026 (dự kiến). Bốn góc hoạt động, có hai lần nghỉ; có thể rút ngắn theo ý Mái ấm.',
+        '14:00 Thứ Bảy 31/10/2026 (dự kiến). Khoảng 180 phút, bốn hoạt động và hai lần nghỉ chung; có thể rút ngắn theo ý Mái ấm.',
     },
     {
       step: '04',
       title: 'Đối soát và trao quà',
       description:
-        '14:00 Thứ Bảy 31/10/2026 (dự kiến). Chốt quỹ, mua vật phẩm theo danh mục Mái ấm xác nhận và trao tặng.',
+        '14:00 Thứ Bảy 07/11/2026 (dự kiến). Chốt quỹ, mua vật phẩm theo danh mục Mái ấm xác nhận, gặp lại các em và trao tặng.',
     },
   ],
 };
@@ -147,7 +152,7 @@ export const PRODUCTS: Product[] = [
       unit: 'đ/bộ',
       kind: 'planned',
       verification: 'unverified',
-      sourceRef: 'proposal-final:page-30',
+      sourceRef: 'proposal-v3:page-36',
       updatedAt: null,
       publicApproval: 'pending',
     },
@@ -156,7 +161,7 @@ export const PRODUCTS: Product[] = [
       unit: 'bộ bán dự kiến',
       kind: 'planned',
       verification: 'unverified',
-      sourceRef: 'proposal-final:page-30',
+      sourceRef: 'proposal-v3:page-36',
       updatedAt: null,
       publicApproval: 'pending',
     },
@@ -168,7 +173,7 @@ export const PRODUCTS: Product[] = [
     originVerification: 'unverified',
     assetId: null,
     category: 'craft',
-    notes: 'Giá tham khảo trong đề xuất (trang 30). Chuẩn bị 50 phôi (30 dành bán, 20 để lại Mái ấm).',
+    notes: 'Giá tham khảo trong đề xuất (trang 36). Chuẩn bị 50 phôi (30 dành bán, 20 để lại Mái ấm).',
     isBaseRevenueItem: true,
   },
   {
@@ -180,7 +185,7 @@ export const PRODUCTS: Product[] = [
       unit: 'đ/chiếc',
       kind: 'planned',
       verification: 'unverified',
-      sourceRef: 'proposal-final:page-30',
+      sourceRef: 'proposal-v3:page-36',
       updatedAt: null,
       publicApproval: 'pending',
     },
@@ -189,19 +194,19 @@ export const PRODUCTS: Product[] = [
       unit: 'chiếc dự kiến',
       kind: 'planned',
       verification: 'unverified',
-      sourceRef: 'proposal-final:page-30',
+      sourceRef: 'proposal-v3:page-36',
       updatedAt: null,
       publicApproval: 'pending',
     },
     planNotes:
-      'Nhóm sinh viên Lăng Kính chuẩn bị và hoàn thiện mẫu theo kế hoạch. Dự kiến in tranh chỉ khi có quyền và đồng ý phù hợp; nhóm chịu trách nhiệm hàng bán, không giao sản lượng cho các em nhỏ.',
+      'Nhóm Lăng Kính chuẩn bị và hoàn thiện. Móc khóa in tranh do nhóm chuẩn bị hoặc có quyền sử dụng, kèm lời cảm ơn ở mặt sau; không dùng tranh của các em trong buổi sinh hoạt. Nhóm chịu trách nhiệm hàng bán, không giao sản lượng cho các em nhỏ.',
     actualStock: null,
     saleStatus: 'unconfirmed',
     originText: 'Nhóm Lăng Kính chuẩn bị và hoàn thiện mẫu',
     originVerification: 'confirmed',
     assetId: null,
     category: 'craft',
-    notes: 'Giá tham khảo trong đề xuất (trang 30). Nhóm tự chuẩn bị và hoàn thiện mẫu.',
+    notes: 'Giá tham khảo trong đề xuất (trang 36). Nhóm tự chuẩn bị và hoàn thiện mẫu.',
     isBaseRevenueItem: true,
   },
   {
@@ -213,7 +218,7 @@ export const PRODUCTS: Product[] = [
       unit: 'đ/set',
       kind: 'planned',
       verification: 'unverified',
-      sourceRef: 'proposal-final:page-29',
+      sourceRef: 'proposal-v3:page-34',
       updatedAt: null,
       publicApproval: 'pending',
     },
@@ -222,7 +227,7 @@ export const PRODUCTS: Product[] = [
       unit: 'set dự kiến',
       kind: 'planned',
       verification: 'unverified',
-      sourceRef: 'proposal-final:page-29',
+      sourceRef: 'proposal-v3:page-34',
       updatedAt: null,
       publicApproval: 'pending',
     },
@@ -235,7 +240,7 @@ export const PRODUCTS: Product[] = [
     assetId: null,
     category: 'food',
     notes:
-      'Giá tham khảo trong đề xuất (trang 29). Kế hoạch 50 set phục vụ gây quỹ ẩm thực.',
+      'Giá tham khảo trong đề xuất (trang 34). Kế hoạch 50 set phục vụ gây quỹ ẩm thực.',
     isBaseRevenueItem: true,
   },
   {
@@ -247,7 +252,7 @@ export const PRODUCTS: Product[] = [
       unit: 'đ/set',
       kind: 'planned',
       verification: 'unverified',
-      sourceRef: 'proposal-final:page-29',
+      sourceRef: 'proposal-v3:page-34',
       updatedAt: null,
       publicApproval: 'pending',
     },
@@ -256,19 +261,19 @@ export const PRODUCTS: Product[] = [
       unit: 'suất đề xuất',
       kind: 'planned',
       verification: 'unverified',
-      sourceRef: 'proposal-final:page-29',
+      sourceRef: 'proposal-v3:page-34',
       updatedAt: null,
       publicApproval: 'pending',
     },
     planNotes:
-      'Hồ sơ ghi số lượng đề xuất 60 suất nhưng không gộp vào doanh thu cơ sở; cần làm rõ là bán bổ sung hay thay thế cho 50 set (nguyên liệu nem 300 chiếc chỉ đủ cho 50 set × 6 nem).',
+      'Bảng giá trong đề xuất V3 ghi 60 suất nhưng không gộp vào doanh thu cơ sở; phần giải pháp bán hàng (trang 15) chỉ nêu sản lượng mục tiêu 50 set và 50 hộp su kem. Nhóm cần xác nhận có bán combo này hay không (nguyên liệu nem 300 chiếc chỉ đủ cho 50 set × 6 nem).',
     actualStock: null,
     saleStatus: 'unconfirmed',
     originText: 'Đề xuất ẩm thực gây quỹ',
     originVerification: 'unverified',
     assetId: null,
     category: 'food',
-    notes: 'Giá tham khảo trong đề xuất (trang 29). Loại khỏi doanh thu kịch bản cơ sở.',
+    notes: 'Giá tham khảo trong đề xuất (trang 34). Loại khỏi doanh thu kịch bản cơ sở.',
     isBaseRevenueItem: false,
   },
   {
@@ -280,7 +285,7 @@ export const PRODUCTS: Product[] = [
       unit: 'đ/set',
       kind: 'planned',
       verification: 'unverified',
-      sourceRef: 'proposal-final:page-29',
+      sourceRef: 'proposal-v3:page-35',
       updatedAt: null,
       publicApproval: 'pending',
     },
@@ -289,19 +294,19 @@ export const PRODUCTS: Product[] = [
       unit: 'suất đề xuất',
       kind: 'planned',
       verification: 'unverified',
-      sourceRef: 'proposal-final:page-29',
+      sourceRef: 'proposal-v3:page-35',
       updatedAt: null,
       publicApproval: 'pending',
     },
     planNotes:
-      'Hồ sơ ghi số lượng đề xuất 60 suất nhưng không gộp vào doanh thu cơ sở; cần làm rõ là bán bổ sung hay thay thế cho 50 set.',
+      'Bảng giá trong đề xuất V3 ghi 60 suất nhưng không gộp vào doanh thu cơ sở; phần giải pháp bán hàng (trang 15) chỉ nêu sản lượng mục tiêu 50 set và 50 hộp su kem. Nhóm cần xác nhận có bán combo này hay không.',
     actualStock: null,
     saleStatus: 'unconfirmed',
     originText: 'Đề xuất ẩm thực gây quỹ',
     originVerification: 'unverified',
     assetId: null,
     category: 'food',
-    notes: 'Giá tham khảo trong đề xuất (trang 29). Loại khỏi doanh thu kịch bản cơ sở.',
+    notes: 'Giá tham khảo trong đề xuất (trang 35). Loại khỏi doanh thu kịch bản cơ sở.',
     isBaseRevenueItem: false,
   },
   {
@@ -313,7 +318,7 @@ export const PRODUCTS: Product[] = [
       unit: 'đ/set',
       kind: 'planned',
       verification: 'unverified',
-      sourceRef: 'proposal-final:page-29',
+      sourceRef: 'proposal-v3:page-35',
       updatedAt: null,
       publicApproval: 'pending',
     },
@@ -322,19 +327,19 @@ export const PRODUCTS: Product[] = [
       unit: 'suất đề xuất',
       kind: 'planned',
       verification: 'unverified',
-      sourceRef: 'proposal-final:page-29',
+      sourceRef: 'proposal-v3:page-35',
       updatedAt: null,
       publicApproval: 'pending',
     },
     planNotes:
-      'Hồ sơ ghi số lượng đề xuất 60 suất nhưng không gộp vào doanh thu cơ sở; cần làm rõ là bán bổ sung hay thay thế cho 50 set.',
+      'Bảng giá trong đề xuất V3 ghi 60 suất nhưng không gộp vào doanh thu cơ sở; phần giải pháp bán hàng (trang 15) chỉ nêu sản lượng mục tiêu 50 set và 50 hộp su kem. Nhóm cần xác nhận có bán combo này hay không.',
     actualStock: null,
     saleStatus: 'unconfirmed',
     originText: 'Đề xuất ẩm thực gây quỹ',
     originVerification: 'unverified',
     assetId: null,
     category: 'food',
-    notes: 'Giá tham khảo trong đề xuất (trang 29). Loại khỏi doanh thu kịch bản cơ sở.',
+    notes: 'Giá tham khảo trong đề xuất (trang 35). Loại khỏi doanh thu kịch bản cơ sở.',
     isBaseRevenueItem: false,
   },
   {
@@ -346,7 +351,7 @@ export const PRODUCTS: Product[] = [
       unit: 'đ/hộp',
       kind: 'planned',
       verification: 'unverified',
-      sourceRef: 'proposal-final:page-29',
+      sourceRef: 'proposal-v3:page-35',
       updatedAt: null,
       publicApproval: 'pending',
     },
@@ -355,7 +360,7 @@ export const PRODUCTS: Product[] = [
       unit: 'hộp dự kiến',
       kind: 'planned',
       verification: 'unverified',
-      sourceRef: 'proposal-final:page-29',
+      sourceRef: 'proposal-v3:page-35',
       updatedAt: null,
       publicApproval: 'pending',
     },
@@ -367,7 +372,7 @@ export const PRODUCTS: Product[] = [
     originVerification: 'unverified',
     assetId: null,
     category: 'food',
-    notes: 'Giá tham khảo trong đề xuất (trang 29). Kế hoạch 50 hộp.',
+    notes: 'Giá tham khảo trong đề xuất (trang 35). Kế hoạch 50 hộp.',
     isBaseRevenueItem: true,
   },
 ];
@@ -431,7 +436,7 @@ export const FINANCE_OVERVIEW: FinanceOverview = {
     unit: 'đ',
     kind: 'planned',
     verification: 'unverified',
-    sourceRef: 'proposal-final:page-29',
+    sourceRef: 'proposal-v3:page-34-35',
     updatedAt: null,
     publicApproval: 'pending',
   },
@@ -444,7 +449,7 @@ export const FINANCE_OVERVIEW: FinanceOverview = {
   actualCashBalance: null,
   actualInKindLedger: null,
   disclaimer:
-    'Các con số trên thuộc dự toán ban đầu trong đề xuất dự án Final (tháng 10/2026). Doanh thu cơ sở tính trên giả định bán đủ 30 bộ chuồn chuồn tre, 100 móc khóa, 50 set đồ ăn và 50 hộp bánh su kem. Ba combo món ăn trong đề xuất chưa tính vào kịch bản cơ sở do cần đối chiếu số lượng nguyên liệu bổ sung hay thay thế. Báo cáo sau đối soát, biên tập và được phép công bố sẽ được cập nhật sau khi hoàn thành.',
+    'Các con số trên thuộc dự toán trong đề xuất dự án bản V3 (tháng 10/2026). Doanh thu cơ sở tính trên giả định bán đủ 30 bộ chuồn chuồn tre, 100 móc khóa, 50 set đồ ăn và 50 hộp bánh su kem. Ba combo món ăn có trong bảng giá của đề xuất nhưng không nằm trong sản lượng mục tiêu và chưa tính vào kịch bản cơ sở; nhóm cần xác nhận có bán hay không. Báo cáo sau đối soát, biên tập và được phép công bố sẽ được cập nhật sau khi hoàn thành.',
   foodProfitQuote: 2070000,
   foodRevenueMinusListedCosts: 2470000,
   foodProfitGap: 400000,
@@ -494,11 +499,11 @@ export const TEAM_PRINCIPLES: TeamPrinciple[] = [
 
 /** Năm mảng việc, gom từ bảng phân công 7 vai trò trong hồ sơ dự án. Không hiển thị tên khi chưa có đồng ý. */
 export const TEAM_AREAS: TeamArea[] = [
-  { title: 'Điều phối', members: 1, description: 'Lên lịch, theo dõi tiến độ và kết nối các mảng việc của nhóm.' },
-  { title: 'Tài chính', members: 1, description: 'Giữ sổ thu chi, hóa đơn, đối soát sau mỗi đợt bán và mua quà theo danh mục.' },
-  { title: 'Hậu cần và chương trình', members: 2, description: 'Chuẩn bị vật tư, đạo cụ, quầy quà lưu niệm và di chuyển cho buổi chơi.' },
-  { title: 'Nội dung và truyền thông', members: 2, description: 'Thiết kế ấn phẩm, viết bài và lưu trữ hình ảnh đúng phạm vi cho phép.' },
-  { title: 'Đối ngoại', members: 1, description: 'Làm việc với Mái ấm và các đơn vị hỗ trợ.' },
+  { title: 'Điều phối', members: 1, description: 'Lịch, họp tuần, theo dõi tiến độ và kết nối các mảng việc của nhóm.' },
+  { title: 'Tài chính', members: 1, description: 'Sổ thu chi, hóa đơn, đối soát sau mỗi ca bán và mua quà theo danh mục.' },
+  { title: 'Hậu cần và chương trình', members: 2, description: 'Đơn hàng, tồn kho, chế biến, vận chuyển, dựng quầy, an toàn thực phẩm và chương trình buổi chơi.' },
+  { title: 'Nội dung và truyền thông', members: 2, description: 'Thiết kế ấn phẩm, viết bài, lịch đăng, báo cáo số liệu và lưu ảnh, video đúng phạm vi cho phép.' },
+  { title: 'Đối ngoại', members: 1, description: 'Đầu mối với Mái ấm và nhà tài trợ, thiết kế poster và infographic.' },
 ];
 
 export interface ProjectNeed {
@@ -526,8 +531,9 @@ export const PROJECT_NEEDS: ProjectNeed[] = [
 export const SAFETY_PRACTICES: string[] = [
   'Chuồn chuồn mài nhẵn, màu gốc nước, tượng không cạnh nhọn.',
   'Chia nhóm nhỏ theo lượt, luôn có góc nghỉ.',
-  'Trò chơi vận động nhẹ, có thể chơi khi ngồi, không loại người chơi.',
+  'Trò chơi vận động nhẹ với bóng mềm, có thể chơi khi ngồi, không loại người chơi.',
   'Chỉ ghi hình trong phạm vi Mái ấm cho phép.',
+  'Con dấu tích điểm chỉ dùng khi em đồng ý, mực ghi rõ dùng trên da và được Mái ấm chấp thuận.',
 ];
 
 export interface PlayPhase {
@@ -535,16 +541,26 @@ export interface PlayPhase {
   description: string;
 }
 
-/** Diễn tiến buổi chơi, rút gọn từ agenda dự kiến 180 phút. */
+/** Diễn tiến buổi chơi, rút gọn từ agenda dự kiến 180 phút theo V3 trang 13–14. */
 export const PLAY_FLOW: PlayPhase[] = [
-  { title: 'Làm quen', description: 'Đón các em, giới thiệu vật mẫu, hát mở đầu và hướng dẫn chọn hoạt động.' },
-  { title: 'Sáng tạo và vận động', description: 'Hai lượt ở bàn chuồn chuồn và tô tượng, xen bowling và chuyền bóng, có hai lần nghỉ.' },
-  { title: 'Giao lưu', description: 'Hát, trò chuyện, chia sẻ tranh; các em giữ lại những gì mình đã làm.' },
+  {
+    title: 'Làm quen và chơi kết nối',
+    description: 'Đón các em, giới thiệu vật mẫu, cách tích con dấu và chỗ nghỉ; sau đó chơi bowling bóng mềm rồi chuyền bóng theo nhạc (khoảng 35 phút).',
+  },
+  {
+    title: 'Hai phiên sáng tạo',
+    description: 'Phiên 1 trang trí chuồn chuồn, phiên 2 tô tượng và giấy ước mơ, mỗi phiên khoảng 50 phút; có hai lần nghỉ chung, em muốn tiếp tục chuồn chuồn vẫn được làm tiếp.',
+  },
+  {
+    title: 'Giao lưu và đổi quà',
+    description: 'Hát, trò chuyện, chia sẻ sản phẩm, đổi quà từ dấu đã tích và ăn bánh kẹo (khoảng 25 phút); mọi em đều có phần quà chung.',
+  },
 ];
 
 /** Kế hoạch bán quà lưu niệm, viết cho người mua. Website chưa mở nhận đơn. */
 export const SALES_PLAN: string[] = [
-  'Nhóm mở đặt trước, sau đó bán trực tiếp tại quầy ở FPT Hòa Lạc khi được cho phép.',
+  'Nhóm dự kiến mở đặt trước từ tuần 6, bán chính ở tuần 7–8 và giao hàng trước buổi gặp lại; bán trực tiếp tại quầy ở FPT Hòa Lạc khi được cho phép.',
+  'Đồ ăn dự kiến chia hai đợt, tối đa 25 set mỗi đợt, chỉ bán trong trường khi đáp ứng điều kiện an toàn thực phẩm và quy định học phần.',
   'Mẫu, giá chính thức và lịch nhận hàng sẽ được công bố tại trang này khi mở bán.',
   'Tiền bán quà ghi sổ riêng, không cộng vào tổng ủng hộ; công khai trong báo cáo cuối.',
 ];
@@ -564,7 +580,7 @@ export const PRODUCT_FAQS: ProductFaq[] = [
   {
     question: 'Ai làm các sản phẩm này?',
     answer:
-      'Toàn bộ sản phẩm gây quỹ do nhóm Lăng Kính chuẩn bị và hoàn thiện. Hoạt động tại Mái ấm hoàn toàn là vui chơi sáng tạo, không gắn với sản xuất hàng bán; các em giữ lại sản phẩm do mình làm ra. Tranh của các em chỉ được in lên móc khóa khi có sự đồng ý phù hợp.',
+      'Toàn bộ sản phẩm gây quỹ do nhóm Lăng Kính chuẩn bị và hoàn thiện. Hoạt động tại Mái ấm hoàn toàn là vui chơi sáng tạo, không gắn với sản xuất hàng bán; các em giữ lại sản phẩm do mình làm ra. Móc khóa in tranh do nhóm chuẩn bị hoặc có quyền sử dụng, không dùng tranh của các em trong buổi sinh hoạt.',
   },
   {
     question: 'Khi nào có thể đặt mua?',
@@ -588,7 +604,7 @@ export interface PlannedExpenseItem {
 }
 
 export const PLANNED_EXPENSES: PlannedExpenseItem[] = [
-  // Nhóm 1: Nguyên liệu gây quỹ — trang 29 (14 khoản, Tổng 2.480.000đ)
+  // Nhóm 1: Nguyên liệu gây quỹ — trang 34 (14 khoản, Tổng 2.480.000đ)
   {
     id: 'nem-tran-cong-chau',
     category: 'Nguyên liệu gây quỹ',
@@ -599,7 +615,7 @@ export const PLANNED_EXPENSES: PlannedExpenseItem[] = [
       unit: 'đ',
       kind: 'planned',
       verification: 'unverified',
-      sourceRef: 'proposal-final:page-29',
+      sourceRef: 'proposal-v3:page-34',
       updatedAt: null,
       publicApproval: 'pending',
     },
@@ -616,11 +632,11 @@ export const PLANNED_EXPENSES: PlannedExpenseItem[] = [
       unit: 'đ',
       kind: 'planned',
       verification: 'unverified',
-      sourceRef: 'proposal-final:page-29',
+      sourceRef: 'proposal-v3:page-34',
       updatedAt: null,
       publicApproval: 'pending',
     },
-    note: 'Quy cách đơn vị cần xác nhận (trang 29)',
+    note: 'Quy cách đơn vị cần xác nhận (trang 34)',
     isEstimated: false,
   },
   {
@@ -633,7 +649,7 @@ export const PLANNED_EXPENSES: PlannedExpenseItem[] = [
       unit: 'đ',
       kind: 'planned',
       verification: 'unverified',
-      sourceRef: 'proposal-final:page-29',
+      sourceRef: 'proposal-v3:page-34',
       updatedAt: null,
       publicApproval: 'pending',
     },
@@ -650,7 +666,7 @@ export const PLANNED_EXPENSES: PlannedExpenseItem[] = [
       unit: 'đ',
       kind: 'planned',
       verification: 'unverified',
-      sourceRef: 'proposal-final:page-29',
+      sourceRef: 'proposal-v3:page-34',
       updatedAt: null,
       publicApproval: 'pending',
     },
@@ -667,7 +683,7 @@ export const PLANNED_EXPENSES: PlannedExpenseItem[] = [
       unit: 'đ',
       kind: 'planned',
       verification: 'unverified',
-      sourceRef: 'proposal-final:page-29',
+      sourceRef: 'proposal-v3:page-34',
       updatedAt: null,
       publicApproval: 'pending',
     },
@@ -684,11 +700,11 @@ export const PLANNED_EXPENSES: PlannedExpenseItem[] = [
       unit: 'đ',
       kind: 'planned',
       verification: 'unverified',
-      sourceRef: 'proposal-final:page-29',
+      sourceRef: 'proposal-v3:page-34',
       updatedAt: null,
       publicApproval: 'pending',
     },
-    note: 'Hồ sơ ghi 3kg/3 đợt; đối chiếu cách chia đợt (trang 29)',
+    note: 'Hồ sơ ghi 3kg/3 đợt; đối chiếu cách chia đợt (trang 34)',
     isEstimated: true,
   },
   {
@@ -701,11 +717,11 @@ export const PLANNED_EXPENSES: PlannedExpenseItem[] = [
       unit: 'đ',
       kind: 'planned',
       verification: 'unverified',
-      sourceRef: 'proposal-final:page-29',
+      sourceRef: 'proposal-v3:page-34',
       updatedAt: null,
       publicApproval: 'pending',
     },
-    note: 'Quy cách đơn vị cần xác nhận (trang 29)',
+    note: 'Quy cách đơn vị cần xác nhận (trang 34)',
     isEstimated: false,
   },
   {
@@ -718,7 +734,7 @@ export const PLANNED_EXPENSES: PlannedExpenseItem[] = [
       unit: 'đ',
       kind: 'planned',
       verification: 'unverified',
-      sourceRef: 'proposal-final:page-29',
+      sourceRef: 'proposal-v3:page-34',
       updatedAt: null,
       publicApproval: 'pending',
     },
@@ -735,11 +751,11 @@ export const PLANNED_EXPENSES: PlannedExpenseItem[] = [
       unit: 'đ',
       kind: 'planned',
       verification: 'unverified',
-      sourceRef: 'proposal-final:page-29',
+      sourceRef: 'proposal-v3:page-34',
       updatedAt: null,
       publicApproval: 'pending',
     },
-    note: 'Khoản này đã nằm trong tổng nguyên liệu; không trừ hai lần (trang 29)',
+    note: 'Khoản này đã nằm trong tổng nguyên liệu; không trừ hai lần (trang 34)',
     isEstimated: false,
   },
   {
@@ -752,11 +768,11 @@ export const PLANNED_EXPENSES: PlannedExpenseItem[] = [
       unit: 'đ',
       kind: 'planned',
       verification: 'unverified',
-      sourceRef: 'proposal-final:page-29',
+      sourceRef: 'proposal-v3:page-34',
       updatedAt: null,
       publicApproval: 'pending',
     },
-    note: 'Hồ sơ ghi 3kg/3 đợt (trang 29)',
+    note: 'Hồ sơ ghi 3kg/3 đợt (trang 34)',
     isEstimated: false,
   },
   {
@@ -769,7 +785,7 @@ export const PLANNED_EXPENSES: PlannedExpenseItem[] = [
       unit: 'đ',
       kind: 'planned',
       verification: 'unverified',
-      sourceRef: 'proposal-final:page-29',
+      sourceRef: 'proposal-v3:page-34',
       updatedAt: null,
       publicApproval: 'pending',
     },
@@ -786,7 +802,7 @@ export const PLANNED_EXPENSES: PlannedExpenseItem[] = [
       unit: 'đ',
       kind: 'planned',
       verification: 'unverified',
-      sourceRef: 'proposal-final:page-29',
+      sourceRef: 'proposal-v3:page-34',
       updatedAt: null,
       publicApproval: 'pending',
     },
@@ -803,7 +819,7 @@ export const PLANNED_EXPENSES: PlannedExpenseItem[] = [
       unit: 'đ',
       kind: 'planned',
       verification: 'unverified',
-      sourceRef: 'proposal-final:page-29',
+      sourceRef: 'proposal-v3:page-34',
       updatedAt: null,
       publicApproval: 'pending',
     },
@@ -820,7 +836,7 @@ export const PLANNED_EXPENSES: PlannedExpenseItem[] = [
       unit: 'đ',
       kind: 'planned',
       verification: 'unverified',
-      sourceRef: 'proposal-final:page-29',
+      sourceRef: 'proposal-v3:page-34',
       updatedAt: null,
       publicApproval: 'pending',
     },
@@ -828,7 +844,7 @@ export const PLANNED_EXPENSES: PlannedExpenseItem[] = [
     isEstimated: false,
   },
 
-  // Nhóm 2: Vật tư workshop & quà tặng — trang 30 (7 khoản, Tổng 1.860.000đ)
+  // Nhóm 2: Vật tư workshop & quà tặng — trang 35–36 (7 khoản, Tổng 1.860.000đ)
   {
     id: 'chuon-chuon-tre',
     category: 'Vật tư workshop & quà tặng',
@@ -839,11 +855,11 @@ export const PLANNED_EXPENSES: PlannedExpenseItem[] = [
       unit: 'đ',
       kind: 'planned',
       verification: 'unverified',
-      sourceRef: 'proposal-final:page-30',
+      sourceRef: 'proposal-v3:page-35-36',
       updatedAt: null,
       publicApproval: 'pending',
     },
-    note: '30 dành bán, 20 để lại Mái ấm theo lựa chọn và sắp xếp của cơ sở (trang 30)',
+    note: '30 dành bán, 20 để lại Mái ấm theo lựa chọn và sắp xếp của cơ sở (trang 35–36)',
     isEstimated: false,
   },
   {
@@ -856,11 +872,11 @@ export const PLANNED_EXPENSES: PlannedExpenseItem[] = [
       unit: 'đ',
       kind: 'planned',
       verification: 'unverified',
-      sourceRef: 'proposal-final:page-30',
+      sourceRef: 'proposal-v3:page-35-36',
       updatedAt: null,
       publicApproval: 'pending',
     },
-    note: '30 bộ dành bán với giá tham khảo 40.000đ/bộ (trang 30)',
+    note: '30 bộ dành bán với giá tham khảo 40.000đ/bộ (trang 35–36)',
     isEstimated: false,
   },
   {
@@ -873,11 +889,11 @@ export const PLANNED_EXPENSES: PlannedExpenseItem[] = [
       unit: 'đ',
       kind: 'planned',
       verification: 'unverified',
-      sourceRef: 'proposal-final:page-30',
+      sourceRef: 'proposal-v3:page-35-36',
       updatedAt: null,
       publicApproval: 'pending',
     },
-    note: 'Hoạt động chơi tại chỗ, không phải hàng gây quỹ (trang 30)',
+    note: 'Hoạt động chơi tại chỗ, không phải hàng gây quỹ (trang 35–36)',
     isEstimated: false,
   },
   {
@@ -890,7 +906,7 @@ export const PLANNED_EXPENSES: PlannedExpenseItem[] = [
       unit: 'đ',
       kind: 'planned',
       verification: 'unverified',
-      sourceRef: 'proposal-final:page-30',
+      sourceRef: 'proposal-v3:page-35-36',
       updatedAt: null,
       publicApproval: 'pending',
     },
@@ -907,11 +923,11 @@ export const PLANNED_EXPENSES: PlannedExpenseItem[] = [
       unit: 'đ',
       kind: 'planned',
       verification: 'unverified',
-      sourceRef: 'proposal-final:page-30',
+      sourceRef: 'proposal-v3:page-35-36',
       updatedAt: null,
       publicApproval: 'pending',
     },
-    note: 'Vẽ tranh, trang trí chuồn chuồn, tô tượng (trang 30)',
+    note: 'Trang trí chuồn chuồn và tô tượng (trang 35–36)',
     isEstimated: false,
   },
   {
@@ -924,11 +940,11 @@ export const PLANNED_EXPENSES: PlannedExpenseItem[] = [
       unit: 'đ',
       kind: 'planned',
       verification: 'unverified',
-      sourceRef: 'proposal-final:page-30',
+      sourceRef: 'proposal-v3:page-35-36',
       updatedAt: null,
       publicApproval: 'pending',
     },
-    note: 'Nhóm hoàn thiện; dùng tranh chỉ khi có quyền và đồng ý phù hợp (trang 30)',
+    note: 'Móc khóa in tranh do nhóm chuẩn bị hoặc có quyền sử dụng, kèm lời cảm ơn ở mặt sau (trang 36)',
     isEstimated: false,
   },
   {
@@ -941,15 +957,15 @@ export const PLANNED_EXPENSES: PlannedExpenseItem[] = [
       unit: 'đ',
       kind: 'planned',
       verification: 'unverified',
-      sourceRef: 'proposal-final:page-30',
+      sourceRef: 'proposal-v3:page-35-36',
       updatedAt: null,
       publicApproval: 'pending',
     },
-    note: 'Dự toán quà theo đề xuất, không phải đã mua/trao; không dùng quà để tạo áp lực tham gia (trang 30)',
+    note: 'Dự toán quà theo đề xuất, không phải đã mua/trao; không dùng quà để tạo áp lực tham gia (trang 35–36)',
     isEstimated: false,
   },
 
-  // Nhóm 3: Truyền thông & Di chuyển — trang 31 (3 khoản, Tổng 1.130.000đ)
+  // Nhóm 3: Truyền thông & Di chuyển — trang 37 (3 khoản, Tổng 1.130.000đ)
   {
     id: 'truyen-thong-offline',
     category: 'Truyền thông & Di chuyển',
@@ -960,11 +976,11 @@ export const PLANNED_EXPENSES: PlannedExpenseItem[] = [
       unit: 'đ',
       kind: 'planned',
       verification: 'unverified',
-      sourceRef: 'proposal-final:page-31',
+      sourceRef: 'proposal-v3:page-37',
       updatedAt: null,
       publicApproval: 'pending',
     },
-    note: 'Hồ sơ ghi bộ standee đã mượn, khoản này cho đồ tặng; chờ đối soát thực tế (trang 31)',
+    note: 'Hồ sơ ghi bộ standee đã mượn, khoản này cho đồ tặng; chờ đối soát thực tế (trang 37)',
     isEstimated: false,
   },
   {
@@ -977,11 +993,11 @@ export const PLANNED_EXPENSES: PlannedExpenseItem[] = [
       unit: 'đ',
       kind: 'planned',
       verification: 'unverified',
-      sourceRef: 'proposal-final:page-31',
+      sourceRef: 'proposal-v3:page-37',
       updatedAt: null,
       publicApproval: 'pending',
     },
-    note: 'Kế hoạch có tình nguyện viên tham dự, chưa phải booking (trang 31)',
+    note: 'Kế hoạch có tình nguyện viên tham dự, chưa phải booking (trang 37)',
     isEstimated: false,
   },
   {
@@ -994,7 +1010,7 @@ export const PLANNED_EXPENSES: PlannedExpenseItem[] = [
       unit: 'đ',
       kind: 'planned',
       verification: 'unverified',
-      sourceRef: 'proposal-final:page-31',
+      sourceRef: 'proposal-v3:page-37',
       updatedAt: null,
       publicApproval: 'pending',
     },
@@ -1023,7 +1039,7 @@ export const FINANCE_SCENARIOS: FinanceScenario[] = [
       unit: 'đ',
       kind: 'planned',
       verification: 'unverified',
-      sourceRef: 'proposal-final:page-32',
+      sourceRef: 'proposal-v3:page-37-38',
       updatedAt: null,
       publicApproval: 'pending',
     },
@@ -1040,7 +1056,7 @@ export const FINANCE_SCENARIOS: FinanceScenario[] = [
       unit: 'đ',
       kind: 'planned',
       verification: 'unverified',
-      sourceRef: 'proposal-final:page-32',
+      sourceRef: 'proposal-v3:page-37-38',
       updatedAt: null,
       publicApproval: 'pending',
     },
@@ -1057,7 +1073,7 @@ export const FINANCE_SCENARIOS: FinanceScenario[] = [
       unit: 'đ',
       kind: 'planned',
       verification: 'unverified',
-      sourceRef: 'proposal-final:page-32',
+      sourceRef: 'proposal-v3:page-37-38',
       updatedAt: null,
       publicApproval: 'pending',
     },
@@ -1074,7 +1090,7 @@ export const FINANCE_SCENARIOS: FinanceScenario[] = [
       unit: 'đ',
       kind: 'planned',
       verification: 'unverified',
-      sourceRef: 'proposal-final:page-32',
+      sourceRef: 'proposal-v3:page-37-38',
       updatedAt: null,
       publicApproval: 'pending',
     },
@@ -1091,7 +1107,7 @@ export const FINANCE_SCENARIOS: FinanceScenario[] = [
       unit: 'đ',
       kind: 'planned',
       verification: 'unverified',
-      sourceRef: 'proposal-final:page-32',
+      sourceRef: 'proposal-v3:page-37-38',
       updatedAt: null,
       publicApproval: 'pending',
     },
@@ -1276,6 +1292,11 @@ export const TRANSPARENCY_FAQS: TransparencyFaq[] = [
     answer:
       'Sau buổi trao quà và khi thành viên tài chính cùng một thành viên khác hoàn tất đối soát. Chứng từ chỉ công bố bản đã che thông tin riêng tư.',
   },
+  {
+    question: 'Quỹ dùng để mua quà được tính như thế nào?',
+    answer:
+      'Theo đề xuất, quỹ có thể dùng trước khi mua quà bằng tiền bán hàng và tài trợ tiền đã nhận, trừ chi phí tổ chức và gây quỹ đã trả, chi phí còn phải trả và tiền khách đã trả cho đơn chưa hoàn tất. Mỗi khoản chỉ được trừ một lần; hiện vật chỉ giảm đúng khoản chi mà nó thay thế và không được quy thành tiền mặt.',
+  },
 ];
 
 
@@ -1389,9 +1410,9 @@ export interface ProjectProgress {
 }
 
 export const PROJECT_PROGRESS: ProjectProgress = {
-  currentWeek: 1,
+  currentWeek: 2,
   totalWeeks: 5,
-  updatedAt: '2026-10-09',
+  updatedAt: '2026-10-12',
   currentStageIndex: 0,
 };
 
@@ -1404,23 +1425,23 @@ export interface PlannedSession {
   description: string;
 }
 
-/** Lịch hai buổi tại Mái ấm theo nhóm cung cấp (tài liệu bổ sung C07, mục 4). */
+/** Lịch hai buổi tại Mái ấm theo đề xuất V3 (lịch ngày đổi 15/10/2026; giờ giữ theo thông tin 09/10, chờ xác nhận). */
 export const PLANNED_SESSIONS: PlannedSession[] = [
   {
     id: 'buoi-choi',
     title: 'Buổi chơi tại Mái ấm',
-    date: '2026-10-24',
+    date: '2026-10-31',
     time: '14:00',
     weekday: 'Thứ Bảy',
-    description: 'Bốn góc hoạt động, khoảng 180 phút, có hai lần nghỉ.',
+    description: 'Bốn hoạt động, khoảng 180 phút, có hai lần nghỉ chung (dự kiến tuần 8).',
   },
   {
     id: 'trao-qua',
     title: 'Gặp lại và trao quà',
-    date: '2026-10-31',
+    date: '2026-11-07',
     time: '14:00',
     weekday: 'Thứ Bảy',
-    description: 'Trao vật phẩm theo danh mục Mái ấm xác nhận, khoảng 30–45 phút.',
+    description: 'Gặp lại các em, trao vật phẩm theo danh mục Mái ấm xác nhận, khoảng 30–45 phút (dự kiến tuần 9).',
   },
 ];
 
@@ -1433,13 +1454,48 @@ export interface TeamMember {
 
 /** Bảy thành viên và ảnh do chủ dự án cung cấp (tài liệu bổ sung C07, map theo từng đoạn). */
 export const TEAM_MEMBERS: TeamMember[] = [
-  { name: 'Nguyễn Chí Trung', role: 'Trưởng dự án', photo: '/images/thanh-vien/nguyen-chi-trung.webp', description: 'Lên lịch, theo dõi tiến độ và điều phối hoạt động của nhóm.' },
-  { name: 'Nguyễn Ngọc Khoa', role: 'Tài chính', photo: '/images/thanh-vien/nguyen-ngoc-khoa.webp', description: 'Giữ sổ ủng hộ, đối chiếu sao kê và mua quà theo danh mục.' },
-  { name: 'Nguyễn Như Huy', role: 'Hậu cần', photo: '/images/thanh-vien/nguyen-nhu-huy.webp', description: 'Chuẩn bị vật tư, đạo cụ và chương trình buổi chơi.' },
-  { name: 'Trịnh Hiển Lân', role: 'Truyền thông', photo: '/images/thanh-vien/trinh-hien-lan.webp', description: 'Viết bài, quản lý lịch đăng và hình ảnh đúng phạm vi cho phép.' },
-  { name: 'Trần Bình Trọng', role: 'Thiết kế', photo: '/images/thanh-vien/tran-binh-trong.webp', description: 'Thiết kế ấn phẩm, poster và nhận diện của dự án.' },
-  { name: 'Lê Tuấn Anh', role: 'Đối ngoại', photo: '/images/thanh-vien/le-tuan-anh.webp', description: 'Làm việc với Mái ấm và các đơn vị hỗ trợ.' },
-  { name: 'Nguyễn Anh Khoa', role: 'Hậu cần', photo: '/images/thanh-vien/nguyen-anh-khoa.webp', description: 'Chuẩn bị quà lưu niệm, quầy và di chuyển.' },
+  {
+    name: 'Nguyễn Chí Trung',
+    role: 'Trưởng dự án',
+    photo: '/images/thanh-vien/nguyen-chi-trung.webp',
+    description: 'Lịch, họp tuần, theo dõi tiến độ, làm việc với giảng viên và điều phối hoạt động nhóm.',
+  },
+  {
+    name: 'Nguyễn Ngọc Khoa',
+    role: 'Tài chính, thủ quỹ',
+    photo: '/images/thanh-vien/nguyen-ngoc-khoa.webp',
+    description: 'Sổ thu chi, hóa đơn, đối soát cuối mỗi ca, báo cáo công khai và mua quà theo danh mục.',
+  },
+  {
+    name: 'Nguyễn Như Huy',
+    role: 'Hậu cần, phụ trách chương trình',
+    photo: '/images/thanh-vien/nguyen-nhu-huy.webp',
+    description: 'Đơn đặt hàng, tồn kho, chế biến, vận chuyển, dựng quầy, an toàn thực phẩm và chương trình buổi chơi.',
+  },
+  {
+    name: 'Trịnh Hiển Lân',
+    role: 'Truyền thông, nội dung',
+    photo: '/images/thanh-vien/trinh-hien-lan.webp',
+    description: 'Lịch đăng bài, viết bài, báo cáo số liệu truyền thông và duyệt hình ảnh đúng phạm vi cho phép.',
+  },
+  {
+    name: 'Trần Bình Trọng',
+    role: 'Thiết kế, nội dung',
+    photo: '/images/thanh-vien/tran-binh-trong.webp',
+    description: 'Slide, poster, infographic; lưu ảnh và video có nguồn, ngày giờ.',
+  },
+  {
+    name: 'Lê Tuấn Anh',
+    role: 'Đối ngoại, thiết kế',
+    photo: '/images/thanh-vien/le-tuan-anh.webp',
+    description: 'Đầu mối với Mái ấm và nhà tài trợ; thiết kế poster, infographic.',
+  },
+  {
+    name: 'Nguyễn Anh Khoa',
+    role: 'Hậu cần, bán hàng gây quỹ',
+    photo: '/images/thanh-vien/nguyen-anh-khoa.webp',
+    description: 'Đơn đặt hàng, tồn kho, chế biến, vận chuyển, dựng quầy, an toàn thực phẩm và bán hàng gây quỹ.',
+  },
 ];
 
 export interface ProcessStep {

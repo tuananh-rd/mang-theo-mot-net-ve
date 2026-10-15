@@ -6,7 +6,7 @@
     "category": "ke-hoach",
     "categoryLabel": "Kế hoạch",
     "publishedAt": "2026-10-11",
-    "eventDate": "2026-10-24",
+    "eventDate": "2026-10-31",
     "eventStatus": "planned",
     "status": "published",
     "coverImage": {
@@ -20,7 +20,7 @@
     "content": [
       {
         "type": "paragraph",
-        "text": "Tại Mái ấm Thánh Tâm Xuy Xá (Mỹ Đức, Hà Nội), nhóm sinh viên Lăng Kính dự kiến tổ chức một buổi vui chơi sáng tạo trong khoảng 180 phút vào chiều Thứ Bảy 24/10/2026. Để buổi chơi thực sự mang lại niềm vui vừa sức, nhóm xây dựng kế hoạch gồm bốn góc hoạt động với hai lượt chơi tại bàn chuồn chuồn và tô tượng xen kẽ trò chơi chung và nghỉ giải lao theo lịch trình dự kiến, cho phép các em tự do chọn góc chơi hoặc nghỉ ngơi."
+        "text": "Tại Mái ấm Thánh Tâm Xuy Xá (Mỹ Đức, Hà Nội), nhóm sinh viên Lăng Kính dự kiến tổ chức một buổi vui chơi sáng tạo trong khoảng 180 phút vào chiều Thứ Bảy 31/10/2026. Để buổi chơi mang lại niềm vui vừa sức, nhóm xây dựng kế hoạch gồm bốn hoạt động: trang trí chuồn chuồn, tô tượng và giấy ước mơ, trò chơi nhẹ, hát và giao lưu, xen hai lần nghỉ chung; các em tự do chọn hoạt động hoặc nghỉ ngơi."
       },
       {
         "type": "heading",
@@ -30,10 +30,10 @@
       {
         "type": "list",
         "items": [
-          "Góc tạo hình: Trang trí những chú chuồn chuồn tre thăng bằng và vẽ tranh tự do theo sở thích.",
-          "Góc tô màu: Thỏa sức phối màu trên các mẫu tượng thạch cao đa dạng hình dáng và kích cỡ (10 cm).",
-          "Góc âm nhạc: Giao lưu hát cùng nhau với các giai điệu thiếu nhi gần gũi, ấm áp và không áp lực biểu diễn.",
-          "Góc vận động nhẹ: Các trò chơi tương tác vừa sức gồm bowling mini, chuyền bóng nhẹ nhàng và thẻ màu ghép hình."
+          "Góc tạo hình: Trang trí chuồn chuồn tre ở phiên sáng tạo 1; các em chọn màu, thêm họa tiết hoặc tô cùng sinh viên, em muốn tiếp tục vẫn được làm tiếp.",
+          "Góc tô màu: Tô tượng 10 cm ở phiên sáng tạo 2, kèm hoạt động giấy ước mơ; các em tự tô hoặc chọn màu để sinh viên hỗ trợ.",
+          "Góc âm nhạc: Hát các bài quen theo gợi ý của Mái ấm, trò chuyện và chia sẻ sản phẩm, không áp lực biểu diễn.",
+          "Góc vận động nhẹ: Bowling bóng mềm và chuyền bóng theo nhạc với lượt ngắn, có thể chơi khi ngồi; khi nhạc dừng, em cầm bóng có thể chọn một cử chỉ vui hoặc bỏ lượt."
         ]
       },
       {
@@ -84,12 +84,12 @@
         "type": "list",
         "items": [
           "Chuồn chuồn tre kèm đế: Kế hoạch chuẩn bị 50 phôi tre mộc 12 cm theo đề xuất, trong đó 30 bộ có đế dự kiến bán gây quỹ với giá tham khảo 40.000đ/bộ; 20 chiếc để lại Mái ấm theo lựa chọn của cơ sở.",
-          "Móc khóa Lăng Kính: Dự kiến 100 chiếc móc khóa Lăng Kính với giá tham khảo 10.000đ/chiếc. Tranh vẽ của các em chỉ được in khi có sự đồng ý phù hợp từ Mái ấm và người giám hộ."
+          "Móc khóa Lăng Kính: Dự kiến 100 chiếc với giá tham khảo 10.000đ/chiếc, in tranh do nhóm chuẩn bị hoặc có quyền sử dụng, kèm lời cảm ơn ở mặt sau; không dùng tranh của các em trong buổi sinh hoạt."
         ]
       },
       {
         "type": "callout",
-        "text": "Trạng thái hiện tại: Chưa mở bán. Website hiện chưa nhận đơn đặt hàng hoặc thanh toán sản phẩm. Kế hoạch mở bán dự kiến diễn ra tại khuôn viên Đại học FPT Hòa Lạc sau khi nhóm hoàn tất chuẩn bị mẫu và được phê duyệt."
+        "text": "Trạng thái hiện tại: Chưa mở bán. Website hiện chưa nhận đơn đặt hàng hoặc thanh toán sản phẩm. Theo kế hoạch, nhóm dự kiến mở đặt trước từ tuần 6 và bán chính ở tuần 7–8 tại khuôn viên Đại học FPT Hòa Lạc, sau khi hoàn tất chuẩn bị mẫu và được phê duyệt."
       },
       {
         "type": "heading",

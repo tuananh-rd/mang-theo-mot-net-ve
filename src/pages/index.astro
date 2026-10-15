@@ -27,6 +27,9 @@ const iconFor: Record<string, IconName> = {
   'tro-choi-nhe': 'tro-choi',
 };
 
+const buoiChoiDate = formatViDate(PLANNED_SESSIONS.find((s) => s.id === 'buoi-choi')?.date || '').slice(0, 5);
+const traoQuaDate = formatViDate(PLANNED_SESSIONS.find((s) => s.id === 'trao-qua')?.date || '').slice(0, 5);
+
 const steps = [
   {
     icon: 'moc-khoa' as const,
@@ -36,12 +39,12 @@ const steps = [
   {
     icon: 'chuon-chuon' as const,
     title: 'Một buổi chơi tại Mái ấm',
-    text: 'Dự kiến chiều Thứ Bảy 24/10, khoảng 180 phút với bốn góc hoạt động. Mỗi em có thể lựa chọn cách tham gia phù hợp với sở thích và thể trạng, quan sát hoặc nghỉ ngơi.',
+    text: `Dự kiến chiều Thứ Bảy ${buoiChoiDate}, khoảng 180 phút với bốn hoạt động. Mỗi em có thể lựa chọn cách tham gia phù hợp với sở thích và thể trạng, quan sát hoặc nghỉ ngơi.`,
   },
   {
     icon: 'banh' as const,
     title: 'Trao quà đúng nhu cầu',
-    text: 'Dự kiến chiều Thứ Bảy 31/10, trao tặng vật phẩm theo danh mục Mái ấm xác nhận, kèm hóa đơn và biên bản bàn giao.',
+    text: `Dự kiến chiều Thứ Bảy ${traoQuaDate}, trao tặng vật phẩm theo danh mục Mái ấm xác nhận, kèm hóa đơn và biên bản bàn giao.`,
   },
 ];
 ---
