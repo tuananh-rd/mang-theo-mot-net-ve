@@ -6,7 +6,7 @@
  * - CHỈ ĐỌC (Read-only): Không thực hiện git push, không tạo branch trên remote.
  * - Danh sách cho phép (Allowlist): Chỉ bao gồm các tệp public consumer (src/layouts, src/data, src/data/lib, src/pages/_meta, v.v.).
  * - Nghiêm cấm tuyệt đối (Exclusion Assertion): Không bao gồm apps/, tools/, docs/, reports/, private fixtures.
- * - Bảo toàn tài sản gốc: Khẳng định bảo toàn hero assets và tài khoản / QR Techcombank 19072950239011.
+ * - Bảo toàn tài sản gốc: Khẳng định bảo toàn hero assets và tài khoản / QR Techcombank 19077352683012.
  * - Xuất tệp patch xem trước vào docs/evidence/C17/R2-F3-R1/worker/public-consumer-release.patch.
  */
 
@@ -115,19 +115,19 @@ export async function analyzeReleaseDelta(options = {}) {
   // 4. Khẳng định bảo toàn Hero Assets và Techcombank QR
   const heroPath1 = path.resolve(ROOT_DIR, 'public/images/hero/chuon-chuon-go-xanh.webp');
   const heroPath2 = path.resolve(ROOT_DIR, 'public/images/hero/chuon-chuon-go-xanh-900.webp');
-  const qrPath = path.resolve(ROOT_DIR, 'public/images/ung-ho/qr-ung-ho-techcombank.png');
+  const qrPath = path.resolve(ROOT_DIR, 'public/images/ung-ho/qr-ung-ho-techcombank-nguyen-chi-trung.png');
   const campaignPath = path.resolve(ROOT_DIR, 'src/data/campaign.ts');
 
   if (!fs.existsSync(heroPath1) || !fs.existsSync(heroPath2)) {
     throw new Error('Hero assets (chuon-chuon-go-xanh) không được bảo toàn.');
   }
   if (!fs.existsSync(qrPath)) {
-    throw new Error('Techcombank QR (qr-ung-ho-techcombank.png) không được bảo toàn.');
+    throw new Error('Techcombank QR (qr-ung-ho-techcombank-nguyen-chi-trung.png) không được bảo toàn.');
   }
 
   const campaignContent = fs.readFileSync(campaignPath, 'utf-8');
-  if (!campaignContent.includes('19072950239011')) {
-    throw new Error('Tài khoản Techcombank 19072950239011 trong campaign.ts không được bảo tồn.');
+  if (!campaignContent.includes('19077352683012')) {
+    throw new Error('Tài khoản Techcombank 19077352683012 trong campaign.ts không được bảo tồn.');
   }
 
   // 5. Sinh nội dung git diff patch cho các tệp trong matchingFiles
@@ -175,7 +175,7 @@ async function main() {
     console.log(`    + ${f}`);
   }
   console.log(`- Tệp bị loại trừ an toàn (Studio/Docs/Evidence): ${result.excludedCount}`);
-  console.log(`- Bảo toàn Hero & Techcombank 19072950239011: ${result.heroPreserved && result.techcombankPreserved ? 'ĐẠT' : 'KHÔNG'}`);
+  console.log(`- Bảo toàn Hero & Techcombank 19077352683012: ${result.heroPreserved && result.techcombankPreserved ? 'ĐẠT' : 'KHÔNG'}`);
   console.log(`- Tệp patch xem trước: ${result.patchPath} (${result.patchSizeBytes} bytes)`);
   console.log('\n[CÁC BƯỚC CẦN DUYỆT TRƯỚC KHI KÍCH HOẠT SẢN XUẤT]:');
   console.log('1. Người quản lý duyệt nội dung public-consumer-release.patch.');

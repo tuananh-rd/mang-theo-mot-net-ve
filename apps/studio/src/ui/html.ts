@@ -2205,9 +2205,9 @@ export function renderStudioHtml(session: AuthSession): string {
         const acc = f.donationAccount || {
           status: 'active',
           bankName: 'Techcombank',
-          accountNumber: '19072950239011',
-          accountHolder: 'NGUYEN NGOC KHOA',
-          qrImage: '/images/ung-ho/qr-ung-ho-techcombank.png',
+          accountNumber: '19077352683012',
+          accountHolder: 'NGUYEN CHI TRUNG',
+          qrImage: '/images/ung-ho/qr-ung-ho-techcombank-nguyen-chi-trung.png',
           transferPrefix: 'MTMNV',
           goalAmount: 3000000,
         };
@@ -2251,11 +2251,11 @@ export function renderStudioHtml(session: AuthSession): string {
               </div>
               <div class="form-group">
                 <label>Số tài khoản *</label>
-                <input type="text" class="form-control" name="acc_accountNumber" value="\${escapeHtml(acc.accountNumber || '19072950239011')}" required>
+                <input type="text" class="form-control" name="acc_accountNumber" value="\${escapeHtml(acc.accountNumber || '19077352683012')}" required>
               </div>
               <div class="form-group">
                 <label>Tên chủ tài khoản *</label>
-                <input type="text" class="form-control" name="acc_accountHolder" value="\${escapeHtml(acc.accountHolder || 'NGUYEN NGOC KHOA')}" required>
+                <input type="text" class="form-control" name="acc_accountHolder" value="\${escapeHtml(acc.accountHolder || 'NGUYEN CHI TRUNG')}" required>
               </div>
             </div>
 
@@ -2266,7 +2266,7 @@ export function renderStudioHtml(session: AuthSession): string {
               </div>
               <div class="form-group">
                 <label>Đường dẫn mã QR (qrImage)</label>
-                <input type="text" class="form-control" name="acc_qrImage" value="\${escapeHtml(acc.qrImage || '/images/ung-ho/qr-ung-ho-techcombank.png')}">
+                <input type="text" class="form-control" name="acc_qrImage" value="\${escapeHtml(acc.qrImage || '/images/ung-ho/qr-ung-ho-techcombank-nguyen-chi-trung.png')}">
               </div>
             </div>
 

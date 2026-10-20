@@ -506,7 +506,14 @@ test('Status Artifact Producer: /_meta/snapshot-status.json trong bản build ch
   assert.equal(rawText.includes('reconciled'), false, 'Không được chứa dữ liệu tài chính nội bộ');
 });
 
-test('Release Delta: Chỉ đọc, lọc đúng 12 tệp consumer công khai, loại trừ nghiêm ngặt các tệp cấm và bảo toàn Hero & Techcombank 19072950239011', { timeout: 10000 }, async () => {
+test('Release Delta: Chỉ đọc, lọc đúng 12 tệp consumer công khai, loại trừ nghiêm ngặt các tệp cấm và bảo toàn Hero & Techcombank 19077352683012', { timeout: 10000 }, async () => {
+  assert.equal(DEFAULT_FINANCE_DATA.donationAccount.accountNumber, '19077352683012');
+  assert.equal(DEFAULT_FINANCE_DATA.donationAccount.accountHolder, 'NGUYEN CHI TRUNG');
+  assert.equal(DEFAULT_FINANCE_DATA.donationAccount.goalAmount, 3000000);
+  assert.equal(DEFAULT_FINANCE_DATA.reconciled, false);
+  assert.deepEqual(DEFAULT_FINANCE_DATA.entries, []);
+  assert.equal(DEFAULT_FINANCE_DATA.donationAccount.qrImage, '/images/ung-ho/qr-ung-ho-techcombank-nguyen-chi-trung.png');
+  assert.equal(fs.existsSync(path.resolve(process.cwd(), 'public/images/ung-ho/qr-ung-ho-techcombank-nguyen-chi-trung.png')), true);
   const { analyzeReleaseDelta, PUBLIC_CONSUMER_ALLOWLIST, FORBIDDEN_PREFIXES } = await import('../../../tools/content-studio/release-delta.mjs');
   const tempPatch = path.resolve(process.cwd(), `docs/evidence/C17/R2-F3-R1/worker/test-release-${Date.now()}.patch`);
 
@@ -514,7 +521,7 @@ test('Release Delta: Chỉ đọc, lọc đúng 12 tệp consumer công khai, lo
     const res = await analyzeReleaseDelta({ outPath: tempPatch });
     assert.equal(res.matchingFiles.length, 12, 'Phải khớp đúng 12 tệp consumer công khai');
     assert.equal(res.heroPreserved, true, 'Hero assets phải được bảo toàn');
-    assert.equal(res.techcombankPreserved, true, 'Tài khoản Techcombank 19072950239011 phải được bảo toàn');
+    assert.equal(res.techcombankPreserved, true, 'Tài khoản Techcombank 19077352683012 phải được bảo toàn');
     assert.ok(fs.existsSync(tempPatch), 'Tệp patch xem trước phải được tạo');
     assert.ok(res.patchSizeBytes > 0, 'Kích thước patch phải lớn hơn 0');
 

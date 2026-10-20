@@ -24,8 +24,8 @@ const ledger = (entries, reconciledAt = '2026-10-20') => ({ reconciled: true, re
 describe('Tài khoản và sổ ủng hộ hiện tại (C07S)', () => {
   test('Tài khoản Techcombank do nhóm cung cấp đang mở, mục tiêu 3.000.000đ', () => {
     assert.equal(DONATION_ACCOUNT.bankName, 'Techcombank');
-    assert.equal(DONATION_ACCOUNT.accountNumber, '19072950239011');
-    assert.equal(DONATION_ACCOUNT.accountHolder, 'NGUYEN NGOC KHOA');
+    assert.equal(DONATION_ACCOUNT.accountNumber, '19077352683012');
+    assert.equal(DONATION_ACCOUNT.accountHolder, 'NGUYEN CHI TRUNG');
     assert.equal(DONATION_ACCOUNT.goalAmount, 3000000);
     assert.equal(isDonationOpen(DONATION_ACCOUNT), true);
   });
