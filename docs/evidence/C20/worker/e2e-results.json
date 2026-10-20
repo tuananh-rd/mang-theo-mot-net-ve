@@ -1,0 +1,39 @@
+{
+  "mode": "local emulator; synthetic isTest order only",
+  "checks": [
+    {
+      "step": "desktop public form visible",
+      "viewport": "1440x1000",
+      "passed": true
+    },
+    {
+      "step": "mobile public form visible with no horizontal overflow",
+      "viewport": "390x844",
+      "passed": true,
+      "width": 390,
+      "scrollWidth": 390,
+      "formVisible": true
+    },
+    {
+      "step": "public form creates a non-payment test preorder",
+      "passed": true
+    },
+    {
+      "step": "Admin Studio lists the test order",
+      "passed": true
+    },
+    {
+      "step": "Reviewer workflow changes status and records history",
+      "passed": true
+    },
+    {
+      "step": "Studio CSV export is authorized and UTF-8 BOM encoded",
+      "passed": true
+    },
+    {
+      "step": "Admin archives only the isTest order through the confirmation control",
+      "passed": true
+    }
+  ],
+  "orderCode": "MTMNV-B057A57F"
+}
