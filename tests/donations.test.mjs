@@ -6,6 +6,7 @@
 
 import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
 
 import { DONATION_ACCOUNT, DONATION_LEDGER, OFFICIAL_CONTACT, PROJECT_PROGRESS, PLANNED_SESSIONS, TEAM_MEMBERS, SALES_PLAN } from '../src/data/campaign.ts';
 import {
@@ -24,9 +25,11 @@ const ledger = (entries, reconciledAt = '2026-10-20') => ({ reconciled: true, re
 describe('Tài khoản và sổ ủng hộ hiện tại (C07S)', () => {
   test('Tài khoản Techcombank do nhóm cung cấp đang mở, mục tiêu 3.000.000đ', () => {
     assert.equal(DONATION_ACCOUNT.bankName, 'Techcombank');
-    assert.equal(DONATION_ACCOUNT.accountNumber, '19072950239011');
-    assert.equal(DONATION_ACCOUNT.accountHolder, 'NGUYEN NGOC KHOA');
+    assert.equal(DONATION_ACCOUNT.accountNumber, '19077352683012');
+    assert.equal(DONATION_ACCOUNT.accountHolder, 'NGUYEN CHI TRUNG');
     assert.equal(DONATION_ACCOUNT.goalAmount, 3000000);
+    assert.equal(DONATION_ACCOUNT.qrImage, '/images/ung-ho/qr-ung-ho-techcombank-nguyen-chi-trung.png');
+    assert.equal(fs.existsSync(new URL(`../public${DONATION_ACCOUNT.qrImage}`, import.meta.url)), true);
     assert.equal(isDonationOpen(DONATION_ACCOUNT), true);
   });
 
