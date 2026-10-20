@@ -1390,7 +1390,7 @@ export function renderStudioHtml(session: AuthSession): string {
                 },
               ].filter(person => Boolean(person.name && String(person.name).trim())),
               fanpageUrl: fd.has('contact_fanpage') ? String(fd.get('contact_fanpage')).trim() : '',
-              sourceRef: p.contacts?.sourceRef || 'proposal-final',
+              sourceRef: p.contacts?.sourceRef || 'proposal-v3',
               updatedAt: p.contacts?.updatedAt || new Date().toISOString().slice(0, 10),
             } : null,
           };

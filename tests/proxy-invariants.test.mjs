@@ -21,7 +21,7 @@ test('Proxy invariants: array length descriptor must be non-configurable', () =>
     { name: 'TEAM_MEMBERS', arr: TEAM_MEMBERS, expectedLen: 7 },
     { name: 'PRODUCT_FAQS', arr: PRODUCT_FAQS, expectedLen: 4 },
     { name: 'SUPPORT_FAQS', arr: SUPPORT_FAQS, expectedLen: 5 },
-    { name: 'TRANSPARENCY_FAQS', arr: TRANSPARENCY_FAQS, expectedLen: 4 },
+    { name: 'TRANSPARENCY_FAQS', arr: TRANSPARENCY_FAQS, expectedLen: 5 },
   ];
 
   for (const { name, arr, expectedLen } of arrays) {
@@ -46,7 +46,7 @@ test('Proxy reflection: array functions, iteration and serialization', () => {
 
   const roles = TEAM_MEMBERS.map((m) => m.role);
   assert.ok(roles.includes('Trưởng dự án'));
-  assert.ok(roles.includes('Tài chính'));
+  assert.ok(roles.includes('Tài chính, thủ quỹ'));
 
   // 3. Object.keys & Object.entries
   const keys = Object.keys(PRODUCTS);

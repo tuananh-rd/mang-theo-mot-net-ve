@@ -509,34 +509,38 @@ export const DEFAULT_PROJECT_DATA: ProjectModuleData = {
     'Bảy sinh viên Đại học FPT Hà Nội sẽ tổ chức một buổi vui chơi sáng tạo cho các em tại Mái ấm Thánh Tâm Xuy Xá, và gây quỹ để tặng những vật phẩm Mái ấm đang cần.',
   location: 'Mái ấm Thánh Tâm Xuy Xá (Mỹ Đức, Hà Nội) & Campus FPT Hòa Lạc',
   executionStatus: 'in_progress',
-  statusNotice: 'Đang triển khai · tuần 1',
-  previewNotice: 'Bản xem trước — nội dung theo đề xuất Final, chờ xác nhận.',
+  statusNotice: 'Đang triển khai · tuần 2',
+  previewNotice: 'Bản xem trước — nội dung theo đề xuất V3 (tháng 10/2026), chờ xác nhận.',
   activities: [
     {
       id: 'chuon-chuon-tre',
-      title: 'Chuồn chuồn tre và vẽ tranh',
-      description: 'Trang trí những cánh chuồn chuồn tre thăng bằng và vẽ tranh tự do với màu sắc theo sở thích.',
+      title: 'Trang trí chuồn chuồn tre',
+      description:
+        'Phiên sáng tạo 1 (khoảng 50 phút): các em chọn màu, thêm họa tiết hoặc tô cùng sinh viên; người hỗ trợ giữ phôi khi cần. Em muốn tiếp tục vẫn được làm tiếp ở phiên sau.',
       badge: 'Góc tạo hình',
-      note: 'Người tham gia có quyền lựa chọn vẽ tranh, trang trí, quan sát hoặc nghỉ ngơi.',
+      note: 'Mỗi em được chọn trang trí, quan sát, đổi hoạt động hoặc nghỉ; sản phẩm của các em được để khô và giữ lại Mái ấm.',
     },
     {
       id: 'to-tuong',
-      title: 'Tô tượng sắc màu',
-      description: 'Thỏa sức phối màu trên các mẫu tượng thạch cao đa dạng hình dáng và kích cỡ (10 cm).',
+      title: 'Tô tượng và giấy ước mơ',
+      description:
+        'Phiên sáng tạo 2 (khoảng 50 phút): tô tượng 10 cm trên khay chắc, tô từng vùng cùng sinh viên; có thêm hoạt động giấy ước mơ.',
       badge: 'Góc tô màu',
-      note: 'Hoạt động vui chơi trải nghiệm tại chỗ, không gắn với sản phẩm gây quỹ.',
+      note: 'Hoạt động vui chơi tại chỗ, không đặt chỉ tiêu hoàn thành và không gắn với hàng gây quỹ.',
     },
     {
       id: 'hat-cung-nhau',
-      title: 'Hát cùng nhau',
-      description: 'Không gian văn nghệ kết nối, cùng hòa giọng trong những giai điệu thiếu nhi gần gũi.',
+      title: 'Hát, trò chuyện và chia sẻ',
+      description:
+        'Hát các bài quen theo gợi ý của Mái ấm và trò chuyện; em nào muốn có thể giới thiệu sản phẩm của mình, hai cụ cùng hát hoặc trò chuyện.',
       badge: 'Góc âm nhạc',
       note: 'Tạo không khí ấm áp, vui tươi và không áp lực biểu diễn.',
     },
     {
       id: 'tro-choi-nhe',
       title: 'Trò chơi tương tác nhẹ',
-      description: 'Các trò chơi tương tác vừa sức: bowling mini, chuyền bóng nhẹ nhàng và thẻ màu ghép hình.',
+      description:
+        'Bowling bóng mềm rồi chuyền bóng theo nhạc, lượt ngắn và có thể chơi khi ngồi; khi nhạc dừng, em cầm bóng có thể chọn một cử chỉ vui hoặc bỏ lượt. Có trò "Gương vui" nhẹ ở giờ nghỉ.',
       badge: 'Góc vận động',
       note: 'Mỗi em nhỏ tự quyết định mức độ tham gia phù hợp thể trạng.',
     },
@@ -552,19 +556,19 @@ export const DEFAULT_PROJECT_DATA: ProjectModuleData = {
       step: '02',
       title: 'Gây quỹ',
       description:
-        'Tiếp nhận ủng hộ qua chuyển khoản và dự kiến bán quà lưu niệm. Hai nguồn được ghi riêng; khoản ủng hộ được công bố sau đối soát.',
+        'Tiếp nhận ủng hộ qua chuyển khoản và dự kiến bán quà lưu niệm; dự kiến mở đặt trước từ tuần 6 và bán chính ở tuần 7–8. Hai nguồn được ghi riêng; khoản ủng hộ được công bố sau đối soát.',
     },
     {
       step: '03',
       title: 'Buổi chơi tại Mái ấm',
       description:
-        '14:00 Thứ Bảy 24/10/2026 (dự kiến). Bốn góc hoạt động, có hai lần nghỉ; có thể rút ngắn theo ý Mái ấm.',
+        '14:00 Thứ Bảy 31/10/2026 (dự kiến). Khoảng 180 phút, bốn hoạt động và hai lần nghỉ chung; có thể rút ngắn theo ý Mái ấm.',
     },
     {
       step: '04',
       title: 'Đối soát và trao quà',
       description:
-        '14:00 Thứ Bảy 31/10/2026 (dự kiến). Chốt quỹ, mua vật phẩm theo danh mục Mái ấm xác nhận và trao tặng.',
+        '14:00 Thứ Bảy 07/11/2026 (dự kiến). Chốt quỹ, mua vật phẩm theo danh mục Mái ấm xác nhận, gặp lại các em và trao tặng.',
     },
   ],
   needs: [
@@ -584,31 +588,32 @@ export const DEFAULT_PROJECT_DATA: ProjectModuleData = {
   safetyPractices: [
     'Chuồn chuồn mài nhẵn, màu gốc nước, tượng không cạnh nhọn.',
     'Chia nhóm nhỏ theo lượt, luôn có góc nghỉ.',
-    'Trò chơi vận động nhẹ, có thể chơi khi ngồi, không loại người chơi.',
+    'Trò chơi vận động nhẹ với bóng mềm, có thể chơi khi ngồi, không loại người chơi.',
     'Chỉ ghi hình trong phạm vi Mái ấm cho phép.',
+    'Con dấu tích điểm chỉ dùng khi em đồng ý, mực ghi rõ dùng trên da và được Mái ấm chấp thuận.',
   ],
   progress: {
-    currentWeek: 1,
+    currentWeek: 2,
     totalWeeks: 5,
-    updatedAt: '2026-10-09',
+    updatedAt: '2026-10-12',
     currentStageIndex: 0,
   },
   plannedSessions: [
     {
       id: 'buoi-choi',
       title: 'Buổi chơi tại Mái ấm',
-      date: '2026-10-24',
+      date: '2026-10-31',
       time: '14:00',
       weekday: 'Thứ Bảy',
-      description: 'Bốn góc hoạt động, khoảng 180 phút, có hai lần nghỉ.',
+      description: 'Bốn hoạt động, khoảng 180 phút, có hai lần nghỉ chung (dự kiến tuần 8).',
     },
     {
       id: 'trao-qua',
       title: 'Gặp lại và trao quà',
-      date: '2026-10-31',
+      date: '2026-11-07',
       time: '14:00',
       weekday: 'Thứ Bảy',
-      description: 'Trao vật phẩm theo danh mục Mái ấm xác nhận, khoảng 30–45 phút.',
+      description: 'Gặp lại các em, trao vật phẩm theo danh mục Mái ấm xác nhận, khoảng 30–45 phút (dự kiến tuần 9).',
     },
   ],
   contacts: {
@@ -631,7 +636,7 @@ export const DEFAULT_JOURNAL_DATA: JournalArticle[] = [
     category: 'ke-hoach',
     categoryLabel: 'Kế hoạch',
     publishedAt: '2026-10-11',
-    eventDate: '2026-10-24',
+    eventDate: '2026-10-31',
     eventStatus: 'planned',
     status: 'published',
     coverImage: {
@@ -645,7 +650,7 @@ export const DEFAULT_JOURNAL_DATA: JournalArticle[] = [
     content: [
       {
         type: 'paragraph',
-        text: 'Tại Mái ấm Thánh Tâm Xuy Xá (Mỹ Đức, Hà Nội), nhóm sinh viên Lăng Kính dự kiến tổ chức một buổi vui chơi sáng tạo trong khoảng 180 phút vào chiều Thứ Bảy 24/10/2026. Để buổi chơi thực sự mang lại niềm vui vừa sức, nhóm xây dựng kế hoạch gồm bốn góc hoạt động với hai lượt chơi tại bàn chuồn chuồn và tô tượng xen kẽ trò chơi chung và nghỉ giải lao theo lịch trình dự kiến, cho phép các em tự do chọn góc chơi hoặc nghỉ ngơi.',
+        text: 'Tại Mái ấm Thánh Tâm Xuy Xá (Mỹ Đức, Hà Nội), nhóm sinh viên Lăng Kính dự kiến tổ chức một buổi vui chơi sáng tạo trong khoảng 180 phút vào chiều Thứ Bảy 31/10/2026. Để buổi chơi mang lại niềm vui vừa sức, nhóm xây dựng kế hoạch gồm bốn hoạt động: trang trí chuồn chuồn, tô tượng và giấy ước mơ, trò chơi nhẹ, hát và giao lưu, xen hai lần nghỉ chung; các em tự do chọn hoạt động hoặc nghỉ ngơi.',
       },
       {
         type: 'heading',
@@ -655,10 +660,10 @@ export const DEFAULT_JOURNAL_DATA: JournalArticle[] = [
       {
         type: 'list',
         items: [
-          'Góc tạo hình: Trang trí những chú chuồn chuồn tre thăng bằng và vẽ tranh tự do theo sở thích.',
-          'Góc tô màu: Thỏa sức phối màu trên các mẫu tượng thạch cao đa dạng hình dáng và kích cỡ (10 cm).',
-          'Góc âm nhạc: Giao lưu hát cùng nhau với các giai điệu thiếu nhi gần gũi, ấm áp và không áp lực biểu diễn.',
-          'Góc vận động nhẹ: Các trò chơi tương tác vừa sức gồm bowling mini, chuyền bóng nhẹ nhàng và thẻ màu ghép hình.',
+          'Góc tạo hình: Trang trí chuồn chuồn tre ở phiên sáng tạo 1; các em chọn màu, thêm họa tiết hoặc tô cùng sinh viên, em muốn tiếp tục vẫn được làm tiếp.',
+          'Góc tô màu: Tô tượng 10 cm ở phiên sáng tạo 2, kèm hoạt động giấy ước mơ; các em tự tô hoặc chọn màu để sinh viên hỗ trợ.',
+          'Góc âm nhạc: Hát các bài quen theo gợi ý của Mái ấm, trò chuyện và chia sẻ sản phẩm, không áp lực biểu diễn.',
+          'Góc vận động nhẹ: Bowling bóng mềm và chuyền bóng theo nhạc với lượt ngắn, có thể chơi khi ngồi; khi nhạc dừng, em cầm bóng có thể chọn một cử chỉ vui hoặc bỏ lượt.',
         ],
       },
       {
@@ -709,12 +714,12 @@ export const DEFAULT_JOURNAL_DATA: JournalArticle[] = [
         type: 'list',
         items: [
           'Chuồn chuồn tre kèm đế: Kế hoạch chuẩn bị 50 phôi tre mộc 12 cm theo đề xuất, trong đó 30 bộ có đế dự kiến bán gây quỹ với giá tham khảo 40.000đ/bộ; 20 chiếc để lại Mái ấm theo lựa chọn của cơ sở.',
-          'Móc khóa Lăng Kính: Dự kiến 100 chiếc móc khóa Lăng Kính với giá tham khảo 10.000đ/chiếc. Tranh vẽ của các em chỉ được in khi có sự đồng ý phù hợp từ Mái ấm và người giám hộ.',
+          'Móc khóa Lăng Kính: Dự kiến 100 chiếc với giá tham khảo 10.000đ/chiếc, in tranh do nhóm chuẩn bị hoặc có quyền sử dụng, kèm lời cảm ơn ở mặt sau; không dùng tranh của các em trong buổi sinh hoạt.',
         ],
       },
       {
         type: 'callout',
-        text: 'Trạng thái hiện tại: Chưa mở bán. Website hiện chưa nhận đơn đặt hàng hoặc thanh toán sản phẩm. Kế hoạch mở bán dự kiến diễn ra tại khuôn viên Đại học FPT Hòa Lạc sau khi nhóm hoàn tất chuẩn bị mẫu và được phê duyệt.',
+        text: 'Trạng thái hiện tại: Chưa mở bán. Website hiện chưa nhận đơn đặt hàng hoặc thanh toán sản phẩm. Theo kế hoạch, nhóm dự kiến mở đặt trước từ tuần 6 và bán chính ở tuần 7–8 tại khuôn viên Đại học FPT Hòa Lạc, sau khi hoàn tất chuẩn bị mẫu và được phê duyệt.',
       },
       {
         type: 'heading',
@@ -772,7 +777,7 @@ export const DEFAULT_FINANCE_DATA: FinanceModuleData = {
     unfundedProjectedBalance: 1680000,
     actualStatusNotice: 'Chưa có số liệu thực tế được xác nhận.',
     disclaimer:
-      'Các con số trên thuộc dự toán ban đầu trong đề xuất dự án Final (tháng 10/2026). Báo cáo sau đối soát, biên tập và được phép công bố sẽ được cập nhật sau khi hoàn thành.',
+      'Các con số trên thuộc dự toán trong đề xuất dự án bản V3 (tháng 10/2026). Doanh thu cơ sở tính trên giả định bán đủ 30 bộ chuồn chuồn tre, 100 móc khóa, 50 set đồ ăn và 50 hộp bánh su kem. Ba combo món ăn có trong bảng giá của đề xuất nhưng không nằm trong sản lượng mục tiêu và chưa tính vào kịch bản cơ sở; nhóm cần xác nhận có bán hay không. Báo cáo sau đối soát, biên tập và được phép công bố sẽ được cập nhật sau khi hoàn thành.',
   },
   donationAccount: {
     status: 'active',
@@ -848,20 +853,55 @@ export const DEFAULT_TEAM_DATA: TeamModuleData = {
     },
   ],
   areas: [
-    { title: 'Điều phối', members: 1, description: 'Lên lịch, theo dõi tiến độ và kết nối các mảng việc của nhóm.' },
-    { title: 'Tài chính', members: 1, description: 'Giữ sổ thu chi, hóa đơn, đối soát sau mỗi đợt bán và mua quà theo danh mục.' },
-    { title: 'Hậu cần và chương trình', members: 2, description: 'Chuẩn bị vật tư, đạo cụ, quầy quà lưu niệm và di chuyển cho buổi chơi.' },
-    { title: 'Nội dung và truyền thông', members: 2, description: 'Thiết kế ấn phẩm, viết bài và lưu trữ hình ảnh đúng phạm vi cho phép.' },
-    { title: 'Đối ngoại', members: 1, description: 'Làm việc với Mái ấm và các đơn vị hỗ trợ.' },
+    { title: 'Điều phối', members: 1, description: 'Lịch, họp tuần, theo dõi tiến độ và kết nối các mảng việc của nhóm.' },
+    { title: 'Tài chính', members: 1, description: 'Sổ thu chi, hóa đơn, đối soát sau mỗi ca bán và mua quà theo danh mục.' },
+    { title: 'Hậu cần và chương trình', members: 2, description: 'Đơn hàng, tồn kho, chế biến, vận chuyển, dựng quầy, an toàn thực phẩm và chương trình buổi chơi.' },
+    { title: 'Nội dung và truyền thông', members: 2, description: 'Thiết kế ấn phẩm, viết bài, lịch đăng, báo cáo số liệu và lưu ảnh, video đúng phạm vi cho phép.' },
+    { title: 'Đối ngoại', members: 1, description: 'Đầu mối với Mái ấm và nhà tài trợ, thiết kế poster và infographic.' },
   ],
   members: [
-    { name: 'Nguyễn Chí Trung', role: 'Trưởng dự án', photo: '/images/thanh-vien/nguyen-chi-trung.webp', description: 'Lên lịch, theo dõi tiến độ và điều phối hoạt động của nhóm.' },
-    { name: 'Nguyễn Ngọc Khoa', role: 'Tài chính', photo: '/images/thanh-vien/nguyen-ngoc-khoa.webp', description: 'Giữ sổ ủng hộ, đối chiếu sao kê và mua quà theo danh mục.' },
-    { name: 'Nguyễn Như Huy', role: 'Hậu cần', photo: '/images/thanh-vien/nguyen-nhu-huy.webp', description: 'Chuẩn bị vật tư, đạo cụ và chương trình buổi chơi.' },
-    { name: 'Trịnh Hiển Lân', role: 'Truyền thông', photo: '/images/thanh-vien/trinh-hien-lan.webp', description: 'Viết bài, quản lý lịch đăng và hình ảnh đúng phạm vi cho phép.' },
-    { name: 'Trần Bình Trọng', role: 'Thiết kế', photo: '/images/thanh-vien/tran-binh-trong.webp', description: 'Thiết kế ấn phẩm, poster và nhận diện của dự án.' },
-    { name: 'Lê Tuấn Anh', role: 'Đối ngoại', photo: '/images/thanh-vien/le-tuan-anh.webp', description: 'Làm việc với Mái ấm và các đơn vị hỗ trợ.' },
-    { name: 'Nguyễn Anh Khoa', role: 'Hậu cần', photo: '/images/thanh-vien/nguyen-anh-khoa.webp', description: 'Chuẩn bị quà lưu niệm, quầy và di chuyển.' },
+    {
+      name: 'Nguyễn Chí Trung',
+      role: 'Trưởng dự án',
+      photo: '/images/thanh-vien/nguyen-chi-trung.webp',
+      description: 'Lịch, họp tuần, theo dõi tiến độ, làm việc với giảng viên và điều phối hoạt động nhóm.',
+    },
+    {
+      name: 'Nguyễn Ngọc Khoa',
+      role: 'Tài chính, thủ quỹ',
+      photo: '/images/thanh-vien/nguyen-ngoc-khoa.webp',
+      description: 'Sổ thu chi, hóa đơn, đối soát cuối mỗi ca, báo cáo công khai và mua quà theo danh mục.',
+    },
+    {
+      name: 'Nguyễn Như Huy',
+      role: 'Hậu cần, phụ trách chương trình',
+      photo: '/images/thanh-vien/nguyen-nhu-huy.webp',
+      description: 'Đơn đặt hàng, tồn kho, chế biến, vận chuyển, dựng quầy, an toàn thực phẩm và chương trình buổi chơi.',
+    },
+    {
+      name: 'Trịnh Hiển Lân',
+      role: 'Truyền thông, nội dung',
+      photo: '/images/thanh-vien/trinh-hien-lan.webp',
+      description: 'Lịch đăng bài, viết bài, báo cáo số liệu truyền thông và duyệt hình ảnh đúng phạm vi cho phép.',
+    },
+    {
+      name: 'Trần Bình Trọng',
+      role: 'Thiết kế, nội dung',
+      photo: '/images/thanh-vien/tran-binh-trong.webp',
+      description: 'Slide, poster, infographic; lưu ảnh và video có nguồn, ngày giờ.',
+    },
+    {
+      name: 'Lê Tuấn Anh',
+      role: 'Đối ngoại, thiết kế',
+      photo: '/images/thanh-vien/le-tuan-anh.webp',
+      description: 'Đầu mối với Mái ấm và nhà tài trợ; thiết kế poster, infographic.',
+    },
+    {
+      name: 'Nguyễn Anh Khoa',
+      role: 'Hậu cần, bán hàng gây quỹ',
+      photo: '/images/thanh-vien/nguyen-anh-khoa.webp',
+      description: 'Đơn đặt hàng, tồn kho, chế biến, vận chuyển, dựng quầy, an toàn thực phẩm và bán hàng gây quỹ.',
+    },
   ],
   productFaqs: [
     {
@@ -871,7 +911,7 @@ export const DEFAULT_TEAM_DATA: TeamModuleData = {
     {
       question: 'Ai làm các sản phẩm này?',
       answer:
-        'Toàn bộ sản phẩm gây quỹ do nhóm Lăng Kính chuẩn bị và hoàn thiện. Hoạt động tại Mái ấm hoàn toàn là vui chơi sáng tạo, không gắn với sản xuất hàng bán; các em giữ lại sản phẩm do mình làm ra. Tranh của các em chỉ được in lên móc khóa khi có sự đồng ý phù hợp.',
+        'Toàn bộ sản phẩm gây quỹ do nhóm Lăng Kính chuẩn bị và hoàn thiện. Hoạt động tại Mái ấm hoàn toàn là vui chơi sáng tạo, không gắn với sản xuất hàng bán; các em giữ lại sản phẩm do mình làm ra. Móc khóa in tranh do nhóm chuẩn bị hoặc có quyền sử dụng, không dùng tranh của các em trong buổi sinh hoạt.',
     },
     {
       question: 'Khi nào có thể đặt mua?',
@@ -928,6 +968,11 @@ export const DEFAULT_TEAM_DATA: TeamModuleData = {
       question: 'Khi nào nhóm công bố báo cáo tổng kết dự án?',
       answer:
         'Sau buổi trao quà và khi thành viên tài chính cùng một thành viên khác hoàn tất đối soát. Chứng từ chỉ công bố bản đã che thông tin riêng tư.',
+    },
+    {
+      question: 'Quỹ dùng để mua quà được tính như thế nào?',
+      answer:
+        'Theo đề xuất, quỹ có thể dùng trước khi mua quà bằng tiền bán hàng và tài trợ tiền đã nhận, trừ chi phí tổ chức và gây quỹ đã trả, chi phí còn phải trả và tiền khách đã trả cho đơn chưa hoàn tất. Mỗi khoản chỉ được trừ một lần; hiện vật chỉ giảm đúng khoản chi mà nó thay thế và không được quy thành tiền mặt.',
     },
   ],
   faqs: [

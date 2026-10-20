@@ -100,13 +100,13 @@ export const CRAFT_PRODUCT_DETAILS: CraftProductDetail[] = [
     materialInfo: 'Móc khóa Lăng Kính (theo đề xuất kế hoạch).',
     dimensionInfo: null,
     originDetails:
-      'Nhóm sinh viên Lăng Kính chuẩn bị và hoàn thiện mẫu theo kế hoạch. Tranh của các em nhỏ chỉ được in khi có sự đồng ý phù hợp từ Mái ấm và người giám hộ.',
+      'Nhóm sinh viên Lăng Kính chuẩn bị và hoàn thiện mẫu theo kế hoạch. Móc khóa in tranh do nhóm chuẩn bị hoặc có quyền sử dụng, kèm lời cảm ơn ở mặt sau; không dùng tranh của các em trong buổi sinh hoạt.',
     salesLocationPlan:
       'Dự kiến mở bán tại khuôn viên Đại học FPT Hà Nội (Hòa Lạc) theo đề xuất kế hoạch; hiện chưa mở bán chính thức.',
     returnPolicy:
       'Điều kiện nhận/đổi/hủy chưa công bố; nhóm sẽ hoàn thiện và thống nhất trước khi mở bán.',
     imagePendingNote:
-      'Chưa có ảnh mẫu: móc khóa dự kiến in tranh các em vẽ, chỉ thực hiện khi có sự đồng ý phù hợp từ Mái ấm.',
+      'Chưa có ảnh mẫu: móc khóa in tranh do nhóm chuẩn bị hoặc có quyền sử dụng, không dùng tranh của các em trong buổi sinh hoạt.',
   },
 ];
 

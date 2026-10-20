@@ -41,20 +41,20 @@ describe('Kiểm thử logic tài chính và tính toán (Task C06 - Final PDF)'
     const total = sumPlannedExpenses(PLANNED_EXPENSES);
     assert.equal(total, 5470000, 'Tổng dự toán chi phải là 5.470.000đ.');
 
-    // Nhóm 1: Nguyên liệu gây quỹ (trang 29) = 2.480.000đ (14 khoản)
-    const group1 = PLANNED_EXPENSES.filter((i) => i.amount.sourceRef === 'proposal-final:page-29');
+    // Nhóm 1: Nguyên liệu gây quỹ (trang 34) = 2.480.000đ (14 khoản)
+    const group1 = PLANNED_EXPENSES.filter((i) => i.amount.sourceRef === 'proposal-v3:page-34');
     assert.equal(group1.length, 14, 'Nhóm 1 phải có 14 khoản.');
     const group1Total = sumPlannedExpenses(group1);
     assert.equal(group1Total, 2480000, 'Nhóm 1 phải có tổng là 2.480.000đ.');
 
-    // Nhóm 2: Vật tư workshop & quà tặng (trang 30) = 1.860.000đ (7 khoản)
-    const group2 = PLANNED_EXPENSES.filter((i) => i.amount.sourceRef === 'proposal-final:page-30');
+    // Nhóm 2: Vật tư workshop & quà tặng (trang 35-36) = 1.860.000đ (7 khoản)
+    const group2 = PLANNED_EXPENSES.filter((i) => i.amount.sourceRef === 'proposal-v3:page-35-36');
     assert.equal(group2.length, 7, 'Nhóm 2 phải có 7 khoản.');
     const group2Total = sumPlannedExpenses(group2);
     assert.equal(group2Total, 1860000, 'Nhóm 2 phải có tổng là 1.860.000đ.');
 
-    // Nhóm 3: Truyền thông & Di chuyển (trang 31) = 1.130.000đ (3 khoản)
-    const group3 = PLANNED_EXPENSES.filter((i) => i.amount.sourceRef === 'proposal-final:page-31');
+    // Nhóm 3: Truyền thông & Di chuyển (trang 37) = 1.130.000đ (3 khoản)
+    const group3 = PLANNED_EXPENSES.filter((i) => i.amount.sourceRef === 'proposal-v3:page-37');
     assert.equal(group3.length, 3, 'Nhóm 3 phải có 3 khoản.');
     const group3Total = sumPlannedExpenses(group3);
     assert.equal(group3Total, 1130000, 'Nhóm 3 phải có tổng là 1.130.000đ.');
@@ -288,7 +288,7 @@ describe('Kiểm thử logic tài chính và tính toán (Task C06 - Final PDF)'
     assert.equal(res.projectedBalance, 2180000);
   });
 
-  test('Tất cả 5 kịch bản tài trợ tại trang 32 khớp chuẩn xác số dư theo đề xuất Final', () => {
+  test('Tất cả 5 kịch bản tài trợ tại trang 37–38 khớp chuẩn xác số dư theo đề xuất V3', () => {
     const expected = [
       { id: 'chua-tinh-tai-tro', inKind: 0, expenseRemaining: 5470000, balance: 1680000 },
       { id: 'tai-tro-qua-tang-500k', inKind: 500000, expenseRemaining: 4970000, balance: 2180000 },
@@ -389,11 +389,11 @@ describe('Kiểm tra tính toàn vẹn dữ liệu và an toàn thông tin (Task
     }
   });
 
-  test('Toàn bộ 24 khoản dự toán có sourceRef theo mẫu proposal-final:page-N (không còn proposal cũ)', () => {
+  test('Toàn bộ 24 khoản dự toán có sourceRef theo mẫu proposal-v3:page-N (không còn proposal cũ)', () => {
     for (const expense of PLANNED_EXPENSES) {
       assert.ok(
-        expense.amount.sourceRef && expense.amount.sourceRef.startsWith('proposal-final:page-'),
-        `Khoản ${expense.id} phải có sourceRef dạng proposal-final:page-N, thực tế là ${expense.amount.sourceRef}`
+        expense.amount.sourceRef && expense.amount.sourceRef.startsWith('proposal-v3:page-'),
+        `Khoản ${expense.id} phải có sourceRef dạng proposal-v3:page-N, thực tế là ${expense.amount.sourceRef}`
       );
     }
   });
@@ -504,19 +504,19 @@ describe('Kiểm thử phân nhóm chi phí dự toán (Task C06)', () => {
 
     // Nhóm 1: Nguyên liệu gây quỹ (14 khoản)
     assert.equal(group1.category, 'Nguyên liệu gây quỹ');
-    assert.equal(group1.sourceRef, 'proposal-final:page-29');
+    assert.equal(group1.sourceRef, 'proposal-v3:page-34');
     assert.equal(group1.items.length, 14);
     assert.equal(group1.subtotal, 2480000);
 
     // Nhóm 2: Vật tư workshop & quà tặng (7 khoản)
     assert.equal(group2.category, 'Vật tư workshop & quà tặng');
-    assert.equal(group2.sourceRef, 'proposal-final:page-30');
+    assert.equal(group2.sourceRef, 'proposal-v3:page-35-36');
     assert.equal(group2.items.length, 7);
     assert.equal(group2.subtotal, 1860000);
 
     // Nhóm 3: Truyền thông & Di chuyển (3 khoản)
     assert.equal(group3.category, 'Truyền thông & Di chuyển');
-    assert.equal(group3.sourceRef, 'proposal-final:page-31');
+    assert.equal(group3.sourceRef, 'proposal-v3:page-37');
     assert.equal(group3.items.length, 3);
     assert.equal(group3.subtotal, 1130000);
 

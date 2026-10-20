@@ -7,7 +7,7 @@
 import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { DONATION_ACCOUNT, DONATION_LEDGER, OFFICIAL_CONTACT, PROJECT_PROGRESS, PLANNED_SESSIONS, TEAM_MEMBERS } from '../src/data/campaign.ts';
+import { DONATION_ACCOUNT, DONATION_LEDGER, OFFICIAL_CONTACT, PROJECT_PROGRESS, PLANNED_SESSIONS, TEAM_MEMBERS, SALES_PLAN } from '../src/data/campaign.ts';
 import {
   isDonationOpen,
   isLedgerReconciled,
@@ -43,12 +43,40 @@ describe('Tài khoản và sổ ủng hộ hiện tại (C07S)', () => {
   test('Liên hệ, lịch, tiến độ và thành viên khớp tài liệu bổ sung', () => {
     assert.deepEqual(OFFICIAL_CONTACT.people.map((p) => p.phoneE164), ['+84984441726', '+84343999199']);
     assert.equal(OFFICIAL_CONTACT.fanpageUrl, 'https://www.facebook.com/mangtheomotnetve');
-    assert.deepEqual(PLANNED_SESSIONS.map((s) => `${s.date} ${s.time}`), ['2026-10-24 14:00', '2026-10-31 14:00']);
+    assert.deepEqual(PLANNED_SESSIONS.map((s) => `${s.date} ${s.time}`), ['2026-10-31 14:00', '2026-11-07 14:00']);
     for (const s of PLANNED_SESSIONS) assert.equal(new Date(`${s.date}T00:00:00Z`).getUTCDay(), 6, `${s.date} phải là Thứ Bảy`);
-    assert.equal(PROJECT_PROGRESS.currentWeek, 1);
+    assert.ok(new Date(PLANNED_SESSIONS[0].date) < new Date(PLANNED_SESSIONS[1].date), 'Hai buổi phải theo thứ tự thời gian tăng dần');
+    assert.equal(PROJECT_PROGRESS.currentWeek, 2);
     assert.equal(PROJECT_PROGRESS.totalWeeks, 5);
+    assert.equal(PROJECT_PROGRESS.updatedAt, '2026-10-12');
     assert.equal(TEAM_MEMBERS.length, 7);
     assert.equal(new Set(TEAM_MEMBERS.map((m) => m.photo)).size, 7);
+    assert.equal(new Set(TEAM_MEMBERS.map((m) => m.name)).size, 7);
+  });
+
+  test('Kế hoạch bán hàng và kiểm tra không còn ngày cũ / proposal cũ trong src/', async () => {
+    assert.equal(SALES_PLAN.length, 4);
+    const fs = await import('node:fs');
+    const path = await import('node:path');
+    const srcDir = path.resolve('src');
+    function scanDir(dir) {
+      const files = [];
+      for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+        const full = path.join(dir, entry.name);
+        if (entry.isDirectory()) files.push(...scanDir(full));
+        else if (/\.(ts|astro|json)$/.test(entry.name)) files.push(full);
+      }
+      return files;
+    }
+    const files = scanDir(srcDir);
+    for (const f of files) {
+      const content = fs.readFileSync(f, 'utf8');
+      assert.ok(!content.includes('proposal-final'), `${f} contains proposal-final`);
+      if (!f.endsWith('journal.ts')) {
+        assert.ok(!content.includes('24/10'), `${f} contains 24/10`);
+        assert.ok(!content.includes('2026-10-24'), `${f} contains 2026-10-24`);
+      }
+    }
   });
 });
 
@@ -113,7 +141,7 @@ describe('Logic sổ ủng hộ (C07S)', () => {
     const rows = [entry('2026-10-11', 1, null, 'A'), entry('2026-10-13', 1, null, 'B')];
     assert.deepEqual(sortDonationsNewestFirst(rows).map((r) => r.donor), ['B', 'A']);
     assert.equal(rows[0].donor, 'A');
-    assert.equal(formatViDate('2026-10-24'), '24/10/2026');
+    assert.equal(formatViDate('2026-10-31'), '31/10/2026');
     assert.equal(formatViDate(null), 'Chưa cập nhật');
   });
 });
