@@ -340,6 +340,8 @@ export function getPublishedProductConfig(productId: string): {
   salesChannel?: string;
   returnPolicy?: string | null;
   publicApproval?: 'pending' | 'approved';
+  preorderOpen?: boolean;
+  pickup?: string | null;
   narrative?: string | null;
   mediaKey?: string | null;
 } | null {

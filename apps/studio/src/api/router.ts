@@ -15,6 +15,7 @@ import { triggerGitHubPublication } from '../publish/github.js';
 import { verifyLiveDeployment, verifyDeploymentWebhookSecret } from '../publish/verifier.js';
 import { validateDonationCSV } from '../../../../tools/content-studio/csv-validator.mjs';
 import { importApprovedRegistryIntoDb, APPROVED_MEDIA_REGISTRY } from '../storage/media-registry.js';
+import { handlePreorderAdminRequest } from '../preorders/admin.js';
 
 const VALID_MODULES: ModuleKey[] = ['project', 'journal', 'products', 'finance', 'team'];
 
@@ -43,6 +44,11 @@ export async function handleApiRequest(
   const method = request.method.toUpperCase();
   const dbClient = new StudioDbClient(env.DB);
   const user = session.user;
+
+  if (path.startsWith('/api/preorders') || path.startsWith('/api/preorder-products')) {
+    const preorderResponse = await handlePreorderAdminRequest(request, env.DB, session);
+    if (preorderResponse) return preorderResponse;
+  }
 
   // 1. Thông tin phiên người dùng hiện tại
   if (path === '/api/me' && method === 'GET') {

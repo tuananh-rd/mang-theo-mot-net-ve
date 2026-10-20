@@ -49,7 +49,7 @@ function sanitizeProjectForPublic(project: ProjectModuleData) {
     location: String(project.location || '').trim(),
     executionStatus: project.executionStatus || 'unknown',
     statusNotice: String(project.statusNotice || '').trim(),
-    previewNotice: String(project.previewNotice || '').trim(),
+    previewNotice: '',
     activities: (project.activities || []).map((a) => ({
       id: String(a.id || '').trim(),
       title: String(a.title || '').trim(),
@@ -260,6 +260,8 @@ function sanitizeProductsForPublic(products: ProductsModuleData, approvedMediaKe
       salesChannel: String(item.salesChannel || 'FPT Hòa Lạc').trim(),
       returnPolicy: item.returnPolicy ? String(item.returnPolicy).trim() : null,
       publicApproval: item.publicApproval || 'pending',
+      preorderOpen: item.preorderOpen === true,
+      pickup: item.pickup ? String(item.pickup).trim() : null,
     };
     if (item.name !== undefined) {
       result[id].name = item.name !== null && String(item.name).trim() ? String(item.name).trim() : null;

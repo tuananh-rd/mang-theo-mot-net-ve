@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Trình dựng giao diện HTML tiếng Việt cho Content Studio (Task C17)
  * Áp dụng bảng màu phẳng C16, thanh điều hướng sidebar/drawer đa thiết bị (375/768/1440),
  * biểu mẫu nghiệp vụ chuyên biệt cho toàn bộ 8 phân hệ (không dùng raw JSON editor mặc định),
@@ -464,18 +464,23 @@ export function renderStudioHtml(session: AuthSession): string {
         </a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" data-tab="preorders" href="#preorders" tabindex="0">
+          <span>6. Đơn đặt trước</span>
+        </a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" data-tab="finance" href="#finance" tabindex="0">
-          <span>6. Tài chính & Sao kê</span>
+          <span>7. Tài chính & Sao kê</span>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" data-tab="team" href="#team" tabindex="0">
-          <span>7. Nhóm, FAQ & SEO</span>
+          <span>8. Nhóm, FAQ & SEO</span>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" data-tab="publish" href="#publish" tabindex="0">
-          <span>8. Lịch sử & Xuất bản</span>
+          <span>9. Lịch sử & Xuất bản</span>
         </a>
       </li>
     </ul>
@@ -713,8 +718,12 @@ export function renderStudioHtml(session: AuthSession): string {
             pageHeading.textContent = '5. Sản phẩm & Mở bán';
             await renderProductsEditor();
             break;
+          case 'preorders':
+            pageHeading.textContent = '6. Đơn đặt trước';
+            await renderPreorders();
+            break;
           case 'finance':
-            pageHeading.textContent = '6. Tài chính & Sao kê';
+            pageHeading.textContent = '7. Tài chính & Sao kê';
             await renderFinanceEditor();
             break;
           case 'team':
@@ -1077,10 +1086,6 @@ export function renderStudioHtml(session: AuthSession): string {
                 <label>Thông báo trạng thái</label>
                 <input type="text" class="form-control" name="statusNotice" value="\${escapeHtml(p.statusNotice || '')}">
               </div>
-              <div class="form-group">
-                <label>Thông báo bản xem trước</label>
-                <input type="text" class="form-control" name="previewNotice" value="\${escapeHtml(p.previewNotice || '')}">
-              </div>
             </div>
 
             <div style="border-top: 1px solid var(--color-neutral-light); padding-top: 16px; margin-top: 16px;">
@@ -1341,7 +1346,7 @@ export function renderStudioHtml(session: AuthSession): string {
             location: fd.has('location') ? String(fd.get('location')).trim() : (p.location || ''),
             executionStatus: fd.has('executionStatus') ? fd.get('executionStatus') : (p.executionStatus || 'in_progress'),
             statusNotice: fd.has('statusNotice') ? String(fd.get('statusNotice')).trim() : (p.statusNotice || ''),
-            previewNotice: fd.has('previewNotice') ? String(fd.get('previewNotice')).trim() : (p.previewNotice || ''),
+            previewNotice: '',
             progress: {
               currentWeek: parseInt(fd.get('prog_currentWeek'), 10),
               totalWeeks: parseInt(fd.get('prog_totalWeeks'), 10),
@@ -2189,6 +2194,114 @@ export function renderStudioHtml(session: AuthSession): string {
             showToast('Lỗi lưu cấu hình: ' + (saveRes.data.error || 'Lỗi không xác định'), 'error');
           }
         });
+      }
+
+      // Tab 6: Preorders (restricted to Admin and Reviewer by the API).
+      async function renderPreorders() {
+        if (currentUserRole === 'editor') {
+          tabContent.innerHTML = '<div class="alert alert-danger">Mục này chỉ dành cho Admin và Reviewer.</div>';
+          return;
+        }
+        const productsRes = await fetchApi('/api/preorder-products');
+        const configs = productsRes.ok ? productsRes.data.products || [] : [];
+        const mayConfigure = currentUserRole === 'admin';
+        tabContent.innerHTML = \`
+          <section class="card">
+            <h2 style="margin-top:0">Cấu hình đặt trước</h2>
+            <p>Giá chốt để trống nghĩa là giá tham khảo; đơn lưu đơn giá null và nhóm xác nhận khi liên hệ. Đơn đặt trước chưa thanh toán.</p>
+            <div id="preorderConfigList" style="display:grid;gap:16px"></div>
+          </section>
+          <section class="card">
+            <h2 style="margin-top:0">Danh sách đơn</h2>
+            <form id="preorderFilterForm" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;align-items:end">
+              <div class="form-group"><label for="preorderQ">Tìm kiếm</label><input id="preorderQ" name="q" class="form-control" placeholder="Mã đơn, tên hoặc liên hệ"></div>
+              <div class="form-group"><label for="preorderStatus">Trạng thái</label><select id="preorderStatus" name="status" class="form-control"><option value="">Tất cả</option><option value="new">Mới</option><option value="contacted">Đã liên hệ</option><option value="confirmed">Đã xác nhận</option><option value="delivered">Đã giao</option><option value="cancelled">Đã hủy</option></select></div>
+              <div class="form-group"><label for="preorderProduct">Sản phẩm</label><select id="preorderProduct" name="product" class="form-control"><option value="">Tất cả</option><option value="chuon-chuon-tre-kem-de">Chuồn chuồn tre</option><option value="moc-khoa">Móc khóa</option></select></div>
+              <div class="form-group"><label for="preorderTest">Loại đơn</label><select id="preorderTest" name="test" class="form-control"><option value="">Tất cả</option><option value="false">Đơn thật</option><option value="true">Đơn test</option></select></div>
+              <div class="form-group"><label for="preorderFrom">Từ ngày</label><input id="preorderFrom" name="from" type="date" class="form-control"></div>
+              <div class="form-group"><label for="preorderTo">Đến ngày</label><input id="preorderTo" name="to" type="date" class="form-control"></div>
+              <button type="submit" class="btn btn-primary">Lọc đơn</button>
+              <a id="preorderCsvLink" class="btn btn-secondary" href="/api/preorders/export.csv">Tải CSV</a>
+            </form>
+            <div id="preorderList" role="status" aria-live="polite" style="overflow-x:auto;margin-top:16px"></div>
+            <div id="preorderDetail" style="margin-top:20px"></div>
+          </section>\`;
+
+        const configContainer = document.getElementById('preorderConfigList');
+        if (!productsRes.ok) {
+          configContainer.innerHTML = '<p role="status">Không thể tải cấu hình đặt trước.</p>';
+        } else {
+          const productNames = { 'chuon-chuon-tre-kem-de': 'Chuồn chuồn tre 12 cm kèm đế', 'moc-khoa': 'Móc khóa Lăng Kính' };
+          configContainer.innerHTML = configs.map((item) => \`
+            <form class="preorder-product-config" data-product="\${escapeHtml(item.productId)}" style="border:1px solid var(--color-neutral-light);border-radius:8px;padding:14px;display:grid;gap:10px">
+              <h3 style="margin:0">\${escapeHtml(productNames[item.productId] || item.productId)}</h3>
+              <label><input name="isOpen" type="checkbox" \${item.isOpen ? 'checked' : ''} \${mayConfigure ? '' : 'disabled'}> Mở nhận đặt trước</label>
+              <div class="form-group"><label>Giá chốt (để trống nếu chưa xác nhận)</label><input name="officialPrice" class="form-control" inputmode="numeric" type="number" min="1" step="1" value="\${item.officialPrice ?? ''}" \${mayConfigure ? '' : 'disabled'}></div>
+              <div class="form-group"><label>Cách nhận hàng</label><input name="pickup" class="form-control" maxlength="120" value="\${escapeHtml(item.pickup || '')}" placeholder="Để trống đến khi nhóm xác nhận" \${mayConfigure ? '' : 'disabled'}></div>
+              \${mayConfigure ? '<button class="btn btn-primary" type="submit">Lưu cấu hình</button>' : ''}
+            </form>\`).join('');
+          configContainer.querySelectorAll('.preorder-product-config').forEach((form) => form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const fd = new FormData(form);
+            const priceText = String(fd.get('officialPrice') || '').trim();
+            const response = await fetchApi('/api/preorder-products/' + encodeURIComponent(form.dataset.product), {
+              method: 'POST', headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ isOpen: fd.get('isOpen') === 'on', officialPrice: priceText ? Number(priceText) : null, pickup: String(fd.get('pickup') || '').trim() || null })
+            });
+            showToast(response.ok ? 'Đã lưu cấu hình đặt trước.' : (response.data.error || 'Không thể lưu cấu hình.'), response.ok ? 'success' : 'error');
+          }));
+        }
+
+        const list = document.getElementById('preorderList');
+        const detail = document.getElementById('preorderDetail');
+        const filterForm = document.getElementById('preorderFilterForm');
+        async function loadOrders() {
+          const fd = new FormData(filterForm);
+          const params = new URLSearchParams();
+          for (const [key, value] of fd.entries()) if (String(value).trim()) params.set(key, String(value).trim());
+          const suffix = params.toString();
+          const result = await fetchApi('/api/preorders' + (suffix ? '?' + suffix : ''));
+          document.getElementById('preorderCsvLink').href = '/api/preorders/export.csv' + (suffix ? '?' + suffix : '');
+          if (!result.ok) { list.innerHTML = '<p role="alert">' + escapeHtml(result.data.error || 'Không thể tải danh sách.') + '</p>'; return; }
+          const rows = result.data.preorders || [];
+          if (!rows.length) { list.innerHTML = '<p>Chưa có đơn phù hợp với bộ lọc.</p>'; return; }
+          list.innerHTML = \`<table style="width:100%;border-collapse:collapse"><thead><tr><th>Mã đơn</th><th>Sản phẩm</th><th>Số lượng</th><th>Trạng thái</th><th>Ngày</th><th>Loại</th></tr></thead><tbody>\${rows.map((order) => \`<tr><td><button type="button" class="btn btn-secondary btn-sm preorder-open-detail" data-id="\${escapeHtml(order.id)}">\${escapeHtml(order.order_code)}</button></td><td>\${escapeHtml(order.product_name)}</td><td>\${escapeHtml(order.quantity)}</td><td>\${escapeHtml(order.status)}</td><td>\${escapeHtml(new Date(order.created_at).toLocaleString('vi-VN'))}</td><td>\${order.is_test ? 'Test' : 'Thật'}</td></tr>\`).join('')}</tbody></table>\`;
+          list.querySelectorAll('.preorder-open-detail').forEach((button) => button.addEventListener('click', () => loadDetail(button.dataset.id)));
+        }
+        async function loadDetail(id) {
+          const result = await fetchApi('/api/preorders/' + encodeURIComponent(id));
+          if (!result.ok) { detail.innerHTML = '<p role="alert">' + escapeHtml(result.data.error || 'Không thể tải chi tiết.') + '</p>'; return; }
+          const order = result.data.preorder;
+          const events = result.data.events || [];
+          detail.innerHTML = \`<article class="card"><h3>Đơn \${escapeHtml(order.order_code)} \${order.is_test ? '(đơn test)' : ''}</h3>
+            <dl><dt>Sản phẩm</dt><dd>\${escapeHtml(order.product_name)} × \${escapeHtml(order.quantity)}</dd><dt>Người đặt</dt><dd>\${escapeHtml(order.customer_name)}</dd><dt>Liên hệ</dt><dd>\${escapeHtml(order.contact_type)} · \${escapeHtml(order.contact_value)}</dd><dt>Nhận hàng</dt><dd>\${escapeHtml(order.pickup)}</dd><dt>Đơn giá chốt</dt><dd>\${order.unit_price === null ? 'Giá tham khảo; nhóm xác nhận khi liên hệ' : escapeHtml(order.unit_price.toLocaleString('vi-VN') + 'đ')}</dd><dt>Ghi chú của khách</dt><dd>\${escapeHtml(order.customer_note || 'Không có')}</dd></dl>
+            <form id="preorderStatusForm" style="display:flex;gap:8px;flex-wrap:wrap"><label for="preorderStatusUpdate">Trạng thái</label><select id="preorderStatusUpdate" class="form-control" name="status"><option value="new" \${order.status === 'new' ? 'selected' : ''}>Mới</option><option value="contacted" \${order.status === 'contacted' ? 'selected' : ''}>Đã liên hệ</option><option value="confirmed" \${order.status === 'confirmed' ? 'selected' : ''}>Đã xác nhận</option><option value="delivered" \${order.status === 'delivered' ? 'selected' : ''}>Đã giao</option><option value="cancelled" \${order.status === 'cancelled' ? 'selected' : ''}>Đã hủy</option></select><button class="btn btn-primary">Cập nhật trạng thái</button></form>
+            <form id="preorderNoteForm" style="display:grid;gap:8px;margin-top:12px"><label for="preorderInternalNote">Ghi chú nội bộ</label><textarea id="preorderInternalNote" class="form-control" name="note" maxlength="500" required></textarea><button class="btn btn-secondary">Lưu ghi chú</button></form>
+            \${order.is_test && currentUserRole === 'admin' ? '<button id="archivePreorderTest" class="btn btn-secondary" type="button" style="margin-top:12px">Ẩn đơn test</button>' : ''}
+            <h4>Lịch sử xử lý</h4><ol>\${events.map((event) => \`<li>\${escapeHtml(event.created_at)} · \${escapeHtml(event.action)} · \${escapeHtml(event.actor)}\${event.note ? ': ' + escapeHtml(event.note) : ''}</li>\`).join('')}</ol></article>\`;
+          document.getElementById('preorderStatusForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const status = new FormData(event.currentTarget).get('status');
+            const changed = await fetchApi('/api/preorders/' + encodeURIComponent(id) + '/status', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status }) });
+            showToast(changed.ok ? 'Đã cập nhật trạng thái.' : (changed.data.error || 'Không thể cập nhật.'), changed.ok ? 'success' : 'error');
+            if (changed.ok) { await loadOrders(); await loadDetail(id); }
+          });
+          document.getElementById('preorderNoteForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const note = new FormData(event.currentTarget).get('note');
+            const saved = await fetchApi('/api/preorders/' + encodeURIComponent(id) + '/notes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ note }) });
+            showToast(saved.ok ? 'Đã lưu ghi chú nội bộ.' : (saved.data.error || 'Không thể lưu ghi chú.'), saved.ok ? 'success' : 'error');
+            if (saved.ok) await loadDetail(id);
+          });
+          document.getElementById('archivePreorderTest')?.addEventListener('click', async () => {
+            if (!confirm('Ẩn đơn test này khỏi danh sách? Đơn thật không bị ảnh hưởng.')) return;
+            const archived = await fetchApi('/api/preorders/' + encodeURIComponent(id) + '/archive-test', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' });
+            showToast(archived.ok ? 'Đã ẩn đơn test.' : (archived.data.error || 'Không thể ẩn đơn.'), archived.ok ? 'success' : 'error');
+            if (archived.ok) { detail.innerHTML = ''; await loadOrders(); }
+          });
+        }
+        filterForm.addEventListener('submit', async (event) => { event.preventDefault(); detail.innerHTML = ''; await loadOrders(); });
+        await loadOrders();
       }
 
       // ==========================================
@@ -3678,3 +3791,4 @@ export function renderStudioHtml(session: AuthSession): string {
 </body>
 </html>`;
 }
+

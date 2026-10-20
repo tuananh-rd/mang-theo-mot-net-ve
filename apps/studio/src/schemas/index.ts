@@ -181,6 +181,8 @@ export interface ProductConfigItem {
   salesChannel: string;
   returnPolicy: string | null;
   publicApproval: 'pending' | 'approved';
+  preorderOpen?: boolean;
+  pickup?: string | null;
   narrative?: string | null;
   mediaKey?: string | null;
 }
@@ -199,6 +201,12 @@ export function validateProductsModuleData(data: unknown): { isValid: boolean; e
     }
     if (!['pending', 'approved'].includes(item.publicApproval || '')) {
       errors.push(`Sản phẩm '${id}': Phê duyệt '${item.publicApproval}' không hợp lệ.`);
+    }
+    if (item.preorderOpen !== undefined && typeof item.preorderOpen !== 'boolean') {
+      errors.push(`Sản phẩm '${id}': preorderOpen phải là giá trị đúng/sai.`);
+    }
+    if (item.pickup !== undefined && item.pickup !== null && (typeof item.pickup !== 'string' || item.pickup.length > 120)) {
+      errors.push(`Sản phẩm '${id}': pickup phải là chuỗi tối đa 120 ký tự hoặc null.`);
     }
     if (item.saleStatus === 'open') {
       if (typeof item.officialPrice !== 'number' || item.officialPrice <= 0) {
@@ -510,7 +518,7 @@ export const DEFAULT_PROJECT_DATA: ProjectModuleData = {
   location: 'Mái ấm Thánh Tâm Xuy Xá (Mỹ Đức, Hà Nội) & Campus FPT Hòa Lạc',
   executionStatus: 'in_progress',
   statusNotice: 'Đang triển khai · tuần 2',
-  previewNotice: 'Bản xem trước — nội dung theo đề xuất V3 (tháng 10/2026), chờ xác nhận.',
+  previewNotice: '',
   activities: [
     {
       id: 'chuon-chuon-tre',
@@ -745,6 +753,8 @@ export const DEFAULT_PRODUCTS_DATA: ProductsModuleData = {
     salesChannel: 'FPT Hòa Lạc',
     returnPolicy: null,
     publicApproval: 'pending',
+    preorderOpen: false,
+    pickup: null,
     narrative: null,
     mediaKey: '/images/san-pham/chuon-chuon-tre.webp',
   },
@@ -758,6 +768,8 @@ export const DEFAULT_PRODUCTS_DATA: ProductsModuleData = {
     salesChannel: 'FPT Hòa Lạc',
     returnPolicy: null,
     publicApproval: 'pending',
+    preorderOpen: false,
+    pickup: null,
     narrative: null,
     mediaKey: null,
   },

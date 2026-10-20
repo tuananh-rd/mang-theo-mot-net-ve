@@ -5,7 +5,9 @@
     "stockAvailable": null,
     "salesChannel": "FPT Hòa Lạc",
     "returnPolicy": null,
-    "publicApproval": "pending"
+    "publicApproval": "pending",
+    "preorderOpen": false,
+    "pickup": null
   },
   "moc-khoa": {
     "saleStatus": "unconfirmed",
@@ -13,6 +15,8 @@
     "stockAvailable": null,
     "salesChannel": "FPT Hòa Lạc",
     "returnPolicy": null,
-    "publicApproval": "pending"
+    "publicApproval": "pending",
+    "preorderOpen": false,
+    "pickup": null
   }
 }

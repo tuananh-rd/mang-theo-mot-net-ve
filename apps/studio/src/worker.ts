@@ -11,11 +11,25 @@ import { StudioDbClient } from './db/client.js';
 import { createPublicationSnapshot, createPrivateDraftSnapshot } from './publish/adapter.js';
 import { APPROVED_MEDIA_REGISTRY } from './storage/media-registry.js';
 import { renderPrivateDraftPreview, getCustomAstroHandler } from './preview/renderer.js';
+import { handlePublicPreorderRequest } from './preorders/service.js';
 
 export default {
   async fetch(request: Request, env: Env, ctx: any): Promise<Response> {
     const url = new URL(request.url);
     const path = url.pathname;
+
+    // Public preorder endpoints are separate from Access-protected Studio APIs.
+    // Local development may reach these through the Studio emulator only.
+    if (path === '/api/preorders/config' || (path === '/api/preorders' && ['POST', 'OPTIONS'].includes(request.method.toUpperCase()))) {
+      return handlePublicPreorderRequest(request, env.DB, {
+        siteOrigin: env.PRODUCTION_SITE_ORIGIN || 'https://mangtheomotnetve.website',
+        extraOrigins: env.STUDIO_ENVIRONMENT === 'development'
+          ? ['http://127.0.0.1:4321', 'http://localhost:4321']
+          : [],
+        rateLimitSalt: env.RATE_LIMIT_SALT,
+        isTest: env.STUDIO_ENVIRONMENT === 'development' && env.PREORDER_TEST_MODE !== 'false',
+      });
+    }
 
     // 1. Phục vụ tệp media từ R2 kho lưu trữ nội bộ của Studio (bắt buộc xác thực)
     if (path.startsWith('/media/')) {
