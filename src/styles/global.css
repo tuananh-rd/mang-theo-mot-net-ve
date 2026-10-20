@@ -199,26 +199,6 @@ a {
   border-color: var(--ink);
 }
 
-/* Notice Banners */
-.preview-banner {
-  background-color: var(--banner-bg);
-  border-bottom: 1px solid var(--banner-line);
-  padding: var(--space-2) var(--space-4);
-  text-align: center;
-  font-size: var(--font-size-small);
-  color: var(--banner-text);
-  font-weight: 500;
-  line-height: 1.4;
-}
-
-.banner-text-mobile {
-  display: none;
-}
-
-.banner-text-desktop {
-  display: inline;
-}
-
 .status-badge {
   display: inline-flex;
   align-items: center;
