@@ -3,7 +3,7 @@
 Date: 2026-10-21  
 Task: C20-preorder  
 Implementation branch: `task/c17-online-studio`  
-Public-only changes: `task/c18-v3-content` at `origin/main` (`0f028bb`)
+Public-only changes: `task/c18-v3-content`, based on `origin/main` (`0f028bb`)
 
 ## Delivered
 
@@ -27,6 +27,10 @@ The local browser run created synthetic contact data (`E2E Sample`, `e2e@example
 - `npm test` — 97 passed, 0 failed.
 - `npm run build` — passed; 13 static pages generated.
 - Local E2E — desktop 1440×1000 and mobile 390×844; mobile had no horizontal overflow. Verified public submission, Studio listing, Reviewer status/history, authorized CSV encoding, and Admin archival of the `isTest` order. See `e2e-results.json`.
+
+### Public worktree follow-up
+
+The public commit `d62e0fb` restores `src/layouts/Layout.astro` to the `origin/main` implementation before removing only the preview banner and `noindex` meta tag. It contains no Studio snapshot-loader import or `seoRoute`/`routeSeo` changes; the four files in the public commit were checked for Studio-only references. On that public worktree, `npm run check` passed with 0 errors, warnings, or hints; `npm test` passed 93/93; `npm run build` generated 13 pages; and `dist` contained neither “Bản xem trước” nor `noindex`.
 
 The API tests cover persistence after emulator restart, idempotency, input and product validation, closed-product rejection, honeypot and rate limiting, role access, server-side price, CORS/body limits, CSV injection protection, migration idempotence, and exclusion of customer fields from public config.
 
