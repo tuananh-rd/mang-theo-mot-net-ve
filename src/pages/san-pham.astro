@@ -88,7 +88,7 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Quà lưu ni
           <input id="preorderWebsite" name="website" tabindex="-1" autocomplete="off">
         </div>
         <label class="consent-label"><input name="consent" type="checkbox" required> Tôi đồng ý để nhóm Lăng Kính sử dụng thông tin liên hệ này nhằm xử lý đơn đặt trước và liên hệ về việc nhận hàng. Không nhập thông tin của trẻ em.</label>
-        <p id="preorderPriceNote" class="preorder-price-note" hidden>Giá đang hiển thị có thể là giá tham khảo. Khi chưa có giá chốt, nhóm sẽ xác nhận khi liên hệ.</p>
+        {craftSaleModels.some((model) => model.officialPrice === null) && (<p id="preorderPriceNote" class="preorder-price-note" hidden>Giá đang hiển thị có thể là giá tham khảo. Khi chưa có giá chốt, nhóm sẽ xác nhận khi liên hệ.</p>)}
         <p id="preorderError" role="alert" aria-live="assertive"></p>
         <button id="preorderSubmit" class="btn btn-primary" type="submit">Gửi đăng ký đặt trước</button>
       </form>

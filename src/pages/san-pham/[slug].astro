@@ -53,7 +53,10 @@ let lockedPillLabel = 'Trạng thái: Đang chuẩn bị mẫu — Chưa mở b�
 let lockedDescText =
   'Sản phẩm hiện đang trong giai đoạn chuẩn bị và hoàn thiện mẫu; nhóm chưa tiếp nhận đơn đặt hàng hay thu tiền trước. Khi có thông báo chính thức, tính năng soạn yêu cầu mua sẽ được mở ngay tại đây.';
 
-if (saleModel.saleStatus === 'closed') {
+if (saleModel.preorderOpen) {
+  lockedPillLabel = 'Trạng thái: Đang nhận đặt trước';
+  lockedDescText = 'Đặt trước chưa phải thanh toán online. Nhóm sẽ liên hệ xác nhận cách thức và lịch nhận hàng sau khi đặt trước; hiện chưa cam kết ngày giao. Vui lòng dùng biểu mẫu đặt trước tại trang quà lưu niệm.';
+} else if (saleModel.saleStatus === 'closed') {
   lockedPillLabel = 'Trạng thái: Đã kết thúc đợt mở bán';
   lockedDescText =
     'Sản phẩm hiện đã kết thúc đợt mở bán gây quỹ; nhóm tạm thời dừng tiếp nhận yêu cầu mua mới. Bạn có thể liên hệ trực tiếp với nhóm qua Fanpage hoặc số điện thoại bên dưới để biết thêm thông tin.';
