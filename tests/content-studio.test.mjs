@@ -515,11 +515,9 @@ describe('Kiểm thử Xác thực Cấu hình Mở bán Sản phẩm (Task C14)
     const safeEntries = testPayload.entries.map((r) => ({
       date: r.date,
       amount: r.amount,
-      donor: r.donor,
-      reference: r.donor === 'Ẩn danh' ? null : `...${r.reference.slice(-4)}`,
-    }));
+      donor: r.donor,    }));
     assert.equal(safeEntries[0].donor, 'Ẩn danh');
-    assert.equal(safeEntries[0].reference, null); // Ẩn danh không lưu mã tham chiếu công khai
+    assert.equal(Object.hasOwn(safeEntries[0], 'reference'), false);
 
     // Dọn dẹp fixture
     fs.rmSync(fixtureDir, { recursive: true, force: true });
@@ -622,8 +620,8 @@ describe('Kiểm thử Xác thực Cấu hình Mở bán Sản phẩm (Task C14)
       date: '2026-10-10',
       amount: 50000,
       donor: 'Ẩn danh',
-      reference: null,
     });
+    assert.equal(Object.hasOwn(anon, 'reference'), false);
     assert.equal(anon.extraPrivateData, undefined);
 
     // 2. Người ủng hộ có danh tính: che giấu mã tham chiếu thành hậu tố ...XXXX
@@ -633,9 +631,8 @@ describe('Kiểm thử Xác thực Cấu hình Mở bán Sản phẩm (Task C14)
       donor: 'Nguyễn Văn A',
       reference: 'PRIVATE_REFERENCE_SHOULD_NOT_BE_PUBLIC_123456789',
     });
-    assert.equal(named.donor, 'Nguyễn Văn A');
-    assert.equal(named.reference, '...6789');
-    assert.ok(!named.reference.includes('PRIVATE_REFERENCE'));
+    assert.equal(named.donor, 'Nguyễn Văn A');    assert.equal(Object.hasOwn(named, 'reference'), false);
+    assert.equal(JSON.stringify(named).includes('PRIVATE_REFERENCE'), false);
 
     // 3. Mã tham chiếu đã che giấu hợp lệ (...1234) được giữ nguyên
     const alreadyMasked = sanitizeDonationEntry({
@@ -644,7 +641,7 @@ describe('Kiểm thử Xác thực Cấu hình Mở bán Sản phẩm (Task C14)
       donor: 'Trần B',
       reference: '...5678',
     });
-    assert.equal(alreadyMasked.reference, '...5678');
+    assert.equal(Object.hasOwn(alreadyMasked, 'reference'), false);
   });
 
   it('Áp dụng JSON sổ đối soát: Từ chối nâng cấp bản pending, bắt buộc 2 người đối soát và che giấu mã tham chiếu an toàn', () => {
@@ -758,7 +755,8 @@ describe('Kiểm thử Xác thực Cấu hình Mở bán Sản phẩm (Task C14)
 
     const writtenContent = fs.readFileSync(targetFile, 'utf-8');
     assert.ok(!writtenContent.includes('PRIVATE_REFERENCE_SHOULD_NOT_BE_PUBLIC'), 'Mã tham chiếu riêng tư không được xuất hiện trong tệp công khai');
-    assert.ok(writtenContent.includes('...6789'), 'Mã tham chiếu phải được che giấu thành hậu tố an toàn');
+    assert.ok(!writtenContent.includes('...6789'), 'Không xuất cả hậu tố của mã tham chiếu');
+    assert.equal(Object.hasOwn(JSON.parse(writtenContent).entries[0], 'reference'), false);
     assert.ok(!writtenContent.includes('Thành viên A'), 'Tên cá nhân của reviewer không được đưa vào public bundle');
 
     // Dọn dẹp fixture

@@ -19,7 +19,7 @@ import {
   formatViDate,
 } from '../src/lib/donations.ts';
 
-const entry = (date, amount, reference = null, donor = 'Ẩn danh') => ({ date, donor, amount, reference });
+const entry = (date, amount, donor = 'Ẩn danh') => ({ date, donor, amount });
 const ledger = (entries, reconciledAt = '2026-10-20') => ({ reconciled: true, reconciledAt, entries });
 
 describe('Tài khoản và sổ ủng hộ hiện tại (C07S)', () => {
@@ -98,7 +98,7 @@ describe('Logic sổ ủng hộ (C07S)', () => {
   });
 
   test('Tổng dẫn xuất từ các dòng sổ; tỷ lệ theo mục tiêu', () => {
-    const s = summarizeLedger(ledger([entry('2026-10-12', 500000, 'A1'), entry('2026-10-15', 250000, 'B2')]), 3000000);
+    const s = summarizeLedger(ledger([entry('2026-10-12', 500000), entry('2026-10-15', 250000)]), 3000000);
     assert.equal(s.total, 750000);
     assert.equal(s.count, 2);
     assert.equal(s.percent, 25);
@@ -106,15 +106,12 @@ describe('Logic sổ ủng hộ (C07S)', () => {
   });
 
   test('Vượt mục tiêu: thanh giới hạn 100% nhưng tổng giữ số thật', () => {
-    const s = summarizeLedger(ledger([entry('2026-10-12', 2000000, 'A1'), entry('2026-10-13', 1500000, 'B2')]), 3000000);
+    const s = summarizeLedger(ledger([entry('2026-10-12', 2000000), entry('2026-10-13', 1500000)]), 3000000);
     assert.equal(s.total, 3500000);
     assert.equal(s.percent, 100);
     assert.equal(s.reachedGoal, true);
   });
 
-  test('Không cộng trùng: mã giao dịch lặp lại (không phân biệt hoa thường) bị từ chối', () => {
-    assert.throws(() => summarizeLedger(ledger([entry('2026-10-12', 100000, 'ab12'), entry('2026-10-12', 100000, 'AB12')]), 3000000), /trùng/);
-  });
 
   test('Sổ chưa đối soát mà có dòng, hoặc đối soát thiếu ngày: báo lỗi', () => {
     assert.throws(() => validateLedger({ reconciled: false, reconciledAt: null, entries: [entry('2026-10-12', 1000)] }));
@@ -141,7 +138,7 @@ describe('Logic sổ ủng hộ (C07S)', () => {
   });
 
   test('Sắp xếp mới nhất trước, không đổi mảng gốc; định dạng ngày', () => {
-    const rows = [entry('2026-10-11', 1, null, 'A'), entry('2026-10-13', 1, null, 'B')];
+    const rows = [entry('2026-10-11', 1, 'A'), entry('2026-10-13', 1, 'B')];
     assert.deepEqual(sortDonationsNewestFirst(rows).map((r) => r.donor), ['B', 'A']);
     assert.equal(rows[0].donor, 'A');
     assert.equal(formatViDate('2026-10-31'), '31/10/2026');

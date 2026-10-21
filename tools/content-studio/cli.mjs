@@ -381,7 +381,7 @@ function runApply(args) {
     const backupPath = createBackup(targetPath, targetKey);
     if (backupPath) console.log(`📁 Đã tạo bản sao lưu tại: ${backupPath}`);
 
-    // Bảo toàn PII: làm sạch mọi trường thô, che giấu mã tham chiếu riêng tư và ẩn danh an toàn
+    // Bảo toàn PII: làm sạch mọi trường thô, loại mọi trường thô khỏi bản chiếu công khai và ẩn danh an toàn
     const safePublicDonations = payload.entries.map((row) => sanitizeDonationEntry(row));
 
     const outputPayload = {
@@ -421,7 +421,6 @@ function runApply(args) {
     date: row.date,
     amount: row.amount,
     donor: row.donorName,
-    reference: row.isAnonymous ? null : (row.id ? `...${row.id.slice(-4)}` : null),
   }));
 
   console.log(`=== BÁO CÁO ÁP DỤNG DỮ LIỆU SAO KÊ ===`);

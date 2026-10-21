@@ -13,7 +13,7 @@ Content Studio là công cụ nội bộ chạy **cục bộ (local loopback `12
    - Mọi dữ liệu sao kê ngân hàng đối soát hoặc cấu hình mở bán quà lưu niệm trước khi công bố bắt buộc phải được ít nhất 2 thành viên độc lập trong nhóm (ví dụ: Thành viên tài chính và Trưởng nhóm) cùng đối chiếu và ký duyệt.
 2. **Bảo mật thông tin cá nhân (PII):**
    - Tuyệt đối không đưa nội dung giao dịch ngân hàng thô, số tài khoản cá nhân, ghi chú riêng hoặc tên cá nhân người đối soát vào website công khai.
-   - Các khoản ủng hộ chưa có sự đồng ý công khai danh tính mặc định được chuẩn hóa thành **"Ẩn danh"**. Mã giao dịch hiển thị dưới dạng che giấu hậu tố (`...${id.slice(-4)}`).
+   - Các khoản ủng hộ chưa có sự đồng ý công khai danh tính mặc định được chuẩn hóa thành **"Ẩn danh"**. Mã giao dịch chỉ được lưu nội bộ để đối soát và chống trùng; không xuất bản mã hoặc hậu tố.
 3. **Sao lưu tự động & Chống xung đột dữ liệu (Stale-baseline protection):**
    - Mọi thao tác ghi đè dữ liệu đều tự động tạo bản sao lưu trong `tools/content-studio/backups/`.
    - CLI và API bắt buộc kiểm tra mã băm SHA-256 (`--expected-hash`) trước khi ghi để chống ghi đè dữ liệu cũ ngoài ý muốn.
@@ -102,7 +102,7 @@ Hệ thống cho phép cấu hình 2 sản phẩm thủ công: `chuon-chuon-tre-
    - Bản chiếu JSON đầu vào bắt buộc phải có `reconciled: true` và `publicApproval: 'approved'`; hệ thống từ chối tự động nâng cấp trạng thái từ pending/unreconciled thành approved.
 3. **Xuất JSON hoặc Áp dụng:**
    - Bấm **"Xuất JSON đối soát"** để lưu tệp `reconciled-donations.json`.
-   - Bấm **"Áp dụng bản chiếu công khai"** để nạp trực tiếp vào `src/data/reconciled-donations.json`. Dữ liệu ghi ra được tách biệt an toàn theo allowlist, mã giao dịch che giấu hậu tố (`...${id.slice(-4)}`), người ủng hộ ẩn danh được bảo vệ (`reference: null`), và tên riêng của người đối soát không đưa vào public bundle (chỉ lưu nhãn vai trò đại diện).
+   - Bấm **"Áp dụng bản chiếu công khai"** để nạp trực tiếp vào `src/data/reconciled-donations.json`. Dữ liệu ghi ra được tách biệt an toàn theo allowlist, mã giao dịch bị loại hoàn toàn khỏi bản chiếu công khai, kể cả hậu tố; người ủng hộ ẩn danh được bảo vệ, và tên riêng của người đối soát không đưa vào public bundle (chỉ lưu nhãn vai trò đại diện).
 
 ---
 

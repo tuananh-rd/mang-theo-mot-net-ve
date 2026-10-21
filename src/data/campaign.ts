@@ -1249,12 +1249,12 @@ export const SUPPORT_FAQS: SupportFaq[] = [
   {
     question: 'Khi nào khoản ủng hộ của tôi được cập nhật?',
     answer:
-      'Sau mỗi lần thành viên tài chính cùng một thành viên khác đối chiếu với sao kê ngân hàng. Website không kết nối tự động với ngân hàng; khi sổ được công bố, ngày đối soát gần nhất sẽ hiển thị ở đầu bảng. Khoản ủng hộ được cập nhật định kỳ sau khi đối soát xong.',
+      'Sau mỗi lần thành viên tài chính cùng một thành viên khác đối chiếu với sao kê ngân hàng. Website không kết nối tự động với ngân hàng; khi sổ được công bố, ngày đối soát gần nhất sẽ hiển thị ở đầu bảng. Khoản ủng hộ được cập nhật định kỳ sau khi đối soát xong. Bạn có thể đối chiếu theo ngày chuyển, số tiền và nội dung bắt đầu bằng MTMNV; nếu cần, hãy liên hệ nhóm.',
   },
+
   {
     question: 'Tôi chuyển nhầm số tiền hoặc chuyển trùng thì sao?',
-    answer:
-      'Hãy liên hệ một trong hai số điện thoại của nhóm kèm thời gian và mã giao dịch. Nhóm đối chiếu với sao kê và hoàn lại nếu bạn yêu cầu; khoản đã hoàn không được tính vào tổng ủng hộ.',
+    answer: 'Hãy liên hệ nhóm kèm ngày chuyển, số tiền và nội dung chuyển khoản bắt đầu bằng MTMNV. Nhóm đối chiếu với sao kê và hoàn lại nếu bạn yêu cầu; khoản đã hoàn không được tính vào tổng ủng hộ.',
   },
   {
     question: 'Tiền ủng hộ được dùng vào việc gì?',
@@ -1339,8 +1339,6 @@ export interface DonationEntry {
   donor: string;
   /** Số tiền VND, số nguyên dương */
   amount: number;
-  /** Mã giao dịch rút gọn (vài ký tự cuối) để người ủng hộ tự đối chiếu */
-  reference: string | null;
 }
 
 export interface DonationLedger {
@@ -1384,7 +1382,6 @@ function projectPublicDonationLedger(raw: unknown): DonationLedger {
       date: clean!.date,
       amount: clean!.amount,
       donor: clean!.donor,
-      reference: clean!.reference,
     };
   });
   return {
@@ -1518,7 +1515,7 @@ export const LEDGER_PROCESS: ProcessStep[] = [
   },
   {
     title: 'Ghi sổ tối thiểu',
-    description: 'Mỗi dòng gồm ngày, số tiền, mã giao dịch rút gọn và tên người ủng hộ đồng ý hiển thị; không ghi tên thì để Ẩn danh.',
+    description: 'Mỗi dòng gồm ngày, số tiền và tên người ủng hộ đồng ý hiển thị; không ghi tên thì để Ẩn danh.',
   },
   {
     title: 'Chỉ công bố sau đối soát',
@@ -1526,7 +1523,7 @@ export const LEDGER_PROCESS: ProcessStep[] = [
   },
   {
     title: 'Xử lý nhầm, trùng, hoàn tiền',
-    description: 'Mỗi mã giao dịch chỉ ghi một lần. Khoản chuyển nhầm được hoàn lại theo yêu cầu và không tính vào tổng; chỉnh sửa được ghi chú ở lần cập nhật sau.',
+    description: 'Khoản chuyển nhầm được hoàn lại theo yêu cầu và không tính vào tổng; chỉnh sửa được ghi chú ở lần cập nhật sau.',
   },
   {
     title: 'Tôn trọng riêng tư',

@@ -22,7 +22,7 @@ const rows = sortDonationsNewestFirst(ledger.entries);
     <>
       <div class="ledger-search">
         <label for="donor-search" class="search-label">Tìm khoản ủng hộ của bạn</label>
-        <input id="donor-search" type="search" class="search-input" placeholder="Nhập tên hoặc mã giao dịch" autocomplete="off" />
+        <input id="donor-search" type="search" class="search-input" placeholder="Nhập tên người ủng hộ" autocomplete="off" />
       </div>
       <table class="data-table data-table--stack donor-table">
         <caption class="sr-only">Sao kê các khoản ủng hộ đã đối soát đến {formatViDate(ledger.reconciledAt)}</caption>
@@ -30,16 +30,14 @@ const rows = sortDonationsNewestFirst(ledger.entries);
           <tr>
             <th scope="col">Ngày</th>
             <th scope="col">Người ủng hộ</th>
-            <th scope="col">Mã giao dịch</th>
             <th scope="col" class="num">Số tiền</th>
           </tr>
         </thead>
         <tbody>
           {rows.map((r) => (
-            <tr data-search={`${r.donor} ${r.reference ?? ''}`.toLowerCase()}>
+            <tr data-search={r.donor.toLowerCase()}>
               <td data-label="Ngày">{formatViDate(r.date)}</td>
               <th scope="row">{r.donor}</th>
-              <td data-label="Mã giao dịch">{r.reference ?? '—'}</td>
               <td class="num" data-label="Số tiền">{formatVND(r.amount)}</td>
             </tr>
           ))}
