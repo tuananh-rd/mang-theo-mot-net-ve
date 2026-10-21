@@ -8,11 +8,15 @@ import { getEffectiveProductSaleModel } from '../lib/products';
 
 const craft = PRODUCTS.filter((p) => p.category === 'craft');
 const craftSaleModels = craft.map((p) => getEffectiveProductSaleModel(p));
-const anyOpen = craftSaleModels.some((m) => m.saleStatus === 'open');
-const allOpen = craftSaleModels.length > 0 && craftSaleModels.every((m) => m.saleStatus === 'open');
-const heroChip = anyOpen
-  ? { kind: 'da-xac-nhan' as const, label: allOpen ? 'Đang mở bán' : 'Có món đang mở bán' }
-  : { kind: 'cho-xac-nhan' as const, label: 'Chưa mở bán' };
+const anyPreorderOpen = craftSaleModels.some((model) => model.preorderOpen);
+const allPreorderOpen = craftSaleModels.length > 0 && craftSaleModels.every((model) => model.preorderOpen);
+const anySaleOpen = craftSaleModels.some((model) => model.saleStatus === 'open');
+const allSaleOpen = craftSaleModels.length > 0 && craftSaleModels.every((model) => model.saleStatus === 'open');
+const heroChip = anyPreorderOpen
+  ? { kind: 'da-xac-nhan' as const, label: allPreorderOpen ? 'Đang nhận đặt trước' : 'Có món đang nhận đặt trước' }
+  : anySaleOpen
+    ? { kind: 'da-xac-nhan' as const, label: allSaleOpen ? 'Đang mở bán' : 'Có món đang mở bán' }
+    : { kind: 'cho-xac-nhan' as const, label: 'Chờ mở bán' };
 
 const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Quà lưu niệm' }];
 ---
@@ -41,6 +45,58 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Quà lưu ni
         <p>Nhóm dự kiến chuẩn bị 50 chuồn chuồn tre (30 bộ kèm đế bán gây quỹ, 20 chiếc tặng các em) và móc khóa lưu niệm.</p>
       </div>
       <ProductGrid products={craft} />
+    </div>
+  </section>
+
+  <section class="section section-preorder" aria-labelledby="preorder-heading">
+    <div class="container narrow">
+      <div class="section-header">
+        <span class="eyebrow">Đặt trước</span>
+        <h2 id="preorder-heading">Đăng ký nhận quà lưu niệm</h2>
+        <p>Đây là đặt trước, chưa thanh toán. Nhóm sẽ liên hệ để xác nhận đơn và lịch nhận hàng; không có khoản tiền nào được thu tự động.</p>
+      </div>
+      <p id="preorderAvailability" role="status" aria-live="polite">Đang kiểm tra sản phẩm nhận đặt trước…</p>
+      <form id="preorderForm" hidden>
+        <div class="form-group">
+          <label for="preorderProduct">Sản phẩm</label>
+          <select id="preorderProduct" name="productId" required></select>
+        </div>
+        <div class="form-group">
+          <label for="preorderQuantity">Số lượng</label>
+          <input id="preorderQuantity" name="quantity" type="number" min="1" max="50" value="1" required>
+        </div>
+        <div class="form-group">
+          <label for="preorderName">Họ tên</label>
+          <input id="preorderName" name="name" type="text" minlength="2" maxlength="100" autocomplete="name" required>
+        </div>
+        <div class="contact-fields">
+          <div class="form-group">
+            <label for="preorderContactType">Cách liên hệ</label>
+            <select id="preorderContactType" name="contactType"><option value="phone">Điện thoại</option><option value="email">Email</option></select>
+          </div>
+          <div class="form-group">
+            <label id="preorderContactLabel" for="preorderContact">Số điện thoại</label>
+            <input id="preorderContact" name="contact" type="tel" autocomplete="tel" maxlength="254" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="preorderPickup">Cách nhận hàng</label>
+          <select id="preorderPickup" name="pickup" required></select>
+        </div>
+        <div class="form-group">
+          <label for="preorderNote">Ghi chú (không bắt buộc)</label>
+          <textarea id="preorderNote" name="note" maxlength="240" rows="3"></textarea>
+        </div>
+        <div class="form-group honeypot" aria-hidden="true">
+          <label for="preorderWebsite">Để trống trường này</label>
+          <input id="preorderWebsite" name="website" tabindex="-1" autocomplete="off">
+        </div>
+        <label class="consent-label"><input name="consent" type="checkbox" required> Tôi đồng ý để nhóm Lăng Kính sử dụng thông tin liên hệ này nhằm xử lý đơn đặt trước và liên hệ về việc nhận hàng. Không nhập thông tin của trẻ em.</label>
+        {craftSaleModels.some((model) => model.officialPrice === null) && (<p id="preorderPriceNote" class="preorder-price-note" hidden>Giá đang hiển thị có thể là giá tham khảo. Khi chưa có giá chốt, nhóm sẽ xác nhận khi liên hệ.</p>)}
+        <p id="preorderError" role="alert" aria-live="assertive"></p>
+        <button id="preorderSubmit" class="btn btn-primary" type="submit">Gửi đăng ký đặt trước</button>
+      </form>
+      <div id="preorderSuccess" role="status" aria-live="polite" hidden></div>
     </div>
   </section>
 
@@ -98,7 +154,107 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Quà lưu ni
   </section>
 </Layout>
 
+<script>
+  const form = document.querySelector<HTMLFormElement>('#preorderForm');
+  const availability = document.querySelector<HTMLElement>('#preorderAvailability');
+  const success = document.querySelector<HTMLElement>('#preorderSuccess');
+  const error = document.querySelector<HTMLElement>('#preorderError');
+  const productSelect = document.querySelector<HTMLSelectElement>('#preorderProduct');
+  const pickupSelect = document.querySelector<HTMLSelectElement>('#preorderPickup');
+  const priceNote = document.querySelector<HTMLElement>('#preorderPriceNote');
+  const contactType = document.querySelector<HTMLSelectElement>('#preorderContactType');
+  const contact = document.querySelector<HTMLInputElement>('#preorderContact');
+  const contactLabel = document.querySelector<HTMLLabelElement>('#preorderContactLabel');
+  const apiBase = ['localhost', '127.0.0.1'].includes(window.location.hostname)
+    ? 'http://127.0.0.1:4331/api/preorders'
+    : '/api/preorders';
+  const newIdempotencyKey = () => crypto.randomUUID ? crypto.randomUUID() : Array.from(crypto.getRandomValues(new Uint8Array(16)), (byte) => byte.toString(16).padStart(2, '0')).join('');
+  const escapeHtml = (value: string) => value.replace(/[&<>"']/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[character] || character));
+  let idempotencyKey = newIdempotencyKey();
+  let products: Array<{ productId: string; name: string; officialPrice: number | null; pickup: string | null }> = [];
+
+  contactType?.addEventListener('change', () => {
+    const isEmail = contactType.value === 'email';
+    if (contact && contactLabel) {
+      contact.type = isEmail ? 'email' : 'tel';
+      contact.autocomplete = isEmail ? 'email' : 'tel';
+      contactLabel.textContent = isEmail ? 'Địa chỉ email' : 'Số điện thoại';
+    }
+  });
+
+  async function loadPreorderConfig() {
+    try {
+      const response = await fetch(apiBase + '/config', { headers: { Accept: 'application/json' } });
+      const data = await response.json();
+      if (!response.ok || !Array.isArray(data.products)) throw new Error('Không thể tải danh sách đặt trước.');
+      products = data.products;
+      if (!products.length) {
+        if (availability) availability.textContent = 'Hiện chưa mở nhận đặt trước. Vui lòng quay lại sau.';
+        return;
+      }
+      if (productSelect) productSelect.innerHTML = products.map((item) => `<option value="${escapeHtml(item.productId)}">${escapeHtml(item.name)}${item.officialPrice === null ? ' — giá tham khảo' : ` — ${new Intl.NumberFormat('vi-VN').format(item.officialPrice)}đ`}</option>`).join('');
+      updatePickupOptions();
+      if (form) form.hidden = false;
+      if (availability) availability.textContent = 'Đang nhận đăng ký đặt trước.';
+    } catch {
+      if (availability) availability.textContent = 'Biểu mẫu đặt trước hiện chưa sẵn sàng. Vui lòng thử lại sau.';
+    }
+  }
+  function updatePickupOptions() {
+    const product = products.find((item) => item.productId === productSelect?.value);
+    if (priceNote) priceNote.hidden = product?.officialPrice !== null;
+    if (!pickupSelect) return;
+    pickupSelect.innerHTML = product?.pickup ? `<option value="${escapeHtml(product.pickup)}">${escapeHtml(product.pickup)}</option>` : '<option value="Nhóm xác nhận cách nhận hàng khi liên hệ">Nhóm xác nhận cách nhận hàng khi liên hệ</option>';
+    if (!product?.pickup) pickupSelect.value = 'Nhóm xác nhận cách nhận hàng khi liên hệ';
+  }
+  productSelect?.addEventListener('change', updatePickupOptions);
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!form.reportValidity()) return;
+    const submit = document.querySelector<HTMLButtonElement>('#preorderSubmit');
+    if (submit) { submit.disabled = true; submit.textContent = 'Đang gửi…'; }
+    if (error) error.textContent = '';
+    try {
+      const fields = new FormData(form);
+      const response = await fetch(apiBase, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Idempotency-Key': idempotencyKey },
+        body: JSON.stringify({
+          productId: fields.get('productId'), quantity: Number(fields.get('quantity')), name: fields.get('name'),
+          contactType: fields.get('contactType'), contact: fields.get('contact'), pickup: fields.get('pickup'),
+          note: fields.get('note'), consent: fields.get('consent') === 'on', website: fields.get('website'),
+        }),
+      });
+      const data = await response.json();
+      if (!response.ok || !data.success) throw new Error(data.error || 'Không thể gửi đăng ký.');
+      form.hidden = true;
+      if (availability) availability.textContent = '';
+      if (success) {
+        success.hidden = false;
+        success.textContent = `Đã ghi nhận đăng ký ${data.preorder.orderCode}. Đây là đặt trước, chưa thanh toán; nhóm sẽ liên hệ để xác nhận lịch nhận hàng.`;
+      }
+      idempotencyKey = newIdempotencyKey();
+    } catch (err) {
+      if (error) error.textContent = err instanceof Error ? err.message : 'Không thể gửi đăng ký.';
+    } finally {
+      if (submit) { submit.disabled = false; submit.textContent = 'Gửi đăng ký đặt trước'; }
+    }
+  });
+  loadPreorderConfig();
+</script>
+
 <style>
+  .section-preorder { background: #f7f8f8; }
+  .section-preorder form { display: grid; gap: var(--space-4); }
+  .section-preorder .form-group { display: grid; gap: 6px; }
+  .section-preorder input, .section-preorder select, .section-preorder textarea { width: 100%; border: 1px solid var(--line); border-radius: 6px; padding: 12px; font: inherit; color: var(--ink); background: #fff; }
+  .contact-fields { display: grid; grid-template-columns: minmax(130px, .7fr) minmax(0, 1.3fr); gap: var(--space-4); }
+  .consent-label { display: flex; align-items: flex-start; gap: 10px; }
+  .consent-label input { width: auto; margin-top: 5px; }
+  .preorder-price-note { color: var(--ink-muted); }
+  .honeypot { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+  #preorderError { color: #9a1b1b; }
+  @media (max-width: 600px) { .contact-fields { grid-template-columns: 1fr; } }
   .section-catalogue {
     background: #ffffff;
     padding-top: var(--space-8);

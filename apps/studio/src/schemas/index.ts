@@ -571,8 +571,7 @@ export const DEFAULT_PROJECT_DATA: ProjectModuleData = {
     {
       step: '02',
       title: 'Gây quỹ',
-      description:
-        'Tiếp nhận ủng hộ qua chuyển khoản và dự kiến bán quà lưu niệm; dự kiến mở đặt trước từ tuần 6 và bán chính ở tuần 7–8. Hai nguồn được ghi riêng; khoản ủng hộ được công bố sau đối soát.',
+      description: 'Tiếp nhận ủng hộ qua chuyển khoản và đang nhận đặt trước hai sản phẩm quà lưu niệm. Hai nguồn được ghi riêng; khoản ủng hộ được công bố sau đối soát.',
     },
     {
       step: '03',
@@ -714,7 +713,7 @@ export const DEFAULT_JOURNAL_DATA: JournalArticle[] = [
     coverImage: {
       src: '/images/san-pham/chuon-chuon-tre.webp',
       alt: 'Những chú chuồn chuồn tre sơn nhiều màu đặt trên khay mây, có chân đế',
-      caption: 'Ảnh chuồn chuồn tre do nhóm cung cấp để tham khảo; hiện sản phẩm đang ở trạng thái chờ mở bán.',
+      caption: 'Ảnh chuồn chuồn tre do nhóm cung cấp để tham khảo; mẫu thực tế có thể khác.',
     },
     content: [
       {
@@ -729,13 +728,13 @@ export const DEFAULT_JOURNAL_DATA: JournalArticle[] = [
       {
         type: 'list',
         items: [
-          'Chuồn chuồn tre kèm đế: Kế hoạch chuẩn bị 50 phôi tre mộc 12 cm theo đề xuất, trong đó 30 bộ có đế dự kiến bán gây quỹ với giá tham khảo 40.000đ/bộ; 20 chiếc để lại Mái ấm theo lựa chọn của cơ sở.',
-          'Móc khóa Lăng Kính: Dự kiến 100 chiếc với giá tham khảo 10.000đ/chiếc, in tranh do nhóm chuẩn bị hoặc có quyền sử dụng, kèm lời cảm ơn ở mặt sau; không dùng tranh của các em trong buổi sinh hoạt.',
+          'Chuồn chuồn tre kèm đế: Kế hoạch chuẩn bị 50 phôi tre mộc 12 cm theo đề xuất, trong đó 30 bộ có đế dự kiến bán gây quỹ với giá chốt 40.000đ/bộ cho đặt trước; 20 chiếc để lại Mái ấm theo lựa chọn của cơ sở.',
+          'Móc khóa Lăng Kính: Dự kiến 100 chiếc với giá chốt 10.000đ/chiếc cho đặt trước, in tranh do nhóm chuẩn bị hoặc có quyền sử dụng, kèm lời cảm ơn ở mặt sau; không dùng tranh của các em trong buổi sinh hoạt.',
         ],
       },
       {
         type: 'callout',
-        text: 'Trạng thái hiện tại: Chưa mở bán. Website hiện chưa nhận đơn đặt hàng hoặc thanh toán sản phẩm. Theo kế hoạch, nhóm dự kiến mở đặt trước từ tuần 6 và bán chính ở tuần 7–8 tại khuôn viên Đại học FPT Hòa Lạc, sau khi hoàn tất chuẩn bị mẫu và được phê duyệt.',
+        text: 'Hiện nhóm đang nhận đặt trước hai sản phẩm thủ công. Giá chốt cho đặt trước là 40.000đ/bộ chuồn chuồn tre kèm đế và 10.000đ/chiếc móc khóa. Đặt trước chưa phải thanh toán online; nhóm sẽ liên hệ xác nhận cách thức và lịch nhận hàng sau khi đặt trước. Nhóm chưa cam kết ngày giao; thời điểm bán trực tiếp chưa được xác định.',
       },
       {
         type: 'heading',
@@ -926,7 +925,7 @@ export const DEFAULT_TEAM_DATA: TeamModuleData = {
   productFaqs: [
     {
       question: 'Giá trên trang có phải giá bán chính thức?',
-      answer: 'Chưa. Đây là giá tham khảo trong kế hoạch. Giá, mẫu và số lượng chính thức sẽ được công bố khi mở bán.',
+      answer: 'Đã có giá chốt: 40.000đ/bộ chuồn chuồn tre kèm đế và 10.000đ/chiếc móc khóa cho đặt trước. Đặt trước chưa phải thanh toán online. Nhóm sẽ liên hệ xác nhận cách thức và lịch nhận hàng sau khi đặt trước; hiện chưa cam kết ngày giao.',
     },
     {
       question: 'Ai làm các sản phẩm này?',
@@ -935,7 +934,7 @@ export const DEFAULT_TEAM_DATA: TeamModuleData = {
     },
     {
       question: 'Khi nào có thể đặt mua?',
-      answer: 'Khi kế hoạch bán được duyệt, nhóm sẽ công bố cách đặt hàng tại trang này. Hiện website chưa nhận đơn đặt hàng hoặc thanh toán sản phẩm.',
+      answer: 'Đang nhận đặt trước hai sản phẩm thủ công. Đặt trước chưa phải thanh toán; nhóm sẽ liên hệ xác nhận cách thức và lịch nhận hàng sau khi đặt trước. Chưa cam kết ngày giao.',
     },
     {
       question: 'Tiền bán hàng được dùng thế nào?',
@@ -998,7 +997,7 @@ export const DEFAULT_TEAM_DATA: TeamModuleData = {
   faqs: [
     {
       question: 'Giá trên trang có phải giá bán chính thức?',
-      answer: 'Chưa. Đây là giá tham khảo trong kế hoạch. Giá, mẫu và số lượng chính thức sẽ được công bố khi mở bán.',
+      answer: 'Đã có giá chốt: 40.000đ/bộ chuồn chuồn tre kèm đế và 10.000đ/chiếc móc khóa cho đặt trước. Đặt trước chưa phải thanh toán online. Nhóm sẽ liên hệ xác nhận cách thức và lịch nhận hàng sau khi đặt trước; hiện chưa cam kết ngày giao.',
     },
     {
       question: 'Ai làm các sản phẩm này?',

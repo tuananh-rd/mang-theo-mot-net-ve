@@ -173,8 +173,7 @@ export const BASELINE_PROJECT: Project = {
     {
       step: '02',
       title: 'Gây quỹ',
-      description:
-        'Tiếp nhận ủng hộ qua chuyển khoản và dự kiến bán quà lưu niệm; dự kiến mở đặt trước từ tuần 6 và bán chính ở tuần 7–8. Hai nguồn được ghi riêng; khoản ủng hộ được công bố sau đối soát.',
+      description: 'Tiếp nhận ủng hộ qua chuyển khoản và đang nhận đặt trước hai sản phẩm quà lưu niệm. Hai nguồn được ghi riêng; khoản ủng hộ được công bố sau đối soát.',
     },
     {
       step: '03',
@@ -665,11 +664,11 @@ export const PLAY_FLOW: PlayPhase[] = [
   },
 ];
 
-/** Kế hoạch bán quà lưu niệm, viết cho người mua. Website chưa mở nhận đơn. */
+/** Kế hoạch bán quà lưu niệm, viết cho người mua. Website đang nhận đặt trước. */
 export const SALES_PLAN: string[] = [
-  'Nhóm dự kiến mở đặt trước từ tuần 6, bán chính ở tuần 7–8 và giao hàng trước buổi gặp lại; bán trực tiếp tại quầy ở FPT Hòa Lạc khi được cho phép.',
+  'Đang nhận đặt trước hai sản phẩm thủ công. Đặt trước chưa phải thanh toán; nhóm sẽ liên hệ xác nhận cách thức và lịch nhận hàng sau khi đặt trước. Chưa cam kết ngày giao; bán trực tiếp tại quầy FPT Hòa Lạc chỉ khi được cho phép.',
   'Đồ ăn dự kiến chia hai đợt, tối đa 25 set mỗi đợt, chỉ bán trong trường khi đáp ứng điều kiện an toàn thực phẩm và quy định học phần.',
-  'Mẫu, giá chính thức và lịch nhận hàng sẽ được công bố tại trang này khi mở bán.',
+  'Đặt trước đang mở. Nhóm sẽ liên hệ người đặt trước để xác nhận cách thức và lịch nhận hàng; chưa cam kết ngày giao.',
   'Tiền bán quà ghi sổ riêng, không cộng vào tổng ủng hộ; công khai trong báo cáo cuối.',
 ];
 
@@ -683,7 +682,7 @@ export const SUPPORT_RULES: string[] = [
 export const BASELINE_PRODUCT_FAQS: ProductFaq[] = [
   {
     question: 'Giá trên trang có phải giá bán chính thức?',
-    answer: 'Chưa. Đây là giá tham khảo trong kế hoạch. Giá, mẫu và số lượng chính thức sẽ được công bố khi mở bán.',
+    answer: 'Đã có giá chốt: 40.000đ/bộ chuồn chuồn tre kèm đế và 10.000đ/chiếc móc khóa cho đặt trước. Đặt trước chưa phải thanh toán online. Nhóm sẽ liên hệ xác nhận cách thức và lịch nhận hàng sau khi đặt trước; hiện chưa cam kết ngày giao.',
   },
   {
     question: 'Ai làm các sản phẩm này?',
@@ -692,7 +691,7 @@ export const BASELINE_PRODUCT_FAQS: ProductFaq[] = [
   },
   {
     question: 'Khi nào có thể đặt mua?',
-    answer: 'Khi kế hoạch bán được duyệt, nhóm sẽ công bố cách đặt hàng tại trang này. Hiện website chưa nhận đơn đặt hàng hoặc thanh toán sản phẩm.',
+    answer: 'Đang nhận đặt trước hai sản phẩm thủ công. Đặt trước chưa phải thanh toán; nhóm sẽ liên hệ xác nhận cách thức và lịch nhận hàng sau khi đặt trước. Chưa cam kết ngày giao.',
   },
   {
     question: 'Tiền bán hàng được dùng thế nào?',

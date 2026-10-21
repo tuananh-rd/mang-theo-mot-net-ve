@@ -3034,9 +3034,9 @@ export function renderStudioHtml(session: AuthSession): string {
           { name: 'Nguyễn Anh Khoa', role: 'Hậu cần', photo: '/images/thanh-vien/nguyen-anh-khoa.webp', description: 'Chuẩn bị quà lưu niệm, quầy và di chuyển.' },
         ];
         const pFaqs = t.productFaqs || [
-          { question: 'Giá trên trang có phải giá bán chính thức?', answer: 'Chưa. Đây là giá tham khảo trong kế hoạch. Giá, mẫu và số lượng chính thức sẽ được công bố khi mở bán.' },
+          { question: 'Giá trên trang có phải giá bán chính thức?', answer: 'Đã có giá chốt: 40.000đ/bộ chuồn chuồn tre kèm đế và 10.000đ/chiếc móc khóa cho đặt trước. Đặt trước chưa phải thanh toán online. Nhóm sẽ liên hệ xác nhận cách thức và lịch nhận hàng sau khi đặt trước; hiện chưa cam kết ngày giao.' },
           { question: 'Ai làm các sản phẩm này?', answer: 'Toàn bộ sản phẩm gây quỹ do nhóm Lăng Kính chuẩn bị và hoàn thiện. Hoạt động tại Mái ấm hoàn toàn là vui chơi sáng tạo, không gắn với sản xuất hàng bán; các em giữ lại sản phẩm do mình làm ra. Tranh của các em chỉ được in lên móc khóa khi có sự đồng ý phù hợp.' },
-          { question: 'Khi nào có thể đặt mua?', answer: 'Khi kế hoạch bán được duyệt, nhóm sẽ công bố cách đặt hàng tại trang này. Hiện website chưa nhận đơn đặt hàng hoặc thanh toán sản phẩm.' },
+          { question: 'Khi nào có thể đặt mua?', answer: 'Đang nhận đặt trước hai sản phẩm thủ công. Đặt trước chưa phải thanh toán; nhóm sẽ liên hệ xác nhận cách thức và lịch nhận hàng sau khi đặt trước. Chưa cam kết ngày giao.' },
           { question: 'Tiền bán hàng được dùng thế nào?', answer: 'Trước hết bù chi phí nguyên liệu và tổ chức. Phần còn lại dùng mua vật phẩm theo danh mục Mái ấm xác nhận, có hóa đơn và biên bản bàn giao.' },
         ];
         const sFaqs = t.supportFaqs || [
