@@ -414,6 +414,38 @@ describe('Kiểm thử Xác thực Cấu hình Mở bán Sản phẩm (Task C14)
     assert.ok(res.errors.some((e) => e.includes('chính sách đổi/trả/hủy')));
   });
 
+  it('Mở preorder cần giá chốt và cách nhận, không cần đổi saleStatus', () => {
+    const preorderConfig = {
+      'chuon-chuon-tre-kem-de': {
+        saleStatus: 'unconfirmed',
+        officialPrice: 40000,
+        stockAvailable: null,
+        salesChannel: 'FPT Hòa Lạc',
+        returnPolicy: null,
+        publicApproval: 'pending',
+        preorderOpen: true,
+        pickup: 'Nhóm sẽ liên hệ xác nhận cách thức và lịch nhận hàng sau khi đặt trước',
+      },
+      'moc-khoa': {
+        saleStatus: 'unconfirmed',
+        officialPrice: 10000,
+        stockAvailable: null,
+        salesChannel: 'FPT Hòa Lạc',
+        returnPolicy: null,
+        publicApproval: 'pending',
+        preorderOpen: true,
+        pickup: 'Nhóm sẽ liên hệ xác nhận cách thức và lịch nhận hàng sau khi đặt trước',
+      },
+    };
+    assert.equal(validateProductSalesConfig(preorderConfig).isValid, true);
+    preorderConfig['chuon-chuon-tre-kem-de'].officialPrice = null;
+    preorderConfig['moc-khoa'].pickup = null;
+    const invalid = validateProductSalesConfig(preorderConfig);
+    assert.equal(invalid.isValid, false);
+    assert.ok(invalid.errors.some((error) => error.includes('giá niêm yết dương')));
+    assert.ok(invalid.errors.some((error) => error.includes('hướng dẫn nhận hàng')));
+  });
+
   it('sanitizeProductSalesConfig chuẩn hóa và loại bỏ trường lạ', () => {
     const dirty = {
       'chuon-chuon-tre-kem-de': {

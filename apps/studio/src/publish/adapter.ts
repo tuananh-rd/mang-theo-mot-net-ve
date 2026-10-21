@@ -260,7 +260,7 @@ function sanitizeProductsForPublic(products: ProductsModuleData, approvedMediaKe
       salesChannel: String(item.salesChannel || 'FPT Hòa Lạc').trim(),
       returnPolicy: item.returnPolicy ? String(item.returnPolicy).trim() : null,
       publicApproval: item.publicApproval || 'pending',
-      preorderOpen: item.preorderOpen === true,
+      preorderOpen: item.preorderOpen ?? false,
       pickup: item.pickup ? String(item.pickup).trim() : null,
     };
     if (item.name !== undefined) {

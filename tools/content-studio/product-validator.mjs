@@ -68,6 +68,14 @@ export function validateProductSalesConfig(config) {
     if (item.pickup !== undefined && item.pickup !== null && (typeof item.pickup !== 'string' || item.pickup.length > 120)) {
       errors.push(`Sản phẩm '${expectedId}': pickup phải là chuỗi tối đa 120 ký tự hoặc null.`);
     }
+    if (item.preorderOpen === true) {
+      if (typeof item.officialPrice !== 'number' || !Number.isInteger(item.officialPrice) || item.officialPrice <= 0) {
+        errors.push(`Sản phẩm '${expectedId}': mở nhận đặt trước cần giá niêm yết dương đã chốt.`);
+      }
+      if (typeof item.pickup !== 'string' || !item.pickup.trim()) {
+        errors.push(`Sản phẩm '${expectedId}': mở nhận đặt trước cần hướng dẫn nhận hàng.`);
+      }
+    }
 
     // 3. officialPrice
     if (item.officialPrice !== null && item.officialPrice !== undefined) {

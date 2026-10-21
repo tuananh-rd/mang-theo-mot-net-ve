@@ -51,6 +51,25 @@ test('Xuất bản: Tạo bản chụp bất biến (Immutable Snapshot) và tí
   assert.equal(publicFinance.entries.length, 0);
 });
 
+test('Xuất bản: cấu hình đặt trước và giá chốt giữ nguyên khi chiếu từ dữ liệu Studio', async () => {
+  const result = await createPublicationSnapshot({
+    project: DEFAULT_PROJECT_DATA,
+    journal: DEFAULT_JOURNAL_DATA,
+    products: DEFAULT_PRODUCTS_DATA,
+    finance: DEFAULT_FINANCE_DATA,
+    team: DEFAULT_TEAM_DATA,
+  }, 'preorder-parity');
+
+  assert.equal(result.isEligibleForPublish, true);
+  for (const [productId, price] of [['chuon-chuon-tre-kem-de', 40000], ['moc-khoa', 10000]]) {
+    const product = result.snapshot.modules.products[productId];
+    assert.equal(product.saleStatus, 'unconfirmed');
+    assert.equal(product.preorderOpen, true);
+    assert.equal(product.officialPrice, price);
+    assert.equal(product.pickup, 'Nhóm sẽ liên hệ xác nhận cách thức và lịch nhận hàng sau khi đặt trước');
+  }
+});
+
 test('Xuất bản: Kiểm tra tính Idempotency và Four-Eyes trong D1', async () => {
   const schemaSql = fs.readFileSync(new URL('../src/db/schema.sql', import.meta.url), 'utf-8');
   const d1 = new LocalD1Database(':memory:', schemaSql);

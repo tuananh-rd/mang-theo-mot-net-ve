@@ -208,6 +208,14 @@ export function validateProductsModuleData(data: unknown): { isValid: boolean; e
     if (item.pickup !== undefined && item.pickup !== null && (typeof item.pickup !== 'string' || item.pickup.length > 120)) {
       errors.push(`Sản phẩm '${id}': pickup phải là chuỗi tối đa 120 ký tự hoặc null.`);
     }
+    if (item.preorderOpen === true) {
+      if (typeof item.officialPrice !== 'number' || !Number.isInteger(item.officialPrice) || item.officialPrice <= 0) {
+        errors.push(`Sản phẩm '${id}': mở nhận đặt trước cần giá niêm yết dương đã chốt.`);
+      }
+      if (typeof item.pickup !== 'string' || !item.pickup.trim()) {
+        errors.push(`Sản phẩm '${id}': mở nhận đặt trước cần hướng dẫn nhận hàng.`);
+      }
+    }
     if (item.saleStatus === 'open') {
       if (typeof item.officialPrice !== 'number' || item.officialPrice <= 0) {
         errors.push(`Sản phẩm '${id}': Mở bán bắt buộc phải có giá niêm yết > 0.`);
@@ -748,13 +756,13 @@ export const DEFAULT_PRODUCTS_DATA: ProductsModuleData = {
     description: 'Phôi tre mộc mạc cân bằng trên mỏ, đi kèm chân đế trưng bày trang nhã.',
     originText: 'Phôi tre mộc; nguồn gốc trang trí chưa xác nhận',
     saleStatus: 'unconfirmed',
-    officialPrice: null,
+    officialPrice: 40000,
     stockAvailable: null,
     salesChannel: 'FPT Hòa Lạc',
     returnPolicy: null,
     publicApproval: 'pending',
-    preorderOpen: false,
-    pickup: null,
+    preorderOpen: true,
+    pickup: 'Nhóm sẽ liên hệ xác nhận cách thức và lịch nhận hàng sau khi đặt trước',
     narrative: null,
     mediaKey: '/images/san-pham/chuon-chuon-tre.webp',
   },
@@ -763,13 +771,13 @@ export const DEFAULT_PRODUCTS_DATA: ProductsModuleData = {
     description: 'Móc khóa lưu niệm nhóm sinh viên Lăng Kính chuẩn bị và hoàn thiện theo kế hoạch.',
     originText: 'Nhóm Lăng Kính chuẩn bị và hoàn thiện mẫu',
     saleStatus: 'unconfirmed',
-    officialPrice: null,
+    officialPrice: 10000,
     stockAvailable: null,
     salesChannel: 'FPT Hòa Lạc',
     returnPolicy: null,
     publicApproval: 'pending',
-    preorderOpen: false,
-    pickup: null,
+    preorderOpen: true,
+    pickup: 'Nhóm sẽ liên hệ xác nhận cách thức và lịch nhận hàng sau khi đặt trước',
     narrative: null,
     mediaKey: null,
   },

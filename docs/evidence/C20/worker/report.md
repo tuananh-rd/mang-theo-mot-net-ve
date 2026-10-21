@@ -41,7 +41,22 @@ No remote D1, Worker route, Cloudflare setting, deployment, or secret was change
 1. Apply `apps/studio/migrations/0002_preorders.sql` to the intended production D1 database.
 2. Configure a strong `RATE_LIMIT_SALT` secret for the public Worker; keep `PREORDER_TEST_MODE` disabled in production.
 3. Route `mangtheomotnetve.website/api/preorders*` to the public preorder Worker and configure the production origin for CORS. Keep Studio admin endpoints behind Access.
-4. Set and verify each product's official price (or leave it `null`) and pickup instructions in Studio before enabling it.
+4. Verify each product's current D1 official price and pickup instructions against the project owner's confirmation before publishing any further snapshot.
 5. Decide who contacts customers, the actual pickup process, and the retention period. A recommended policy is to minimize or delete contact details after fulfillment/cancellation and a documented retention period; no automatic expiry is implemented.
 
 The current scope does not restore a previous donation recipient or change any campaign recipient, payment flow, ledger, QR code, or fundraising claim.
+
+## C20 preorder activation follow-up — 2026-10-21
+
+The project owner confirmed that preorder is open for `chuon-chuon-tre-kem-de` at 40,000đ/set and `moc-khoa` at 10,000đ/item. Both public and Studio product defaults now carry `preorderOpen: true`, the confirmed `officialPrice`, and pickup text `Nhóm sẽ liên hệ xác nhận cách thức và lịch nhận hàng sau khi đặt trước`. `saleStatus` remains `unconfirmed`; the card and page status labels derive from `preorderOpen`, and the official-price label derives from `officialPrice` rather than `publicApproval`.
+
+The public content removes the obsolete week 6/week 7–8 opening and delivery claims. It now says preorder is open, unpaid, and that the group will confirm pickup method and schedule after each preorder; no delivery date is stated. The preorder price-reference note remains available for products with a null price and is hidden when a positive confirmed price is present. The donation recipient, QR, goal, and unreconciled ledger were not changed.
+
+Studio publication defaults and validation require a positive official price and pickup instructions when preorder is open, while allowing `saleStatus: unconfirmed`. The snapshot loader validates and carries `preorderOpen`, `officialPrice`, and `pickup`; the publication adapter preserves those values. A parity test covers both products in the default Studio snapshot, and the public product model test covers rendering the published preorder state without changing `saleStatus`.
+
+### Follow-up verification
+
+- Studio branch: `npm run studio:build`, `npm run studio:typecheck`, and `npm run studio:test` passed (91 tests); `npm run check` exited 0 (0 errors, 0 warnings, 40 existing hints); `npm test` passed 99/99; `npm run build` generated 13 pages.
+- Public `task/c18-v3-content` branch: `npm run check` passed with 0 errors, warnings, or hints; `npm test` passed 94/94; `npm run build` generated 13 pages.
+- Local preview review used 1440×1000 desktop and 390×844 mobile viewports. In both, the hero and both product cards displayed “Đang nhận đặt trước” and “Giá niêm yết”; the form showed the confirmed price and pickup text, and hid the reference-price note. Mobile `scrollWidth` was 390px for a 390px viewport. The preview supplied a local-only mock response for `GET /api/preorders/config`; no form submission or production service was used. Screenshots are in `preorder-followup/`.
+- No remote D1, Wrangler, Cloudflare, deploy, push, or production setting was touched.

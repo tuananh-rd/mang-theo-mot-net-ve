@@ -1,6 +1,7 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { PRODUCTS } from '../src/data/campaign.ts';
+import { runWithSnapshot } from '../src/data/lib/snapshot-loader.ts';
 import {
   CRAFT_PRODUCT_DETAILS,
   getCraftProductBySlug,
@@ -190,13 +191,17 @@ describe('Kiểm thử Chi tiết Sản phẩm & Luồng Soạn Yêu cầu Mua (
     assert.ok(inquiryText.includes('Yêu cầu mua chỉ được xác nhận sau khi nhóm phản hồi'));
   });
 
-  it('Mô hình xem hiệu lực (effective sale view-model): đồng bộ giá chính thức khác giá kế hoạch, kho và kênh bán', () => {
+  it('Mô hình xem hiệu lực (effective sale view-model): hiện giá đã chốt và trạng thái đặt trước', () => {
     const p = CRAFT_PRODUCT_DETAILS[0].product;
     const model = getEffectiveProductSaleModel(p);
 
-    // 1. Baseline hiện tại: unconfirmed, giá tham khảo, chưa mở bán
+    // Trạng thái bán vẫn chưa xác nhận; preorderOpen điều khiển nhãn nhận đặt trước.
     assert.equal(model.saleStatus, 'unconfirmed');
-    assert.equal(model.priceTypeLabel, 'Giá tham khảo');
+    assert.equal(model.preorderOpen, true);
+    assert.equal(model.statusLabel, 'Đang nhận đặt trước');
+    assert.equal(model.priceTypeLabel, 'Giá niêm yết');
+    assert.equal(model.priceText, '40.000đ');
+    assert.equal(model.pickup, 'Nhóm sẽ liên hệ xác nhận cách thức và lịch nhận hàng sau khi đặt trước');
     assert.equal(model.canPurchase, false);
     assert.equal(model.stockAvailable, null); // Giữ null khi chưa biết, không tự ép về 0
 
@@ -218,6 +223,31 @@ describe('Kiểm thử Chi tiết Sản phẩm & Luồng Soạn Yêu cầu Mua (
     const qty = 3;
     const subtotal = unitPrice * qty;
     assert.equal(subtotal, 51000);
+  });
+
+  it('Snapshot Studio không làm mất trạng thái preorder hoặc giá chốt', () => {
+    const snapshot = {
+      version: 'test',
+      generatedAt: '2026-10-21T00:00:00Z',
+      sha256: 'a'.repeat(64),
+      modules: {
+        products: {
+          'chuon-chuon-tre-kem-de': {
+            saleStatus: 'unconfirmed',
+            officialPrice: 40000,
+            preorderOpen: true,
+            pickup: 'Nhóm sẽ liên hệ xác nhận cách thức và lịch nhận hàng sau khi đặt trước',
+          },
+        },
+      },
+    };
+    runWithSnapshot(snapshot, () => {
+      const productModel = getEffectiveProductSaleModel(CRAFT_PRODUCT_DETAILS[0].product);
+      assert.equal(productModel.saleStatus, 'unconfirmed');
+      assert.equal(productModel.statusLabel, 'Đang nhận đặt trước');
+      assert.equal(productModel.priceTypeLabel, 'Giá niêm yết');
+      assert.equal(productModel.priceText, '40.000đ');
+    });
   });
 
   it('Khóa luồng đặt mua khi số lượng có sẵn (stockAvailable) bằng 0', () => {

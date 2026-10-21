@@ -45,9 +45,25 @@ export interface SnapshotProjectModule {
 export interface SnapshotModules {
   project?: SnapshotProjectModule;
   journal?: any[];
-  products?: Record<string, any>;
+  products?: Record<string, SnapshotProductConfig>;
   finance?: any;
   team?: any;
+}
+
+export interface SnapshotProductConfig {
+  name?: string | null;
+  description?: string | null;
+  originText?: string | null;
+  saleStatus?: 'unconfirmed' | 'open' | 'closed';
+  officialPrice?: number | null;
+  stockAvailable?: number | null;
+  salesChannel?: string;
+  returnPolicy?: string | null;
+  publicApproval?: 'pending' | 'approved';
+  preorderOpen?: boolean;
+  pickup?: string | null;
+  narrative?: string | null;
+  mediaKey?: string | null;
 }
 
 export interface LoadedSnapshot {
@@ -150,6 +166,15 @@ export function loadValidatedSnapshot(): LoadedSnapshot | null {
       }
       if (p.mediaKey !== undefined && p.mediaKey !== null && typeof p.mediaKey !== 'string') {
         throw new Error(`Malformed Published Snapshot: Trường "products.${prodId}.mediaKey" phải là chuỗi ký tự.`);
+      }
+      if (p.preorderOpen !== undefined && typeof p.preorderOpen !== 'boolean') {
+        throw new Error(`Malformed Published Snapshot: Trường "products.${prodId}.preorderOpen" phải là boolean.`);
+      }
+      if (p.officialPrice !== undefined && p.officialPrice !== null && (typeof p.officialPrice !== 'number' || !Number.isInteger(p.officialPrice) || p.officialPrice <= 0)) {
+        throw new Error(`Malformed Published Snapshot: Trường "products.${prodId}.officialPrice" phải là số nguyên dương hoặc null.`);
+      }
+      if (p.pickup !== undefined && p.pickup !== null && (typeof p.pickup !== 'string' || p.pickup.length > 120)) {
+        throw new Error(`Malformed Published Snapshot: Trường "products.${prodId}.pickup" phải là chuỗi tối đa 120 ký tự hoặc null.`);
       }
     }
   }
@@ -330,21 +355,7 @@ export function getPublishedFaqs<T extends { productFaqs: any[]; supportFaqs: an
 /**
  * Lấy cấu hình mở bán sản phẩm đã xuất bản (bao gồm narrative và mediaKey)
  */
-export function getPublishedProductConfig(productId: string): {
-  name?: string | null;
-  description?: string | null;
-  originText?: string | null;
-  saleStatus?: 'unconfirmed' | 'open' | 'closed';
-  officialPrice?: number | null;
-  stockAvailable?: number | null;
-  salesChannel?: string;
-  returnPolicy?: string | null;
-  publicApproval?: 'pending' | 'approved';
-  preorderOpen?: boolean;
-  pickup?: string | null;
-  narrative?: string | null;
-  mediaKey?: string | null;
-} | null {
+export function getPublishedProductConfig(productId: string): SnapshotProductConfig | null {
   const snap = getActiveSnapshot();
   if (!snap?.modules?.products) {
     return null;
