@@ -25,6 +25,8 @@ export interface ProductSalesConfigEntry {
   salesChannel: string;
   returnPolicy: string | null;
   publicApproval: 'pending' | 'approved';
+  preorderOpen?: boolean;
+  pickup?: string | null;
 }
 
 export interface CraftProductDetail {
@@ -68,7 +70,7 @@ export const CRAFT_PRODUCT_DETAILS: CraftProductDetail[] = [
     originDetails:
       'Nhóm sinh viên Lăng Kính chuẩn bị và hoàn thiện mẫu theo kế hoạch. Hoạt động tại Mái ấm hoàn toàn là vui chơi sáng tạo; các em giữ lại sản phẩm do mình làm ra, không giao sản lượng cho các em.',
     salesLocationPlan:
-      'Dự kiến mở bán tại khuôn viên Đại học FPT Hà Nội (Hòa Lạc) theo đề xuất kế hoạch; hiện chưa mở bán chính thức.',
+      'Nhóm sẽ liên hệ xác nhận cách thức và lịch nhận hàng sau khi đặt trước.',
     returnPolicy:
       'Điều kiện nhận/đổi/hủy chưa công bố; nhóm sẽ hoàn thiện và thống nhất trước khi mở bán.',
     image: {
@@ -88,7 +90,7 @@ export const CRAFT_PRODUCT_DETAILS: CraftProductDetail[] = [
     originDetails:
       'Nhóm sinh viên Lăng Kính chuẩn bị và hoàn thiện mẫu theo kế hoạch. Móc khóa in tranh do nhóm chuẩn bị hoặc có quyền sử dụng, kèm lời cảm ơn ở mặt sau; không dùng tranh của các em trong buổi sinh hoạt.',
     salesLocationPlan:
-      'Dự kiến mở bán tại khuôn viên Đại học FPT Hà Nội (Hòa Lạc) theo đề xuất kế hoạch; hiện chưa mở bán chính thức.',
+      'Nhóm sẽ liên hệ xác nhận cách thức và lịch nhận hàng sau khi đặt trước.',
     returnPolicy:
       'Điều kiện nhận/đổi/hủy chưa công bố; nhóm sẽ hoàn thiện và thống nhất trước khi mở bán.',
     imagePendingNote:
@@ -167,6 +169,8 @@ export interface EffectiveProductSaleModel {
   salesChannel: string;
   returnPolicy: string;
   publicApproval: 'pending' | 'approved';
+  preorderOpen: boolean;
+  pickup: string | null;
   canPurchase: boolean;
 }
 
@@ -180,20 +184,20 @@ export function getEffectiveProductSaleModel(product: Product): EffectiveProduct
   const detail = CRAFT_PRODUCT_DETAILS.find((d) => d.product.id === product.id);
 
   const effectiveStatus = salesConfig?.saleStatus ?? product.saleStatus ?? 'unconfirmed';
-  const statusLabel =
-    effectiveStatus === 'open'
+  const preorderOpen = salesConfig?.preorderOpen === true;
+  const statusLabel = preorderOpen
+    ? 'Đang nhận đặt trước'
+    : effectiveStatus === 'open'
       ? 'Đang mở bán'
       : effectiveStatus === 'closed'
       ? 'Đã kết thúc'
       : 'Chờ mở bán';
   const statusChipKind =
-    effectiveStatus === 'open' ? ('da-xac-nhan' as const) : ('cho-xac-nhan' as const);
+    preorderOpen || effectiveStatus === 'open' ? ('da-xac-nhan' as const) : ('cho-xac-nhan' as const);
 
   const hasOfficialPrice =
     typeof salesConfig?.officialPrice === 'number' && salesConfig.officialPrice > 0;
-  const isApprovedOfficialPrice = hasOfficialPrice && salesConfig?.publicApproval === 'approved';
-
-  const effectivePrice = isApprovedOfficialPrice
+  const effectivePrice = hasOfficialPrice
     ? salesConfig!.officialPrice
     : product.referencePrice?.value ?? null;
 
@@ -203,10 +207,10 @@ export function getEffectiveProductSaleModel(product: Product): EffectiveProduct
   const priceText = effectivePrice !== null ? formatVND(effectivePrice) : 'Chưa có giá';
 
   const isConfirmedPrice =
-    isApprovedOfficialPrice || product.referencePrice?.verification === 'confirmed';
+    hasOfficialPrice || product.referencePrice?.verification === 'confirmed';
   const priceTypeLabel = isConfirmedPrice ? 'Giá niêm yết' : 'Giá tham khảo';
   const priceNote = isConfirmedPrice
-    ? '(Đã duyệt niêm yết chính thức)'
+    ? '(Giá đã chốt)'
     : '(Giá trong đề xuất kế hoạch, chưa phải giá niêm yết chính thức)';
 
   const stockAvailable =
@@ -217,7 +221,9 @@ export function getEffectiveProductSaleModel(product: Product): EffectiveProduct
     maxPurchasableQuantity = stockAvailable > 0 ? Math.min(stockAvailable, 50) : 0;
   }
 
+  const pickup = salesConfig?.pickup?.trim() || null;
   const salesChannel =
+    pickup ||
     salesConfig?.salesChannel?.trim() ||
     detail?.salesLocationPlan ||
     'Khuôn viên Đại học FPT Hà Nội (Hòa Lạc) theo đề xuất kế hoạch; hiện chưa mở bán chính thức.';
@@ -248,6 +254,8 @@ export function getEffectiveProductSaleModel(product: Product): EffectiveProduct
     salesChannel,
     returnPolicy,
     publicApproval,
+    preorderOpen,
+    pickup,
     canPurchase,
   };
 }

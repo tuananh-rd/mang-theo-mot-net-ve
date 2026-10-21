@@ -125,7 +125,7 @@ export const CAMPAIGN_PROJECT: Project = {
       step: '02',
       title: 'Gây quỹ',
       description:
-        'Tiếp nhận ủng hộ qua chuyển khoản và dự kiến bán quà lưu niệm; dự kiến mở đặt trước từ tuần 6 và bán chính ở tuần 7–8. Hai nguồn được ghi riêng; khoản ủng hộ được công bố sau đối soát.',
+        'Nhóm đang nhận đặt trước hai sản phẩm thủ công; đặt trước chưa phải thanh toán. Nhóm sẽ liên hệ xác nhận cách thức và lịch nhận hàng sau khi đặt trước. Thời điểm bán trực tiếp chưa được xác định. Hai nguồn thu được ghi riêng; khoản ủng hộ được công bố sau đối soát.',
     },
     {
       step: '03',
@@ -559,7 +559,7 @@ export const PLAY_FLOW: PlayPhase[] = [
 
 /** Kế hoạch bán quà lưu niệm, viết cho người mua. Website chưa mở nhận đơn. */
 export const SALES_PLAN: string[] = [
-  'Nhóm dự kiến mở đặt trước từ tuần 6, bán chính ở tuần 7–8 và giao hàng trước buổi gặp lại; bán trực tiếp tại quầy ở FPT Hòa Lạc khi được cho phép.',
+  'Nhóm đang nhận đặt trước hai sản phẩm thủ công; đặt trước chưa phải thanh toán. Nhóm sẽ liên hệ xác nhận cách thức và lịch nhận hàng sau khi đặt trước. Thời điểm bán trực tiếp chưa được xác định.',
   'Đồ ăn dự kiến chia hai đợt, tối đa 25 set mỗi đợt, chỉ bán trong trường khi đáp ứng điều kiện an toàn thực phẩm và quy định học phần.',
   'Mẫu, giá chính thức và lịch nhận hàng sẽ được công bố tại trang này khi mở bán.',
   'Tiền bán quà ghi sổ riêng, không cộng vào tổng ủng hộ; công khai trong báo cáo cuối.',

@@ -1,18 +1,22 @@
 {
   "chuon-chuon-tre-kem-de": {
     "saleStatus": "unconfirmed",
-    "officialPrice": null,
+    "officialPrice": 40000,
     "stockAvailable": null,
     "salesChannel": "FPT Hòa Lạc",
     "returnPolicy": null,
-    "publicApproval": "pending"
+    "publicApproval": "pending",
+    "preorderOpen": true,
+    "pickup": "Nhóm sẽ liên hệ xác nhận cách thức và lịch nhận hàng sau khi đặt trước"
   },
   "moc-khoa": {
     "saleStatus": "unconfirmed",
-    "officialPrice": null,
+    "officialPrice": 10000,
     "stockAvailable": null,
     "salesChannel": "FPT Hòa Lạc",
     "returnPolicy": null,
-    "publicApproval": "pending"
+    "publicApproval": "pending",
+    "preorderOpen": true,
+    "pickup": "Nhóm sẽ liên hệ xác nhận cách thức và lịch nhận hàng sau khi đặt trước"
   }
 }

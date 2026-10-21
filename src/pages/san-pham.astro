@@ -8,10 +8,10 @@ import { getEffectiveProductSaleModel } from '../lib/products';
 
 const craft = PRODUCTS.filter((p) => p.category === 'craft');
 const craftSaleModels = craft.map((p) => getEffectiveProductSaleModel(p));
-const anyOpen = craftSaleModels.some((m) => m.saleStatus === 'open');
-const allOpen = craftSaleModels.length > 0 && craftSaleModels.every((m) => m.saleStatus === 'open');
-const heroChip = anyOpen
-  ? { kind: 'da-xac-nhan' as const, label: allOpen ? 'Đang mở bán' : 'Có món đang mở bán' }
+const anyPreorderOpen = craftSaleModels.some((m) => m.preorderOpen);
+const allPreorderOpen = craftSaleModels.length > 0 && craftSaleModels.every((m) => m.preorderOpen);
+const heroChip = anyPreorderOpen
+  ? { kind: 'da-xac-nhan' as const, label: allPreorderOpen ? 'Đang nhận đặt trước' : 'Có món đang nhận đặt trước' }
   : { kind: 'cho-xac-nhan' as const, label: 'Chưa mở bán' };
 
 const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Quà lưu niệm' }];
@@ -29,7 +29,7 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Quà lưu ni
     chip={heroChip}
     title="Mua một món, góp một phần quà"
     titleId="products-heading"
-    lead="Chuồn chuồn tre và móc khóa do nhóm Lăng Kính tự làm, dự kiến bán tại FPT Hòa Lạc."
+    lead="Nhóm đang nhận đặt trước chuồn chuồn tre và móc khóa. Đặt trước chưa phải thanh toán."
     description="Toàn bộ tiền bán quà lưu niệm được quản lý và ghi sổ riêng với tiền ủng hộ qua chuyển khoản. Lãi thu được dùng cho buổi chơi và quà tặng Mái ấm."
   />
 
@@ -88,7 +88,7 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Quà lưu ni
           <input id="preorderWebsite" name="website" tabindex="-1" autocomplete="off">
         </div>
         <label class="consent-label"><input name="consent" type="checkbox" required> Tôi đồng ý để nhóm Lăng Kính sử dụng thông tin liên hệ này nhằm xử lý đơn đặt trước và liên hệ về việc nhận hàng. Không nhập thông tin của trẻ em.</label>
-        <p class="preorder-price-note">Giá đang hiển thị có thể là giá tham khảo. Khi chưa có giá chốt, nhóm sẽ xác nhận khi liên hệ.</p>
+        <p id="preorderPriceNote" class="preorder-price-note" hidden>Giá đang hiển thị có thể là giá tham khảo. Khi chưa có giá chốt, nhóm sẽ xác nhận khi liên hệ.</p>
         <p id="preorderError" role="alert" aria-live="assertive"></p>
         <button id="preorderSubmit" class="btn btn-primary" type="submit">Gửi đăng ký đặt trước</button>
       </form>
@@ -160,6 +160,7 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Quà lưu ni
   const contactType = document.querySelector<HTMLSelectElement>('#preorderContactType');
   const contact = document.querySelector<HTMLInputElement>('#preorderContact');
   const contactLabel = document.querySelector<HTMLLabelElement>('#preorderContactLabel');
+  const priceNote = document.querySelector<HTMLElement>('#preorderPriceNote');
   const apiBase = ['localhost', '127.0.0.1'].includes(window.location.hostname)
     ? 'http://127.0.0.1:4331/api/preorders'
     : '/api/preorders';
@@ -197,6 +198,7 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Quà lưu ni
   }
   function updatePickupOptions() {
     const product = products.find((item) => item.productId === productSelect?.value);
+    if (priceNote) priceNote.hidden = typeof product?.officialPrice === 'number' && product.officialPrice > 0;
     if (!pickupSelect) return;
     pickupSelect.innerHTML = product?.pickup ? `<option value="${escapeHtml(product.pickup)}">${escapeHtml(product.pickup)}</option>` : '<option value="Nhóm xác nhận cách nhận hàng khi liên hệ">Nhóm xác nhận cách nhận hàng khi liên hệ</option>';
     if (!product?.pickup) pickupSelect.value = 'Nhóm xác nhận cách nhận hàng khi liên hệ';

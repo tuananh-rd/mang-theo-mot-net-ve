@@ -46,7 +46,7 @@ export function validateProductSalesConfig(config) {
     }
 
     // Kiểm tra các trường thừa ngoài schema
-    const allowedFields = new Set(['saleStatus', 'officialPrice', 'stockAvailable', 'salesChannel', 'returnPolicy', 'publicApproval']);
+    const allowedFields = new Set(['saleStatus', 'officialPrice', 'stockAvailable', 'salesChannel', 'returnPolicy', 'publicApproval', 'preorderOpen', 'pickup']);
     for (const field of Object.keys(item)) {
       if (!allowedFields.has(field)) {
         errors.push(`Sản phẩm '${expectedId}' chứa trường không xác định '${field}'.`);
@@ -61,6 +61,12 @@ export function validateProductSalesConfig(config) {
     // 2. publicApproval
     if (!ALLOWED_PUBLIC_APPROVALS.has(item.publicApproval)) {
       errors.push(`Phê duyệt công khai '${item.publicApproval}' của '${expectedId}' không hợp lệ (cho phép: pending, approved).`);
+    }
+    if (item.preorderOpen !== undefined && typeof item.preorderOpen !== 'boolean') {
+      errors.push(`Sản phẩm '${expectedId}': preorderOpen phải là giá trị đúng/sai.`);
+    }
+    if (item.pickup !== undefined && item.pickup !== null && (typeof item.pickup !== 'string' || item.pickup.length > 120)) {
+      errors.push(`Sản phẩm '${expectedId}': pickup phải là chuỗi tối đa 120 ký tự hoặc null.`);
     }
 
     // 3. officialPrice
@@ -109,6 +115,14 @@ export function validateProductSalesConfig(config) {
         errors.push(`Khi mở bán ('open'), sản phẩm '${expectedId}' bắt buộc phải có số lượng sẵn có (stock >= 0).`);
       }
     }
+    if (item.preorderOpen === true) {
+      if (typeof item.officialPrice !== 'number' || !Number.isInteger(item.officialPrice) || item.officialPrice <= 0) {
+        errors.push(`Sản phẩm '${expectedId}': mở nhận đặt trước cần giá niêm yết dương đã chốt.`);
+      }
+      if (typeof item.pickup !== 'string' || !item.pickup.trim()) {
+        errors.push(`Sản phẩm '${expectedId}': mở nhận đặt trước cần hướng dẫn nhận hàng.`);
+      }
+    }
   }
 
   return {
@@ -133,6 +147,8 @@ export function sanitizeProductSalesConfig(config) {
       salesChannel: String(raw.salesChannel || '').trim() || 'FPT Hòa Lạc',
       returnPolicy: raw.returnPolicy ? String(raw.returnPolicy).trim() : null,
       publicApproval: ALLOWED_PUBLIC_APPROVALS.has(raw.publicApproval) ? raw.publicApproval : 'pending',
+      preorderOpen: raw.preorderOpen === true,
+      pickup: typeof raw.pickup === 'string' && raw.pickup.trim() ? raw.pickup.trim() : null,
     };
   }
   return result;

@@ -190,13 +190,17 @@ describe('Kiểm thử Chi tiết Sản phẩm & Luồng Soạn Yêu cầu Mua (
     assert.ok(inquiryText.includes('Yêu cầu mua chỉ được xác nhận sau khi nhóm phản hồi'));
   });
 
-  it('Mô hình xem hiệu lực (effective sale view-model): đồng bộ giá chính thức khác giá kế hoạch, kho và kênh bán', () => {
+  it('Mô hình xem hiệu lực (effective sale view-model): hiện giá đã chốt và trạng thái đặt trước', () => {
     const p = CRAFT_PRODUCT_DETAILS[0].product;
     const model = getEffectiveProductSaleModel(p);
 
-    // 1. Baseline hiện tại: unconfirmed, giá tham khảo, chưa mở bán
+    // Trạng thái bán vẫn chưa xác nhận; preorderOpen điều khiển nhãn nhận đặt trước.
     assert.equal(model.saleStatus, 'unconfirmed');
-    assert.equal(model.priceTypeLabel, 'Giá tham khảo');
+    assert.equal(model.preorderOpen, true);
+    assert.equal(model.statusLabel, 'Đang nhận đặt trước');
+    assert.equal(model.priceTypeLabel, 'Giá niêm yết');
+    assert.equal(model.priceText, '40.000đ');
+    assert.equal(model.pickup, 'Nhóm sẽ liên hệ xác nhận cách thức và lịch nhận hàng sau khi đặt trước');
     assert.equal(model.canPurchase, false);
     assert.equal(model.stockAvailable, null); // Giữ null khi chưa biết, không tự ép về 0
 
