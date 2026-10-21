@@ -14,7 +14,6 @@ declare module '*/csv-validator.mjs' {
     date: string;
     amount: number;
     donor: string;
-    reference: string | null;
   } | null;
   export function validateDonationProjection(payload: any): {
     isValid: boolean;

@@ -256,8 +256,9 @@ test('Workflow: Valid Two-Person Attestation authorizes sanitized projection wit
   });
   assert.equal(sign2.status, 200);
   assert.equal(sign2.data.status, 'approved');
+  assert.equal(sign2.data.draft.data.entries[0].reference, 'MBVCB123456789', 'Studio giữ reference riêng cho đối soát');
 
-  // 4. Xuất bản -> Dữ liệu được chiếu công khai, che mã tham chiếu và ẩn danh
+  // 4. Xuất bản -> Dữ liệu công khai giữ tên được duyệt, bỏ hoàn toàn mã tham chiếu
   const pubRes = await api('/api/publications/request', {
     method: 'POST',
     role: 'admin',
@@ -272,9 +273,13 @@ test('Workflow: Valid Two-Person Attestation authorizes sanitized projection wit
   // Kiểm tra che PII
   const [e1, e2] = finSnapshot.entries;
   assert.equal(e1.donor, 'Nguyễn Văn A');
-  assert.equal(e1.reference, '...6789', 'Mã tham chiếu phải được che, chỉ giữ 4 số cuối');
+  assert.equal(Object.hasOwn(e1, 'reference'), false, 'Mã tham chiếu không có trong projection công khai');
+  assert.equal(JSON.stringify(finSnapshot).includes('MBVCB123456789'), false);
+  assert.equal(JSON.stringify(finSnapshot).includes('SECRET999'), false);
+  assert.equal(JSON.stringify(pubRes.data.publication).includes('MBVCB123456789'), false);
+  assert.equal(JSON.stringify(pubRes.data.publication).includes('SECRET999'), false);
   assert.equal(e2.donor, 'Ẩn danh');
-  assert.equal(e2.reference, null, 'Ẩn danh phải có reference null');
+  assert.equal(Object.hasOwn(e2, 'reference'), false, 'Không xuất thuộc tính reference kể cả khi ẩn danh');
 
   // 5. Chỉnh sửa tiếp theo hủy bỏ ngay các chữ ký cũ (Invalidate Old Approvals)
   const modifiedData = structuredClone(sign2.data.draft.data);

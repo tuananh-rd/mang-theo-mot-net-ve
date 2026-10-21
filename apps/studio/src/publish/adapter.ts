@@ -292,7 +292,7 @@ function sanitizeProductsForPublic(products: ProductsModuleData, approvedMediaKe
 
 /**
  * Làm sạch và chuẩn hóa phân hệ tài chính cho bản chiếu công khai
- * Khử PII của người đối soát (thay bằng vai trò), che mã tham chiếu (...XXXX)
+ * Khử PII của người đối soát (thay bằng vai trò), loại mã tham chiếu khỏi bản công khai
  */
 function sanitizeFinanceForPublic(finance: FinanceModuleData): FinanceModuleData {
   const hasFirstSigner = Boolean(
@@ -350,16 +350,10 @@ function sanitizeFinanceForPublic(finance: FinanceModuleData): FinanceModuleData
           const isAnon =
             !e.donor ||
             ['ẩn danh', 'an danh', 'anonymous'].includes(e.donor.toLowerCase().trim());
-          let safeRef: string | null = null;
-          if (!isAnon && e.reference) {
-            const rawRef = String(e.reference).trim();
-            safeRef = rawRef.startsWith('...') ? rawRef : `...${rawRef.slice(-4)}`;
-          }
           return {
             date: e.date,
             amount: e.amount,
             donor: isAnon ? 'Ẩn danh' : String(e.donor).trim(),
-            reference: isAnon ? null : safeRef,
           };
         })
       : [],

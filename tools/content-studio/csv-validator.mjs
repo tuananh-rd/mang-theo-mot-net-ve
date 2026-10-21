@@ -470,29 +470,18 @@ export function isValidIsoDate(value) {
 /**
  * Chuẩn hóa và làm sạch một dòng giao dịch sao kê công khai (Task C14).
  * - Loại bỏ toàn bộ trường thô không thuộc allowlist.
- * - Che giấu mã tham chiếu riêng tư (chỉ giữ hậu tố ...XXXX, tối đa 8 ký tự).
- * - Người ủng hộ Ẩn danh luôn có reference là null.
+ * - Không đưa mã tham chiếu riêng tư vào bản chiếu công khai.
  * @param {any} entry
- * @returns {{ date: string, amount: number, donor: string, reference: string | null } | null}
+ * @returns {{ date: string, amount: number, donor: string } | null}
  */
 export function sanitizeDonationEntry(entry) {
   if (!entry || typeof entry !== 'object') return null;
   const rawDonor = typeof entry.donor === 'string' ? entry.donor.trim() : '';
   const isAnonymous = !rawDonor || ['ẩn danh', 'an danh', 'anonymous'].includes(rawDonor.toLowerCase());
-  let safeRef = null;
-  if (!isAnonymous && entry.reference) {
-    const rawRef = String(entry.reference).trim();
-    if (rawRef.startsWith('...') && rawRef.length <= 8) {
-      safeRef = rawRef;
-    } else {
-      safeRef = `...${rawRef.slice(-4)}`;
-    }
-  }
   return {
     date: entry.date,
     amount: entry.amount,
     donor: isAnonymous ? 'Ẩn danh' : rawDonor,
-    reference: safeRef,
   };
 }
 

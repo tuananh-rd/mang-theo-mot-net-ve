@@ -90,7 +90,7 @@ test('Làm sạch dữ liệu: Che giấu mã tham chiếu riêng tư (PII Maski
   };
   const sanitizedNamed = sanitizeDonationEntry(namedEntry);
   assert.equal(sanitizedNamed.donor, 'Nguyễn Văn A');
-  assert.equal(sanitizedNamed.reference, '...6789'); // Chỉ giữ 4 ký tự cuối
+  assert.equal(Object.hasOwn(sanitizedNamed, 'reference'), false);
 
   const anonEntry = {
     date: '2026-10-10',
@@ -100,7 +100,7 @@ test('Làm sạch dữ liệu: Che giấu mã tham chiếu riêng tư (PII Maski
   };
   const sanitizedAnon = sanitizeDonationEntry(anonEntry);
   assert.equal(sanitizedAnon.donor, 'Ẩn danh');
-  assert.equal(sanitizedAnon.reference, null); // Ẩn danh luôn có reference là null
+  assert.equal(Object.hasOwn(sanitizedAnon, 'reference'), false);
 });
 
 test('Bản chiếu công khai: Từ chối bản chiếu chưa đối soát hoặc chưa duyệt', () => {

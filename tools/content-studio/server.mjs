@@ -1028,7 +1028,6 @@ function getHtmlApp() {
         date: r.date,
         amount: r.amount,
         donor: r.donorName,
-        reference: r.isAnonymous ? null : (r.id ? '...' + r.id.slice(-4) : null),
       }));
 
       const projection = {
@@ -1308,7 +1307,6 @@ const server = http.createServer(async (req, res) => {
             date: r.date,
             amount: r.amount,
             donor: r.donorName,
-            reference: r.isAnonymous ? null : (r.id ? `...${r.id.slice(-4)}` : null),
           }));
         } else {
           if (!payload || typeof payload !== 'object' || !Array.isArray(payload.entries)) {

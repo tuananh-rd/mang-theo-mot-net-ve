@@ -4,7 +4,6 @@
  * - isLedgerReconciled: đã có sổ được đối chiếu với sao kê ngân hàng.
  * - Chưa có sổ đã đối soát → tổng/tỷ lệ là null ("Chưa cập nhật"), không phải 0đ.
  * - Tổng luôn dẫn xuất từ các dòng sổ; thanh tiến độ giới hạn 100% nhưng tổng giữ số thật.
- * - Một mã giao dịch chỉ được ghi một lần; không cộng trùng.
  */
 
 import type { DonationAccount, DonationEntry, DonationLedger } from '../data/campaign';
@@ -48,7 +47,7 @@ export function validateDonation(entry: DonationEntry): void {
   }
 }
 
-/** Kiểm toàn bộ sổ: dòng hợp lệ, không trùng mã giao dịch, không có ngày sau ngày đối soát. */
+/** Kiểm toàn bộ sổ công khai: dòng hợp lệ và không có ngày sau ngày đối soát. */
 export function validateLedger(ledger: DonationLedger): void {
   if (ledger.reconciled && !isValidIsoDate(ledger.reconciledAt)) {
     throw new Error('Sổ đã đối soát phải có ngày đối soát hợp lệ.');
@@ -59,16 +58,10 @@ export function validateLedger(ledger: DonationLedger): void {
   if (ledger.reconciled && ledger.publicApproval && ledger.publicApproval !== 'approved') {
     throw new Error('Sổ đã đối soát nhưng chưa được phê duyệt công khai (publicApproval != approved).');
   }
-  const seen = new Set<string>();
   for (const entry of ledger.entries) {
     validateDonation(entry);
     if (ledger.reconciledAt && entry.date > ledger.reconciledAt) {
       throw new Error(`Khoản ngày ${entry.date} sau ngày đối soát ${ledger.reconciledAt}.`);
-    }
-    if (entry.reference) {
-      const key = entry.reference.trim().toUpperCase();
-      if (seen.has(key)) throw new Error(`Mã giao dịch bị ghi trùng: ${entry.reference}.`);
-      seen.add(key);
     }
   }
 }

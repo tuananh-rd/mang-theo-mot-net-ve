@@ -2327,9 +2327,9 @@ export function renderStudioHtml(session: AuthSession): string {
         const steps = f.ledgerProcess || [
           { title: 'Một tài khoản riêng cho dự án', description: 'Mọi khoản ủng hộ chuyển vào tài khoản Techcombank đã công bố, nội dung bắt đầu bằng MTMNV để dễ nhận diện.' },
           { title: 'Hai người đối chiếu', description: 'Thành viên tài chính và một thành viên khác cùng đối chiếu từng khoản với sao kê ngân hàng trước khi ghi sổ.' },
-          { title: 'Ghi sổ tối thiểu', description: 'Mỗi dòng gồm ngày, số tiền, mã giao dịch rút gọn và tên người ủng hộ đồng ý hiển thị; không ghi tên thì để Ẩn danh.' },
+          { title: 'Ghi sổ tối thiểu', description: 'Bản công khai gồm ngày, số tiền và tên người ủng hộ đồng ý hiển thị; không ghi tên thì để Ẩn danh. Mã tham chiếu chỉ lưu nội bộ trong Studio.' },
           { title: 'Chỉ công bố sau đối soát', description: 'Sổ được cập nhật lên website định kỳ sau mỗi lần đối soát, kèm ngày đối soát thật. Website không kết nối tự động với ngân hàng.' },
-          { title: 'Xử lý nhầm, trùng, hoàn tiền', description: 'Mỗi mã giao dịch chỉ ghi một lần. Khoản chuyển nhầm được hoàn lại theo yêu cầu và không tính vào tổng; chỉnh sửa được ghi chú ở lần cập nhật sau.' },
+          { title: 'Xử lý nhầm, trùng, hoàn tiền', description: 'Mã giao dịch chỉ dùng nội bộ để đối soát và chống trùng. Khoản chuyển nhầm được hoàn lại theo yêu cầu và không tính vào tổng; chỉnh sửa được ghi chú ở lần cập nhật sau.' },
           { title: 'Tôn trọng riêng tư', description: 'Không công khai số tài khoản, ngân hàng hay thông tin cá nhân của người gửi; chứng từ chỉ công bố bản đã che thông tin.' },
         ];
 
@@ -2525,7 +2525,7 @@ export function renderStudioHtml(session: AuthSession): string {
                     <th>Ngày</th>
                     <th>Số tiền (VNĐ)</th>
                     <th>Người ủng hộ</th>
-                    <th>Mã tham chiếu (Đã che)</th>
+                    <th>Mã tham chiếu nội bộ</th>
                     <th>Thao tác</th>
                   </tr>
                 </thead>
@@ -2563,8 +2563,8 @@ export function renderStudioHtml(session: AuthSession): string {
                   <input type="text" class="form-control" name="entry_donor" required placeholder="Nguyễn Văn A / Ẩn danh">
                 </div>
                 <div class="form-group" style="flex: 1.5;">
-                  <label>Mã tham chiếu</label>
-                  <input type="text" class="form-control" name="entry_reference" placeholder="REF***123">
+                  <label>Mã tham chiếu nội bộ (không xuất bản)</label>
+                  <input type="text" class="form-control" name="entry_reference" placeholder="Nội bộ Studio">
                 </div>
               </div>
               <button type="submit" class="btn btn-secondary btn-sm" \${currentUserRole === 'reviewer' ? 'disabled' : ''}>+ Thêm khoản ủng hộ</button>
@@ -3041,8 +3041,9 @@ export function renderStudioHtml(session: AuthSession): string {
         ];
         const sFaqs = t.supportFaqs || [
           { question: 'Làm sao để tên tôi xuất hiện trong sao kê?', answer: 'Ghi nội dung chuyển khoản theo mẫu MTMNV và tên bạn muốn hiển thị. Nếu không ghi tên hoặc ghi “An danh”, khoản ủng hộ hiển thị là Ẩn danh. Website không hiển thị số tài khoản hay thông tin ngân hàng của người gửi.' },
-          { question: 'Khi nào khoản ủng hộ của tôi được cập nhật?', answer: 'Sau mỗi lần thành viên tài chính cùng một thành viên khác đối chiếu với sao kê ngân hàng. Website không kết nối tự động với ngân hàng; khi sổ được công bố, ngày đối soát gần nhất sẽ hiển thị ở đầu bảng. Khoản ủng hộ được cập nhật định kỳ sau khi đối soát xong.' },
-          { question: 'Tôi chuyển nhầm số tiền hoặc chuyển trùng thì sao?', answer: 'Hãy liên hệ một trong hai số điện thoại của nhóm kèm thời gian và mã giao dịch. Nhóm đối chiếu với sao kê và hoàn lại nếu bạn yêu cầu; khoản đã hoàn không được tính vào tổng ủng hộ.' },
+          { question: 'Khi nào khoản ủng hộ của tôi được cập nhật?', answer: 'Sau mỗi lần thành viên tài chính cùng một thành viên khác đối chiếu với sao kê ngân hàng. Website không kết nối tự động với ngân hàng; khi sổ được công bố, ngày đối soát gần nhất sẽ hiển thị ở đầu bảng. Khoản ủng hộ được cập nhật định kỳ sau khi đối soát xong. Bạn có thể đối chiếu theo ngày chuyển, số tiền và nội dung bắt đầu bằng MTMNV; nếu cần, hãy liên hệ nhóm.' },
+          { question: 'Làm sao nhận ra khoản ủng hộ của tôi trong sao kê?', answer: 'Bạn có thể đối chiếu theo ngày chuyển và số tiền; nội dung chuyển khoản bắt đầu bằng MTMNV. Nếu cần trợ giúp, hãy liên hệ nhóm và cung cấp các thông tin này.' },
+          { question: 'Tôi chuyển nhầm số tiền hoặc chuyển trùng thì sao?', answer: 'Hãy liên hệ nhóm kèm ngày chuyển, số tiền và nội dung chuyển khoản bắt đầu bằng MTMNV. Nhóm đối chiếu với sao kê và hoàn lại nếu bạn yêu cầu; khoản đã hoàn không được tính vào tổng ủng hộ.' },
           { question: 'Tiền ủng hộ được dùng vào việc gì?', answer: 'Cho vật tư buổi chơi, quà cho các em và di chuyển; phần còn lại mua vật phẩm theo danh mục Mái ấm xác nhận, có hóa đơn và biên bản bàn giao.' },
           { question: 'Tôi có thể cùng đến Mái ấm không?', answer: 'Chỉ khi Mái ấm đồng ý trước. Nhóm không tuyển người tự do đến Mái ấm, để bảo đảm an toàn và riêng tư cho các em.' },
         ];

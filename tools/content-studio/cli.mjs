@@ -381,7 +381,7 @@ function runApply(args) {
     const backupPath = createBackup(targetPath, targetKey);
     if (backupPath) console.log(`📁 Đã tạo bản sao lưu tại: ${backupPath}`);
 
-    // Bảo toàn PII: làm sạch mọi trường thô, che giấu mã tham chiếu riêng tư và ẩn danh an toàn
+    // Bảo toàn PII: loại mọi trường thô khỏi bản chiếu công khai và ẩn danh an toàn
     const safePublicDonations = payload.entries.map((row) => sanitizeDonationEntry(row));
 
     const outputPayload = {
@@ -416,12 +416,11 @@ function runApply(args) {
   }
 
   // Tách biệt an toàn: Bản chiếu công khai (public projection) CHỈ chứa các trường an toàn.
-  // Không lưu số tài khoản/ID đầy đủ (chỉ lấy hậu tố suffix vài ký tự), không lưu tên cá nhân đối soát viên vào public bundle!
+  // Bản chiếu công khai không chứa mã tham chiếu; tên cá nhân đối soát viên cũng không vào public bundle.
   const safePublicDonations = result.rows.map((row) => ({
     date: row.date,
     amount: row.amount,
     donor: row.donorName,
-    reference: row.isAnonymous ? null : (row.id ? `...${row.id.slice(-4)}` : null),
   }));
 
   console.log(`=== BÁO CÁO ÁP DỤNG DỮ LIỆU SAO KÊ ===`);
