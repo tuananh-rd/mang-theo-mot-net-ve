@@ -30,3 +30,8 @@ Evidence: `measurements-main.json`, `capture-main-preview.mjs`, and the `studio-
 ## Production owner handoff
 
 After review, Claude owns the production D1 migration, email-domain onboarding, binding/environment values, Access/route review, and deployment. The committed empty variables are placeholders; real sender and notification addresses must be configured outside the repository.
+
+## Code commits
+
+- Studio C17 changes: `f432734` plus migration-only commit `2f052d6`.
+- Public C18 changes: `dca2faa`.
