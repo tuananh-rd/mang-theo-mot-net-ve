@@ -35,7 +35,7 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Quà lưu ni
     titleId="products-heading"
     lead="Chuồn chuồn tre và móc khóa do nhóm Lăng Kính tự làm, dự kiến bán tại FPT Hòa Lạc."
     description="Toàn bộ tiền bán quà lưu niệm được quản lý và ghi sổ riêng với tiền ủng hộ qua chuyển khoản. Lãi thu được dùng cho buổi chơi và quà tặng Mái ấm."
-    image={{ src: '/images/trang/san-pham-480.webp', srcset: '/images/trang/san-pham-480.webp 480w, /images/trang/san-pham-730.webp 730w', sizes: '(max-width: 560px) 100vw, 1px', alt: 'Hai em nhỏ đứng bên giàn hoa; ảnh do chủ dự án cung cấp.', position: '50% 40%', width: 730, height: 548, compact: true }}
+    image={{ src: '/images/trang/san-pham-480.webp', srcset: '/images/trang/san-pham-480.webp 480w, /images/trang/san-pham-730.webp 730w', sizes: '(max-width: 560px) 100vw, 560px', alt: 'Hai em nhỏ đứng bên giàn hoa; ảnh do chủ dự án cung cấp.', position: '50% 40%', width: 730, height: 548, compact: true, layout: 'product' }}
   >
     <a class="btn btn-primary" href="#preorder-heading">Đăng ký nhận quà lưu niệm</a>
   </PageHero>
@@ -51,7 +51,7 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Quà lưu ni
     </div>
   </section>
 
-  <section class="section section-preorder" aria-labelledby="preorder-heading">
+  <section id="dat-truoc" class="section section-preorder" aria-labelledby="preorder-heading">
     <div class="container narrow">
       <div class="section-header">
         <span class="eyebrow">Đặt trước</span>
@@ -72,15 +72,13 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Quà lưu ni
           <label for="preorderName">Họ tên</label>
           <input id="preorderName" name="name" type="text" minlength="2" maxlength="100" autocomplete="name" required>
         </div>
-        <div class="contact-fields">
-          <div class="form-group">
-            <label for="preorderContactType">Cách liên hệ</label>
-            <select id="preorderContactType" name="contactType"><option value="phone">Điện thoại</option><option value="email">Email</option></select>
-          </div>
-          <div class="form-group">
-            <label id="preorderContactLabel" for="preorderContact">Số điện thoại</label>
-            <input id="preorderContact" name="contact" type="tel" autocomplete="tel" maxlength="254" required>
-          </div>
+        <div class="form-group">
+          <label for="preorderEmail">Email nhận xác nhận đơn</label>
+          <input id="preorderEmail" name="email" type="email" autocomplete="email" maxlength="254" required>
+        </div>
+        <div class="form-group">
+          <label for="preorderPhone">Số điện thoại (không bắt buộc)</label>
+          <input id="preorderPhone" name="phone" type="tel" autocomplete="tel" maxlength="24">
         </div>
         <div class="form-group">
           <label for="preorderPickup">Cách nhận hàng</label>
@@ -165,9 +163,6 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Quà lưu ni
   const productSelect = document.querySelector<HTMLSelectElement>('#preorderProduct');
   const pickupSelect = document.querySelector<HTMLSelectElement>('#preorderPickup');
   const priceNote = document.querySelector<HTMLElement>('#preorderPriceNote');
-  const contactType = document.querySelector<HTMLSelectElement>('#preorderContactType');
-  const contact = document.querySelector<HTMLInputElement>('#preorderContact');
-  const contactLabel = document.querySelector<HTMLLabelElement>('#preorderContactLabel');
   const apiBase = ['localhost', '127.0.0.1'].includes(window.location.hostname)
     ? 'http://127.0.0.1:4331/api/preorders'
     : '/api/preorders';
@@ -176,14 +171,7 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Quà lưu ni
   let idempotencyKey = newIdempotencyKey();
   let products: Array<{ productId: string; name: string; officialPrice: number | null; pickup: string | null }> = [];
 
-  contactType?.addEventListener('change', () => {
-    const isEmail = contactType.value === 'email';
-    if (contact && contactLabel) {
-      contact.type = isEmail ? 'email' : 'tel';
-      contact.autocomplete = isEmail ? 'email' : 'tel';
-      contactLabel.textContent = isEmail ? 'Địa chỉ email' : 'Số điện thoại';
-    }
-  });
+  const requestedProduct = new URLSearchParams(window.location.search).get('sanpham');
 
   async function loadPreorderConfig() {
     try {
@@ -196,9 +184,14 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Quà lưu ni
         return;
       }
       if (productSelect) productSelect.innerHTML = products.map((item) => `<option value="${escapeHtml(item.productId)}">${escapeHtml(item.name)}${item.officialPrice === null ? ' — giá tham khảo' : ` — ${new Intl.NumberFormat('vi-VN').format(item.officialPrice)}đ`}</option>`).join('');
+      if (productSelect && requestedProduct && products.some((item) => item.productId === requestedProduct)) productSelect.value = requestedProduct;
       updatePickupOptions();
       if (form) form.hidden = false;
       if (availability) availability.textContent = 'Đang nhận đăng ký đặt trước.';
+      if (requestedProduct) {
+        document.querySelector('#dat-truoc')?.scrollIntoView({ block: 'start' });
+        productSelect?.focus({ preventScroll: true });
+      }
     } catch {
       if (availability) availability.textContent = 'Biểu mẫu đặt trước hiện chưa sẵn sàng. Vui lòng thử lại sau.';
     }
@@ -224,7 +217,7 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Quà lưu ni
         headers: { 'Content-Type': 'application/json', 'Idempotency-Key': idempotencyKey },
         body: JSON.stringify({
           productId: fields.get('productId'), quantity: Number(fields.get('quantity')), name: fields.get('name'),
-          contactType: fields.get('contactType'), contact: fields.get('contact'), pickup: fields.get('pickup'),
+          email: fields.get('email'), phone: fields.get('phone'), pickup: fields.get('pickup'),
           note: fields.get('note'), consent: fields.get('consent') === 'on', website: fields.get('website'),
         }),
       });
@@ -234,7 +227,7 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Quà lưu ni
       if (availability) availability.textContent = '';
       if (success) {
         success.hidden = false;
-        success.textContent = `Đã ghi nhận đăng ký ${data.preorder.orderCode}. Đây là đặt trước, chưa thanh toán; nhóm sẽ liên hệ để xác nhận lịch nhận hàng.`;
+        success.textContent = `Đã ghi nhận đăng ký ${data.preorder.orderCode}. Đây là đặt trước, chưa thanh toán; nhóm sẽ liên hệ để xác nhận lịch nhận hàng.${data.emailStatus === 'sent' ? ' Email xác nhận đã được gửi.' : ' Nếu không thấy email xác nhận, nhóm sẽ liên hệ bạn.'}`;
       }
       idempotencyKey = newIdempotencyKey();
     } catch (err) {

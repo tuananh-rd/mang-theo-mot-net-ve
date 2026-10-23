@@ -166,41 +166,5 @@
     "focal": "50% 45%",
     "rights": "Chủ dự án cung cấp; chưa xác minh độc lập sự đồng ý của người trong ảnh.",
     "metadata": []
-  },
-  {
-    "path": "/images/trang/ve-nhom-480.webp",
-    "source": "13_Sinh hoạt với micro.jpg",
-    "width": 480,
-    "height": 319,
-    "bytes": 17536,
-    "sha256": "bcd35d06de8ea33ab940dcd0516c7d9a2b1c911982338086644bf3e76c0e7407",
-    "alt": "Một em nhỏ cầm micro trong không gian sinh hoạt; ảnh do chủ dự án cung cấp.",
-    "focal": "55% 45%",
-    "rights": "Chủ dự án cung cấp; chưa xác minh độc lập sự đồng ý của người trong ảnh.",
-    "metadata": []
-  },
-  {
-    "path": "/images/trang/ve-nhom-800.webp",
-    "source": "13_Sinh hoạt với micro.jpg",
-    "width": 800,
-    "height": 532,
-    "bytes": 37364,
-    "sha256": "768505a3406c5528c33335879873c35c362fa9e050dbb02ebf20193556600b69",
-    "alt": "Một em nhỏ cầm micro trong không gian sinh hoạt; ảnh do chủ dự án cung cấp.",
-    "focal": "55% 45%",
-    "rights": "Chủ dự án cung cấp; chưa xác minh độc lập sự đồng ý của người trong ảnh.",
-    "metadata": []
-  },
-  {
-    "path": "/images/trang/ve-nhom-1200.webp",
-    "source": "13_Sinh hoạt với micro.jpg",
-    "width": 1200,
-    "height": 798,
-    "bytes": 68064,
-    "sha256": "d7471ae715520ad02e487b94ac60fd5b6fa99f606afb0280076f880dbc9ff759",
-    "alt": "Một em nhỏ cầm micro trong không gian sinh hoạt; ảnh do chủ dự án cung cấp.",
-    "focal": "55% 45%",
-    "rights": "Chủ dự án cung cấp; chưa xác minh độc lập sự đồng ý của người trong ảnh.",
-    "metadata": []
   }
 ]

@@ -112,6 +112,18 @@ CREATE INDEX IF NOT EXISTS idx_preorders_created ON preorders(created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_preorders_status_product ON preorders(status, product_id);
 CREATE INDEX IF NOT EXISTS idx_preorders_test ON preorders(is_test, created_at DESC);
 
+CREATE TABLE IF NOT EXISTS preorder_email_state (
+  preorder_id TEXT PRIMARY KEY REFERENCES preorders(id),
+  customer_email TEXT NOT NULL,
+  customer_phone TEXT,
+  email_status TEXT NOT NULL DEFAULT 'pending' CHECK (email_status IN ('pending', 'sent', 'failed', 'skipped')),
+  email_attempts INTEGER NOT NULL DEFAULT 0 CHECK (email_attempts BETWEEN 0 AND 3),
+  email_sent_at TEXT,
+  team_notified_at TEXT,
+  email_last_error TEXT,
+  updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE TABLE IF NOT EXISTS preorder_events (
   id TEXT PRIMARY KEY,
   preorder_id TEXT NOT NULL REFERENCES preorders(id),

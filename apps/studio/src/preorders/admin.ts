@@ -4,6 +4,7 @@ import { validateCsrf } from '../auth/middleware.js';
 import { StudioDbClient } from '../db/client.js';
 import { getDefaultModuleData } from '../schemas/index.js';
 import { listPreorderProducts, PREORDER_STATUSES, type PreorderStatus } from './service.js';
+import { sendPreorderEmails, type PreorderEmailConfig } from './email.js';
 
 const json = (data: unknown, status = 200) => new Response(JSON.stringify(data), {
   status,
@@ -35,7 +36,7 @@ function filters(url: URL) {
   return { where: clauses.join(' AND '), values };
 }
 
-export async function handlePreorderAdminRequest(request: Request, db: D1Database, session: AuthSession): Promise<Response | null> {
+export async function handlePreorderAdminRequest(request: Request, db: D1Database, session: AuthSession, emailConfig: PreorderEmailConfig = {}): Promise<Response | null> {
   const url = new URL(request.url);
   const path = url.pathname;
   const method = request.method.toUpperCase();
@@ -48,27 +49,40 @@ export async function handlePreorderAdminRequest(request: Request, db: D1Databas
       const filter = filters(url);
       const limit = Math.min(100, Math.max(1, Number(url.searchParams.get('limit')) || 50));
       const offset = Math.max(0, Number(url.searchParams.get('offset')) || 0);
-      const result = await db.prepare(`SELECT id, order_code, product_id, product_name, quantity, customer_name, contact_type, contact_value, pickup, customer_note, unit_price, status, is_test, created_at, updated_at FROM preorders WHERE ${filter.where} ORDER BY created_at DESC LIMIT ? OFFSET ?`)
+      const result = await db.prepare(`SELECT p.id, p.order_code, p.product_id, p.product_name, p.quantity, p.customer_name, p.contact_type, p.contact_value, p.pickup, p.customer_note, p.unit_price, p.status, p.is_test, p.created_at, p.updated_at, e.email_status, e.email_attempts FROM preorders p LEFT JOIN preorder_email_state e ON e.preorder_id = p.id WHERE ${filter.where} ORDER BY p.created_at DESC LIMIT ? OFFSET ?`)
         .bind(...filter.values, limit, offset).all<any>();
       return json({ success: true, preorders: result.results || [], limit, offset });
     }
     if (path === '/api/preorders/export.csv' && method === 'GET') {
       const filter = filters(url);
-      const result = await db.prepare(`SELECT order_code, product_name, quantity, customer_name, contact_type, contact_value, pickup, customer_note, unit_price, status, is_test, created_at FROM preorders WHERE ${filter.where} ORDER BY created_at DESC LIMIT 5000`)
+      const result = await db.prepare(`SELECT p.order_code, p.product_name, p.quantity, p.customer_name, e.customer_email, p.contact_type, p.contact_value, p.pickup, p.customer_note, p.unit_price, p.status, p.is_test, p.created_at FROM preorders p LEFT JOIN preorder_email_state e ON e.preorder_id = p.id WHERE ${filter.where} ORDER BY p.created_at DESC LIMIT 5000`)
         .bind(...filter.values).all<any>();
       await db.prepare("INSERT INTO audit_logs (id, user_email, action, module_key, details_json, created_at) VALUES (?, ?, 'EXPORT_PREORDERS_CSV', 'preorders', ?, ?)")
         .bind(crypto.randomUUID(), user.email, JSON.stringify({ count: (result.results || []).length, filters: { status: url.searchParams.get('status'), product: url.searchParams.get('product'), test: url.searchParams.get('test') } }), new Date().toISOString()).run();
-      const columns = ['order_code', 'product_name', 'quantity', 'customer_name', 'contact_type', 'contact_value', 'pickup', 'customer_note', 'unit_price', 'status', 'is_test', 'created_at'];
+      const columns = ['order_code', 'product_name', 'quantity', 'customer_name', 'customer_email', 'contact_type', 'contact_value', 'pickup', 'customer_note', 'unit_price', 'status', 'is_test', 'created_at'];
       const rows = [columns, ...(result.results || []).map((row) => columns.map((column) => row[column]))];
       const csv = '\uFEFF' + rows.map((row) => row.map(csvCell).join(',')).join('\r\n');
       return new Response(csv, { status: 200, headers: { 'Content-Type': 'text/csv; charset=utf-8', 'Content-Disposition': 'attachment; filename="don-dat-truoc.csv"', 'Cache-Control': 'private, no-store', 'X-Content-Type-Options': 'nosniff' } });
     }
     const detailsMatch = path.match(/^\/api\/preorders\/([^/]+)$/);
     if (detailsMatch && method === 'GET') {
-      const order = await db.prepare('SELECT * FROM preorders WHERE id = ? AND archived_at IS NULL').bind(detailsMatch[1]).first<any>();
+      const order = await db.prepare('SELECT p.*, e.customer_email, e.customer_phone, e.email_status, e.email_attempts, e.email_last_error, e.email_sent_at, e.team_notified_at FROM preorders p LEFT JOIN preorder_email_state e ON e.preorder_id = p.id WHERE p.id = ? AND p.archived_at IS NULL').bind(detailsMatch[1]).first<any>();
       if (!order) return json({ success: false, error: 'Không tìm thấy đơn đặt trước.' }, 404);
       const events = await db.prepare('SELECT actor, action, old_value, new_value, note, created_at FROM preorder_events WHERE preorder_id = ? ORDER BY created_at DESC').bind(order.id).all();
       return json({ success: true, preorder: order, events: events.results || [] });
+    }
+    const resendMatch = path.match(/^\/api\/preorders\/([^/]+)\/email\/retry$/);
+    if (resendMatch && method === 'POST') {
+      validateCsrf(request);
+      const order = await db.prepare('SELECT id FROM preorders WHERE id = ? AND archived_at IS NULL').bind(resendMatch[1]).first();
+      if (!order) return json({ success: false, error: 'Không tìm thấy đơn đặt trước.' }, 404);
+      const result = await sendPreorderEmails(db, resendMatch[1], emailConfig, { explicitResend: true });
+      const now = new Date().toISOString();
+      await db.batch([
+        db.prepare("INSERT INTO preorder_events (id, preorder_id, actor, action, new_value, created_at) VALUES (?, ?, ?, 'email_retry', ?, ?)").bind(crypto.randomUUID(), resendMatch[1], user.email, result.status, now),
+        db.prepare("INSERT INTO audit_logs (id, user_email, action, module_key, details_json, created_at) VALUES (?, ?, 'RETRY_PREORDER_EMAIL', 'preorders', ?, ?)").bind(crypto.randomUUID(), user.email, JSON.stringify({ preorderId: resendMatch[1], status: result.status }), now),
+      ]);
+      return json({ success: result.status === 'sent', status: result.status, errorCode: result.errorCode });
     }
     const statusMatch = path.match(/^\/api\/preorders\/([^/]+)\/status$/);
     if (statusMatch && method === 'POST') {

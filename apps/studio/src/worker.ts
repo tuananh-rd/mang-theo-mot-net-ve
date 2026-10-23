@@ -28,6 +28,8 @@ export default {
           : [],
         rateLimitSalt: env.RATE_LIMIT_SALT,
         isTest: env.STUDIO_ENVIRONMENT === 'development' && env.PREORDER_TEST_MODE !== 'false',
+        emailConfig: { binding: env.EMAIL, from: env.PREORDER_MAIL_FROM, notifyTo: env.PREORDER_NOTIFY_TO, replyTo: env.PREORDER_REPLY_TO },
+        waitUntil: (promise) => ctx.waitUntil(promise),
       });
     }
 

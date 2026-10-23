@@ -46,7 +46,7 @@ export async function handleApiRequest(
   const user = session.user;
 
   if (path.startsWith('/api/preorders') || path.startsWith('/api/preorder-products')) {
-    const preorderResponse = await handlePreorderAdminRequest(request, env.DB, session);
+    const preorderResponse = await handlePreorderAdminRequest(request, env.DB, session, { binding: env.EMAIL, from: env.PREORDER_MAIL_FROM, notifyTo: env.PREORDER_NOTIFY_TO, replyTo: env.PREORDER_REPLY_TO });
     if (preorderResponse) return preorderResponse;
   }
 

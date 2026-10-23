@@ -1,4 +1,5 @@
 import type { D1Database } from '../types.js';
+import { sendPreorderEmails, type PreorderEmailConfig } from './email.js';
 
 export const PREORDER_STATUSES = ['new', 'contacted', 'confirmed', 'delivered', 'cancelled'] as const;
 export type PreorderStatus = (typeof PREORDER_STATUSES)[number];
@@ -18,6 +19,8 @@ export interface CreatePreorderInput {
   name: unknown;
   contactType: unknown;
   contact: unknown;
+  email?: unknown;
+  phone?: unknown;
   pickup: unknown;
   note?: unknown;
   consent: unknown;
@@ -75,11 +78,11 @@ export async function createPreorder(options: {
 
   const name = typeof input.name === 'string' ? input.name.trim() : '';
   if (name.length < 2 || name.length > 100 || /[<>\u0000-\u001f]/.test(name)) throw new PreorderError('Họ tên cần từ 2 đến 100 ký tự hợp lệ.', 400);
-  if (input.contactType !== 'phone' && input.contactType !== 'email') throw new PreorderError('Chọn điện thoại hoặc email làm thông tin liên hệ.', 400);
-  const contact = typeof input.contact === 'string' ? input.contact.trim() : '';
-  const validPhone = /^\+?[0-9][0-9 ()\-]{7,18}$/.test(contact);
-  const validEmail = /^[^\s@<>]{1,64}@[^\s@<>.]+(?:\.[^\s@<>.]+)+$/.test(contact) && contact.length <= 254;
-  if (input.contactType === 'phone' ? !validPhone : !validEmail) throw new PreorderError('Thông tin liên hệ không đúng định dạng.', 400);
+  const email = typeof input.email === 'string' ? input.email.trim() : input.contactType === 'email' && typeof input.contact === 'string' ? input.contact.trim() : '';
+  const phone = typeof input.phone === 'string' ? input.phone.trim() : input.contactType === 'phone' && typeof input.contact === 'string' ? input.contact.trim() : '';
+  if (/[\r\n\u0000-\u001f<>]/.test(email) || email.length > 254 || !/^[^\s@,;:]+@[^\s@,;:]+\.[^\s@,;:]+$/.test(email)) throw new PreorderError('Email nhận xác nhận đơn không đúng định dạng.', 400);
+  if (phone && !/^\+?[0-9][0-9 ()\-]{7,18}$/.test(phone)) throw new PreorderError('Số điện thoại không đúng định dạng.', 400);
+  const contact = email;
   const pickup = typeof input.pickup === 'string' ? input.pickup.trim() : '';
   if (!pickup || pickup.length > 120 || /[<>\u0000-\u001f]/.test(pickup)) throw new PreorderError('Chọn cách nhận hàng.', 400);
   const note = typeof input.note === 'string' ? input.note.trim() : '';
@@ -111,7 +114,9 @@ export async function createPreorder(options: {
   const statements = [
     db.prepare(`INSERT INTO preorders (id, order_code, product_id, product_name, quantity, customer_name, contact_type, contact_value, pickup, customer_note, unit_price, status, is_test, idempotency_hash, created_at, updated_at)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'new', ?, ?, ?, ?)`)
-      .bind(id, orderCode, input.productId, nameByProduct[input.productId], input.quantity, name, input.contactType, contact, pickup, note || null, config.official_price, options.isTest ? 1 : 0, idemHash, createdAt, createdAt),
+      .bind(id, orderCode, input.productId, nameByProduct[input.productId], input.quantity, name, 'email', contact, pickup, note || null, config.official_price, options.isTest ? 1 : 0, idemHash, createdAt, createdAt),
+    db.prepare(`INSERT INTO preorder_email_state (preorder_id, customer_email, customer_phone, email_status, email_attempts) VALUES (?, ?, ?, 'pending', 0)`)
+      .bind(id, email, phone || null),
     db.prepare(`INSERT INTO preorder_events (id, preorder_id, actor, action, old_value, new_value, note, created_at) VALUES (?, ?, ?, 'created', NULL, 'new', NULL, ?)`)
       .bind(crypto.randomUUID(), id, 'public-form', createdAt),
     db.prepare(`INSERT INTO preorder_rate_limits (bucket_hash, bucket_day, request_count) VALUES (?, ?, 1)
@@ -136,6 +141,7 @@ function publicOrder(row: any): Record<string, unknown> {
 
 export async function handlePublicPreorderRequest(request: Request, db: D1Database, options: {
   siteOrigin?: string; extraOrigins?: string[]; rateLimitSalt?: string; isTest?: boolean;
+  emailConfig?: PreorderEmailConfig; waitUntil?: (promise: Promise<unknown>) => void;
 } = {}): Promise<Response> {
   const origin = request.headers.get('Origin');
   const allowedOrigin = options.siteOrigin || 'https://mangtheomotnetve.website';
@@ -178,7 +184,13 @@ export async function handlePublicPreorderRequest(request: Request, db: D1Databa
       isTest: Boolean(options.isTest),
       rateLimitSalt: options.rateLimitSalt,
     });
-    return new Response(JSON.stringify({ success: true, duplicate: result.duplicate, preorder: result.preorder }), { status: result.duplicate ? 200 : 201, headers });
+    let emailStatus = result.duplicate ? undefined : 'pending';
+    if (!result.duplicate) {
+      const sending = sendPreorderEmails(db, String(result.preorder.id), options.emailConfig || {});
+      if (options.waitUntil && options.emailConfig?.binding) options.waitUntil(sending);
+      else emailStatus = (await sending).status;
+    }
+    return new Response(JSON.stringify({ success: true, duplicate: result.duplicate, preorder: result.preorder, ...(emailStatus ? { emailStatus } : {}) }), { status: result.duplicate ? 200 : 201, headers });
   } catch (error) {
     const known = error instanceof PreorderError;
     const status = known ? error.status : 503;

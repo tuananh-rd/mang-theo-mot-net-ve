@@ -2265,7 +2265,7 @@ export function renderStudioHtml(session: AuthSession): string {
           if (!result.ok) { list.innerHTML = '<p role="alert">' + escapeHtml(result.data.error || 'Không thể tải danh sách.') + '</p>'; return; }
           const rows = result.data.preorders || [];
           if (!rows.length) { list.innerHTML = '<p>Chưa có đơn phù hợp với bộ lọc.</p>'; return; }
-          list.innerHTML = \`<table style="width:100%;border-collapse:collapse"><thead><tr><th>Mã đơn</th><th>Sản phẩm</th><th>Số lượng</th><th>Trạng thái</th><th>Ngày</th><th>Loại</th></tr></thead><tbody>\${rows.map((order) => \`<tr><td><button type="button" class="btn btn-secondary btn-sm preorder-open-detail" data-id="\${escapeHtml(order.id)}">\${escapeHtml(order.order_code)}</button></td><td>\${escapeHtml(order.product_name)}</td><td>\${escapeHtml(order.quantity)}</td><td>\${escapeHtml(order.status)}</td><td>\${escapeHtml(new Date(order.created_at).toLocaleString('vi-VN'))}</td><td>\${order.is_test ? 'Test' : 'Thật'}</td></tr>\`).join('')}</tbody></table>\`;
+          list.innerHTML = \`<table style="width:100%;border-collapse:collapse"><thead><tr><th>Mã đơn</th><th>Sản phẩm</th><th>Số lượng</th><th>Trạng thái email</th><th>Trạng thái đơn</th><th>Ngày</th><th>Loại</th></tr></thead><tbody>\${rows.map((order) => \`<tr><td><button type="button" class="btn btn-secondary btn-sm preorder-open-detail" data-id="\${escapeHtml(order.id)}">\${escapeHtml(order.order_code)}</button></td><td>\${escapeHtml(order.product_name)}</td><td>\${escapeHtml(order.quantity)}</td><td>\${escapeHtml(order.email_status || 'skipped')} · \${escapeHtml(order.email_attempts || 0)} lần</td><td>\${escapeHtml(order.status)}</td><td>\${escapeHtml(new Date(order.created_at).toLocaleString('vi-VN'))}</td><td>\${order.is_test ? 'Test' : 'Thật'}</td></tr>\`).join('')}</tbody></table>\`;
           list.querySelectorAll('.preorder-open-detail').forEach((button) => button.addEventListener('click', () => loadDetail(button.dataset.id)));
         }
         async function loadDetail(id) {
@@ -2274,7 +2274,8 @@ export function renderStudioHtml(session: AuthSession): string {
           const order = result.data.preorder;
           const events = result.data.events || [];
           detail.innerHTML = \`<article class="card"><h3>Đơn \${escapeHtml(order.order_code)} \${order.is_test ? '(đơn test)' : ''}</h3>
-            <dl><dt>Sản phẩm</dt><dd>\${escapeHtml(order.product_name)} × \${escapeHtml(order.quantity)}</dd><dt>Người đặt</dt><dd>\${escapeHtml(order.customer_name)}</dd><dt>Liên hệ</dt><dd>\${escapeHtml(order.contact_type)} · \${escapeHtml(order.contact_value)}</dd><dt>Nhận hàng</dt><dd>\${escapeHtml(order.pickup)}</dd><dt>Đơn giá chốt</dt><dd>\${order.unit_price === null ? 'Giá tham khảo; nhóm xác nhận khi liên hệ' : escapeHtml(order.unit_price.toLocaleString('vi-VN') + 'đ')}</dd><dt>Ghi chú của khách</dt><dd>\${escapeHtml(order.customer_note || 'Không có')}</dd></dl>
+            <dl><dt>Sản phẩm</dt><dd>\${escapeHtml(order.product_name)} × \${escapeHtml(order.quantity)}</dd><dt>Người đặt</dt><dd>\${escapeHtml(order.customer_name)}</dd><dt>Email</dt><dd>\${escapeHtml(order.customer_email || 'Không có')}</dd><dt>Điện thoại</dt><dd>\${escapeHtml(order.customer_phone || 'Không cung cấp')}</dd><dt>Email xác nhận</dt><dd>\${escapeHtml(order.email_status || 'skipped')} · \${escapeHtml(order.email_attempts || 0)} lần\${order.email_last_error ? ' · ' + escapeHtml(order.email_last_error) : ''}</dd><dt>Nhận hàng</dt><dd>\${escapeHtml(order.pickup)}</dd><dt>Đơn giá chốt</dt><dd>\${order.unit_price === null ? 'Giá tham khảo; nhóm xác nhận khi liên hệ' : escapeHtml(order.unit_price.toLocaleString('vi-VN') + 'đ')}</dd><dt>Ghi chú của khách</dt><dd>\${escapeHtml(order.customer_note || 'Không có')}</dd></dl>
+            <button id="retryPreorderEmail" class="btn btn-secondary" type="button" style="margin-top:8px">Gửi lại email xác nhận</button>
             <form id="preorderStatusForm" style="display:flex;gap:8px;flex-wrap:wrap"><label for="preorderStatusUpdate">Trạng thái</label><select id="preorderStatusUpdate" class="form-control" name="status"><option value="new" \${order.status === 'new' ? 'selected' : ''}>Mới</option><option value="contacted" \${order.status === 'contacted' ? 'selected' : ''}>Đã liên hệ</option><option value="confirmed" \${order.status === 'confirmed' ? 'selected' : ''}>Đã xác nhận</option><option value="delivered" \${order.status === 'delivered' ? 'selected' : ''}>Đã giao</option><option value="cancelled" \${order.status === 'cancelled' ? 'selected' : ''}>Đã hủy</option></select><button class="btn btn-primary">Cập nhật trạng thái</button></form>
             <form id="preorderNoteForm" style="display:grid;gap:8px;margin-top:12px"><label for="preorderInternalNote">Ghi chú nội bộ</label><textarea id="preorderInternalNote" class="form-control" name="note" maxlength="500" required></textarea><button class="btn btn-secondary">Lưu ghi chú</button></form>
             \${order.is_test && currentUserRole === 'admin' ? '<button id="archivePreorderTest" class="btn btn-secondary" type="button" style="margin-top:12px">Ẩn đơn test</button>' : ''}
@@ -2285,6 +2286,12 @@ export function renderStudioHtml(session: AuthSession): string {
             const changed = await fetchApi('/api/preorders/' + encodeURIComponent(id) + '/status', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status }) });
             showToast(changed.ok ? 'Đã cập nhật trạng thái.' : (changed.data.error || 'Không thể cập nhật.'), changed.ok ? 'success' : 'error');
             if (changed.ok) { await loadOrders(); await loadDetail(id); }
+          });
+          document.getElementById('retryPreorderEmail')?.addEventListener('click', async () => {
+            if (!confirm('Gửi lại email cho khách và thông báo nhóm?')) return;
+            const resent = await fetchApi('/api/preorders/' + encodeURIComponent(id) + '/email/retry', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' });
+            showToast(resent.ok && resent.data.success ? 'Đã gửi lại email.' : (resent.data.error || 'Không thể gửi lại email.'), resent.ok && resent.data.success ? 'success' : 'error');
+            await loadOrders(); await loadDetail(id);
           });
           document.getElementById('preorderNoteForm').addEventListener('submit', async (event) => {
             event.preventDefault();
@@ -2322,7 +2329,7 @@ export function renderStudioHtml(session: AuthSession): string {
           accountHolder: 'NGUYEN CHI TRUNG',
           qrImage: '/images/ung-ho/qr-ung-ho-techcombank-nguyen-chi-trung.png',
           transferPrefix: 'MTMNV',
-          goalAmount: 3000000,
+          goalAmount: 7000000,
         };
         const steps = f.ledgerProcess || [
           { title: 'Một tài khoản riêng cho dự án', description: 'Mọi khoản ủng hộ chuyển vào tài khoản Techcombank đã công bố, nội dung bắt đầu bằng MTMNV để dễ nhận diện.' },
@@ -2353,7 +2360,7 @@ export function renderStudioHtml(session: AuthSession): string {
               </div>
               <div class="form-group">
                 <label>Mục tiêu gây quỹ (VNĐ) *</label>
-                <input type="number" class="form-control" name="acc_goalAmount" value="\${acc.goalAmount || 3000000}" required>
+                <input type="number" class="form-control" name="acc_goalAmount" value="\${acc.goalAmount || 7000000}" required>
               </div>
             </div>
 
@@ -3050,7 +3057,7 @@ export function renderStudioHtml(session: AuthSession): string {
         const tFaqs = t.transparencyFaqs || [
           { question: 'Vì sao tổng ủng hộ đang ghi “Chưa cập nhật”?', answer: 'Tổng chỉ được tính từ sổ đã đối chiếu với sao kê ngân hàng. Khi nhóm chưa công bố sổ đã đối soát chính thức, website không hiển thị con số (kể cả 0đ) để tránh hiểu lầm là chưa nhận được khoản ủng hộ nào.' },
           { question: 'Tiền bán quà lưu niệm có cộng vào tổng ủng hộ không?', answer: 'Không. Thanh tiến độ chỉ tính các khoản ủng hộ qua tài khoản dự án đã đối soát. Tiền bán quà được ghi riêng.' },
-          { question: 'Trường hợp số tiền ủng hộ vượt mục tiêu 3.000.000đ thì xử lý thế nào?', answer: 'Website vẫn ghi đúng tổng thực tế đã đối soát. Phần vượt mục tiêu sẽ được dùng mua thêm vật phẩm theo danh mục Mái ấm xác nhận và ghi rõ trong báo cáo tổng kết.' },
+          { question: 'Trường hợp số tiền ủng hộ vượt mục tiêu 7.000.000đ thì xử lý thế nào?', answer: 'Website vẫn ghi đúng tổng thực tế đã đối soát. Phần vượt mục tiêu sẽ được dùng mua thêm vật phẩm theo danh mục Mái ấm xác nhận và ghi rõ trong báo cáo tổng kết.' },
           { question: 'Khi nào nhóm công bố báo cáo tổng kết dự án?', answer: 'Sau buổi trao quà và khi thành viên tài chính cùng một thành viên khác hoàn tất đối soát. Chứng từ chỉ công bố bản đã che thông tin riêng tư.' },
         ];
 

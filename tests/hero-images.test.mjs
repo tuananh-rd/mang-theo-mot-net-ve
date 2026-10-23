@@ -14,7 +14,6 @@ const routes = [
   'src/pages/nhat-ky/index.astro',
   'src/pages/minh-bach.astro',
   'src/pages/dong-hanh.astro',
-  'src/pages/ve-nhom.astro',
 ];
 
 async function filesUnder(directory) {
@@ -30,14 +29,23 @@ async function filesUnder(directory) {
   }
 }
 
-test('six PageHero routes reference the six approved, optimized images', async () => {
-  assert.equal(new Set(registry.map((item) => item.path.split('/').at(-1).split('-')[0])).size, 6);
+test('five PageHero routes reference the five approved, optimized images', async () => {
+  assert.equal(new Set(registry.map((item) => item.path.split('/').at(-1).split('-')[0])).size, 5);
   for (const route of routes) {
     const source = await fs.readFile(path.join(root, route), 'utf8');
     assert.match(source, /image=\{\{/);
     assert.match(source, /\/images\/trang\//);
   }
   const heroComponent = await fs.readFile(path.join(root, 'src/components/PageHero.astro'), 'utf8');
+  const layoutByRoute = [
+    ['src/pages/du-an/mang-theo-mot-net-ve.astro', 'project'],
+    ['src/pages/san-pham.astro', 'product'],
+    ['src/pages/nhat-ky/index.astro', 'journal'],
+    ['src/pages/minh-bach.astro', 'transparency'],
+    ['src/pages/dong-hanh.astro', 'support'],
+  ];
+  for (const [route, layout] of layoutByRoute) assert.match(await fs.readFile(path.join(root, route), 'utf8'), new RegExp(`layout: '${layout}'`));
+  assert.match(heroComponent, /\.page-hero-grid--image-support \.page-hero-image\s*\{[^}]*grid-column:\s*1 \/ -1/s);
   assert.match(heroComponent, /alt=\{image\.alt\}/);
   assert.match(heroComponent, /width=\{image\.width\}/);
   assert.match(heroComponent, /height=\{image\.height\}/);
@@ -47,7 +55,11 @@ test('six PageHero routes reference the six approved, optimized images', async (
   assert.match(heroComponent, /@media \(min-width:\s*1024px\)\s*\{[^}]*\.page-hero-grid--compact-image \.page-hero-main > :global\(\.btn\)[^}]*\{[^}]*width:\s*auto/s);
   assert.match(heroComponent, /\.page-hero-grid--with-image \.page-hero-image\s*\{[^}]*order:\s*-1;[^}]*max-width:\s*560px/s);
   assert.match(await fs.readFile(path.join(root, 'src/pages/san-pham.astro'), 'utf8'), /href="#preorder-heading"/);
-  assert.equal(registry.length, 17);
+  const productGrid = await fs.readFile(path.join(root, 'src/components/ProductGrid.astro'), 'utf8');
+  assert.match(productGrid, /saleModel\?\.preorderOpen/);
+  assert.match(productGrid, /san-pham\?sanpham=\$\{encodeURIComponent\(r\.product\.id\)\}#dat-truoc/);
+  assert.doesNotMatch(await fs.readFile(path.join(root, 'src/pages/ve-nhom.astro'), 'utf8'), /image=\{\{/);
+  assert.equal(registry.length, 14);
   assert.ok(registry.every((item) => item.rights.includes('chưa xác minh')));
 });
 

@@ -509,7 +509,7 @@ test('Status Artifact Producer: /_meta/snapshot-status.json trong bản build ch
 test('Release Delta: Chỉ đọc, lọc đúng 12 tệp consumer công khai, loại trừ nghiêm ngặt các tệp cấm và bảo toàn Hero & Techcombank 19077352683012', { timeout: 10000 }, async () => {
   assert.equal(DEFAULT_FINANCE_DATA.donationAccount.accountNumber, '19077352683012');
   assert.equal(DEFAULT_FINANCE_DATA.donationAccount.accountHolder, 'NGUYEN CHI TRUNG');
-  assert.equal(DEFAULT_FINANCE_DATA.donationAccount.goalAmount, 3000000);
+  assert.equal(DEFAULT_FINANCE_DATA.donationAccount.goalAmount, 7000000);
   assert.equal(DEFAULT_FINANCE_DATA.reconciled, false);
   assert.deepEqual(DEFAULT_FINANCE_DATA.entries, []);
   assert.equal(DEFAULT_FINANCE_DATA.donationAccount.qrImage, '/images/ung-ho/qr-ung-ho-techcombank-nguyen-chi-trung.png');

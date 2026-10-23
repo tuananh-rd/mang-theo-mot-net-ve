@@ -147,6 +147,10 @@ export interface D1PreparedStatement {
   run<T = unknown>(): Promise<D1Response<T>>;
 }
 
+export interface SendEmailBinding {
+  send(message: { from: string; to: string; subject: string; text: string; html: string; replyTo?: string }): Promise<void>;
+}
+
 export interface D1Response<T = unknown> {
   success: boolean;
   results?: T[];
@@ -211,6 +215,10 @@ export interface Env {
   PRODUCTION_SITE_ORIGIN?: string;
   RATE_LIMIT_SALT?: string;
   PREORDER_TEST_MODE?: string;
+  EMAIL?: SendEmailBinding;
+  PREORDER_MAIL_FROM?: string;
+  PREORDER_NOTIFY_TO?: string;
+  PREORDER_REPLY_TO?: string;
   GITHUB_TOKEN?: string;
   GITHUB_OWNER?: string;
   GITHUB_REPO?: string;
