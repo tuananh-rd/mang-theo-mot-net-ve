@@ -1,5 +1,5 @@
 {
-  "capturedAt": "2026-10-23T15:08:56.196Z",
+  "capturedAt": "2026-10-23T15:17:09.716Z",
   "baseUrl": "http://127.0.0.1:4322",
   "observations": [
     {
@@ -45,39 +45,48 @@
       },
       "main": {
         "x": 144.5,
-        "y": 307,
-        "width": 634.65625,
-        "height": 306,
-        "top": 307,
-        "right": 779.15625,
-        "bottom": 613,
+        "y": 213,
+        "width": 560,
+        "height": 354,
+        "top": 213,
+        "right": 704.5,
+        "bottom": 567,
         "left": 144.5
       },
+      "mainPadding": {
+        "top": 24,
+        "right": 24,
+        "bottom": 24,
+        "left": 24
+      },
+      "cardContentElementCount": 9,
+      "cardContentsWithinBounds": true,
+      "cardImageOverlapPct": 31.3,
       "title": {
-        "x": 144.5,
-        "y": 351.00238037109375,
-        "width": 634.65625,
+        "x": 168.5,
+        "y": 281,
+        "width": 512,
         "height": 146,
-        "top": 351.00238037109375,
-        "right": 779.15625,
-        "bottom": 497.00238037109375,
-        "left": 144.5
+        "top": 281,
+        "right": 680.5,
+        "bottom": 427,
+        "left": 168.5
       },
       "lead": {
-        "x": 144.5,
-        "y": 513.0203857421875,
-        "width": 634.65625,
+        "x": 168.5,
+        "y": 443.00274658203125,
+        "width": 512,
         "height": 32,
-        "top": 513.0203857421875,
-        "right": 779.15625,
-        "bottom": 545.0203857421875,
-        "left": 144.5
+        "top": 443.00274658203125,
+        "right": 680.5,
+        "bottom": 475.00274658203125,
+        "left": 168.5
       },
       "titleInViewport": true,
       "leadInViewport": true,
-      "imageToTitleGap": -388,
-      "imageToMainGap": -432,
-      "imageToMainHorizontalGap": -635,
+      "imageToTitleGap": -458,
+      "imageToMainGap": -526,
+      "imageToMainHorizontalGap": -560,
       "imageVisible": true,
       "cta": null,
       "ctaInViewport": null,
@@ -111,10 +120,10 @@
         "x": 0,
         "y": 65,
         "width": 768,
-        "height": 1423,
+        "height": 1431,
         "top": 65,
         "right": 768,
-        "bottom": 1488,
+        "bottom": 1496,
         "left": 0
       },
       "image": {
@@ -144,35 +153,44 @@
         "x": 24,
         "y": 501,
         "width": 720,
-        "height": 268,
+        "height": 276,
         "top": 501,
         "right": 744,
-        "bottom": 769,
+        "bottom": 777,
         "left": 24
       },
+      "mainPadding": {
+        "top": 20,
+        "right": 20,
+        "bottom": 20,
+        "left": 20
+      },
+      "cardContentElementCount": 9,
+      "cardContentsWithinBounds": true,
+      "cardImageOverlapPct": 0,
       "title": {
-        "x": 40,
-        "y": 561,
-        "width": 688,
+        "x": 44,
+        "y": 565,
+        "width": 680,
         "height": 78,
-        "top": 561,
-        "right": 728,
-        "bottom": 639,
-        "left": 40
+        "top": 565,
+        "right": 724,
+        "bottom": 643,
+        "left": 44
       },
       "lead": {
-        "x": 40,
-        "y": 655.0012817382812,
-        "width": 688,
+        "x": 44,
+        "y": 659.0027465820312,
+        "width": 680,
         "height": 30,
-        "top": 655.0012817382812,
-        "right": 728,
-        "bottom": 685.0012817382812,
-        "left": 40
+        "top": 659.0027465820312,
+        "right": 724,
+        "bottom": 689.0027465820312,
+        "left": 44
       },
       "titleInViewport": true,
       "leadInViewport": true,
-      "imageToTitleGap": 76,
+      "imageToTitleGap": 80,
       "imageToMainGap": 16,
       "imageToMainHorizontalGap": -640,
       "imageVisible": true,
@@ -254,6 +272,15 @@
         "bottom": 660.375,
         "left": 20
       },
+      "mainPadding": {
+        "top": 16,
+        "right": 16,
+        "bottom": 16,
+        "left": 16
+      },
+      "cardContentElementCount": 9,
+      "cardContentsWithinBounds": true,
+      "cardImageOverlapPct": 0,
       "title": {
         "x": 36,
         "y": 402.375,
@@ -358,6 +385,15 @@
         "bottom": 669.75,
         "left": 20
       },
+      "mainPadding": {
+        "top": 16,
+        "right": 16,
+        "bottom": 16,
+        "left": 16
+      },
+      "cardContentElementCount": 9,
+      "cardContentsWithinBounds": true,
+      "cardImageOverlapPct": 0,
       "title": {
         "x": 36,
         "y": 411.75,
@@ -462,24 +498,33 @@
         "bottom": 635,
         "left": 144.5
       },
+      "mainPadding": {
+        "top": 24,
+        "right": 24,
+        "bottom": 24,
+        "left": 24
+      },
+      "cardContentElementCount": 10,
+      "cardContentsWithinBounds": true,
+      "cardImageOverlapPct": 1.8,
       "title": {
         "x": 168.5,
-        "y": 249.00006103515625,
+        "y": 249,
         "width": 642.65625,
         "height": 146,
-        "top": 249.00006103515625,
+        "top": 249,
         "right": 811.15625,
-        "bottom": 395.00006103515625,
+        "bottom": 395,
         "left": 168.5
       },
       "lead": {
         "x": 168.5,
-        "y": 411.0050964355469,
+        "y": 411.00274658203125,
         "width": 642.65625,
         "height": 64,
-        "top": 411.0050964355469,
+        "top": 411.00274658203125,
         "right": 811.15625,
-        "bottom": 475.0050964355469,
+        "bottom": 475.00274658203125,
         "left": 168.5
       },
       "titleInViewport": true,
@@ -490,12 +535,12 @@
       "imageVisible": true,
       "cta": {
         "x": 168.5,
-        "y": 559.106689453125,
+        "y": 559.0821533203125,
         "width": 250.6875,
         "height": 52,
-        "top": 559.106689453125,
+        "top": 559.0821533203125,
         "right": 419.1875,
-        "bottom": 611.106689453125,
+        "bottom": 611.0821533203125,
         "left": 168.5
       },
       "ctaInViewport": true,
@@ -531,10 +576,10 @@
         "x": 0,
         "y": 65,
         "width": 768,
-        "height": 911,
+        "height": 919,
         "top": 65,
         "right": 768,
-        "bottom": 976,
+        "bottom": 984,
         "left": 0
       },
       "image": {
@@ -564,47 +609,56 @@
         "x": 24,
         "y": 501,
         "width": 720,
-        "height": 418,
+        "height": 426,
         "top": 501,
         "right": 744,
-        "bottom": 919,
+        "bottom": 927,
         "left": 24
       },
+      "mainPadding": {
+        "top": 20,
+        "right": 20,
+        "bottom": 20,
+        "left": 20
+      },
+      "cardContentElementCount": 10,
+      "cardContentsWithinBounds": true,
+      "cardImageOverlapPct": 0,
       "title": {
-        "x": 40,
-        "y": 561.0003662109375,
-        "width": 688,
+        "x": 44,
+        "y": 565,
+        "width": 680,
         "height": 130,
-        "top": 561.0003662109375,
-        "right": 728,
-        "bottom": 691.0003662109375,
-        "left": 40
+        "top": 565,
+        "right": 724,
+        "bottom": 695,
+        "left": 44
       },
       "lead": {
-        "x": 40,
-        "y": 707.0086059570312,
-        "width": 688,
+        "x": 44,
+        "y": 711.0012817382812,
+        "width": 680,
         "height": 60,
-        "top": 707.0086059570312,
-        "right": 728,
-        "bottom": 767.0086059570312,
-        "left": 40
+        "top": 711.0012817382812,
+        "right": 724,
+        "bottom": 771.0012817382812,
+        "left": 44
       },
       "titleInViewport": true,
       "leadInViewport": true,
-      "imageToTitleGap": 76,
+      "imageToTitleGap": 80,
       "imageToMainGap": 16,
       "imageToMainHorizontalGap": -640,
       "imageVisible": true,
       "cta": {
-        "x": 40,
-        "y": 851.1363525390625,
-        "width": 688,
+        "x": 44,
+        "y": 855.0623779296875,
+        "width": 680,
         "height": 52,
-        "top": 851.1363525390625,
-        "right": 728,
-        "bottom": 903.1363525390625,
-        "left": 40
+        "top": 855.0623779296875,
+        "right": 724,
+        "bottom": 907.0623779296875,
+        "left": 44
       },
       "ctaInViewport": true,
       "menu": true,
@@ -678,6 +732,15 @@
         "bottom": 806.375,
         "left": 20
       },
+      "mainPadding": {
+        "top": 16,
+        "right": 16,
+        "bottom": 16,
+        "left": 16
+      },
+      "cardContentElementCount": 10,
+      "cardContentsWithinBounds": true,
+      "cardImageOverlapPct": 0,
       "title": {
         "x": 36,
         "y": 434.375,
@@ -690,12 +753,12 @@
       },
       "lead": {
         "x": 36,
-        "y": 534.37548828125,
+        "y": 534.3777465820312,
         "width": 303,
         "height": 84,
-        "top": 534.37548828125,
+        "top": 534.3777465820312,
         "right": 339,
-        "bottom": 618.37548828125,
+        "bottom": 618.3777465820312,
         "left": 36
       },
       "titleInViewport": true,
@@ -706,12 +769,12 @@
       "imageVisible": true,
       "cta": {
         "x": 36,
-        "y": 738.4212646484375,
+        "y": 738.457275390625,
         "width": 303,
         "height": 52,
-        "top": 738.4212646484375,
+        "top": 738.457275390625,
         "right": 339,
-        "bottom": 790.4212646484375,
+        "bottom": 790.457275390625,
         "left": 36
       },
       "ctaInViewport": true,
@@ -786,6 +849,15 @@
         "bottom": 815.75,
         "left": 20
       },
+      "mainPadding": {
+        "top": 16,
+        "right": 16,
+        "bottom": 16,
+        "left": 16
+      },
+      "cardContentElementCount": 10,
+      "cardContentsWithinBounds": true,
+      "cardImageOverlapPct": 0,
       "title": {
         "x": 36,
         "y": 443.75,
@@ -798,12 +870,12 @@
       },
       "lead": {
         "x": 36,
-        "y": 543.75048828125,
+        "y": 543.7512817382812,
         "width": 318,
         "height": 84,
-        "top": 543.75048828125,
+        "top": 543.7512817382812,
         "right": 354,
-        "bottom": 627.75048828125,
+        "bottom": 627.7512817382812,
         "left": 36
       },
       "titleInViewport": true,
@@ -814,12 +886,12 @@
       "imageVisible": true,
       "cta": {
         "x": 36,
-        "y": 747.7963256835938,
+        "y": 747.812255859375,
         "width": 318,
         "height": 52,
-        "top": 747.7963256835938,
+        "top": 747.812255859375,
         "right": 354,
-        "bottom": 799.7963256835938,
+        "bottom": 799.812255859375,
         "left": 36
       },
       "ctaInViewport": true,
@@ -855,20 +927,20 @@
         "x": 0,
         "y": 81,
         "width": 1425,
-        "height": 635,
+        "height": 681,
         "top": 81,
         "right": 1425,
-        "bottom": 716,
+        "bottom": 762,
         "left": 0
       },
       "image": {
         "x": 144.5,
         "y": 189,
         "width": 1136,
-        "height": 486,
+        "height": 532,
         "top": 189,
         "right": 1280.5,
-        "bottom": 675,
+        "bottom": 721,
         "left": 144.5,
         "alt": "Một nhóm người đang nhảy trong không gian sinh hoạt; ảnh do chủ dự án cung cấp.",
         "complete": true,
@@ -878,46 +950,55 @@
         "x": 144.5,
         "y": 189,
         "width": 1136,
-        "height": 486,
+        "height": 532,
         "top": 189,
         "right": 1280.5,
-        "bottom": 675,
+        "bottom": 721,
         "left": 144.5
       },
       "main": {
         "x": 644.34375,
         "y": 405,
         "width": 636.15625,
-        "height": 268,
+        "height": 316,
         "top": 405,
         "right": 1280.5,
-        "bottom": 673,
+        "bottom": 721,
         "left": 644.34375
       },
+      "mainPadding": {
+        "top": 24,
+        "right": 24,
+        "bottom": 24,
+        "left": 24
+      },
+      "cardContentElementCount": 10,
+      "cardContentsWithinBounds": true,
+      "cardImageOverlapPct": 33.3,
       "title": {
-        "x": 644.34375,
-        "y": 449.00006103515625,
-        "width": 636.15625,
+        "x": 668.34375,
+        "y": 473.00006103515625,
+        "width": 588.15625,
         "height": 102,
-        "top": 449.00006103515625,
-        "right": 1280.5,
-        "bottom": 551.0000610351562,
-        "left": 644.34375
+        "top": 473.00006103515625,
+        "right": 1256.5,
+        "bottom": 575.0000610351562,
+        "left": 668.34375
       },
       "lead": {
-        "x": 644.34375,
-        "y": 567.005126953125,
-        "width": 636.15625,
+        "x": 668.34375,
+        "y": 591.005126953125,
+        "width": 588.15625,
         "height": 64,
-        "top": 567.005126953125,
-        "right": 1280.5,
-        "bottom": 631.005126953125,
-        "left": 644.34375
+        "top": 591.005126953125,
+        "right": 1256.5,
+        "bottom": 655.005126953125,
+        "left": 668.34375
       },
       "titleInViewport": true,
       "leadInViewport": true,
-      "imageToTitleGap": -226,
-      "imageToMainGap": -270,
+      "imageToTitleGap": -248,
+      "imageToMainGap": -316,
       "imageToMainHorizontalGap": -1136,
       "imageVisible": true,
       "cta": null,
@@ -952,10 +1033,10 @@
         "x": 0,
         "y": 65,
         "width": 768,
-        "height": 783,
+        "height": 791,
         "top": 65,
         "right": 768,
-        "bottom": 848,
+        "bottom": 856,
         "left": 0
       },
       "image": {
@@ -985,35 +1066,44 @@
         "x": 24,
         "y": 509,
         "width": 720,
-        "height": 282,
+        "height": 290,
         "top": 509,
         "right": 744,
-        "bottom": 791,
+        "bottom": 799,
         "left": 24
       },
+      "mainPadding": {
+        "top": 20,
+        "right": 20,
+        "bottom": 20,
+        "left": 20
+      },
+      "cardContentElementCount": 10,
+      "cardContentsWithinBounds": true,
+      "cardImageOverlapPct": 0,
       "title": {
-        "x": 40,
-        "y": 569,
-        "width": 688,
+        "x": 44,
+        "y": 573,
+        "width": 680,
         "height": 88,
-        "top": 569,
-        "right": 728,
-        "bottom": 657,
-        "left": 40
+        "top": 573,
+        "right": 724,
+        "bottom": 661,
+        "left": 44
       },
       "lead": {
-        "x": 40,
-        "y": 673.0001220703125,
-        "width": 688,
+        "x": 44,
+        "y": 677.0001220703125,
+        "width": 680,
         "height": 60,
-        "top": 673.0001220703125,
-        "right": 728,
-        "bottom": 733.0001220703125,
-        "left": 40
+        "top": 677.0001220703125,
+        "right": 724,
+        "bottom": 737.0001220703125,
+        "left": 44
       },
       "titleInViewport": true,
       "leadInViewport": true,
-      "imageToTitleGap": 76,
+      "imageToTitleGap": 80,
       "imageToMainGap": 16,
       "imageToMainHorizontalGap": -640,
       "imageVisible": true,
@@ -1088,6 +1178,15 @@
         "bottom": 626.375,
         "left": 20
       },
+      "mainPadding": {
+        "top": 16,
+        "right": 16,
+        "bottom": 16,
+        "left": 16
+      },
+      "cardContentElementCount": 10,
+      "cardContentsWithinBounds": true,
+      "cardImageOverlapPct": 0,
       "title": {
         "x": 36,
         "y": 402.375,
@@ -1185,6 +1284,15 @@
         "bottom": 635.75,
         "left": 20
       },
+      "mainPadding": {
+        "top": 16,
+        "right": 16,
+        "bottom": 16,
+        "left": 16
+      },
+      "cardContentElementCount": 10,
+      "cardContentsWithinBounds": true,
+      "cardImageOverlapPct": 0,
       "title": {
         "x": 36,
         "y": 411.75,
@@ -1243,10 +1351,10 @@
         "x": 0,
         "y": 81,
         "width": 1425,
-        "height": 562,
+        "height": 610,
         "top": 81,
         "right": 1425,
-        "bottom": 643,
+        "bottom": 691,
         "left": 0
       },
       "image": {
@@ -1276,35 +1384,44 @@
         "x": 355.21875,
         "y": 332,
         "width": 760,
-        "height": 278,
+        "height": 326,
         "top": 332,
         "right": 1115.21875,
-        "bottom": 610,
+        "bottom": 658,
         "left": 355.21875
       },
+      "mainPadding": {
+        "top": 24,
+        "right": 24,
+        "bottom": 24,
+        "left": 24
+      },
+      "cardContentElementCount": 9,
+      "cardContentsWithinBounds": true,
+      "cardImageOverlapPct": 18.1,
       "title": {
-        "x": 355.21875,
-        "y": 376,
-        "width": 760,
+        "x": 379.21875,
+        "y": 400.0003662109375,
+        "width": 712,
         "height": 86,
-        "top": 376,
-        "right": 1115.21875,
-        "bottom": 462,
-        "left": 355.21875
+        "top": 400.0003662109375,
+        "right": 1091.21875,
+        "bottom": 486.0003662109375,
+        "left": 379.21875
       },
       "lead": {
-        "x": 355.21875,
-        "y": 478.00274658203125,
-        "width": 760,
+        "x": 379.21875,
+        "y": 502.00860595703125,
+        "width": 712,
         "height": 64,
-        "top": 478.00274658203125,
-        "right": 1115.21875,
-        "bottom": 542.0027465820312,
-        "left": 355.21875
+        "top": 502.00860595703125,
+        "right": 1091.21875,
+        "bottom": 566.0086059570312,
+        "left": 379.21875
       },
       "titleInViewport": true,
       "leadInViewport": true,
-      "imageToTitleGap": -12,
+      "imageToTitleGap": 12,
       "imageToMainGap": -56,
       "imageToMainHorizontalGap": -971,
       "imageVisible": true,
@@ -1340,10 +1457,10 @@
         "x": 0,
         "y": 65,
         "width": 768,
-        "height": 701,
+        "height": 709,
         "top": 65,
         "right": 768,
-        "bottom": 766,
+        "bottom": 774,
         "left": 0
       },
       "image": {
@@ -1373,35 +1490,44 @@
         "x": 24,
         "y": 411,
         "width": 720,
-        "height": 298,
+        "height": 306,
         "top": 411,
         "right": 744,
-        "bottom": 709,
+        "bottom": 717,
         "left": 24
       },
+      "mainPadding": {
+        "top": 20,
+        "right": 20,
+        "bottom": 20,
+        "left": 20
+      },
+      "cardContentElementCount": 9,
+      "cardContentsWithinBounds": true,
+      "cardImageOverlapPct": 0,
       "title": {
-        "x": 40,
-        "y": 471,
-        "width": 688,
+        "x": 44,
+        "y": 475,
+        "width": 680,
         "height": 78,
-        "top": 471,
-        "right": 728,
-        "bottom": 549,
-        "left": 40
+        "top": 475,
+        "right": 724,
+        "bottom": 553,
+        "left": 44
       },
       "lead": {
-        "x": 40,
-        "y": 565.0001220703125,
-        "width": 688,
+        "x": 44,
+        "y": 569.0027465820312,
+        "width": 680,
         "height": 60,
-        "top": 565.0001220703125,
-        "right": 728,
-        "bottom": 625.0001220703125,
-        "left": 40
+        "top": 569.0027465820312,
+        "right": 724,
+        "bottom": 629.0027465820312,
+        "left": 44
       },
       "titleInViewport": true,
       "leadInViewport": true,
-      "imageToTitleGap": 76,
+      "imageToTitleGap": 80,
       "imageToMainGap": 16,
       "imageToMainHorizontalGap": -640,
       "imageVisible": true,
@@ -1476,6 +1602,15 @@
         "bottom": 697.75,
         "left": 20
       },
+      "mainPadding": {
+        "top": 16,
+        "right": 16,
+        "bottom": 16,
+        "left": 16
+      },
+      "cardContentElementCount": 9,
+      "cardContentsWithinBounds": true,
+      "cardImageOverlapPct": 0,
       "title": {
         "x": 36,
         "y": 411.75,
@@ -1488,12 +1623,12 @@
       },
       "lead": {
         "x": 36,
-        "y": 511.75048828125,
+        "y": 511.75128173828125,
         "width": 303,
         "height": 84,
-        "top": 511.75048828125,
+        "top": 511.75128173828125,
         "right": 339,
-        "bottom": 595.75048828125,
+        "bottom": 595.7512817382812,
         "left": 36
       },
       "titleInViewport": true,
@@ -1573,6 +1708,15 @@
         "bottom": 705.109375,
         "left": 20
       },
+      "mainPadding": {
+        "top": 16,
+        "right": 16,
+        "bottom": 16,
+        "left": 16
+      },
+      "cardContentElementCount": 9,
+      "cardContentsWithinBounds": true,
+      "cardImageOverlapPct": 0,
       "title": {
         "x": 36,
         "y": 419.109375,
@@ -1585,12 +1729,12 @@
       },
       "lead": {
         "x": 36,
-        "y": 519.1094970703125,
+        "y": 519.1121215820312,
         "width": 318,
         "height": 84,
-        "top": 519.1094970703125,
+        "top": 519.1121215820312,
         "right": 354,
-        "bottom": 603.1094970703125,
+        "bottom": 603.1121215820312,
         "left": 36
       },
       "titleInViewport": true,
@@ -1662,39 +1806,48 @@
       },
       "main": {
         "x": 144.5,
-        "y": 305,
-        "width": 706.65625,
-        "height": 238,
-        "top": 305,
-        "right": 851.15625,
-        "bottom": 543,
+        "y": 265,
+        "width": 560,
+        "height": 318,
+        "top": 265,
+        "right": 704.5,
+        "bottom": 583,
         "left": 144.5
       },
+      "mainPadding": {
+        "top": 24,
+        "right": 24,
+        "bottom": 24,
+        "left": 24
+      },
+      "cardContentElementCount": 8,
+      "cardContentsWithinBounds": true,
+      "cardImageOverlapPct": 10,
       "title": {
-        "x": 144.5,
-        "y": 349.0045471191406,
-        "width": 706.65625,
-        "height": 145.99996948242188,
-        "top": 349.0045471191406,
-        "right": 851.15625,
-        "bottom": 495.0045166015625,
-        "left": 144.5
+        "x": 168.5,
+        "y": 333.00006103515625,
+        "width": 512,
+        "height": 146,
+        "top": 333.00006103515625,
+        "right": 680.5,
+        "bottom": 479.00006103515625,
+        "left": 168.5
       },
       "lead": {
-        "x": 144.5,
-        "y": 511.0292663574219,
-        "width": 706.65625,
-        "height": 32.000030517578125,
-        "top": 511.0292663574219,
-        "right": 851.15625,
-        "bottom": 543.029296875,
-        "left": 144.5
+        "x": 168.5,
+        "y": 495.00506591796875,
+        "width": 512,
+        "height": 64,
+        "top": 495.00506591796875,
+        "right": 680.5,
+        "bottom": 559.0050659179688,
+        "left": 168.5
       },
       "titleInViewport": true,
       "leadInViewport": true,
-      "imageToTitleGap": -318,
-      "imageToMainGap": -362,
-      "imageToMainHorizontalGap": -251,
+      "imageToTitleGap": -334,
+      "imageToMainGap": -402,
+      "imageToMainHorizontalGap": -104,
       "imageVisible": true,
       "cta": null,
       "ctaInViewport": null,
@@ -1729,10 +1882,10 @@
         "x": 0,
         "y": 65,
         "width": 768,
-        "height": 1137.5,
+        "height": 1145.5,
         "top": 65,
         "right": 768,
-        "bottom": 1202.5,
+        "bottom": 1210.5,
         "left": 0
       },
       "image": {
@@ -1762,35 +1915,44 @@
         "x": 24,
         "y": 501,
         "width": 720,
-        "height": 252,
+        "height": 260,
         "top": 501,
         "right": 744,
-        "bottom": 753,
+        "bottom": 761,
         "left": 24
       },
+      "mainPadding": {
+        "top": 20,
+        "right": 20,
+        "bottom": 20,
+        "left": 20
+      },
+      "cardContentElementCount": 8,
+      "cardContentsWithinBounds": true,
+      "cardImageOverlapPct": 0,
       "title": {
-        "x": 40,
-        "y": 561,
-        "width": 688,
+        "x": 44,
+        "y": 565,
+        "width": 680,
         "height": 130,
-        "top": 561,
-        "right": 728,
-        "bottom": 691,
-        "left": 40
+        "top": 565,
+        "right": 724,
+        "bottom": 695,
+        "left": 44
       },
       "lead": {
-        "x": 40,
-        "y": 707.0027465820312,
-        "width": 688,
+        "x": 44,
+        "y": 711.0027465820312,
+        "width": 680,
         "height": 30,
-        "top": 707.0027465820312,
-        "right": 728,
-        "bottom": 737.0027465820312,
-        "left": 40
+        "top": 711.0027465820312,
+        "right": 724,
+        "bottom": 741.0027465820312,
+        "left": 44
       },
       "titleInViewport": true,
       "leadInViewport": true,
-      "imageToTitleGap": 76,
+      "imageToTitleGap": 80,
       "imageToMainGap": 16,
       "imageToMainHorizontalGap": -640,
       "imageVisible": true,
@@ -1866,6 +2028,15 @@
         "bottom": 570.375,
         "left": 20
       },
+      "mainPadding": {
+        "top": 16,
+        "right": 16,
+        "bottom": 16,
+        "left": 16
+      },
+      "cardContentElementCount": 8,
+      "cardContentsWithinBounds": true,
+      "cardImageOverlapPct": 0,
       "title": {
         "x": 36,
         "y": 398.375,
@@ -1878,12 +2049,12 @@
       },
       "lead": {
         "x": 36,
-        "y": 498.3751220703125,
+        "y": 498.37774658203125,
         "width": 303,
         "height": 56,
-        "top": 498.3751220703125,
+        "top": 498.37774658203125,
         "right": 339,
-        "bottom": 554.3751220703125,
+        "bottom": 554.3777465820312,
         "left": 36
       },
       "titleInViewport": true,
@@ -1964,6 +2135,15 @@
         "bottom": 579.75,
         "left": 20
       },
+      "mainPadding": {
+        "top": 16,
+        "right": 16,
+        "bottom": 16,
+        "left": 16
+      },
+      "cardContentElementCount": 8,
+      "cardContentsWithinBounds": true,
+      "cardImageOverlapPct": 0,
       "title": {
         "x": 36,
         "y": 407.75,
@@ -1976,12 +2156,12 @@
       },
       "lead": {
         "x": 36,
-        "y": 507.75,
+        "y": 507.75128173828125,
         "width": 318,
         "height": 56,
-        "top": 507.75,
+        "top": 507.75128173828125,
         "right": 354,
-        "bottom": 563.75,
+        "bottom": 563.7512817382812,
         "left": 36
       },
       "titleInViewport": true,
@@ -2041,6 +2221,15 @@
         "bottom": 503,
         "left": 144.5
       },
+      "mainPadding": {
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "cardContentElementCount": 5,
+      "cardContentsWithinBounds": true,
+      "cardImageOverlapPct": null,
       "title": {
         "x": 144.5,
         "y": 233,
@@ -2053,12 +2242,12 @@
       },
       "lead": {
         "x": 144.5,
-        "y": 351.0001220703125,
+        "y": 351.00128173828125,
         "width": 880,
         "height": 32,
-        "top": 351.0001220703125,
+        "top": 351.00128173828125,
         "right": 1024.5,
-        "bottom": 383.0001220703125,
+        "bottom": 383.00128173828125,
         "left": 144.5
       },
       "titleInViewport": true,
@@ -2115,6 +2304,15 @@
         "bottom": 471,
         "left": 24
       },
+      "mainPadding": {
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "cardContentElementCount": 5,
+      "cardContentsWithinBounds": true,
+      "cardImageOverlapPct": null,
       "title": {
         "x": 24,
         "y": 217,
@@ -2127,12 +2325,12 @@
       },
       "lead": {
         "x": 24,
-        "y": 321,
+        "y": 321.00128173828125,
         "width": 720,
         "height": 30,
-        "top": 321,
+        "top": 321.00128173828125,
         "right": 744,
-        "bottom": 351,
+        "bottom": 351.00128173828125,
         "left": 24
       },
       "titleInViewport": true,
@@ -2189,6 +2387,15 @@
         "bottom": 477,
         "left": 20
       },
+      "mainPadding": {
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "cardContentElementCount": 5,
+      "cardContentsWithinBounds": true,
+      "cardImageOverlapPct": null,
       "title": {
         "x": 20,
         "y": 165,
@@ -2263,6 +2470,15 @@
         "bottom": 449,
         "left": 20
       },
+      "mainPadding": {
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "cardContentElementCount": 5,
+      "cardContentsWithinBounds": true,
+      "cardImageOverlapPct": null,
       "title": {
         "x": 20,
         "y": 165,
@@ -2358,6 +2574,15 @@
         "bottom": 595,
         "left": 823.828125
       },
+      "mainPadding": {
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "cardContentElementCount": 17,
+      "cardContentsWithinBounds": true,
+      "cardImageOverlapPct": 0,
       "title": {
         "x": 823.828125,
         "y": 222,
@@ -2455,6 +2680,15 @@
         "bottom": 477,
         "left": 24
       },
+      "mainPadding": {
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "cardContentElementCount": 17,
+      "cardContentsWithinBounds": true,
+      "cardImageOverlapPct": 0,
       "title": {
         "x": 24,
         "y": 206,
@@ -2552,6 +2786,15 @@
         "bottom": 585,
         "left": 20
       },
+      "mainPadding": {
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "cardContentElementCount": 17,
+      "cardContentsWithinBounds": true,
+      "cardImageOverlapPct": 0,
       "title": {
         "x": 20,
         "y": 276,
@@ -2649,6 +2892,15 @@
         "bottom": 585,
         "left": 20
       },
+      "mainPadding": {
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "cardContentElementCount": 17,
+      "cardContentsWithinBounds": true,
+      "cardImageOverlapPct": 0,
       "title": {
         "x": 20,
         "y": 276,
