@@ -20,6 +20,9 @@ const routes = [
   { name: 'team', path: '/ve-nhom' },
   { name: 'product-detail', path: '/san-pham/chuon-chuon-tre-kem-de' },
 ];
+const routeFilter = process.argv[2];
+const selectedRoutes = routeFilter ? routes.filter((route) => route.name === routeFilter || route.path === routeFilter) : routes;
+if (routeFilter && selectedRoutes.length === 0) throw new Error(`Unknown route filter: ${routeFilter}`);
 
 const targets = await fetch('http://127.0.0.1:9222/json').then((res) => res.json());
 const target = targets.find((item) => item.type === 'page' && item.url.startsWith('http://127.0.0.1:4321'));
@@ -51,7 +54,7 @@ async function cdp(method, params = {}) {
 await cdp('Page.enable');
 await cdp('Runtime.enable');
 const observations = [];
-for (const route of routes) {
+for (const route of selectedRoutes) {
   for (const viewport of dimensions) {
     await cdp('Emulation.setDeviceMetricsOverride', {
       width: viewport.width,
@@ -97,6 +100,7 @@ for (const route of routes) {
           leadInViewport: lead ? rect(lead).top >= 0 && rect(lead).bottom <= innerHeight : null,
           imageToTitleGap: image ? Math.round(rect(title).top - rect(image).bottom) : null,
           imageToMainGap: image ? Math.round(rect(main).top - rect(hero?.querySelector('.page-hero-image')).bottom) : null,
+          imageToMainHorizontalGap: image ? Math.round(rect(hero?.querySelector('.page-hero-image')).left - rect(main).right) : null,
           imageVisible: image ? getComputedStyle(hero.querySelector('.page-hero-image')).display !== 'none' : false,
           cta: rect(cta),
           ctaInViewport: cta ? rect(cta).bottom <= innerHeight : null,
@@ -142,11 +146,18 @@ for (const route of routes) {
     }
   }
 }
-const hrefs = [...new Set(observations.flatMap((item) => item.localHrefs || []))].filter((href) => !href.startsWith('/api/'));
+const previous = routeFilter
+  ? JSON.parse(await fs.readFile(path.join(evidenceDir, 'measurements.json'), 'utf8'))
+  : { observations: [], linkChecks: [] };
+const mergedObservations = [
+  ...(previous.observations || []).filter((item) => !selectedRoutes.some((route) => route.path === item.route)),
+  ...observations,
+];
+const hrefs = [...new Set(mergedObservations.flatMap((item) => item.localHrefs || []))].filter((href) => !href.startsWith('/api/'));
 const linkChecks = await Promise.all(hrefs.map(async (href) => {
   const response = await fetch(new URL(href, 'http://127.0.0.1:4321'), { method: 'HEAD' });
   return { href, status: response.status, ok: response.ok };
 }));
-await fs.writeFile(path.join(evidenceDir, 'measurements.json'), `${JSON.stringify({ capturedAt: new Date().toISOString(), baseUrl: 'http://127.0.0.1:4321', observations, linkChecks }, null, 2)}\n`);
+await fs.writeFile(path.join(evidenceDir, 'measurements.json'), `${JSON.stringify({ capturedAt: new Date().toISOString(), baseUrl: 'http://127.0.0.1:4321', observations: mergedObservations, linkChecks }, null, 2)}\n`);
 ws.close();
-console.log(JSON.stringify({ pages: routes.length, viewports: dimensions.length, screenshots: observations.length * 2, overflow: observations.filter((item) => item.scrollWidth > item.viewportWidth).length, internalLinks: linkChecks.length, brokenLinks: linkChecks.filter((item) => !item.ok).length }, null, 2));
+console.log(JSON.stringify({ pages: selectedRoutes.length, viewports: dimensions.length, screenshots: observations.length * 2, overflow: observations.filter((item) => item.scrollWidth > item.viewportWidth).length, imagesVisible: observations.filter((item) => item.imageVisible).length, imageFramesOver560: observations.filter((item) => item.imageFrame && item.imageFrame.width > 560).length, internalLinks: linkChecks.length, brokenLinks: linkChecks.filter((item) => !item.ok).length }, null, 2));

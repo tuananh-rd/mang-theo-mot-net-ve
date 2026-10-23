@@ -352,7 +352,7 @@ const hasPanel = (summaryItems && summaryItems.length > 0) || Astro.slots.has('p
   }
 
   .page-hero-grid--compact-image {
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
   }
 
   .page-hero-grid--with-image .page-hero-main {
@@ -373,7 +373,16 @@ const hasPanel = (summaryItems && summaryItems.length > 0) || Astro.slots.has('p
   }
 
   .page-hero-grid--compact-image .page-hero-image {
-    display: none;
+    width: 100%;
+    max-width: 560px;
+    justify-self: end;
+  }
+
+  @media (min-width: 1024px) {
+    .page-hero-grid--compact-image .page-hero-main > :global(.btn) {
+      align-self: flex-start;
+      width: auto;
+    }
   }
 
   .page-hero-image img {
@@ -532,6 +541,8 @@ const hasPanel = (summaryItems && summaryItems.length > 0) || Astro.slots.has('p
     .page-hero-grid--with-image .page-hero-image {
       order: -1;
       width: 100%;
+      max-width: 560px;
+      align-self: center;
       max-height: 320px;
       aspect-ratio: 16 / 10;
     }
@@ -550,9 +561,6 @@ const hasPanel = (summaryItems && summaryItems.length > 0) || Astro.slots.has('p
       align-items: stretch;
     }
 
-    .page-hero-grid--compact-image .page-hero-image {
-      display: none;
-    }
   }
 
   @media (max-width: 767px) {
@@ -609,9 +617,4 @@ const hasPanel = (summaryItems && summaryItems.length > 0) || Astro.slots.has('p
     }
   }
 
-  @media (max-width: 560px) {
-    .page-hero-grid--compact-image .page-hero-image {
-      display: block;
-    }
-  }
 </style>

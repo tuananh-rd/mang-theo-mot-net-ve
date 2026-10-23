@@ -42,6 +42,10 @@ test('six PageHero routes reference the six approved, optimized images', async (
   assert.match(heroComponent, /width=\{image\.width\}/);
   assert.match(heroComponent, /height=\{image\.height\}/);
   assert.match(heroComponent, /loading="eager"/);
+  assert.match(heroComponent, /\.page-hero-grid--compact-image \.page-hero-image\s*\{[^}]*max-width:\s*560px/s);
+  assert.doesNotMatch(heroComponent, /\.page-hero-grid--compact-image \.page-hero-image\s*\{[^}]*display:\s*none/s);
+  assert.match(heroComponent, /@media \(min-width:\s*1024px\)\s*\{[^}]*\.page-hero-grid--compact-image \.page-hero-main > :global\(\.btn\)[^}]*\{[^}]*width:\s*auto/s);
+  assert.match(heroComponent, /\.page-hero-grid--with-image \.page-hero-image\s*\{[^}]*order:\s*-1;[^}]*max-width:\s*560px/s);
   assert.match(await fs.readFile(path.join(root, 'src/pages/san-pham.astro'), 'utf8'), /href="#preorder-heading"/);
   assert.equal(registry.length, 17);
   assert.ok(registry.every((item) => item.rights.includes('chưa xác minh')));

@@ -7,8 +7,8 @@ Code commit C18/public: `30aba517e32ea6ec1092e8def7e1ee77975ef3a3`
 
 ## Thay đổi
 
-- `PageHero` nhận prop ảnh tùy chọn. Desktop từ 1024px xếp chữ trái, ảnh phải theo lưới 7/5; dưới 1024px xếp breadcrumb → ảnh → cụm nội dung. Khung ảnh responsive cao tối đa 320px tablet và 240px mobile; khoảng cách ảnh tới cụm chữ đo được 16px ở 768px, 12px ở 375/390px.
-- Gắn ảnh cho `/du-an/mang-theo-mot-net-ve`, `/san-pham`, `/nhat-ky`, `/minh-bach`, `/dong-hanh`, `/ve-nhom`. Ảnh sản phẩm độ phân giải thấp chỉ hiện khi viewport ≤560px; trang danh mục có nút “Đăng ký nhận quà lưu niệm” trỏ tới biểu mẫu. Trang chủ và trang chi tiết sản phẩm không đổi.
+- `PageHero` nhận prop ảnh tùy chọn. Desktop từ 1024px xếp chữ trái, ảnh phải theo lưới 7/5; dưới 1024px xếp breadcrumb → ảnh → cụm nội dung. Khung ảnh có chiều cao tối đa 320px tablet và 240px mobile; khoảng cách ảnh tới cụm chữ là 16px ở 768px và 12px ở 375/390px.
+- Gắn ảnh cho `/du-an/mang-theo-mot-net-ve`, `/san-pham`, `/nhat-ky`, `/minh-bach`, `/dong-hanh`, `/ve-nhom`. Ảnh `/san-pham` luôn hiện; khung giới hạn tối đa 560px để không phóng lớn ảnh 730×548. Nút “Đăng ký nhận quà lưu niệm” trong cột chữ desktop có kích thước theo nội dung. Trang chủ và trang chi tiết sản phẩm không đổi.
 - `tools/optimize-hero-images.mjs` đọc nguồn từ đường dẫn tuyệt đối, xoay theo EXIF, xuất WebP quality 75 theo các kích thước không vượt nguồn và ghi manifest SHA/kích thước/alt/focal/quyền sử dụng vào `docs/media-registry.json`. 17 ảnh đầu ra đều không còn EXIF/ICC/IPTC/XMP; ảnh nguồn không được chép vào repo hoặc `dist`.
 - Sổ ảnh ghi nguồn là chủ dự án cung cấp, đồng ý của người trong ảnh chưa được xác minh độc lập. Alt trung tính, không nêu tên, địa điểm hoặc sự kiện. `public/images/README.md` được cập nhật để bỏ ghi chú cũ nói chưa có ảnh thật.
 - Kiểm tra cơ chế xuất bản: `tools/content-studio/release-delta.mjs` chỉ lọc consumer paths và ghi patch vào evidence; `apps/studio/src/publish/consumer.ts` ghi snapshot/JSON và các `approvedAssets` vào đích cô lập. Hai luồng này không xóa hay khôi phục cây `public/`; ảnh hero là asset tĩnh trong repo, không dùng `mediaKey`. Không sửa module Studio hoặc `release-delta`.
@@ -30,10 +30,11 @@ SHA/kích thước tất cả 17 file dẫn xuất, kể cả bản sản phẩm
 
 Preview là build C17 tại `http://127.0.0.1:4321`; API preorder chỉ chạy bằng Studio emulator local trên cổng 4331 với DB tạm ngoài repo, dùng hai giá/cách nhận đã được chủ dự án xác nhận. GET cấu hình trả 200; biểu mẫu hiển thị “Đang nhận đăng ký đặt trước.” và không gửi đơn. Không truy cập Cloudflare/D1 remote.
 
-`capture-preview.mjs` chụp 7 route (6 trang chính và `/san-pham/chuon-chuon-tre-kem-de`) ở 1440×900, 768×1024, 375×812, 390×844: mỗi tổ hợp có ảnh viewport và full page, tổng 56 JPEG. Ảnh và JSON đo nằm cùng thư mục này.
+`capture-preview.mjs` chụp 7 route (6 trang chính và `/san-pham/chuon-chuon-tre-kem-de`) ở 1440×900, 768×1024, 375×812, 390×844: mỗi tổ hợp có ảnh viewport và full page, tổng 56 JPEG. Lần review này chụp lại cả 8 ảnh viewport/full-page của `/san-pham` và cập nhật 4 phép đo tương ứng trong `measurements.json`.
 
 - 28/28 trạng thái có `scrollWidth ≤ innerWidth`; không có ảnh lỗi. Sáu tiêu đề và lead đều nằm trong viewport đầu ở cả bốn kích thước.
-- Khoảng cách ảnh tới cụm chữ là 16px tablet và 12px mobile. Khoảng cách đo từ đáy ảnh tới đỉnh H1 lớn hơn vì có eyebrow/chip theo đúng thứ tự trong đặc tả; ảnh vẫn nối với cụm nội dung trong một khối. Ảnh sản phẩm ẩn ở 768/1440px theo giới hạn 560px.
+- `/san-pham`: ảnh hiện tại cả bốn viewport, khung rộng 453px ở 1440, 560px ở 768, 335px ở 375 và 350px ở 390; không khung nào vượt 560px. Ảnh cách cột chữ 48px theo chiều ngang desktop và cách cụm chữ 16px tablet / 12px mobile. CTA desktop rộng 251px trong cột chữ 635px; trên mobile CTA vẫn full-width theo cột 335/350px.
+- Không tràn ngang ở bốn viewport sản phẩm; ảnh tải đủ và CTA nằm trong viewport đầu. Khoảng cách ảnh tới H1 lớn hơn vì có eyebrow/chip theo đúng thứ tự trong đặc tả.
 - CTA đặt trước ở trang sản phẩm nằm trong viewport đầu cả bốn kích thước. Năm trang còn lại không có CTA trong nội dung `PageHero`; CTA hiện có trong header/thanh ủng hộ giữ nguyên. Trang dự án và trang ủng hộ có phần tiến độ/các bước dài nằm dưới nội dung mở đầu; tiêu đề và lead vẫn hiện trong viewport đầu.
 - Menu được mở rồi đóng thành công ở 768/375/390px; mỗi trạng thái có 22 liên kết menu. Kiểm tra 16 URL nội bộ duy nhất: 16 trả 200, không có link hỏng.
 - Trang chi tiết sản phẩm được chụp đủ bốn kích thước; không thêm `PageHero` theo giới hạn đặc tả.
@@ -49,4 +50,4 @@ Test mới xác minh 6 route gắn ảnh, alt không rỗng/trung tính, kích t
 
 ## Ghi chú còn lại
 
-Ảnh `/san-pham` chỉ rộng 730×548 và vì vậy chỉ được dùng ở viewport ≤560px như spec yêu cầu. Consent của người xuất hiện trong ảnh chưa được xác minh; registry và alt giữ nguyên giới hạn đó.
+Ảnh nguồn `/san-pham` rộng 730×548; khung CSS giới hạn 560px và ảnh không bị phóng lên. Consent của người xuất hiện trong ảnh chưa được xác minh; registry và alt giữ nguyên giới hạn đó.
