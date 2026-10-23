@@ -397,8 +397,11 @@ const hasPanel = (summaryItems && summaryItems.length > 0) || Astro.slots.has('p
   }
   .page-hero-grid--image-project .page-hero-main {
     z-index: 1;
-    max-width: 680px;
-    padding: var(--space-7);
+    align-self: start;
+    max-width: 560px;
+    margin-top: var(--space-8);
+    box-sizing: border-box;
+    padding: var(--space-6);
     border-radius: var(--radius-xl);
     background: #ffffff;
     box-shadow: var(--shadow-raised);
@@ -427,7 +430,8 @@ const hasPanel = (summaryItems && summaryItems.length > 0) || Astro.slots.has('p
     z-index: 1;
     width: min(56%, 680px);
     margin: clamp(190px, 24vh, 270px) 0 0 auto;
-    padding: var(--space-7);
+    box-sizing: border-box;
+    padding: var(--space-6);
     border-radius: var(--radius-xl);
     background: #ffffff;
     box-shadow: var(--shadow-raised);
@@ -451,8 +455,10 @@ const hasPanel = (summaryItems && summaryItems.length > 0) || Astro.slots.has('p
   .page-hero-grid--image-support .page-hero-main {
     position: relative;
     z-index: 1;
-    margin-right: -72px;
-    padding: var(--space-7);
+    max-width: 560px;
+    margin-right: -32px;
+    box-sizing: border-box;
+    padding: var(--space-6);
     border-radius: var(--radius-xl);
     background: #ffffff;
     box-shadow: var(--shadow-raised);
@@ -477,7 +483,8 @@ const hasPanel = (summaryItems && summaryItems.length > 0) || Astro.slots.has('p
     z-index: 1;
     width: min(760px, 100%);
     margin: -56px 0 0 4%;
-    padding: var(--space-7);
+    box-sizing: border-box;
+    padding: var(--space-6);
     border-radius: var(--radius-xl);
     background: #ffffff;
     box-shadow: var(--shadow-raised);
@@ -722,7 +729,8 @@ const hasPanel = (summaryItems && summaryItems.length > 0) || Astro.slots.has('p
       width: 100%;
       max-width: none;
       margin: 0;
-      padding: var(--space-4);
+      box-sizing: border-box;
+      padding: var(--space-5);
       border-radius: var(--radius-lg);
       background: #ffffff;
       box-shadow: var(--shadow-raised);

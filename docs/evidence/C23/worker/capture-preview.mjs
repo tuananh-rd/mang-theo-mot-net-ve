@@ -86,6 +86,13 @@ for (const route of selectedRoutes) {
         const main = hero?.querySelector('.page-hero-main, .product-summary-area');
         const cta = main?.querySelector('a,button');
         const rect = (element) => element ? element.getBoundingClientRect().toJSON() : null;
+        const mainRect = main?.getBoundingClientRect();
+        const frameRect = frame?.getBoundingClientRect();
+        const contentRects = main ? [...main.querySelectorAll('*')].map((element) => ({ selector: element.tagName.toLowerCase() + (element.className && typeof element.className === 'string' ? '.' + element.className.trim().replaceAll(' ', '.') : ''), ...element.getBoundingClientRect().toJSON() })).filter((item) => item.width || item.height) : [];
+        const cardContentsWithinBounds = mainRect ? contentRects.every((item) => item.left >= mainRect.left - 1 && item.top >= mainRect.top - 1 && item.right <= mainRect.right + 1 && item.bottom <= mainRect.bottom + 1) : null;
+        const overlapWidth = mainRect && frameRect ? Math.max(0, Math.min(mainRect.right, frameRect.right) - Math.max(mainRect.left, frameRect.left)) : 0;
+        const overlapHeight = mainRect && frameRect ? Math.max(0, Math.min(mainRect.bottom, frameRect.bottom) - Math.max(mainRect.top, frameRect.top)) : 0;
+        const cardImageOverlapPct = frameRect?.width && frameRect?.height ? Math.round((overlapWidth * overlapHeight / (frameRect.width * frameRect.height)) * 1000) / 10 : null;
         return {
           viewportWidth: innerWidth,
           viewportHeight: innerHeight,
@@ -95,6 +102,10 @@ for (const route of selectedRoutes) {
           image: image ? { ...rect(image), alt: image.alt, complete: image.complete, naturalWidth: image.naturalWidth } : null,
           imageFrame: rect(frame),
           main: rect(main),
+          mainPadding: main ? { top: parseFloat(getComputedStyle(main).paddingTop), right: parseFloat(getComputedStyle(main).paddingRight), bottom: parseFloat(getComputedStyle(main).paddingBottom), left: parseFloat(getComputedStyle(main).paddingLeft) } : null,
+          cardContentElementCount: contentRects.length,
+          cardContentsWithinBounds,
+          cardImageOverlapPct,
           title: rect(title),
           lead: rect(lead),
           titleInViewport: title ? rect(title).top >= 0 && rect(title).bottom <= innerHeight : null,
@@ -161,4 +172,6 @@ const linkChecks = await Promise.all(hrefs.map(async (href) => {
 }));
 await fs.writeFile(path.join(evidenceDir, 'measurements.json'), `${JSON.stringify({ capturedAt: new Date().toISOString(), baseUrl: 'http://127.0.0.1:4321', observations: mergedObservations, linkChecks }, null, 2)}\n`);
 ws.close();
-console.log(JSON.stringify({ pages: selectedRoutes.length, viewports: dimensions.length, screenshots: observations.length * 2, overflow: observations.filter((item) => item.scrollWidth > item.viewportWidth).length, imagesVisible: observations.filter((item) => item.imageVisible).length, imageFramesOver560: observations.filter((item) => item.imageFrame && item.imageFrame.width > 560).length, internalLinks: linkChecks.length, brokenLinks: linkChecks.filter((item) => !item.ok).length }, null, 2));
+const cardContentFailures = observations.filter((item) => item.cardContentsWithinBounds === false);
+console.log(JSON.stringify({ pages: selectedRoutes.length, viewports: dimensions.length, screenshots: observations.length * 2, overflow: observations.filter((item) => item.scrollWidth > item.viewportWidth).length, cardContentFailures: cardContentFailures.map((item) => ({ route: item.routeName, viewport: item.viewport, overflowingElements: item.cardContentElementCount })), imagesVisible: observations.filter((item) => item.imageVisible).length, imageFramesOver560: observations.filter((item) => item.imageFrame && item.imageFrame.width > 560).length, internalLinks: linkChecks.length, brokenLinks: linkChecks.filter((item) => !item.ok).length }, null, 2));
+if (cardContentFailures.length) process.exitCode = 1;

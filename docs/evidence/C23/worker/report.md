@@ -36,4 +36,10 @@ After review, Claude owns the production D1 migration, email-domain onboarding, 
 - Studio C17 changes: `f432734` plus migration-only commit `2f052d6`.
 - Public C18 changes: `dca2faa`.
 
+## C23 hero review correction
+
+The missing desktop and tablet padding came from `var(--space-7)`, which is not defined in the spacing tokens; the declaration was discarded by the browser. The four reviewed cards now use valid 24px desktop and 20px tablet padding, while mobile keeps its existing 16px padding. Dự án and Ủng hộ cards are narrower and the Dự án card sits at the upper left so the child faces remain visible; all cards grow to fit their content without clipping.
+
+Recaptured the four affected routes at 1440×900, 768×1024, 375×812, and 390×844 (16 observations, 32 screenshots). Measured padding is 24/20/16px at desktop/tablet/mobile; nested content bounds pass in all 16 observations, and no horizontal overflow was measured. Desktop card/photo intersection is 31.3% for Dự án, 33.3% for Nhật ký, 10.0% for Ủng hộ, and 18.1% for Minh bạch; this is a whole-photo area measure, not subject coverage. The Dự án and Ủng hộ cards leave the visible child faces outside their bounds; Nhật ký is a group scene with no single main character frame to measure, and Minh bạch contains no people. Updated evidence is in `measurements.json` and the `{project,journal,support,transparency}-*` captures.
+
 
