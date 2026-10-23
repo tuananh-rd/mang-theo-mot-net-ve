@@ -15,6 +15,17 @@ interface SummaryItem {
   };
 }
 
+interface HeroImage {
+  src: string;
+  srcset?: string;
+  sizes?: string;
+  alt: string;
+  position: string;
+  width: number;
+  height: number;
+  compact?: boolean;
+}
+
 interface Props {
   breadcrumbs: BreadcrumbItem[];
   eyebrow?: string;
@@ -28,6 +39,7 @@ interface Props {
   description?: string;
   summaryTitle?: string;
   summaryItems?: SummaryItem[];
+  image?: HeroImage;
   variant?: 'dark' | 'paper' | 'plain' | 'masthead';
 }
 
@@ -41,6 +53,7 @@ const {
   description,
   summaryTitle = 'Tóm tắt kế hoạch',
   summaryItems = [],
+  image,
   variant = 'dark',
 } = Astro.props;
 const hasPanel = (summaryItems && summaryItems.length > 0) || Astro.slots.has('panel-extra');
@@ -72,7 +85,7 @@ const hasPanel = (summaryItems && summaryItems.length > 0) || Astro.slots.has('p
       </nav>
     )}
 
-    <div class:list={['page-hero-grid', { 'page-hero-grid--single': !hasPanel }]}>
+    <div class:list={['page-hero-grid', { 'page-hero-grid--single': !hasPanel && !image, 'page-hero-grid--with-image': image, 'page-hero-grid--compact-image': image?.compact }]}>
       <!-- Cột chính bên trái: 7 cột desktop -->
       <div class="page-hero-main enter">
         {(eyebrow || chip) && (
@@ -93,9 +106,25 @@ const hasPanel = (summaryItems && summaryItems.length > 0) || Astro.slots.has('p
         <slot />
       </div>
 
+      {image && (
+        <figure class:list={['page-hero-image', { 'page-hero-image--compact': image.compact }]} style={`--hero-image-position: ${image.position}`}>
+          <img
+            src={image.src}
+            srcset={image.srcset}
+            sizes={image.sizes}
+            alt={image.alt}
+            width={image.width}
+            height={image.height}
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </figure>
+      )}
+
       <!-- Panel Tóm tắt kế hoạch bên phải: 5 cột desktop -->
       {hasPanel && (
-      <aside class="page-hero-panel enter-visual" aria-label={summaryTitle}>
+      <aside class:list={['page-hero-panel enter-visual', { 'page-hero-panel--below-image': image }]} aria-label={summaryTitle}>
         <div class="panel-card">
           <div class="panel-header">
             <p class="panel-title">{summaryTitle}</p>
@@ -317,6 +346,49 @@ const hasPanel = (summaryItems && summaryItems.length > 0) || Astro.slots.has('p
     max-width: 880px;
   }
 
+  .page-hero-grid--with-image {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    align-items: center;
+  }
+
+  .page-hero-grid--compact-image {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .page-hero-grid--with-image .page-hero-main {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .page-hero-image {
+    grid-column: 2;
+    grid-row: 1;
+    min-width: 0;
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    aspect-ratio: 4 / 3;
+    background: var(--surface-alt);
+  }
+
+  .page-hero-grid--compact-image .page-hero-image {
+    display: none;
+  }
+
+  .page-hero-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: var(--hero-image-position, center);
+  }
+
+  .page-hero-panel--below-image {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
   .page-hero-main {
     display: flex;
     flex-direction: column;
@@ -449,6 +521,38 @@ const hasPanel = (summaryItems && summaryItems.length > 0) || Astro.slots.has('p
       grid-template-columns: 1fr;
       gap: var(--space-8);
     }
+
+    .page-hero-grid--with-image {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--space-4);
+    }
+
+    .page-hero-grid--with-image .page-hero-image {
+      order: -1;
+      width: 100%;
+      max-height: 320px;
+      aspect-ratio: 16 / 10;
+    }
+
+    .page-hero-grid--with-image .page-hero-main {
+      order: 0;
+    }
+
+    .page-hero-grid--with-image .page-hero-panel {
+      order: 1;
+    }
+
+    .page-hero-grid--compact-image {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .page-hero-grid--compact-image .page-hero-image {
+      display: none;
+    }
   }
 
   @media (max-width: 767px) {
@@ -476,6 +580,15 @@ const hasPanel = (summaryItems && summaryItems.length > 0) || Astro.slots.has('p
       padding-bottom: var(--space-3);
     }
 
+    .page-hero-grid--with-image {
+      gap: var(--space-3);
+    }
+
+    .page-hero-grid--with-image .page-hero-image {
+      max-height: 240px;
+      aspect-ratio: 16 / 10;
+    }
+
     .page-hero-breadcrumb .breadcrumb-link {
       min-height: 36px;
     }
@@ -493,6 +606,12 @@ const hasPanel = (summaryItems && summaryItems.length > 0) || Astro.slots.has('p
 
     .panel-card {
       padding: var(--space-4);
+    }
+  }
+
+  @media (max-width: 560px) {
+    .page-hero-grid--compact-image .page-hero-image {
+      display: block;
     }
   }
 </style>
