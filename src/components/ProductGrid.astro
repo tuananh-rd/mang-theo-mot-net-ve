@@ -113,6 +113,11 @@ const pendingNote: Record<string, string> = {
               <a href={`/san-pham/${r.product.id}`} class="btn btn-secondary">
                 Xem chi tiết sản phẩm <span aria-hidden="true">→</span>
               </a>
+              {saleModel?.preorderOpen && (
+                <a class="btn btn-primary catalogue-preorder-btn" href={`/san-pham?sanpham=${encodeURIComponent(r.product.id)}#dat-truoc`} aria-label={`Đặt trước ${r.product.name}`}>
+                  Đặt trước
+                </a>
+              )}
             </div>
           </div>
         </li>
@@ -232,6 +237,10 @@ const pendingNote: Record<string, string> = {
   .catalogue-status-meta {
     display: flex;
     align-items: center;
+  }
+
+  .catalogue-preorder-btn {
+    min-height: 48px;
   }
 
   .catalogue-title {

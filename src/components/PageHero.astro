@@ -24,6 +24,7 @@ interface HeroImage {
   width: number;
   height: number;
   compact?: boolean;
+  layout?: 'project' | 'journal' | 'support' | 'transparency' | 'product';
 }
 
 interface Props {
@@ -85,7 +86,7 @@ const hasPanel = (summaryItems && summaryItems.length > 0) || Astro.slots.has('p
       </nav>
     )}
 
-    <div class:list={['page-hero-grid', { 'page-hero-grid--single': !hasPanel && !image, 'page-hero-grid--with-image': image, 'page-hero-grid--compact-image': image?.compact }]}>
+    <div class:list={['page-hero-grid', { 'page-hero-grid--single': !hasPanel && !image, 'page-hero-grid--with-image': image, 'page-hero-grid--compact-image': image?.compact }, image && `page-hero-grid--image-${image.layout || 'split'}`]}>
       <!-- Cột chính bên trái: 7 cột desktop -->
       <div class="page-hero-main enter">
         {(eyebrow || chip) && (
@@ -107,7 +108,7 @@ const hasPanel = (summaryItems && summaryItems.length > 0) || Astro.slots.has('p
       </div>
 
       {image && (
-        <figure class:list={['page-hero-image', { 'page-hero-image--compact': image.compact }]} style={`--hero-image-position: ${image.position}`}>
+        <figure class:list={['page-hero-image', { 'page-hero-image--compact': image.compact }, image.layout && `page-hero-image--${image.layout}`]} style={`--hero-image-position: ${image.position}`}>
           <img
             src={image.src}
             srcset={image.srcset}
@@ -378,6 +379,127 @@ const hasPanel = (summaryItems && summaryItems.length > 0) || Astro.slots.has('p
     justify-self: end;
   }
 
+  /* C23: Each public PageHero uses a different image composition with a solid text card. */
+  .page-hero-grid--image-project {
+    position: relative;
+    min-height: clamp(480px, 62vh, 660px);
+    align-items: center;
+  }
+  .page-hero-grid--image-project .page-hero-image {
+    position: absolute;
+    inset: 0;
+    grid-column: 1 / -1;
+    grid-row: 1;
+    z-index: 0;
+    border: 0;
+    border-radius: var(--radius-xl);
+    aspect-ratio: auto;
+  }
+  .page-hero-grid--image-project .page-hero-main {
+    z-index: 1;
+    max-width: 680px;
+    padding: var(--space-7);
+    border-radius: var(--radius-xl);
+    background: #ffffff;
+    box-shadow: var(--shadow-raised);
+  }
+  .page-hero-grid--image-project .page-hero-panel {
+    z-index: 1;
+    grid-column: 2;
+    grid-row: 1;
+    align-self: end;
+  }
+
+  .page-hero-grid--image-journal {
+    position: relative;
+    display: block;
+    min-height: clamp(440px, 54vh, 580px);
+  }
+  .page-hero-grid--image-journal .page-hero-image {
+    position: absolute;
+    inset: 0;
+    border: 0;
+    border-radius: var(--radius-xl);
+    aspect-ratio: auto;
+  }
+  .page-hero-grid--image-journal .page-hero-main {
+    position: relative;
+    z-index: 1;
+    width: min(56%, 680px);
+    margin: clamp(190px, 24vh, 270px) 0 0 auto;
+    padding: var(--space-7);
+    border-radius: var(--radius-xl);
+    background: #ffffff;
+    box-shadow: var(--shadow-raised);
+  }
+
+  .page-hero-grid--image-support {
+    position: relative;
+    min-height: clamp(400px, 54vh, 580px);
+    align-items: center;
+  }
+  .page-hero-grid--image-support .page-hero-image {
+    position: absolute;
+    grid-column: 1 / -1;
+    inset: 0 0 0 auto;
+    width: min(60vw, 680px);
+    height: 100%;
+    border: 0;
+    border-radius: var(--radius-xl);
+    aspect-ratio: auto;
+  }
+  .page-hero-grid--image-support .page-hero-main {
+    position: relative;
+    z-index: 1;
+    margin-right: -72px;
+    padding: var(--space-7);
+    border-radius: var(--radius-xl);
+    background: #ffffff;
+    box-shadow: var(--shadow-raised);
+  }
+
+  .page-hero-grid--image-transparency {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .page-hero-grid--image-transparency .page-hero-image {
+    order: -1;
+    width: min(100%, 1153px);
+    max-width: 1153px;
+    height: clamp(170px, 23vh, 230px);
+    margin-inline: auto;
+    border: 0;
+    aspect-ratio: auto;
+  }
+  .page-hero-grid--image-transparency .page-hero-main {
+    position: relative;
+    z-index: 1;
+    width: min(760px, 100%);
+    margin: -56px 0 0 4%;
+    padding: var(--space-7);
+    border-radius: var(--radius-xl);
+    background: #ffffff;
+    box-shadow: var(--shadow-raised);
+  }
+
+  .page-hero-grid--image-product .page-hero-main {
+    position: relative;
+    z-index: 1;
+    margin-right: -56px;
+    padding: var(--space-6);
+    border-radius: var(--radius-xl);
+    background: #ffffff;
+    box-shadow: var(--shadow-raised);
+  }
+  .page-hero-grid--image-product .page-hero-image {
+    position: relative;
+    z-index: 0;
+    width: 100%;
+    max-width: 560px;
+    justify-self: end;
+  }
+
   @media (min-width: 1024px) {
     .page-hero-grid--compact-image .page-hero-main > :global(.btn) {
       align-self: flex-start;
@@ -561,6 +683,58 @@ const hasPanel = (summaryItems && summaryItems.length > 0) || Astro.slots.has('p
       align-items: stretch;
     }
 
+    .page-hero-grid--image-project,
+    .page-hero-grid--image-support {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      min-height: 0;
+    }
+    .page-hero-grid--image-journal {
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+    .page-hero-grid--with-image .page-hero-image,
+    .page-hero-grid--image-project .page-hero-image,
+    .page-hero-grid--image-journal .page-hero-image,
+    .page-hero-grid--image-support .page-hero-image,
+    .page-hero-grid--image-transparency .page-hero-image,
+    .page-hero-grid--image-product .page-hero-image {
+      position: relative;
+      inset: auto;
+      order: -1;
+      align-self: center;
+      width: 100%;
+      max-width: 560px;
+      max-height: 320px;
+      margin: 0;
+      border: 0;
+      border-radius: var(--radius-lg);
+      aspect-ratio: 16 / 10;
+    }
+    .page-hero-grid--image-project .page-hero-main,
+    .page-hero-grid--image-journal .page-hero-main,
+    .page-hero-grid--image-support .page-hero-main,
+    .page-hero-grid--image-transparency .page-hero-main,
+    .page-hero-grid--image-product .page-hero-main {
+      order: 0;
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      padding: var(--space-4);
+      border-radius: var(--radius-lg);
+      background: #ffffff;
+      box-shadow: var(--shadow-raised);
+    }
+    .page-hero-grid--image-project .page-hero-panel,
+    .page-hero-grid--image-journal .page-hero-panel,
+    .page-hero-grid--image-support .page-hero-panel,
+    .page-hero-grid--image-transparency .page-hero-panel,
+    .page-hero-grid--image-product .page-hero-panel {
+      order: 1;
+    }
+
   }
 
   @media (max-width: 767px) {
@@ -595,6 +769,21 @@ const hasPanel = (summaryItems && summaryItems.length > 0) || Astro.slots.has('p
     .page-hero-grid--with-image .page-hero-image {
       max-height: 240px;
       aspect-ratio: 16 / 10;
+    }
+
+    .page-hero-grid--image-project .page-hero-image,
+    .page-hero-grid--image-journal .page-hero-image,
+    .page-hero-grid--image-support .page-hero-image,
+    .page-hero-grid--image-transparency .page-hero-image,
+    .page-hero-grid--image-product .page-hero-image {
+      max-height: 250px;
+    }
+    .page-hero-grid--image-project .page-hero-main,
+    .page-hero-grid--image-journal .page-hero-main,
+    .page-hero-grid--image-support .page-hero-main,
+    .page-hero-grid--image-transparency .page-hero-main,
+    .page-hero-grid--image-product .page-hero-main {
+      padding: var(--space-4);
     }
 
     .page-hero-breadcrumb .breadcrumb-link {

@@ -687,7 +687,7 @@
   box-shadow: var(--shadow-raised);
 }
 
-/* Cỡ chữ theo bề rộng thẻ (cqi): "3.000.000đ" rộng ~5,2em nên luôn nằm gọn trong thẻ, không cắt/ellipsis */
+/* Cỡ chữ theo bề rộng thẻ (cqi): "7.000.000đ" rộng ~5,2em nên luôn nằm gọn trong thẻ, không cắt/ellipsis */
 .stat-num {
   font-size: 1.75rem;
   font-size: clamp(1.5rem, 17cqi, 2.75rem);

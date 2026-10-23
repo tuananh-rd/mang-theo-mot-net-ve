@@ -1283,7 +1283,7 @@ export const TRANSPARENCY_FAQS: TransparencyFaq[] = [
     answer: 'Không. Thanh tiến độ chỉ tính các khoản ủng hộ qua tài khoản dự án đã đối soát. Tiền bán quà được ghi riêng.',
   },
   {
-    question: 'Trường hợp số tiền ủng hộ vượt mục tiêu 3.000.000đ thì xử lý thế nào?',
+    question: 'Trường hợp số tiền ủng hộ vượt mục tiêu 7.000.000đ thì xử lý thế nào?',
     answer:
       'Website vẫn ghi đúng tổng thực tế đã đối soát. Phần vượt mục tiêu sẽ được dùng mua thêm vật phẩm theo danh mục Mái ấm xác nhận và ghi rõ trong báo cáo tổng kết.',
   },
@@ -1321,7 +1321,7 @@ export interface DonationAccount {
   goalAmount: number | null;
 }
 
-/** Tài khoản do chủ dự án cung cấp trong tài liệu bổ sung C07 (09/10/2026); mục tiêu 3.000.000đ duyệt cùng ngày. */
+/** Tài khoản do chủ dự án cung cấp trong tài liệu bổ sung C07 (09/10/2026); mục tiêu 7.000.000đ duyệt ngày 23/10/2026. */
 export const DONATION_ACCOUNT: DonationAccount = {
   status: 'active',
   bankName: 'Techcombank',
@@ -1329,7 +1329,7 @@ export const DONATION_ACCOUNT: DonationAccount = {
   accountHolder: 'NGUYEN CHI TRUNG',
   qrImage: '/images/ung-ho/qr-ung-ho-techcombank-nguyen-chi-trung.png',
   transferPrefix: 'MTMNV',
-  goalAmount: 3000000,
+  goalAmount: 7000000,
 };
 
 export interface DonationEntry {

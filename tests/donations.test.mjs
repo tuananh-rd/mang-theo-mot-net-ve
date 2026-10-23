@@ -23,11 +23,11 @@ const entry = (date, amount, donor = 'Ẩn danh') => ({ date, donor, amount });
 const ledger = (entries, reconciledAt = '2026-10-20') => ({ reconciled: true, reconciledAt, entries });
 
 describe('Tài khoản và sổ ủng hộ hiện tại (C07S)', () => {
-  test('Tài khoản Techcombank do nhóm cung cấp đang mở, mục tiêu 3.000.000đ', () => {
+  test('Tài khoản Techcombank do nhóm cung cấp đang mở, mục tiêu 7.000.000đ', () => {
     assert.equal(DONATION_ACCOUNT.bankName, 'Techcombank');
     assert.equal(DONATION_ACCOUNT.accountNumber, '19077352683012');
     assert.equal(DONATION_ACCOUNT.accountHolder, 'NGUYEN CHI TRUNG');
-    assert.equal(DONATION_ACCOUNT.goalAmount, 3000000);
+    assert.equal(DONATION_ACCOUNT.goalAmount, 7000000);
     assert.equal(DONATION_ACCOUNT.qrImage, '/images/ung-ho/qr-ung-ho-techcombank-nguyen-chi-trung.png');
     assert.equal(fs.existsSync(new URL(`../public${DONATION_ACCOUNT.qrImage}`, import.meta.url)), true);
     assert.equal(isDonationOpen(DONATION_ACCOUNT), true);
@@ -93,21 +93,21 @@ describe('Logic sổ ủng hộ (C07S)', () => {
   });
 
   test('Sổ đã đối soát nhưng chưa có khoản nào: tổng 0đ, 0%', () => {
-    const s = summarizeLedger(ledger([]), 3000000);
+    const s = summarizeLedger(ledger([]), 7000000);
     assert.deepEqual([s.total, s.count, s.percent, s.reachedGoal], [0, 0, 0, false]);
   });
 
   test('Tổng dẫn xuất từ các dòng sổ; tỷ lệ theo mục tiêu', () => {
-    const s = summarizeLedger(ledger([entry('2026-10-12', 500000), entry('2026-10-15', 250000)]), 3000000);
-    assert.equal(s.total, 750000);
+    const s = summarizeLedger(ledger([entry('2026-10-12', 1000000), entry('2026-10-15', 750000)]), 7000000);
+    assert.equal(s.total, 1750000);
     assert.equal(s.count, 2);
     assert.equal(s.percent, 25);
     assert.equal(s.reconciledAt, '2026-10-20');
   });
 
   test('Vượt mục tiêu: thanh giới hạn 100% nhưng tổng giữ số thật', () => {
-    const s = summarizeLedger(ledger([entry('2026-10-12', 2000000), entry('2026-10-13', 1500000)]), 3000000);
-    assert.equal(s.total, 3500000);
+    const s = summarizeLedger(ledger([entry('2026-10-12', 6000000), entry('2026-10-13', 1500000)]), 7000000);
+    assert.equal(s.total, 7500000);
     assert.equal(s.percent, 100);
     assert.equal(s.reachedGoal, true);
   });
