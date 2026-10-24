@@ -103,7 +103,7 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Quà lưu ni
         <p id="preorderError" role="alert" aria-live="assertive"></p>
         <button id="preorderSubmit" class="btn btn-primary" type="submit">Gửi đăng ký đặt trước</button>
       </form>
-      <div id="preorderSuccess" role="status" aria-live="polite" hidden></div>
+      <div id="preorderSuccess" role="status" aria-live="polite" tabindex="-1" hidden></div>
       <script type="application/json" id="preorderMediaData" set:html={JSON.stringify(preorderMedia)} />
     </div>
   </section>
@@ -270,6 +270,8 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Quà lưu ni
         success.hidden = false;
         success.textContent = `Đã ghi nhận đăng ký ${data.preorder.orderCode}. Đây là đặt trước, chưa thanh toán; nhóm sẽ liên hệ để xác nhận lịch nhận hàng.${data.emailStatus === 'sent' ? ' Email xác nhận đã được gửi.' : ' Nếu không thấy email xác nhận, nhóm sẽ liên hệ bạn.'}`;
       }
+      success?.scrollIntoView({ block: 'center' });
+      success?.focus({ preventScroll: true });
       idempotencyKey = newIdempotencyKey();
     } catch (err) {
       if (error) error.textContent = err instanceof Error ? err.message : 'Không thể gửi đăng ký.';
@@ -288,6 +290,10 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Quà lưu ni
   .preorder-preview figcaption { padding: var(--space-2) var(--space-3); font-size: var(--font-size-small); color: var(--ink-2); border-top: 1px solid var(--line); background: #fff; }
   .field-hint { margin: 6px 0 0; font-size: var(--font-size-small); color: var(--ink-2); }
   .section-preorder form { display: grid; gap: var(--space-4); }
+  /* display:grid ở trên ghi đè thuộc tính hidden; giữ form ẩn thật sự khi chưa sẵn sàng hoặc sau khi gửi thành công. */
+  .section-preorder form[hidden] { display: none; }
+  #preorderSuccess { padding: var(--space-4); border: 1px solid var(--line); border-radius: 6px; background: #fff; }
+  #preorderSuccess:focus { outline: 3px solid var(--color-focus); outline-offset: 2px; }
   .section-preorder .form-group { display: grid; gap: 6px; }
   .section-preorder input, .section-preorder select, .section-preorder textarea { width: 100%; border: 1px solid var(--line); border-radius: 6px; padding: 12px; font: inherit; color: var(--ink); background: #fff; }
   .contact-fields { display: grid; grid-template-columns: minmax(130px, .7fr) minmax(0, 1.3fr); gap: var(--space-4); }
