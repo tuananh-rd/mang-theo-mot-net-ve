@@ -112,3 +112,35 @@ test('Lưu bản nháp finance giữ nguyên verifiedReceipts, vòng lưu UI (sp
     fs.rmSync(dir, { recursive: true, force: true });
   }
 });
+
+test('tên người ủng hộ chỉ vào bản chụp công khai khi donorPublic = true; còn lại luôn Ẩn danh', async () => {
+  const b = block({
+    entries: [
+      { date: '2026-10-13', amount: 50000, donor: 'Nguyen Van Thu', donorPublic: true, internalKey: 'k1', sourceTag: 's' },
+      { date: '2026-10-20', amount: 20000, donor: 'Ẩn danh', internalKey: 'k2' },
+      { date: '2026-10-21', amount: 7000, internalKey: 'k3' },
+    ],
+  });
+  const r = await createPublicationSnapshot(drafts(finance(b)), 'vL2-01');
+  assert.equal(r.isEligibleForPublish, true, JSON.stringify(r.validationErrors));
+  assert.deepEqual(r.snapshot.modules.finance.verifiedReceipts.entries, [
+    { date: '2026-10-13', donor: 'Nguyen Van Thu', amount: 50000 },
+    { date: '2026-10-20', donor: 'Ẩn danh', amount: 20000 },
+    { date: '2026-10-21', donor: 'Ẩn danh', amount: 7000 },
+  ]);
+  const text = JSON.stringify(r.snapshot);
+  assert.ok(!/donorPublic|internalKey|sourceTag/.test(text));
+});
+
+test('tên không có donorPublic hoặc tên không hợp lệ bị từ chối', () => {
+  const mk = (entry) => block({ entries: [{ date: '2026-10-13', amount: 1, ...entry }] });
+  assert.ok(validateVerifiedReceiptsData(mk({ donor: 'Nguyen Van Thu' }), false).length > 0, 'tên thiếu cờ');
+  assert.ok(validateVerifiedReceiptsData(mk({ donor: 'Nguyen Van Thu', donorPublic: false }), false).length > 0);
+  for (const bad of ['A 0912345678', 'a@b.vn', 'http://x.vn', '', ' A']) {
+    assert.ok(validateVerifiedReceiptsData(mk({ donor: bad, donorPublic: true }), false).length > 0, bad);
+  }
+  assert.ok(validateVerifiedReceiptsData(mk({ donorPublic: true }), false).length > 0, 'cờ mà không có tên');
+  assert.ok(validateVerifiedReceiptsData(mk({ donor: 'Ẩn danh', donorPublic: true }), false).length > 0);
+  assert.ok(validateVerifiedReceiptsData(mk({ donor: 'Nguyen Van Thu', donorPublic: 'yes' }), false).length > 0);
+  assert.deepEqual(validateVerifiedReceiptsData(mk({ donor: 'Nguyen Van Thu', donorPublic: true }), false), []);
+});

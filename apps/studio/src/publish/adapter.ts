@@ -13,6 +13,7 @@ import {
   validateProductsModuleData,
   validateFinanceModuleData,
   validateVerifiedReceiptsData,
+  isPublicDonorName,
   validateTeamModuleData,
   isValidCanonicalRoute,
   type ProjectModuleData,
@@ -370,7 +371,7 @@ function sanitizeFinanceForPublic(finance: FinanceModuleData): FinanceModuleData
   };
 
   // Khoản đã xác minh một phần (L1): chỉ chiếu khi đã duyệt công khai, hợp lệ, và KHÔNG cùng sổ đối soát đầy đủ.
-  // Allowlist: ngày, số tiền, tên hiển thị (ẩn danh); loại internalKey/sourceTag và mọi trường lạ.
+  // Allowlist: ngày, số tiền, tên hiển thị (chỉ khi donorPublic = true, còn lại ẩn danh); loại internalKey/sourceTag/donorPublic và mọi trường lạ.
   const vr = finance.verifiedReceipts;
   if (
     vr &&
@@ -386,7 +387,11 @@ function sanitizeFinanceForPublic(finance: FinanceModuleData): FinanceModuleData
       coveredTo: vr.coveredTo,
       basis: 'owner-provided-bank-statement-screenshots',
       verifiedBy: vr.verifiedBy.map((v) => String(v).trim()),
-      entries: vr.entries.map((e) => ({ date: e.date, donor: 'Ẩn danh', amount: e.amount })),
+      entries: vr.entries.map((e) => ({
+        date: e.date,
+        donor: e.donorPublic === true && isPublicDonorName(e.donor) ? e.donor : 'Ẩn danh',
+        amount: e.amount,
+      })),
     };
   }
 

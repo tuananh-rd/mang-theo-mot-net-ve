@@ -282,6 +282,11 @@ export interface VerifiedReceiptEntry {
   date: string;
   amount: number;
   donor?: string;
+  /**
+   * true chỉ khi chủ dự án đã cho phép hiển thị công khai tên này (ghi trong ghi chú revision/audit).
+   * Không có cờ thì bản chiếu công khai luôn hiển thị "Ẩn danh", dù `donor` có tên.
+   */
+  donorPublic?: boolean;
   /** Khóa chống trùng nội bộ (không chứa tên/mã tham chiếu); không bao giờ công khai */
   internalKey?: string;
   /** Nguồn nội bộ, ví dụ 'owner-screenshots-l1'; không bao giờ công khai */
@@ -300,6 +305,11 @@ export interface VerifiedReceiptsData {
 }
 
 const ISO_DAY = /^\d{4}-\d{2}-\d{2}$/;
+const PUBLIC_DONOR_NAME = /^\p{L}+(?:[ .'’-]\p{L}+)*\.?$/u;
+/** Tên hiển thị công khai hợp lệ: chữ cái, khoảng trắng đơn, dấu chấm/nháy/gạch nối; không số, email, URL. */
+export function isPublicDonorName(value: unknown): value is string {
+  return typeof value === 'string' && value === value.trim() && value.length >= 2 && value.length <= 80 && PUBLIC_DONOR_NAME.test(value);
+}
 const isIsoDay = (v: unknown): v is string =>
   typeof v === 'string' && ISO_DAY.test(v) && !Number.isNaN(Date.parse(`${v}T00:00:00Z`)) && new Date(`${v}T00:00:00Z`).toISOString().slice(0, 10) === v;
 
@@ -336,6 +346,14 @@ export function validateVerifiedReceiptsData(block: unknown, fullyReconciled: bo
     else {
       sum += e.amount;
       if (!Number.isSafeInteger(sum)) errors.push('Tổng các khoản đã xác minh vượt giới hạn số nguyên an toàn.');
+    }
+    const isAnon = e.donor === undefined || e.donor === null || e.donor === 'Ẩn danh';
+    if (e.donorPublic !== undefined && typeof e.donorPublic !== 'boolean') {
+      errors.push(`Khoản đã xác minh [${n}]: donorPublic phải là boolean.`);
+    } else if (e.donorPublic === true) {
+      if (isAnon || !isPublicDonorName(e.donor)) errors.push(`Khoản đã xác minh [${n}]: donorPublic = true cần tên hiển thị hợp lệ (chỉ chữ cái, khoảng trắng, dấu chấm, nháy, gạch nối).`);
+    } else if (!isAnon) {
+      errors.push(`Khoản đã xác minh [${n}]: có tên người ủng hộ nhưng chưa có donorPublic = true (chưa được chủ dự án cho phép hiển thị).`);
     }
     if (e.internalKey !== undefined) {
       if (typeof e.internalKey !== 'string' || !e.internalKey.trim()) errors.push(`Khoản đã xác minh [${n}]: internalKey không hợp lệ.`);
