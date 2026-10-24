@@ -2342,7 +2342,16 @@ export function renderStudioHtml(session: AuthSession): string {
 
         const ov = f.overview || {};
 
-        tabContent.innerHTML = \`
+        const vr = f.verifiedReceipts || null;
+        const vrCard = vr
+          ? '<div class="card"><div class="card-title"><span>Khoản ủng hộ đã xác minh một phần (chỉ đọc)</span></div>' +
+            '<p>' + escapeHtml(String((vr.entries || []).length)) + ' khoản, tổng ' +
+            escapeHtml(String((vr.entries || []).reduce((s, e) => s + (e.amount || 0), 0)).replace(/\\B(?=(\\d{3})+(?!\\d))/g, '.')) +
+            'đ, ngày ' + escapeHtml(String(vr.coveredFrom)) + ' đến ' + escapeHtml(String(vr.coveredTo)) +
+            '. Trạng thái công khai: ' + escapeHtml(String(vr.publicApproval)) + '.</p>' +
+            '<p class="text-muted">Đây KHÔNG phải sổ đã đối soát đầy đủ (không phải chữ ký hai người) và không nêu số dư hay khoản chi. Dữ liệu được giữ nguyên khi bạn lưu các thẻ khác.</p></div>'
+          : '';
+        tabContent.innerHTML = vrCard + \`
           <!-- Thẻ 1: Cấu hình Tài khoản Tiếp nhận & Mục tiêu Gây quỹ -->
           <form id="donationAccountForm" class="card">
             <div class="card-title">

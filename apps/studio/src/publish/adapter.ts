@@ -12,6 +12,7 @@ import {
   validateJournalModuleData,
   validateProductsModuleData,
   validateFinanceModuleData,
+  validateVerifiedReceiptsData,
   validateTeamModuleData,
   isValidCanonicalRoute,
   type ProjectModuleData,
@@ -367,6 +368,27 @@ function sanitizeFinanceForPublic(finance: FinanceModuleData): FinanceModuleData
       disclaimer: String(finance.overview?.disclaimer || '').trim(),
     },
   };
+
+  // Khoản đã xác minh một phần (L1): chỉ chiếu khi đã duyệt công khai, hợp lệ, và KHÔNG cùng sổ đối soát đầy đủ.
+  // Allowlist: ngày, số tiền, tên hiển thị (ẩn danh); loại internalKey/sourceTag và mọi trường lạ.
+  const vr = finance.verifiedReceipts;
+  if (
+    vr &&
+    !finance.reconciled &&
+    vr.publicApproval === 'approved' &&
+    validateVerifiedReceiptsData(vr, false).length === 0
+  ) {
+    result.verifiedReceipts = {
+      scope: 'partial-verified-receipts',
+      publicApproval: 'approved',
+      verifiedAt: vr.verifiedAt,
+      coveredFrom: vr.coveredFrom,
+      coveredTo: vr.coveredTo,
+      basis: 'owner-provided-bank-statement-screenshots',
+      verifiedBy: vr.verifiedBy.map((v) => String(v).trim()),
+      entries: vr.entries.map((e) => ({ date: e.date, donor: 'Ẩn danh', amount: e.amount })),
+    };
+  }
 
   if (finance.donationAccount) {
     result.donationAccount = {

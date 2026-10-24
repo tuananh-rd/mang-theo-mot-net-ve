@@ -272,12 +272,83 @@ export interface FinanceOverviewData {
   disclaimer?: string | null;
 }
 
+/**
+ * Khoản ủng hộ đã xác minh MỘT PHẦN từ ảnh sao kê do chủ dự án cung cấp (L1).
+ * Song song với sổ đối soát đầy đủ: không đặt reconciled=true, không giả chữ ký hai người,
+ * không chứa số dư/chi/tổng cả tài khoản. `internalKey`/`sourceTag` chỉ ở bản nháp nội bộ;
+ * bản chiếu công khai chỉ giữ ngày, số tiền, tên hiển thị (mặc định ẩn danh).
+ */
+export interface VerifiedReceiptEntry {
+  date: string;
+  amount: number;
+  donor?: string;
+  /** Khóa chống trùng nội bộ (không chứa tên/mã tham chiếu); không bao giờ công khai */
+  internalKey?: string;
+  /** Nguồn nội bộ, ví dụ 'owner-screenshots-l1'; không bao giờ công khai */
+  sourceTag?: string;
+}
+
+export interface VerifiedReceiptsData {
+  scope: 'partial-verified-receipts';
+  publicApproval: 'pending' | 'approved';
+  verifiedAt: string;
+  coveredFrom: string;
+  coveredTo: string;
+  basis: 'owner-provided-bank-statement-screenshots';
+  verifiedBy: string[];
+  entries: VerifiedReceiptEntry[];
+}
+
+const ISO_DAY = /^\d{4}-\d{2}-\d{2}$/;
+const isIsoDay = (v: unknown): v is string =>
+  typeof v === 'string' && ISO_DAY.test(v) && !Number.isNaN(Date.parse(`${v}T00:00:00Z`)) && new Date(`${v}T00:00:00Z`).toISOString().slice(0, 10) === v;
+
+export function validateVerifiedReceiptsData(block: unknown, fullyReconciled: boolean): string[] {
+  const errors: string[] = [];
+  if (!block || typeof block !== 'object' || Array.isArray(block)) return ['verifiedReceipts phải là một đối tượng.'];
+  const b = block as Partial<VerifiedReceiptsData>;
+  if (fullyReconciled) errors.push('verifiedReceipts không được dùng cùng sổ đã đối soát đầy đủ (tránh đếm hai lần).');
+  if (b.scope !== 'partial-verified-receipts') errors.push('verifiedReceipts.scope phải là "partial-verified-receipts".');
+  if (b.publicApproval !== 'pending' && b.publicApproval !== 'approved') errors.push('verifiedReceipts.publicApproval phải là pending hoặc approved.');
+  for (const f of ['verifiedAt', 'coveredFrom', 'coveredTo'] as const) {
+    if (!isIsoDay(b[f])) errors.push(`verifiedReceipts.${f} phải là ngày hợp lệ YYYY-MM-DD.`);
+  }
+  if (isIsoDay(b.coveredFrom) && isIsoDay(b.coveredTo) && b.coveredFrom > b.coveredTo) errors.push('verifiedReceipts.coveredFrom không được sau coveredTo.');
+  if (isIsoDay(b.coveredTo) && isIsoDay(b.verifiedAt) && b.coveredTo > b.verifiedAt) errors.push('verifiedReceipts.coveredTo không được sau verifiedAt.');
+  if (b.basis !== 'owner-provided-bank-statement-screenshots') errors.push('verifiedReceipts.basis không hợp lệ.');
+  if (!Array.isArray(b.verifiedBy) || b.verifiedBy.length === 0 || b.verifiedBy.some((v) => typeof v !== 'string' || !v.trim() || v.includes('@'))) {
+    errors.push('verifiedReceipts.verifiedBy phải là danh sách vai trò (không chứa email).');
+  }
+  if (!Array.isArray(b.entries) || b.entries.length === 0) {
+    errors.push('verifiedReceipts.entries phải là mảng không rỗng.');
+    return errors;
+  }
+  const keys = new Set<string>();
+  b.entries.forEach((e, i) => {
+    const n = i + 1;
+    if (!e || typeof e !== 'object') { errors.push(`Khoản đã xác minh [${n}] không hợp lệ.`); return; }
+    if (!isIsoDay(e.date)) errors.push(`Khoản đã xác minh [${n}]: ngày không hợp lệ.`);
+    else if (isIsoDay(b.coveredFrom) && isIsoDay(b.coveredTo) && (e.date < b.coveredFrom || e.date > b.coveredTo)) {
+      errors.push(`Khoản đã xác minh [${n}]: ngày ngoài phạm vi.`);
+    }
+    if (typeof e.amount !== 'number' || !Number.isInteger(e.amount) || e.amount <= 0) errors.push(`Khoản đã xác minh [${n}]: số tiền phải là số nguyên dương.`);
+    if (e.internalKey !== undefined) {
+      if (typeof e.internalKey !== 'string' || !e.internalKey.trim()) errors.push(`Khoản đã xác minh [${n}]: internalKey không hợp lệ.`);
+      else if (keys.has(e.internalKey)) errors.push(`Khoản đã xác minh [${n}]: internalKey bị trùng.`);
+      else keys.add(e.internalKey);
+    }
+  });
+  return errors;
+}
+
 export interface FinanceModuleData {
   reconciled: boolean;
   reconciledAt: string | null;
   publicApproval: 'pending' | 'approved';
   reconciledBy: string[];
   entries: DonationEntry[];
+  /** Khoản đã xác minh một phần (L1); độc lập với reconciled/entries */
+  verifiedReceipts?: VerifiedReceiptsData;
   overview: FinanceOverviewData;
   donationAccount?: DonationAccountData;
   ledgerProcess?: LedgerProcessStep[];
@@ -372,6 +443,9 @@ export function validateFinanceModuleData(data: unknown): { isValid: boolean; er
         errors.push(`Giao dịch thứ ${i + 1} số tiền phải là số nguyên dương.`);
       }
     }
+  }
+  if (f.verifiedReceipts !== undefined && f.verifiedReceipts !== null) {
+    errors.push(...validateVerifiedReceiptsData(f.verifiedReceipts, f.reconciled === true));
   }
   if (f.sales !== undefined && !Array.isArray(f.sales)) {
     errors.push('sales phải là mảng doanh thu bán hàng.');
