@@ -7,7 +7,7 @@ Task `task_dda3c1fd9763`, dispatch `ctx_a9bf520a2a7d`. Hai checkout riêng, khô
 | Checkout / nhánh | `.../public-owner-fixes` · `tuananh-rd/public-owner-fixes` | `.../public-phone-api` · `tuananh-rd/public-phone-api` |
 | Nền | `origin/main` c200813 (spec `ad81dc5`) | C23 `fd79daa` |
 | SHA code | `9474fcf26d2b53ebf772cd652608d9b222a4e690` | `63c45f7aa93ab9555a2c732d8c7d0bf75c180ebe` |
-| SHA báo cáo/bằng chứng | `PUB_DOC` | `c90cb8919b478d5dfe7b4cdf29950e3a6b2c6400` |
+| SHA báo cáo/bằng chứng | `62d24c417c07fdf183a18e2e71cb1f1a35a01551` | `c90cb8919b478d5dfe7b4cdf29950e3a6b2c6400` |
 
 Bản xem trước: **http://127.0.0.1:4383/** (PID 15864, cwd = `public-owner-fixes`, phục vụ `dist` của nhánh public bằng `node docs/evidence/P1/worker/serve-preview.mjs`; thêm `X-Robots-Tag: noindex` và `/robots.txt` Disallow CHỈ ở máy chủ xem trước, mã nguồn/Layout không đổi). API cho biểu mẫu: fixture cục bộ `http://127.0.0.1:4331` (PID 36156, SQLite trong bộ nhớ, `isTest`, không email/D1/R2/cấu hình thật; `docs/evidence/P1-api/worker/local-preorder-fixture.mjs` ở checkout API). Không dùng cổng của tiến trình khác.
 
@@ -34,3 +34,6 @@ Trình duyệt (Chrome headless CDP, DPR 1, `verify.mjs` → `verification.json`
 
 ## Hạn chế thực
 Lab một máy Chrome headless; không có số liệu field/Lighthouse/AA. Biểu mẫu trên trang public gốc vẫn hiện dù API chưa phản hồi (lỗi `form[hidden]` có từ trước, ngoài phạm vi, không sửa). Bản xem trước là fixture cục bộ, không phản ánh API production. `isReferenceOnly` của ảnh móc khóa để `true` (ảnh mẫu). Chú thích mobile của hero bị bỏ cùng hộp nổi (xem mục 2).
+
+## Ghi chú commit
+Commit tài liệu `62d24c4` đã vô tình gộp các tệp do Codex sở hữu trong `docs/evidence/P1/review/`; commit kế tiếp gỡ chúng khỏi chỉ mục (tệp vẫn nguyên trên đĩa, không bị sửa/xóa, vẫn là của Codex). Không amend/reset để giữ lịch sử đúng quy tắc; nếu cần lịch sử sạch hơn hãy báo để xử lý riêng.
