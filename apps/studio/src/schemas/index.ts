@@ -324,6 +324,7 @@ export function validateVerifiedReceiptsData(block: unknown, fullyReconciled: bo
     return errors;
   }
   const keys = new Set<string>();
+  let sum = 0;
   b.entries.forEach((e, i) => {
     const n = i + 1;
     if (!e || typeof e !== 'object') { errors.push(`Khoản đã xác minh [${n}] không hợp lệ.`); return; }
@@ -331,7 +332,11 @@ export function validateVerifiedReceiptsData(block: unknown, fullyReconciled: bo
     else if (isIsoDay(b.coveredFrom) && isIsoDay(b.coveredTo) && (e.date < b.coveredFrom || e.date > b.coveredTo)) {
       errors.push(`Khoản đã xác minh [${n}]: ngày ngoài phạm vi.`);
     }
-    if (typeof e.amount !== 'number' || !Number.isInteger(e.amount) || e.amount <= 0) errors.push(`Khoản đã xác minh [${n}]: số tiền phải là số nguyên dương.`);
+    if (typeof e.amount !== 'number' || !Number.isSafeInteger(e.amount) || e.amount <= 0) errors.push(`Khoản đã xác minh [${n}]: số tiền phải là số nguyên dương an toàn.`);
+    else {
+      sum += e.amount;
+      if (!Number.isSafeInteger(sum)) errors.push('Tổng các khoản đã xác minh vượt giới hạn số nguyên an toàn.');
+    }
     if (e.internalKey !== undefined) {
       if (typeof e.internalKey !== 'string' || !e.internalKey.trim()) errors.push(`Khoản đã xác minh [${n}]: internalKey không hợp lệ.`);
       else if (keys.has(e.internalKey)) errors.push(`Khoản đã xác minh [${n}]: internalKey bị trùng.`);

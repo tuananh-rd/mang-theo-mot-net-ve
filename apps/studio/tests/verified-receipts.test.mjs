@@ -76,6 +76,12 @@ test('khối không hợp lệ bị từ chối: ngoài phạm vi, email, trùng
   assert.equal(validateFinanceModuleData(finance(block({ scope: 'x' }))).isValid, false);
 });
 
+test('số tiền không an toàn và tổng tràn bị từ chối', () => {
+  const big = Number.MAX_SAFE_INTEGER;
+  assert.ok(validateVerifiedReceiptsData(block({ entries: [{ date: '2026-10-13', amount: big }, { date: '2026-10-13', amount: 5 }] }), false).some((e) => /an toàn/.test(e)));
+  assert.ok(validateVerifiedReceiptsData(block({ entries: [{ date: '2026-10-13', amount: 2 ** 53 }] }), false).length > 0);
+});
+
 test('không có chữ ký hai người: sổ đầy đủ không thể bật bằng verifiedReceipts', async () => {
   const forged = finance(block(), { reconciled: true, reconciledAt: '2026-10-24', publicApproval: 'approved', reconciledBy: ['x'] });
   const r = await createPublicationSnapshot(drafts(forged), 'vL1-03');
