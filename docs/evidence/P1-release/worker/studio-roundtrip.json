@@ -1,0 +1,47 @@
+{
+  "before": {
+    "value": "/media/asset-moc-khoa-mau-chu-du-an",
+    "selectedOption": "/media/asset-moc-khoa-mau-chu-du-an",
+    "hasMatchingOption": true,
+    "label": "/media/asset-moc-khoa-mau-chu-du-an",
+    "options": [
+      "",
+      "/images/san-pham/chuon-chuon-tre.webp",
+      "/media/asset-moc-khoa-mau-chu-du-an",
+      "/media/images/apple-touch-icon.png",
+      "/media/images/favicon-32x32.png",
+      "/media/images/illustrations/a01.webp",
+      "/media/images/illustrations/a02.webp",
+      "/media/images/illustrations/a03.webp",
+      "/media/images/illustrations/a04.webp",
+      "/media/images/illustrations/a05.webp",
+      "/media/images/logo_lang_kinh_2048.png",
+      "/media/images/logo_option5_horizontal.png",
+      "/media/images/mai-am/mai-am-1.webp",
+      "/media/images/mai-am/mai-am-2.webp",
+      "/media/images/san-pham/chuon-chuon-tre.webp",
+      "/media/images/thanh-vien/le-tuan-anh.webp",
+      "/media/images/thanh-vien/nguyen-anh-khoa.webp",
+      "/media/images/thanh-vien/nguyen-chi-trung.webp",
+      "/media/images/thanh-vien/nguyen-ngoc-khoa.webp",
+      "/media/images/thanh-vien/nguyen-nhu-huy.webp",
+      "/media/images/thanh-vien/tran-binh-trong.webp",
+      "/media/images/thanh-vien/trinh-hien-lan.webp",
+      "/media/images/ung-ho/qr-ung-ho-techcombank.png",
+      "/media/images/hero/chuon-chuon-go-xanh.webp",
+      "/media/images/hero/chuon-chuon-go-xanh-900.webp"
+    ]
+  },
+  "save": {
+    "versionHashBefore": "c2314a1a1adf456c",
+    "versionHashAfter": "93740996c56c954d",
+    "mocKhoaMediaKeyBefore": "/media/asset-moc-khoa-mau-chu-du-an",
+    "mocKhoaMediaKeyAfter": "/media/asset-moc-khoa-mau-chu-du-an",
+    "chuonChuonMediaKeyAfter": "/images/san-pham/chuon-chuon-tre.webp",
+    "pricesAfter": [
+      40000,
+      10000
+    ]
+  },
+  "photoPreserved": true
+}

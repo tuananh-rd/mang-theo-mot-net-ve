@@ -1,0 +1,29 @@
+{
+  "beforeProductsHash": "4d8c56104e0f3c1533e6d36765cac032b6670de1ca685423d4b5c320ecf3ac16",
+  "newProductsHash": "c2314a1a1adf456c2d8fd4c9a763404ec9b7af4a6ee45312951867602f2030ef",
+  "productsVer": 4,
+  "publicationId": "pub-1792851097528-p1r2",
+  "snapshotSha256": "6a42b9ad32c37856d5edb2e597f129dfaac373f8456ee54047389e6ff09858c9",
+  "c0": {
+    "revisions": 23,
+    "publications": 3,
+    "audit": 30,
+    "media": 23,
+    "preorders": 2
+  },
+  "c1": {
+    "revisions": 24,
+    "publications": 4,
+    "audit": 34,
+    "media": 23,
+    "preorders": 2
+  },
+  "ok": true,
+  "pubs": [
+    "pub-1792772772098-q1td:draft",
+    "pub-1792772841370-mjt6:draft",
+    "pub-1792850736189-p1r1:draft",
+    "pub-1792851097528-p1r2:pending_review"
+  ],
+  "sqlSha256": "d24a8eb75f0bbeb7648dc89e282816144eaa2ed5cf6c44f8b4dee994bfbdbdc2"
+}

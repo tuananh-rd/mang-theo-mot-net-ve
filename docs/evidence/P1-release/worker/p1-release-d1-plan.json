@@ -1,0 +1,78 @@
+{
+  "generatedAt": "2026-10-24T14:05:36.188Z",
+  "actor": "claude-release@internal",
+  "scope": {
+    "project": [
+      "/progress/currentStageIndex",
+      "/statusNotice"
+    ],
+    "products": [
+      "/moc-khoa/mediaKey"
+    ]
+  },
+  "old": {
+    "statusNotice": "Đang triển khai · tuần 2",
+    "stage": 2,
+    "updatedAt": "2026-10-23",
+    "week": 2,
+    "total": 5,
+    "mediaKey": null
+  },
+  "new": {
+    "statusNotice": "CHẶNG 2 — Gây quỹ",
+    "stage": 1,
+    "mediaKey": "media/images/san-pham/moc-khoa-mau-chu-du-an.webp"
+  },
+  "before": {
+    "projectHash": "d3701007c71389e8105d5d41bdf34d6fd14d9a047789130a92903df8614a3595",
+    "productsHash": "1d719cbc3cda528c34df7941b2f90d95c325142e15af931a7a858dec6eb44ed9",
+    "counts": {
+      "revisions": 21,
+      "publications": 2,
+      "audit": 25,
+      "media": 22,
+      "preorders": 2,
+      "users": 2
+    }
+  },
+  "expected": {
+    "projectHash": "e275667990c41f78f60447fa56bb5a38c7a1c68403bb58ca3ecb2c5cdccd3ebb",
+    "productsHash": "4d8c56104e0f3c1533e6d36765cac032b6670de1ca685423d4b5c320ecf3ac16",
+    "projectVer": 7,
+    "productsVer": 3,
+    "publicationId": "pub-1792850736189-p1r1",
+    "snapshotSha256": "3b0cf28ff3b5d6653a7650a84e6658fb9413f81b74dfac36e62fb839c0823326"
+  },
+  "localAfter": {
+    "counts": {
+      "revisions": 23,
+      "publications": 3,
+      "audit": 30,
+      "media": 23,
+      "preorders": 2,
+      "users": 2
+    },
+    "projectDraft": "e275667990c41f78f60447fa56bb5a38c7a1c68403bb58ca3ecb2c5cdccd3ebb",
+    "productsDraft": "4d8c56104e0f3c1533e6d36765cac032b6670de1ca685423d4b5c320ecf3ac16",
+    "pubs": [
+      {
+        "id": "pub-1792772772098-q1td",
+        "status": "draft",
+        "error_message": "Từ chối bởi người duyệt"
+      },
+      {
+        "id": "pub-1792772841370-mjt6",
+        "status": "draft",
+        "error_message": "Thay thế bởi bản phát hành P1 24/10/2026 (chặng 2 và ảnh móc khóa); snapshot cũ giữ nguyên, không được công bố."
+      },
+      {
+        "id": "pub-1792850736189-p1r1",
+        "status": "pending_review",
+        "error_message": null
+      }
+    ]
+  },
+  "localCheck": true,
+  "sqlSha256": "338f89c80d33ecb3c0f25551b7542c3492877e001ae3d53df26d1e0ea7337080",
+  "sqlBytes": 38222
+}
