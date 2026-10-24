@@ -8,9 +8,9 @@ Ba chuỗi “Tổng quan kế hoạch / Thành viên nhóm Lăng Kính / Mỗi 
 ## Biên nhận (receipts)
 | Hạng mục | Trước | Sau |
 | --- | --- | --- |
-| Git `origin/main` | `c200813` | `cb7dc0b` (fast-forward; ứng dụng đã duyệt `d87e57c`; thêm `docs/media-registry-products.json`) |
-| Pages `mang-theo-mot-net-ve` (production) | `5f1b61b9` @c200813 | **`130b5b67`** @cb7dc0b (Active) |
-| Worker `mang-theo-mot-net-ve-preorder-api` | `03dd63c9` | **`29fe7433-3d76-49a5-8a7e-bc3ac391f5f0`** (từ `63c45f7`; route `mangtheomotnetve.website/api/preorders*`) |
+| Git `origin/main` | `c200813dac24d7627ce3d4a89efeac9aaab6316f` | `cb7dc0b2a8bdd14a4e4f88b46d873e8be6b4ab7c` (fast-forward; ứng dụng đã duyệt `d87e57c`; thêm `docs/media-registry-products.json`), rồi `19b4ea93a50d5b42aefcd9af802b08cf19358ac0` (chỉ tài liệu); sau bản sửa tài liệu cuối xem ghi chú cuối báo cáo |
+| Pages `mang-theo-mot-net-ve` (production) | `5f1b61b9-7df1-4a74-b34e-89eb86900829` @c200813 | **`130b5b67-c5be-4c11-a785-77274c1daf17`** @cb7dc0b (Active); sau lần đẩy tài liệu **`6df93693-4cd0-433a-8375-228ca1071a19`** @19b4ea9 (Active, cùng nội dung ứng dụng) |
+| Worker `mang-theo-mot-net-ve-preorder-api` | `03dd63c9-dd89-48eb-870d-67155b79744f` | **`29fe7433-3d76-49a5-8a7e-bc3ac391f5f0`** (từ `63c45f7`; route `mangtheomotnetve.website/api/preorders*`) |
 | Worker Studio `mang-theo-mot-net-ve-studio-prod` | `d5b3f648` | **không triển khai lại** (cấu hình production có CF_ACCESS_* giữ chỗ trong mã; tránh ghi đè) |
 | D1 `studio-d1-prod` | 21 revisions · 2 publications · 22 media · 25 audit · 2 orders | 24 revisions · 4 publications · 23 media · 34 audit · **2 orders (không đổi)** |
 | R2 `studio-media-prod` | không có ảnh móc khóa | `media/asset-moc-khoa-mau-chu-du-an` (sha256 `bcd18df918f976e6ec805351399712e544204d5214e677532bdf69e05f91a2d1`, 25.214 B, đã tải xuống kiểm hash) |
@@ -31,11 +31,11 @@ Sao lưu trước khi ghi: `studio-d1-prod-pre-p1.sql` (223.121 B, sha256 `00cc3
 - Ảnh móc khóa: tệp live `/images/san-pham/moc-khoa-mau-chu-du-an.webp` HTTP 200, sha256 khớp; thẻ danh mục render 333×420 (`contain`), trang chi tiết 333×444 (375) và 637×560 (1440), nằm trong khung; biểu mẫu `?sanpham=moc-khoa` chọn móc khóa và hiện ảnh xem trước.
 - Biểu mẫu: nhãn “Số điện thoại” bắt buộc; gửi trống và số sai bị chặn ở máy khách với thông báo tiếng Việt, **0 yêu cầu POST** (`live-verification.json`). Không gửi đơn thật.
 - API thật, probe an toàn không tạo đơn: thiếu `phone` **và** `pickup` rỗng trong cùng yêu cầu, email `.invalid`, có đồng ý → `HTTP 400 {"success":false,"error":"Vui lòng nhập số điện thoại để nhóm liên hệ xác nhận đơn."}`; số đơn D1 vẫn 2 trước/sau.
-- Bất biến: mục tiêu 7.000.000đ, giá 40.000/10.000, người nhận/QR, mở đặt trước (cấu hình công khai trả hai sản phẩm), bảo vệ C21 không đổi; 27 trang × 375/768/1440: một H1, không tràn ngang/cắt chữ, tương phản ≥4.5:1; menu mở/Escape đóng; mọi tuyến 200.
+- Bất biến: mục tiêu 7.000.000đ, giá 40.000/10.000, người nhận/QR, mở đặt trước (cấu hình công khai trả hai sản phẩm), bảo vệ C21 không đổi; 9 tuyến × 3 viewport (375/768/1440) = 27 trường hợp trang-viewport: một H1, không tràn ngang/cắt chữ, tương phản ≥4.5:1; menu mở/Escape đóng; mọi tuyến 200.
 - Ảnh chụp: `docs/evidence/P1-release/worker/after/` (375/768/1440; Trang chủ, Dự án, Quà, móc khóa, biểu mẫu).
 
 ## Lệnh/kết quả
-Public: `npm run check` 0 lỗi, `npm test` 101/101, `npm run build` exit 0 (trước khi đẩy); bằng chứng P1 tái dùng cho mã không đổi (`d87e57c`). API: `studio:test` 98/98, `npm test` 101/101 (báo cáo P1-API). Đẩy: `git push origin HEAD:refs/heads/main` (FF, không force); Worker: `wrangler deploy --config wrangler.preorder.toml`; D1: `wrangler d1 execute --remote --file` (hai gói SQL có CAS); R2: `wrangler r2 object put/get/delete`.
+Mã thoát thực (không suy ra từ lệnh có pipe): public tại `19b4ea9`, chạy lại có ghi log `final-*.log` và `exit-codes.txt` — `npm run check` exit 0 (0 lỗi/0 cảnh báo/0 gợi ý), `npm test` exit 0 (101/101), `npm run build` exit 0; các lần chạy trước khi đẩy (`cb7dc0b`) có pipe nên không dùng làm bằng chứng mã thoát. API (log có dòng `exit N` do chính lệnh ghi): `studio:typecheck` 0, `studio:build` 0, `studio:test` 0 (98/98, `studio-test-3.log`), `npm test` gốc 0 (101/101), `npm run check` 0, `npm run build` 0, `astro build --config astro.preview.config.mjs` 0. Các lệnh triển khai/ghi (`git push`, `wrangler deploy`, `wrangler d1 execute`, `wrangler r2 object …`) có đầu ra được xác nhận bằng biên nhận (SHA, version ID, số dòng thay đổi, đọc lại băm) nhưng mã thoát không được ghi riêng. Đẩy: `git push origin HEAD:refs/heads/main` (FF, không force); Worker: `wrangler deploy --config wrangler.preorder.toml`; D1: `wrangler d1 execute --remote --file` (hai gói SQL có CAS); R2: `wrangler r2 object put/get/delete`.
 
 ## Hạn chế và việc còn lại
 - Studio production **không được triển khai lại**; lỗi chung của Studio (khóa chọn ảnh `'/'+r2_key` so với khóa duyệt r2 trần/`/media/<id>`; ảnh tải qua UI có `r2_key = media/<id>.<ext>` sẽ bị lệch) vẫn còn — đề xuất sửa riêng ở router `approvedKeys` và triển khai Studio với cấu hình production được giữ nguyên.

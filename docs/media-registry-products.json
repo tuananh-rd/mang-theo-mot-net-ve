@@ -3,8 +3,8 @@
     "assetId": "asset-moc-khoa-mau-chu-du-an",
     "productId": "moc-khoa",
     "publicPath": "/images/san-pham/moc-khoa-mau-chu-du-an.webp",
-    "studioR2Key": "media/images/san-pham/moc-khoa-mau-chu-du-an.webp",
-    "studioMediaKey": "media/images/san-pham/moc-khoa-mau-chu-du-an.webp",
+    "studioR2Key": "media/asset-moc-khoa-mau-chu-du-an",
+    "studioMediaKey": "/media/asset-moc-khoa-mau-chu-du-an",
     "contentType": "image/webp",
     "width": 466,
     "height": 622,
@@ -17,6 +17,6 @@
     "isIllustration": false,
     "fit": "contain",
     "rights": "Chủ dự án đã cho phép dùng ảnh này cho trang đặt trước (24/10/2026). Ảnh mẫu; không khẳng định chất liệu, kích thước hay tính năng.",
-    "note": "Studio chưa được triển khai lại nên registry mã nguồn của Studio không chứa tệp này; khóa media trong bản sửa đổi sản phẩm là studioMediaKey (khớp r2_key của media_assets đã duyệt). Ánh xạ sang publicPath dùng cho site tĩnh."
+    "note": "Studio production chưa được triển khai lại. r2_key không đuôi (media/<assetId>) để giá trị chọn trên UI Studio ('/' + r2_key) trùng khóa được duyệt (/media/<assetId>) và trùng mediaKey đã lưu; đã chứng minh chọn đúng và lưu lại giữ nguyên ảnh trên UI Studio thật chạy cục bộ (dev); chưa có bằng chứng trên Studio production vì cần Cloudflare Access. publicPath dùng cho site tĩnh."
   }
 ]
