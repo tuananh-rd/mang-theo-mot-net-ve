@@ -546,5 +546,94 @@ export function validateDonationProjection(payload) {
       }
     });
   }
+  if (payload.verifiedReceipts !== undefined && payload.verifiedReceipts !== null) {
+    errors.push(...validateVerifiedReceipts(payload.verifiedReceipts, payload.reconciled === true));
+  }
   return { isValid: errors.length === 0, errors };
+}
+
+const VERIFIED_RECEIPTS_SCOPE = 'partial-verified-receipts';
+const VERIFIED_RECEIPTS_KEYS = ['scope', 'publicApproval', 'verifiedAt', 'coveredFrom', 'coveredTo', 'basis', 'verifiedBy', 'entries'];
+const VERIFIED_RECEIPT_ENTRY_KEYS = ['date', 'donor', 'amount'];
+
+/**
+ * Xác thực khối "khoản ủng hộ đã xác minh trong phạm vi một số ảnh sao kê" (L1).
+ * Đây KHÔNG phải sổ đã đối soát đầy đủ: không chứa số dư, chi, tổng toàn tài khoản.
+ * Allowlist chặt: không cho phép mã tham chiếu, giờ giao dịch, mô tả thô hay tên người gửi.
+ * @param {any} block
+ * @param {boolean} fullyReconciled
+ * @returns {string[]}
+ */
+export function validateVerifiedReceipts(block, fullyReconciled) {
+  const errors = [];
+  if (!block || typeof block !== 'object' || Array.isArray(block)) {
+    return ['verifiedReceipts phải là một đối tượng.'];
+  }
+  if (fullyReconciled) {
+    errors.push('verifiedReceipts không được dùng cùng sổ đã đối soát đầy đủ (tránh đếm hai lần).');
+  }
+  for (const key of Object.keys(block)) {
+    if (!VERIFIED_RECEIPTS_KEYS.includes(key)) errors.push(`verifiedReceipts có trường không được phép: ${key}.`);
+  }
+  if (block.scope !== VERIFIED_RECEIPTS_SCOPE) errors.push(`verifiedReceipts.scope phải là "${VERIFIED_RECEIPTS_SCOPE}".`);
+  if (block.publicApproval !== 'approved') errors.push('verifiedReceipts.publicApproval phải là "approved".');
+  for (const field of ['verifiedAt', 'coveredFrom', 'coveredTo']) {
+    if (!isValidIsoDate(block[field])) errors.push(`verifiedReceipts.${field} phải là ngày hợp lệ YYYY-MM-DD.`);
+  }
+  if (isValidIsoDate(block.coveredFrom) && isValidIsoDate(block.coveredTo) && block.coveredFrom > block.coveredTo) {
+    errors.push('verifiedReceipts.coveredFrom không được sau coveredTo.');
+  }
+  if (isValidIsoDate(block.coveredTo) && isValidIsoDate(block.verifiedAt) && block.coveredTo > block.verifiedAt) {
+    errors.push('verifiedReceipts.coveredTo không được sau verifiedAt.');
+  }
+  if (block.basis !== 'owner-provided-bank-statement-screenshots') {
+    errors.push('verifiedReceipts.basis phải là "owner-provided-bank-statement-screenshots".');
+  }
+  if (!Array.isArray(block.verifiedBy) || block.verifiedBy.length === 0 || block.verifiedBy.some((v) => typeof v !== 'string' || !v.trim() || v.includes('@'))) {
+    errors.push('verifiedReceipts.verifiedBy phải là danh sách vai trò (không chứa email).');
+  }
+  if (!Array.isArray(block.entries) || block.entries.length === 0) {
+    errors.push('verifiedReceipts.entries phải là mảng không rỗng.');
+    return errors;
+  }
+  block.entries.forEach((entry, idx) => {
+    const n = idx + 1;
+    if (!entry || typeof entry !== 'object' || Array.isArray(entry)) {
+      errors.push(`Khoản đã xác minh [${n}] không hợp lệ.`);
+      return;
+    }
+    for (const key of Object.keys(entry)) {
+      if (!VERIFIED_RECEIPT_ENTRY_KEYS.includes(key)) errors.push(`Khoản đã xác minh [${n}] có trường không được phép: ${key}.`);
+    }
+    if (!isValidIsoDate(entry.date)) {
+      errors.push(`Khoản đã xác minh [${n}]: ngày không hợp lệ.`);
+    } else if (isValidIsoDate(block.coveredFrom) && isValidIsoDate(block.coveredTo) && (entry.date < block.coveredFrom || entry.date > block.coveredTo)) {
+      errors.push(`Khoản đã xác minh [${n}]: ngày ${entry.date} ngoài phạm vi ${block.coveredFrom}–${block.coveredTo}.`);
+    }
+    if (typeof entry.amount !== 'number' || !Number.isInteger(entry.amount) || entry.amount <= 0) {
+      errors.push(`Khoản đã xác minh [${n}]: số tiền phải là số nguyên dương.`);
+    }
+    if (entry.donor !== 'Ẩn danh') {
+      errors.push(`Khoản đã xác minh [${n}]: tên hiển thị mặc định phải là "Ẩn danh" khi chưa có xác nhận hiển thị tên.`);
+    }
+  });
+  return errors;
+}
+
+/**
+ * Chiếu công khai khối khoản đã xác minh: chỉ giữ ngày, số tiền, tên hiển thị.
+ * @param {any} block
+ */
+export function sanitizeVerifiedReceipts(block) {
+  if (!block) return null;
+  return {
+    scope: block.scope,
+    publicApproval: 'approved',
+    verifiedAt: block.verifiedAt,
+    coveredFrom: block.coveredFrom,
+    coveredTo: block.coveredTo,
+    basis: block.basis,
+    verifiedBy: [...block.verifiedBy],
+    entries: block.entries.map((e) => ({ date: e.date, donor: 'Ẩn danh', amount: e.amount })),
+  };
 }

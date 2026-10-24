@@ -1,5 +1,49 @@
 {
   "reconciled": false,
   "reconciledAt": null,
-  "entries": []
+  "entries": [],
+  "verifiedReceipts": {
+    "scope": "partial-verified-receipts",
+    "publicApproval": "approved",
+    "verifiedAt": "2026-10-24",
+    "coveredFrom": "2026-10-13",
+    "coveredTo": "2026-10-21",
+    "basis": "owner-provided-bank-statement-screenshots",
+    "verifiedBy": [
+      "Chủ dự án (cung cấp và chỉ định khoản)",
+      "Rà soát nội bộ độc lập của nhóm hỗ trợ kỹ thuật"
+    ],
+    "entries": [
+      {
+        "date": "2026-10-13",
+        "donor": "Ẩn danh",
+        "amount": 50000
+      },
+      {
+        "date": "2026-10-20",
+        "donor": "Ẩn danh",
+        "amount": 20000
+      },
+      {
+        "date": "2026-10-20",
+        "donor": "Ẩn danh",
+        "amount": 200000
+      },
+      {
+        "date": "2026-10-20",
+        "donor": "Ẩn danh",
+        "amount": 100000
+      },
+      {
+        "date": "2026-10-21",
+        "donor": "Ẩn danh",
+        "amount": 100000
+      },
+      {
+        "date": "2026-10-21",
+        "donor": "Ẩn danh",
+        "amount": 22222
+      }
+    ]
+  }
 }

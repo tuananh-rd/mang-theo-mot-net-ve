@@ -12,7 +12,8 @@ interface Props {
 const { account, ledger } = Astro.props;
 const summary = summarizeLedger(ledger, account.goalAmount);
 const reconciled = isLedgerReconciled(ledger);
-const rows = sortDonationsNewestFirst(ledger.entries);
+const partial = summary.scope === 'partial' && ledger.verifiedReceipts;
+const rows = sortDonationsNewestFirst(partial ? ledger.verifiedReceipts!.entries : ledger.entries);
 ---
 
 <div class="ledger-box">
@@ -20,12 +21,20 @@ const rows = sortDonationsNewestFirst(ledger.entries);
 
   {rows.length > 0 ? (
     <>
+      {partial && (
+        <p class="ledger-scope" role="note">
+          <strong>Phạm vi xác minh một phần.</strong> Danh sách dưới đây chỉ gồm các khoản ủng hộ đã xác minh từ ảnh sao kê do chủ dự án cung cấp
+          (ngày {formatViDate(summary.coveredFrom)}–{formatViDate(summary.coveredTo)}, xác minh ngày {formatViDate(summary.verifiedAt)}).
+          Đây chưa phải đối soát toàn bộ tài khoản: danh sách không nêu số dư, khoản chi hay tổng cả đợt, và các khoản ngoài phạm vi này sẽ được bổ sung sau khi xác minh.
+          Tên người ủng hộ được ẩn danh theo mặc định.
+        </p>
+      )}
       <div class="ledger-search">
         <label for="donor-search" class="search-label">Tìm khoản ủng hộ của bạn</label>
         <input id="donor-search" type="search" class="search-input" placeholder="Nhập tên người ủng hộ" autocomplete="off" />
       </div>
       <table class="data-table data-table--stack donor-table">
-        <caption class="sr-only">Sao kê các khoản ủng hộ đã đối soát đến {formatViDate(ledger.reconciledAt)}</caption>
+        <caption class="sr-only">{partial ? `Các khoản ủng hộ đã xác minh một phần, ngày ${formatViDate(summary.coveredFrom)} đến ${formatViDate(summary.coveredTo)}` : `Sao kê các khoản ủng hộ đã đối soát đến ${formatViDate(ledger.reconciledAt)}`}</caption>
         <thead>
           <tr>
             <th scope="col">Ngày</th>
@@ -86,6 +95,17 @@ const rows = sortDonationsNewestFirst(ledger.entries);
     border: 1px solid var(--line);
     border-radius: var(--radius-lg);
     padding: var(--space-6);
+  }
+
+  .ledger-scope {
+    margin: 0;
+    padding: var(--space-3) var(--space-4);
+    border-left: 4px solid var(--line-strong);
+    background: var(--surface-soft, #f6f3ee);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-small);
+    color: var(--ink);
   }
 
   .ledger-search {

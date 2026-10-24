@@ -58,6 +58,19 @@ export function validateLedger(ledger: DonationLedger): void {
   if (ledger.reconciled && ledger.publicApproval && ledger.publicApproval !== 'approved') {
     throw new Error('Sổ đã đối soát nhưng chưa được phê duyệt công khai (publicApproval != approved).');
   }
+  if (ledger.verifiedReceipts) {
+    if (ledger.reconciled) throw new Error('Khoản đã xác minh một phần không được dùng cùng sổ đã đối soát đầy đủ.');
+    const vr = ledger.verifiedReceipts;
+    if (vr.scope !== 'partial-verified-receipts' || vr.publicApproval !== 'approved') {
+      throw new Error('Khoản đã xác minh một phần phải đúng phạm vi và đã được phê duyệt công khai.');
+    }
+    for (const entry of vr.entries) {
+      validateDonation(entry);
+      if (entry.date < vr.coveredFrom || entry.date > vr.coveredTo) {
+        throw new Error(`Khoản ngày ${entry.date} ngoài phạm vi đã xác minh ${vr.coveredFrom}–${vr.coveredTo}.`);
+      }
+    }
+  }
   for (const entry of ledger.entries) {
     validateDonation(entry);
     if (ledger.reconciledAt && entry.date > ledger.reconciledAt) {
@@ -67,6 +80,15 @@ export function validateLedger(ledger: DonationLedger): void {
 }
 
 export interface DonationSummary {
+  /**
+   * 'none': chưa có số liệu công bố; 'partial': chỉ các khoản đã xác minh trong phạm vi ảnh sao kê (L1),
+   * KHÔNG phải tổng cả tài khoản; 'full': sổ đã đối soát đầy đủ.
+   */
+  scope: 'none' | 'partial' | 'full';
+  /** Khoảng ngày của các khoản đã xác minh và ngày xác minh; chỉ có khi scope = 'partial' */
+  coveredFrom: string | null;
+  coveredTo: string | null;
+  verifiedAt: string | null;
   /** null khi chưa có sổ đã đối soát: chưa thể biết, KHÔNG phải 0đ */
   total: number | null;
   count: number | null;
@@ -82,12 +104,33 @@ export function summarizeLedger(ledger: DonationLedger, goal: number | null): Do
   if (goal !== null && (!Number.isInteger(goal) || goal <= 0)) {
     throw new Error(`Mục tiêu phải là số nguyên dương: ${goal}.`);
   }
+  const noPartial = { coveredFrom: null, coveredTo: null, verifiedAt: null };
   if (!isLedgerReconciled(ledger)) {
-    return { total: null, count: null, goal, percent: null, reachedGoal: null, reconciledAt: null };
+    const vr = ledger.verifiedReceipts;
+    if (vr) {
+      const sum = vr.entries.reduce((acc, e) => acc + e.amount, 0);
+      // Tổng một phần là mức tối thiểu đã xác minh; không dùng để kết luận "đã đạt mục tiêu".
+      const pct = goal === null ? null : Math.min(100, Math.floor((sum / goal) * 1000) / 10);
+      return {
+        scope: 'partial',
+        coveredFrom: vr.coveredFrom,
+        coveredTo: vr.coveredTo,
+        verifiedAt: vr.verifiedAt,
+        total: sum,
+        count: vr.entries.length,
+        goal,
+        percent: pct,
+        reachedGoal: null,
+        reconciledAt: null,
+      };
+    }
+    return { scope: 'none', ...noPartial, total: null, count: null, goal, percent: null, reachedGoal: null, reconciledAt: null };
   }
   const total = ledger.entries.reduce((sum, e) => sum + e.amount, 0);
   const percent = goal === null ? null : Math.min(100, Math.floor((total / goal) * 1000) / 10);
   return {
+    scope: 'full',
+    ...noPartial,
     total,
     count: ledger.entries.length,
     goal,

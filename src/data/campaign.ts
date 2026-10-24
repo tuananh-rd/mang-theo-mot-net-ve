@@ -6,7 +6,7 @@
  */
 
 import initialReconciledDonations from './reconciled-donations.json' with { type: 'json' };
-import { validateDonationProjection, sanitizeDonationEntry } from '../../tools/content-studio/csv-validator.mjs';
+import { validateDonationProjection, sanitizeDonationEntry, sanitizeVerifiedReceipts } from '../../tools/content-studio/csv-validator.mjs';
 
 export interface QuantitativeFact {
   value: number | null;
@@ -1285,9 +1285,9 @@ export interface TransparencyFaq {
 
 export const TRANSPARENCY_FAQS: TransparencyFaq[] = [
   {
-    question: 'Vì sao tổng ủng hộ đang ghi “Chưa cập nhật”?',
+    question: 'Số tiền đang hiển thị có phải tổng đã nhận của cả dự án không?',
     answer:
-      'Tổng chỉ được tính từ sổ đã đối chiếu với sao kê ngân hàng. Khi nhóm chưa công bố sổ đã đối soát chính thức, website không hiển thị con số (kể cả 0đ) để tránh hiểu lầm là chưa nhận được khoản ủng hộ nào.',
+      'Chưa. Hiện website chỉ công bố một phần: các khoản ủng hộ đã xác minh từ ảnh sao kê do chủ dự án cung cấp, trong khoảng ngày được ghi rõ. Đây chưa phải đối soát toàn bộ tài khoản, nên con số không phải tổng cả đợt, không nêu số dư tài khoản, không cho biết khoản chi, và không có nghĩa là mọi khoản khác chưa tồn tại. Khi nhóm có thể xác minh thêm, danh sách sẽ được bổ sung; sổ chỉ gọi là “đã đối soát” sau khi hai người đối chiếu.',
   },
   {
     question: 'Tiền bán quà lưu niệm có cộng vào tổng ủng hộ không?',
@@ -1366,6 +1366,26 @@ export interface DonationLedger {
   publicApproval?: 'pending' | 'approved';
   /** Các khoản đã đối soát. Không thêm khoản chưa đối chiếu hoặc khoản bán quà lưu niệm. */
   entries: DonationEntry[];
+  /**
+   * Khoản ủng hộ đã xác minh trong phạm vi một số ảnh sao kê do chủ dự án cung cấp (L1).
+   * KHÔNG phải đối soát toàn bộ tài khoản: không suy ra số dư, khoản chi hay tổng cả đợt.
+   * Độc lập với `reconciled`/`entries`.
+   */
+  verifiedReceipts?: VerifiedReceipts;
+}
+
+export interface VerifiedReceipts {
+  scope: 'partial-verified-receipts';
+  publicApproval: 'approved';
+  /** Ngày nhóm xác minh các ảnh sao kê */
+  verifiedAt: string;
+  /** Khoảng ngày của các khoản đã xác minh (không phải khoảng ngày đã kiểm toàn bộ tài khoản) */
+  coveredFrom: string;
+  coveredTo: string;
+  basis: 'owner-provided-bank-statement-screenshots';
+  /** Vai trò, không phải danh tính cá nhân */
+  verifiedBy: string[];
+  entries: DonationEntry[];
 }
 
 function projectPublicDonationLedger(raw: unknown): DonationLedger {
@@ -1379,12 +1399,15 @@ function projectPublicDonationLedger(raw: unknown): DonationLedger {
     reconciledBy?: string[];
     publicApproval?: 'pending' | 'approved';
     entries: any[];
+    verifiedReceipts?: unknown;
   };
   if (!payload.reconciled) {
+    const verified = sanitizeVerifiedReceipts(payload.verifiedReceipts) as VerifiedReceipts | null;
     return {
       reconciled: false,
       reconciledAt: null,
       entries: [],
+      ...(verified ? { verifiedReceipts: verified } : {}),
     };
   }
   const cleanEntries: DonationEntry[] = (payload.entries || []).map((entry) => {
@@ -1403,7 +1426,7 @@ function projectPublicDonationLedger(raw: unknown): DonationLedger {
 }
 
 /**
- * Sổ ủng hộ. Tài liệu bổ sung chưa có sao kê, nên chưa có sổ đã đối soát.
+ * Sổ ủng hộ. Chưa có sổ đối soát đầy đủ; chỉ có khoản đã xác minh một phần (verifiedReceipts, L1).
  * Sổ trống ở đây không chứng minh chưa nhận được tiền.
  */
 export const DONATION_LEDGER: DonationLedger = projectPublicDonationLedger(initialReconciledDonations);

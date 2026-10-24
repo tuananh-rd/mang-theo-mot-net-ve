@@ -33,10 +33,22 @@ describe('Tài khoản và sổ ủng hộ hiện tại (C07S)', () => {
     assert.equal(isDonationOpen(DONATION_ACCOUNT), true);
   });
 
-  test('Chưa có sổ đối soát: tổng và tỷ lệ là null, không phải 0đ, dù tài khoản đã mở', () => {
+  test('Chưa có sổ đối soát đầy đủ: chỉ có phần đã xác minh một phần, không đạt mục tiêu, không phải sổ full', () => {
     assert.equal(isLedgerReconciled(DONATION_LEDGER), false);
     assert.deepEqual(DONATION_LEDGER.entries, []);
     const s = summarizeLedger(DONATION_LEDGER, DONATION_ACCOUNT.goalAmount);
+    assert.equal(s.scope, 'partial');
+    assert.equal(s.total, 492222);
+    assert.equal(s.count, 6);
+    assert.equal(s.reachedGoal, null);
+    assert.equal(s.reconciledAt, null);
+    assert.equal(s.coveredFrom, '2026-10-13');
+    assert.equal(s.coveredTo, '2026-10-21');
+  });
+
+  test('Sổ rỗng và không có khối xác minh: tổng và tỷ lệ là null, không phải 0đ', () => {
+    const s = summarizeLedger({ reconciled: false, reconciledAt: null, entries: [] }, DONATION_ACCOUNT.goalAmount);
+    assert.equal(s.scope, 'none');
     assert.equal(s.total, null);
     assert.equal(s.percent, null);
     assert.equal(s.count, null);
@@ -77,7 +89,7 @@ describe('Tài khoản và sổ ủng hộ hiện tại (C07S)', () => {
       assert.ok(!content.includes('proposal-final'), `${f} contains proposal-final`);
       if (!f.endsWith('journal.ts')) {
         assert.ok(!content.includes('24/10'), `${f} contains 24/10`);
-        assert.ok(!content.includes('2026-10-24'), `${f} contains 2026-10-24`);
+        if (!f.endsWith('reconciled-donations.json')) assert.ok(!content.includes('2026-10-24'), `${f} contains 2026-10-24`); // ngày xác minh thật (L1) nằm trong dữ liệu sổ
       }
     }
   });

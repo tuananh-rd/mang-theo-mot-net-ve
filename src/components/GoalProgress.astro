@@ -11,13 +11,15 @@ interface Props {
 
 const { summary, tone = 'light' } = Astro.props;
 const known = summary.total !== null;
+const partial = summary.scope === 'partial';
 const percent = summary.percent ?? 0;
+const coverage = partial ? `${formatViDate(summary.coveredFrom)}–${formatViDate(summary.coveredTo)}` : '';
 ---
 
 <div class:list={['goal', `goal--${tone}`, { 'goal--unknown': !known }]}>
   <div class="goal-head">
     <div>
-      <span class="goal-label">Đã ủng hộ (sổ đã đối soát)</span>
+      <span class="goal-label">{partial ? 'Khoản đã xác minh một phần' : 'Đã ủng hộ (sổ đã đối soát)'}</span>
       <span class="goal-total">{known ? formatVND(summary.total) : 'Chưa cập nhật sao kê'}</span>
     </div>
     <div class="goal-target">
@@ -33,13 +35,15 @@ const percent = summary.percent ?? 0;
     aria-valuemin="0"
     aria-valuemax="100"
     aria-valuenow={known && summary.percent !== null ? summary.percent : undefined}
-    aria-valuetext={known ? `${summary.percent}% mục tiêu` : 'Chưa cập nhật sao kê'}
+    aria-valuetext={known ? `${summary.percent}% mục tiêu${partial ? ' (mới tính các khoản đã xác minh một phần)' : ''}` : 'Chưa cập nhật sao kê'}
   >
     {known && <span class="goal-fill" style={`--goal-pct: ${percent}%;`}></span>}
   </div>
 
   <p class="goal-foot">
-    {known
+    {partial
+      ? `${summary.count} khoản đã xác minh ngày ${coverage} từ ảnh sao kê do chủ dự án cung cấp · chưa phải đối soát toàn bộ tài khoản`
+      : known
       ? `${summary.percent}% mục tiêu · ${summary.count} lượt · đối soát ${formatViDate(summary.reconciledAt)}${summary.reachedGoal ? ' · đã đạt mục tiêu' : ''}`
       : 'Tổng sẽ hiển thị sau khi nhóm đối chiếu sao kê ngân hàng lần đầu.'}
   </p>
