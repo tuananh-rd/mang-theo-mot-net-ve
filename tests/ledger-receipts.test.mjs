@@ -36,6 +36,7 @@ describe('Dữ liệu công khai đã xác minh một phần', () => {
     assert.equal(e.filter((x) => x.date === '2026-10-23').length, 14, '14 khoản ngày 23/10');
     assert.equal(e.filter((x) => x.donor === 'TRAN THI GIA KHANH').length, 1, 'khoản 14.000đ lặp chỉ tính một lần');
     assert.equal(e.filter((x) => x.donor === 'Ẩn danh').length, 1, 'đúng một khoản ẩn danh (không bịa tên)');
+    assert.deepEqual(e.filter((x) => x.amount === 30000).map((x) => x.donor), ['HA DOAN TRANG'], 'tên khoản 30.000đ theo xác nhận trực tiếp của chủ dự án');
     assert.equal(raw.verifiedReceipts.coveredFrom, '2026-10-13');
     assert.equal(raw.verifiedReceipts.coveredTo, '2026-10-23');
     assert.equal(raw.verifiedReceipts.verifiedAt, '2026-10-25');

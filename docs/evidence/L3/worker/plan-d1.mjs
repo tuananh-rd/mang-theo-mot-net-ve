@@ -45,7 +45,10 @@ const rows = [];
 }
 const [header, ...data] = rows;
 const col = Object.fromEntries(header.map((h, i) => [h, i]));
-const recs = data.map((r) => ({ id: r[col.ma_giao_dich], date: r[col.ngay], amount: Number(r[col.so_tien]), name: r[col.ten_nguoi_ung_ho].trim(), desc: r[col.noi_dung], note: r[col.ghi_chu] }));
+// Sửa tên do chủ dự án xác nhận trực tiếp (25/10/2026): CSV chỉ đọc được đến phần cắt cụt; chủ dự án chép đúng tên đầy đủ.
+const NAME_FIXES = { "HA DOAN TRAN G": "HA DOAN TRANG" };
+const fixName = (n) => NAME_FIXES[n] ?? n;
+const recs = data.map((r) => ({ id: r[col.ma_giao_dich], date: r[col.ngay], amount: Number(r[col.so_tien]), name: fixName(r[col.ten_nguoi_ung_ho].trim()), desc: r[col.noi_dung], note: r[col.ghi_chu] }));
 const dated = recs.filter((r) => /^\d{4}-\d{2}-\d{2}$/.test(r.date));
 const undated = recs.filter((r) => !r.date);
 if (recs.length !== 22 || dated.length !== 6 || undated.length !== 16) throw new Error(`CSV không như dự kiến: ${recs.length}/${dated.length}/${undated.length}`);
