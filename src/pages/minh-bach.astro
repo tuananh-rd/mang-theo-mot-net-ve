@@ -101,6 +101,7 @@ const heroNote = partial
                   </td>
                   <td class="td-actual">
                     <strong>{summary.total !== null ? formatVND(summary.total) : 'Chưa cập nhật'}</strong>
+                    {partial && <br />}
                     {partial && <span class="cell-status-tag">{summary.count} khoản, {formatViDate(summary.coveredFrom)}–{formatViDate(summary.coveredTo)}</span>}
                   </td>
                 </tr>
