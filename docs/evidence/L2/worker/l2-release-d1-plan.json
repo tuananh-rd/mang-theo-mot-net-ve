@@ -1,0 +1,124 @@
+{
+  "csv": {
+    "sha256": "a98d5c3e48f69adce8eda2668d23062eed40c469b4d164cc424599555d6223ba",
+    "rows": 22,
+    "dated": 6,
+    "datedSum": 492222,
+    "undatedRaw": 16,
+    "undatedUniqueAfterDedup": 15,
+    "undatedUniqueSum": 519000,
+    "duplicatesRemoved": 1
+  },
+  "rowMap": [
+    {
+      "csvId": "NOIBO-20261013-001",
+      "date": "2026-10-13",
+      "amount": 50000,
+      "internalKey": "l1:2026-10-13:13:50:50000:c512ffd7",
+      "action": "replace-name"
+    },
+    {
+      "csvId": "NOIBO-20261020-001",
+      "date": "2026-10-20",
+      "amount": 20000,
+      "internalKey": "l1:2026-10-20:17:12:20000:a688dcf3",
+      "action": "replace-name"
+    },
+    {
+      "csvId": "NOIBO-20261020-002",
+      "date": "2026-10-20",
+      "amount": 200000,
+      "internalKey": "l1:2026-10-20:18:04:200000:54183e35",
+      "action": "replace-name"
+    },
+    {
+      "csvId": "NOIBO-20261020-003",
+      "date": "2026-10-20",
+      "amount": 100000,
+      "internalKey": "l1:2026-10-20:21:24:100000:d295c776",
+      "action": "replace-name"
+    },
+    {
+      "csvId": "NOIBO-20261021-001",
+      "date": "2026-10-21",
+      "amount": 100000,
+      "internalKey": "l1:2026-10-21:09:13:100000:2b2c573c",
+      "action": "replace-name"
+    },
+    {
+      "csvId": "NOIBO-20261021-002",
+      "date": "2026-10-21",
+      "amount": 22222,
+      "internalKey": "l1:2026-10-21:20:04:22222:17f5dd5e",
+      "action": "replace-name"
+    }
+  ],
+  "replace": {
+    "matchedExistingD1Rows": 6,
+    "newRows": 0,
+    "duplicateRows": 0,
+    "unmatchedD1Rows": 0,
+    "namesChanged": 6
+  },
+  "beforeFinanceHash": "6ab89c454654d761fc103b1428a27f328c8026026fe2b735ccbe5c8dc9b3e79e",
+  "newFinanceHash": "f8ac4cd8c6d30119d49ad07ece84ee225818b255ac854e2fa13d269a50e15659",
+  "financeVersion": 7,
+  "publicationId": "pub-1792861490739-l2r1",
+  "supersededPublication": "pub-1792857408876-l1r1",
+  "snapshotSha256": "576b04ad9cef257d9a54c63120f62555b557f6c88db860b90099020e1ee36100",
+  "integration": {
+    "studioSnapshotPassesPublicValidator": true,
+    "publicSanitizeIdempotent": true,
+    "rowsEqualCsv": true,
+    "marker": "owner-authorized",
+    "blockKeys": [
+      "basis",
+      "coveredFrom",
+      "coveredTo",
+      "donorNamesApproval",
+      "entries",
+      "publicApproval",
+      "scope",
+      "verifiedAt",
+      "verifiedBy"
+    ],
+    "entryKeys": [
+      "amount",
+      "date",
+      "donor"
+    ]
+  },
+  "beforeHashes": {
+    "project": "e275667990c41f78f60447fa56bb5a38c7a1c68403bb58ca3ecb2c5cdccd3ebb",
+    "journal": "6568556ebbc43847bffc2e5cce04c6f583dd5c02eced27aecd7352f7a5b33121",
+    "products": "c2314a1a1adf456c2d8fd4c9a763404ec9b7af4a6ee45312951867602f2030ef",
+    "finance": "6ab89c454654d761fc103b1428a27f328c8026026fe2b735ccbe5c8dc9b3e79e",
+    "team": "9f5f0937fbaf583906d788c3d0e5010fe6739b2a96ecb8026de3034f27319329"
+  },
+  "c0": {
+    "revisions": 25,
+    "publications": 5,
+    "audit": 37,
+    "media": 23,
+    "preorders": 2
+  },
+  "c1": {
+    "revisions": 26,
+    "publications": 6,
+    "audit": 40,
+    "media": 23,
+    "preorders": 2
+  },
+  "finOk": true,
+  "protectedOk": true,
+  "ok": true,
+  "pubs": [
+    "pub-1792772772098-q1td:draft",
+    "pub-1792772841370-mjt6:draft",
+    "pub-1792850736189-p1r1:draft",
+    "pub-1792851097528-p1r2:draft",
+    "pub-1792857408876-l1r1:draft",
+    "pub-1792861490739-l2r1:pending_review"
+  ],
+  "sqlSha256": "116f8966832f02e6476d3f8999b3f5a8e360195da0223055f1b4ac6869e18260"
+}
