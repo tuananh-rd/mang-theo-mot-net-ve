@@ -127,7 +127,7 @@ export const BASELINE_PROJECT: Project = {
     'Bảy sinh viên Đại học FPT Hà Nội sẽ tổ chức một buổi vui chơi sáng tạo cho các em tại Mái ấm Thánh Tâm Xuy Xá, và gây quỹ để tặng những vật phẩm Mái ấm đang cần.',
   location: 'Mái ấm Thánh Tâm Xuy Xá (Mỹ Đức, Hà Nội) & Campus FPT Hòa Lạc',
   executionStatus: 'in_progress',
-  statusNotice: 'Đang triển khai · tuần 2',
+  statusNotice: 'CHẶNG 2 — Gây quỹ',
   previewNotice: 'Bản xem trước — nội dung theo đề xuất V3 (tháng 10/2026), chờ xác nhận.',
   activities: [
     {
@@ -1556,7 +1556,7 @@ export const BASELINE_PROJECT_PROGRESS: ProjectProgress = {
   currentWeek: 2,
   totalWeeks: 5,
   updatedAt: '2026-10-12',
-  currentStageIndex: 0,
+  currentStageIndex: 1,
 };
 
 export function getProjectProgress(): ProjectProgress {

@@ -39,6 +39,21 @@ export class PreorderError extends Error {
   }
 }
 
+/**
+ * Số điện thoại bắt buộc cho đơn MỚI. Quy tắc dùng chung với biểu mẫu công khai (san-pham.astro, normalizePhone):
+ * bỏ dấu cách . - ( ); chấp nhận 0xxxxxxxxx(x), 84xxxxxxxxx(x) hoặc +E.164 (8–15 chữ số); chuẩn hóa về dạng không dấu cách.
+ * Trả về null nếu không hợp lệ (gồm chuỗi chỉ có ký tự phân cách hoặc ký tự cấm).
+ */
+export function normalizePreorderPhone(value: string): string | null {
+  const raw = value.trim();
+  if (!raw || /[^\d\s.\-()+]/.test(raw) || raw.indexOf('+') > 0 || (raw.match(/\+/g) || []).length > 1) return null;
+  const compact = raw.replace(/[\s.\-()]/g, '');
+  if (/^0\d{9,10}$/.test(compact)) return compact;
+  if (/^84\d{9,10}$/.test(compact)) return '+' + compact;
+  if (/^\+[1-9]\d{7,14}$/.test(compact)) return compact;
+  return null;
+}
+
 export async function sha256(value: string): Promise<string> {
   const bytes = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(value));
   return [...new Uint8Array(bytes)].map((byte) => byte.toString(16).padStart(2, '0')).join('');
@@ -79,9 +94,12 @@ export async function createPreorder(options: {
   const name = typeof input.name === 'string' ? input.name.trim() : '';
   if (name.length < 2 || name.length > 100 || /[<>\u0000-\u001f]/.test(name)) throw new PreorderError('Họ tên cần từ 2 đến 100 ký tự hợp lệ.', 400);
   const email = typeof input.email === 'string' ? input.email.trim() : input.contactType === 'email' && typeof input.contact === 'string' ? input.contact.trim() : '';
-  const phone = typeof input.phone === 'string' ? input.phone.trim() : input.contactType === 'phone' && typeof input.contact === 'string' ? input.contact.trim() : '';
+  // Đơn MỚI phải có trường phone là chuỗi. Không còn suy ra số điện thoại từ contactType/contact: thiếu hoặc null luôn bị từ chối.
+  const rawPhone = typeof input.phone === 'string' ? input.phone : '';
   if (/[\r\n\u0000-\u001f<>]/.test(email) || email.length > 254 || !/^[^\s@,;:]+@[^\s@,;:]+\.[^\s@,;:]+$/.test(email)) throw new PreorderError('Email nhận xác nhận đơn không đúng định dạng.', 400);
-  if (phone && !/^\+?[0-9][0-9 ()\-]{7,18}$/.test(phone)) throw new PreorderError('Số điện thoại không đúng định dạng.', 400);
+  if (!rawPhone.trim()) throw new PreorderError('Vui lòng nhập số điện thoại để nhóm liên hệ xác nhận đơn.', 400);
+  const phone = normalizePreorderPhone(rawPhone);
+  if (!phone) throw new PreorderError('Số điện thoại chưa hợp lệ. Ví dụ: 0984 441 726 hoặc +84 984 441 726.', 400);
   const contact = email;
   const pickup = typeof input.pickup === 'string' ? input.pickup.trim() : '';
   if (!pickup || pickup.length > 120 || /[<>\u0000-\u001f]/.test(pickup)) throw new PreorderError('Chọn cách nhận hàng.', 400);
@@ -116,7 +134,7 @@ export async function createPreorder(options: {
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'new', ?, ?, ?, ?)`)
       .bind(id, orderCode, input.productId, nameByProduct[input.productId], input.quantity, name, 'email', contact, pickup, note || null, config.official_price, options.isTest ? 1 : 0, idemHash, createdAt, createdAt),
     db.prepare(`INSERT INTO preorder_email_state (preorder_id, customer_email, customer_phone, email_status, email_attempts) VALUES (?, ?, ?, 'pending', 0)`)
-      .bind(id, email, phone || null),
+      .bind(id, email, phone),
     db.prepare(`INSERT INTO preorder_events (id, preorder_id, actor, action, old_value, new_value, note, created_at) VALUES (?, ?, ?, 'created', NULL, 'new', NULL, ?)`)
       .bind(crypto.randomUUID(), id, 'public-form', createdAt),
     db.prepare(`INSERT INTO preorder_rate_limits (bucket_hash, bucket_day, request_count) VALUES (?, ?, 1)

@@ -1036,7 +1036,7 @@ export function renderStudioHtml(session: AuthSession): string {
         activeDraft = res.data.draft;
         const p = activeDraft.data || {};
         const defaultProj = window.DEFAULT_PROJECT_DATA || {};
-        const prog = p.progress || defaultProj.progress || { currentWeek: 1, totalWeeks: 5, currentStageIndex: 0, updatedAt: '2026-10-09' };
+        const prog = p.progress || defaultProj.progress || { currentWeek: 1, totalWeeks: 5, currentStageIndex: 1, updatedAt: '2026-10-09' };
         const activities = (Array.isArray(p.activities) && p.activities.length > 0) ? p.activities : (defaultProj.activities || []);
         const stages = (Array.isArray(p.plannedStages) && p.plannedStages.length > 0) ? p.plannedStages : (defaultProj.plannedStages || []);
         const needs = (Array.isArray(p.needs) && p.needs.length > 0) ? p.needs : (defaultProj.needs || []);
