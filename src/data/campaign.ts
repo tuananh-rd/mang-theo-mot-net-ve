@@ -1385,6 +1385,8 @@ export interface VerifiedReceipts {
   basis: 'owner-provided-bank-statement-screenshots';
   /** Vai trò, không phải danh tính cá nhân */
   verifiedBy: string[];
+  /** Có mặt khi chủ dự án cho phép hiển thị công khai tên người ủng hộ của các dòng trong khối */
+  donorNamesApproval?: 'owner-authorized';
   entries: DonationEntry[];
 }
 

@@ -553,7 +553,16 @@ export function validateDonationProjection(payload) {
 }
 
 const VERIFIED_RECEIPTS_SCOPE = 'partial-verified-receipts';
-const VERIFIED_RECEIPTS_KEYS = ['scope', 'publicApproval', 'verifiedAt', 'coveredFrom', 'coveredTo', 'basis', 'verifiedBy', 'entries'];
+const VERIFIED_RECEIPTS_KEYS = ['scope', 'publicApproval', 'verifiedAt', 'coveredFrom', 'coveredTo', 'basis', 'verifiedBy', 'donorNamesApproval', 'entries'];
+/** Chủ dự án cho phép hiển thị công khai tên người ủng hộ của các dòng có ngày tuyệt đối trong khối này (24/10/2026). */
+const DONOR_NAMES_APPROVAL = 'owner-authorized';
+const ANON_DONOR = 'Ẩn danh';
+const PUBLIC_DONOR_NAME = /^\p{L}+(?:[ .'’-]\p{L}+)*\.?$/u;
+
+/** Tên hiển thị công khai hợp lệ: chữ cái, khoảng trắng đơn, dấu chấm/nháy/gạch nối; không số, email, URL. */
+export function isPublicDonorName(value) {
+  return typeof value === 'string' && value === value.trim() && value.length >= 2 && value.length <= 80 && PUBLIC_DONOR_NAME.test(value);
+}
 const VERIFIED_RECEIPT_ENTRY_KEYS = ['date', 'donor', 'amount'];
 
 /**
@@ -589,6 +598,9 @@ export function validateVerifiedReceipts(block, fullyReconciled) {
   if (block.basis !== 'owner-provided-bank-statement-screenshots') {
     errors.push('verifiedReceipts.basis phải là "owner-provided-bank-statement-screenshots".');
   }
+  if (block.donorNamesApproval !== undefined && block.donorNamesApproval !== DONOR_NAMES_APPROVAL) {
+    errors.push(`verifiedReceipts.donorNamesApproval nếu có phải là "${DONOR_NAMES_APPROVAL}".`);
+  }
   if (!Array.isArray(block.verifiedBy) || block.verifiedBy.length === 0 || block.verifiedBy.some((v) => typeof v !== 'string' || !v.trim() || v.includes('@'))) {
     errors.push('verifiedReceipts.verifiedBy phải là danh sách vai trò (không chứa email).');
   }
@@ -617,8 +629,12 @@ export function validateVerifiedReceipts(block, fullyReconciled) {
       sum += entry.amount;
       if (!Number.isSafeInteger(sum)) errors.push('Tổng các khoản đã xác minh vượt giới hạn số nguyên an toàn.');
     }
-    if (entry.donor !== 'Ẩn danh') {
-      errors.push(`Khoản đã xác minh [${n}]: tên hiển thị mặc định phải là "Ẩn danh" khi chưa có xác nhận hiển thị tên.`);
+    if (entry.donor !== ANON_DONOR) {
+      if (block.donorNamesApproval !== DONOR_NAMES_APPROVAL) {
+        errors.push(`Khoản đã xác minh [${n}]: tên hiển thị phải là "Ẩn danh" khi chưa có donorNamesApproval = "${DONOR_NAMES_APPROVAL}".`);
+      } else if (!isPublicDonorName(entry.donor)) {
+        errors.push(`Khoản đã xác minh [${n}]: tên hiển thị không hợp lệ (chỉ chữ cái, khoảng trắng, dấu chấm, nháy, gạch nối; không số/email/URL).`);
+      }
     }
   });
   return errors;
@@ -630,6 +646,12 @@ export function validateVerifiedReceipts(block, fullyReconciled) {
  */
 export function sanitizeVerifiedReceipts(block) {
   if (!block) return null;
+  const namesOk = block.donorNamesApproval === DONOR_NAMES_APPROVAL;
+  const entries = block.entries.map((e) => ({
+    date: e.date,
+    donor: namesOk && isPublicDonorName(e.donor) ? e.donor : ANON_DONOR,
+    amount: e.amount,
+  }));
   return {
     scope: block.scope,
     publicApproval: 'approved',
@@ -638,6 +660,7 @@ export function sanitizeVerifiedReceipts(block) {
     coveredTo: block.coveredTo,
     basis: block.basis,
     verifiedBy: [...block.verifiedBy],
-    entries: block.entries.map((e) => ({ date: e.date, donor: 'Ẩn danh', amount: e.amount })),
+    ...(entries.some((e) => e.donor !== ANON_DONOR) ? { donorNamesApproval: DONOR_NAMES_APPROVAL } : {}),
+    entries,
   };
 }

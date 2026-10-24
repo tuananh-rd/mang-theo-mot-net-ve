@@ -10,7 +10,7 @@ import path from 'node:path';
 
 import { DONATION_ACCOUNT, DONATION_LEDGER } from '../src/data/campaign.ts';
 import { summarizeLedger, validateLedger, isLedgerReconciled } from '../src/lib/donations.ts';
-import { validateDonationProjection, sanitizeVerifiedReceipts, validateVerifiedReceipts } from '../tools/content-studio/csv-validator.mjs';
+import { validateDonationProjection, sanitizeVerifiedReceipts, validateVerifiedReceipts, isPublicDonorName } from '../tools/content-studio/csv-validator.mjs';
 import { receiptKey, mergeReceipts, normalizeDescription } from '../tools/content-studio/receipt-dedup.mjs';
 
 const raw = JSON.parse(fs.readFileSync(new URL('../src/data/reconciled-donations.json', import.meta.url), 'utf8'));
@@ -31,7 +31,7 @@ describe('Dữ liệu công khai đã xác minh một phần', () => {
     assert.deepEqual(raw.entries, []);
     assert.equal(isLedgerReconciled(DONATION_LEDGER), false);
     const keys = Object.keys(raw.verifiedReceipts).sort();
-    assert.deepEqual(keys, ['basis', 'coveredFrom', 'coveredTo', 'entries', 'publicApproval', 'scope', 'verifiedAt', 'verifiedBy']);
+    assert.deepEqual(keys, ['basis', 'coveredFrom', 'coveredTo', 'donorNamesApproval', 'entries', 'publicApproval', 'scope', 'verifiedAt', 'verifiedBy']);
     assert.ok(!/balance|so du|số dư|expense|chi phí|outgoing/i.test(JSON.stringify(raw)));
   });
 
@@ -41,11 +41,14 @@ describe('Dữ liệu công khai đã xác minh một phần', () => {
     assert.equal(DONATION_ACCOUNT.goalAmount, 7000000);
   });
 
-  test('chỉ ẩn danh, chỉ ngày/tiền/tên hiển thị: không giờ, mã tham chiếu, mô tả, điện thoại', () => {
+  test('chỉ ngày/tên/số tiền; tên được chủ dự án cho phép; không giờ, mã tham chiếu, mô tả, điện thoại', () => {
+    assert.equal(raw.verifiedReceipts.donorNamesApproval, 'owner-authorized');
     for (const e of raw.verifiedReceipts.entries) {
       assert.deepEqual(Object.keys(e).sort(), ['amount', 'date', 'donor']);
-      assert.equal(e.donor, 'Ẩn danh');
+      assert.ok(isPublicDonorName(e.donor), 'tên hiển thị hợp lệ');
+      assert.notEqual(e.donor, 'Ẩn danh');
     }
+    assert.equal(new Set(raw.verifiedReceipts.entries.map((e) => e.donor)).size, 6, 'sáu tên khác nhau, không dòng trùng');
     const text = JSON.stringify(raw);
     assert.ok(!/\d{4}-\d{2}-\d{2}T|\b\d{2}:\d{2}\b|\b0\d{9}\b|\+84|MoMo|chuyen tien|153\d{8}/i.test(text));
   });
@@ -68,7 +71,12 @@ describe('Xác thực lược đồ một phần', () => {
     'trường lạ trong khối (mã tham chiếu)': (p) => { p.verifiedReceipts.reference = 'X'; },
     'trường lạ trong dòng (giờ)': (p) => { p.verifiedReceipts.entries[0].time = '13:50'; },
     'trường lạ trong dòng (mô tả)': (p) => { p.verifiedReceipts.entries[0].description = 'abc'; },
-    'tên thật mặc định không được phép': (p) => { p.verifiedReceipts.entries[0].donor = 'Nguyễn Văn A'; },
+    'tên khi chưa có donorNamesApproval': (p) => { delete p.verifiedReceipts.donorNamesApproval; },
+    'donorNamesApproval sai giá trị': (p) => { p.verifiedReceipts.donorNamesApproval = 'yes'; },
+    'tên chứa chữ số (số định danh)': (p) => { p.verifiedReceipts.entries[0].donor = 'NGUYEN VAN A 0912345678'; },
+    'tên là email': (p) => { p.verifiedReceipts.entries[0].donor = 'a@b.vn'; },
+    'tên là URL': (p) => { p.verifiedReceipts.entries[0].donor = 'http://x.vn'; },
+    'tên rỗng': (p) => { p.verifiedReceipts.entries[0].donor = ''; },
     'chưa phê duyệt công khai': (p) => { p.verifiedReceipts.publicApproval = 'pending'; },
     'sai phạm vi (scope)': (p) => { p.verifiedReceipts.scope = 'full'; },
     'ngày ngoài phạm vi': (p) => { p.verifiedReceipts.entries[0].date = '2026-10-09'; },
@@ -107,13 +115,35 @@ describe('Xác thực lược đồ một phần', () => {
     assert.throws(() => validateLedger({ ...DONATION_LEDGER, entries: [{ date: '2026-10-20', donor: 'Ẩn danh', amount: 1000 }] }));
   });
 
-  test('sanitizeVerifiedReceipts chỉ giữ allowlist và ép Ẩn danh', () => {
+  test('sanitizeVerifiedReceipts chỉ giữ allowlist; tên chỉ khi đã được cho phép', () => {
     const dirty = base().verifiedReceipts;
-    dirty.entries[0] = { ...dirty.entries[0], reference: 'R', time: '13:50', donor: 'Tên' };
+    dirty.entries[0] = { ...dirty.entries[0], reference: 'R', time: '13:50', donor: 'Tên Hợp Lệ' };
     const clean = sanitizeVerifiedReceipts(dirty);
     assert.deepEqual(Object.keys(clean.entries[0]).sort(), ['amount', 'date', 'donor']);
-    assert.equal(clean.entries[0].donor, 'Ẩn danh');
+    assert.equal(clean.entries[0].donor, 'Tên Hợp Lệ');
     assert.deepEqual(validateVerifiedReceipts(clean, false), []);
+    const noApproval = base().verifiedReceipts;
+    delete noApproval.donorNamesApproval;
+    const anon = sanitizeVerifiedReceipts(noApproval);
+    assert.ok(anon.entries.every((e) => e.donor === 'Ẩn danh'));
+    assert.equal('donorNamesApproval' in anon, false);
+    const badName = base().verifiedReceipts;
+    badName.entries[1].donor = 'A 0912345678';
+    assert.equal(sanitizeVerifiedReceipts(badName).entries[1].donor, 'Ẩn danh');
+  });
+
+  test('validateLedger (runtime) từ chối tên khi thiếu cho phép hoặc tên không hợp lệ', () => {
+    const noApproval = structuredClone(DONATION_LEDGER);
+    delete noApproval.verifiedReceipts.donorNamesApproval;
+    assert.throws(() => validateLedger(noApproval), /chủ dự án/);
+    const bad = structuredClone(DONATION_LEDGER);
+    bad.verifiedReceipts.entries[0].donor = 'X 0912345678';
+    assert.throws(() => validateLedger(bad), /chủ dự án/);
+  });
+
+  test('isPublicDonorName: chấp nhận tên có dấu/viết hoa, từ chối số, email, URL, khoảng trắng thừa', () => {
+    for (const ok of ['PHAM HOANG LONG', 'Nguyễn Thị Hải Yến', "O'Brien-Lê"]) assert.equal(isPublicDonorName(ok), true, ok);
+    for (const bad of ['', ' A', 'A  B', 'A1', 'a@b.c', 'http://x', 'A\nB', 'A_B', 'Ẩn']) assert.equal(isPublicDonorName(bad), bad === 'Ẩn', bad);
   });
 
   test('tóm tắt không bao giờ gọi là đã đối soát khi chỉ có khối một phần', () => {
@@ -178,9 +208,10 @@ describe('Quét riêng tư mã nguồn và tài liệu (C21)', () => {
   }
   const privateManifest = 'C:/Users/tuana/Documents/Codex/2026-10-24/L1-ledger-private/coordinator-visual-review.json';
 
-  test('không có tên người gửi riêng tư trong repo (nếu có manifest riêng trên máy này)', { skip: !fs.existsSync(privateManifest) }, () => {
+  test('không có tên người gửi của khoản chưa công bố trong repo (nếu có manifest riêng trên máy này)', { skip: !fs.existsSync(privateManifest) }, () => {
     const m = JSON.parse(fs.readFileSync(privateManifest, 'utf8'));
-    const names = [...m.dated, ...m.pending, m.neverRestore].map((x) => x.privateDonor).filter(Boolean)
+    // Sáu khoản có ngày đã được chủ dự án cho phép hiển thị tên; chỉ quét các khoản chưa công bố và khoản không khôi phục.
+    const names = [...m.pending, m.neverRestore].map((x) => x.privateDonor).filter(Boolean)
       .filter((n) => n !== DONATION_ACCOUNT.accountHolder); // chủ tài khoản nhận ủng hộ đã được công bố công khai theo chỉ đạo chủ dự án
     for (const dir of scanDirs) {
       for (const f of walk(path.join(root, dir))) {

@@ -9,6 +9,7 @@
 import type { DonationAccount, DonationEntry, DonationLedger } from '../data/campaign';
 
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
+const PUBLIC_DONOR_NAME = /^\p{L}+(?:[ .'’-]\p{L}+)*\.?$/u;
 
 export function isValidIsoDate(value: string | null | undefined): value is string {
   if (typeof value !== 'string' || !ISO_DATE.test(value)) return false;
@@ -63,6 +64,11 @@ export function validateLedger(ledger: DonationLedger): void {
     const vr = ledger.verifiedReceipts;
     if (vr.scope !== 'partial-verified-receipts' || vr.publicApproval !== 'approved') {
       throw new Error('Khoản đã xác minh một phần phải đúng phạm vi và đã được phê duyệt công khai.');
+    }
+    for (const entry of vr.entries) {
+      if (entry.donor !== 'Ẩn danh' && (vr.donorNamesApproval !== 'owner-authorized' || !PUBLIC_DONOR_NAME.test(entry.donor))) {
+        throw new Error('Tên người ủng hộ chỉ được hiển thị khi chủ dự án đã cho phép và tên hợp lệ (chỉ chữ cái, khoảng trắng, dấu chấm, nháy, gạch nối).');
+      }
     }
     let sum = 0;
     for (const entry of vr.entries) {

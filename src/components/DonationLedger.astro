@@ -26,7 +26,7 @@ const rows = sortDonationsNewestFirst(partial ? ledger.verifiedReceipts!.entries
           <strong>Phạm vi xác minh một phần.</strong> Danh sách dưới đây chỉ gồm các khoản ủng hộ đã xác minh từ ảnh sao kê do chủ dự án cung cấp
           (ngày {formatViDate(summary.coveredFrom)}–{formatViDate(summary.coveredTo)}, xác minh ngày {formatViDate(summary.verifiedAt)}).
           Đây chưa phải đối soát toàn bộ tài khoản: danh sách không nêu số dư, khoản chi hay tổng cả đợt, và các khoản ngoài phạm vi này sẽ được bổ sung sau khi xác minh.
-          Tên người ủng hộ được ẩn danh theo mặc định.
+          Tên người ủng hộ được hiển thị công khai theo chỉ định của chủ dự án.
         </p>
       )}
       {!partial && (
@@ -40,7 +40,7 @@ const rows = sortDonationsNewestFirst(partial ? ledger.verifiedReceipts!.entries
         <thead>
           <tr>
             <th scope="col">Ngày</th>
-            <th scope="col">Người ủng hộ</th>
+            <th scope="col">Tên người ủng hộ</th>
             <th scope="col" class="num">Số tiền</th>
           </tr>
         </thead>

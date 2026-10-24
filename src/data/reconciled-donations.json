@@ -13,35 +13,36 @@
       "Chủ dự án (cung cấp và chỉ định khoản)",
       "Rà soát nội bộ độc lập của nhóm hỗ trợ kỹ thuật"
     ],
+    "donorNamesApproval": "owner-authorized",
     "entries": [
       {
         "date": "2026-10-13",
-        "donor": "Ẩn danh",
+        "donor": "PHAM HOANG LONG",
         "amount": 50000
       },
       {
         "date": "2026-10-20",
-        "donor": "Ẩn danh",
+        "donor": "NGUYEN CHI TRUNG",
         "amount": 20000
       },
       {
         "date": "2026-10-20",
-        "donor": "Ẩn danh",
+        "donor": "GIANG THI VIEN",
         "amount": 200000
       },
       {
         "date": "2026-10-20",
-        "donor": "Ẩn danh",
+        "donor": "NGUYEN NGOC KHOA",
         "amount": 100000
       },
       {
         "date": "2026-10-21",
-        "donor": "Ẩn danh",
+        "donor": "NGUYEN NHU HUY",
         "amount": 100000
       },
       {
         "date": "2026-10-21",
-        "donor": "Ẩn danh",
+        "donor": "PHAM THI THU TRANG",
         "amount": 22222
       }
     ]
