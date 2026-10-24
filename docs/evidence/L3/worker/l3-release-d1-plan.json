@@ -1,0 +1,198 @@
+{
+  "csv": {
+    "sha256": "a98d5c3e48f69adce8eda2668d23062eed40c469b4d164cc424599555d6223ba",
+    "rawRows": 22,
+    "datedRows": 6,
+    "datedSum": 492222,
+    "undatedRaw": 16,
+    "duplicatesRemoved": 1,
+    "uniqueRows": 21,
+    "uniqueSum": 1011222
+  },
+  "rowMap": [
+    {
+      "date": "2026-10-13",
+      "amount": 50000,
+      "action": "existing-unchanged"
+    },
+    {
+      "date": "2026-10-20",
+      "amount": 20000,
+      "action": "existing-unchanged"
+    },
+    {
+      "date": "2026-10-20",
+      "amount": 200000,
+      "action": "existing-unchanged"
+    },
+    {
+      "date": "2026-10-20",
+      "amount": 100000,
+      "action": "existing-unchanged"
+    },
+    {
+      "date": "2026-10-21",
+      "amount": 100000,
+      "action": "existing-unchanged"
+    },
+    {
+      "date": "2026-10-21",
+      "amount": 22222,
+      "action": "existing-unchanged"
+    },
+    {
+      "date": "2026-10-23",
+      "amount": 14000,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-22",
+      "amount": 50000,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-23",
+      "amount": 50000,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-23",
+      "amount": 20000,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-23",
+      "amount": 40000,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-23",
+      "amount": 30000,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-23",
+      "amount": 50000,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-23",
+      "amount": 20000,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-23",
+      "amount": 25000,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-23",
+      "amount": 15000,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-23",
+      "amount": 25000,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-23",
+      "amount": 20000,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-23",
+      "amount": 10000,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-23",
+      "amount": 100000,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-23",
+      "amount": 50000,
+      "action": "add"
+    }
+  ],
+  "counts": {
+    "existingUnchanged": 6,
+    "added": 15,
+    "addedSum": 519000,
+    "addedOn20261022": 1,
+    "addedOn20261023": 14,
+    "anonymousRows": 1
+  },
+  "metadata": {
+    "coveredFrom": "2026-10-13",
+    "coveredTo": "2026-10-23",
+    "verifiedAt": "2026-10-25",
+    "reconciled": false,
+    "publicEntries": 0
+  },
+  "beforeFinanceHash": "f8ac4cd8c6d30119d49ad07ece84ee225818b255ac854e2fa13d269a50e15659",
+  "newFinanceHash": "696369b7d0cba54272dd4c21fe4fd28241f6355abd6e32082cd3ae835237dff8",
+  "financeVersion": 8,
+  "publicationId": "pub-1792862986434-l3r1",
+  "supersededPublication": "pub-1792861490739-l2r1",
+  "snapshotSha256": "251dcc8dbd47db60db9073f508310f73d70da73fbf152b90539bf0ef75061a20",
+  "integration": {
+    "studioSnapshotPassesPublicValidator": true,
+    "publicSanitizeIdempotent": true,
+    "rowsEqualCsv": true,
+    "snapshotEqualsRepoPublicData": true,
+    "marker": "owner-authorized",
+    "blockKeys": [
+      "basis",
+      "coveredFrom",
+      "coveredTo",
+      "donorNamesApproval",
+      "entries",
+      "publicApproval",
+      "scope",
+      "verifiedAt",
+      "verifiedBy"
+    ],
+    "entryKeys": [
+      "amount",
+      "date",
+      "donor"
+    ]
+  },
+  "beforeHashes": {
+    "project": "e275667990c41f78f60447fa56bb5a38c7a1c68403bb58ca3ecb2c5cdccd3ebb",
+    "journal": "6568556ebbc43847bffc2e5cce04c6f583dd5c02eced27aecd7352f7a5b33121",
+    "products": "c2314a1a1adf456c2d8fd4c9a763404ec9b7af4a6ee45312951867602f2030ef",
+    "finance": "f8ac4cd8c6d30119d49ad07ece84ee225818b255ac854e2fa13d269a50e15659",
+    "team": "9f5f0937fbaf583906d788c3d0e5010fe6739b2a96ecb8026de3034f27319329"
+  },
+  "c0": {
+    "revisions": 26,
+    "publications": 6,
+    "audit": 40,
+    "media": 23,
+    "preorders": 2
+  },
+  "c1": {
+    "revisions": 27,
+    "publications": 7,
+    "audit": 43,
+    "media": 23,
+    "preorders": 2
+  },
+  "finOk": true,
+  "oldRowsOk": true,
+  "protectedOk": true,
+  "ok": true,
+  "pubs": [
+    "pub-1792772772098-q1td:draft",
+    "pub-1792772841370-mjt6:draft",
+    "pub-1792850736189-p1r1:draft",
+    "pub-1792851097528-p1r2:draft",
+    "pub-1792857408876-l1r1:draft",
+    "pub-1792861490739-l2r1:draft",
+    "pub-1792862986434-l3r1:pending_review"
+  ],
+  "sqlSha256": "ea57d1502bfef64e8fce8ae681c3de9daad8f72824ae7672d4c0c7c32a48496d"
+}

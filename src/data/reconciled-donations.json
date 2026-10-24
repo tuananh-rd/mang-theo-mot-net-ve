@@ -5,9 +5,9 @@
   "verifiedReceipts": {
     "scope": "partial-verified-receipts",
     "publicApproval": "approved",
-    "verifiedAt": "2026-10-24",
+    "verifiedAt": "2026-10-25",
     "coveredFrom": "2026-10-13",
-    "coveredTo": "2026-10-21",
+    "coveredTo": "2026-10-23",
     "basis": "owner-provided-bank-statement-screenshots",
     "verifiedBy": [
       "Chủ dự án (cung cấp và chỉ định khoản)",
@@ -44,6 +44,81 @@
         "date": "2026-10-21",
         "donor": "PHAM THI THU TRANG",
         "amount": 22222
+      },
+      {
+        "date": "2026-10-22",
+        "donor": "HUONG DUONG NGUOC NANG",
+        "amount": 50000
+      },
+      {
+        "date": "2026-10-23",
+        "donor": "TRAN THI GIA KHANH",
+        "amount": 14000
+      },
+      {
+        "date": "2026-10-23",
+        "donor": "DUONG QUOC CUONG",
+        "amount": 50000
+      },
+      {
+        "date": "2026-10-23",
+        "donor": "Le Nam Khanh",
+        "amount": 20000
+      },
+      {
+        "date": "2026-10-23",
+        "donor": "TRAN KHANH LINH",
+        "amount": 40000
+      },
+      {
+        "date": "2026-10-23",
+        "donor": "HA DOAN TRAN G",
+        "amount": 30000
+      },
+      {
+        "date": "2026-10-23",
+        "donor": "NGUYEN THUY LINH",
+        "amount": 50000
+      },
+      {
+        "date": "2026-10-23",
+        "donor": "HOANG THANH NHAN",
+        "amount": 20000
+      },
+      {
+        "date": "2026-10-23",
+        "donor": "VU THI HAI HUE",
+        "amount": 25000
+      },
+      {
+        "date": "2026-10-23",
+        "donor": "NGUYEN THI MINH THU",
+        "amount": 15000
+      },
+      {
+        "date": "2026-10-23",
+        "donor": "HUYNH MINH VU",
+        "amount": 25000
+      },
+      {
+        "date": "2026-10-23",
+        "donor": "Ẩn danh",
+        "amount": 20000
+      },
+      {
+        "date": "2026-10-23",
+        "donor": "NGUYEN DUY AN",
+        "amount": 10000
+      },
+      {
+        "date": "2026-10-23",
+        "donor": "DUONG PHUONG THUC",
+        "amount": 100000
+      },
+      {
+        "date": "2026-10-23",
+        "donor": "NGUYEN DUC PHUC",
+        "amount": 50000
       }
     ]
   }
