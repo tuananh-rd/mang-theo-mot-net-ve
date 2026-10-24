@@ -1,0 +1,22 @@
+[
+  {
+    "assetId": "asset-moc-khoa-mau-chu-du-an",
+    "productId": "moc-khoa",
+    "publicPath": "/images/san-pham/moc-khoa-mau-chu-du-an.webp",
+    "studioR2Key": "media/images/san-pham/moc-khoa-mau-chu-du-an.webp",
+    "studioMediaKey": "media/images/san-pham/moc-khoa-mau-chu-du-an.webp",
+    "contentType": "image/webp",
+    "width": 466,
+    "height": 622,
+    "bytes": 25214,
+    "sha256": "bcd18df918f976e6ec805351399712e544204d5214e677532bdf69e05f91a2d1",
+    "sourceFilename": "ảnh móc khóa.jpg",
+    "derivation": "Chủ dự án cung cấp; chuyển WebP chất lượng 84 bằng sharp, không đổi kích thước, không chỉnh sửa, đã xóa toàn bộ metadata.",
+    "alt": "Một bàn tay cầm móc khóa hình chữ nhật in tranh nền xanh, kèm vòng khóa và dây xích; ảnh do chủ dự án cung cấp.",
+    "caption": "Ảnh mẫu móc khóa do chủ dự án cung cấp; mẫu thực tế có thể khác.",
+    "isIllustration": false,
+    "fit": "contain",
+    "rights": "Chủ dự án đã cho phép dùng ảnh này cho trang đặt trước (24/10/2026). Ảnh mẫu; không khẳng định chất liệu, kích thước hay tính năng.",
+    "note": "Studio chưa được triển khai lại nên registry mã nguồn của Studio không chứa tệp này; khóa media trong bản sửa đổi sản phẩm là studioMediaKey (khớp r2_key của media_assets đã duyệt). Ánh xạ sang publicPath dùng cho site tĩnh."
+  }
+]
