@@ -596,6 +596,7 @@ export function validateVerifiedReceipts(block, fullyReconciled) {
     errors.push('verifiedReceipts.entries phải là mảng không rỗng.');
     return errors;
   }
+  let sum = 0;
   block.entries.forEach((entry, idx) => {
     const n = idx + 1;
     if (!entry || typeof entry !== 'object' || Array.isArray(entry)) {
@@ -610,8 +611,11 @@ export function validateVerifiedReceipts(block, fullyReconciled) {
     } else if (isValidIsoDate(block.coveredFrom) && isValidIsoDate(block.coveredTo) && (entry.date < block.coveredFrom || entry.date > block.coveredTo)) {
       errors.push(`Khoản đã xác minh [${n}]: ngày ${entry.date} ngoài phạm vi ${block.coveredFrom}–${block.coveredTo}.`);
     }
-    if (typeof entry.amount !== 'number' || !Number.isInteger(entry.amount) || entry.amount <= 0) {
-      errors.push(`Khoản đã xác minh [${n}]: số tiền phải là số nguyên dương.`);
+    if (typeof entry.amount !== 'number' || !Number.isSafeInteger(entry.amount) || entry.amount <= 0) {
+      errors.push(`Khoản đã xác minh [${n}]: số tiền phải là số nguyên dương an toàn.`);
+    } else {
+      sum += entry.amount;
+      if (!Number.isSafeInteger(sum)) errors.push('Tổng các khoản đã xác minh vượt giới hạn số nguyên an toàn.');
     }
     if (entry.donor !== 'Ẩn danh') {
       errors.push(`Khoản đã xác minh [${n}]: tên hiển thị mặc định phải là "Ẩn danh" khi chưa có xác nhận hiển thị tên.`);

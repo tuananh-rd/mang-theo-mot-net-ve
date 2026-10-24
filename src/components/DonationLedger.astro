@@ -29,10 +29,12 @@ const rows = sortDonationsNewestFirst(partial ? ledger.verifiedReceipts!.entries
           Tên người ủng hộ được ẩn danh theo mặc định.
         </p>
       )}
-      <div class="ledger-search">
-        <label for="donor-search" class="search-label">Tìm khoản ủng hộ của bạn</label>
-        <input id="donor-search" type="search" class="search-input" placeholder="Nhập tên người ủng hộ" autocomplete="off" />
-      </div>
+      {!partial && (
+        <div class="ledger-search">
+          <label for="donor-search" class="search-label">Tìm khoản ủng hộ của bạn</label>
+          <input id="donor-search" type="search" class="search-input" placeholder="Nhập tên người ủng hộ" autocomplete="off" />
+        </div>
+      )}
       <table class="data-table data-table--stack donor-table">
         <caption class="sr-only">{partial ? `Các khoản ủng hộ đã xác minh một phần, ngày ${formatViDate(summary.coveredFrom)} đến ${formatViDate(summary.coveredTo)}` : `Sao kê các khoản ủng hộ đã đối soát đến ${formatViDate(ledger.reconciledAt)}`}</caption>
         <thead>
@@ -52,7 +54,7 @@ const rows = sortDonationsNewestFirst(partial ? ledger.verifiedReceipts!.entries
           ))}
         </tbody>
       </table>
-      <p class="no-match" hidden>Không tìm thấy khoản phù hợp. Khoản mới chuyển có thể chưa qua đối soát.</p>
+      {!partial && <p class="no-match" hidden>Không tìm thấy khoản phù hợp. Khoản mới chuyển có thể chưa qua đối soát.</p>}
     </>
   ) : (
     <div class="ledger-empty">
@@ -101,7 +103,7 @@ const rows = sortDonationsNewestFirst(partial ? ledger.verifiedReceipts!.entries
     margin: 0;
     padding: var(--space-3) var(--space-4);
     border-left: 4px solid var(--line-strong);
-    background: var(--surface-soft, #f6f3ee);
+    background: var(--surface-alt);
     border-radius: var(--radius-sm);
     font-size: var(--font-size-small);
     line-height: var(--line-height-small);

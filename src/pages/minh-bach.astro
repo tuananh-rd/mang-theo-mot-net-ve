@@ -68,8 +68,8 @@ const heroNote = partial
         <section id="tong-quan" class="doc-section" aria-labelledby="overview-heading">
           <div class="doc-section-header">
             <span class="eyebrow">Phần 1</span>
-            <h2 id="overview-heading" class="doc-section-title">Tổng quan chỉ tiêu và thực tế đối soát</h2>
-            <p>Bảng tổng hợp đối chiếu giữa mục tiêu ban đầu và số liệu thực tế qua tài khoản ngân hàng dự án.</p>
+            <h2 id="overview-heading" class="doc-section-title">{partial ? 'Tổng quan chỉ tiêu và khoản đã xác minh một phần' : 'Tổng quan chỉ tiêu và thực tế đối soát'}</h2>
+            <p>{partial ? 'Bảng so sánh mục tiêu ban đầu với các khoản đã xác minh một phần từ ảnh sao kê; chưa phải đối soát toàn bộ tài khoản ngân hàng dự án.' : 'Bảng tổng hợp đối chiếu giữa mục tiêu ban đầu và số liệu thực tế qua tài khoản ngân hàng dự án.'}</p>
           </div>
 
           <div class="data-table-wrap">
@@ -79,7 +79,7 @@ const heroNote = partial
                 <tr>
                   <th scope="col" class="th-item">Hạng mục</th>
                   <th scope="col" class="th-plan">Kế hoạch</th>
-                  <th scope="col" class="th-actual">Thực tế (đã đối soát)</th>
+                  <th scope="col" class="th-actual">{partial ? 'Đã xác minh một phần' : 'Thực tế (đã đối soát)'}</th>
                 </tr>
               </thead>
               <tbody>
@@ -105,7 +105,7 @@ const heroNote = partial
                   </td>
                 </tr>
                 <tr>
-                  <th scope="row" class="td-item">Mốc đối soát sao kê gần nhất</th>
+                  <th scope="row" class="td-item">{partial ? 'Mốc đối soát đầy đủ gần nhất' : 'Mốc đối soát sao kê gần nhất'}</th>
                   <td class="td-plan">
                     <span class="cell-status-tag" title="Chưa có lịch đối soát cố định">
                       Chưa có lịch xác nhận
@@ -129,7 +129,7 @@ const heroNote = partial
             <GoalProgress summary={summary} />
             <div class="progress-actions">
               <a href="/dong-hanh#sao-ke" class="link-arrow">
-                Xem sao kê từng khoản đã đối soát <span class="arrow" aria-hidden="true">→</span>
+                {partial ? 'Xem các khoản đã xác minh một phần' : 'Xem sao kê từng khoản đã đối soát'} <span class="arrow" aria-hidden="true">→</span>
               </a>
               <a href="/dong-hanh#chuyen-khoan" class="btn btn-secondary">
                 Thông tin tài khoản chuyển khoản

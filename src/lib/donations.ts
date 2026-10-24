@@ -64,8 +64,12 @@ export function validateLedger(ledger: DonationLedger): void {
     if (vr.scope !== 'partial-verified-receipts' || vr.publicApproval !== 'approved') {
       throw new Error('Khoản đã xác minh một phần phải đúng phạm vi và đã được phê duyệt công khai.');
     }
+    let sum = 0;
     for (const entry of vr.entries) {
       validateDonation(entry);
+      if (!Number.isSafeInteger(entry.amount)) throw new Error(`Số tiền ủng hộ vượt giới hạn an toàn: ${entry.amount}.`);
+      sum += entry.amount;
+      if (!Number.isSafeInteger(sum)) throw new Error('Tổng các khoản đã xác minh vượt giới hạn số nguyên an toàn.');
       if (entry.date < vr.coveredFrom || entry.date > vr.coveredTo) {
         throw new Error(`Khoản ngày ${entry.date} ngoài phạm vi đã xác minh ${vr.coveredFrom}–${vr.coveredTo}.`);
       }

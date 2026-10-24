@@ -87,6 +87,19 @@ describe('Xác thực lược đồ một phần', () => {
     });
   }
 
+  test('số tiền không an toàn và tổng tràn số nguyên an toàn bị từ chối', () => {
+    const big = Number.MAX_SAFE_INTEGER;
+    const over = base();
+    over.verifiedReceipts.entries = [{ date: '2026-10-20', donor: 'Ẩn danh', amount: big }, { date: '2026-10-20', donor: 'Ẩn danh', amount: 5 }];
+    assert.equal(validateDonationProjection(over).isValid, false);
+    assert.match(validateDonationProjection(over).errors.join(' '), /an toàn/);
+    const unsafe = base();
+    unsafe.verifiedReceipts.entries[0].amount = 2 ** 53;
+    assert.equal(validateDonationProjection(unsafe).isValid, false);
+    const ledgerOver = { ...DONATION_LEDGER, verifiedReceipts: { ...DONATION_LEDGER.verifiedReceipts, entries: over.verifiedReceipts.entries } };
+    assert.throws(() => validateLedger(ledgerOver), /an toàn/);
+  });
+
   test('reconciled=false vẫn không cho dòng ở entries (không giả lập sổ đầy đủ)', () => {
     const p = base();
     p.entries = [{ date: '2026-10-20', donor: 'Ẩn danh', amount: 1000 }];
