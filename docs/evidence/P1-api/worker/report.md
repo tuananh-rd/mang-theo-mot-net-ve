@@ -1,6 +1,6 @@
 # P1-API — Số điện thoại bắt buộc cho đơn mới và mặc định chặng 2 (backend cô lập)
 
-Checkout `.../public-phone-api`, nhánh `tuananh-rd/public-phone-api`, nền C23 `fd79daa`, SHA code `API_CODE`, SHA bằng chứng `API_DOC`. Task `task_dda3c1fd9763` / `ctx_a9bf520a2a7d`. Không merge vào/không copy sang public; không deploy; không D1/R2/email thật.
+Checkout `.../public-phone-api`, nhánh `tuananh-rd/public-phone-api`, nền C23 `fd79daa`, SHA code `63c45f7aa93ab9555a2c732d8c7d0bf75c180ebe`, SHA bằng chứng `c90cb8919b478d5dfe7b4cdf29950e3a6b2c6400`. Task `task_dda3c1fd9763` / `ctx_a9bf520a2a7d`. Không merge vào/không copy sang public; không deploy; không D1/R2/email thật.
 
 ## Thay đổi (tệp)
 - `apps/studio/src/preorders/service.ts`: thêm `normalizePreorderPhone()` (quy tắc chung với biểu mẫu công khai) và **bắt buộc** trường `phone` (chuỗi) cho đơn mới. Thiếu, `null`, rỗng, khoảng trắng, không phải chuỗi (số/mảng/object), chỉ ký tự phân cách, ký tự cấm, quá ngắn/dài → `400` tiếng Việt (“Vui lòng nhập số điện thoại…” / “Số điện thoại chưa hợp lệ. Ví dụ: 0984 441 726 hoặc +84 984 441 726.”) **trước** khi tra idempotency/ghi D1/gửi email/đếm giới hạn. **Không còn** suy số từ `contactType='phone'`+`contact` (đã bỏ theo hướng dẫn review): thiếu/null `phone` bị từ chối kể cả khi `contact` là số. Số lưu dạng chuẩn hóa (`0984441726`, `+84984441726`). Email vẫn bắt buộc; giá do máy chủ; idempotency/rate limit/pickup/honeypot không đổi.
