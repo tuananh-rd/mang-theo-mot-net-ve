@@ -128,8 +128,14 @@ test('tên người ủng hộ chỉ vào bản chụp công khai khi donorPubli
     { date: '2026-10-20', donor: 'Ẩn danh', amount: 20000 },
     { date: '2026-10-21', donor: 'Ẩn danh', amount: 7000 },
   ]);
+  assert.equal(r.snapshot.modules.finance.verifiedReceipts.donorNamesApproval, 'owner-authorized');
   const text = JSON.stringify(r.snapshot);
   assert.ok(!/donorPublic|internalKey|sourceTag/.test(text));
+});
+
+test('toàn bộ ẩn danh thì bản chụp không có donorNamesApproval', async () => {
+  const r = await createPublicationSnapshot(drafts(finance(block())), 'vL2-02');
+  assert.equal('donorNamesApproval' in r.snapshot.modules.finance.verifiedReceipts, false);
 });
 
 test('tên không có donorPublic hoặc tên không hợp lệ bị từ chối', () => {
