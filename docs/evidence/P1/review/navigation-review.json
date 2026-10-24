@@ -1,0 +1,74 @@
+{
+  "at": "2026-10-24T09:15:40.798Z",
+  "routes": [
+    {
+      "route": "/",
+      "status": 200,
+      "noindex": "noindex, nofollow"
+    },
+    {
+      "route": "/du-an/mang-theo-mot-net-ve",
+      "status": 200,
+      "noindex": "noindex, nofollow"
+    },
+    {
+      "route": "/nhat-ky",
+      "status": 200,
+      "noindex": "noindex, nofollow"
+    },
+    {
+      "route": "/san-pham",
+      "status": 200,
+      "noindex": "noindex, nofollow"
+    },
+    {
+      "route": "/san-pham/moc-khoa",
+      "status": 200,
+      "noindex": "noindex, nofollow"
+    },
+    {
+      "route": "/san-pham/chuon-chuon-tre-kem-de",
+      "status": 200,
+      "noindex": "noindex, nofollow"
+    },
+    {
+      "route": "/minh-bach",
+      "status": 200,
+      "noindex": "noindex, nofollow"
+    },
+    {
+      "route": "/ve-nhom",
+      "status": 200,
+      "noindex": "noindex, nofollow"
+    },
+    {
+      "route": "/dong-hanh",
+      "status": 200,
+      "noindex": "noindex, nofollow"
+    }
+  ],
+  "sections": [
+    {
+      "width": 375,
+      "stage": "· Chặng 02: Gây quỹ (Đang thực hiện)"
+    },
+    {
+      "width": 768,
+      "stage": "· Chặng 02: Gây quỹ (Đang thực hiện)"
+    },
+    {
+      "width": 1440,
+      "stage": "· Chặng 02: Gây quỹ (Đang thực hiện)"
+    }
+  ],
+  "skip": {
+    "class": "skip-link",
+    "y": 16
+  },
+  "skipTarget": "main-content",
+  "menuOpen": "true",
+  "menuClosed": "false",
+  "faqEnter": true,
+  "faqSpace": false,
+  "passed": true
+}

@@ -1,0 +1,33 @@
+﻿{
+    "publicBase":  "c200813dac24d7627ce3d4a89efeac9aaab6316f",
+    "publicReviewedHead":  "d53dd6ebb568b30281f6aad76c40641a6cd89a87",
+    "publicCode":  "d87e57c",
+    "apiBase":  "fd79daa0e88b3f3c1f1c735c098817d4934705f1",
+    "apiReviewedHead":  "f4adafb3a51d8c065a5e8e00b91785c14340e09b",
+    "apiCode":  "63c45f7aa93ab9555a2c732d8c7d0bf75c180ebe",
+    "publicProtectedDiff":  [
+
+                            ],
+    "apiProtectedDiff":  [
+
+                         ],
+    "publicChangedFiles":  [
+                               "public/images/san-pham/moc-khoa-mau-chu-du-an.webp",
+                               "src/components/Hero.astro",
+                               "src/components/ProductGrid.astro",
+                               "src/data/campaign.ts",
+                               "src/lib/products.ts",
+                               "src/pages/index.astro",
+                               "src/pages/san-pham.astro",
+                               "src/pages/san-pham/[slug].astro",
+                               "tests/owner-fixes.test.mjs"
+                           ],
+    "apiChangedFiles":  [
+                            "apps/studio/src/preorders/service.ts",
+                            "apps/studio/src/schemas/index.ts",
+                            "apps/studio/src/ui/html.ts",
+                            "apps/studio/tests/preorder-phone.test.mjs",
+                            "src/data/campaign.ts"
+                        ],
+    "at":  "2026-10-24T09:17:57.6582466Z"
+}

@@ -1,0 +1,107 @@
+{
+  "at": "2026-10-24T09:14:15.276Z",
+  "method": "Independent imported compiled API handlers; fresh in-memory LocalD1Database; no network, real D1/R2 or email binding",
+  "cases": [
+    {
+      "name": "missing",
+      "status": 400,
+      "error": "Vui lòng nhập số điện thoại để nhóm liên hệ xác nhận đơn."
+    },
+    {
+      "name": "null",
+      "status": 400,
+      "error": "Vui lòng nhập số điện thoại để nhóm liên hệ xác nhận đơn."
+    },
+    {
+      "name": "empty",
+      "status": 400,
+      "error": "Vui lòng nhập số điện thoại để nhóm liên hệ xác nhận đơn."
+    },
+    {
+      "name": "whitespace",
+      "status": 400,
+      "error": "Vui lòng nhập số điện thoại để nhóm liên hệ xác nhận đơn."
+    },
+    {
+      "name": "number",
+      "status": 400,
+      "error": "Vui lòng nhập số điện thoại để nhóm liên hệ xác nhận đơn."
+    },
+    {
+      "name": "object",
+      "status": 400,
+      "error": "Vui lòng nhập số điện thoại để nhóm liên hệ xác nhận đơn."
+    },
+    {
+      "name": "array",
+      "status": 400,
+      "error": "Vui lòng nhập số điện thoại để nhóm liên hệ xác nhận đơn."
+    },
+    {
+      "name": "separators",
+      "status": 400,
+      "error": "Số điện thoại chưa hợp lệ. Ví dụ: 0984 441 726 hoặc +84 984 441 726."
+    },
+    {
+      "name": "letters",
+      "status": 400,
+      "error": "Số điện thoại chưa hợp lệ. Ví dụ: 0984 441 726 hoặc +84 984 441 726."
+    },
+    {
+      "name": "short",
+      "status": 400,
+      "error": "Số điện thoại chưa hợp lệ. Ví dụ: 0984 441 726 hoặc +84 984 441 726."
+    },
+    {
+      "name": "double-plus",
+      "status": 400,
+      "error": "Số điện thoại chưa hợp lệ. Ví dụ: 0984 441 726 hoặc +84 984 441 726."
+    },
+    {
+      "name": "control",
+      "status": 400,
+      "error": "Số điện thoại chưa hợp lệ. Ví dụ: 0984 441 726 hoặc +84 984 441 726."
+    },
+    {
+      "name": "valid-local-server-price",
+      "status": 201,
+      "price": 10000,
+      "email": "skipped"
+    },
+    {
+      "name": "idempotent-retry",
+      "status": 200,
+      "duplicate": true
+    },
+    {
+      "name": "valid-international",
+      "status": 201
+    },
+    {
+      "name": "email-still-required",
+      "status": 400
+    },
+    {
+      "name": "honeypot",
+      "status": 400
+    },
+    {
+      "name": "foreign-origin",
+      "status": 403
+    },
+    {
+      "name": "fixture-server-error",
+      "status": 503,
+      "error": "Không thể tiếp nhận yêu cầu lúc này."
+    },
+    {
+      "name": "historical-null-phone-list-manage-export",
+      "list": 200,
+      "manage": 200,
+      "export": 200,
+      "phoneRemainsNull": true
+    }
+  ],
+  "persistedFixtureOrders": 2,
+  "passed": true
+}
