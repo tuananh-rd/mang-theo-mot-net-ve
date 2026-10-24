@@ -45,6 +45,8 @@ export interface CraftProductDetail {
     height: number;
     caption: string;
     isReferenceOnly: boolean;
+    /** contain: hiển thị trọn vật phẩm (ví dụ móc khóa có vòng và xích) thay vì cắt khung 4:3 */
+    fit?: 'cover' | 'contain';
   };
   imagePendingNote?: string;
 }
@@ -93,8 +95,15 @@ export const CRAFT_PRODUCT_DETAILS: CraftProductDetail[] = [
       'Nhóm sẽ liên hệ xác nhận cách thức và lịch nhận hàng sau khi đặt trước.',
     returnPolicy:
       'Điều kiện nhận/đổi/hủy chưa công bố; nhóm sẽ hoàn thiện và thống nhất trước khi mở bán.',
-    imagePendingNote:
-      'Chưa có ảnh mẫu: móc khóa in tranh do nhóm chuẩn bị hoặc có quyền sử dụng, không dùng tranh của các em trong buổi sinh hoạt.',
+    image: {
+      src: '/images/san-pham/moc-khoa-mau-chu-du-an.webp',
+      alt: 'Một bàn tay cầm móc khóa hình chữ nhật in tranh nền xanh, kèm vòng khóa và dây xích; ảnh do chủ dự án cung cấp.',
+      width: 466,
+      height: 622,
+      caption: 'Ảnh mẫu móc khóa do chủ dự án cung cấp; mẫu thực tế có thể khác.',
+      isReferenceOnly: true,
+      fit: 'contain',
+    },
   },
 ];
 

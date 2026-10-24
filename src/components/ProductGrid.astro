@@ -3,7 +3,7 @@ import Icon, { type IconName } from './Icon.astro';
 import StatusChip from './StatusChip.astro';
 import type { Product } from '../data/campaign';
 import { buildProductCatalog } from '../lib/finance';
-import { getEffectiveProductSaleModel } from '../lib/products';
+import { CRAFT_PRODUCT_DETAILS, getEffectiveProductSaleModel } from '../lib/products';
 
 interface Props {
   products: Product[];
@@ -25,20 +25,8 @@ const iconFor: Record<string, IconName> = {
 
 const rows = buildProductCatalog(products);
 
-/** Ảnh do nhóm cung cấp (tài liệu bổ sung C07). Chỉ là ảnh tham khảo, chưa phải mẫu nhóm đã hoàn thiện. */
-const photoFor: Record<string, { src: string; width: number; height: number; alt: string; caption: string }> = {
-  'chuon-chuon-tre-kem-de': {
-    src: '/images/san-pham/chuon-chuon-tre.webp',
-    width: 1117,
-    height: 541,
-    alt: 'Những chú chuồn chuồn tre sơn nhiều màu đặt trên khay mây, có chân đế',
-    caption: 'Ảnh chuồn chuồn tre do nhóm cung cấp để tham khảo; mẫu thực tế có thể khác.',
-  },
-};
-
-const pendingNote: Record<string, string> = {
-  'moc-khoa': 'Chưa có ảnh mẫu: móc khóa in tranh do nhóm chuẩn bị hoặc có quyền sử dụng, không dùng tranh của các em trong buổi sinh hoạt.',
-};
+/** Ảnh và ghi chú chờ ảnh lấy từ nguồn chung CRAFT_PRODUCT_DETAILS (cùng nguồn với trang chi tiết). */
+const detailFor = (productId: string) => CRAFT_PRODUCT_DETAILS.find((d) => d.product.id === productId);
 ---
 
 <ul class="catalogue-grid">
@@ -48,13 +36,15 @@ const pendingNote: Record<string, string> = {
       const priceVal = saleModel && saleModel.effectivePrice !== null ? saleModel.priceText : r.priceText;
       const unitVal = saleModel ? saleModel.unitSuffix : 'chiếc';
       const noteVal = saleModel ? saleModel.priceTypeLabel : 'Giá tham khảo';
-      const photo = photoFor[r.product.id];
+      const detail = detailFor(r.product.id);
+      const photo = detail?.image;
+      const pendingNote = detail?.imagePendingNote;
 
       return (
         <li class="catalogue-card">
           <div class="catalogue-visual">
             {photo ? (
-              <figure class="catalogue-figure">
+              <figure class:list={['catalogue-figure', { 'catalogue-figure--contain': photo.fit === 'contain' }]}>
                 <div class="catalogue-img-wrap">
                   <img
                     src={photo.src}
@@ -73,8 +63,8 @@ const pendingNote: Record<string, string> = {
                   <Icon name={iconFor[r.product.id] ?? 'moc-khoa'} size={48} />
                 </div>
                 <p class="placeholder-label">Chưa có ảnh mẫu</p>
-                {pendingNote[r.product.id] && (
-                  <p class="placeholder-note">{pendingNote[r.product.id]}</p>
+                {pendingNote && (
+                  <p class="placeholder-note">{pendingNote}</p>
                 )}
               </div>
             )}
@@ -173,6 +163,14 @@ const pendingNote: Record<string, string> = {
     aspect-ratio: 4 / 3;
     object-fit: cover;
     display: block;
+  }
+
+  /* Ảnh cần hiện trọn vật phẩm: không cắt 4:3, giữ nguyên tỉ lệ ảnh gốc trong khung nền nhạt */
+  .catalogue-figure--contain img {
+    aspect-ratio: auto;
+    max-height: 420px;
+    object-fit: contain;
+    margin-inline: auto;
   }
 
   .catalogue-caption {

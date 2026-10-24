@@ -70,6 +70,42 @@ export interface SupportMethod {
   statusText: string;
 }
 
+/** Nguồn chung của chặng dự án: chỉ số 0-based của chặng đang diễn ra (chủ dự án đã xác nhận: chặng 2 — Gây quỹ). */
+export const CURRENT_STAGE_INDEX = 1;
+
+export const PLANNED_STAGES: PlannedStage[] = [
+  {
+    step: '01',
+    title: 'Xác nhận và chuẩn bị',
+    description:
+      'Thống nhất với Mái ấm về lịch, hoạt động, vật liệu và danh mục quà; chuẩn bị đạo cụ an toàn.',
+  },
+  {
+    step: '02',
+    title: 'Gây quỹ',
+    description:
+      'Nhóm đang nhận đặt trước hai sản phẩm thủ công; đặt trước chưa phải thanh toán. Nhóm sẽ liên hệ xác nhận cách thức và lịch nhận hàng sau khi đặt trước. Thời điểm bán trực tiếp chưa được xác định. Hai nguồn thu được ghi riêng; khoản ủng hộ được công bố sau đối soát.',
+  },
+  {
+    step: '03',
+    title: 'Buổi chơi tại Mái ấm',
+    description:
+      '14:00 Thứ Bảy 31/10/2026 (dự kiến). Khoảng 180 phút, bốn hoạt động và hai lần nghỉ chung; có thể rút ngắn theo ý Mái ấm.',
+  },
+  {
+    step: '04',
+    title: 'Đối soát và trao quà',
+    description:
+      '14:00 Thứ Bảy 07/11/2026 (dự kiến). Chốt quỹ, mua vật phẩm theo danh mục Mái ấm xác nhận, gặp lại các em và trao tặng.',
+  },
+];
+
+/** Nhãn trạng thái dự án suy ra từ chặng hiện tại, dùng chung cho Trang chủ, trang Dự án và chân trang. */
+export function formatStageStatus(index: number = CURRENT_STAGE_INDEX): string {
+  const stage = PLANNED_STAGES[index];
+  return stage ? `CHẶNG ${Number(stage.step)} — ${stage.title}` : 'Đang triển khai';
+}
+
 export const CAMPAIGN_PROJECT: Project = {
   slug: 'mang-theo-mot-net-ve',
   title: 'Mang Theo Một Nét Vẽ',
@@ -78,7 +114,7 @@ export const CAMPAIGN_PROJECT: Project = {
     'Bảy sinh viên Đại học FPT Hà Nội sẽ tổ chức một buổi vui chơi sáng tạo cho các em tại Mái ấm Thánh Tâm Xuy Xá, và gây quỹ để tặng những vật phẩm Mái ấm đang cần.',
   location: 'Mái ấm Thánh Tâm Xuy Xá (Mỹ Đức, Hà Nội) & Campus FPT Hòa Lạc',
   executionStatus: 'in_progress',
-  statusNotice: 'Đang triển khai · tuần 2',
+  statusNotice: formatStageStatus(),
   previewNotice: 'Bản xem trước — nội dung theo đề xuất V3 (tháng 10/2026), chờ xác nhận.',
   activities: [
     {
@@ -114,32 +150,7 @@ export const CAMPAIGN_PROJECT: Project = {
       note: 'Mỗi em nhỏ tự quyết định mức độ tham gia phù hợp thể trạng.',
     },
   ],
-  plannedStages: [
-    {
-      step: '01',
-      title: 'Xác nhận và chuẩn bị',
-      description:
-        'Thống nhất với Mái ấm về lịch, hoạt động, vật liệu và danh mục quà; chuẩn bị đạo cụ an toàn.',
-    },
-    {
-      step: '02',
-      title: 'Gây quỹ',
-      description:
-        'Nhóm đang nhận đặt trước hai sản phẩm thủ công; đặt trước chưa phải thanh toán. Nhóm sẽ liên hệ xác nhận cách thức và lịch nhận hàng sau khi đặt trước. Thời điểm bán trực tiếp chưa được xác định. Hai nguồn thu được ghi riêng; khoản ủng hộ được công bố sau đối soát.',
-    },
-    {
-      step: '03',
-      title: 'Buổi chơi tại Mái ấm',
-      description:
-        '14:00 Thứ Bảy 31/10/2026 (dự kiến). Khoảng 180 phút, bốn hoạt động và hai lần nghỉ chung; có thể rút ngắn theo ý Mái ấm.',
-    },
-    {
-      step: '04',
-      title: 'Đối soát và trao quà',
-      description:
-        '14:00 Thứ Bảy 07/11/2026 (dự kiến). Chốt quỹ, mua vật phẩm theo danh mục Mái ấm xác nhận, gặp lại các em và trao tặng.',
-    },
-  ],
+  plannedStages: PLANNED_STAGES,
 };
 
 export const PRODUCTS: Product[] = [
@@ -1410,7 +1421,7 @@ export const PROJECT_PROGRESS: ProjectProgress = {
   currentWeek: 2,
   totalWeeks: 5,
   updatedAt: '2026-10-12',
-  currentStageIndex: 0,
+  currentStageIndex: CURRENT_STAGE_INDEX,
 };
 
 export interface PlannedSession {

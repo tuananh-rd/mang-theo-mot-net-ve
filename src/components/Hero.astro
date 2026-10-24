@@ -16,7 +16,6 @@ const HERO_PHOTO = {
   width: 1672,
   height: 941,
   alt: 'Chú chuồn chuồn gỗ sơn xanh họa tiết dân gian dang cánh, phía sau là các món đồ thủ công bằng gỗ nhòe nền',
-  caption: 'Ảnh minh họa chuồn chuồn gỗ họa tiết dân gian do chủ dự án cung cấp — chưa phải sản phẩm thực tế của nhóm.',
 };
 ---
 
@@ -33,7 +32,6 @@ const HERO_PHOTO = {
       decoding="async"
       fetchpriority="high"
     />
-    <figcaption class="hero-caption">{HERO_PHOTO.caption}</figcaption>
   </figure>
 
   <div class="container hero-inner">
@@ -93,14 +91,6 @@ const HERO_PHOTO = {
     height: auto;
   }
 
-  .hero-caption {
-    padding: var(--space-2) var(--container-gutter);
-    font-size: var(--font-size-small);
-    line-height: var(--line-height-small);
-    color: var(--ink-2);
-    background: #ffffff;
-    border-bottom: 1px solid var(--line);
-  }
 
   .hero-inner {
     position: relative;
@@ -245,16 +235,6 @@ const HERO_PHOTO = {
       object-position: 0% 32%;
     }
 
-    .hero-caption {
-      position: absolute;
-      right: max(var(--container-gutter), calc((100% - var(--container-max-width)) / 2 + var(--container-gutter)));
-      bottom: calc(64px + var(--space-6));
-      max-width: 340px;
-      padding: var(--space-2) var(--space-3);
-      border: 1px solid var(--line);
-      border-radius: var(--radius-md);
-      box-shadow: var(--shadow-subtle);
-    }
 
     .hero-inner {
       width: 100%;

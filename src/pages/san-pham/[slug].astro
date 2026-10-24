@@ -133,7 +133,7 @@ if (saleModel.preorderOpen) {
         <!-- Vùng Hình ảnh / Khung trực quan (Trái 7 trên desktop) -->
         <div class="product-visual-area">
           {detail.image ? (
-            <figure class="product-figure-main">
+            <figure class:list={['product-figure-main', { 'product-figure-main--contain': detail.image.fit === 'contain' }]}>
               <div class="product-img-wrap">
                 <img
                   src={detail.image.src}
@@ -608,6 +608,13 @@ if (saleModel.preorderOpen) {
     display: block;
     aspect-ratio: 4 / 3;
     object-fit: cover;
+  }
+
+  .product-figure-main--contain img {
+    aspect-ratio: auto;
+    max-height: 560px;
+    object-fit: contain;
+    margin-inline: auto;
   }
 
   .product-caption {

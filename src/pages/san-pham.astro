@@ -4,7 +4,7 @@ import PageHero from '../components/PageHero.astro';
 import ProductGrid from '../components/ProductGrid.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
 import { PRODUCTS, PRODUCT_FAQS, SALES_PLAN } from '../data/campaign';
-import { getEffectiveProductSaleModel } from '../lib/products';
+import { CRAFT_PRODUCT_DETAILS, getEffectiveProductSaleModel } from '../lib/products';
 
 const craft = PRODUCTS.filter((p) => p.category === 'craft');
 const craftSaleModels = craft.map((p) => getEffectiveProductSaleModel(p));
@@ -13,6 +13,11 @@ const allPreorderOpen = craftSaleModels.length > 0 && craftSaleModels.every((m) 
 const heroChip = anyPreorderOpen
   ? { kind: 'da-xac-nhan' as const, label: allPreorderOpen ? 'Đang nhận đặt trước' : 'Có món đang nhận đặt trước' }
   : { kind: 'cho-xac-nhan' as const, label: 'Chưa mở bán' };
+
+// Ảnh/chú thích của sản phẩm đang chọn trong biểu mẫu lấy từ nguồn chung CRAFT_PRODUCT_DETAILS (cùng nguồn với danh mục và trang chi tiết).
+const preorderMedia = Object.fromEntries(CRAFT_PRODUCT_DETAILS.map((d) => [d.product.id, d.image
+  ? { name: d.product.name, src: d.image.src, alt: d.image.alt, width: d.image.width, height: d.image.height, caption: d.image.caption, fit: d.image.fit ?? 'cover' }
+  : { name: d.product.name, src: null }]));
 
 const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Quà lưu niệm' }];
 ---
@@ -59,6 +64,10 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Quà lưu ni
         <div class="form-group">
           <label for="preorderProduct">Sản phẩm</label>
           <select id="preorderProduct" name="productId" required></select>
+          <figure id="preorderProductPreview" class="preorder-preview" hidden>
+            <img id="preorderProductImage" alt="" loading="lazy" decoding="async" />
+            <figcaption id="preorderProductCaption"></figcaption>
+          </figure>
         </div>
         <div class="form-group">
           <label for="preorderQuantity">Số lượng</label>
@@ -73,8 +82,9 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Quà lưu ni
           <input id="preorderEmail" name="email" type="email" autocomplete="email" maxlength="254" required>
         </div>
         <div class="form-group">
-          <label for="preorderPhone">Số điện thoại (không bắt buộc)</label>
-          <input id="preorderPhone" name="phone" type="tel" autocomplete="tel" maxlength="24">
+          <label for="preorderPhone">Số điện thoại</label>
+          <input id="preorderPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="24" required aria-describedby="preorderPhoneHint">
+          <p id="preorderPhoneHint" class="field-hint">Nhóm dùng số này để xác nhận đơn và hẹn lịch nhận hàng. Ví dụ: 0984 441 726 hoặc +84 984 441 726.</p>
         </div>
         <div class="form-group">
           <label for="preorderPickup">Cách nhận hàng</label>
@@ -94,6 +104,7 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Quà lưu ni
         <button id="preorderSubmit" class="btn btn-primary" type="submit">Gửi đăng ký đặt trước</button>
       </form>
       <div id="preorderSuccess" role="status" aria-live="polite" hidden></div>
+      <script type="application/json" id="preorderMediaData" set:html={JSON.stringify(preorderMedia)} />
     </div>
   </section>
 
@@ -159,6 +170,38 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Quà lưu ni
   const productSelect = document.querySelector<HTMLSelectElement>('#preorderProduct');
   const pickupSelect = document.querySelector<HTMLSelectElement>('#preorderPickup');
   const priceNote = document.querySelector<HTMLElement>('#preorderPriceNote');
+  const phoneInput = document.querySelector<HTMLInputElement>('#preorderPhone');
+  const preview = document.querySelector<HTMLElement>('#preorderProductPreview');
+  const previewImage = document.querySelector<HTMLImageElement>('#preorderProductImage');
+  const previewCaption = document.querySelector<HTMLElement>('#preorderProductCaption');
+  const mediaByProduct: Record<string, { src: string | null; alt?: string; width?: number; height?: number; caption?: string; fit?: string }> = JSON.parse(document.querySelector('#preorderMediaData')?.textContent || '{}');
+  function updateProductPreview() {
+    const media = mediaByProduct[productSelect?.value || ''];
+    if (!preview || !previewImage || !previewCaption) return;
+    if (!media?.src) { preview.hidden = true; return; }
+    previewImage.src = media.src; previewImage.alt = media.alt || '';
+    if (media.width) previewImage.width = media.width;
+    if (media.height) previewImage.height = media.height;
+    preview.classList.toggle('preorder-preview--contain', media.fit === 'contain');
+    previewCaption.textContent = media.caption || '';
+    preview.hidden = false;
+  }
+  // Quy tắc số điện thoại dùng chung với API (apps/studio/src/preorders/service.ts): bỏ dấu cách . - ( ), chấp nhận 0xxxxxxxxx(x), +84…, 84… hoặc số quốc tế +E.164.
+  function normalizePhone(value: string): string | null {
+    const raw = value.trim();
+    if (!raw || /[^\d\s.\-()+]/.test(raw) || raw.indexOf('+') > 0 || (raw.match(/\+/g) || []).length > 1) return null;
+    const compact = raw.replace(/[\s.\-()]/g, '');
+    if (/^0\d{9,10}$/.test(compact)) return compact;
+    if (/^84\d{9,10}$/.test(compact)) return '+' + compact;
+    if (/^\+[1-9]\d{7,14}$/.test(compact)) return compact;
+    return null;
+  }
+  function phoneProblem(value: string): string {
+    if (!value.trim()) return 'Vui lòng nhập số điện thoại để nhóm liên hệ xác nhận đơn.';
+    return normalizePhone(value) ? '' : 'Số điện thoại chưa hợp lệ. Ví dụ: 0984 441 726 hoặc +84 984 441 726.';
+  }
+  phoneInput?.addEventListener('input', () => phoneInput.setCustomValidity(''));
+  phoneInput?.addEventListener('invalid', () => { if (!phoneInput.validationMessage || phoneInput.validity.valueMissing) phoneInput.setCustomValidity(phoneProblem(phoneInput.value)); });
   const apiBase = ['localhost', '127.0.0.1'].includes(window.location.hostname)
     ? 'http://127.0.0.1:4331/api/preorders'
     : '/api/preorders';
@@ -182,6 +225,7 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Quà lưu ni
       if (productSelect) productSelect.innerHTML = products.map((item) => `<option value="${escapeHtml(item.productId)}">${escapeHtml(item.name)}${item.officialPrice === null ? ' — giá tham khảo' : ` — ${new Intl.NumberFormat('vi-VN').format(item.officialPrice)}đ`}</option>`).join('');
       if (productSelect && requestedProduct && products.some((item) => item.productId === requestedProduct)) productSelect.value = requestedProduct;
       updatePickupOptions();
+      updateProductPreview();
       if (form) form.hidden = false;
       if (availability) availability.textContent = 'Đang nhận đăng ký đặt trước.';
       if (requestedProduct) {
@@ -199,9 +243,10 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Quà lưu ni
     pickupSelect.innerHTML = product?.pickup ? `<option value="${escapeHtml(product.pickup)}">${escapeHtml(product.pickup)}</option>` : '<option value="Nhóm xác nhận cách nhận hàng khi liên hệ">Nhóm xác nhận cách nhận hàng khi liên hệ</option>';
     if (!product?.pickup) pickupSelect.value = 'Nhóm xác nhận cách nhận hàng khi liên hệ';
   }
-  productSelect?.addEventListener('change', updatePickupOptions);
+  productSelect?.addEventListener('change', () => { updatePickupOptions(); updateProductPreview(); });
   form?.addEventListener('submit', async (event) => {
     event.preventDefault();
+    if (phoneInput) phoneInput.setCustomValidity(phoneProblem(phoneInput.value));
     if (!form.reportValidity()) return;
     const submit = document.querySelector<HTMLButtonElement>('#preorderSubmit');
     if (submit) { submit.disabled = true; submit.textContent = 'Đang gửi…'; }
@@ -213,7 +258,7 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Quà lưu ni
         headers: { 'Content-Type': 'application/json', 'Idempotency-Key': idempotencyKey },
         body: JSON.stringify({
           productId: fields.get('productId'), quantity: Number(fields.get('quantity')), name: fields.get('name'),
-          email: fields.get('email'), phone: fields.get('phone'), pickup: fields.get('pickup'),
+          email: fields.get('email'), phone: normalizePhone(String(fields.get('phone') ?? '')) ?? '', pickup: fields.get('pickup'),
           note: fields.get('note'), consent: fields.get('consent') === 'on', website: fields.get('website'),
         }),
       });
@@ -237,6 +282,11 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Quà lưu ni
 
 <style>
   .section-preorder { background: #f7f8f8; }
+  .preorder-preview { margin: var(--space-2) 0 0; border: 1px solid var(--line); border-radius: 6px; background: var(--surface-alt); overflow: hidden; }
+  .preorder-preview img { display: block; width: 100%; height: auto; max-height: 280px; object-fit: cover; }
+  .preorder-preview--contain img { object-fit: contain; max-height: 320px; margin-inline: auto; }
+  .preorder-preview figcaption { padding: var(--space-2) var(--space-3); font-size: var(--font-size-small); color: var(--ink-2); border-top: 1px solid var(--line); background: #fff; }
+  .field-hint { margin: 6px 0 0; font-size: var(--font-size-small); color: var(--ink-2); }
   .section-preorder form { display: grid; gap: var(--space-4); }
   .section-preorder .form-group { display: grid; gap: 6px; }
   .section-preorder input, .section-preorder select, .section-preorder textarea { width: 100%; border: 1px solid var(--line); border-radius: 6px; padding: 12px; font: inherit; color: var(--ink); background: #fff; }
