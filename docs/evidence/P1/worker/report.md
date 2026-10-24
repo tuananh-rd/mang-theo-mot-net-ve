@@ -33,7 +33,10 @@ Trình duyệt (Chrome headless CDP, DPR 1, `verify.mjs` → `verification.json`
 4. **Ảnh móc khóa trong Studio**: tải WebP lên R2 và duyệt `mediaKey` như mục 4.
 
 ## Hạn chế thực
-Lab một máy Chrome headless; không có số liệu field/Lighthouse/AA. Biểu mẫu trên trang public gốc vẫn hiện dù API chưa phản hồi (lỗi `form[hidden]` có từ trước, ngoài phạm vi, không sửa). Bản xem trước là fixture cục bộ, không phản ánh API production. `isReferenceOnly` của ảnh móc khóa để `true` (ảnh mẫu). Chú thích mobile của hero bị bỏ cùng hộp nổi (xem mục 2).
+Lab một máy Chrome headless; không có số liệu field/Lighthouse/AA. Bản xem trước là fixture cục bộ, không phản ánh API production. `isReferenceOnly` của ảnh móc khóa để `true` (ảnh mẫu). Chú thích mobile của hero bị bỏ cùng hộp nổi (xem mục 2).
 
 ## Ghi chú commit
 Commit tài liệu `62d24c4` đã vô tình gộp các tệp do Codex sở hữu trong `docs/evidence/P1/review/`; commit kế tiếp gỡ chúng khỏi chỉ mục (tệp vẫn nguyên trên đĩa, không bị sửa/xóa, vẫn là của Codex). Không amend/reset để giữ lịch sử đúng quy tắc; nếu cần lịch sử sạch hơn hãy báo để xử lý riêng.
+
+## Sửa sau review độc lập (form ẩn và trạng thái thành công)
+Review phát hiện sau khi gửi thành công `form.hidden = true` nhưng CSS `display:grid` ghi đè nên các trường vẫn hiện. Đã thêm `.section-preorder form[hidden] { display: none; }` (đồng thời form không còn hiện khi API chưa sẵn sàng — lỗi có từ trước trên bản công khai), khối `#preorderSuccess` có khung/tabindex=-1, được cuộn vào giữa màn hình và nhận focus sau khi gửi; không đổi thiết kế khác. Kiểm (`success-check.mjs` → `success-check.json`, 375 và 1440): `formDisplay:none`, 0 trường còn hiển thị, thông báo thành công trong khung nhìn và đang focus. Đồng bộ BASELINE chặng ở backend (`src/data/campaign.ts`: statusNotice, currentStageIndex) đã có ở commit API; test chống lệch **không bị nới** (98/98).

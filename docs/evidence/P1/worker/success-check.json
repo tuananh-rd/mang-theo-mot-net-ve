@@ -1,0 +1,22 @@
+{
+  "w375": {
+    "formHidden": true,
+    "formDisplay": "none",
+    "formHeight": 0,
+    "visibleFields": 0,
+    "successDisplay": "block",
+    "successText": "Đã ghi nhận đăng ký MTMNV-92C06DEF. Đây là đặt trước, chưa thanh toán; nhóm sẽ l",
+    "successInViewport": true,
+    "focused": true
+  },
+  "w1440": {
+    "formHidden": true,
+    "formDisplay": "none",
+    "formHeight": 0,
+    "visibleFields": 0,
+    "successDisplay": "block",
+    "successText": "Đã ghi nhận đăng ký MTMNV-F528BBEC. Đây là đặt trước, chưa thanh toán; nhóm sẽ l",
+    "successInViewport": true,
+    "focused": true
+  }
+}

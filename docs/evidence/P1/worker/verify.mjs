@@ -12,7 +12,7 @@ const full = async (name, w) => {
   await evaluate(`(async()=>{for(let y=0;y<document.documentElement.scrollHeight;y+=500){scrollTo({top:y,behavior:'instant'});await new Promise(r=>setTimeout(r,60));}await Promise.all([...document.images].map(i=>i.decode().catch(()=>{})));scrollTo({top:0,behavior:'instant'});return true})()`);
   await pause(200); await screenshot(`${out}/${name}-${w}-fullpage.png`, true);
 };
-const element = async (name, w, selector, pad = 24) => {
+const element = async (name, w, selector) => {
   const box = await evaluate(`(()=>{const e=document.querySelector(${JSON.stringify(selector)});if(!e)return null;e.scrollIntoView({block:'center',behavior:'instant'});const r=e.getBoundingClientRect();return{x:r.x,y:r.y,w:r.width,h:r.height}})()`);
   if (!box) { R.checks[`${name}-${w}-missing`] = selector; return; }
   await pause(300); await screenshot(`${out}/${name}-${w}-viewport.png`);
@@ -52,7 +52,6 @@ await evaluate(`document.querySelector('#preorderProduct').value='chuon-chuon-tr
 R.checks.formSwitchDragonfly = await evaluate(`({previewSrc:document.querySelector('#preorderProductImage').src.split('/').pop(),fit:getComputedStyle(document.querySelector('#preorderProductImage')).objectFit})`);
 await evaluate(`document.querySelector('#preorderProduct').value='moc-khoa';document.querySelector('#preorderProduct').dispatchEvent(new Event('change'))`);
 // Kiểm tra điện thoại phía máy khách: submit trống/không hợp lệ KHÔNG gửi request
-const posts = [];
 await evaluate(`window.__posts=0;const of=window.fetch;window.fetch=(...a)=>{if(a[1]&&a[1].method==='POST')window.__posts++;return of(...a)}`);
 const fill = (name, value) => evaluate(`(()=>{const f=document.querySelector('#preorderForm');const e=f.elements[${JSON.stringify(name)}];e.value=${JSON.stringify(value)};e.dispatchEvent(new Event('input',{bubbles:true}));return true})()`);
 await fill('name', 'Nguyễn Thử Nghiệm'); await fill('email', 'thu@example.invalid');

@@ -1,5 +1,5 @@
 {
-  "measuredAt": "2026-10-24T09:05:31.291Z",
+  "measuredAt": "2026-10-24T09:10:04.670Z",
   "method": "Chrome headless CDP, DPR 1, mobile emulation <=768, scrollbars hidden; preorder API = local in-memory fixture (isTest)",
   "pages": [
     {
@@ -357,10 +357,10 @@
       "h1Count": 1,
       "h1": {
         "x": 36,
-        "y": 402.3760681152344,
+        "y": 402.37506103515625,
         "width": 303,
         "height": 92,
-        "bottom": 494.3760681152344,
+        "bottom": 494.37506103515625,
         "right": 339
       },
       "h1Text": "Một buổi chơi có lựa chọn",
@@ -5236,7 +5236,7 @@
         "valid": true,
         "posts": 1,
         "errorBox": "",
-        "success": "Đã ghi nhận đăng ký MTMNV-F2E624AF. Đây là đặt trước, chưa thanh toán; nhóm sẽ liên hệ để xác nhận lịch nhận hàng. Nếu không thấy email xác nhận, nhóm sẽ liên hệ bạn.",
+        "success": "Đã ghi nhận đăng ký MTMNV-58866D84. Đây là đặt trước, chưa thanh toán; nhóm sẽ liên hệ để xác nhận lịch nhận hàng. Nếu không thấy email xác nhận, nhóm sẽ liên hệ bạn.",
         "formHidden": true
       }
     },
@@ -5270,21 +5270,18 @@
         }
       },
       "valid": {
-        "status": 201,
+        "status": 200,
         "body": {
           "success": true,
-          "duplicate": false,
+          "duplicate": true,
           "preorder": {
             "id": "d0a96ad2-6a31-42c7-9256-dfe3d740a55f",
             "orderCode": "MTMNV-E9DC99FF",
             "productId": "moc-khoa",
             "quantity": 1,
             "status": "new",
-            "unitPrice": 10000,
-            "isTest": true,
             "createdAt": "2026-10-24T09:06:27.922Z"
-          },
-          "emailStatus": "skipped"
+          }
         }
       }
     }
