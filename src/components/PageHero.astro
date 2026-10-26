@@ -21,6 +21,7 @@ interface HeroImage {
   sizes?: string;
   alt: string;
   position: string;
+  mobilePosition?: string;
   width: number;
   height: number;
   compact?: boolean;
@@ -108,7 +109,7 @@ const hasPanel = (summaryItems && summaryItems.length > 0) || Astro.slots.has('p
       </div>
 
       {image && (
-        <figure class:list={['page-hero-image', { 'page-hero-image--compact': image.compact }, image.layout && `page-hero-image--${image.layout}`]} style={`--hero-image-position: ${image.position}`}>
+        <figure class:list={['page-hero-image', { 'page-hero-image--compact': image.compact }, image.layout && `page-hero-image--${image.layout}`]} style={`--hero-image-position: ${image.position}; --hero-image-position-mobile: ${image.mobilePosition ?? image.position}`}>
           <img
             src={image.src}
             srcset={image.srcset}
@@ -814,4 +815,97 @@ const hasPanel = (summaryItems && summaryItems.length > 0) || Astro.slots.has('p
     }
   }
 
+  /* Di động (<= 767px), chỉ các hero ảnh ngữ cảnh (dự án, nhật ký, ủng hộ, minh bạch): ảnh làm nền khối hero, tiêu đề/lead/CTA nằm trên một tấm phủ trắng đặc có độ mờ
+   * (không gradient), cùng bố cục với hero Trang chủ. Từ 768px trở lên giữ nguyên bố cục máy tính. */
+  @media (max-width: 767px) {
+    .page-hero-grid--image-project,
+    .page-hero-grid--image-journal,
+    .page-hero-grid--image-support,
+    .page-hero-grid--image-transparency {
+      --hero-reveal: clamp(11rem, 52vw, 18rem);
+      position: relative;
+      isolation: isolate;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      min-height: 0;
+      margin-inline: calc(var(--container-gutter) * -1);
+      padding-top: var(--hero-reveal);
+      background-color: var(--surface-alt);
+    }
+    .page-hero-grid--image-project .page-hero-image,
+    .page-hero-grid--image-journal .page-hero-image,
+    .page-hero-grid--image-support .page-hero-image,
+    .page-hero-grid--image-transparency .page-hero-image {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      order: 0;
+      width: 100%;
+      max-width: none;
+      height: auto;
+      max-height: none;
+      margin: 0;
+      border: 0;
+      border-radius: 0;
+      aspect-ratio: auto;
+      align-self: stretch;
+    }
+    .page-hero-grid--image-project .page-hero-image img,
+    .page-hero-grid--image-journal .page-hero-image img,
+    .page-hero-grid--image-support .page-hero-image img,
+    .page-hero-grid--image-transparency .page-hero-image img {
+      position: absolute;
+      left: 0;
+      top: calc(var(--hero-shift, 0.4) * -100%);
+      width: 100%;
+      height: calc(100% * (1 + var(--hero-shift, 0.4)));
+    }
+    .page-hero-grid--image-project .page-hero-image img,
+    .page-hero-grid--image-journal .page-hero-image img,
+    .page-hero-grid--image-support .page-hero-image img,
+    .page-hero-grid--image-transparency .page-hero-image img {
+      object-position: var(--hero-image-position-mobile, center);
+    }
+    .page-hero-grid--image-project .page-hero-main,
+    .page-hero-grid--image-journal .page-hero-main,
+    .page-hero-grid--image-support .page-hero-main,
+    .page-hero-grid--image-transparency .page-hero-main {
+      position: relative;
+      z-index: 1;
+      width: auto;
+      margin: 0;
+      padding: var(--space-5) var(--container-gutter) var(--space-6);
+      border-radius: 0;
+      background: rgba(255, 255, 255, 0.88);
+      box-shadow: none;
+    }
+    .page-hero-grid--image-project .page-hero-panel,
+    .page-hero-grid--image-journal .page-hero-panel,
+    .page-hero-grid--image-support .page-hero-panel,
+    .page-hero-grid--image-transparency .page-hero-panel {
+      position: relative;
+      z-index: 1;
+      padding: var(--space-4) var(--container-gutter) var(--space-5);
+      background: var(--surface-alt);
+    }
+  }
+
+  /* Mỗi ảnh có độ đẩy lên riêng (--hero-shift) để chủ thể nằm trong phần ảnh lộ phía trên tấm phủ chữ. */
+  @media (max-width: 767px) {
+    .page-hero-grid--image-project { --hero-shift: 0.25; }
+    .page-hero-grid--image-journal { --hero-shift: 0.25; }
+    .page-hero-grid--image-support { --hero-shift: 0.25; }
+    .page-hero-grid--image-transparency { --hero-shift: 0.25; }
+  }
+
+  /* Màn hình di động thấp (ví dụ 320x640): thu phần ảnh lộ để nút/liên kết đầu trang không nằm dưới thanh thao tác cố định. */
+  @media (max-width: 767px) and (max-height: 700px) {
+    .page-hero-grid--image-project,
+    .page-hero-grid--image-journal,
+    .page-hero-grid--image-support,
+    .page-hero-grid--image-transparency {
+      --hero-reveal: clamp(7rem, 34vw, 9rem);
+    }
+  }
 </style>
