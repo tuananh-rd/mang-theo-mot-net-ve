@@ -1,0 +1,4 @@
+import { viewport, go, evaluate, pause, close } from './browser.mjs';
+const [w, h] = (process.env.MSH_VP || '320x640').split('x').map(Number); await viewport(w, h); await go('/'); await pause(400);
+console.log(await evaluate(`(()=>{const q=s=>{const r=document.querySelector(s).getBoundingClientRect();return [Math.round(r.top),Math.round(r.bottom)]};const b=document.querySelector('.mobile-sticky-bar').getBoundingClientRect();const a=[...document.querySelectorAll('.hero-actions a')].map(e=>{const r=e.getBoundingClientRect();return [Math.round(r.top),Math.round(r.bottom)]});return JSON.stringify({bar:Math.round(b.top),card:q('.hero-card'),kicker:q('.hero-kicker'),title:q('.hero-title'),slogan:q('.hero-slogan'),summary:q('.hero-summary'),ctas:a,gapToBar:Math.round(b.top-a[1][1])})})()`));
+close();

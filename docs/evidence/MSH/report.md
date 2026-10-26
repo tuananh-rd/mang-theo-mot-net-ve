@@ -14,10 +14,16 @@ Nhánh `tuananh-rd/mobile-subpage-heroes`, nền production `3666a18`. Chỉ CSS
 - 9 trang x 7 cỡ (320x640, 375x812, 390x844, 430x932, 767x900, 768x1024, 1440x900): không tràn ngang, 1 H1; ảnh before/ và after/.
 - Desktop 768/1440: khác biệt điểm ảnh tối đa 0,35% (hoạt ảnh vào trang), chiều cao trang giống hệt.
 - Phóng chữ 200%, Tab, reduced-motion (a11y.json): không tràn; chỉ "skip link" nằm trên header theo thiết kế; không hoạt ảnh chạy.
-- Thanh cố định 320x640 (clearance-320x640.json): cuộn/focus từng khối và liên kết hero đều nằm trên thanh. Ở lần xem đầu, nút "Tìm hiểu dự án" trang chủ lấn thanh ~1px, các trang con không có nút bị che.
+- Thanh cố định 320x640 (clearance-320x640.json): cuộn/focus từng khối và liên kết hero đều nằm trên thanh. (Đã sửa ở commit tiếp theo, xem "Sửa bổ sung".)
 - Tương phản chữ so với tấm phủ ≥5,76:1 (đo bằng nền xếp lớp, không tính ảnh); xấu nhất phía sau là ảnh đen => ~224/255 nền, chữ mực vẫn rõ. Không khẳng định WCAG AA hay CWV.
 - Giai đoạn 2 và sổ L3 1.011.222đ không đổi (4 lần xuất hiện, giống bản trước).
 
 ## Hạn chế
 - Hộp hero cao nên ảnh bị cắt ngang (cover); chủ thể nằm trong phần ảnh lộ phía trên, phần dưới ảnh mờ sau tấm phủ.
 - Chưa kiểm thử trên thiết bị thật/safe-area thật; chưa có số liệu CWV.
+
+## Sửa bổ sung (sau review của Codex): CTA trang chủ ở 320x640
+- Nguyên nhân: nút thứ hai của hero trang chủ chạm đáy ở y=579, trùng đỉnh thanh cố định (khoảng cách 0px).
+- Sửa chỉ trong `Hero.astro`, trong media (<=767px và chiều cao <=700px): nút hero `min-height: 44px` và padding dọc `var(--space-2)`. Ảnh, chữ, liên kết, trang con không đổi.
+- Đo lại (after-fix/home-probe-*.json, đỉnh thanh cố định so với đáy nút thứ hai): 320x640 -> nút 470-514 và 518-562, thanh ở 579, **khoảng cách 17px**; 360x640 -> 43px; 375x812 -> 33px. Cả hai nút đều nằm trên thanh. clearance-320x640 (cuộn + focus mọi khối/nút hero, 6 trang): không có phần tử bị che.
+- `npm run check` exit 0 (0 lỗi); `npm test` exit 0 (139/139); `npm run build` exit 0. Preview 4384 vẫn chạy, có X-Robots-Tag noindex. Ảnh: after-fix/home-320x640-viewport.png, home-375x812-viewport.png.
