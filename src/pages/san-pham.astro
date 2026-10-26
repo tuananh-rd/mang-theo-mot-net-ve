@@ -57,7 +57,7 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Quà lưu ni
       <div class="section-header">
         <span class="eyebrow">Đặt trước</span>
         <h2 id="preorder-heading">Đăng ký nhận quà lưu niệm</h2>
-        <p>Đây là đặt trước, chưa thanh toán. Nhóm sẽ liên hệ để xác nhận đơn và lịch nhận hàng; không có khoản tiền nào được thu tự động.</p>
+        <p>Đây là đặt trước, chưa thanh toán. Nhóm sẽ liên hệ để xác nhận đơn và lịch nhận hàng. </p>
       </div>
       <p id="preorderAvailability" role="status" aria-live="polite">Đang kiểm tra sản phẩm nhận đặt trước…</p>
       <form id="preorderForm" hidden>
@@ -98,7 +98,7 @@ const breadcrumbs = [{ label: 'Trang chủ', href: '/' }, { label: 'Quà lưu ni
           <label for="preorderWebsite">Để trống trường này</label>
           <input id="preorderWebsite" name="website" tabindex="-1" autocomplete="off">
         </div>
-        <label class="consent-label"><input name="consent" type="checkbox" required> Tôi đồng ý để nhóm Lăng Kính sử dụng thông tin liên hệ này nhằm xử lý đơn đặt trước và liên hệ về việc nhận hàng. Không nhập thông tin của trẻ em.</label>
+        <label class="consent-label"><input name="consent" type="checkbox" required> Tôi đồng ý để nhóm Lăng Kính sử dụng thông tin liên hệ này nhằm xử lý đơn đặt trước và liên hệ về việc nhận hàng.</label>
         {craftSaleModels.some((model) => model.officialPrice === null) && (<p id="preorderPriceNote" class="preorder-price-note" hidden>Giá đang hiển thị có thể là giá tham khảo. Khi chưa có giá chốt, nhóm sẽ xác nhận khi liên hệ.</p>)}
         <p id="preorderError" role="alert" aria-live="assertive"></p>
         <button id="preorderSubmit" class="btn btn-primary" type="submit">Gửi đăng ký đặt trước</button>
