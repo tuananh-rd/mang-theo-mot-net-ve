@@ -266,11 +266,35 @@ const HERO_PHOTO = {
     }
   }
 
+  /* Di động: ảnh làm nền cả khối hero (chiều cao theo nội dung, không cố định). Phần đầu để ảnh lộ rõ,
+   * chữ nằm trên tấm phủ trắng đặc có độ mờ, đi hết chiều ngang; không dùng gradient. */
   @media (max-width: 767px) {
+    .hero-media {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    /* Ảnh cao hơn khối 14% và đẩy lên, để đầu và cánh chuồn chuồn nằm trong phần ảnh lộ rõ phía trên tấm phủ chữ */
     .hero-media img {
-      aspect-ratio: 4 / 3;
+      position: absolute;
+      left: 0;
+      top: -14%;
+      width: 100%;
+      height: 114%;
       object-fit: cover;
-      object-position: 51% 24%;
+      object-position: 55% 0;
+    }
+
+    .hero-inner {
+      padding: clamp(18rem, 78vw, 24rem) 0 0;
+    }
+
+    .hero-card {
+      padding: var(--space-6) var(--container-gutter) var(--space-8);
+      border-radius: 0;
+      background: rgba(255, 255, 255, 0.86);
+      box-shadow: none;
     }
 
     .hero-title {
@@ -278,9 +302,13 @@ const HERO_PHOTO = {
       line-height: var(--line-height-display);
     }
 
+    /* Cho phép xuống dòng khi chữ phóng to/màn rất hẹp, tránh bị cắt ở mép */
+    .hl {
+      white-space: normal;
+    }
+
     .hero-card {
       gap: var(--space-3);
-      border-radius: var(--radius-lg);
     }
 
     .hero-slogan {
