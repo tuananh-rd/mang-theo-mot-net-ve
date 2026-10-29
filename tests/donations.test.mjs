@@ -38,12 +38,12 @@ describe('Tài khoản và sổ ủng hộ hiện tại (C07S)', () => {
     assert.deepEqual(DONATION_LEDGER.entries, []);
     const s = summarizeLedger(DONATION_LEDGER, DONATION_ACCOUNT.goalAmount);
     assert.equal(s.scope, 'partial');
-    assert.equal(s.total, 1011222);
-    assert.equal(s.count, 21);
+    assert.equal(s.total, 2038837);
+    assert.equal(s.count, 52);
     assert.equal(s.reachedGoal, null);
     assert.equal(s.reconciledAt, null);
     assert.equal(s.coveredFrom, '2026-10-13');
-    assert.equal(s.coveredTo, '2026-10-23');
+    assert.equal(s.coveredTo, '2026-10-29');
   });
 
   test('Sổ rỗng và không có khối xác minh: tổng và tỷ lệ là null, không phải 0đ', () => {

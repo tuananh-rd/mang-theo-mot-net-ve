@@ -5,9 +5,9 @@
   "verifiedReceipts": {
     "scope": "partial-verified-receipts",
     "publicApproval": "approved",
-    "verifiedAt": "2026-10-25",
+    "verifiedAt": "2026-10-29",
     "coveredFrom": "2026-10-13",
-    "coveredTo": "2026-10-23",
+    "coveredTo": "2026-10-29",
     "basis": "owner-provided-bank-statement-screenshots",
     "verifiedBy": [
       "Chủ dự án (cung cấp và chỉ định khoản)",
@@ -119,6 +119,161 @@
         "date": "2026-10-23",
         "donor": "NGUYEN DUC PHUC",
         "amount": 50000
+      },
+      {
+        "date": "2026-10-26",
+        "donor": "VUONG CHI BINH",
+        "amount": 20000
+      },
+      {
+        "date": "2026-10-26",
+        "donor": "PHAN THI THUY LINH",
+        "amount": 40000
+      },
+      {
+        "date": "2026-10-26",
+        "donor": "Ẩn danh",
+        "amount": 10000
+      },
+      {
+        "date": "2026-10-26",
+        "donor": "Ẩn danh",
+        "amount": 10000
+      },
+      {
+        "date": "2026-10-26",
+        "donor": "LE DAO NGOC HAN",
+        "amount": 20000
+      },
+      {
+        "date": "2026-10-26",
+        "donor": "Ẩn danh",
+        "amount": 100000
+      },
+      {
+        "date": "2026-10-26",
+        "donor": "Ẩn danh",
+        "amount": 10000
+      },
+      {
+        "date": "2026-10-26",
+        "donor": "Ẩn danh",
+        "amount": 20000
+      },
+      {
+        "date": "2026-10-26",
+        "donor": "Ẩn danh",
+        "amount": 40000
+      },
+      {
+        "date": "2026-10-26",
+        "donor": "Ẩn danh",
+        "amount": 10000
+      },
+      {
+        "date": "2026-10-28",
+        "donor": "NGUYEN THI QUYEN",
+        "amount": 200000
+      },
+      {
+        "date": "2026-10-28",
+        "donor": "Ẩn danh",
+        "amount": 10000
+      },
+      {
+        "date": "2026-10-28",
+        "donor": "DUONG VAN PHUC",
+        "amount": 5000
+      },
+      {
+        "date": "2026-10-28",
+        "donor": "Ẩn danh",
+        "amount": 50000
+      },
+      {
+        "date": "2026-10-28",
+        "donor": "Ẩn danh",
+        "amount": 50000
+      },
+      {
+        "date": "2026-10-28",
+        "donor": "Ẩn danh",
+        "amount": 10000
+      },
+      {
+        "date": "2026-10-28",
+        "donor": "Ẩn danh",
+        "amount": 50000
+      },
+      {
+        "date": "2026-10-28",
+        "donor": "DO VIET QUANG",
+        "amount": 8000
+      },
+      {
+        "date": "2026-10-28",
+        "donor": "Ẩn danh",
+        "amount": 15000
+      },
+      {
+        "date": "2026-10-28",
+        "donor": "Ẩn danh",
+        "amount": 100000
+      },
+      {
+        "date": "2026-10-28",
+        "donor": "Ẩn danh",
+        "amount": 10000
+      },
+      {
+        "date": "2026-10-28",
+        "donor": "Ẩn danh",
+        "amount": 20000
+      },
+      {
+        "date": "2026-10-28",
+        "donor": "NGUYEN KIM QUOC VIET",
+        "amount": 50000
+      },
+      {
+        "date": "2026-10-28",
+        "donor": "DAO QUYNH HUONG",
+        "amount": 50000
+      },
+      {
+        "date": "2026-10-28",
+        "donor": "Ẩn danh",
+        "amount": 10000
+      },
+      {
+        "date": "2026-10-28",
+        "donor": "Ẩn danh",
+        "amount": 20000
+      },
+      {
+        "date": "2026-10-28",
+        "donor": "Ẩn danh",
+        "amount": 20000
+      },
+      {
+        "date": "2026-10-28",
+        "donor": "Ẩn danh",
+        "amount": 4615
+      },
+      {
+        "date": "2026-10-28",
+        "donor": "Ẩn danh",
+        "amount": 30000
+      },
+      {
+        "date": "2026-10-28",
+        "donor": "Ẩn danh",
+        "amount": 15000
+      },
+      {
+        "date": "2026-10-28",
+        "donor": "Ẩn danh",
+        "amount": 20000
       }
     ]
   }

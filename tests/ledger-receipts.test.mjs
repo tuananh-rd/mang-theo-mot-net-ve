@@ -17,29 +17,37 @@ const raw = JSON.parse(fs.readFileSync(new URL('../src/data/reconciled-donations
 const base = () => structuredClone(raw);
 
 describe('Dữ liệu công khai đã xác minh một phần', () => {
-  test('21 khoản duy nhất, tổng 1.011.222đ, đúng ngày (22/10 cho Hương, 23/10 cho khoản chưa có ngày) và số tiền', () => {
+  test('52 khoản (21 cũ giữ nguyên + 31 khoản 26–28/10), tổng 2.038.837đ, đúng ngày và số tiền', () => {
     const e = raw.verifiedReceipts.entries;
-    assert.deepEqual(
-      e.map((x) => `${x.date}:${x.amount}`),
-      [
-        '2026-10-13:50000', '2026-10-20:20000', '2026-10-20:200000', '2026-10-20:100000', '2026-10-21:100000', '2026-10-21:22222',
-        '2026-10-22:50000',
-        '2026-10-23:14000', '2026-10-23:50000', '2026-10-23:20000', '2026-10-23:40000', '2026-10-23:30000', '2026-10-23:50000',
-        '2026-10-23:20000', '2026-10-23:25000', '2026-10-23:15000', '2026-10-23:25000', '2026-10-23:20000', '2026-10-23:10000',
-        '2026-10-23:100000', '2026-10-23:50000',
-      ],
-    );
-    assert.equal(e.reduce((a, x) => a + x.amount, 0), 1011222);
-    assert.equal(e.slice(0, 6).reduce((a, x) => a + x.amount, 0), 492222, 'sáu khoản đã có từ L2 không đổi');
-    assert.equal(e.slice(6).reduce((a, x) => a + x.amount, 0), 519000, '15 khoản bổ sung L3');
-    assert.equal(e.filter((x) => x.date === '2026-10-22').length, 1, 'chỉ một khoản ngày 22/10');
-    assert.equal(e.filter((x) => x.date === '2026-10-23').length, 14, '14 khoản ngày 23/10');
+    const legacy = [
+      '2026-10-13:50000', '2026-10-20:20000', '2026-10-20:200000', '2026-10-20:100000', '2026-10-21:100000', '2026-10-21:22222',
+      '2026-10-22:50000',
+      '2026-10-23:14000', '2026-10-23:50000', '2026-10-23:20000', '2026-10-23:40000', '2026-10-23:30000', '2026-10-23:50000',
+      '2026-10-23:20000', '2026-10-23:25000', '2026-10-23:15000', '2026-10-23:25000', '2026-10-23:20000', '2026-10-23:10000',
+      '2026-10-23:100000', '2026-10-23:50000',
+    ];
+    const added = [
+      '2026-10-26:20000', '2026-10-26:40000', '2026-10-26:10000', '2026-10-26:10000', '2026-10-26:20000', '2026-10-26:100000',
+      '2026-10-26:10000', '2026-10-26:20000', '2026-10-26:40000', '2026-10-26:10000',
+      '2026-10-28:200000', '2026-10-28:10000', '2026-10-28:5000', '2026-10-28:50000', '2026-10-28:50000', '2026-10-28:10000',
+      '2026-10-28:50000', '2026-10-28:8000', '2026-10-28:15000', '2026-10-28:100000', '2026-10-28:10000', '2026-10-28:20000',
+      '2026-10-28:50000', '2026-10-28:50000', '2026-10-28:10000', '2026-10-28:20000', '2026-10-28:20000', '2026-10-28:4615',
+      '2026-10-28:30000', '2026-10-28:15000', '2026-10-28:20000',
+    ];
+    assert.deepEqual(e.map((x) => `${x.date}:${x.amount}`), [...legacy, ...added]);
+    assert.equal(e.reduce((a, x) => a + x.amount, 0), 2038837);
+    assert.equal(e.slice(0, 21).reduce((a, x) => a + x.amount, 0), 1011222, '21 khoản đã công bố trước 26/10 không đổi');
+    assert.equal(e.slice(21).reduce((a, x) => a + x.amount, 0), 1027615, '31 khoản bổ sung 26–28/10');
+    assert.equal(e.slice(21).filter((x) => x.date === '2026-10-26').length, 10);
+    assert.equal(e.slice(21).filter((x) => x.date === '2026-10-28').length, 21);
+    assert.equal(e.filter((x) => x.date === '2026-10-27' || x.date === '2026-10-29').length, 0, 'không có giao dịch ngân hàng 27/10 và 29/10 (đến 10:59 ngày in)');
+    assert.equal(e.filter((x) => x.date >= '2026-10-26').filter((x) => x.amount === 150000).length, 0, 'khoản 150.000đ cùng tên chủ tài khoản chờ xác nhận, chưa công bố');
+    assert.equal(e.slice(21).filter((x) => x.donor !== 'Ẩn danh').length, 8, 'chỉ 8 khoản có người gửi được ngân hàng ghi rõ và khớp mô tả; còn lại Ẩn danh');
     assert.equal(e.filter((x) => x.donor === 'TRAN THI GIA KHANH').length, 1, 'khoản 14.000đ lặp chỉ tính một lần');
-    assert.equal(e.filter((x) => x.donor === 'Ẩn danh').length, 1, 'đúng một khoản ẩn danh (không bịa tên)');
-    assert.deepEqual(e.filter((x) => x.amount === 30000).map((x) => x.donor), ['HA DOAN TRANG'], 'tên khoản 30.000đ theo xác nhận trực tiếp của chủ dự án');
+    assert.deepEqual(e.filter((x) => x.amount === 30000 && x.date === '2026-10-23').map((x) => x.donor), ['HA DOAN TRANG'], 'tên khoản 30.000đ theo xác nhận trực tiếp của chủ dự án');
     assert.equal(raw.verifiedReceipts.coveredFrom, '2026-10-13');
-    assert.equal(raw.verifiedReceipts.coveredTo, '2026-10-23');
-    assert.equal(raw.verifiedReceipts.verifiedAt, '2026-10-25');
+    assert.equal(raw.verifiedReceipts.coveredTo, '2026-10-29');
+    assert.equal(raw.verifiedReceipts.verifiedAt, '2026-10-29');
   });
 
   test('không phải đối soát đầy đủ: reconciled=false, entries rỗng, không có số dư/chi/tổng toàn bộ', () => {
@@ -51,9 +59,9 @@ describe('Dữ liệu công khai đã xác minh một phần', () => {
     assert.ok(!/balance|so du|số dư|expense|chi phí|outgoing/i.test(JSON.stringify(raw)));
   });
 
-  test('tóm tắt đồng nhất ở mọi nơi: partial, 21 khoản, không đạt mục tiêu', () => {
+  test('tóm tắt đồng nhất ở mọi nơi: partial, 52 khoản, không đạt mục tiêu', () => {
     const s = summarizeLedger(DONATION_LEDGER, DONATION_ACCOUNT.goalAmount);
-    assert.deepEqual([s.scope, s.total, s.count, s.percent, s.reachedGoal], ['partial', 1011222, 21, 14.4, null]);
+    assert.deepEqual([s.scope, s.total, s.count, s.percent, s.reachedGoal], ['partial', 2038837, 52, 29.1, null]);
     assert.equal(DONATION_ACCOUNT.goalAmount, 7000000);
   });
 
@@ -63,7 +71,8 @@ describe('Dữ liệu công khai đã xác minh một phần', () => {
       assert.deepEqual(Object.keys(e).sort(), ['amount', 'date', 'donor']);
       assert.ok(e.donor === 'Ẩn danh' || isPublicDonorName(e.donor), 'tên hiển thị hợp lệ hoặc Ẩn danh');
     }
-    assert.equal(new Set(raw.verifiedReceipts.entries.map((e) => e.donor)).size, 21, 'mỗi người một dòng, không dòng trùng');
+    const named = raw.verifiedReceipts.entries.filter((e) => e.donor !== 'Ẩn danh').map((e) => e.donor);
+    assert.equal(new Set(named).size, named.length, 'mỗi tên hiển thị một dòng');
     const text = JSON.stringify(raw);
     assert.ok(!/\d{4}-\d{2}-\d{2}T|\b\d{2}:\d{2}\b|\b0\d{9}\b|\+84|MoMo|chuyen tien|153\d{8}/i.test(text));
   });
@@ -96,7 +105,7 @@ describe('Xác thực lược đồ một phần', () => {
     'sai phạm vi (scope)': (p) => { p.verifiedReceipts.scope = 'full'; },
     'ngày ngoài phạm vi': (p) => { p.verifiedReceipts.entries[0].date = '2026-10-09'; },
     'khoảng ngày đảo ngược': (p) => { p.verifiedReceipts.coveredFrom = '2026-10-24'; },
-    'bao phủ vượt ngày xác minh': (p) => { p.verifiedReceipts.coveredTo = '2026-10-26'; },
+    'bao phủ vượt ngày xác minh': (p) => { p.verifiedReceipts.coveredTo = '2026-10-30'; },
     'email trong người xác minh': (p) => { p.verifiedReceipts.verifiedBy = ['a@b.c']; },
     'số tiền không nguyên': (p) => { p.verifiedReceipts.entries[0].amount = 1.5; },
     'danh sách rỗng': (p) => { p.verifiedReceipts.entries = []; },
