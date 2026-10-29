@@ -1,0 +1,248 @@
+{
+  "source": {
+    "statementRows": 55,
+    "inScopeRows": 32,
+    "addedRows": 31,
+    "addedSum": 1027615,
+    "pendingRows": 1,
+    "duplicatesRemoved": 0
+  },
+  "rowMap": [
+    {
+      "date": "2026-10-26",
+      "amount": 20000,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-26",
+      "amount": 40000,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-26",
+      "amount": 10000,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-26",
+      "amount": 10000,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-26",
+      "amount": 20000,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-26",
+      "amount": 100000,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-26",
+      "amount": 10000,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-26",
+      "amount": 20000,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-26",
+      "amount": 40000,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-26",
+      "amount": 10000,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-28",
+      "amount": 200000,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-28",
+      "amount": 10000,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-28",
+      "amount": 5000,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-28",
+      "amount": 50000,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-28",
+      "amount": 50000,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-28",
+      "amount": 10000,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-28",
+      "amount": 50000,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-28",
+      "amount": 8000,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-28",
+      "amount": 15000,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-28",
+      "amount": 100000,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-28",
+      "amount": 10000,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-28",
+      "amount": 20000,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-28",
+      "amount": 50000,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-28",
+      "amount": 50000,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-28",
+      "amount": 10000,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-28",
+      "amount": 20000,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-28",
+      "amount": 20000,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-28",
+      "amount": 4615,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-28",
+      "amount": 30000,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-28",
+      "amount": 15000,
+      "action": "add"
+    },
+    {
+      "date": "2026-10-28",
+      "amount": 20000,
+      "action": "add"
+    }
+  ],
+  "counts": {
+    "existingUnchanged": 21,
+    "added": 31,
+    "addedSum": 1027615,
+    "addedOn20261026": 10,
+    "addedOn20261028": 21,
+    "namedRows": 8,
+    "anonymousRows": 23
+  },
+  "metadata": {
+    "coveredFrom": "2026-10-13",
+    "coveredTo": "2026-10-29",
+    "verifiedAt": "2026-10-29",
+    "reconciled": false,
+    "publicEntries": 0
+  },
+  "beforeFinanceHash": "387b542c4a145ce4e2e537effb04b84d314f15074a99db9bb61fde17b10d6633",
+  "newFinanceHash": "2d133a0baafbc16ce00e8414d42d08a35e16795e33c1be5e14b6c5b268d75f35",
+  "financeVersion": 9,
+  "publicationId": "pub-1793278400568-l4r1",
+  "supersededPublication": "pub-1792863103621-l3r1",
+  "snapshotSha256": "44091e8f44233dae7cb0aebe624c1dbe1a1f13f2e38686e6d947811250cac288",
+  "integration": {
+    "studioSnapshotPassesPublicValidator": true,
+    "publicSanitizeIdempotent": true,
+    "rowsEqualCsv": true,
+    "snapshotEqualsRepoPublicData": true,
+    "marker": "owner-authorized",
+    "blockKeys": [
+      "basis",
+      "coveredFrom",
+      "coveredTo",
+      "donorNamesApproval",
+      "entries",
+      "publicApproval",
+      "scope",
+      "verifiedAt",
+      "verifiedBy"
+    ],
+    "entryKeys": [
+      "amount",
+      "date",
+      "donor"
+    ]
+  },
+  "beforeHashes": {
+    "project": "e275667990c41f78f60447fa56bb5a38c7a1c68403bb58ca3ecb2c5cdccd3ebb",
+    "journal": "6568556ebbc43847bffc2e5cce04c6f583dd5c02eced27aecd7352f7a5b33121",
+    "products": "c2314a1a1adf456c2d8fd4c9a763404ec9b7af4a6ee45312951867602f2030ef",
+    "finance": "387b542c4a145ce4e2e537effb04b84d314f15074a99db9bb61fde17b10d6633",
+    "team": "9f5f0937fbaf583906d788c3d0e5010fe6739b2a96ecb8026de3034f27319329"
+  },
+  "c0": {
+    "revisions": 27,
+    "publications": 7,
+    "audit": 43,
+    "media": 23,
+    "preorders": 2
+  },
+  "c1": {
+    "revisions": 28,
+    "publications": 8,
+    "audit": 46,
+    "media": 23,
+    "preorders": 2
+  },
+  "finOk": true,
+  "oldRowsOk": true,
+  "protectedOk": true,
+  "ok": true,
+  "pubs": [
+    "pub-1792772772098-q1td:draft",
+    "pub-1792772841370-mjt6:draft",
+    "pub-1792850736189-p1r1:draft",
+    "pub-1792851097528-p1r2:draft",
+    "pub-1792857408876-l1r1:draft",
+    "pub-1792861490739-l2r1:draft",
+    "pub-1792863103621-l3r1:draft",
+    "pub-1793278400568-l4r1:pending_review"
+  ],
+  "sqlSha256": "9d87c805d33a496561641190c625ffff0523baccb08b154651e3f482f20fdbe0"
+}
