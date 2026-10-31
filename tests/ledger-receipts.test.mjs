@@ -42,7 +42,12 @@ describe('Dữ liệu công khai đã xác minh một phần', () => {
     assert.equal(e.slice(21).filter((x) => x.date === '2026-10-28').length, 21);
     assert.equal(e.filter((x) => x.date === '2026-10-27' || x.date === '2026-10-29').length, 0, 'không có giao dịch ngân hàng 27/10 và 29/10 (đến 10:59 ngày in)');
     assert.equal(e.filter((x) => x.date >= '2026-10-26').filter((x) => x.amount === 150000).length, 0, 'khoản 150.000đ cùng tên chủ tài khoản chờ xác nhận, chưa công bố');
-    assert.equal(e.slice(21).filter((x) => x.donor !== 'Ẩn danh').length, 8, 'chỉ 8 khoản có người gửi được ngân hàng ghi rõ và khớp mô tả; còn lại Ẩn danh');
+    assert.equal(e.slice(21).filter((x) => x.donor !== 'Ẩn danh').length, 30, 'chủ dự án cho phép hiển thị tên người gửi rõ trong nguồn (kể cả MoMo/ZaloPay/QR/liên ngân hàng)');
+    assert.deepEqual(e.slice(21).filter((x) => x.donor === 'Ẩn danh').map((x) => `${x.date}:${x.amount}`), ['2026-10-28:50000'], 'chỉ một khoản không có tên người gửi trong nguồn');
+    assert.equal(e.filter((x) => x.donor === 'Ẩn danh').length, 2, 'tổng 2 khoản Ẩn danh (1 cũ không có tên trong nguồn, 1 mới)');
+    assert.ok(e.some((x) => x.donor === 'NGUYEN TIEN TAI'), 'tên người gửi qua MoMo: bỏ tiền tố mã, giữ đúng tên người gửi');
+    assert.ok(e.some((x) => x.donor === 'Nguyen dung'), 'giữ đúng chính tả nguồn, không tự sửa');
+    assert.ok(!e.slice(21).some((x) => x.donor === 'NGUYEN CHI TRUNG'), 'tên người nhận không bị coi là người gửi; khoản chờ xác nhận chưa công bố');
     assert.equal(e.filter((x) => x.donor === 'TRAN THI GIA KHANH').length, 1, 'khoản 14.000đ lặp chỉ tính một lần');
     assert.deepEqual(e.filter((x) => x.amount === 30000 && x.date === '2026-10-23').map((x) => x.donor), ['HA DOAN TRANG'], 'tên khoản 30.000đ theo xác nhận trực tiếp của chủ dự án');
     assert.equal(raw.verifiedReceipts.coveredFrom, '2026-10-13');

@@ -1,0 +1,96 @@
+{
+  "source": {
+    "names": 31,
+    "namesChanged": 22,
+    "namedBefore": 28,
+    "anonBefore": 24,
+    "namedAfter": 50,
+    "anonAfter": 2
+  },
+  "nameRules": {
+    "before-chuyen-tien": 26,
+    "vcb-between-ref-and-chuyen-tien": 2,
+    "no-sender-name": 1,
+    "bare-name-after-campaign-tag": 1,
+    "zalopay-after-ref": 1
+  },
+  "counts": {
+    "totalRows": 52,
+    "totalSum": 2038837
+  },
+  "metadata": {
+    "coveredFrom": "2026-10-13",
+    "coveredTo": "2026-10-28",
+    "verifiedAt": "2026-11-01",
+    "reconciled": false,
+    "publicEntries": 0
+  },
+  "beforeFinanceHash": "c577afe42fc9280b50197788782ccad9f0bf3aa24dc0ae52bfd76864e1acc9b9",
+  "newFinanceHash": "73736b951a97af3642db2f96f9e21bf0f4a263b8d0457c7ec40bbc2b45b62aac",
+  "financeVersion": 12,
+  "publicationId": "pub-1793468314664-l5br1",
+  "supersededPublication": "pub-1793467617868-l5r1",
+  "snapshotSha256": "0a91c153588fc5410430be3a6953b68a70250cc7ff7929fe59f303c5dab4919f",
+  "integration": {
+    "studioSnapshotPassesPublicValidator": true,
+    "publicSanitizeIdempotent": true,
+    "rowsEqualCsv": true,
+    "snapshotEqualsRepoPublicData": true,
+    "marker": "owner-authorized",
+    "blockKeys": [
+      "basis",
+      "coveredFrom",
+      "coveredTo",
+      "donorNamesApproval",
+      "entries",
+      "publicApproval",
+      "scope",
+      "verifiedAt",
+      "verifiedBy"
+    ],
+    "entryKeys": [
+      "amount",
+      "date",
+      "donor"
+    ]
+  },
+  "beforeHashes": {
+    "project": "e275667990c41f78f60447fa56bb5a38c7a1c68403bb58ca3ecb2c5cdccd3ebb",
+    "journal": "6568556ebbc43847bffc2e5cce04c6f583dd5c02eced27aecd7352f7a5b33121",
+    "products": "c2314a1a1adf456c2d8fd4c9a763404ec9b7af4a6ee45312951867602f2030ef",
+    "finance": "c577afe42fc9280b50197788782ccad9f0bf3aa24dc0ae52bfd76864e1acc9b9",
+    "team": "9f5f0937fbaf583906d788c3d0e5010fe6739b2a96ecb8026de3034f27319329"
+  },
+  "c0": {
+    "revisions": 30,
+    "publications": 10,
+    "audit": 52,
+    "media": 23,
+    "preorders": 2
+  },
+  "c1": {
+    "revisions": 31,
+    "publications": 11,
+    "audit": 55,
+    "media": 23,
+    "preorders": 2
+  },
+  "finOk": true,
+  "oldRowsOk": true,
+  "protectedOk": true,
+  "ok": true,
+  "pubs": [
+    "pub-1792772772098-q1td:draft",
+    "pub-1792772841370-mjt6:draft",
+    "pub-1792850736189-p1r1:draft",
+    "pub-1792851097528-p1r2:draft",
+    "pub-1792857408876-l1r1:draft",
+    "pub-1792861490739-l2r1:draft",
+    "pub-1792863103621-l3r1:draft",
+    "pub-1793278400568-l4r1:draft",
+    "pub-1793464970754-l4rb1:draft",
+    "pub-1793467617868-l5r1:draft",
+    "pub-1793468314664-l5br1:pending_review"
+  ],
+  "sqlSha256": "df0ad7da2b372064c789eb3987bcbfe6e4065676f1433cbf563d7369791c2580"
+}
