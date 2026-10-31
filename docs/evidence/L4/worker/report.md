@@ -1,3 +1,5 @@
+> **ĐÃ HOÀN TÁC 31/10/2026 theo chỉ thị chủ dự án** — xem `docs/evidence/L4-rollback/worker/report.md`. Nội dung bên dưới giữ để truy vết.
+
 # L4 — cập nhật sao kê 26–29/10/2026 lên sổ ủng hộ công khai (Claude, người triển khai duy nhất)
 
 Báo cáo đã loại tên người gửi bị ẩn, mã bút toán, số điện thoại/tài khoản, mô tả giao dịch và tệp thô. Tệp Excel gốc, bản sao lưu D1, gói SQL (có tên) và bản đồ dòng nằm NGOÀI Git (`Documents/Codex/2026-10-29/L4-ledger-private/`). Không sửa UI; chỉ đổi dữ liệu công khai + test.
